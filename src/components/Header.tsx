@@ -1,11 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import { View, Text, StyleSheet, Pressable, Platform } from "react-native";
 import { useMixerStore } from "../store/useMixerStore";
-import { Play, Pause, Shuffle, Timer, TimerOff } from "lucide-react-native";
+import {
+  Play,
+  Pause,
+  Shuffle,
+  Timer,
+  TimerOff,
+  Bookmark,
+  Cast,
+} from "lucide-react-native";
+import { ExpoAvRoutePickerView } from "@douglowder/expo-av-route-picker-view";
 
 const TIMER_DURATIONS = [null, 15, 30, 60, 120];
 
-export const Header: React.FC = () => {
+interface HeaderProps {
+  onOpenPresets: () => void;
+}
+
+export const Header: React.FC<HeaderProps> = ({ onOpenPresets }) => {
   const isPlaying = useMixerStore((state) => state.isPlaying);
   const togglePlayPause = useMixerStore((state) => state.togglePlayPause);
   const randomizeMix = useMixerStore((state) => state.randomizeMix);
@@ -14,6 +27,7 @@ export const Header: React.FC = () => {
   const timerDurationChosen = useMixerStore(
     (state) => state.timerDurationChosen,
   );
+  const currentPresetId = useMixerStore((state) => state.currentPresetId);
 
   const [timeRemaining, setTimeRemaining] = useState<number | null>(null);
 
@@ -57,12 +71,8 @@ export const Header: React.FC = () => {
     <View style={styles.header}>
       <Text style={styles.title}>É V A S I O N</Text>
       <View style={styles.controls}>
-        <Pressable style={styles.btn} onPress={randomizeMix}>
-          <Shuffle size={18} color="#EEE" />
-          <Text style={styles.btnText}>Mix Aléatoire</Text>
-        </Pressable>
         <Pressable
-          style={[styles.btn, isPlaying && styles.btnActive]}
+          style={[styles.btn, styles.iconBtn, isPlaying && styles.btnActive]}
           onPress={togglePlayPause}
         >
           {isPlaying ? (
@@ -70,9 +80,9 @@ export const Header: React.FC = () => {
           ) : (
             <Play size={18} fill="#EEE" color="#EEE" />
           )}
-          <Text style={[styles.btnText, isPlaying && styles.btnTextActive]}>
-            {isPlaying ? "Pause" : "Jouer"}
-          </Text>
+        </Pressable>
+        <Pressable style={[styles.btn, styles.iconBtn]} onPress={randomizeMix}>
+          <Shuffle size={18} color="#EEE" />
         </Pressable>
         <Pressable
           style={[styles.btn, timerDurationChosen !== null && styles.btnActive]}
@@ -95,6 +105,32 @@ export const Header: React.FC = () => {
                 ? `${timerDurationChosen}m`
                 : "Timer"}
           </Text>
+        </Pressable>
+        {Platform.OS === "ios" && (
+          <View style={[styles.btn, styles.iconBtn]}>
+            <Cast size={18} color="#EEE" />
+            <View style={StyleSheet.absoluteFill}>
+              {/* Invisible native button on top of Cast icon */}
+              <ExpoAvRoutePickerView
+                activeTintColor="transparent"
+                tintColor="transparent"
+                style={{ width: "100%", height: "100%" }}
+              />
+            </View>
+          </View>
+        )}
+        <Pressable
+          style={[
+            styles.btn,
+            styles.iconBtn,
+            currentPresetId !== null && styles.btnActive,
+          ]}
+          onPress={onOpenPresets}
+        >
+          <Bookmark
+            size={18}
+            color={currentPresetId !== null ? "#FFF" : "#EEE"}
+          />
         </Pressable>
       </View>
     </View>
@@ -133,6 +169,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "rgba(255,255,255,0.15)",
     overflow: "hidden",
+  },
+  iconBtn: {
+    width: 42,
+    height: 42,
+    borderRadius: 21,
+    paddingVertical: 0,
+    paddingHorizontal: 0,
+    justifyContent: "center",
   },
   btnActive: {
     backgroundColor: "rgba(255,255,255,0.2)",
