@@ -16,6 +16,7 @@
     "babel-preset-expo": "~54.0.10",
     "expo": "~54.0.33",
     "expo-audio": "~1.1.1",
+    "expo-glass-effect": "~0.1.9",
     "expo-status-bar": "~3.0.9",
     "lucide-react-native": "^0.575.0",
     "react": "19.1.0",
