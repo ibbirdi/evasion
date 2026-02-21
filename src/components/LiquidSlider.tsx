@@ -45,6 +45,7 @@ export const LiquidSlider: React.FC<Props> = ({
   }, [value, isInteracting, progress]);
 
   const pan = Gesture.Pan()
+    .enabled(!autoVariationEnabled)
     .onBegin((e) => {
       isInteracting.value = true;
       if (trackWidth > 0) {
@@ -124,6 +125,12 @@ export const LiquidSlider: React.FC<Props> = ({
             </Animated.View>
           </Animated.View>
         </GestureDetector>
+
+        {autoVariationEnabled && (
+          <View style={styles.autoLabelContainer} pointerEvents="none">
+            <Text style={styles.autoLabelText}>AUTO</Text>
+          </View>
+        )}
       </View>
 
       {/* Controls */}
@@ -133,11 +140,15 @@ export const LiquidSlider: React.FC<Props> = ({
           isRound
           isActive={autoVariationEnabled}
         >
-          <Activity size={18} color={autoVariationEnabled ? "#FFF" : "#AAA"} />
+          <Activity
+            strokeWidth={3}
+            size={18}
+            color={autoVariationEnabled ? "#FFF" : "#AAA"}
+          />
         </LiquidButton>
         <LiquidButton onPress={onToggleMute} isRound isActive={!isMuted}>
           {!isMuted ? (
-            <Volume2 size={18} color="#BAE2C4" />
+            <Volume2 strokeWidth={3} size={18} color="#ffffffff" />
           ) : (
             <VolumeX size={18} color="#666" />
           )}
@@ -177,11 +188,9 @@ const styles = StyleSheet.create({
   },
   glassTrack: {
     width: "100%",
-    height: 12,
-    borderRadius: 6,
+    height: 6,
+    borderRadius: 3,
     backgroundColor: "rgba(255,255,255,0.06)", // Fond givré très subtil
-    borderWidth: 1,
-    borderColor: "rgba(255,255,255,0.15)", // Bordure lumineuse du verre
     overflow: "hidden",
   },
   glassFill: {
@@ -206,6 +215,18 @@ const styles = StyleSheet.create({
     width: 8,
     height: 8,
     borderRadius: 4,
+  },
+  autoLabelContainer: {
+    position: "absolute",
+    bottom: -2,
+    width: "100%",
+    alignItems: "center",
+  },
+  autoLabelText: {
+    color: "rgba(255, 255, 255, 0.4)",
+    fontSize: 9,
+    letterSpacing: 2,
+    fontWeight: "500",
   },
   controls: {
     flexDirection: "row",

@@ -135,6 +135,68 @@ export const useMixerStore = create<MixerStore>()(
         currentPresetId: state.currentPresetId,
         // We do NOT persist `isPlaying`, `timerEndTime` or `timerDurationChosen`.
       }),
+      merge: (persistedState: any, currentState) => {
+        const state = persistedState as Partial<MixerStore>;
+        const mergedChannels = { ...currentState.channels };
+
+        if (state.channels) {
+          // Mapping of old keys to new keys to preserve user settings during the update
+          const migrations: Record<string, ChannelId> = {
+            mer: "plage",
+            riviere: "goelands",
+            insectes: "cigales",
+          };
+
+          Object.keys(state.channels).forEach((key) => {
+            const newKey = (migrations[key] || key) as ChannelId;
+            // Only merge if the channel exists in the current INITIAL_CHANNELS configuration
+            if (mergedChannels[newKey]) {
+              mergedChannels[newKey] = {
+                ...mergedChannels[newKey],
+                volume: state.channels![key as ChannelId].volume ?? 0.5,
+                isMuted: state.channels![key as ChannelId].isMuted ?? true,
+                autoVariationEnabled:
+                  state.channels![key as ChannelId].autoVariationEnabled ??
+                  false,
+              };
+            }
+          });
+        }
+
+        // Migrate custom presets
+        const mergedPresets =
+          state.presets?.map((preset) => {
+            const newChannels = { ...currentState.channels };
+            const migrations: Record<string, ChannelId> = {
+              mer: "plage",
+              riviere: "goelands",
+              insectes: "cigales",
+            };
+
+            Object.keys(preset.channels).forEach((key) => {
+              const newKey = (migrations[key] || key) as ChannelId;
+              if (newChannels[newKey]) {
+                newChannels[newKey] = {
+                  ...newChannels[newKey],
+                  volume: preset.channels[key as ChannelId].volume ?? 0.5,
+                  isMuted: preset.channels[key as ChannelId].isMuted ?? true,
+                  autoVariationEnabled:
+                    preset.channels[key as ChannelId].autoVariationEnabled ??
+                    false,
+                };
+              }
+            });
+
+            return { ...preset, channels: newChannels };
+          }) || currentState.presets;
+
+        return {
+          ...currentState,
+          ...state,
+          channels: mergedChannels,
+          presets: mergedPresets,
+        };
+      },
     },
   ),
 );

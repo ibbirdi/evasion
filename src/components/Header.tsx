@@ -12,6 +12,7 @@ import {
 } from "lucide-react-native";
 import { ExpoAvRoutePickerView } from "@douglowder/expo-av-route-picker-view";
 import { LiquidButton } from "./LiquidButton";
+import { useI18n } from "../i18n";
 
 const TIMER_DURATIONS = [null, 15, 30, 60, 120];
 
@@ -20,6 +21,8 @@ interface HeaderProps {
 }
 
 export const Header: React.FC<HeaderProps> = ({ onOpenPresets }) => {
+  const t = useI18n();
+
   const isPlaying = useMixerStore((state) => state.isPlaying);
   const togglePlayPause = useMixerStore((state) => state.togglePlayPause);
   const randomizeMix = useMixerStore((state) => state.randomizeMix);
@@ -70,7 +73,10 @@ export const Header: React.FC<HeaderProps> = ({ onOpenPresets }) => {
 
   return (
     <View style={styles.header}>
-      <Text style={styles.title}>É V A S I O N</Text>
+      <View style={styles.titleContainer}>
+        <Text style={styles.title}>{t.header.title}</Text>
+        <Text style={styles.subtitle}>Binaural HD</Text>
+      </View>
       <View style={styles.controls}>
         <LiquidButton isRound isActive={isPlaying} onPress={togglePlayPause}>
           {isPlaying ? (
@@ -101,7 +107,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenPresets }) => {
               ? formatTime(timeRemaining)
               : timerDurationChosen
                 ? `${timerDurationChosen}m`
-                : "Timer"}
+                : t.header.timer}
           </Text>
         </LiquidButton>
         {Platform.OS === "ios" && (
@@ -137,13 +143,25 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     alignItems: "center",
   },
+  titleContainer: {
+    alignItems: "center",
+    marginBottom: 24,
+  },
   title: {
     fontSize: 26,
     fontWeight: "300",
     letterSpacing: 6,
     color: "#E0E0E0",
-    marginBottom: 20,
     opacity: 0.9,
+  },
+  subtitle: {
+    fontSize: 9,
+    fontWeight: "500",
+    letterSpacing: 5,
+    color: "#E0E0E0",
+    opacity: 0.5,
+    marginTop: 4,
+    textTransform: "uppercase",
   },
   controls: {
     flexDirection: "row",

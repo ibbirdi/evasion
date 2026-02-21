@@ -4,8 +4,10 @@ import { useMixerStore } from "../store/useMixerStore";
 import { LiquidSlider } from "./LiquidSlider";
 import { CHANNEL_COLORS } from "../constants/colors";
 import { ChannelId } from "../types/mixer";
+import { useI18n } from "../i18n";
 
 export const MixerBoard: React.FC = () => {
+  const t = useI18n();
   const channels = useMixerStore((state) => state.channels);
   const setChannelVolume = useMixerStore((state) => state.setChannelVolume);
   const toggleChannelMute = useMixerStore((state) => state.toggleChannelMute);
@@ -23,7 +25,7 @@ export const MixerBoard: React.FC = () => {
           <LiquidSlider
             key={key}
             id={key}
-            label={channel.label}
+            label={t.channels[key as ChannelId]}
             color={CHANNEL_COLORS[key]}
             value={channel.volume}
             isMuted={channel.isMuted}

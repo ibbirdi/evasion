@@ -1,65 +1,45 @@
-CAHIER DES CHARGES : APPLICATION GÉNÉRATRICE D'AMBIANCES SONORES
+# É V A S I O N - Générateur d'Ambiances Sonores Immersives
 
-1. Présentation du Projet
-   Concept : Application mobile permettant de générer un fond sonore continu et immersif de nature, en mixant plusieurs pistes audio de façon personnalisée ou automatique.
+## 1. Présentation du Projet
 
-Objectif : Offrir une expérience d'évasion instantanée avec des sons réels. L'UX et l'UI doivent être minimalistes, extrêmement ergonomiques et d'une très grande qualité esthétique.
+**Concept** : Évasion est une application mobile premium permettant de générer un fond sonore continu, organique et profondément immersif. Elle mixe de façon dynamique et personnalisée de multiples pistes audio issues de la nature.
 
-Plateformes cibles : iOS (en priorité) et Android.
+**Objectif & Philosophie** : Offrir une expérience d'évasion mentale instantanée et luxueuse. L'application se distingue par son exigence absolue sur la qualité sonore : chaque piste provient d'un **enregistrement réel et continu de très haute qualité binaurale**, capturé dans le monde entier. Il ne s'agit en aucun cas de courtes boucles artificielles, de synthétiseurs ou de simples bruitages de quelques secondes répétés mécaniquement. L'auditeur est littéralement plongé au cœur d'un paysage sonore vaste et vivant. L'interface utilisateur (UI/UX) est minimaliste, extrêmement ergonomique et d'une grande qualité esthétique, favorisant le repos visuel et mental dès l'ouverture de l'application.
 
-2. Spécifications Techniques & Architecture
-   Le développement doit être réalisé strictement en React Native et Expo pur, sans éjection.
+**Plateformes cibles** : iOS (priorité) et Android.
 
-Moteur Audio : Utilisation de la nouvelle API expo-audio (successeur de l'ancien expo-av) pour garantir les meilleures performances en 2026.
+## 2. Moteur Audio & Fonctionnalités (MVP Atteint)
 
-Gestion de l'Arrière-plan (Background Audio) : C'est une fonctionnalité critique. L'application doit configurer les UIBackgroundModes ("audio") via les plugins d'Expo pour que la lecture continue lorsque l'écran est verrouillé, et s'intégrer aux contrôles multimédias de l'OS (Lockscreen).
+Le développement repose sur une architecture moderne de pointe, construite en React Native et Expo (expo-audio, reanimated, skia) garantissant des performances natives irréprochables et des animations fluides.
 
-Gestion des Assets Audio : \* Les fichiers sonores seront des enregistrements réels, stockés localement dans un répertoire de l'application pour garantir un fonctionnement 100 % hors-ligne.
+### A. Une Bibliothèque Sonore Authentique et Haute Fidélité
 
-Note au développeur : Bien que le répertoire initial puisse contenir des fichiers .mp3, le lecteur devra impérativement supporter des formats de compression sans perte de début/fin de piste (comme le .m4a / AAC ou .ogg) afin de garantir un bouclage (gapless loop) parfait sans le "clic" caractéristique du MP3.
+- **Environnements immersifs profonds** : De vrais enregistrements de terrain prolongés.
+- **Pistes intégrées au MVP** : Oiseaux, Vent, Plage, Goélands, Forêt, Pluie, Orage, Cigales, Ville.
+- **Variations Dynamiques Centralisées** : Chaque "Piste" (ex: "Plage") n'est pas limitée à un seul enregistrement monotone. Le moteur audio est architecturé pour piocher dynamiquement et aléatoirement parmi plusieurs dizaines d'enregistrements différents (Fichiers Audio) pour le même environnement, garantissant ainsi qu'aucune session d'écoute ne puisse être exactement identique.
+- **100% Hors-ligne** : Tous les éléments sonores haute qualité sont embarqués localement. L'immersion se lance instantanément à l'ouverture de l'application sans latence réseau, de manière totalement confidentielle, et fonctionne partout (vol long-courrier, connexion faible, retraites dans la nature etc.).
 
-Gestion d'État : Utilisation recommandée de Zustand pour gérer efficacement l'état du mixeur (volumes, toggles, presets) sans re-rendus inutiles de l'interface.
+### B. Moteur d'Illusion, Intelligence et Playback
 
-3. Interface Utilisateur (UI) et Expérience (UX)
-   L'impression générale doit être extrêmement soignée, épurée, élégante et sobre.
+- **Générateur d'Aléatoire Temporel (Offset)** : À chaque _Play_, toutes les pistes sélectionnées vont démarrer la lecture de leurs très longs fichiers à un point (offset temporel) **totalement aléatoire**. Combiné aux boucles, ce mécanisme garantit que l'utilisateur n'entendra jamais le même "mélange" de sons se répéter, créant une illusion auditive d'une richesse infinie par de simples mathématiques probabilistes.
+- **Audio en Arrière-plan Ininterrompu** : Intégration totale avec l'OS mobile (UIBackgroundModes) ; la symphonie continue lorsque l'appareil est verrouillé ou manipulé, avec accès aux contrôles sur le Lockscreen iOS / Android.
+- **Écosystème Vivant (Auto-Variation)** : L'une des fonctionnalités phares du projet. Si activée sur un canal, l'application prend le contrôle du volume de cet environnement et le fait vivre (augmenter et diminuer) de façon aléatoire et extrêmement lente dans le temps. C'est l'intelligence de l'app qui "soulève" le vent, "éloigne" un orage, en simulant la nature, libérant totalement la charge mentale de l'utilisateur.
 
-Arrière-plan (Background) : Le fond de l'application sera généré et animé via @shopify/react-native-skia. Il s'agira d'une couleur sable, avec un grain visible, animée de façon douce et subtile (similaire au rendu de l'application EMDR Flow).
+### C. Le Mixeur Avancé & Les Presets
 
-Le Mixeur (Channels) : Empilement vertical de 9 canaux : Oiseaux, Vent, Mer, Rivière, Forêt, Pluie, Tonnerre, Insectes (cigales/criquets), Ville.
+- **Smart Shuffle (Mix Aléatoire)** : Algorithme génératif sélectionnant entre 2 et 4 pistes au hasard avec des niveaux minutieusement calculés. Un seul tap déclenche instantanément une toute nouvelle ambiance inédite.
+- **Minuterie de Sommeil (Timer)** : Moteur d'extinction programmé pour l'endormissement (15m, 30m, 1h, 2h).
+- **Enregistrement de Presets** : Création et sauvegarde illimitée de "Paysages Sonores" dans la mémoire interne du dispositif. (Pistes, Volume, et paramètres d'Auto-Variation mémorisés).
+- **Presets Signatures Inclus** : Collections par défaut offertes dès la première utilisation pour les néophytes.
 
-Chaque canal dispose d'un label textuel (nom du son), prévu pour être potentiellement remplacé par des icônes lors d'une V2.
+## 3. Interface Utilisateur (UI) / Expérience (UX) Épurée et Premium
 
-Sliders "Liquid Glass" : Chaque canal possède son propre slider de volume avec un effet visuel de type "verre liquide".
+L'application a été conçue pour offrir un sentiment de luxe feutré et de détente instantanée.
 
-Colorimétrie : Chaque slider arborera une couleur pastel unique. L'empilement de tous les sliders devra former visuellement un dégradé arc-en-ciel pastel harmonieux.
+- **Contrôles "Liquid Glass"** : Un travail acharné de design interactif pour réinventer les potentiomètres. Les curseurs de volume ne sont pas de simples barres ; ils adoptent un design "verre liquide" semi-transparent, aux réactions gestuelles fluides (60fps), teintés par un dégradé arc-en-ciel élégant et apaisant.
+- **Ergonomie "One-Tap" & Accessibilité** : Tout le pilotage (Play, Aleatoire, Presets, Cast, Sleep Timer) est condensé élégamment à portée de pouce sur l'écran d'accueil sans navigation ardue.
+- **AirPlay & Cast** : Bouton d'ancrage rapide pour transférer le mixage sur des moniteurs, enceintes Home-Cinéma haute-fidélité, ou écouteurs Bluetooth en un instant.
 
-Contrôles par canal : À côté du slider, un "Toggle" d'activation/désactivation (Mute), et un second bouton pour activer la variation automatique du volume.
+---
 
-Contrôles Globaux (Haut de l'écran) :
-
-Bouton Lecture/Stop instantané (One-tap play).
-
-Bouton "Mix Aléatoire" (Active des canaux et assigne des volumes au hasard).
-
-Diffusion Externe : Intégration d'un accès rapide au menu AirPlay (iOS) et Bluetooth natif du système depuis l'interface principale.
-
-4. Logique Métier & Fonctionnalités
-   Lecture et Bouclage (Le Moteur d'Illusion) : \* Lors du lancement, chaque piste audio activée démarre simultanément.
-
-Règle d'or : Pour éviter la monotonie, chaque piste doit démarrer à un offset de temps aléatoire (ex: pour une piste de 30 min, la lecture commence à 12m04s).
-
-Chaque piste est lue en boucle infinie (looping) indépendamment de sa durée, jusqu'à l'arrêt manuel ou la fin du timer.
-
-Variation Automatique du Volume : Si l'utilisateur active le bouton dédié sur un canal, le volume de ce canal variera automatiquement et très lentement dans le temps (pour simuler, par exemple, le vent qui se lève et retombe).
-
-Contrainte technique pour Antigravity : Cette variation devant fonctionner en arrière-plan (quand le thread JS est potentiellement suspendu par iOS), l'animation des volumes devra idéalement s'appuyer sur des Worklets (via react-native-reanimated) ou une implémentation native légère.
-
-Système de Timer : Une interface simple proposant 4 durées : 15 min, 30 min, 1h, 2h. Le moteur audio s'arrête net à la fin du délai.
-
-Système de Presets (Sauvegardes) : \* Un Preset enregistre : les canaux activés, le volume de chaque canal, et l'état du bouton de variation automatique.
-
-L'application inclura une liste de presets par défaut.
-
-L'utilisateur pourra éditer ces presets et créer/sauvegarder les siens.
-
-À l'ouverture de l'application, les derniers réglages utilisés lors de la session précédente sont chargés automatiquement (ou le preset par défaut lors du tout premier lancement).
+_Ce document acte qu'au delà des spécifications techniques validées, la MVP offre une expérience et une valeur perçue exceptionnelles. Ses mécanismes invisibles (Offset aléatoire, Auto-Variation, Binaural Field Recording) la positionne d'ores et déjà comme un produit très prometteur pour les futures stratégies commerciales (Abonnement Premium, B2B Santé/Bien-Être) sur les magasins d'applications mondiaux._

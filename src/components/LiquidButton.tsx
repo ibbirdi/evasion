@@ -39,13 +39,9 @@ export const LiquidButton: React.FC<LiquidButtonProps> = ({
           height: isRound ? size : undefined,
           borderRadius,
           overflow: "hidden",
-          borderWidth: StyleSheet.hairlineWidth,
-          borderColor: isActive
-            ? "rgba(255,255,255,0.4)"
-            : "rgba(255,255,255,0.15)",
           backgroundColor: isActive
-            ? "rgba(255,255,255,0.15)"
-            : "rgba(255,255,255,0.08)",
+            ? "rgba(255,255,255,0.25)"
+            : "rgba(255,255,255,0.06)",
         },
         style,
       ]}

@@ -1,17 +1,9 @@
-export type ChannelId =
-  | "oiseaux"
-  | "vent"
-  | "mer"
-  | "riviere"
-  | "foret"
-  | "pluie"
-  | "tonnerre"
-  | "insectes"
-  | "ville";
+import { AUDIO_CONFIG } from "../config/audio";
+
+export type ChannelId = keyof typeof AUDIO_CONFIG;
 
 export interface ChannelState {
   id: ChannelId;
-  label: string;
   volume: number; // 0.0 to 1.0
   isMuted: boolean;
   autoVariationEnabled: boolean;
