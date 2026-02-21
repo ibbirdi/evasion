@@ -1,0 +1,35 @@
+appId: com.ibbirdi.evasion
+---
+- clearState
+- launchApp:
+    arguments:
+      AppleLanguages: "(fr)"
+      AppleLocale: "fr_FR"
+# (launchApp is injected dynamically by Fastlane)
+# Wait for animations/loading
+- extendedWaitUntil:
+    visible:
+      id: "random-btn"
+    timeout: 10000
+# Generate random tracks
+- tapOn:
+    id: "random-btn"
+- tapOn:
+    id: "random-btn"
+# Give some time for background/animations to settle
+- swipe:
+    direction: DOWN
+    duration: 1000
+- takeScreenshot: MainScreen
+# Open Presets Modal
+- tapOn:
+    id: "presets-btn"
+# Wait for modal to be visible and stable
+- extendedWaitUntil:
+    notVisible:
+      id: "random-btn"
+    timeout: 10000
+- swipe:
+    direction: DOWN
+    duration: 1000
+- takeScreenshot: PresetsScreen

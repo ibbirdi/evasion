@@ -1,0 +1,57 @@
+default_platform(:ios)
+
+platform :ios do
+  desc "Automates taking screenshots via Maestro for multiple locales"
+  lane :screenshots do
+    # Supported locales by the app
+    locales = {
+      "en" => "en_US",
+      "fr" => "fr_FR",
+      "de" => "de_DE",
+      "es" => "es_ES",
+      "it" => "it_IT",
+      "pt" => "pt_BR"
+    }
+
+    # 1. Build and install the app ONCE on the default simulator
+    UI.message("---------------------------------------------------------")
+    UI.message("🚀 Building and installing app on simulator...")
+    sh("cd .. && npx expo run:ios", error_callback: ->(result) { UI.user_error!("Failed to build app.") })
+    
+    locales.each do |lang, locale|
+      UI.message("---------------------------------------------------------")
+      UI.message("📸 Taking screenshots for #{locale}...")
+      UI.message("---------------------------------------------------------")
+      
+      # 2. Generate a fresh, hardcoded YAML file for Maestro to bypass variable compilation crashes
+      yaml_content = <<-YAML
+appId: com.ibbirdi.evasion
+---
+- clearState
+- launchApp:
+    arguments:
+      AppleLanguages: "(#{lang})"
+      AppleLocale: "#{locale}"
+YAML
+      # Read the base template and append it
+      base_template = File.read("../maestro/screenshot-flow.yaml")
+      # Remove the first two lines (appId: ... and ---) from the base template so they don't duplicate
+      clean_template = base_template.lines.drop(2).join
+
+      File.write("../maestro/generated-flow.yaml", yaml_content + clean_template)
+
+      # 4. Run the explicitly generated Maestro flow
+      sh("cd .. && maestro test maestro/generated-flow.yaml")
+      
+      # 5. Move the screenshots to fastlane/screenshots/
+      sh("mkdir -p screenshots/#{locale}")
+      sh("cd .. && mv MainScreen*.png fastlane/screenshots/#{locale}/MainScreen.png", error_callback: ->(result) { UI.message("Missing screenshot") })
+      sh("cd .. && mv PresetsScreen*.png fastlane/screenshots/#{locale}/PresetsScreen.png", error_callback: ->(result) { UI.message("Missing screenshot") })
+    end
+    
+    # Clean up the generated file
+    sh("rm ../maestro/generated-flow.yaml", error_callback: ->(result) {})
+
+    UI.message("✅ Screenshots generation complete! See fastlane/screenshots/")
+  end
+end

@@ -18,6 +18,8 @@ interface LiquidButtonProps {
   isActive?: boolean;
   /** Style supplémentaire pour le wrapper extérieur */
   style?: StyleProp<ViewStyle>;
+  /** ID for testing with Maestro etc */
+  testID?: string;
 }
 
 export const LiquidButton: React.FC<LiquidButtonProps> = ({
@@ -27,11 +29,13 @@ export const LiquidButton: React.FC<LiquidButtonProps> = ({
   isRound = false,
   isActive = false,
   style,
+  testID,
 }) => {
   const borderRadius = isRound ? size / 2 : 20;
 
   return (
     <Pressable
+      testID={testID}
       onPress={onPress}
       style={[
         {

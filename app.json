@@ -16,10 +16,12 @@
       "supportsTablet": true,
       "infoPlist": {
         "UIBackgroundModes": [
+          "audio",
           "audio"
-        ]
+        ],
+        "ITSAppUsesNonExemptEncryption": false
       },
-      "bundleIdentifier": "com.ibbirdi.evasion"
+      "bundleIdentifier": "com.jonathanluquet.drift"
     },
     "android": {
       "adaptiveIcon": {
@@ -39,6 +41,12 @@
     "plugins": [
       "expo-audio",
       "expo-localization"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "497de8ae-c7c2-462c-bef4-0d5d8904d02e"
+      }
+    },
+    "owner": "ibbirdi"
   }
 }

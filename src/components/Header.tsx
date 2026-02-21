@@ -85,7 +85,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenPresets }) => {
             <Play size={18} fill="#EEE" color="#EEE" />
           )}
         </LiquidButton>
-        <LiquidButton isRound onPress={randomizeMix}>
+        <LiquidButton isRound testID="random-btn" onPress={randomizeMix}>
           <Shuffle size={18} color="#EEE" />
         </LiquidButton>
         <LiquidButton
@@ -124,6 +124,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenPresets }) => {
         )}
         <LiquidButton
           isRound
+          testID="presets-btn"
           isActive={currentPresetId !== null}
           onPress={onOpenPresets}
         >
