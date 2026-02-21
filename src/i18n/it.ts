@@ -28,6 +28,17 @@ export const it: Translations = {
     presetName: "Nome...",
     save: "Salva",
     cancel: "Annulla",
-    noPresets: "Nessun preset personalizzato.",
+    noPresets: "Nessun preset personalizzato ancora.",
+  },
+  paywall: {
+    title: "Sblocca l'esperienza completa",
+    benefit_1: "Accesso illimitato a tutti i 9 suoni premium",
+    benefit_2: "Timer per il sonno e la concentrazione",
+    benefit_3: "Salva i tuoi mix personalizzati",
+    benefit_4: "Mixaggio esclusivo ad alta fedeltà",
+    no_sub: "Paghi una volta. Tuo per sempre. Nessun abbonamento.",
+    cta: "Sblocca a vita - ",
+    restore: "Ripristina acquisti",
+    terms: "Termini di utilizzo",
   },
 } as const satisfies Translations;

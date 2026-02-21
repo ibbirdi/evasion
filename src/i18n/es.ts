@@ -28,6 +28,17 @@ export const es: Translations = {
     presetName: "Nombre...",
     save: "Guardar",
     cancel: "Cancelar",
-    noPresets: "No hay presets personalizados.",
+    noPresets: "Aún no hay preajustes personalizados.",
+  },
+  paywall: {
+    title: "Desbloquea la experiencia completa",
+    benefit_1: "Acceso ilimitado a los 9 sonidos premium",
+    benefit_2: "Temporizador de sueño y concentración",
+    benefit_3: "Guarda tus mezclas personalizadas",
+    benefit_4: "Mezcla exclusiva de alta fidelidad",
+    no_sub: "Pago único. Tuyo para siempre. Sin suscripciones.",
+    cta: "Desbloquear de por vida - ",
+    restore: "Restaurar compras",
+    terms: "Términos de uso",
   },
 } as const satisfies Translations;

@@ -5,87 +5,37 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="00: default_platform" time="0.000281">
+      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.000226">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="01: cd .. &amp;&amp; npx expo run:ios" time="15.594883">
+      <testcase classname="fastlane.lanes" name="1: cd .. &amp;&amp; npx expo run:ios" time="15.289483">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="02: xcrun simctl spawn booted defaults write &apos;UserGlobalDomain&apos; AppleLanguages -array en" time="0.375436">
+      <testcase classname="fastlane.lanes" name="2: cd .. &amp;&amp; maestro test maestro/generated-flow.yaml" time="38.878074">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="03: xcrun simctl spawn booted defaults write &apos;UserGlobalDomain&apos; AppleLocale -string en_US" time="0.370556">
+      <testcase classname="fastlane.lanes" name="3: mkdir -p screenshots/en_US" time="0.028974">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="04: cd .. &amp;&amp; maestro test maestro/generated-flow.yaml" time="43.388869">
+      <testcase classname="fastlane.lanes" name="4: cd .. &amp;&amp; mv MainScreen*.png fastlane/screenshots/en_US/MainScreen.png" time="0.011124">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="05: mkdir -p screenshots/en_US" time="0.008812">
+      <testcase classname="fastlane.lanes" name="5: cd .. &amp;&amp; mv PresetsScreen*.png fastlane/screenshots/en_US/PresetsScreen.png" time="0.009427">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="06: cd .. &amp;&amp; mv MainScreen*.png fastlane/screenshots/en_US/MainScreen.png" time="0.010321">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="07: cd .. &amp;&amp; mv PresetsScreen*.png fastlane/screenshots/en_US/PresetsScreen.png" time="0.009794">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="08: xcrun simctl spawn booted defaults write &apos;UserGlobalDomain&apos; AppleLanguages -array fr" time="0.329438">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="09: xcrun simctl spawn booted defaults write &apos;UserGlobalDomain&apos; AppleLocale -string fr_FR" time="0.316249">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="10: cd .. &amp;&amp; maestro test maestro/generated-flow.yaml" time="35.937654">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="11: mkdir -p screenshots/fr_FR" time="0.006244">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="12: cd .. &amp;&amp; mv MainScreen*.png fastlane/screenshots/fr_FR/MainScreen.png" time="0.010857">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="13: cd .. &amp;&amp; mv PresetsScreen*.png fastlane/screenshots/fr_FR/PresetsScreen.png" time="0.009879">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="14: xcrun simctl spawn booted defaults write &apos;UserGlobalDomain&apos; AppleLanguages -array de" time="0.334405">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="15: xcrun simctl spawn booted defaults write &apos;UserGlobalDomain&apos; AppleLocale -string de_DE" time="0.368866">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="16: cd .. &amp;&amp; maestro test maestro/generated-flow.yaml" time="173.722337">
+      <testcase classname="fastlane.lanes" name="6: cd .. &amp;&amp; maestro test maestro/generated-flow.yaml" time="599.864371">
         
       </testcase>
     

@@ -22,6 +22,10 @@ export interface MixerState {
   timerDurationChosen: number | null; // e.g 15, 30, 60
   currentPresetId: string | null;
 
+  // Freemium States
+  isPremium: boolean;
+  isPaywallVisible: boolean;
+
   // Channels
   channels: Record<ChannelId, ChannelState>;
 
@@ -34,6 +38,8 @@ export interface MixerActions {
   togglePlayPause: () => void;
   setTimer: (minutes: number | null) => void;
   randomizeMix: () => void;
+  setIsPremium: (value: boolean) => void;
+  setPaywallVisible: (value: boolean) => void;
 
   // Channel Actions
   setChannelVolume: (id: ChannelId, volume: number) => void;

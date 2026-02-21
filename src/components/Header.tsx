@@ -9,6 +9,7 @@ import {
   TimerOff,
   Bookmark,
   Cast,
+  Lock,
 } from "lucide-react-native";
 import { ExpoAvRoutePickerView } from "@douglowder/expo-av-route-picker-view";
 import { LiquidButton } from "./LiquidButton";
@@ -32,6 +33,9 @@ export const Header: React.FC<HeaderProps> = ({ onOpenPresets }) => {
     (state) => state.timerDurationChosen,
   );
   const currentPresetId = useMixerStore((state) => state.currentPresetId);
+
+  const isPremium = useMixerStore((state) => state.isPremium);
+  const setPaywallVisible = useMixerStore((state) => state.setPaywallVisible);
 
   const [timeRemaining, setTimeRemaining] = useState<number | null>(null);
 
@@ -59,6 +63,10 @@ export const Header: React.FC<HeaderProps> = ({ onOpenPresets }) => {
   }, [timerEndTime, isPlaying]);
 
   const onTimerPress = () => {
+    if (!isPremium) {
+      setPaywallVisible(true);
+      return;
+    }
     const currentIndex = TIMER_DURATIONS.indexOf(timerDurationChosen);
     const nextIndex = (currentIndex + 1) % TIMER_DURATIONS.length;
     setTimer(TIMER_DURATIONS[nextIndex]);
@@ -109,6 +117,9 @@ export const Header: React.FC<HeaderProps> = ({ onOpenPresets }) => {
                 ? `${timerDurationChosen}m`
                 : t.header.timer}
           </Text>
+          {!isPremium && (
+            <Lock size={12} color="#AAA" style={{ marginLeft: 4 }} />
+          )}
         </LiquidButton>
         {Platform.OS === "ios" && (
           <LiquidButton isRound>
@@ -126,12 +137,16 @@ export const Header: React.FC<HeaderProps> = ({ onOpenPresets }) => {
           isRound
           testID="presets-btn"
           isActive={currentPresetId !== null}
-          onPress={onOpenPresets}
+          onPress={isPremium ? onOpenPresets : () => setPaywallVisible(true)}
         >
-          <Bookmark
-            size={18}
-            color={currentPresetId !== null ? "#FFF" : "#EEE"}
-          />
+          {isPremium ? (
+            <Bookmark
+              size={18}
+              color={currentPresetId !== null ? "#FFF" : "#EEE"}
+            />
+          ) : (
+            <Lock size={18} color="#AAA" />
+          )}
         </LiquidButton>
       </View>
     </View>

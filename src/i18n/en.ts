@@ -28,6 +28,17 @@ export const en = {
     cancel: "Cancel" as string,
     noPresets: "No custom presets yet." as string,
   },
+  paywall: {
+    title: "Unlock the Full Experience" as string,
+    benefit_1: "Unlimited access to all 9 premium sounds" as string,
+    benefit_2: "Sleep and focus timer" as string,
+    benefit_3: "Save your custom mixes" as string,
+    benefit_4: "Exclusive high-fidelity mixing" as string,
+    no_sub: "Pay once. Yours forever. No subscriptions." as string,
+    cta: "Unlock Lifetime - " as string,
+    restore: "Restore Purchases" as string,
+    terms: "Terms of Use" as string,
+  },
 };
 
 export type Translations = typeof en;

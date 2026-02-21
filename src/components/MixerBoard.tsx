@@ -5,6 +5,7 @@ import { LiquidSlider } from "./LiquidSlider";
 import { CHANNEL_COLORS } from "../constants/colors";
 import { ChannelId } from "../types/mixer";
 import { useI18n } from "../i18n";
+import { Pressable } from "react-native";
 
 export const MixerBoard: React.FC = () => {
   const t = useI18n();
@@ -14,14 +15,19 @@ export const MixerBoard: React.FC = () => {
   const toggleChannelAutoVariation = useMixerStore(
     (state) => state.toggleChannelAutoVariation,
   );
+  const isPremium = useMixerStore((state) => state.isPremium);
+  const setPaywallVisible = useMixerStore((state) => state.setPaywallVisible);
 
   const channelKeys = Object.keys(channels) as ChannelId[];
+  const freeChannels: ChannelId[] = ["oiseaux", "vent", "plage"];
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
       {channelKeys.map((key) => {
         const channel = channels[key];
-        return (
+        const isLocked = !isPremium && !freeChannels.includes(key as ChannelId);
+
+        const slider = (
           <LiquidSlider
             key={key}
             id={key}
@@ -30,11 +36,23 @@ export const MixerBoard: React.FC = () => {
             value={channel.volume}
             isMuted={channel.isMuted}
             autoVariationEnabled={channel.autoVariationEnabled}
+            isLocked={isLocked}
+            onRequirePremium={() => setPaywallVisible(true)}
             onChange={(val) => setChannelVolume(key, val)}
             onToggleMute={() => toggleChannelMute(key)}
             onToggleAutoVariation={() => toggleChannelAutoVariation(key)}
           />
         );
+
+        if (isLocked) {
+          return (
+            <Pressable key={key} onPress={() => setPaywallVisible(true)}>
+              <View pointerEvents="box-only">{slider}</View>
+            </Pressable>
+          );
+        }
+
+        return slider;
       })}
     </ScrollView>
   );

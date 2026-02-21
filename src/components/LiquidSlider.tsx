@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, LayoutChangeEvent } from "react-native";
-import { Volume2, VolumeX, Activity } from "lucide-react-native";
+import { Volume2, VolumeX, Activity, Lock } from "lucide-react-native";
 import { ChannelId } from "../types/mixer";
 import { LiquidButton } from "./LiquidButton";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
@@ -21,6 +21,8 @@ interface Props {
   onChange: (val: number) => void;
   onToggleMute: () => void;
   onToggleAutoVariation: () => void;
+  isLocked?: boolean;
+  onRequirePremium?: () => void;
 }
 
 export const LiquidSlider: React.FC<Props> = ({
@@ -32,6 +34,8 @@ export const LiquidSlider: React.FC<Props> = ({
   onChange,
   onToggleMute,
   onToggleAutoVariation,
+  isLocked = false,
+  onRequirePremium,
 }) => {
   const [trackWidth, setTrackWidth] = useState(0);
   const progress = useSharedValue(value);
@@ -45,7 +49,7 @@ export const LiquidSlider: React.FC<Props> = ({
   }, [value, isInteracting, progress]);
 
   const pan = Gesture.Pan()
-    .enabled(!autoVariationEnabled)
+    .enabled(!autoVariationEnabled && !isLocked)
     .onBegin((e) => {
       isInteracting.value = true;
       if (trackWidth > 0) {
@@ -95,6 +99,13 @@ export const LiquidSlider: React.FC<Props> = ({
     <View style={[styles.row, { opacity: isMuted ? 0.5 : 1 }]}>
       <View style={styles.labelContainer}>
         <Text style={styles.label}>{label}</Text>
+        {isLocked && (
+          <Lock
+            size={12}
+            color="rgba(255,255,255,0.4)"
+            style={{ marginTop: 4 }}
+          />
+        )}
       </View>
 
       <View style={styles.sliderContainer}>
@@ -135,24 +146,32 @@ export const LiquidSlider: React.FC<Props> = ({
 
       {/* Controls */}
       <View style={styles.controls}>
-        <LiquidButton
-          onPress={onToggleAutoVariation}
-          isRound
-          isActive={autoVariationEnabled}
-        >
-          <Activity
-            strokeWidth={3}
-            size={18}
-            color={autoVariationEnabled ? "#FFF" : "#AAA"}
-          />
-        </LiquidButton>
-        <LiquidButton onPress={onToggleMute} isRound isActive={!isMuted}>
-          {!isMuted ? (
-            <Volume2 strokeWidth={3} size={18} color="#ffffffff" />
-          ) : (
-            <VolumeX size={18} color="#666" />
-          )}
-        </LiquidButton>
+        {isLocked ? (
+          <LiquidButton onPress={onRequirePremium} isRound isActive={false}>
+            <Lock size={18} color="#AAA" />
+          </LiquidButton>
+        ) : (
+          <>
+            <LiquidButton
+              onPress={onToggleAutoVariation}
+              isRound
+              isActive={autoVariationEnabled}
+            >
+              <Activity
+                strokeWidth={3}
+                size={18}
+                color={autoVariationEnabled ? "#FFF" : "#AAA"}
+              />
+            </LiquidButton>
+            <LiquidButton onPress={onToggleMute} isRound isActive={!isMuted}>
+              {!isMuted ? (
+                <Volume2 strokeWidth={3} size={18} color="#ffffffff" />
+              ) : (
+                <VolumeX size={18} color="#666" />
+              )}
+            </LiquidButton>
+          </>
+        )}
       </View>
     </View>
   );

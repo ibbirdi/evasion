@@ -12,6 +12,8 @@ export const useMixerStore = create<MixerStore>()(
       timerEndTime: null,
       timerDurationChosen: null,
       currentPresetId: null,
+      isPremium: false,
+      isPaywallVisible: false,
 
       // Channels
       channels: INITIAL_CHANNELS,
@@ -22,6 +24,10 @@ export const useMixerStore = create<MixerStore>()(
       // Global Actions
       togglePlayPause: () => set((state) => ({ isPlaying: !state.isPlaying })),
 
+      setIsPremium: (isPremium: boolean) => set({ isPremium }),
+      setPaywallVisible: (isPaywallVisible: boolean) =>
+        set({ isPaywallVisible }),
+
       setTimer: (minutes: number | null) =>
         set({
           timerDurationChosen: minutes,
@@ -29,11 +35,18 @@ export const useMixerStore = create<MixerStore>()(
         }),
 
       randomizeMix: () => {
-        const channelIds = Object.keys(INITIAL_CHANNELS) as ChannelId[];
+        const isPremium = get().isPremium;
+        const allChannelIds = Object.keys(INITIAL_CHANNELS) as ChannelId[];
+        const freeChannels: ChannelId[] = ["oiseaux", "vent", "plage"];
+        const channelIds = isPremium ? allChannelIds : freeChannels;
+
         const newChannels = { ...INITIAL_CHANNELS }; // Start with completely muted base
 
         // Pick 2 to 4 random channels to activate
-        const numActive = Math.floor(Math.random() * 3) + 2;
+        const maxActive = Math.min(4, channelIds.length);
+        const minActive = Math.min(2, channelIds.length);
+        const numActive =
+          Math.floor(Math.random() * (maxActive - minActive + 1)) + minActive;
         const shuffled = channelIds.sort(() => 0.5 - Math.random());
         const selected = shuffled.slice(0, numActive);
 
@@ -133,7 +146,8 @@ export const useMixerStore = create<MixerStore>()(
         channels: state.channels,
         presets: state.presets,
         currentPresetId: state.currentPresetId,
-        // We do NOT persist `isPlaying`, `timerEndTime` or `timerDurationChosen`.
+        isPremium: state.isPremium,
+        // We do NOT persist `isPlaying`, `timerEndTime` or `timerDurationChosen`, nor `isPaywallVisible`.
       }),
       merge: (persistedState: any, currentState) => {
         const state = persistedState as Partial<MixerStore>;
@@ -195,6 +209,7 @@ export const useMixerStore = create<MixerStore>()(
           ...state,
           channels: mergedChannels,
           presets: mergedPresets,
+          isPremium: state.isPremium ?? false,
         };
       },
     },

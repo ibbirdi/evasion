@@ -10,9 +10,16 @@ import { AudioEngine } from "./src/components/AudioEngine";
 import { useState } from "react";
 import { PresetsModal } from "./src/components/PresetsModal";
 import { I18nProvider } from "./src/i18n";
+import { PaywallScreen } from "./src/components/PaywallScreen";
+import { RevenueCatService } from "./src/services/RevenueCatService";
+import { useEffect } from "react";
 
 export default function App() {
   const [isPresetsVisible, setIsPresetsVisible] = useState(false);
+
+  useEffect(() => {
+    RevenueCatService.initialize();
+  }, []);
 
   return (
     <I18nProvider>
@@ -27,6 +34,7 @@ export default function App() {
           visible={isPresetsVisible}
           onClose={() => setIsPresetsVisible(false)}
         />
+        <PaywallScreen />
         <StatusBar style="light" />
       </GestureHandlerRootView>
     </I18nProvider>

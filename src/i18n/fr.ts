@@ -30,4 +30,15 @@ export const fr: Translations = {
     cancel: "Annuler",
     noPresets: "Aucun preset personnalisé.",
   },
+  paywall: {
+    title: "Débloquez l'expérience complète",
+    benefit_1: "Accès illimité aux 9 sons premium",
+    benefit_2: "Minuteur de sommeil et concentration",
+    benefit_3: "Sauvegardez vos mix personnalisés",
+    benefit_4: "Mixage exclusif haute fidélité",
+    no_sub: "Paiement unique. Zéro abonnement.",
+    cta: "Débloquer à vie - ",
+    restore: "Restaurer les achats",
+    terms: "Conditions d'utilisation",
+  },
 } as const satisfies Translations;
