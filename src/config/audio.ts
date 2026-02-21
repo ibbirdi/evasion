@@ -31,9 +31,21 @@ export const AUDIO_CONFIG = {
     id: "cigales",
     sources: [require("../../assets/audio/cigales1.m4a")],
   },
+  grillons: {
+    id: "grillons",
+    sources: [require("../../assets/audio/grillons1.m4a")],
+  },
   ville: {
     id: "ville",
     sources: [require("../../assets/audio/ville1.m4a")],
+  },
+  voiture: {
+    id: "voiture",
+    sources: [require("../../assets/audio/voiture1.m4a")],
+  },
+  train: {
+    id: "train",
+    sources: [require("../../assets/audio/train1.m4a")],
   },
 } as const;
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Platform } from "react-native";
+import { View, Text, StyleSheet, Platform, Dimensions } from "react-native";
 import { useMixerStore } from "../store/useMixerStore";
 import {
   Play,
@@ -86,24 +86,58 @@ export const Header: React.FC<HeaderProps> = ({ onOpenPresets }) => {
         <Text style={styles.subtitle}>Binaural HD</Text>
       </View>
       <View style={styles.controls}>
-        <LiquidButton isRound isActive={isPlaying} onPress={togglePlayPause}>
+        {/* Play/Pause */}
+        <LiquidButton
+          isRound
+          isActive={isPlaying}
+          size={52}
+          onPress={togglePlayPause}
+        >
           {isPlaying ? (
-            <Pause size={18} color="#FFF" />
+            <Pause size={20} color="#FFF" />
           ) : (
-            <Play size={18} fill="#EEE" color="#EEE" />
+            <Play size={20} fill="#EEE" color="#EEE" />
           )}
         </LiquidButton>
-        <LiquidButton isRound testID="random-btn" onPress={randomizeMix}>
-          <Shuffle size={18} color="#EEE" />
+
+        {/* Shuffle */}
+        <LiquidButton
+          isRound
+          testID="random-btn"
+          size={52}
+          onPress={randomizeMix}
+        >
+          <Shuffle size={20} color="#EEE" />
         </LiquidButton>
+
+        {/* Presets — between shuffle and timer */}
+        <LiquidButton
+          isRound
+          testID="presets-btn"
+          size={52}
+          isActive={currentPresetId !== null}
+          onPress={isPremium ? onOpenPresets : () => setPaywallVisible(true)}
+        >
+          {isPremium ? (
+            <Bookmark
+              size={20}
+              color={currentPresetId !== null ? "#FFF" : "#EEE"}
+            />
+          ) : (
+            <Lock size={20} color="#AAA" />
+          )}
+        </LiquidButton>
+
+        {/* Timer */}
         <LiquidButton
           isActive={timerDurationChosen !== null}
+          size={52}
           onPress={onTimerPress}
         >
           {timerDurationChosen !== null ? (
-            <Timer size={18} color="#FFF" />
+            <Timer size={20} color="#FFF" />
           ) : (
-            <TimerOff size={18} color="#EEE" />
+            <TimerOff size={20} color="#EEE" />
           )}
           <Text
             style={[
@@ -121,9 +155,11 @@ export const Header: React.FC<HeaderProps> = ({ onOpenPresets }) => {
             <Lock size={12} color="#AAA" style={{ marginLeft: 4 }} />
           )}
         </LiquidButton>
+
+        {/* AirPlay (iOS only) */}
         {Platform.OS === "ios" && (
-          <LiquidButton isRound>
-            <Cast size={18} color="#EEE" />
+          <LiquidButton isRound size={52}>
+            <Cast size={20} color="#EEE" />
             <View style={StyleSheet.absoluteFill}>
               <ExpoAvRoutePickerView
                 activeTintColor="transparent"
@@ -133,21 +169,6 @@ export const Header: React.FC<HeaderProps> = ({ onOpenPresets }) => {
             </View>
           </LiquidButton>
         )}
-        <LiquidButton
-          isRound
-          testID="presets-btn"
-          isActive={currentPresetId !== null}
-          onPress={isPremium ? onOpenPresets : () => setPaywallVisible(true)}
-        >
-          {isPremium ? (
-            <Bookmark
-              size={18}
-              color={currentPresetId !== null ? "#FFF" : "#EEE"}
-            />
-          ) : (
-            <Lock size={18} color="#AAA" />
-          )}
-        </LiquidButton>
       </View>
     </View>
   );
@@ -156,8 +177,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenPresets }) => {
 const styles = StyleSheet.create({
   header: {
     paddingTop: 60,
-    paddingHorizontal: 20,
-    alignItems: "center",
+    paddingHorizontal: 10,
   },
   titleContainer: {
     alignItems: "center",
@@ -181,7 +201,8 @@ const styles = StyleSheet.create({
   },
   controls: {
     flexDirection: "row",
-    gap: 8,
+    justifyContent: "space-between",
+    width: "100%",
   },
   btnText: {
     color: "#EEE",

@@ -12,7 +12,10 @@ export const en = {
     pluie: "Rain" as string,
     tonnerre: "Thunder" as string,
     cigales: "Cicadas" as string,
+    grillons: "Crickets" as string,
     ville: "City" as string,
+    voiture: "Car Ride" as string,
+    train: "Train" as string,
   },
   presets: {
     default_calm: "Calm Forest" as string,
@@ -30,7 +33,7 @@ export const en = {
   },
   paywall: {
     title: "Unlock the Full Experience" as string,
-    benefit_1: "Unlimited access to all 9 premium sounds" as string,
+    benefit_1: "Unlimited access to all 12 premium sounds" as string,
     benefit_2: "Sleep and focus timer" as string,
     benefit_3: "Save your custom mixes" as string,
     benefit_4: "Exclusive high-fidelity mixing" as string,

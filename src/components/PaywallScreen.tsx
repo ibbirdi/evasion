@@ -95,7 +95,7 @@ export const PaywallScreen: React.FC = () => {
           <View style={styles.benefitsContainer}>
             {benefits.map((benefit, index) => (
               <View key={index} style={styles.benefitRow}>
-                <CheckCircle2 size={24} color={CHANNEL_COLORS.foret} />
+                <CheckCircle2 size={24} color={CHANNEL_COLORS.oiseaux} />
                 <Text style={styles.benefitText}>{benefit}</Text>
               </View>
             ))}
@@ -193,12 +193,12 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   ctaButton: {
-    backgroundColor: "#ffc037ff", // "L'Ambre Premium"
+    backgroundColor: CHANNEL_COLORS.oiseaux, // "L'Ambre Premium"
     width: "100%",
     borderRadius: 30,
-    shadowColor: "#FFB800",
+    shadowColor: CHANNEL_COLORS.oiseaux,
     shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.5,
+    shadowOpacity: 0.2,
     shadowRadius: 10,
     elevation: 8,
     marginBottom: 32,

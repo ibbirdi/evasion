@@ -14,7 +14,10 @@ export const pt: Translations = {
     pluie: "Chuva",
     tonnerre: "Trovão",
     cigales: "Cigarras",
+    grillons: "Grilos",
     ville: "Cidade",
+    voiture: "Carro",
+    train: "Trem",
   },
   presets: {
     default_calm: "Floresta Calma",
@@ -32,7 +35,7 @@ export const pt: Translations = {
   },
   paywall: {
     title: "Desbloqueie a experiência completa",
-    benefit_1: "Acesso ilimitado a todos os 9 sons premium",
+    benefit_1: "Acesso ilimitado a todos os 12 sons premium",
     benefit_2: "Timer de sono e concentração",
     benefit_3: "Salve suas mixagens personalizadas",
     benefit_4: "Mixagem exclusiva de alta fidelidade",

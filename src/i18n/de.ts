@@ -14,7 +14,10 @@ export const de: Translations = {
     pluie: "Regen",
     tonnerre: "Donner",
     cigales: "Zikaden",
+    grillons: "Grillen",
     ville: "Stadt",
+    voiture: "Autofahrt",
+    train: "Zug",
   },
   presets: {
     default_calm: "Ruhiger Wald",
@@ -32,7 +35,7 @@ export const de: Translations = {
   },
   paywall: {
     title: "Schalten Sie das volle Erlebnis frei",
-    benefit_1: "Unbegrenzter Zugang zu allen 9 Premium-Klängen",
+    benefit_1: "Unbegrenzter Zugang zu allen 12 Premium-Klängen",
     benefit_2: "Schlaf- und Fokus-Timer",
     benefit_3: "Speichern Sie Ihre eigenen Mixe",
     benefit_4: "Exklusives High-Fidelity-Mixing",

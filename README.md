@@ -15,7 +15,7 @@ Le développement repose sur une architecture moderne de pointe, construite en R
 ### A. Une Bibliothèque Sonore Authentique et Haute Fidélité
 
 - **Environnements immersifs profonds** : De vrais enregistrements de terrain prolongés.
-- **Pistes intégrées au MVP** : Oiseaux, Vent, Plage, Goélands, Forêt, Pluie, Orage, Cigales, Ville.
+- **Pistes intégrées au MVP** : Oiseaux, Vent, Plage, Goélands, Forêt, Pluie, Orage, Cigales, Grillons, Ville, Voiture, Train.
 - **Variations Dynamiques Centralisées** : Chaque "Piste" (ex: "Plage") n'est pas limitée à un seul enregistrement monotone. Le moteur audio est architecturé pour piocher dynamiquement et aléatoirement parmi plusieurs dizaines d'enregistrements différents (Fichiers Audio) pour le même environnement, garantissant ainsi qu'aucune session d'écoute ne puisse être exactement identique.
 - **100% Hors-ligne** : Tous les éléments sonores haute qualité sont embarqués localement. L'immersion se lance instantanément à l'ouverture de l'application sans latence réseau, de manière totalement confidentielle, et fonctionne partout (vol long-courrier, connexion faible, retraites dans la nature etc.).
 

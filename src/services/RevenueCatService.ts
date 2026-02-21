@@ -3,7 +3,7 @@ import { Platform } from "react-native";
 import { useMixerStore } from "../store/useMixerStore";
 
 // TODO: Replace with your actual RevenueCat API keys
-const iosApiKey = "test_CXlajEGbuuvuVzMmeoqONSRBAhV";
+const iosApiKey = "appl_KJQnGRCJPIZiOAWmEVXSnqKTMUU";
 const androidApiKey = "test_CXlajEGbuuvuVzMmeoqONSRBAhV";
 
 export const RevenueCatService = {

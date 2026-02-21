@@ -14,7 +14,10 @@ export const es: Translations = {
     pluie: "Lluvia",
     tonnerre: "Truenos",
     cigales: "Cigarras",
+    grillons: "Grillos",
     ville: "Ciudad",
+    voiture: "Coche",
+    train: "Tren",
   },
   presets: {
     default_calm: "Bosque Trancuilo",
@@ -32,7 +35,7 @@ export const es: Translations = {
   },
   paywall: {
     title: "Desbloquea la experiencia completa",
-    benefit_1: "Acceso ilimitado a los 9 sonidos premium",
+    benefit_1: "Acceso ilimitado a los 12 sonidos premium",
     benefit_2: "Temporizador de sueño y concentración",
     benefit_3: "Guarda tus mezclas personalizadas",
     benefit_4: "Mezcla exclusiva de alta fidelidad",

@@ -14,7 +14,10 @@ export const fr: Translations = {
     pluie: "Pluie",
     tonnerre: "Orage",
     cigales: "Cigales",
+    grillons: "Grillons",
     ville: "Ville",
+    voiture: "Voiture",
+    train: "Train",
   },
   presets: {
     default_calm: "Calme en forêt",
@@ -32,7 +35,7 @@ export const fr: Translations = {
   },
   paywall: {
     title: "Débloquez l'expérience complète",
-    benefit_1: "Accès illimité aux 9 sons premium",
+    benefit_1: "Accès illimité aux 12 sons premium",
     benefit_2: "Minuteur de sommeil et concentration",
     benefit_3: "Sauvegardez vos mix personnalisés",
     benefit_4: "Mixage exclusif haute fidélité",

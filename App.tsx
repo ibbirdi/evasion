@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,
+    flex: 1,
     backgroundColor: "transparent",
   },
 });
