@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import {
   StyleSheet,
   Pressable,
@@ -6,6 +6,15 @@ import {
   ViewStyle,
   StyleProp,
 } from "react-native";
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withSpring,
+  withTiming,
+} from "react-native-reanimated";
+import * as Haptics from "expo-haptics";
+
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 interface LiquidButtonProps {
   onPress?: () => void;
@@ -31,22 +40,54 @@ export const LiquidButton: React.FC<LiquidButtonProps> = ({
   style,
   testID,
 }) => {
+  const scale = useSharedValue(1);
+  const brightness = useSharedValue(0);
   const borderRadius = isRound ? size / 2 : 20;
 
+  const handlePressIn = useCallback(() => {
+    scale.value = withSpring(0.9, {
+      damping: 15,
+      stiffness: 400,
+      mass: 0.4,
+    });
+    brightness.value = withTiming(1, { duration: 80 });
+  }, []);
+
+  const handlePressOut = useCallback(() => {
+    scale.value = withSpring(1, {
+      damping: 12,
+      stiffness: 300,
+      mass: 0.5,
+    });
+    brightness.value = withTiming(0, { duration: 200 });
+  }, []);
+
+  const handlePress = useCallback(() => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    onPress?.();
+  }, [onPress]);
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: scale.value }],
+    backgroundColor: isActive
+      ? `rgba(255,255,255,${0.25 + brightness.value * 0.1})`
+      : `rgba(255,255,255,${0.06 + brightness.value * 0.08})`,
+  }));
+
   return (
-    <Pressable
+    <AnimatedPressable
       testID={testID}
-      onPress={onPress}
+      onPress={handlePress}
+      onPressIn={handlePressIn}
+      onPressOut={handlePressOut}
       style={[
         {
           width: isRound ? size : undefined,
           height: isRound ? size : undefined,
           borderRadius,
           overflow: "hidden",
-          backgroundColor: isActive
-            ? "rgba(255,255,255,0.25)"
-            : "rgba(255,255,255,0.06)",
         },
+        animatedStyle,
         style,
       ]}
     >
@@ -63,6 +104,6 @@ export const LiquidButton: React.FC<LiquidButtonProps> = ({
       >
         {children}
       </View>
-    </Pressable>
+    </AnimatedPressable>
   );
 };

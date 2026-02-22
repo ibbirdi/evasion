@@ -1,6 +1,6 @@
 export const en = {
   header: {
-    title: "D R I F T" as string,
+    title: "Evasion" as string,
     timer: "Timer" as string,
   },
   channels: {
@@ -41,6 +41,14 @@ export const en = {
     cta: "Unlock Lifetime - " as string,
     restore: "Restore Purchases" as string,
     terms: "Terms of Use" as string,
+  },
+  binaural: {
+    title: "BINAURAL BEATS" as string,
+    delta: "Sleep" as string,
+    theta: "Relax" as string,
+    alpha: "Focus" as string,
+    beta: "Awake" as string,
+    headphones_hint: "Stereo headphones recommended" as string,
   },
 };
 

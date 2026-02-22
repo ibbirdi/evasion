@@ -1,7 +1,13 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { ChannelId, ChannelState, MixerStore, Preset } from "../types/mixer";
+import {
+  ChannelId,
+  ChannelState,
+  MixerStore,
+  Preset,
+  BinauralTrackId,
+} from "../types/mixer";
 import { INITIAL_CHANNELS, DEFAULT_PRESETS } from "../constants/channels";
 
 export const useMixerStore = create<MixerStore>()(
@@ -15,6 +21,11 @@ export const useMixerStore = create<MixerStore>()(
       isPremium: false,
       isPaywallVisible: false,
 
+      // Binaural States
+      isBinauralActive: false,
+      activeBinauralTrack: "delta" as BinauralTrackId,
+      binauralVolume: 0.5,
+
       // Channels
       channels: INITIAL_CHANNELS,
 
@@ -27,6 +38,15 @@ export const useMixerStore = create<MixerStore>()(
       setIsPremium: (isPremium: boolean) => set({ isPremium }),
       setPaywallVisible: (isPaywallVisible: boolean) =>
         set({ isPaywallVisible }),
+
+      // Binaural Actions
+      toggleBinaural: () =>
+        set((state) => ({ isBinauralActive: !state.isBinauralActive })),
+
+      setBinauralTrack: (id: BinauralTrackId) =>
+        set({ activeBinauralTrack: id }),
+
+      setBinauralVolume: (volume: number) => set({ binauralVolume: volume }),
 
       setTimer: (minutes: number | null) =>
         set({
@@ -147,6 +167,9 @@ export const useMixerStore = create<MixerStore>()(
         presets: state.presets,
         currentPresetId: state.currentPresetId,
         isPremium: state.isPremium,
+        isBinauralActive: state.isBinauralActive,
+        activeBinauralTrack: state.activeBinauralTrack,
+        binauralVolume: state.binauralVolume,
         // We do NOT persist `isPlaying`, `timerEndTime` or `timerDurationChosen`, nor `isPaywallVisible`.
       }),
       merge: (persistedState: any, currentState) => {

@@ -2,7 +2,7 @@ import type { Translations } from "./en";
 
 export const pt: Translations = {
   header: {
-    title: "R E F Ú G I O",
+    title: "Evasion",
     timer: "Timer",
   },
   channels: {
@@ -43,5 +43,13 @@ export const pt: Translations = {
     cta: "Desbloqueio vitalício - ",
     restore: "Restaurar compras",
     terms: "Termos de uso",
+  },
+  binaural: {
+    title: "SONS BINAURAIS",
+    delta: "Sono",
+    theta: "Relaxar",
+    alpha: "Foco",
+    beta: "Desperto",
+    headphones_hint: "Fones estéreo recomendados",
   },
 } as const satisfies Translations;

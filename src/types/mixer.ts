@@ -2,6 +2,8 @@ import { AUDIO_CONFIG } from "../config/audio";
 
 export type ChannelId = keyof typeof AUDIO_CONFIG;
 
+export type BinauralTrackId = "delta" | "theta" | "alpha" | "beta";
+
 export interface ChannelState {
   id: ChannelId;
   volume: number; // 0.0 to 1.0
@@ -26,6 +28,11 @@ export interface MixerState {
   isPremium: boolean;
   isPaywallVisible: boolean;
 
+  // Binaural States
+  isBinauralActive: boolean;
+  activeBinauralTrack: BinauralTrackId;
+  binauralVolume: number;
+
   // Channels
   channels: Record<ChannelId, ChannelState>;
 
@@ -40,6 +47,11 @@ export interface MixerActions {
   randomizeMix: () => void;
   setIsPremium: (value: boolean) => void;
   setPaywallVisible: (value: boolean) => void;
+
+  // Binaural Actions
+  toggleBinaural: () => void;
+  setBinauralTrack: (id: BinauralTrackId) => void;
+  setBinauralVolume: (volume: number) => void;
 
   // Channel Actions
   setChannelVolume: (id: ChannelId, volume: number) => void;

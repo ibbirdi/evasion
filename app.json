@@ -40,7 +40,8 @@
     },
     "plugins": [
       "expo-audio",
-      "expo-localization"
+      "expo-localization",
+      "expo-font"
     ],
     "extra": {
       "eas": {

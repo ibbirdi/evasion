@@ -14,6 +14,14 @@ import {
 import { ExpoAvRoutePickerView } from "@douglowder/expo-av-route-picker-view";
 import { LiquidButton } from "./LiquidButton";
 import { useI18n } from "../i18n";
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withRepeat,
+  withTiming,
+  Easing,
+  cancelAnimation,
+} from "react-native-reanimated";
 
 const TIMER_DURATIONS = [null, 15, 30, 60, 120];
 
@@ -86,19 +94,22 @@ export const Header: React.FC<HeaderProps> = ({ onOpenPresets }) => {
         <Text style={styles.subtitle}>Binaural HD</Text>
       </View>
       <View style={styles.controls}>
-        {/* Play/Pause */}
-        <LiquidButton
-          isRound
-          isActive={isPlaying}
-          size={52}
-          onPress={togglePlayPause}
-        >
-          {isPlaying ? (
-            <Pause size={20} color="#FFF" />
-          ) : (
-            <Play size={20} fill="#EEE" color="#EEE" />
-          )}
-        </LiquidButton>
+        {/* Play/Pause with rotating glow */}
+        <View style={styles.playContainer}>
+          <LiquidButton
+            isRound
+            isActive={isPlaying}
+            size={52}
+            onPress={togglePlayPause}
+          >
+            {isPlaying ? (
+              <Pause size={20} color="#FFF" />
+            ) : (
+              <Play size={20} fill="#EEE" color="#EEE" />
+            )}
+          </LiquidButton>
+          <PlayGlowRing isPlaying={isPlaying} size={52} />
+        </View>
 
         {/* Shuffle */}
         <LiquidButton
@@ -174,6 +185,111 @@ export const Header: React.FC<HeaderProps> = ({ onOpenPresets }) => {
   );
 };
 
+/** Rotating glow ring — pure RN Views with iOS shadows */
+const RING_PADDING = 1;
+
+const PlayGlowRing: React.FC<{ isPlaying: boolean; size: number }> = ({
+  isPlaying,
+  size,
+}) => {
+  const rotation = useSharedValue(0);
+  const opacity = useSharedValue(0);
+
+  useEffect(() => {
+    if (isPlaying) {
+      opacity.value = withTiming(1, { duration: 600 });
+      rotation.value = 0;
+      rotation.value = withRepeat(
+        withTiming(360, {
+          duration: 4000,
+          easing: Easing.linear,
+        }),
+        -1,
+        false,
+      );
+    } else {
+      opacity.value = withTiming(0, { duration: 400 });
+      cancelAnimation(rotation);
+    }
+  }, [isPlaying]);
+
+  const ringAnimStyle = useAnimatedStyle(() => ({
+    opacity: opacity.value,
+    transform: [{ rotate: `${rotation.value}deg` }],
+  }));
+
+  const outerSize = size + RING_PADDING * 2;
+  const arcBase = {
+    position: "absolute" as const,
+    width: outerSize,
+    height: outerSize,
+    borderRadius: outerSize / 2,
+    borderColor: "transparent",
+  };
+
+  return (
+    <Animated.View
+      pointerEvents="none"
+      style={[
+        {
+          position: "absolute",
+          width: outerSize,
+          height: outerSize,
+          top: -RING_PADDING,
+          left: -RING_PADDING,
+        },
+        ringAnimStyle,
+      ]}
+    >
+      {/* Layer 1 — wide soft glow halo */}
+      <View
+        style={[
+          arcBase,
+          {
+            borderWidth: 3,
+            borderTopColor: "rgba(255,255,255,0.5)",
+            borderRightColor: "rgba(255,255,255,0.15)",
+            shadowColor: "#FFFFFF",
+            shadowOffset: { width: 0, height: 0 },
+            shadowOpacity: 1,
+            shadowRadius: 18,
+          },
+        ]}
+      />
+      {/* Layer 2 — medium glow */}
+      <View
+        style={[
+          arcBase,
+          {
+            borderWidth: 2,
+            borderTopColor: "rgba(255,255,255,0.7)",
+            borderRightColor: "rgba(255,255,255,0.2)",
+            shadowColor: "#FFFFFF",
+            shadowOffset: { width: 0, height: 0 },
+            shadowOpacity: 0.9,
+            shadowRadius: 10,
+          },
+        ]}
+      />
+      {/* Layer 3 — sharp bright core */}
+      <View
+        style={[
+          arcBase,
+          {
+            borderWidth: 1.5,
+            borderTopColor: "rgba(255,255,255,1)",
+            borderRightColor: "rgba(255,255,255,0.3)",
+            shadowColor: "#FFFFFF",
+            shadowOffset: { width: 0, height: 0 },
+            shadowOpacity: 0.8,
+            shadowRadius: 4,
+          },
+        ]}
+      />
+    </Animated.View>
+  );
+};
+
 const styles = StyleSheet.create({
   header: {
     paddingTop: 60,
@@ -184,11 +300,15 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   title: {
-    fontSize: 26,
-    fontWeight: "300",
-    letterSpacing: 6,
+    fontSize: 40,
+    fontFamily: "DancingScript_700Bold",
+    fontWeight: "700",
+    letterSpacing: 2,
     color: "#E0E0E0",
-    opacity: 0.9,
+    opacity: 1,
+    textShadowColor: "#E0E0E0",
+    textShadowOffset: { width: 0.5, height: 0.5 },
+    textShadowRadius: 1,
   },
   subtitle: {
     fontSize: 9,
@@ -203,6 +323,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     width: "100%",
+  },
+  playContainer: {
+    position: "relative",
   },
   btnText: {
     color: "#EEE",
