@@ -2,7 +2,7 @@ import type { Translations } from "./en";
 
 export const es: Translations = {
   header: {
-    title: "Evasion",
+    title: "Oasis",
     timer: "Temp",
   },
   channels: {

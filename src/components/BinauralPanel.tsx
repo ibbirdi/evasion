@@ -229,6 +229,19 @@ export const BinauralPanel: React.FC = () => {
     setBinauralTrack(trackId);
   };
 
+  const contentHeight = useSharedValue(0);
+
+  const containerAnimatedStyle = useAnimatedStyle(() => ({
+    transform: [
+      {
+        translateY: withTiming(isBinauralActive ? 0 : contentHeight.value, {
+          duration: 400,
+          easing: Easing.out(Easing.cubic),
+        }),
+      },
+    ],
+  }));
+
   const contentAnimatedStyle = useAnimatedStyle(() => ({
     opacity: withTiming(isBinauralActive ? 1 : 0.4, {
       duration: 300,
@@ -236,8 +249,15 @@ export const BinauralPanel: React.FC = () => {
     }),
   }));
 
+  const handleContentLayout = (event: LayoutChangeEvent) => {
+    const { height } = event.nativeEvent.layout;
+    if (height > 0) {
+      contentHeight.value = height;
+    }
+  };
+
   return (
-    <View style={styles.container}>
+    <Animated.View style={[styles.container, containerAnimatedStyle]}>
       <GlassView style={StyleSheet.absoluteFillObject} tintColor="dark" />
       <View style={styles.backgroundOverlay} />
 
@@ -266,7 +286,10 @@ export const BinauralPanel: React.FC = () => {
         </View>
 
         {/* Selectors + Slider (dimmed when off) */}
-        <Animated.View style={contentAnimatedStyle}>
+        <Animated.View
+          style={contentAnimatedStyle}
+          onLayout={handleContentLayout}
+        >
           {/* Track Selectors */}
           <View
             style={styles.trackRow}
@@ -297,7 +320,7 @@ export const BinauralPanel: React.FC = () => {
           </View>
         </Animated.View>
       </View>
-    </View>
+    </Animated.View>
   );
 };
 

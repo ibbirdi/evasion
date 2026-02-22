@@ -1,6 +1,6 @@
 export const en = {
   header: {
-    title: "Evasion" as string,
+    title: "Drift" as string,
     timer: "Timer" as string,
   },
   channels: {
