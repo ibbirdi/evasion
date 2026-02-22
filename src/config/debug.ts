@@ -6,5 +6,5 @@ export const DEBUG_CONFIG = {
    * Enable the invisible language switcher button in the top left.
    * Useful for taking screenshots in different languages.
    */
-  ENABLE_LANGUAGE_SWITCHER: true,
+  ENABLE_LANGUAGE_SWITCHER: false,
 };
