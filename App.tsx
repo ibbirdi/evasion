@@ -1,35 +1,27 @@
-import "react-native-gesture-handler";
-import "react-native-reanimated";
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, View } from "react-native";
-import { AnimatedBackground } from "./src/components/AnimatedBackground";
-import { MixerBoard } from "./src/components/MixerBoard";
-import { Header } from "./src/components/Header";
-import { AudioEngine } from "./src/components/AudioEngine";
-import { BinauralAudioEngine } from "./src/components/BinauralAudioEngine";
-import { useState, useCallback, useEffect, useMemo } from "react";
-import { PresetsModal } from "./src/components/PresetsModal";
-import { I18nProvider } from "./src/i18n";
-import { PaywallScreen } from "./src/components/PaywallScreen";
-import { BinauralPanel } from "./src/components/BinauralPanel";
-import { RevenueCatService } from "./src/services/RevenueCatService";
-import { useMixerStore } from "./src/store/useMixerStore";
 import {
-  Gesture,
-  GestureDetector,
-  GestureHandlerRootView,
-} from "react-native-gesture-handler";
-import Animated, {
-  useAnimatedStyle,
-  withTiming,
-  runOnJS,
-} from "react-native-reanimated";
-import { useRef } from "react";
-import {
-  useFonts,
   DancingScript_700Bold,
+  useFonts,
 } from "@expo-google-fonts/dancing-script";
 import * as SplashScreen from "expo-splash-screen";
+import { StatusBar } from "expo-status-bar";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { StyleSheet, View } from "react-native";
+import "react-native-gesture-handler";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import "react-native-reanimated";
+import { AnimatedBackground } from "./src/components/AnimatedBackground";
+import { AudioEngine } from "./src/components/AudioEngine";
+import { BinauralAudioEngine } from "./src/components/BinauralAudioEngine";
+import { BinauralPanel } from "./src/components/BinauralPanel";
+import { Header } from "./src/components/Header";
+import { MixerBoard } from "./src/components/MixerBoard";
+import { PaywallScreen } from "./src/components/PaywallScreen";
+import { PresetsModal } from "./src/components/PresetsModal";
+import { LanguageSwitcher } from "./src/components/LanguageSwitcher";
+import { ZEN_CONFIG } from "./src/config/zen";
+import { I18nProvider } from "./src/i18n";
+import { RevenueCatService } from "./src/services/RevenueCatService";
+import { useMixerStore } from "./src/store/useMixerStore";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -66,7 +58,7 @@ export default function App() {
     if (isPlaying) {
       inactivityTimeout.current = setTimeout(() => {
         setIsZenMode(true);
-      }, 5000);
+      }, ZEN_CONFIG.INACTIVITY_DELAY);
     }
   }, [isPlaying]); // Only depends on isPlaying to know if we should restart the timer
 
@@ -90,6 +82,7 @@ export default function App() {
         onLayout={onLayoutRootView}
       >
         <View style={styles.container} onTouchStart={resetZenTimer}>
+          <LanguageSwitcher />
           <AudioEngine />
           <BinauralAudioEngine />
           <AnimatedBackground />

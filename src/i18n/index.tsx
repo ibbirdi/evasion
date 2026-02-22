@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState } from "react";
 import { getLocales } from "expo-localization";
 import { en } from "./en";
 import { fr } from "./fr";
@@ -36,19 +36,40 @@ const translations: Record<SupportedLanguage, Translations> = {
 };
 
 const locale = resolveLocale();
-const activeTranslations = translations[locale];
 
-const I18nContext = createContext<Translations>(activeTranslations);
+type I18nContextType = Translations & {
+  setLanguage: (lang: SupportedLanguage) => void;
+  currentLanguage: SupportedLanguage;
+};
+
+const I18nContext = createContext<I18nContextType | null>(null);
 
 export function I18nProvider({ children }: { children: React.ReactNode }) {
-  return (
-    <I18nContext.Provider value={activeTranslations}>
-      {children}
-    </I18nContext.Provider>
-  );
+  const [currentLang, setCurrentLang] = useState<SupportedLanguage>(locale);
+
+  const value = {
+    ...translations[currentLang],
+    setLanguage: setCurrentLang,
+    currentLanguage: currentLang,
+  };
+
+  return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>;
 }
 
 /** Access all translated strings */
-export function useI18n(): Translations {
-  return useContext(I18nContext);
+export function useI18n(): I18nContextType {
+  const context = useContext(I18nContext);
+  if (!context) {
+    throw new Error("useI18n must be used within an I18nProvider");
+  }
+  return context;
 }
+
+export const SUPPORTED_LANGUAGES: SupportedLanguage[] = [
+  "fr",
+  "en",
+  "es",
+  "de",
+  "it",
+  "pt",
+];

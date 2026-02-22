@@ -22,6 +22,7 @@ import Animated, {
   Easing,
   cancelAnimation,
 } from "react-native-reanimated";
+import { ZEN_CONFIG } from "../config/zen";
 
 const TIMER_DURATIONS = [null, 15, 30, 60, 120];
 
@@ -91,10 +92,15 @@ export const Header: React.FC<HeaderProps> = ({ onOpenPresets }) => {
   const zenOpacity = useSharedValue(1);
 
   useEffect(() => {
-    zenOpacity.value = withTiming(isZenMode ? 0.05 : 1, {
-      duration: isZenMode ? 7000 : 300,
-      easing: Easing.inOut(Easing.ease),
-    });
+    zenOpacity.value = withTiming(
+      isZenMode ? ZEN_CONFIG.ZEN_OPACITY : ZEN_CONFIG.NORMAL_OPACITY,
+      {
+        duration: isZenMode
+          ? ZEN_CONFIG.FADE_OUT_DURATION
+          : ZEN_CONFIG.FADE_IN_DURATION,
+        easing: Easing.inOut(Easing.ease),
+      },
+    );
   }, [isZenMode]);
 
   const animatedTitleStyle = useAnimatedStyle(() => ({
@@ -193,12 +199,16 @@ export const Header: React.FC<HeaderProps> = ({ onOpenPresets }) => {
       {/* AirPlay (iOS only) - Absolute top right */}
       {Platform.OS === "ios" && (
         <Animated.View
-          style={[styles.airplayContainer, animatedSecondaryControlsStyle]}
+          style={[
+            styles.airplayContainer,
+            styles.airplayGlass,
+            animatedSecondaryControlsStyle,
+          ]}
         >
           <ExpoAvRoutePickerView
             activeTintColor="#FFF"
-            tintColor="#EEE"
-            style={{ width: 44, height: 44, transform: [{ scale: 1.5 }] }}
+            tintColor="#DDD"
+            style={{ width: 44, height: 44 }}
           />
         </Animated.View>
       )}
@@ -262,48 +272,18 @@ const PlayGlowRing: React.FC<{ isPlaying: boolean; size: number }> = ({
         ringAnimStyle,
       ]}
     >
-      {/* Layer 1 — wide soft glow halo */}
-      <View
-        style={[
-          arcBase,
-          {
-            borderWidth: 1,
-            borderTopColor: "rgba(255,255,255,0.5)",
-            borderRightColor: "rgba(255,255,255,0.15)",
-            shadowColor: "#FFFFFF",
-            shadowOffset: { width: 0, height: 0 },
-            shadowOpacity: 1,
-            shadowRadius: 5,
-          },
-        ]}
-      />
-      {/* Layer 2 — medium glow */}
-      <View
-        style={[
-          arcBase,
-          {
-            borderWidth: 2,
-            borderTopColor: "rgba(255,255,255,0.7)",
-            borderRightColor: "rgba(255,255,255,0.2)",
-            shadowColor: "#FFFFFF",
-            shadowOffset: { width: 0, height: 0 },
-            shadowOpacity: 0.9,
-            shadowRadius: 10,
-          },
-        ]}
-      />
       {/* Layer 3 — sharp bright core */}
       <View
         style={[
           arcBase,
           {
-            borderWidth: 1.5,
+            borderWidth: 2,
             borderTopColor: "rgba(255,255,255,1)",
-            borderRightColor: "rgba(255,255,255,0.3)",
+            borderBottomColor: "rgba(255,255,255,1)",
             shadowColor: "#FFFFFF",
             shadowOffset: { width: 0, height: 0 },
             shadowOpacity: 1,
-            shadowRadius: 5,
+            shadowRadius: 3,
           },
         ]}
       />
@@ -342,7 +322,7 @@ const styles = StyleSheet.create({
   },
   controls: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
     width: "100%",
   },
   playContainer: {
@@ -353,6 +333,12 @@ const styles = StyleSheet.create({
     top: 66,
     right: 20,
     zIndex: 10,
+  },
+  airplayGlass: {
+    backgroundColor: "rgba(255,255,255,0.06)",
+    borderRadius: 22,
+    justifyContent: "center",
+    alignItems: "center",
   },
   btnText: {
     color: "#EEE",

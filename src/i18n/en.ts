@@ -22,7 +22,7 @@ export const en = {
     default_storm: "Distant Storm" as string,
   },
   modal: {
-    title: "Presets" as string,
+    title: "My Drifts" as string,
     defaultPresets: "Default Presets" as string,
     yourPresets: "Your Presets" as string,
     saveNew: "Save new preset" as string,

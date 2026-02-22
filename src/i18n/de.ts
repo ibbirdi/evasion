@@ -24,7 +24,7 @@ export const de: Translations = {
     default_storm: "Fernes Gewitter",
   },
   modal: {
-    title: "Presets",
+    title: "Meine Drifts",
     defaultPresets: "Standard Presets",
     yourPresets: "Deine Presets",
     saveNew: "Neues Preset speichern",

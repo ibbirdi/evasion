@@ -11,6 +11,7 @@ import Animated, {
   withTiming,
   Easing,
 } from "react-native-reanimated";
+import { ZEN_CONFIG } from "../config/zen";
 
 interface Props {
   id: ChannelId;
@@ -45,13 +46,19 @@ export const LiquidSlider: React.FC<Props> = ({
 
   const zenOpacity = useSharedValue(1);
   const isActive = !isMuted && (value > 0 || autoVariationEnabled);
-  const normalOpacity = isActive ? 1 : 0.4;
-  const zenTargetOpacity = isActive ? 1 : 0.05;
+  const normalOpacity = isActive
+    ? ZEN_CONFIG.NORMAL_OPACITY
+    : ZEN_CONFIG.INACTIVE_OPACITY;
+  const zenTargetOpacity = isActive
+    ? ZEN_CONFIG.NORMAL_OPACITY
+    : ZEN_CONFIG.ZEN_OPACITY;
 
   useEffect(() => {
     const target = isZenMode ? zenTargetOpacity : normalOpacity;
     zenOpacity.value = withTiming(target, {
-      duration: isZenMode ? 7000 : 300,
+      duration: isZenMode
+        ? ZEN_CONFIG.FADE_OUT_DURATION
+        : ZEN_CONFIG.FADE_IN_DURATION,
       easing: Easing.inOut(Easing.ease),
     });
   }, [isZenMode, normalOpacity, zenTargetOpacity]);

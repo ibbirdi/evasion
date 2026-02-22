@@ -24,7 +24,7 @@ export const pt: Translations = {
     default_storm: "Tempestade Distante",
   },
   modal: {
-    title: "Presets",
+    title: "Meus refúgios",
     defaultPresets: "Padrão",
     yourPresets: "Seus Presets",
     saveNew: "Salvar novo",

@@ -193,10 +193,10 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   ctaButton: {
-    backgroundColor: CHANNEL_COLORS.oiseaux, // "L'Ambre Premium"
+    backgroundColor: "#edc84eff", // "L'Ambre Premium"
     width: "100%",
     borderRadius: 30,
-    shadowColor: CHANNEL_COLORS.oiseaux,
+    shadowColor: "#edc84eff",
     shadowOffset: { width: 0, height: 6 },
     shadowOpacity: 0.2,
     shadowRadius: 10,

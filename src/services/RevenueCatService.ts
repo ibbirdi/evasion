@@ -13,23 +13,18 @@ export const RevenueCatService = {
     } else if (Platform.OS === "android") {
       Purchases.configure({ apiKey: androidApiKey });
     }
-
     // Check initial status
     await RevenueCatService.checkPremiumStatus();
   },
 
   checkPremiumStatus: async () => {
-    try {
-      const customerInfo = await Purchases.getCustomerInfo();
-      // Assuming your entitlement identifier is "premium"
-      if (typeof customerInfo.entitlements.active["premium"] !== "undefined") {
-        useMixerStore.getState().setIsPremium(true);
-      } else {
-        // Optional: you can choose not to override to false if you want to trust the persisted state when offline
-        useMixerStore.getState().setIsPremium(false);
-      }
-    } catch (e) {
-      console.error("Error checking premium status:", e);
+    const customerInfo = await Purchases.getCustomerInfo();
+    // Assuming your entitlement identifier is "premium"
+    if (typeof customerInfo.entitlements.active["premium"] !== "undefined") {
+      useMixerStore.getState().setIsPremium(true);
+    } else {
+      // Optional: you can choose not to override to false if you want to trust the persisted state when offline
+      useMixerStore.getState().setIsPremium(false);
     }
   },
 

@@ -19,6 +19,7 @@ import Animated, {
   runOnJS,
   Easing,
 } from "react-native-reanimated";
+import { ZEN_CONFIG } from "../config/zen";
 import { useMixerStore } from "../store/useMixerStore";
 import { useI18n } from "../i18n";
 import { BinauralTrackId } from "../types/mixer";
@@ -191,26 +192,32 @@ export const BinauralPanel: React.FC = () => {
   }));
 
   const contentAnimatedStyle = useAnimatedStyle(() => {
-    let targetOpacity = isBinauralActive ? 1 : 0.4;
+    let targetOpacity = isBinauralActive
+      ? ZEN_CONFIG.NORMAL_OPACITY
+      : ZEN_CONFIG.INACTIVE_OPACITY;
     if (isZenMode && !isBinauralActive) {
-      targetOpacity = 0.05;
+      targetOpacity = ZEN_CONFIG.ZEN_OPACITY;
     }
     return {
       opacity: withTiming(targetOpacity, {
-        duration: isZenMode ? 7000 : 300,
+        duration: isZenMode
+          ? ZEN_CONFIG.FADE_OUT_DURATION
+          : ZEN_CONFIG.FADE_IN_DURATION,
         easing: Easing.inOut(Easing.ease),
       }),
     };
   });
 
   const containerZenStyle = useAnimatedStyle(() => {
-    let targetOpacity = 1;
+    let targetOpacity = ZEN_CONFIG.NORMAL_OPACITY;
     if (isZenMode && !isBinauralActive) {
-      targetOpacity = 0.05;
+      targetOpacity = ZEN_CONFIG.ZEN_OPACITY;
     }
     return {
       opacity: withTiming(targetOpacity, {
-        duration: isZenMode ? 7000 : 300,
+        duration: isZenMode
+          ? ZEN_CONFIG.FADE_OUT_DURATION
+          : ZEN_CONFIG.FADE_IN_DURATION,
       }),
     };
   });
