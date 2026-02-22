@@ -41,6 +41,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenPresets }) => {
     (state) => state.timerDurationChosen,
   );
   const currentPresetId = useMixerStore((state) => state.currentPresetId);
+  const isZenMode = useMixerStore((state) => state.isZenMode);
 
   const isPremium = useMixerStore((state) => state.isPremium);
   const setPaywallVisible = useMixerStore((state) => state.setPaywallVisible);
@@ -87,12 +88,29 @@ export const Header: React.FC<HeaderProps> = ({ onOpenPresets }) => {
     return `${minutes}:${seconds.toString().padStart(2, "0")}`;
   };
 
+  const zenOpacity = useSharedValue(1);
+
+  useEffect(() => {
+    zenOpacity.value = withTiming(isZenMode ? 0.05 : 1, {
+      duration: isZenMode ? 7000 : 300,
+      easing: Easing.inOut(Easing.ease),
+    });
+  }, [isZenMode]);
+
+  const animatedTitleStyle = useAnimatedStyle(() => ({
+    opacity: zenOpacity.value,
+  }));
+
+  const animatedSecondaryControlsStyle = useAnimatedStyle(() => ({
+    opacity: zenOpacity.value,
+  }));
+
   return (
     <View style={styles.header}>
-      <View style={styles.titleContainer}>
+      <Animated.View style={[styles.titleContainer, animatedTitleStyle]}>
         <Text style={styles.title}>{t.header.title}</Text>
         <Text style={styles.subtitle}>Binaural HD</Text>
-      </View>
+      </Animated.View>
       <View style={styles.controls}>
         {/* Play/Pause with rotating glow */}
         <View style={styles.playContainer}>
@@ -117,6 +135,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenPresets }) => {
           testID="random-btn"
           size={52}
           onPress={randomizeMix}
+          style={animatedSecondaryControlsStyle}
         >
           <Shuffle size={20} color="#EEE" />
         </LiquidButton>
@@ -128,6 +147,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenPresets }) => {
           size={52}
           isActive={currentPresetId !== null}
           onPress={isPremium ? onOpenPresets : () => setPaywallVisible(true)}
+          style={animatedSecondaryControlsStyle}
         >
           {isPremium ? (
             <Bookmark
@@ -144,6 +164,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenPresets }) => {
           isActive={timerDurationChosen !== null}
           size={52}
           onPress={onTimerPress}
+          style={animatedSecondaryControlsStyle}
         >
           {timerDurationChosen !== null ? (
             <Timer size={20} color="#FFF" />
@@ -169,7 +190,11 @@ export const Header: React.FC<HeaderProps> = ({ onOpenPresets }) => {
 
         {/* AirPlay (iOS only) */}
         {Platform.OS === "ios" && (
-          <LiquidButton isRound size={52}>
+          <LiquidButton
+            isRound
+            size={52}
+            style={animatedSecondaryControlsStyle}
+          >
             <Cast size={20} color="#EEE" />
             <View style={StyleSheet.absoluteFill}>
               <ExpoAvRoutePickerView

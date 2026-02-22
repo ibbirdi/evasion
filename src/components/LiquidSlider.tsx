@@ -1,22 +1,23 @@
-import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, LayoutChangeEvent } from "react-native";
+import React, { useEffect } from "react";
+import { StyleSheet, Text, View } from "react-native";
 import { Volume2, VolumeX, Activity, Lock } from "lucide-react-native";
+import Slider from "@react-native-community/slider";
 import { ChannelId } from "../types/mixer";
 import { LiquidButton } from "./LiquidButton";
-import { Gesture, GestureDetector } from "react-native-gesture-handler";
+import { useI18n } from "../i18n";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
-  runOnJS,
   withTiming,
+  Easing,
 } from "react-native-reanimated";
-import { useI18n } from "../i18n";
 
 interface Props {
   id: ChannelId;
   label: string;
   color: string;
   value: number; // 0 to 1
+  isZenMode: boolean;
   isMuted: boolean;
   autoVariationEnabled: boolean;
   onChange: (val: number) => void;
@@ -37,166 +38,115 @@ export const LiquidSlider: React.FC<Props> = ({
   onToggleAutoVariation,
   isLocked = false,
   onRequirePremium,
+  isZenMode,
 }) => {
   const t = useI18n();
-  const [trackWidth, setTrackWidth] = useState(0);
-  const progress = useSharedValue(value);
-  const isInteracting = useSharedValue(false);
+  const isVariationOn = autoVariationEnabled && !isLocked;
 
-  // Sync prop -> sharedValue (for AutoVariation external updates)
+  const zenOpacity = useSharedValue(1);
+  const isMutedOrZero = isMuted || value === 0;
+
   useEffect(() => {
-    if (!isInteracting.value) {
-      progress.value = withTiming(value, { duration: 150 });
+    if (isZenMode) {
+      zenOpacity.value = withTiming(isMutedOrZero ? 0.05 : 1, {
+        duration: 7000,
+        easing: Easing.inOut(Easing.ease),
+      });
+    } else {
+      zenOpacity.value = withTiming(1, {
+        duration: 300,
+        easing: Easing.inOut(Easing.ease),
+      });
     }
-  }, [value, isInteracting, progress]);
+  }, [isZenMode, isMutedOrZero]);
 
-  const pan = Gesture.Pan()
-    .enabled(!autoVariationEnabled && !isLocked)
-    .onBegin((e) => {
-      isInteracting.value = true;
-      if (trackWidth > 0) {
-        let newProgress = e.x / trackWidth;
-        newProgress = Math.max(0, Math.min(1, newProgress));
-        progress.value = newProgress;
-        runOnJS(onChange)(newProgress);
-      }
-    })
-    .onUpdate((e) => {
-      if (trackWidth > 0) {
-        let newProgress = e.x / trackWidth;
-        newProgress = Math.max(0, Math.min(1, newProgress));
-        progress.value = newProgress;
-        runOnJS(onChange)(newProgress);
-      }
-    })
-    .onEnd(() => {
-      isInteracting.value = false;
-    })
-    .onFinalize(() => {
-      isInteracting.value = false;
-    });
-
-  const fillStyle = useAnimatedStyle(() => ({
-    width: `${progress.value * 100}%`,
+  const animatedContainerStyle = useAnimatedStyle(() => ({
+    opacity: zenOpacity.value,
   }));
 
-  const thumbStyle = useAnimatedStyle(() => {
-    const translation = progress.value * trackWidth - 12; // 12 = half of thumb width
-
-    const isActive = progress.value > 0 && !isMuted;
-    const shadowOpacity = isActive ? withTiming(0.8) : withTiming(0);
-
-    // Prevent thumb from glitching to left (-12) when width is not yet calculated
-    if (trackWidth === 0) {
-      return {
-        transform: [
-          { translateX: 0 },
-          {
-            scale: withTiming(autoVariationEnabled ? 0 : 1, { duration: 300 }),
-          },
-        ],
-        opacity: withTiming(autoVariationEnabled ? 0 : 1, { duration: 300 }),
-        shadowOpacity,
-      };
-    }
-
-    return {
-      transform: [
-        { translateX: translation },
-        { scale: withTiming(autoVariationEnabled ? 0 : 1, { duration: 300 }) },
-      ],
-      opacity: withTiming(autoVariationEnabled ? 0 : 1, { duration: 300 }),
-      shadowOpacity,
-    };
-  });
-
   return (
-    <View style={[styles.row, { opacity: isMuted ? 0.5 : 1 }]}>
-      <View style={styles.labelContainer}>
-        <Text style={styles.label}>{label}</Text>
-        {isLocked && (
-          <Lock
-            size={12}
-            color="rgba(255,255,255,0.4)"
-            style={{ marginTop: 4 }}
-          />
-        )}
-      </View>
+    <Animated.View style={[styles.container, animatedContainerStyle]}>
+      <View style={styles.content}>
+        <View style={styles.labelContainer}>
+          <Text style={styles.label}>{label}</Text>
+          {isLocked && (
+            <Lock
+              size={12}
+              color="rgba(255,255,255,0.4)"
+              style={{ marginTop: 4 }}
+            />
+          )}
+        </View>
 
-      <View style={styles.sliderContainer}>
-        <GestureDetector gesture={pan}>
-          <Animated.View
-            style={styles.touchArea}
-            onLayout={(e: LayoutChangeEvent) =>
-              setTrackWidth(e.nativeEvent.layout.width)
+        <View style={styles.sliderContainer}>
+          <Slider
+            style={styles.nativeSlider}
+            value={value}
+            onValueChange={onChange}
+            minimumValue={0}
+            maximumValue={1}
+            disabled={autoVariationEnabled || isLocked}
+            minimumTrackTintColor={color}
+            maximumTrackTintColor="rgba(255,255,255,0.1)"
+            thumbTintColor={isVariationOn ? "transparent" : "#FFFFFF"}
+            thumbImage={
+              isVariationOn
+                ? {
+                    uri: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
+                  }
+                : undefined
             }
-          >
-            {/* The Glass Track */}
-            <View style={styles.glassTrack}>
-              {/* The Fill */}
-              <Animated.View
-                style={[
-                  styles.glassFill,
-                  { backgroundColor: color },
-                  fillStyle,
-                ]}
-              />
+          />
+
+          {autoVariationEnabled && (
+            <View style={styles.autoLabelContainer} pointerEvents="none">
+              <Text style={styles.autoLabelText}>{t.mixer.auto_variation}</Text>
             </View>
+          )}
+        </View>
 
-            {/* The Thumb */}
-            <Animated.View
-              style={[styles.glassThumb, { shadowColor: color }, thumbStyle]}
-            >
-              {/* <View style={[styles.thumbInner, { backgroundColor: color }]} /> */}
-            </Animated.View>
-          </Animated.View>
-        </GestureDetector>
-
-        {autoVariationEnabled && (
-          <View style={styles.autoLabelContainer} pointerEvents="none">
-            <Text style={styles.autoLabelText}>{t.mixer.auto_variation}</Text>
-          </View>
-        )}
-      </View>
-
-      {/* Controls */}
-      <View style={styles.controls}>
-        {isLocked ? (
-          <LiquidButton onPress={onRequirePremium} isRound isActive={false}>
-            <Lock size={18} color="#AAA" />
-          </LiquidButton>
-        ) : (
-          <>
-            <LiquidButton
-              onPress={onToggleAutoVariation}
-              isRound
-              isActive={autoVariationEnabled}
-            >
-              <Activity
-                strokeWidth={3}
-                size={18}
-                color={autoVariationEnabled ? "#FFF" : "#AAA"}
-              />
+        {/* Controls */}
+        <View style={styles.controls}>
+          {isLocked ? (
+            <LiquidButton onPress={onRequirePremium} isRound isActive={false}>
+              <Lock size={18} color="#AAA" />
             </LiquidButton>
-            <LiquidButton onPress={onToggleMute} isRound isActive={!isMuted}>
-              {!isMuted ? (
-                <Volume2 strokeWidth={3} size={18} color="#ffffffff" />
-              ) : (
-                <VolumeX size={18} color="#666" />
-              )}
-            </LiquidButton>
-          </>
-        )}
+          ) : (
+            <>
+              <LiquidButton
+                onPress={onToggleAutoVariation}
+                isRound
+                isActive={autoVariationEnabled}
+              >
+                <Activity
+                  strokeWidth={3}
+                  size={18}
+                  color={autoVariationEnabled ? "#FFF" : "#AAA"}
+                />
+              </LiquidButton>
+              <LiquidButton onPress={onToggleMute} isRound isActive={!isMuted}>
+                {!isMuted ? (
+                  <Volume2 strokeWidth={3} size={18} color="#ffffffff" />
+                ) : (
+                  <VolumeX size={18} color="#666" />
+                )}
+              </LiquidButton>
+            </>
+          )}
+        </View>
       </View>
-    </View>
+    </Animated.View>
   );
 };
 
 const styles = StyleSheet.create({
-  row: {
+  container: {
+    marginBottom: 20,
+    width: "100%",
+  },
+  content: {
     flexDirection: "row",
     alignItems: "center",
-    marginVertical: 12,
     paddingHorizontal: 16,
     width: "100%",
     justifyContent: "space-between",
@@ -214,41 +164,11 @@ const styles = StyleSheet.create({
     flex: 1,
     marginHorizontal: 10,
     justifyContent: "center",
+    height: 40,
   },
-  touchArea: {
+  nativeSlider: {
     width: "100%",
     height: 40,
-    justifyContent: "center",
-  },
-  glassTrack: {
-    width: "100%",
-    height: 6,
-    borderRadius: 3,
-    backgroundColor: "rgba(255,255,255,0.06)", // Fond givré très subtil
-    overflow: "hidden",
-  },
-  glassFill: {
-    height: "100%",
-    opacity: 0.85,
-    borderRadius: 5,
-  },
-  glassThumb: {
-    position: "absolute",
-    width: 24,
-    height: 24,
-    borderRadius: 12,
-    backgroundColor: "rgba(20, 25, 35, 0.95)", // Coeur sombre comme du verre teinté
-    borderWidth: 1.5,
-    borderColor: "rgba(255,255,255,0.9)", // Bordure étincelante
-    shadowOffset: { width: 0, height: 0 },
-    shadowRadius: 10,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  thumbInner: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
   },
   autoLabelContainer: {
     position: "absolute",
@@ -267,10 +187,5 @@ const styles = StyleSheet.create({
     gap: 8,
     width: 96,
     justifyContent: "flex-end",
-  },
-  roundBtn: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
   },
 });

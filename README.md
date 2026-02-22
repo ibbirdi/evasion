@@ -32,6 +32,17 @@ Le développement repose sur une architecture moderne de pointe, construite en R
 - **Enregistrement de Presets** : Création et sauvegarde illimitée de "Paysages Sonores" dans la mémoire interne du dispositif. (Pistes, Volume, et paramètres d'Auto-Variation mémorisés).
 - **Presets Signatures Inclus** : Collections par défaut offertes dès la première utilisation pour les néophytes.
 
+### D. Sons Binauraux Immersifs (Nouveau)
+
+- **Synchronisation des Ondes Cérébrales** : Intégration de fréquences pures conçues pour accompagner vos états mentaux. nécessite l'utilisation d'un casque stéréo pour une efficacité optimale.
+- **4 Modes de Fréquences Réellement Efficaces** :
+  - **Delta (Sommeil)** : Favorise l'endormissement et un sommeil profond réparateur.
+  - **Theta (Relaxation)** : Idéal pour la méditation profonde et la réduction du stress.
+  - **Alpha (Concentration)** : Pour la mémorisation, l'apprentissage et le travail créatif.
+  - **Beta (Éveil)** : Stimule la vigilance et les capacités cognitives.
+- **Mixage Hybride Indépendant** : Les battements binauraux disposent de leur propre moteur audio et réglage de volume, permettant de les mixer subtilement avec n'importe quel paysage sonore naturel.
+- **Interface Adaptive Liquid Glass** : Le panneau binaural utilise un design en verre liquide auto-rétractable qui se replie dynamiquement lorsqu'il est désactivé pour libérer l'espace visuel.
+
 ## 3. Interface Utilisateur (UI) / Expérience (UX) Épurée et Premium
 
 L'application a été conçue pour offrir un sentiment de luxe feutré et de détente instantanée.

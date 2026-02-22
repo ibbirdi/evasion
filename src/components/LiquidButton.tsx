@@ -83,7 +83,7 @@ export const LiquidButton: React.FC<LiquidButtonProps> = ({
       style={[
         {
           width: isRound ? size : undefined,
-          height: isRound ? size : undefined,
+          height: size,
           borderRadius,
           overflow: "hidden",
         },

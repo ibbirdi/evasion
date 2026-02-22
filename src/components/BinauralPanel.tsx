@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { GlassView } from "expo-glass-effect";
 import { Lock } from "lucide-react-native";
+import Slider from "@react-native-community/slider";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import Animated, {
   useAnimatedStyle,
@@ -131,77 +132,20 @@ const BinauralVolumeSlider: React.FC<{
   disabled: boolean;
   onChange: (val: number) => void;
 }> = ({ value, color, disabled, onChange }) => {
-  const [trackWidth, setTrackWidth] = useState(0);
-  const progress = useSharedValue(value);
-  const isInteracting = useSharedValue(false);
-
-  useEffect(() => {
-    if (!isInteracting.value) {
-      progress.value = withTiming(value, { duration: 150 });
-    }
-  }, [value]);
-
-  const pan = Gesture.Pan()
-    .enabled(!disabled)
-    .onBegin((e) => {
-      isInteracting.value = true;
-      if (trackWidth > 0) {
-        let p = e.x / trackWidth;
-        p = Math.max(0, Math.min(1, p));
-        progress.value = p;
-        runOnJS(onChange)(p);
-      }
-    })
-    .onUpdate((e) => {
-      if (trackWidth > 0) {
-        let p = e.x / trackWidth;
-        p = Math.max(0, Math.min(1, p));
-        progress.value = p;
-        runOnJS(onChange)(p);
-      }
-    })
-    .onEnd(() => {
-      isInteracting.value = false;
-    })
-    .onFinalize(() => {
-      isInteracting.value = false;
-    });
-
-  const fillStyle = useAnimatedStyle(() => ({
-    width: `${progress.value * 100}%`,
-  }));
-
-  const thumbStyle = useAnimatedStyle(() => {
-    const translation = progress.value * trackWidth - 12;
-    const shadowOpacity = progress.value > 0 ? withTiming(0.8) : withTiming(0);
-    if (trackWidth === 0) {
-      return { transform: [{ translateX: 0 }], shadowOpacity };
-    }
-    return { transform: [{ translateX: translation }], shadowOpacity };
-  });
-
   return (
-    <GestureDetector gesture={pan}>
-      <Animated.View
-        style={sliderStyles.touchArea}
-        onLayout={(e: LayoutChangeEvent) =>
-          setTrackWidth(e.nativeEvent.layout.width)
-        }
-      >
-        <View style={sliderStyles.glassTrack}>
-          <Animated.View
-            style={[
-              sliderStyles.glassFill,
-              { backgroundColor: color },
-              fillStyle,
-            ]}
-          />
-        </View>
-        <Animated.View
-          style={[sliderStyles.glassThumb, { shadowColor: color }, thumbStyle]}
-        />
-      </Animated.View>
-    </GestureDetector>
+    <View style={sliderStyles.container}>
+      <Slider
+        style={sliderStyles.nativeSlider}
+        value={value}
+        onValueChange={onChange}
+        minimumValue={0}
+        maximumValue={1}
+        disabled={disabled}
+        minimumTrackTintColor={color}
+        maximumTrackTintColor="rgba(255,255,255,0.1)"
+        thumbTintColor="#FFFFFF"
+      />
+    </View>
   );
 };
 
@@ -215,6 +159,7 @@ export const BinauralPanel: React.FC = () => {
   const setBinauralVolume = useMixerStore((s) => s.setBinauralVolume);
   const isPremium = useMixerStore((s) => s.isPremium);
   const setPaywallVisible = useMixerStore((s) => s.setPaywallVisible);
+  const isZenMode = useMixerStore((s) => s.isZenMode);
 
   const activeColor = BINAURAL_COLORS[activeBinauralTrack];
 
@@ -245,12 +190,30 @@ export const BinauralPanel: React.FC = () => {
     ],
   }));
 
-  const contentAnimatedStyle = useAnimatedStyle(() => ({
-    opacity: withTiming(isBinauralActive ? 1 : 0.4, {
-      duration: 300,
-      easing: Easing.out(Easing.cubic),
-    }),
-  }));
+  const contentAnimatedStyle = useAnimatedStyle(() => {
+    let targetOpacity = isBinauralActive ? 1 : 0.4;
+    if (isZenMode && !isBinauralActive) {
+      targetOpacity = 0.05;
+    }
+    return {
+      opacity: withTiming(targetOpacity, {
+        duration: isZenMode ? 7000 : 300,
+        easing: Easing.inOut(Easing.ease),
+      }),
+    };
+  });
+
+  const containerZenStyle = useAnimatedStyle(() => {
+    let targetOpacity = 1;
+    if (isZenMode && !isBinauralActive) {
+      targetOpacity = 0.05;
+    }
+    return {
+      opacity: withTiming(targetOpacity, {
+        duration: isZenMode ? 7000 : 300,
+      }),
+    };
+  });
 
   const handleContentLayout = (event: LayoutChangeEvent) => {
     const { height } = event.nativeEvent.layout;
@@ -260,7 +223,9 @@ export const BinauralPanel: React.FC = () => {
   };
 
   return (
-    <Animated.View style={[styles.container, containerAnimatedStyle]}>
+    <Animated.View
+      style={[styles.container, containerAnimatedStyle, containerZenStyle]}
+    >
       <GlassView style={StyleSheet.absoluteFillObject} tintColor="dark" />
 
       <View style={styles.inner}>
@@ -415,34 +380,13 @@ const styles = StyleSheet.create({
 });
 
 const sliderStyles = StyleSheet.create({
-  touchArea: {
+  container: {
     width: "100%",
     height: 40,
     justifyContent: "center",
   },
-  glassTrack: {
+  nativeSlider: {
     width: "100%",
-    height: 6,
-    borderRadius: 3,
-    backgroundColor: "rgba(255,255,255,0.06)",
-    overflow: "hidden",
-  },
-  glassFill: {
-    height: "100%",
-    opacity: 0.85,
-    borderRadius: 5,
-  },
-  glassThumb: {
-    position: "absolute",
-    width: 24,
-    height: 24,
-    borderRadius: 12,
-    backgroundColor: "rgba(20, 25, 35, 0.95)",
-    borderWidth: 1.5,
-    borderColor: "rgba(255,255,255,0.9)",
-    shadowOffset: { width: 0, height: 0 },
-    shadowRadius: 10,
-    justifyContent: "center",
-    alignItems: "center",
+    height: 40,
   },
 });

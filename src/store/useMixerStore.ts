@@ -20,6 +20,7 @@ export const useMixerStore = create<MixerStore>()(
       currentPresetId: null,
       isPremium: false,
       isPaywallVisible: false,
+      isZenMode: false,
 
       // Binaural States
       isBinauralActive: false,
@@ -33,11 +34,20 @@ export const useMixerStore = create<MixerStore>()(
       presets: [...DEFAULT_PRESETS],
 
       // Global Actions
-      togglePlayPause: () => set((state) => ({ isPlaying: !state.isPlaying })),
+      togglePlayPause: () =>
+        set((state) => {
+          const nextIsPlaying = !state.isPlaying;
+          return {
+            isPlaying: nextIsPlaying,
+            isZenMode: nextIsPlaying,
+          };
+        }),
 
       setIsPremium: (isPremium: boolean) => set({ isPremium }),
       setPaywallVisible: (isPaywallVisible: boolean) =>
         set({ isPaywallVisible }),
+
+      setIsZenMode: (isZenMode: boolean) => set({ isZenMode }),
 
       // Binaural Actions
       toggleBinaural: () =>
@@ -83,6 +93,7 @@ export const useMixerStore = create<MixerStore>()(
           channels: newChannels,
           currentPresetId: null, // Custom random mix
           isPlaying: true, // Auto play when randomized
+          isZenMode: true,
         });
       },
 

@@ -23,6 +23,7 @@ export interface MixerState {
   timerEndTime: number | null; // Timestamp of timer end
   timerDurationChosen: number | null; // e.g 15, 30, 60
   currentPresetId: string | null;
+  isZenMode: boolean;
 
   // Freemium States
   isPremium: boolean;
@@ -47,6 +48,7 @@ export interface MixerActions {
   randomizeMix: () => void;
   setIsPremium: (value: boolean) => void;
   setPaywallVisible: (value: boolean) => void;
+  setIsZenMode: (val: boolean) => void;
 
   // Binaural Actions
   toggleBinaural: () => void;

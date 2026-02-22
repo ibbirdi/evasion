@@ -10,6 +10,7 @@ import { Pressable } from "react-native";
 export const MixerBoard: React.FC = () => {
   const t = useI18n();
   const channels = useMixerStore((state) => state.channels);
+  const isZenMode = useMixerStore((state) => state.isZenMode);
   const setChannelVolume = useMixerStore((state) => state.setChannelVolume);
   const toggleChannelMute = useMixerStore((state) => state.toggleChannelMute);
   const toggleChannelAutoVariation = useMixerStore(
@@ -36,6 +37,7 @@ export const MixerBoard: React.FC = () => {
             value={channel.volume}
             isMuted={channel.isMuted}
             autoVariationEnabled={channel.autoVariationEnabled}
+            isZenMode={isZenMode}
             isLocked={isLocked}
             onRequirePremium={() => setPaywallVisible(true)}
             onChange={(val) => setChannelVolume(key, val)}

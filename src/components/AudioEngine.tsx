@@ -8,7 +8,10 @@ const pickRandom = <T,>(array: readonly T[]): T => {
   return array[Math.floor(Math.random() * array.length)];
 };
 
-const ChannelAudio: React.FC<{ channelId: ChannelId }> = ({ channelId }) => {
+const ChannelAudio: React.FC<{
+  channelId: ChannelId;
+  fadeMultiplier: number;
+}> = ({ channelId, fadeMultiplier }) => {
   const isPlaying = useMixerStore((state) => state.isPlaying);
   const channelState = useMixerStore((state) => state.channels[channelId]);
 
@@ -69,8 +72,8 @@ const ChannelAudio: React.FC<{ channelId: ChannelId }> = ({ channelId }) => {
   // 2. Sync Manual Volume Changes
   useEffect(() => {
     const targetVolume = channelState.isMuted ? 0 : channelState.volume;
-    player.volume = targetVolume;
-  }, [channelState.isMuted, channelState.volume]);
+    player.volume = targetVolume * fadeMultiplier;
+  }, [channelState.isMuted, channelState.volume, fadeMultiplier]);
 
   // 3. Handle Audio Auto-Variation
   useEffect(() => {
@@ -127,7 +130,57 @@ export const AudioEngine: React.FC = () => {
   const togglePlayPause = useMixerStore((state) => state.togglePlayPause);
   const setTimer = useMixerStore((state) => state.setTimer);
 
-  // Initial config for Background Audio
+  const [fadeMultiplier, setFadeMultiplier] = useState(0);
+  const fadeTarget = useRef(0);
+
+  // Audio Fade Logic
+  useEffect(() => {
+    let fadeInterval: NodeJS.Timeout | null = null;
+
+    if (isPlaying) {
+      // Start Fade-In
+      fadeTarget.current = 1;
+      const FADE_IN_DURATION = 7000;
+      const STEP_INTERVAL = 250;
+      const steps = FADE_IN_DURATION / STEP_INTERVAL;
+      const stepDelta = 1 / steps;
+
+      fadeInterval = setInterval(() => {
+        setFadeMultiplier((prev) => {
+          const next = prev + stepDelta;
+          if (next >= 1) {
+            if (fadeInterval) clearInterval(fadeInterval);
+            return 1;
+          }
+          return next;
+        });
+      }, STEP_INTERVAL);
+    } else {
+      // Fade-Out before pausing is handled by the component that triggers isPlaying logic
+      // But here we need to ensure it's 0 if not playing and not fading out
+      if (fadeMultiplier > 0) {
+        const FADE_OUT_DURATION = 1000;
+        const STEP_INTERVAL = 100;
+        const steps = FADE_OUT_DURATION / STEP_INTERVAL;
+        const stepDelta = 1 / steps;
+
+        fadeInterval = setInterval(() => {
+          setFadeMultiplier((prev) => {
+            const next = prev - stepDelta;
+            if (next <= 0) {
+              if (fadeInterval) clearInterval(fadeInterval);
+              return 0;
+            }
+            return next;
+          });
+        }, STEP_INTERVAL);
+      }
+    }
+
+    return () => {
+      if (fadeInterval) clearInterval(fadeInterval);
+    };
+  }, [isPlaying]);
   useEffect(() => {
     setAudioModeAsync({
       playsInSilentMode: true,
@@ -156,7 +209,11 @@ export const AudioEngine: React.FC = () => {
   return (
     <>
       {(Object.keys(AUDIO_CONFIG) as ChannelId[]).map((key) => (
-        <ChannelAudio key={key} channelId={key} />
+        <ChannelAudio
+          key={key}
+          channelId={key}
+          fadeMultiplier={fadeMultiplier}
+        />
       ))}
     </>
   );
