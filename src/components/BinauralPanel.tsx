@@ -234,10 +234,13 @@ export const BinauralPanel: React.FC = () => {
   const containerAnimatedStyle = useAnimatedStyle(() => ({
     transform: [
       {
-        translateY: withTiming(isBinauralActive ? 0 : contentHeight.value, {
-          duration: 400,
-          easing: Easing.out(Easing.cubic),
-        }),
+        translateY: withTiming(
+          isBinauralActive ? 0 : contentHeight.value + 16,
+          {
+            duration: 400,
+            easing: Easing.out(Easing.cubic),
+          },
+        ),
       },
     ],
   }));
@@ -259,7 +262,6 @@ export const BinauralPanel: React.FC = () => {
   return (
     <Animated.View style={[styles.container, containerAnimatedStyle]}>
       <GlassView style={StyleSheet.absoluteFillObject} tintColor="dark" />
-      <View style={styles.backgroundOverlay} />
 
       <View style={styles.inner}>
         {/* Header */}
@@ -333,12 +335,6 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 24,
     borderTopRightRadius: 24,
     overflow: "hidden",
-    borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: theme.colors.border,
-  },
-  backgroundOverlay: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: "rgba(13, 17, 23, 0.6)",
   },
   inner: {
     paddingHorizontal: 24,

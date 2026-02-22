@@ -50,6 +50,9 @@ export const en = {
     beta: "Awake" as string,
     headphones_hint: "Stereo headphones recommended" as string,
   },
+  mixer: {
+    auto_variation: "AUTO VARIATION" as string,
+  },
 };
 
 export type Translations = typeof en;

@@ -10,6 +10,7 @@ import Animated, {
   runOnJS,
   withTiming,
 } from "react-native-reanimated";
+import { useI18n } from "../i18n";
 
 interface Props {
   id: ChannelId;
@@ -37,6 +38,7 @@ export const LiquidSlider: React.FC<Props> = ({
   isLocked = false,
   onRequirePremium,
 }) => {
+  const t = useI18n();
   const [trackWidth, setTrackWidth] = useState(0);
   const progress = useSharedValue(value);
   const isInteracting = useSharedValue(false);
@@ -86,11 +88,24 @@ export const LiquidSlider: React.FC<Props> = ({
 
     // Prevent thumb from glitching to left (-12) when width is not yet calculated
     if (trackWidth === 0) {
-      return { transform: [{ translateX: 0 }], shadowOpacity };
+      return {
+        transform: [
+          { translateX: 0 },
+          {
+            scale: withTiming(autoVariationEnabled ? 0 : 1, { duration: 300 }),
+          },
+        ],
+        opacity: withTiming(autoVariationEnabled ? 0 : 1, { duration: 300 }),
+        shadowOpacity,
+      };
     }
 
     return {
-      transform: [{ translateX: translation }],
+      transform: [
+        { translateX: translation },
+        { scale: withTiming(autoVariationEnabled ? 0 : 1, { duration: 300 }) },
+      ],
+      opacity: withTiming(autoVariationEnabled ? 0 : 1, { duration: 300 }),
       shadowOpacity,
     };
   });
@@ -139,7 +154,7 @@ export const LiquidSlider: React.FC<Props> = ({
 
         {autoVariationEnabled && (
           <View style={styles.autoLabelContainer} pointerEvents="none">
-            <Text style={styles.autoLabelText}>AUTO</Text>
+            <Text style={styles.autoLabelText}>{t.mixer.auto_variation}</Text>
           </View>
         )}
       </View>

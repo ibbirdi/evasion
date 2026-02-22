@@ -52,4 +52,7 @@ export const pt: Translations = {
     beta: "Desperto",
     headphones_hint: "Fones estéreo recomendados",
   },
+  mixer: {
+    auto_variation: "VARIAÇÃO AUTO",
+  },
 } as const satisfies Translations;
