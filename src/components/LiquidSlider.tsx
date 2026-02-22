@@ -44,21 +44,17 @@ export const LiquidSlider: React.FC<Props> = ({
   const isVariationOn = autoVariationEnabled && !isLocked;
 
   const zenOpacity = useSharedValue(1);
-  const isMutedOrZero = isMuted || value === 0;
+  const isActive = !isMuted && (value > 0 || autoVariationEnabled);
+  const normalOpacity = isActive ? 1 : 0.4;
+  const zenTargetOpacity = isActive ? 1 : 0.05;
 
   useEffect(() => {
-    if (isZenMode) {
-      zenOpacity.value = withTiming(isMutedOrZero ? 0.05 : 1, {
-        duration: 7000,
-        easing: Easing.inOut(Easing.ease),
-      });
-    } else {
-      zenOpacity.value = withTiming(1, {
-        duration: 300,
-        easing: Easing.inOut(Easing.ease),
-      });
-    }
-  }, [isZenMode, isMutedOrZero]);
+    const target = isZenMode ? zenTargetOpacity : normalOpacity;
+    zenOpacity.value = withTiming(target, {
+      duration: isZenMode ? 7000 : 300,
+      easing: Easing.inOut(Easing.ease),
+    });
+  }, [isZenMode, normalOpacity, zenTargetOpacity]);
 
   const animatedContainerStyle = useAnimatedStyle(() => ({
     opacity: zenOpacity.value,
@@ -78,14 +74,17 @@ export const LiquidSlider: React.FC<Props> = ({
           )}
         </View>
 
-        <View style={styles.sliderContainer}>
+        <View
+          style={styles.sliderContainer}
+          pointerEvents={autoVariationEnabled && !isLocked ? "none" : "auto"}
+        >
           <Slider
             style={styles.nativeSlider}
             value={value}
             onValueChange={onChange}
             minimumValue={0}
             maximumValue={1}
-            disabled={autoVariationEnabled || isLocked}
+            disabled={isLocked}
             minimumTrackTintColor={color}
             maximumTrackTintColor="rgba(255,255,255,0.1)"
             thumbTintColor={isVariationOn ? "transparent" : "#FFFFFF"}

@@ -39,7 +39,7 @@ export const useMixerStore = create<MixerStore>()(
           const nextIsPlaying = !state.isPlaying;
           return {
             isPlaying: nextIsPlaying,
-            isZenMode: nextIsPlaying,
+            isZenMode: false, // Always show controls when manually toggling
           };
         }),
 

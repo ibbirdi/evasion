@@ -7,7 +7,7 @@ import { MixerBoard } from "./src/components/MixerBoard";
 import { Header } from "./src/components/Header";
 import { AudioEngine } from "./src/components/AudioEngine";
 import { BinauralAudioEngine } from "./src/components/BinauralAudioEngine";
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useMemo } from "react";
 import { PresetsModal } from "./src/components/PresetsModal";
 import { I18nProvider } from "./src/i18n";
 import { PaywallScreen } from "./src/components/PaywallScreen";
@@ -56,18 +56,19 @@ export default function App() {
   const resetZenTimer = useCallback(() => {
     if (inactivityTimeout.current) clearTimeout(inactivityTimeout.current);
 
+    // Use getter for store to avoid dependency on isZenMode
+    const { isZenMode, isPlaying } = useMixerStore.getState();
+
     if (isPlaying && isZenMode) {
-      // If we are currently in Zen Mode, bring back controls instantly
       setIsZenMode(false);
     }
 
     if (isPlaying) {
-      // Restart the countdown to go back to Zen
       inactivityTimeout.current = setTimeout(() => {
         setIsZenMode(true);
       }, 5000);
     }
-  }, [isPlaying, isZenMode]);
+  }, [isPlaying]); // Only depends on isPlaying to know if we should restart the timer
 
   useEffect(() => {
     if (isPlaying) {
@@ -81,20 +82,16 @@ export default function App() {
     };
   }, [isPlaying]);
 
-  const gesture = Gesture.Tap()
-    .onStart(() => {
-      runOnJS(resetZenTimer)();
-    })
-    .runOnJS(true);
-
-  // Also listen for pan to reset timer
-  const panGesture = Gesture.Pan()
-    .onStart(() => {
-      runOnJS(resetZenTimer)();
-    })
-    .runOnJS(true);
-
-  const composedGesture = Gesture.Exclusive(gesture, panGesture);
+  const activityGesture = useMemo(
+    () =>
+      Gesture.Pan()
+        .runOnJS(true)
+        .minDistance(0)
+        .onBegin(() => {
+          runOnJS(resetZenTimer)();
+        }),
+    [resetZenTimer],
+  );
 
   if (!fontsLoaded) return null;
   return (
@@ -103,7 +100,7 @@ export default function App() {
         style={styles.container}
         onLayout={onLayoutRootView}
       >
-        <GestureDetector gesture={composedGesture}>
+        <GestureDetector gesture={activityGesture}>
           <View style={styles.container}>
             <AudioEngine />
             <BinauralAudioEngine />

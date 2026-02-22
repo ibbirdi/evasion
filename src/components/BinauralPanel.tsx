@@ -180,7 +180,7 @@ export const BinauralPanel: React.FC = () => {
     transform: [
       {
         translateY: withTiming(
-          isBinauralActive ? 0 : contentHeight.value + 16,
+          isBinauralActive ? 0 : contentHeight.value + 36,
           {
             duration: 400,
             easing: Easing.out(Easing.cubic),

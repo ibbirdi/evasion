@@ -187,25 +187,20 @@ export const Header: React.FC<HeaderProps> = ({ onOpenPresets }) => {
             <Lock size={12} color="#AAA" style={{ marginLeft: 4 }} />
           )}
         </LiquidButton>
-
-        {/* AirPlay (iOS only) */}
-        {Platform.OS === "ios" && (
-          <LiquidButton
-            isRound
-            size={52}
-            style={animatedSecondaryControlsStyle}
-          >
-            <Cast size={20} color="#EEE" />
-            <View style={StyleSheet.absoluteFill}>
-              <ExpoAvRoutePickerView
-                activeTintColor="transparent"
-                tintColor="transparent"
-                style={{ width: "100%", height: "100%" }}
-              />
-            </View>
-          </LiquidButton>
-        )}
       </View>
+
+      {/* AirPlay (iOS only) - Absolute top right */}
+      {Platform.OS === "ios" && (
+        <Animated.View
+          style={[styles.airplayContainer, animatedSecondaryControlsStyle]}
+        >
+          <ExpoAvRoutePickerView
+            activeTintColor="#FFF"
+            tintColor="#EEE"
+            style={{ width: 32, height: 32 }}
+          />
+        </Animated.View>
+      )}
     </View>
   );
 };
@@ -351,6 +346,12 @@ const styles = StyleSheet.create({
   },
   playContainer: {
     position: "relative",
+  },
+  airplayContainer: {
+    position: "absolute",
+    top: 66,
+    right: 20,
+    zIndex: 10,
   },
   btnText: {
     color: "#EEE",
