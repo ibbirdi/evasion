@@ -103,6 +103,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenPresets }) => {
 
   const animatedSecondaryControlsStyle = useAnimatedStyle(() => ({
     opacity: zenOpacity.value,
+    borderRadius: 26,
   }));
 
   return (
@@ -197,7 +198,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenPresets }) => {
           <ExpoAvRoutePickerView
             activeTintColor="#FFF"
             tintColor="#EEE"
-            style={{ width: 32, height: 32 }}
+            style={{ width: 44, height: 44, transform: [{ scale: 1.5 }] }}
           />
         </Animated.View>
       )}
@@ -266,13 +267,13 @@ const PlayGlowRing: React.FC<{ isPlaying: boolean; size: number }> = ({
         style={[
           arcBase,
           {
-            borderWidth: 3,
+            borderWidth: 1,
             borderTopColor: "rgba(255,255,255,0.5)",
             borderRightColor: "rgba(255,255,255,0.15)",
             shadowColor: "#FFFFFF",
             shadowOffset: { width: 0, height: 0 },
             shadowOpacity: 1,
-            shadowRadius: 18,
+            shadowRadius: 5,
           },
         ]}
       />
@@ -301,8 +302,8 @@ const PlayGlowRing: React.FC<{ isPlaying: boolean; size: number }> = ({
             borderRightColor: "rgba(255,255,255,0.3)",
             shadowColor: "#FFFFFF",
             shadowOffset: { width: 0, height: 0 },
-            shadowOpacity: 0.8,
-            shadowRadius: 4,
+            shadowOpacity: 1,
+            shadowRadius: 5,
           },
         ]}
       />

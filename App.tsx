@@ -82,17 +82,6 @@ export default function App() {
     };
   }, [isPlaying]);
 
-  const activityGesture = useMemo(
-    () =>
-      Gesture.Pan()
-        .runOnJS(true)
-        .minDistance(0)
-        .onBegin(() => {
-          runOnJS(resetZenTimer)();
-        }),
-    [resetZenTimer],
-  );
-
   if (!fontsLoaded) return null;
   return (
     <I18nProvider>
@@ -100,24 +89,22 @@ export default function App() {
         style={styles.container}
         onLayout={onLayoutRootView}
       >
-        <GestureDetector gesture={activityGesture}>
-          <View style={styles.container}>
-            <AudioEngine />
-            <BinauralAudioEngine />
-            <AnimatedBackground />
-            <View style={styles.overlay}>
-              <Header onOpenPresets={() => setIsPresetsVisible(true)} />
-              <MixerBoard />
-              <BinauralPanel />
-            </View>
-            <PresetsModal
-              visible={isPresetsVisible}
-              onClose={() => setIsPresetsVisible(false)}
-            />
-            <PaywallScreen />
-            <StatusBar style="light" />
+        <View style={styles.container} onTouchStart={resetZenTimer}>
+          <AudioEngine />
+          <BinauralAudioEngine />
+          <AnimatedBackground />
+          <View style={styles.overlay}>
+            <Header onOpenPresets={() => setIsPresetsVisible(true)} />
+            <MixerBoard />
+            <BinauralPanel />
           </View>
-        </GestureDetector>
+          <PresetsModal
+            visible={isPresetsVisible}
+            onClose={() => setIsPresetsVisible(false)}
+          />
+          <PaywallScreen />
+          <StatusBar style="light" />
+        </View>
       </GestureHandlerRootView>
     </I18nProvider>
   );
