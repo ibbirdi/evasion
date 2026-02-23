@@ -45,9 +45,13 @@ export const en = {
   binaural: {
     title: "BINAURAL BEATS" as string,
     delta: "Sleep" as string,
+    delta_freq: "Delta (3 Hz)" as string,
     theta: "Relax" as string,
+    theta_freq: "Theta (6 Hz)" as string,
     alpha: "Focus" as string,
+    alpha_freq: "Alpha (10 Hz)" as string,
     beta: "Awake" as string,
+    beta_freq: "Beta (15 Hz)" as string,
     headphones_hint: "Stereo headphones recommended" as string,
   },
   mixer: {

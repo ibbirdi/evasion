@@ -47,9 +47,13 @@ export const de: Translations = {
   binaural: {
     title: "BINAURALE BEATS",
     delta: "Schlaf",
+    delta_freq: "Delta (3 Hz)",
     theta: "Entspannen",
+    theta_freq: "Theta (6 Hz)",
     alpha: "Fokus",
+    alpha_freq: "Alpha (10 Hz)",
     beta: "Wach",
+    beta_freq: "Beta (15 Hz)",
     headphones_hint: "Stereokopfhörer empfohlen",
   },
   mixer: {

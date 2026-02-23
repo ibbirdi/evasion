@@ -29,11 +29,12 @@ import * as Haptics from "expo-haptics";
 const TRACKS: {
   id: BinauralTrackId;
   labelKey: "delta" | "theta" | "alpha" | "beta";
+  freqKey: "delta_freq" | "theta_freq" | "alpha_freq" | "beta_freq";
 }[] = [
-  { id: "delta", labelKey: "delta" },
-  { id: "theta", labelKey: "theta" },
-  { id: "alpha", labelKey: "alpha" },
-  { id: "beta", labelKey: "beta" },
+  { id: "delta", labelKey: "delta", freqKey: "delta_freq" },
+  { id: "theta", labelKey: "theta", freqKey: "theta_freq" },
+  { id: "alpha", labelKey: "alpha", freqKey: "alpha_freq" },
+  { id: "beta", labelKey: "beta", freqKey: "beta_freq" },
 ];
 
 // Unique color per binaural track (harmonious pastels matching the app's palette)
@@ -113,15 +114,26 @@ const TrackSelector: React.FC<{
           </View>
         )}
       </Animated.View>
-      <Text
-        style={[
-          styles.trackLabel,
-          isActive && styles.trackLabelActive,
-          isLocked && !isActive && styles.trackLabelLocked,
-        ]}
-      >
-        {t.binaural[track.labelKey]}
-      </Text>
+      <View style={styles.labelContainer}>
+        <Text
+          style={[
+            styles.trackLabel,
+            isActive && styles.trackLabelActive,
+            isLocked && !isActive && styles.trackLabelLocked,
+          ]}
+        >
+          {t.binaural[track.labelKey]}
+        </Text>
+        <Text
+          style={[
+            styles.trackFreq,
+            isActive && styles.trackFreqActive,
+            isLocked && !isActive && styles.trackFreqLocked,
+          ]}
+        >
+          {t.binaural[track.freqKey]}
+        </Text>
+      </View>
     </Pressable>
   );
 };
@@ -377,6 +389,22 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
   trackLabelLocked: {
+    opacity: 0.45,
+  },
+  labelContainer: {
+    alignItems: "center",
+    gap: 2,
+  },
+  trackFreq: {
+    fontSize: 8,
+    fontWeight: "500",
+    color: "rgba(255,255,255,0.25)",
+    letterSpacing: 0.2,
+  },
+  trackFreqActive: {
+    color: "rgba(255,255,255,0.5)",
+  },
+  trackFreqLocked: {
     opacity: 0.45,
   },
   // Slider container

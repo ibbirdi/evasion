@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useMemo, useState } from "react";
 import { useAudioPlayer, setAudioModeAsync } from "expo-audio";
+import { AppState, AppStateStatus } from "react-native";
 import { useMixerStore } from "../store/useMixerStore";
 import { ChannelId } from "../types/mixer";
 import { AUDIO_CONFIG } from "../config/audio";
@@ -181,12 +182,34 @@ export const AudioEngine: React.FC = () => {
       if (fadeInterval) clearInterval(fadeInterval);
     };
   }, [isPlaying]);
+
   useEffect(() => {
-    setAudioModeAsync({
-      playsInSilentMode: true,
-      shouldPlayInBackground: true,
-      interruptionMode: "mixWithOthers",
-    });
+    const applyAudioMode = async () => {
+      try {
+        await setAudioModeAsync({
+          playsInSilentMode: true,
+          shouldPlayInBackground: true,
+          interruptionMode: "mixWithOthers",
+        });
+      } catch (e) {
+        console.warn("Failed to set audio mode:", e);
+      }
+    };
+
+    applyAudioMode();
+
+    const subscription = AppState.addEventListener(
+      "change",
+      (nextStatus: AppStateStatus) => {
+        if (nextStatus === "active") {
+          applyAudioMode();
+        }
+      },
+    );
+
+    return () => {
+      subscription.remove();
+    };
   }, []);
 
   // Timer Logic

@@ -51,6 +51,21 @@ L'application a été conçue pour offrir un sentiment de luxe feutré et de dé
 - **Ergonomie "One-Tap" & Accessibilité** : Tout le pilotage (Play, Aleatoire, Presets, Cast, Sleep Timer) est condensé élégamment à portée de pouce sur l'écran d'accueil sans navigation ardue.
 - **AirPlay & Cast** : Bouton d'ancrage rapide pour transférer le mixage sur des moniteurs, enceintes Home-Cinéma haute-fidélité, ou écouteurs Bluetooth en un instant.
 
+## 4. Modèle Économique : Gratuit vs Premium
+
+Évasion propose un modèle **Freemium** simple et transparent, basé sur un achat unique à vie (Lifetime Purchase), sans aucun abonnement.
+
+| Fonctionnalité             |       Version Gratuite        |  Version Premium (Achat à vie)  |
+| :------------------------- | :---------------------------: | :-----------------------------: |
+| **Bibliothèque Sonore**    | 3 sons (Oiseaux, Vent, Plage) |   **12 sons** haute fidélité    |
+| **Sessions d'écoute**      |          Illimitées           |           Illimitées            |
+| **Lecture Arrière-plan**   |            Incluse            |             Incluse             |
+| **Sons Binauraux**         |      Sommeil uniquement       |     **Tous les modes (4)**      |
+| **Minuteur (Sleep Timer)** |               —               | **Débloqué** (15m, 30m, 1h, 2h) |
+| **Presets Personnalisés**  |               —               |    **Sauvegarde illimitée**     |
+| **Mixage Avancé**          |       Manuel uniquement       | **Auto-Variation intelligente** |
+| **Qualité Audio**          |           Standard            |  **Haute-Fidélité exclusive**   |
+
 ---
 
-_Ce document acte qu'au delà des spécifications techniques validées, la MVP offre une expérience et une valeur perçue exceptionnelles. Ses mécanismes invisibles (Offset aléatoire, Auto-Variation, Binaural Field Recording) la positionne d'ores et déjà comme un produit très prometteur pour les futures stratégies commerciales (Abonnement Premium, B2B Santé/Bien-Être) sur les magasins d'applications mondiaux._
+_Ce document acte qu'au delà des spécifications techniques validées, la MVP offre une expérience et une valeur perçue exceptionnelles. Ses mécanismes invisibles (Offset aléatoire, Auto-Variation, Binaural Field Recording) la positionne d'ores et déjà comme un produit très prometteur pour les futures stratégies commerciales (Achat Unique Premium, B2B Santé/Bien-Être) sur les magasins d'applications mondiaux._

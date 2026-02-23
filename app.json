@@ -15,10 +15,7 @@
     "ios": {
       "supportsTablet": true,
       "infoPlist": {
-        "UIBackgroundModes": [
-          "audio",
-          "audio"
-        ],
+        "UIBackgroundModes": ["audio"],
         "ITSAppUsesNonExemptEncryption": false
       },
       "bundleIdentifier": "com.jonathanluquet.drift"
@@ -38,11 +35,7 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": [
-      "expo-audio",
-      "expo-localization",
-      "expo-font"
-    ],
+    "plugins": ["expo-audio", "expo-localization", "expo-font"],
     "extra": {
       "eas": {
         "projectId": "497de8ae-c7c2-462c-bef4-0d5d8904d02e"

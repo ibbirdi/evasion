@@ -47,9 +47,13 @@ export const es: Translations = {
   binaural: {
     title: "SONIDOS BINAURALES",
     delta: "Sueño",
+    delta_freq: "Delta (3 Hz)",
     theta: "Relajación",
+    theta_freq: "Theta (6 Hz)",
     alpha: "Enfoque",
+    alpha_freq: "Alpha (10 Hz)",
     beta: "Despierto",
+    beta_freq: "Beta (15 Hz)",
     headphones_hint: "Auriculares estéreo recomendados",
   },
   mixer: {
