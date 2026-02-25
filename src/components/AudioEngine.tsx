@@ -1,9 +1,10 @@
-import React, { useEffect, useRef, useMemo, useState } from "react";
-import { useAudioPlayer, setAudioModeAsync } from "expo-audio";
+import { setAudioModeAsync, useAudioPlayer } from "expo-audio";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { AppState, AppStateStatus } from "react-native";
+import { AUDIO_CONFIG } from "../config/audio";
+import { useLiveStore } from "../store/useLiveStore";
 import { useMixerStore } from "../store/useMixerStore";
 import { ChannelId } from "../types/mixer";
-import { AUDIO_CONFIG } from "../config/audio";
 
 const pickRandom = <T,>(array: readonly T[]): T => {
   return array[Math.floor(Math.random() * array.length)];
@@ -24,6 +25,9 @@ const ChannelAudio: React.FC<{
   const player = useAudioPlayer(source);
 
   const initializedOffset = useRef(false);
+
+  const [variationVolume, setVariationVolume] = useState(channelState.volume);
+  const variationRef = useRef(channelState.volume);
 
   // 1. Play/Pause and Looping
   useEffect(() => {
@@ -70,15 +74,25 @@ const ChannelAudio: React.FC<{
     };
   }, [isPlaying]);
 
-  // 2. Sync Manual Volume Changes
+  // 2. Sync Manual Volume Changes + Local Variation
   useEffect(() => {
-    const targetVolume = channelState.isMuted ? 0 : channelState.volume;
-    player.volume = targetVolume * fadeMultiplier;
-  }, [channelState.isMuted, channelState.volume, fadeMultiplier]);
+    const baseVolume = channelState.isMuted ? 0 : channelState.volume;
+    // When auto-variation is on, we use the absolute variation value
+    const finalVolume = channelState.autoVariationEnabled
+      ? variationVolume
+      : baseVolume;
+    player.volume = finalVolume * fadeMultiplier;
+  }, [
+    channelState.isMuted,
+    channelState.volume,
+    channelState.autoVariationEnabled,
+    fadeMultiplier,
+    variationVolume,
+  ]);
 
-  // 3. Handle Audio Auto-Variation
+  // 3. Handle Audio Auto-Variation (Local updates ONLY to avoid store/persistence flooding)
   useEffect(() => {
-    let variationInterval: NodeJS.Timeout | null = null;
+    let variationTimeout: NodeJS.Timeout | null = null;
     let fadeInterval: NodeJS.Timeout | null = null;
 
     if (
@@ -87,42 +101,59 @@ const ChannelAudio: React.FC<{
       isPlaying
     ) {
       const triggerVariation = () => {
-        const currentVol = useMixerStore.getState().channels[channelId].volume;
-        const randomDelta = Math.random() * 0.5 - 0.25; // +/- 25% change
-        let nextVolume = currentVol + randomDelta;
-        if (nextVolume < 0) nextVolume = 0;
-        if (nextVolume > 1) nextVolume = 1;
+        // Start from current absolute volume
+        const startVolume = variationRef.current;
+        const targetVolume = Math.random(); // Full range 0.0 to 1.0
 
-        const steps = 30;
+        const steps = 150; // Very smooth, slow transition
         let step = 0;
-        const stepDelta = (nextVolume - currentVol) / steps;
+        const stepDelta = (targetVolume - startVolume) / steps;
 
+        if (fadeInterval) clearInterval(fadeInterval);
         fadeInterval = setInterval(() => {
           step++;
-          const newVol = currentVol + stepDelta * step;
-          useMixerStore.getState().setAutoChannelVolume(channelId, newVol);
+          const nextVolume = startVolume + stepDelta * step;
+          variationRef.current = nextVolume;
+          setVariationVolume(nextVolume);
+          // Sync with live store for visual feedback
+          useLiveStore.getState().setVariation(channelId, nextVolume);
 
           if (step >= steps && fadeInterval) {
             clearInterval(fadeInterval);
+
+            // Set delay before next variation
+            const nextDelay = 3000 + Math.random() * 10000;
+            variationTimeout = setTimeout(triggerVariation, nextDelay);
           }
-        }, 100);
+        }, 100); // Consistent update rate for smoothness
       };
 
-      variationInterval = setInterval(
-        triggerVariation,
-        8000 + Math.random() * 8000,
-      );
-
       triggerVariation();
+    } else {
+      // Return to manual volume when variation is disabled
+      variationRef.current = channelState.volume;
+      setVariationVolume(channelState.volume);
+      useLiveStore.getState().setVariation(channelId, null); // Clear variation
     }
 
     return () => {
-      if (variationInterval) clearInterval(variationInterval);
+      if (variationTimeout) clearTimeout(variationTimeout);
       if (fadeInterval) clearInterval(fadeInterval);
     };
   }, [isPlaying, channelState.autoVariationEnabled, channelState.isMuted]);
 
   return null;
+};
+
+const ChannelWrapper: React.FC<{
+  channelId: ChannelId;
+  fadeMultiplier: number;
+}> = ({ channelId, fadeMultiplier }) => {
+  const isMuted = useMixerStore((state) => state.channels[channelId].isMuted);
+
+  if (isMuted) return null;
+
+  return <ChannelAudio channelId={channelId} fadeMultiplier={fadeMultiplier} />;
 };
 
 export const AudioEngine: React.FC = () => {
@@ -141,8 +172,8 @@ export const AudioEngine: React.FC = () => {
     if (isPlaying) {
       // Start Fade-In
       fadeTarget.current = 1;
-      const FADE_IN_DURATION = 7000;
-      const STEP_INTERVAL = 250;
+      const FADE_IN_DURATION = 2000;
+      const STEP_INTERVAL = 100;
       const steps = FADE_IN_DURATION / STEP_INTERVAL;
       const stepDelta = 1 / steps;
 
@@ -232,7 +263,7 @@ export const AudioEngine: React.FC = () => {
   return (
     <>
       {(Object.keys(AUDIO_CONFIG) as ChannelId[]).map((key) => (
-        <ChannelAudio
+        <ChannelWrapper
           key={key}
           channelId={key}
           fadeMultiplier={fadeMultiplier}

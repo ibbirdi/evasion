@@ -1,5 +1,5 @@
-import Purchases, { PurchasesPackage } from "react-native-purchases";
 import { Platform } from "react-native";
+import Purchases, { PurchasesPackage } from "react-native-purchases";
 import { useMixerStore } from "../store/useMixerStore";
 
 // TODO: Replace with your actual RevenueCat API keys

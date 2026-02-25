@@ -1,17 +1,18 @@
+import Slider from "@react-native-community/slider";
+import { Activity, Lock, Volume2, VolumeX } from "lucide-react-native";
 import React, { useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { Volume2, VolumeX, Activity, Lock } from "lucide-react-native";
-import Slider from "@react-native-community/slider";
-import { ChannelId } from "../types/mixer";
-import { LiquidButton } from "./LiquidButton";
-import { useI18n } from "../i18n";
 import Animated, {
-  useSharedValue,
-  useAnimatedStyle,
-  withTiming,
   Easing,
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
 } from "react-native-reanimated";
 import { ZEN_CONFIG } from "../config/zen";
+import { useI18n } from "../i18n";
+import { useLiveStore } from "../store/useLiveStore";
+import { ChannelId } from "../types/mixer";
+import { LiquidButton } from "./LiquidButton";
 
 interface Props {
   id: ChannelId;
@@ -29,6 +30,7 @@ interface Props {
 }
 
 export const LiquidSlider: React.FC<Props> = ({
+  id,
   label,
   color,
   value,
@@ -63,6 +65,10 @@ export const LiquidSlider: React.FC<Props> = ({
     });
   }, [isZenMode, normalOpacity, zenTargetOpacity]);
 
+  const variation = useLiveStore((s) => s.variations[id]);
+  const displayValue =
+    variation !== undefined && variation !== null ? variation : value;
+
   const animatedContainerStyle = useAnimatedStyle(() => ({
     opacity: zenOpacity.value,
   }));
@@ -87,7 +93,7 @@ export const LiquidSlider: React.FC<Props> = ({
         >
           <Slider
             style={styles.nativeSlider}
-            value={value}
+            value={displayValue}
             onValueChange={onChange}
             minimumValue={0}
             maximumValue={1}

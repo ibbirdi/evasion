@@ -1,14 +1,8 @@
-import { create } from "zustand";
-import { persist, createJSONStorage } from "zustand/middleware";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import {
-  ChannelId,
-  ChannelState,
-  MixerStore,
-  Preset,
-  BinauralTrackId,
-} from "../types/mixer";
-import { INITIAL_CHANNELS, DEFAULT_PRESETS } from "../constants/channels";
+import { create } from "zustand";
+import { createJSONStorage, persist } from "zustand/middleware";
+import { DEFAULT_PRESETS, INITIAL_CHANNELS } from "../constants/channels";
+import { BinauralTrackId, ChannelId, MixerStore, Preset } from "../types/mixer";
 
 export const useMixerStore = create<MixerStore>()(
   persist(
@@ -105,15 +99,6 @@ export const useMixerStore = create<MixerStore>()(
             [id]: { ...state.channels[id], volume },
           },
           currentPresetId: null, // Any manual change detaches from current preset
-        })),
-
-      setAutoChannelVolume: (id: ChannelId, volume: number) =>
-        set((state) => ({
-          channels: {
-            ...state.channels,
-            [id]: { ...state.channels[id], volume },
-          },
-          // Keep current preset intact for auto-variation adjustments
         })),
 
       toggleChannelMute: (id: ChannelId) =>

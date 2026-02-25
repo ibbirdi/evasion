@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Modal,
-  Pressable,
-  ActivityIndicator,
-  Linking,
-} from "react-native";
 import { GlassView } from "expo-glass-effect";
 import { CheckCircle2, X } from "lucide-react-native";
-import { useI18n } from "../i18n";
-import { useMixerStore } from "../store/useMixerStore";
-import { RevenueCatService } from "../services/RevenueCatService";
+import React, { useEffect, useState } from "react";
+import {
+  ActivityIndicator,
+  Linking,
+  Modal,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { PurchasesPackage } from "react-native-purchases";
 import { CHANNEL_COLORS } from "../constants/colors";
+import { useI18n } from "../i18n";
+import { RevenueCatService } from "../services/RevenueCatService";
+import { useMixerStore } from "../store/useMixerStore";
 
 export const PaywallScreen: React.FC = () => {
   const t = useI18n();
@@ -133,7 +133,13 @@ export const PaywallScreen: React.FC = () => {
               </Text>
             </Pressable>
             <Text style={styles.footerSeparator}>{"  •  "}</Text>
-            <Pressable onPress={() => openURL("https://your-terms-url.com")}>
+            <Pressable
+              onPress={() =>
+                openURL(
+                  "https://bow-elephant-191.notion.site/ASSISTANCE-31084ba33afa801d872fc2aecc576f56?source=copy_link",
+                )
+              }
+            >
               <Text style={styles.footerLink}>{t.paywall.terms}</Text>
             </Pressable>
           </View>

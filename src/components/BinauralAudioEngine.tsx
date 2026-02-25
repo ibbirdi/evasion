@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
 import { useAudioPlayer } from "expo-audio";
-import { useMixerStore } from "../store/useMixerStore";
+import React, { useEffect, useState } from "react";
 import { BINAURAL_TRACKS } from "../config/binauralAudio";
+import { useMixerStore } from "../store/useMixerStore";
 import { BinauralTrackId } from "../types/mixer";
 
 const TRACK_IDS: BinauralTrackId[] = ["delta", "theta", "alpha", "beta"];
@@ -48,6 +48,21 @@ const BinauralTrackPlayer: React.FC<{
   return null;
 };
 
+const BinauralTrackWrapper: React.FC<{
+  trackId: BinauralTrackId;
+  fadeMultiplier: number;
+}> = ({ trackId, fadeMultiplier }) => {
+  const isBinauralActive = useMixerStore((s) => s.isBinauralActive);
+  const activeBinauralTrack = useMixerStore((s) => s.activeBinauralTrack);
+  const isThisTrackActive = isBinauralActive && activeBinauralTrack === trackId;
+
+  if (!isThisTrackActive) return null;
+
+  return (
+    <BinauralTrackPlayer trackId={trackId} fadeMultiplier={fadeMultiplier} />
+  );
+};
+
 export const BinauralAudioEngine: React.FC = () => {
   const isPlaying = useMixerStore((s) => s.isPlaying);
   const [fadeMultiplier, setFadeMultiplier] = useState(0);
@@ -57,8 +72,8 @@ export const BinauralAudioEngine: React.FC = () => {
     let fadeInterval: NodeJS.Timeout | null = null;
 
     if (isPlaying) {
-      const FADE_IN_DURATION = 7000;
-      const STEP_INTERVAL = 250;
+      const FADE_IN_DURATION = 2000;
+      const STEP_INTERVAL = 100;
       const steps = FADE_IN_DURATION / STEP_INTERVAL;
       const stepDelta = 1 / steps;
 
@@ -100,7 +115,7 @@ export const BinauralAudioEngine: React.FC = () => {
   return (
     <>
       {TRACK_IDS.map((id) => (
-        <BinauralTrackPlayer
+        <BinauralTrackWrapper
           key={id}
           trackId={id}
           fadeMultiplier={fadeMultiplier}

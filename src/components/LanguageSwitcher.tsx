@@ -1,7 +1,7 @@
 import React from "react";
 import { Pressable, StyleSheet } from "react-native";
-import { useI18n, SUPPORTED_LANGUAGES } from "../i18n";
 import { DEBUG_CONFIG } from "../config/debug";
+import { SUPPORTED_LANGUAGES, useI18n } from "../i18n";
 
 /**
  * An invisible button placed in the top-left corner

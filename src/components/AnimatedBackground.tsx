@@ -1,14 +1,13 @@
-import React from "react";
+import { Canvas, LinearGradient, Rect, vec } from "@shopify/react-native-skia";
+import React, { useEffect } from "react";
 import { StyleSheet, useWindowDimensions } from "react-native";
-import { Canvas, Rect, LinearGradient, vec } from "@shopify/react-native-skia";
 import Animated, {
+  Easing,
   useAnimatedStyle,
   useSharedValue,
   withTiming,
-  Easing,
 } from "react-native-reanimated";
 import { useMixerStore } from "../store/useMixerStore";
-import { useEffect } from "react";
 
 export function AnimatedBackground() {
   const { width, height } = useWindowDimensions();

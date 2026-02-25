@@ -12,11 +12,20 @@
       "resizeMode": "contain",
       "backgroundColor": "#121212"
     },
+    "locales": {
+      "fr": "./locales/fr.json",
+      "en": "./locales/en.json",
+      "de": "./locales/de.json",
+      "es": "./locales/es.json",
+      "it": "./locales/it.json",
+      "pt-BR": "./locales/pt-BR.json"
+    },
     "ios": {
-      "supportsTablet": true,
+      "supportsTablet": false,
       "infoPlist": {
         "UIBackgroundModes": ["audio"],
-        "ITSAppUsesNonExemptEncryption": false
+        "ITSAppUsesNonExemptEncryption": false,
+        "CFBundleAllowMixedLocalizations": true
       },
       "bundleIdentifier": "com.jonathanluquet.drift"
     },

@@ -57,7 +57,6 @@ export interface MixerActions {
 
   // Channel Actions
   setChannelVolume: (id: ChannelId, volume: number) => void;
-  setAutoChannelVolume: (id: ChannelId, volume: number) => void;
   toggleChannelMute: (id: ChannelId) => void;
   toggleChannelAutoVariation: (id: ChannelId) => void;
 

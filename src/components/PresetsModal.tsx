@@ -1,28 +1,28 @@
+import { GlassView } from "expo-glass-effect";
+import { CheckCircle2, Save, Trash2 } from "lucide-react-native";
 import React, { useState } from "react";
 import {
-  View,
-  Text,
-  StyleSheet,
-  Modal,
-  Pressable,
-  TextInput,
-  ScrollView,
   KeyboardAvoidingView,
+  Modal,
   Platform,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
 } from "react-native";
-import { GestureDetector, Gesture } from "react-native-gesture-handler";
+import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import Animated, {
-  useSharedValue,
-  useAnimatedStyle,
-  withSpring,
   runOnJS,
+  useAnimatedStyle,
+  useSharedValue,
+  withSpring,
 } from "react-native-reanimated";
-import { useMixerStore } from "../store/useMixerStore";
-import { Save, Trash2, CheckCircle2 } from "lucide-react-native";
-import { GlassView } from "expo-glass-effect";
-import { LiquidButton } from "./LiquidButton";
 import { CHANNEL_COLORS } from "../constants/colors";
 import { useI18n } from "../i18n";
+import { useMixerStore } from "../store/useMixerStore";
+import { LiquidButton } from "./LiquidButton";
 
 const hexToRgba = (hex: string, alpha: number) => {
   const r = parseInt(hex.slice(1, 3), 16);

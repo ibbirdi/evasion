@@ -1,11 +1,10 @@
 import React from "react";
-import { View, StyleSheet, ScrollView } from "react-native";
-import { useMixerStore } from "../store/useMixerStore";
-import { LiquidSlider } from "./LiquidSlider";
+import { Pressable, ScrollView, StyleSheet, View } from "react-native";
 import { CHANNEL_COLORS } from "../constants/colors";
-import { ChannelId } from "../types/mixer";
 import { useI18n } from "../i18n";
-import { Pressable } from "react-native";
+import { useMixerStore } from "../store/useMixerStore";
+import { ChannelId } from "../types/mixer";
+import { LiquidSlider } from "./LiquidSlider";
 
 export const MixerBoard: React.FC = () => {
   const t = useI18n();

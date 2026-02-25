@@ -1,30 +1,28 @@
-import React, { useState, useEffect } from "react";
+import Slider from "@react-native-community/slider";
+import { GlassView } from "expo-glass-effect";
+import * as Haptics from "expo-haptics";
+import { Lock } from "lucide-react-native";
+import React from "react";
 import {
-  View,
-  Text,
+  LayoutChangeEvent,
+  Platform,
+  Pressable,
   StyleSheet,
   Switch,
-  Pressable,
-  Platform,
-  LayoutChangeEvent,
+  Text,
+  View,
 } from "react-native";
-import { GlassView } from "expo-glass-effect";
-import { Lock } from "lucide-react-native";
-import Slider from "@react-native-community/slider";
-import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import Animated, {
+  Easing,
   useAnimatedStyle,
   useSharedValue,
-  withTiming,
-  runOnJS,
-  Easing,
+  withTiming
 } from "react-native-reanimated";
-import { ZEN_CONFIG } from "../config/zen";
-import { useMixerStore } from "../store/useMixerStore";
-import { useI18n } from "../i18n";
-import { BinauralTrackId } from "../types/mixer";
 import { BINAURAL_TRACKS } from "../config/binauralAudio";
-import * as Haptics from "expo-haptics";
+import { ZEN_CONFIG } from "../config/zen";
+import { useI18n } from "../i18n";
+import { useMixerStore } from "../store/useMixerStore";
+import { BinauralTrackId } from "../types/mixer";
 
 const TRACKS: {
   id: BinauralTrackId;

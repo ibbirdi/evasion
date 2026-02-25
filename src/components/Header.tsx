@@ -1,28 +1,27 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Platform, Dimensions } from "react-native";
-import { useMixerStore } from "../store/useMixerStore";
+import { ExpoAvRoutePickerView } from "@douglowder/expo-av-route-picker-view";
 import {
-  Play,
+  Bookmark,
+  Lock,
   Pause,
+  Play,
   Shuffle,
   Timer,
   TimerOff,
-  Bookmark,
-  Cast,
-  Lock,
 } from "lucide-react-native";
-import { ExpoAvRoutePickerView } from "@douglowder/expo-av-route-picker-view";
-import { LiquidButton } from "./LiquidButton";
-import { useI18n } from "../i18n";
+import React, { useEffect, useState } from "react";
+import { Platform, StyleSheet, Text, View } from "react-native";
 import Animated, {
-  useSharedValue,
-  useAnimatedStyle,
-  withRepeat,
-  withTiming,
   Easing,
   cancelAnimation,
+  useAnimatedStyle,
+  useSharedValue,
+  withRepeat,
+  withTiming,
 } from "react-native-reanimated";
 import { ZEN_CONFIG } from "../config/zen";
+import { useI18n } from "../i18n";
+import { useMixerStore } from "../store/useMixerStore";
+import { LiquidButton } from "./LiquidButton";
 
 const TIMER_DURATIONS = [null, 15, 30, 60, 120];
 
