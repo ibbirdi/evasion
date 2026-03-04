@@ -1,30 +1,31 @@
 appId: com.jonathanluquet.drift
 env:
-  BINAURAL_TITLE: "SONS BINAURAUX"
-  PRESETS_TITLE: "Mes évasions"
+  BINAURAL_TITLE: "BINAURAL BEATS"
+  PRESETS_TITLE: "My Oasis"
 ---
 - clearState
 - launchApp:
     arguments:
-      AppleLanguages: "(fr)"
-      AppleLocale: "fr_FR"
+      AppleLanguages: "(en)"
+      AppleLocale: "en_US"
 # Wait for app to be ready
 - extendedWaitUntil:
-    visible: "Oasis"
-    timeout: 20000
+    visible:
+      id: "AppLogo"
+    timeout: 30000
 
 # Small pause for UI to settle
 - swipe:
     start: "50%, 50%"
     end: "50%, 50%"
-    duration: 2000
+    duration: 3000
 
 # 1. Tap Shuffle 1 time
 - tapOn: "Shuffle"
 - swipe:
     start: "50%, 50%"
     end: "50%, 50%"
-    duration: 1000
+    duration: 3000
 
 # 2. Screenshot MainScreen1
 - takeScreenshot: MainScreen1
@@ -34,7 +35,7 @@ env:
 - swipe:
     start: "50%, 50%"
     end: "50%, 50%"
-    duration: 1000
+    duration: 3000
 
 # 4. Screenshot MainScreen2
 - takeScreenshot: MainScreen2
@@ -53,7 +54,7 @@ env:
 - swipe:
     start: "50%, 50%"
     end: "50%, 50%"
-    duration: 1000
+    duration: 3000
 
 # 7. Screenshot BinauralScreen
 - takeScreenshot: BinauralScreen
@@ -66,7 +67,7 @@ env:
 - swipe:
     start: "50%, 50%"
     end: "50%, 50%"
-    duration: 2000
+    duration: 3000
 
 # 9. Open Presets Modal
 - tapOn: "bookmark"
@@ -87,7 +88,7 @@ env:
 - swipe:
     start: "50%, 50%"
     end: "50%, 50%"
-    duration: 2000
+    duration: 3000
 
 # 12. Final screenshot (Main screen with preset active)
 - takeScreenshot: FinalScreen

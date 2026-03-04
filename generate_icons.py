@@ -3,8 +3,8 @@ import json
 from PIL import Image, ImageDraw, ImageFont
 
 # Configuration
-SOURCE_ICON = "ios/Evasion/Images.xcassets/AppIcon.appiconset/Icon-iOS-Default-1024x1024@1x.png"
-OUTPUT_DIR = "ios/Evasion/Images.xcassets/AppIcon.appiconset"
+SOURCE_ICON = "assets/icon.png"
+OUTPUT_DIR = "ios/Oasis/Images.xcassets/AppIcon.appiconset"
 ASSETS_DIR = "assets"
 
 # Standard iOS Icon Sizes

@@ -23,6 +23,14 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 Automates taking screenshots via Maestro for multiple locales
 
+### ios screenshots_only
+
+```sh
+[bundle exec] fastlane ios screenshots_only
+```
+
+Runs Maestro screenshots without rebuilding the app (assumes app is already installed)
+
 ----
 
 This README.md is auto-generated and will be re-generated every time [_fastlane_](https://fastlane.tools) is run.

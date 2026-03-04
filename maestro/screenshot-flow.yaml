@@ -2,21 +2,22 @@ appId: com.jonathanluquet.drift
 ---
 # Wait for app to be ready
 - extendedWaitUntil:
-    visible: "Oasis"
-    timeout: 20000
+    visible:
+      id: "AppLogo"
+    timeout: 3000
 
 # Small pause for UI to settle
 - swipe:
     start: "50%, 50%"
     end: "50%, 50%"
-    duration: 2000
+    duration: 3000
 
 # 1. Tap Shuffle 1 time
 - tapOn: "Shuffle"
 - swipe:
     start: "50%, 50%"
     end: "50%, 50%"
-    duration: 1000
+    duration: 3000
 
 # 2. Screenshot MainScreen1
 - takeScreenshot: MainScreen1
@@ -26,7 +27,7 @@ appId: com.jonathanluquet.drift
 - swipe:
     start: "50%, 50%"
     end: "50%, 50%"
-    duration: 1000
+    duration: 3000
 
 # 4. Screenshot MainScreen2
 - takeScreenshot: MainScreen2
@@ -45,7 +46,7 @@ appId: com.jonathanluquet.drift
 - swipe:
     start: "50%, 50%"
     end: "50%, 50%"
-    duration: 1000
+    duration: 3000
 
 # 7. Screenshot BinauralScreen
 - takeScreenshot: BinauralScreen
@@ -58,7 +59,7 @@ appId: com.jonathanluquet.drift
 - swipe:
     start: "50%, 50%"
     end: "50%, 50%"
-    duration: 2000
+    duration: 3000
 
 # 9. Open Presets Modal
 - tapOn: "bookmark"
@@ -79,7 +80,7 @@ appId: com.jonathanluquet.drift
 - swipe:
     start: "50%, 50%"
     end: "50%, 50%"
-    duration: 2000
+    duration: 3000
 
 # 12. Final screenshot (Main screen with preset active)
 - takeScreenshot: FinalScreen

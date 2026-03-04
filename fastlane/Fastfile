@@ -34,7 +34,7 @@ platform :ios do
     # 1. Build and install the app ONCE on the default simulator
     UI.message("---------------------------------------------------------")
     UI.message("🚀 Building and installing app on simulator...")
-    sh("cd .. && npx expo run:ios --configuration Release --no-bundler", error_callback: ->(result) { UI.user_error!("Failed to build app.") })
+    sh("cd .. && npx expo run:ios --configuration Release", error_callback: ->(result) { UI.user_error!("Failed to build app.") })
     
     locales.each do |lang, locale|
       UI.message("---------------------------------------------------------")
@@ -76,6 +76,71 @@ YAML
     # Clean up the generated file
     sh("rm ../maestro/generated-flow.yaml", error_callback: ->(result) {})
 
+    UI.message("✅ Screenshots generation complete! See fastlane/screenshots/")
+  end
+
+  desc "Runs Maestro screenshots without rebuilding the app (assumes app is already installed)"
+  lane :screenshots_only do
+    # Supported locales by the app
+    locales = {
+      "en" => "en_US",
+      "fr" => "fr_FR",
+      "de" => "de_DE",
+      "es" => "es_ES",
+      "it" => "it_IT",
+      "pt" => "pt_BR"
+    }
+    
+    binaural_labels = {
+      "en" => "BINAURAL BEATS",
+      "fr" => "SONS BINAURAUX",
+      "de" => "BINAURALE BEATS",
+      "es" => "SONIDOS BINAURALES",
+      "it" => "SUONI BINAURALI",
+      "pt" => "SONS BINAURAIS"
+    }
+
+    presets_labels = {
+      "en" => "My Oasis",
+      "fr" => "Mes évasions",
+      "de" => "Meine Oasis",
+      "es" => "Mis oasis",
+      "it" => "Le mie oasi",
+      "pt" => "Meus refúgios"
+    }
+    
+    locales.each do |lang, locale|
+      UI.message("---------------------------------------------------------")
+      UI.message("📸 Taking screenshots for #{locale} (No Build mode)...")
+      UI.message("---------------------------------------------------------")
+      
+      yaml_content = <<-YAML
+appId: com.jonathanluquet.drift
+env:
+  BINAURAL_TITLE: "#{binaural_labels[lang]}"
+  PRESETS_TITLE: "#{presets_labels[lang]}"
+---
+- clearState
+- launchApp:
+    arguments:
+      AppleLanguages: "(#{lang})"
+      AppleLocale: "#{locale}"
+YAML
+      base_template = File.read("../maestro/screenshot-flow.yaml")
+      clean_template = base_template.lines.drop(2).join
+      File.write("../maestro/generated-flow.yaml", yaml_content + clean_template)
+
+      sh("cd .. && maestro test maestro/generated-flow.yaml")
+      
+      sh("mkdir -p screenshots/#{locale}")
+      sh("cd .. && mv MainScreen1*.png fastlane/screenshots/#{locale}/1_MainScreen_Shuffle1.png", error_callback: ->(result) { UI.message("Missing screenshot") })
+      sh("cd .. && mv MainScreen2*.png fastlane/screenshots/#{locale}/2_MainScreen_Shuffle2.png", error_callback: ->(result) { UI.message("Missing screenshot") })
+      sh("cd .. && mv BinauralScreen*.png fastlane/screenshots/#{locale}/3_BinauralScreen.png", error_callback: ->(result) { UI.message("Missing screenshot") })
+      sh("cd .. && mv PresetsModalScreen*.png fastlane/screenshots/#{locale}/4_PresetsModalScreen.png", error_callback: ->(result) { UI.message("Missing screenshot") })
+      sh("cd .. && mv FinalScreen*.png fastlane/screenshots/#{locale}/5_FinalScreen.png", error_callback: ->(result) { UI.message("Missing screenshot") })
+    end
+    
+    sh("rm ../maestro/generated-flow.yaml", error_callback: ->(result) {})
     UI.message("✅ Screenshots generation complete! See fastlane/screenshots/")
   end
 end

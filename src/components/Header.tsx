@@ -36,6 +36,7 @@ export const Header: React.FC = () => {
             source={require("../../assets/oasisLogo.png")}
             style={styles.logo}
             resizeMode="contain"
+            testID="AppLogo"
           />
           <Text style={styles.subtitle}>Binaural Nature</Text>
           <StatusCapsules />
