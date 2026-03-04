@@ -214,9 +214,9 @@ const styles = StyleSheet.create({
   },
   labelActive: {
     opacity: 1,
-    textShadowColor: "rgba(198, 189, 255, 1)",
+    textShadowColor: "rgba(198, 189, 255, 0.5)",
     textShadowOffset: { width: 0, height: 0 },
-    textShadowRadius: 15,
+    textShadowRadius: 3,
     padding: 10,
     margin: -10,
   },

@@ -68,11 +68,11 @@ const styles = StyleSheet.create({
     textShadowRadius: 1,
   },
   subtitle: {
-    fontSize: 10,
+    fontSize: 8,
     fontWeight: "500",
     letterSpacing: 4,
     color: "#F5F5F7",
-    opacity: 0.6,
+    opacity: 0.5,
     marginTop: -2,
     textTransform: "uppercase",
   },
