@@ -11,7 +11,7 @@ import {
   View,
 } from "react-native";
 import { PurchasesPackage } from "react-native-purchases";
-import { CHANNEL_COLORS } from "../constants/colors";
+import { AUDIO_CONFIG } from "../config/audio";
 import { useI18n } from "../i18n";
 import { RevenueCatService } from "../services/RevenueCatService";
 import { useMixerStore } from "../store/useMixerStore";
@@ -82,8 +82,13 @@ export const PaywallScreen: React.FC = () => {
       onRequestClose={() => setVisible(false)}
     >
       <View style={styles.container}>
-        <GlassView style={StyleSheet.absoluteFillObject} tintColor="dark" />
-
+        <GlassView style={StyleSheet.absoluteFill} tintColor="dark" />
+        <View
+          style={[
+            StyleSheet.absoluteFill,
+            { backgroundColor: "rgba(0,0,0,0.8)" },
+          ]}
+        />
         {/* Close Button */}
         <Pressable style={styles.closeButton} onPress={() => setVisible(false)}>
           <X size={28} color="rgba(255,255,255,0.6)" />
@@ -95,7 +100,7 @@ export const PaywallScreen: React.FC = () => {
           <View style={styles.benefitsContainer}>
             {benefits.map((benefit, index) => (
               <View key={index} style={styles.benefitRow}>
-                <CheckCircle2 size={24} color={CHANNEL_COLORS.oiseaux} />
+                <CheckCircle2 size={24} color={AUDIO_CONFIG.oiseaux.color} />
                 <Text style={styles.benefitText}>{benefit}</Text>
               </View>
             ))}

@@ -2,11 +2,11 @@
   "expo": {
     "name": "Evasion",
     "slug": "evasion",
-    "version": "1.0.0",
+    "scheme": "evasion",
+    "version": "1.1.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
-    "newArchEnabled": true,
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
@@ -29,22 +29,11 @@
       },
       "bundleIdentifier": "com.jonathanluquet.drift"
     },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      },
-      "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false,
-      "permissions": [
-        "android.permission.RECORD_AUDIO",
-        "android.permission.MODIFY_AUDIO_SETTINGS"
-      ]
-    },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
     },
-    "plugins": ["expo-audio", "expo-localization", "expo-font"],
+    "plugins": ["expo-router", "expo-audio", "expo-localization", "expo-font"],
     "extra": {
       "eas": {
         "projectId": "497de8ae-c7c2-462c-bef4-0d5d8904d02e"

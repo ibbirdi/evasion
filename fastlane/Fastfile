@@ -12,11 +12,29 @@ platform :ios do
       "it" => "it_IT",
       "pt" => "pt_BR"
     }
+    
+    binaural_labels = {
+      "en" => "BINAURAL BEATS",
+      "fr" => "SONS BINAURAUX",
+      "de" => "BINAURALE BEATS",
+      "es" => "SONIDOS BINAURALES",
+      "it" => "SUONI BINAURALI",
+      "pt" => "SONS BINAURAIS"
+    }
+
+    presets_labels = {
+      "en" => "My Drifts",
+      "fr" => "Mes évasions",
+      "de" => "Meine Drifts",
+      "es" => "Mis oasis",
+      "it" => "Le mie oasi",
+      "pt" => "Meus refúgios"
+    }
 
     # 1. Build and install the app ONCE on the default simulator
     UI.message("---------------------------------------------------------")
     UI.message("🚀 Building and installing app on simulator...")
-    sh("cd .. && npx expo run:ios", error_callback: ->(result) { UI.user_error!("Failed to build app.") })
+    sh("cd .. && npx expo run:ios --configuration Release --no-bundler", error_callback: ->(result) { UI.user_error!("Failed to build app.") })
     
     locales.each do |lang, locale|
       UI.message("---------------------------------------------------------")
@@ -25,7 +43,10 @@ platform :ios do
       
       # 2. Generate a fresh, hardcoded YAML file for Maestro to bypass variable compilation crashes
       yaml_content = <<-YAML
-appId: com.ibbirdi.evasion
+appId: com.jonathanluquet.drift
+env:
+  BINAURAL_TITLE: "#{binaural_labels[lang]}"
+  PRESETS_TITLE: "#{presets_labels[lang]}"
 ---
 - clearState
 - launchApp:
@@ -38,6 +59,7 @@ YAML
       # Remove the first two lines (appId: ... and ---) from the base template so they don't duplicate
       clean_template = base_template.lines.drop(2).join
 
+
       File.write("../maestro/generated-flow.yaml", yaml_content + clean_template)
 
       # 4. Run the explicitly generated Maestro flow
@@ -46,6 +68,7 @@ YAML
       # 5. Move the screenshots to fastlane/screenshots/
       sh("mkdir -p screenshots/#{locale}")
       sh("cd .. && mv MainScreen*.png fastlane/screenshots/#{locale}/MainScreen.png", error_callback: ->(result) { UI.message("Missing screenshot") })
+      sh("cd .. && mv BinauralScreen*.png fastlane/screenshots/#{locale}/BinauralScreen.png", error_callback: ->(result) { UI.message("Missing screenshot") })
       sh("cd .. && mv PresetsScreen*.png fastlane/screenshots/#{locale}/PresetsScreen.png", error_callback: ->(result) { UI.message("Missing screenshot") })
     end
     

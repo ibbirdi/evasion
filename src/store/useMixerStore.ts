@@ -12,9 +12,10 @@ export const useMixerStore = create<MixerStore>()(
       timerEndTime: null,
       timerDurationChosen: null,
       currentPresetId: null,
-      isPremium: false,
+      // Dev override for testing premium features
+      isPremium: process.env.EXPO_PUBLIC_FORCE_PREMIUM === "true",
       isPaywallVisible: false,
-      isZenMode: false,
+      isBinauralPopupVisible: false,
 
       // Binaural States
       isBinauralActive: false,
@@ -29,19 +30,23 @@ export const useMixerStore = create<MixerStore>()(
 
       // Global Actions
       togglePlayPause: () =>
-        set((state) => {
-          const nextIsPlaying = !state.isPlaying;
-          return {
-            isPlaying: nextIsPlaying,
-            isZenMode: false, // Always show controls when manually toggling
-          };
-        }),
+        set((state) => ({
+          isPlaying: !state.isPlaying,
+        })),
 
-      setIsPremium: (isPremium: boolean) => set({ isPremium }),
+      setIsPremium: (isPremium: boolean) =>
+        set({
+          isPremium:
+            process.env.EXPO_PUBLIC_FORCE_PREMIUM === "true"
+              ? true
+              : process.env.EXPO_PUBLIC_FORCE_PREMIUM === "false"
+                ? false
+                : isPremium,
+        }),
       setPaywallVisible: (isPaywallVisible: boolean) =>
         set({ isPaywallVisible }),
-
-      setIsZenMode: (isZenMode: boolean) => set({ isZenMode }),
+      setBinauralPopupVisible: (isBinauralPopupVisible: boolean) =>
+        set({ isBinauralPopupVisible }),
 
       // Binaural Actions
       toggleBinaural: () =>
@@ -59,7 +64,12 @@ export const useMixerStore = create<MixerStore>()(
         }),
 
       randomizeMix: () => {
-        const isPremium = get().isPremium;
+        const isPremium =
+          process.env.EXPO_PUBLIC_FORCE_PREMIUM === "true"
+            ? true
+            : process.env.EXPO_PUBLIC_FORCE_PREMIUM === "false"
+              ? false
+              : get().isPremium;
         const allChannelIds = Object.keys(INITIAL_CHANNELS) as ChannelId[];
         const freeChannels: ChannelId[] = ["oiseaux", "vent", "plage"];
         const channelIds = isPremium ? allChannelIds : freeChannels;
@@ -87,7 +97,6 @@ export const useMixerStore = create<MixerStore>()(
           channels: newChannels,
           currentPresetId: null, // Custom random mix
           isPlaying: true, // Auto play when randomized
-          isZenMode: true,
         });
       },
 
@@ -154,6 +163,14 @@ export const useMixerStore = create<MixerStore>()(
           currentPresetId:
             state.currentPresetId === presetId ? null : state.currentPresetId,
         })),
+
+      reorderPresets: (fromIndex: number, toIndex: number) =>
+        set((state) => {
+          const newPresets = [...state.presets];
+          const [moved] = newPresets.splice(fromIndex, 1);
+          newPresets.splice(toIndex, 0, moved);
+          return { presets: newPresets };
+        }),
     }),
     {
       name: "evasion-mixer-storage",
@@ -162,7 +179,12 @@ export const useMixerStore = create<MixerStore>()(
         channels: state.channels,
         presets: state.presets,
         currentPresetId: state.currentPresetId,
-        isPremium: state.isPremium,
+        isPremium:
+          process.env.EXPO_PUBLIC_FORCE_PREMIUM === "true"
+            ? true
+            : process.env.EXPO_PUBLIC_FORCE_PREMIUM === "false"
+              ? false
+              : state.isPremium,
         isBinauralActive: state.isBinauralActive,
         activeBinauralTrack: state.activeBinauralTrack,
         binauralVolume: state.binauralVolume,
@@ -178,6 +200,7 @@ export const useMixerStore = create<MixerStore>()(
             mer: "plage",
             riviere: "goelands",
             insectes: "cigales",
+            ville: "village",
           };
 
           Object.keys(state.channels).forEach((key) => {
@@ -204,6 +227,7 @@ export const useMixerStore = create<MixerStore>()(
               mer: "plage",
               riviere: "goelands",
               insectes: "cigales",
+              ville: "village",
             };
 
             Object.keys(preset.channels).forEach((key) => {
@@ -228,7 +252,12 @@ export const useMixerStore = create<MixerStore>()(
           ...state,
           channels: mergedChannels,
           presets: mergedPresets,
-          isPremium: state.isPremium ?? false,
+          isPremium:
+            process.env.EXPO_PUBLIC_FORCE_PREMIUM === "true"
+              ? true
+              : process.env.EXPO_PUBLIC_FORCE_PREMIUM === "false"
+                ? false
+                : (state.isPremium ?? false),
         };
       },
     },

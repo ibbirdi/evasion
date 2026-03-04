@@ -14,18 +14,27 @@ const BinauralTrackPlayer: React.FC<{
   trackId: BinauralTrackId;
   fadeMultiplier: number;
 }> = ({ trackId, fadeMultiplier }) => {
+  const isPlaying = useMixerStore((s) => s.isPlaying);
   const isBinauralActive = useMixerStore((s) => s.isBinauralActive);
   const activeBinauralTrack = useMixerStore((s) => s.activeBinauralTrack);
   const binauralVolume = useMixerStore((s) => s.binauralVolume);
 
-  const isThisTrackActive = isBinauralActive && activeBinauralTrack === trackId;
+  const isThisTrackActive =
+    isPlaying && isBinauralActive && activeBinauralTrack === trackId;
 
-  const player = useAudioPlayer(BINAURAL_TRACKS[trackId].source);
+  const player = useAudioPlayer(BINAURAL_TRACKS[trackId].source, {
+    downloadFirst: true,
+  });
 
-  // Looping
+  // Setup
   useEffect(() => {
     player.loop = true;
-  }, []);
+  }, [player]);
+
+  // Volume
+  useEffect(() => {
+    player.volume = isThisTrackActive ? binauralVolume * fadeMultiplier : 0;
+  }, [player, isThisTrackActive, binauralVolume, fadeMultiplier]);
 
   // Play/Pause
   useEffect(() => {
@@ -38,29 +47,9 @@ const BinauralTrackPlayer: React.FC<{
         player.pause();
       }
     }
-  }, [isThisTrackActive]);
-
-  // Volume
-  useEffect(() => {
-    player.volume = isThisTrackActive ? binauralVolume * fadeMultiplier : 0;
-  }, [isThisTrackActive, binauralVolume, fadeMultiplier]);
+  }, [player, isThisTrackActive]);
 
   return null;
-};
-
-const BinauralTrackWrapper: React.FC<{
-  trackId: BinauralTrackId;
-  fadeMultiplier: number;
-}> = ({ trackId, fadeMultiplier }) => {
-  const isBinauralActive = useMixerStore((s) => s.isBinauralActive);
-  const activeBinauralTrack = useMixerStore((s) => s.activeBinauralTrack);
-  const isThisTrackActive = isBinauralActive && activeBinauralTrack === trackId;
-
-  if (!isThisTrackActive) return null;
-
-  return (
-    <BinauralTrackPlayer trackId={trackId} fadeMultiplier={fadeMultiplier} />
-  );
 };
 
 export const BinauralAudioEngine: React.FC = () => {
@@ -115,7 +104,7 @@ export const BinauralAudioEngine: React.FC = () => {
   return (
     <>
       {TRACK_IDS.map((id) => (
-        <BinauralTrackWrapper
+        <BinauralTrackPlayer
           key={id}
           trackId={id}
           fadeMultiplier={fadeMultiplier}

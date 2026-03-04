@@ -1,14 +1,15 @@
 import Slider from "@react-native-community/slider";
-import { Activity, Lock, Volume2, VolumeX } from "lucide-react-native";
-import React, { useEffect } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { SymbolView } from "expo-symbols";
+import React, { ReactNode, useEffect } from "react";
+import { Pressable, StyleSheet, Text, View } from "react-native";
+import * as Haptics from "expo-haptics";
 import Animated, {
-  Easing,
-  useAnimatedStyle,
+  FadeIn,
+  FadeOut,
+  LinearTransition,
   useSharedValue,
   withTiming,
 } from "react-native-reanimated";
-import { ZEN_CONFIG } from "../config/zen";
 import { useI18n } from "../i18n";
 import { useLiveStore } from "../store/useLiveStore";
 import { ChannelId } from "../types/mixer";
@@ -17,9 +18,9 @@ import { LiquidButton } from "./LiquidButton";
 interface Props {
   id: ChannelId;
   label: string;
+  icon?: ReactNode;
   color: string;
   value: number; // 0 to 1
-  isZenMode: boolean;
   isMuted: boolean;
   autoVariationEnabled: boolean;
   onChange: (val: number) => void;
@@ -32,6 +33,7 @@ interface Props {
 export const LiquidSlider: React.FC<Props> = ({
   id,
   label,
+  icon,
   color,
   value,
   isMuted,
@@ -41,111 +43,134 @@ export const LiquidSlider: React.FC<Props> = ({
   onToggleAutoVariation,
   isLocked = false,
   onRequirePremium,
-  isZenMode,
 }) => {
   const t = useI18n();
   const isVariationOn = autoVariationEnabled && !isLocked;
 
-  const zenOpacity = useSharedValue(1);
-  const isActive = !isMuted && (value > 0 || autoVariationEnabled);
-  const normalOpacity = isActive
-    ? ZEN_CONFIG.NORMAL_OPACITY
-    : ZEN_CONFIG.INACTIVE_OPACITY;
-  const zenTargetOpacity = isActive
-    ? ZEN_CONFIG.NORMAL_OPACITY
-    : ZEN_CONFIG.ZEN_OPACITY;
-
-  useEffect(() => {
-    const target = isZenMode ? zenTargetOpacity : normalOpacity;
-    zenOpacity.value = withTiming(target, {
-      duration: isZenMode
-        ? ZEN_CONFIG.FADE_OUT_DURATION
-        : ZEN_CONFIG.FADE_IN_DURATION,
-      easing: Easing.inOut(Easing.ease),
-    });
-  }, [isZenMode, normalOpacity, zenTargetOpacity]);
-
   const variation = useLiveStore((s) => s.variations[id]);
-  const displayValue =
+  const targetValue =
     variation !== undefined && variation !== null ? variation : value;
 
-  const animatedContainerStyle = useAnimatedStyle(() => ({
-    opacity: zenOpacity.value,
-  }));
+  const animatedValue = useSharedValue(targetValue);
+
+  useEffect(() => {
+    // Smoothly animate to the new value when it changes (e.g. shuffle)
+    animatedValue.value = withTiming(targetValue, { duration: 500 });
+  }, [targetValue]);
+
+  // We still need a numeric value for the Slider component.
+  // Since Slider is native, we'll use the targetValue for direct interaction,
+  // but for "shuffle" transitions, the state update in the store might already be progressive if implemented there.
+  // However, the user asked for "native transitions".
+  // Let's use the targetValue directly for now as the layout transition already helps with the component feel.
+  // To truly animate the thumb, we'd need a fully custom slider.
+  // Given the constraints of the native Slider, I will focus on the layout and label animations which provide the most "smooth" feel.
 
   return (
-    <Animated.View style={[styles.container, animatedContainerStyle]}>
+    <Animated.View
+      layout={LinearTransition}
+      style={[styles.container, isMuted && { opacity: 0.5 }]}
+    >
       <View style={styles.content}>
         <View style={styles.labelContainer}>
-          <Text style={styles.label}>{label}</Text>
+          <Pressable
+            onPress={() => {
+              if (isLocked) {
+                onRequirePremium?.();
+              } else {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                onToggleMute();
+              }
+            }}
+            style={({ pressed }) => [
+              styles.labelWithIcon,
+              pressed && { opacity: 0.7 },
+            ]}
+          >
+            {icon && (
+              <View style={[styles.iconWrapper, !isMuted && styles.iconGlow]}>
+                {icon}
+              </View>
+            )}
+            <Text style={[styles.label, !isMuted && styles.labelActive]}>
+              {label}
+            </Text>
+          </Pressable>
           {isLocked && (
-            <Lock
+            <SymbolView
+              name="lock.fill"
               size={12}
-              color="rgba(255,255,255,0.4)"
+              tintColor="rgba(255,255,255,0.4)"
               style={{ marginTop: 4 }}
             />
           )}
         </View>
 
-        <View
+        <Animated.View
+          layout={LinearTransition}
           style={styles.sliderContainer}
-          pointerEvents={autoVariationEnabled && !isLocked ? "none" : "auto"}
+          pointerEvents={
+            isMuted || (autoVariationEnabled && !isLocked) ? "none" : "auto"
+          }
         >
           <Slider
+            key={`${id}-${isVariationOn && !isMuted}`}
             style={styles.nativeSlider}
-            value={displayValue}
+            value={targetValue}
             onValueChange={onChange}
             minimumValue={0}
             maximumValue={1}
-            disabled={isLocked}
+            disabled={isLocked || isMuted}
             minimumTrackTintColor={color}
             maximumTrackTintColor="rgba(255,255,255,0.1)"
-            thumbTintColor={isVariationOn ? "transparent" : "#FFFFFF"}
-            thumbImage={
-              isVariationOn
-                ? {
+            {...(isVariationOn && !isMuted
+              ? {
+                  thumbTintColor: "transparent",
+                  thumbImage: {
                     uri: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
-                  }
-                : undefined
-            }
+                  },
+                }
+              : {
+                  thumbTintColor: "#FFFFFF",
+                  thumbImage: undefined,
+                })}
           />
 
           {autoVariationEnabled && (
-            <View style={styles.autoLabelContainer} pointerEvents="none">
+            <Animated.View
+              entering={FadeIn}
+              exiting={FadeOut}
+              style={styles.autoLabelContainer}
+              pointerEvents="none"
+            >
               <Text style={styles.autoLabelText}>{t.mixer.auto_variation}</Text>
-            </View>
+            </Animated.View>
           )}
-        </View>
+        </Animated.View>
 
         {/* Controls */}
-        <View style={styles.controls}>
+        <Animated.View layout={LinearTransition} style={styles.controls}>
           {isLocked ? (
             <LiquidButton onPress={onRequirePremium} isRound isActive={false}>
-              <Lock size={18} color="#AAA" />
+              <SymbolView name="lock.fill" size={18} tintColor="#AAA" />
             </LiquidButton>
           ) : (
-            <>
-              <LiquidButton
-                onPress={onToggleAutoVariation}
-                isRound
-                isActive={autoVariationEnabled}
+            <LiquidButton
+              onPress={onToggleAutoVariation}
+              isRound
+              isActive={autoVariationEnabled}
+            >
+              <Text
+                style={[
+                  styles.autoButtonText,
+                  { color: autoVariationEnabled ? "#FFF" : "#AAA" },
+                ]}
               >
-                <Activity
-                  strokeWidth={3}
-                  size={18}
-                  color={autoVariationEnabled ? "#FFF" : "#AAA"}
-                />
-              </LiquidButton>
-              <LiquidButton onPress={onToggleMute} isRound isActive={!isMuted}>
-                {!isMuted ? (
-                  <Volume2 strokeWidth={3} size={18} color="#ffffffff" />
-                ) : (
-                  <VolumeX size={18} color="#666" />
-                )}
-              </LiquidButton>
-            </>
+                AUTO
+              </Text>
+            </LiquidButton>
           )}
-        </View>
+        </Animated.View>
       </View>
     </Animated.View>
   );
@@ -164,10 +189,39 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   labelContainer: {
-    width: 70,
+    width: 100,
+    overflow: "visible",
+  },
+  labelWithIcon: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+    overflow: "visible",
+  },
+  iconWrapper: {
+    width: 20,
+    height: 20,
+    alignItems: "center",
+    justifyContent: "center",
+    marginRight: 4,
+    borderRadius: 10,
+  },
+  iconGlow: {
+    shadowColor: "#ffe1fcff",
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 1,
+    shadowRadius: 10,
+  },
+  labelActive: {
+    opacity: 1,
+    textShadowColor: "rgba(198, 189, 255, 1)",
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 15,
+    padding: 10,
+    margin: -10,
   },
   label: {
-    color: "#F0F0F0",
+    color: "#ffffffff",
     fontWeight: "600",
     fontSize: 14,
     opacity: 0.9,
@@ -194,10 +248,15 @@ const styles = StyleSheet.create({
     letterSpacing: 2,
     fontWeight: "500",
   },
+  autoButtonText: {
+    fontSize: 8,
+    fontWeight: "600",
+    letterSpacing: 1,
+  },
   controls: {
     flexDirection: "row",
     gap: 8,
-    width: 96,
+    width: 48,
     justifyContent: "flex-end",
   },
 });

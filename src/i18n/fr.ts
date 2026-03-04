@@ -2,7 +2,7 @@ import type { Translations } from "./en";
 
 export const fr: Translations = {
   header: {
-    title: "Evasion",
+    title: "Oasis",
     timer: "Timer",
   },
   channels: {
@@ -15,7 +15,9 @@ export const fr: Translations = {
     tonnerre: "Orage",
     cigales: "Cigales",
     grillons: "Grillons",
-    ville: "Ville",
+    tente: "Tente",
+    riviere: "Rivière",
+    village: "Village",
     voiture: "Voiture",
     train: "Train",
   },
@@ -35,7 +37,7 @@ export const fr: Translations = {
   },
   paywall: {
     title: "Débloquez l'expérience complète",
-    benefit_1: "Accès illimité aux 12 sons premium",
+    benefit_1: "Accès illimité aux 14 sons premium",
     benefit_2: "Minuteur de sommeil et concentration",
     benefit_3: "Sauvegardez vos mix personnalisés",
     benefit_4: "Mixage exclusif haute fidélité",

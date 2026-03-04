@@ -1,351 +1,48 @@
-import { ExpoAvRoutePickerView } from "@douglowder/expo-av-route-picker-view";
-import {
-  Bookmark,
-  Lock,
-  Pause,
-  Play,
-  Shuffle,
-  Timer,
-  TimerOff,
-} from "lucide-react-native";
-import React, { useEffect, useState } from "react";
-import { Platform, StyleSheet, Text, View } from "react-native";
-import Animated, {
-  Easing,
-  cancelAnimation,
-  useAnimatedStyle,
-  useSharedValue,
-  withRepeat,
-  withTiming,
-} from "react-native-reanimated";
-import { ZEN_CONFIG } from "../config/zen";
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
+import Animated, { LinearTransition } from "react-native-reanimated";
 import { useI18n } from "../i18n";
-import { useMixerStore } from "../store/useMixerStore";
-import { LiquidButton } from "./LiquidButton";
+import { StatusCapsules } from "./StatusCapsules";
 
-const TIMER_DURATIONS = [null, 15, 30, 60, 120];
-
-interface HeaderProps {
-  onOpenPresets: () => void;
-}
-
-export const Header: React.FC<HeaderProps> = ({ onOpenPresets }) => {
+export const Header: React.FC = () => {
   const t = useI18n();
 
-  const isPlaying = useMixerStore((state) => state.isPlaying);
-  const togglePlayPause = useMixerStore((state) => state.togglePlayPause);
-  const randomizeMix = useMixerStore((state) => state.randomizeMix);
-  const setTimer = useMixerStore((state) => state.setTimer);
-  const timerEndTime = useMixerStore((state) => state.timerEndTime);
-  const timerDurationChosen = useMixerStore(
-    (state) => state.timerDurationChosen,
-  );
-  const currentPresetId = useMixerStore((state) => state.currentPresetId);
-  const isZenMode = useMixerStore((state) => state.isZenMode);
-
-  const isPremium = useMixerStore((state) => state.isPremium);
-  const setPaywallVisible = useMixerStore((state) => state.setPaywallVisible);
-
-  const [timeRemaining, setTimeRemaining] = useState<number | null>(null);
-
-  // Countdown Logic (Local state to avoid triggering Zustand updates every second)
-  useEffect(() => {
-    if (!timerEndTime || !isPlaying) {
-      setTimeRemaining(null);
-      return;
-    }
-
-    const interval = setInterval(() => {
-      const remaining = timerEndTime - Date.now();
-      if (remaining > 0) {
-        setTimeRemaining(remaining);
-      } else {
-        setTimeRemaining(null);
-      }
-    }, 1000);
-
-    // Initial check
-    const initialRemaining = timerEndTime - Date.now();
-    setTimeRemaining(initialRemaining > 0 ? initialRemaining : null);
-
-    return () => clearInterval(interval);
-  }, [timerEndTime, isPlaying]);
-
-  const onTimerPress = () => {
-    if (!isPremium) {
-      setPaywallVisible(true);
-      return;
-    }
-    const currentIndex = TIMER_DURATIONS.indexOf(timerDurationChosen);
-    const nextIndex = (currentIndex + 1) % TIMER_DURATIONS.length;
-    setTimer(TIMER_DURATIONS[nextIndex]);
-  };
-
-  const formatTime = (ms: number) => {
-    const totalSeconds = Math.floor(ms / 1000);
-    const minutes = Math.floor(totalSeconds / 60);
-    const seconds = totalSeconds % 60;
-    return `${minutes}:${seconds.toString().padStart(2, "0")}`;
-  };
-
-  const zenOpacity = useSharedValue(1);
-
-  useEffect(() => {
-    zenOpacity.value = withTiming(
-      isZenMode ? ZEN_CONFIG.ZEN_OPACITY : ZEN_CONFIG.NORMAL_OPACITY,
-      {
-        duration: isZenMode
-          ? ZEN_CONFIG.FADE_OUT_DURATION
-          : ZEN_CONFIG.FADE_IN_DURATION,
-        easing: Easing.inOut(Easing.ease),
-      },
-    );
-  }, [isZenMode]);
-
-  const animatedTitleStyle = useAnimatedStyle(() => ({
-    opacity: zenOpacity.value,
-  }));
-
-  const animatedSecondaryControlsStyle = useAnimatedStyle(() => ({
-    opacity: zenOpacity.value,
-    borderRadius: 26,
-  }));
-
   return (
-    <View style={styles.header}>
-      <Animated.View style={[styles.titleContainer, animatedTitleStyle]}>
+    <Animated.View layout={LinearTransition} style={styles.header}>
+      <View style={styles.titleContainer}>
         <Text style={styles.title}>{t.header.title}</Text>
-        <Text style={styles.subtitle}>Binaural HD</Text>
-      </Animated.View>
-      <View style={styles.controls}>
-        {/* Play/Pause with rotating glow */}
-        <View style={styles.playContainer}>
-          <LiquidButton
-            isRound
-            isActive={isPlaying}
-            size={52}
-            onPress={togglePlayPause}
-          >
-            {isPlaying ? (
-              <Pause size={20} color="#FFF" />
-            ) : (
-              <Play size={20} fill="#EEE" color="#EEE" />
-            )}
-          </LiquidButton>
-          <PlayGlowRing isPlaying={isPlaying} size={52} />
-        </View>
-
-        {/* Shuffle */}
-        <LiquidButton
-          isRound
-          testID="random-btn"
-          size={52}
-          onPress={randomizeMix}
-          style={animatedSecondaryControlsStyle}
-        >
-          <Shuffle size={20} color="#EEE" />
-        </LiquidButton>
-
-        {/* Presets — between shuffle and timer */}
-        <LiquidButton
-          isRound
-          testID="presets-btn"
-          size={52}
-          isActive={currentPresetId !== null}
-          onPress={isPremium ? onOpenPresets : () => setPaywallVisible(true)}
-          style={animatedSecondaryControlsStyle}
-        >
-          {isPremium ? (
-            <Bookmark
-              size={20}
-              color={currentPresetId !== null ? "#FFF" : "#EEE"}
-            />
-          ) : (
-            <Lock size={20} color="#AAA" />
-          )}
-        </LiquidButton>
-
-        {/* Timer */}
-        <LiquidButton
-          isActive={timerDurationChosen !== null}
-          size={52}
-          onPress={onTimerPress}
-          style={animatedSecondaryControlsStyle}
-        >
-          {timerDurationChosen !== null ? (
-            <Timer size={20} color="#FFF" />
-          ) : (
-            <TimerOff size={20} color="#EEE" />
-          )}
-          <Text
-            style={[
-              styles.btnText,
-              timerDurationChosen !== null && styles.btnTextActive,
-            ]}
-          >
-            {timeRemaining !== null
-              ? formatTime(timeRemaining)
-              : timerDurationChosen
-                ? `${timerDurationChosen}m`
-                : t.header.timer}
-          </Text>
-          {!isPremium && (
-            <Lock size={12} color="#AAA" style={{ marginLeft: 4 }} />
-          )}
-        </LiquidButton>
+        <Text style={styles.subtitle}>Binaural Nature</Text>
+        <StatusCapsules />
       </View>
-
-      {/* AirPlay (iOS only) - Absolute top right */}
-      {Platform.OS === "ios" && (
-        <Animated.View
-          style={[
-            styles.airplayContainer,
-            styles.airplayGlass,
-            animatedSecondaryControlsStyle,
-          ]}
-        >
-          <ExpoAvRoutePickerView
-            activeTintColor="#FFF"
-            tintColor="#DDD"
-            style={{ width: 44, height: 44 }}
-          />
-        </Animated.View>
-      )}
-    </View>
-  );
-};
-
-/** Rotating glow ring — pure RN Views with iOS shadows */
-const RING_PADDING = 1;
-
-const PlayGlowRing: React.FC<{ isPlaying: boolean; size: number }> = ({
-  isPlaying,
-  size,
-}) => {
-  const rotation = useSharedValue(0);
-  const opacity = useSharedValue(0);
-
-  useEffect(() => {
-    if (isPlaying) {
-      opacity.value = withTiming(1, { duration: 600 });
-      rotation.value = 0;
-      rotation.value = withRepeat(
-        withTiming(360, {
-          duration: 4000,
-          easing: Easing.linear,
-        }),
-        -1,
-        false,
-      );
-    } else {
-      opacity.value = withTiming(0, { duration: 400 });
-      cancelAnimation(rotation);
-    }
-  }, [isPlaying]);
-
-  const ringAnimStyle = useAnimatedStyle(() => ({
-    opacity: opacity.value,
-    transform: [{ rotate: `${rotation.value}deg` }],
-  }));
-
-  const outerSize = size + RING_PADDING * 2;
-  const arcBase = {
-    position: "absolute" as const,
-    width: outerSize,
-    height: outerSize,
-    borderRadius: outerSize / 2,
-    borderColor: "transparent",
-  };
-
-  return (
-    <Animated.View
-      pointerEvents="none"
-      style={[
-        {
-          position: "absolute",
-          width: outerSize,
-          height: outerSize,
-          top: -RING_PADDING,
-          left: -RING_PADDING,
-        },
-        ringAnimStyle,
-      ]}
-    >
-      {/* Layer 3 — sharp bright core */}
-      <View
-        style={[
-          arcBase,
-          {
-            borderWidth: 2,
-            borderTopColor: "rgba(255,255,255,1)",
-            borderBottomColor: "rgba(255,255,255,1)",
-            shadowColor: "#FFFFFF",
-            shadowOffset: { width: 0, height: 0 },
-            shadowOpacity: 1,
-            shadowRadius: 3,
-          },
-        ]}
-      />
     </Animated.View>
   );
 };
 
 const styles = StyleSheet.create({
   header: {
-    paddingTop: 60,
+    paddingTop: 40,
     paddingHorizontal: 10,
   },
   titleContainer: {
     alignItems: "center",
-    marginBottom: 24,
   },
   title: {
-    fontSize: 40,
+    fontSize: 50,
     fontFamily: "DancingScript_700Bold",
     fontWeight: "700",
     letterSpacing: 2,
-    color: "#E0E0E0",
-    opacity: 1,
-    textShadowColor: "#E0E0E0",
-    textShadowOffset: { width: 0.5, height: 0.5 },
+    color: "#F5F5F7", // Apple-style off-white
+    textShadowColor: "rgba(255, 255, 255, 1)",
+    textShadowOffset: { width: 0, height: 0 },
     textShadowRadius: 1,
   },
   subtitle: {
-    fontSize: 9,
+    fontSize: 10,
     fontWeight: "500",
-    letterSpacing: 5,
-    color: "#E0E0E0",
-    opacity: 0.5,
-    marginTop: 4,
+    letterSpacing: 4,
+    color: "#F5F5F7",
+    opacity: 0.6,
+    marginTop: -2,
     textTransform: "uppercase",
-  },
-  controls: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    width: "100%",
-  },
-  playContainer: {
-    position: "relative",
-  },
-  airplayContainer: {
-    position: "absolute",
-    top: 66,
-    right: 20,
-    zIndex: 10,
-  },
-  airplayGlass: {
-    backgroundColor: "rgba(255,255,255,0.06)",
-    borderRadius: 22,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  btnText: {
-    color: "#EEE",
-    fontWeight: "500",
-    fontSize: 13,
-  },
-  btnTextActive: {
-    color: "#FFF",
-    fontWeight: "600",
   },
 });

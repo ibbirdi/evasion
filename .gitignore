@@ -40,3 +40,8 @@ yarn-error.*
 # generated native folders
 /ios
 /android
+
+# Maestro generated files
+maestro/generated-flow.yaml
+
+vendor

@@ -28,7 +28,7 @@ UN OUTIL PREMIUM, SANS ABONNEMENT
 Nous refusons la fatigue des abonnements. L'application propose une version gratuite sans limite de temps incluant 3 sons de la nature (Oiseaux, Vent, Plage) et l'onde Delta pour le sommeil.
 
 Passez à la version Premium avec un PAIEMENT UNIQUE À VIE pour débloquer le plein potentiel de l'application :
-- La bibliothèque complète de 12 environnements sonores haute fidélité.
+- La bibliothèque complète de 14 environnements sonores haute fidélité.
 - Les 4 modes d'ondes cérébrales (Delta, Theta, Alpha, Beta).
 - La sauvegarde illimitée de vos propres mixages.
 - La minuterie de sommeil programmable (15m, 30m, 1h, 2h).
@@ -62,7 +62,7 @@ A PREMIUM TOOL, NO SUBSCRIPTION
 We reject subscription fatigue. The app offers a free version with no time limit including 3 nature sounds (Birds, Wind, Beach) and the Delta wave for sleep.
 
 Upgrade to the Premium version with a ONE-TIME LIFETIME PAYMENT to unlock the app's full potential:
-- The complete library of 12 high-fidelity sound environments.
+- The complete library of 14 high-fidelity sound environments.
 - The 4 brainwave modes (Delta, Theta, Alpha, Beta).
 - Unlimited saving of your own mixes.
 - Programmable sleep timer (15m, 30m, 1h, 2h).
@@ -96,7 +96,7 @@ UNA HERRAMIENTA PREMIUM, SIN SUSCRIPCIÓN
 Rechazamos la fatiga de las suscripciones. La aplicación ofrece una versión gratuita sin límite de tiempo que incluye 3 sonidos de la naturaleza (Pájaros, Viento, Playa) y la onda Delta para dormir.
 
 Pásate a la versión Premium con un PAGO ÚNICO DE POR VIDA para desbloquear todo el potencial de la aplicación:
-- La biblioteca completa de 12 entornos sonoros de alta fidelidad.
+- La biblioteca completa de 14 entornos sonoros de alta fidelidad.
 - Los 4 modos de ondas cerebrales (Delta, Theta, Alpha, Beta).
 - Guardado ilimitado de tus propias mezclas.
 - Temporizador de sueño programable (15m, 30m, 1h, 2h).
@@ -130,7 +130,7 @@ EIN PREMIUM-TOOL, KEIN ABONNEMENT
 Wir lehnen die Abo-Müdigkeit ab. Die App bietet eine kostenlose Version ohne Zeitlimit mit 3 Naturgeräuschen (Vögel, Wind, Strand) und der Delta-Welle für den Schlaf.
 
 Wechsle zur Premium-Version mit einer EINMALIGEN LEBENSLANGEN ZAHLUNG, um das volle Potenzial der App freizuschalten:
-- Die komplette Bibliothek mit 12 High-Fidelity-Klangumgebungen.
+- Die komplette Bibliothek mit 14 High-Fidelity-Klangumgebungen.
 - Die 4 Gehirnwellen-Modi (Delta, Theta, Alpha, Beta).
 - Unbegrenztes Speichern deiner eigenen Mixe.
 - Programmierbarer Sleep-Timer (15m, 30m, 1h, 2h).
@@ -164,7 +164,7 @@ UNO STRUMENTO PREMIUM, NESSUN ABBONAMENTO
 Rifiutiamo l'affaticamento da abbonamento. L'app offre una versione gratuita senza limiti di tempo che include 3 suoni della natura (Uccelli, Vento, Spiaggia) e l'onda Delta per il sonno.
 
 Passa alla versione Premium con un PAGAMENTO UNICO A VITA per sbloccare tutto il potenziale dell'app:
-- La libreria completa di 12 ambienti sonori ad alta fedeltà.
+- La libreria completa di 14 ambienti sonori ad alta fedeltà.
 - Le 4 modalità di onde cerebrali (Delta, Theta, Alpha, Beta).
 - Il salvataggio illimitato dei tuoi mix.
 - Il timer di spegnimento programmabile (15m, 30m, 1h, 2h).
@@ -198,7 +198,7 @@ UMA FERRAMENTA PREMIUM, SEM ASSINATURA
 Rejeitamos a fadiga das assinaturas. A aplicação oferece uma versão gratuita sem limite de tempo que inclui 3 sons da natureza (Pássaros, Vento, Praia) e a onda Delta para o sono.
 
 Mude para a versão Premium com um PAGAMENTO ÚNICO VITALÍCIO para desbloquear todo o potencial da aplicação:
-- A biblioteca completa de 12 ambientes sonoros de alta fidelidade.
+- A biblioteca completa de 14 ambientes sonoros de alta fidelidade.
 - Os 4 modos de ondas cerebrais (Delta, Theta, Alpha, Beta).
 - Gravação ilimitada das suas próprias misturas.
 - Temporizador de sono programável (15m, 30m, 1h, 2h).

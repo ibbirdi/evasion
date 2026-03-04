@@ -23,11 +23,11 @@ export interface MixerState {
   timerEndTime: number | null; // Timestamp of timer end
   timerDurationChosen: number | null; // e.g 15, 30, 60
   currentPresetId: string | null;
-  isZenMode: boolean;
 
   // Freemium States
   isPremium: boolean;
   isPaywallVisible: boolean;
+  isBinauralPopupVisible: boolean;
 
   // Binaural States
   isBinauralActive: boolean;
@@ -48,7 +48,7 @@ export interface MixerActions {
   randomizeMix: () => void;
   setIsPremium: (value: boolean) => void;
   setPaywallVisible: (value: boolean) => void;
-  setIsZenMode: (val: boolean) => void;
+  setBinauralPopupVisible: (value: boolean) => void;
 
   // Binaural Actions
   toggleBinaural: () => void;
@@ -64,6 +64,7 @@ export interface MixerActions {
   loadPreset: (presetId: string) => void;
   saveUserPreset: (name: string) => void;
   deleteUserPreset: (presetId: string) => void;
+  reorderPresets: (fromIndex: number, toIndex: number) => void;
 }
 
 export type MixerStore = MixerState & MixerActions;

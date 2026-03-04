@@ -1,4 +1,8 @@
-import { setAudioModeAsync, useAudioPlayer } from "expo-audio";
+import {
+  setAudioModeAsync,
+  useAudioPlayer,
+  useAudioPlayerStatus,
+} from "expo-audio";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { AppState, AppStateStatus } from "react-native";
 import { AUDIO_CONFIG } from "../config/audio";
@@ -22,7 +26,7 @@ const ChannelAudio: React.FC<{
     () => pickRandom(AUDIO_CONFIG[channelId].sources),
     [channelId],
   );
-  const player = useAudioPlayer(source);
+  const player = useAudioPlayer(source, { downloadFirst: true });
 
   const initializedOffset = useRef(false);
 
@@ -214,13 +218,52 @@ export const AudioEngine: React.FC = () => {
     };
   }, [isPlaying]);
 
+  // Master Player for Lock Screen Controls
+  // We use the first source of the first channel just to have a player to attach the lock screen to.
+  // It will be silent (volume 0) because individual ChannelAudio components handle the actual sound.
+  const firstChannelId = (Object.keys(AUDIO_CONFIG) as ChannelId[])[0];
+  const masterSource = AUDIO_CONFIG[firstChannelId].sources[0];
+  const masterPlayer = useAudioPlayer(masterSource);
+  const masterStatus = useAudioPlayerStatus(masterPlayer);
+
+  useEffect(() => {
+    const syncLockScreen = async () => {
+      if (isPlaying && masterPlayer.isLoaded) {
+        masterPlayer.volume = 0;
+        masterPlayer.loop = true;
+        masterPlayer.play();
+        masterPlayer.setActiveForLockScreen(true, {
+          title: "Evasion",
+          artist: "Soundscape",
+        });
+      } else {
+        masterPlayer.pause();
+        // We don't necessarily clear controls here to avoid flickering if it's just a pause
+      }
+    };
+    syncLockScreen();
+  }, [isPlaying, masterPlayer.isLoaded]);
+
+  // Sync Remote Commands from Lock Screen back to Store
+  useEffect(() => {
+    if (masterStatus.isLoaded) {
+      if (isPlaying && !masterStatus.playing) {
+        // Paused via Lock Screen
+        togglePlayPause();
+      } else if (!isPlaying && masterStatus.playing) {
+        // Played via Lock Screen
+        togglePlayPause();
+      }
+    }
+  }, [masterStatus.playing, masterStatus.isLoaded]);
+
   useEffect(() => {
     const applyAudioMode = async () => {
       try {
         await setAudioModeAsync({
           playsInSilentMode: true,
           shouldPlayInBackground: true,
-          interruptionMode: "mixWithOthers",
+          interruptionMode: "doNotMix", // Required for lock screen controls
         });
       } catch (e) {
         console.warn("Failed to set audio mode:", e);

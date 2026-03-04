@@ -1,10 +1,12 @@
+import { GlassView } from "expo-glass-effect";
 import * as Haptics from "expo-haptics";
 import React, { useCallback } from "react";
 import {
   Pressable,
   StyleProp,
+  StyleSheet,
   View,
-  ViewStyle
+  ViewStyle,
 } from "react-native";
 import Animated, {
   useAnimatedStyle,
@@ -24,6 +26,8 @@ interface LiquidButtonProps {
   isRound?: boolean;
   /** Met en avant le bouton (bordure + légère surbrillance) */
   isActive?: boolean;
+  /** Custom active color */
+  activeColor?: string;
   /** Style supplémentaire pour le wrapper extérieur */
   style?: StyleProp<ViewStyle>;
   /** ID for testing with Maestro etc */
@@ -36,6 +40,7 @@ export const LiquidButton: React.FC<LiquidButtonProps> = ({
   size = 42,
   isRound = false,
   isActive = false,
+  activeColor,
   style,
   testID,
 }) => {
@@ -69,8 +74,8 @@ export const LiquidButton: React.FC<LiquidButtonProps> = ({
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }],
     backgroundColor: isActive
-      ? `rgba(255,255,255,${0.25 + brightness.value * 0.1})`
-      : `rgba(255,255,255,${0.06 + brightness.value * 0.08})`,
+      ? activeColor || `rgba(255,255,255,${0.2 + brightness.value * 0.1})`
+      : `rgba(255,255,255,${0.05 + brightness.value * 0.05})`,
   }));
 
   return (
@@ -80,12 +85,15 @@ export const LiquidButton: React.FC<LiquidButtonProps> = ({
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
       style={[
+        styles.container,
         {
           width: isRound ? size : undefined,
           height: size,
           borderRadius,
           overflow: "hidden",
         },
+        isActive && styles.active,
+        isActive && activeColor ? { borderColor: activeColor } : {},
         animatedStyle,
         style,
       ]}
@@ -106,3 +114,15 @@ export const LiquidButton: React.FC<LiquidButtonProps> = ({
     </AnimatedPressable>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "rgba(255, 255, 255, 0.05)",
+    borderWidth: 1,
+    borderColor: "rgba(255, 255, 255, 0.15)",
+  },
+  active: {
+    backgroundColor: "rgba(255, 255, 255, 0.12)",
+    borderColor: "rgba(255, 255, 255, 0.3)",
+  },
+});

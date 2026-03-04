@@ -1,711 +1,727 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-    <head>
-        <title>deliver - Drift - Binaural Beats</title>
-        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-        <style>
-          .app-name {
-              font-size: 42px;
-              font-family: 'Helvetica Neue', HelveticaNeue, Helvetica Neue;
-              font-weight: 300;
-              margin-top: 22px;
-              margin-left: 25px;
-              margin-right: 25px;
-          }
+  <head>
+    <title>deliver - Drift - Binaural Beats</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <style>
+      .app-name {
+        font-size: 42px;
+        font-family:
+          "Helvetica Neue",
+          HelveticaNeue,
+          Helvetica Neue;
+        font-weight: 300;
+        margin-top: 22px;
+        margin-left: 25px;
+        margin-right: 25px;
+      }
 
-          .app-subtitle {
-              font-size: 26px;
-              font-family: 'Helvetica Neue', HelveticaNeue, Helvetica Neue;
-              font-weight: 300;
-              margin-left: 25px;
-              margin-right: 25px;
-          }
+      .app-subtitle {
+        font-size: 26px;
+        font-family:
+          "Helvetica Neue",
+          HelveticaNeue,
+          Helvetica Neue;
+        font-weight: 300;
+        margin-left: 25px;
+        margin-right: 25px;
+      }
 
-          .app-urls {
-              margin-left: 25px;
-              font-size: 14px;
-              margin-top: 4px;
-              margin-right: 25px;
-          }
+      .app-urls {
+        margin-left: 25px;
+        font-size: 14px;
+        margin-top: 4px;
+        margin-right: 25px;
+      }
 
-          body {
-              font-family: 'Helvetica Neue', HelveticaNeue;
-          }
+      body {
+        font-family: "Helvetica Neue", HelveticaNeue;
+      }
 
-          hr {
-            margin-top: 40px;
-            margin-bottom: 40px;
-          }
+      hr {
+        margin-top: 40px;
+        margin-bottom: 40px;
+      }
 
-          .app-url-descr {
-              height:22px;
-              display: inline-block;
-              font-weight: 500;
-          }
+      .app-url-descr {
+        height: 22px;
+        display: inline-block;
+        font-weight: 500;
+      }
 
-          .app-url {
-              color: #0056ba;
-              font-weight: 300;
-              margin-right: 10px;
-          }
+      .app-url {
+        color: #0056ba;
+        font-weight: 300;
+        margin-right: 10px;
+      }
 
-          .app-keyword {
-              margin-left: 25px;
-              margin-right: 25px;
-              margin-top: 22px;
-          }
+      .app-keyword {
+        margin-left: 25px;
+        margin-right: 25px;
+        margin-top: 22px;
+      }
 
-          .cat-headline {
-              font-weight: 700;
-              margin-bottom: 5px;
-          }
+      .cat-headline {
+        font-weight: 700;
+        margin-bottom: 5px;
+      }
 
+      .app-description {
+        margin-left: 25px;
+        margin-right: 25px;
+        margin-top: 22px;
+      }
 
+      .app-description-text {
+        font-weight: 300;
+      }
 
-          .app-description {
-              margin-left: 25px;
-              margin-right: 25px;
-              margin-top: 22px;
-          }
+      .app-changelog {
+        margin-left: 25px;
+        margin-right: 25px;
+        margin-top: 22px;
+        font-weight: 300;
+      }
 
-          .app-description-text {
-              font-weight: 300;
-          }
+      .app-screenshots {
+        margin-left: 15px;
+        margin-right: 15px;
+        margin-top: 22px;
+      }
 
-          .app-changelog {
-              margin-left: 25px;
-              margin-right: 25px;
-              margin-top: 22px;
-              font-weight: 300;
-          }
+      .app-keyword-list {
+        font-weight: 300;
+      }
 
-          .app-screenshots {
-              margin-left: 15px;
-              margin-right: 15px;
-              margin-top: 22px;
-          }
+      .app-changelog-list {
+        list-style-type: square;
 
-          .app-keyword-list {
-              font-weight: 300;
-          }
+        font-weight: 300;
+      }
 
-          .app-changelog-list {
-              list-style-type: square;
+      ul {
+        margin-top: 6px;
+      }
 
-              font-weight: 300;
-          }
+      .app-screenshot-row {
+        width: 100%;
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
 
-          ul {
-              margin-top: 6px;
-          }
+      .app-screenshot {
+        width: calc(20% - 30px);
+        margin-left: 10px;
+        margin-right: 10px;
+      }
 
-          .app-screenshot-row {
-              width: 100%;
-              margin-top: 10px;
-              margin-bottom: 10px;
-          }
+      #app-screenshots .cat-headline {
+        margin-left: 10px;
+        margin-right: 10px;
+      }
+      .app-icons {
+        overflow: hidden;
+      }
+      .app-icons img {
+        width: 150px;
+      }
+      .app-icons .app-icon {
+        float: left;
+        margin-right: 20px;
+      }
 
-          .app-screenshot {
-              width: calc(20% - 30px);
-              margin-left: 10px;
-              margin-right: 10px;
-          }
+      .app-minor-information {
+        margin-left: 15px;
+        margin-right: 15px;
+        margin-top: 22px;
+      }
 
-          #app-screenshots .cat-headline {
-              margin-left: 10px;
-              margin-right: 10px;
-          }
-          .app-icons {
-            overflow: hidden;
-          }
-          .app-icons img {
-            width: 150px;
-          }
-          .app-icons .app-icon {
-              float: left;
-              margin-right: 20px;
-          }
+      .app-minor-information-key {
+        font-weight: 700;
+      }
+    </style>
+  </head>
 
-          .app-minor-information {
-            margin-left: 15px;
-            margin-right: 15px;
-            margin-top: 22px;
-          }
+  <body>
+    <div class="app-icons"></div>
 
-          .app-minor-information-key {
-            font-weight: 700;
-          }
-        </style>
-    </head>
+    <div class="app-name">de-DE: Drift - Binaurale Beats</div>
 
-    <body>
-      <div class="app-icons">
+    <div class="app-subtitle">Subtitle: Premium Schlaf & Fokus</div>
 
-        
-        
+    <div class="app-urls"></div>
+
+    <div class="app-keyword">
+      <div class="cat-headline">Keywords</div>
+      <ul class="app-keyword-list">
+        <li>schlaf</li>
+
+        <li>binaural</li>
+
+        <li>natur</li>
+
+        <li>regen</li>
+
+        <li>sturm</li>
+
+        <li>meditation</li>
+
+        <li>konzentration</li>
+
+        <li>entspannung</li>
+
+        <li>kein abo</li>
+
+        <li>weißes rauschen</li>
+      </ul>
+    </div>
+
+    <div class="app-description">
+      <div class="cat-headline">Description</div>
+      <div class="app-description-text">
+        Willkommen bei Drift, deinem neuen klanglichen Heiligtum.<br /><br />Vergiss
+        künstliche Schleifen von wenigen Sekunden: Drift verwendet
+        ausschließlich echte, kontinuierliche Feldaufnahmen in sehr hoher
+        binauraler Qualität, die auf der ganzen Welt aufgenommen wurden. Tauche
+        sofort in eine weite, lebendige und tief immersive Klanglandschaft
+        ein.<br /><br />EIN LEBENDIGES AUDIOERLEBNIS<br />Unsere intelligente
+        Audio-Engine sorgt dafür, dass du niemals genau dieselbe Mischung
+        zweimal hörst. Dank des temporalen Zufallsgenerators und der
+        Auto-Variation-Funktion verändert die App die Lautstärke natürlicher
+        Umgebungen im Laufe der Zeit zufällig und sehr langsam, wodurch deine
+        mentale Belastung vollständig befreit wird.<br /><br />GEHIRNWELLEN &
+        BINAURALES STEREO<br />Drift integriert einen hybriden Mixer reiner
+        Frequenzen, um deine Gehirnwellen mit 4 speziell entwickelten Modi zu
+        synchronisieren (Stereokopfhörer empfohlen):<br />- Delta (Schlaf):
+        Fördert das Einschlafen und einen tiefen, erholsamen Schlaf.<br />-
+        Theta (Entspannung): Ideal für tiefe Meditation und Stressabbau.<br />-
+        Alpha (Fokus): Für Gedächtnis, Lernen und kreative Arbeit.<br />- Beta
+        (Wach): Stimuliert Wachsamkeit und kognitive Fähigkeiten.<br /><br />EIN
+        PREMIUM-TOOL, KEIN ABONNEMENT<br />Wir lehnen die Abo-Müdigkeit ab. Die
+        App bietet eine kostenlose Version ohne Zeitlimit mit 3 Naturgeräuschen
+        (Vögel, Wind, Strand) und der Delta-Welle für den Schlaf.<br /><br />Wechsle
+        zur Premium-Version mit einer EINMALIGEN LEBENSLANGEN ZAHLUNG, um das
+        volle Potenzial der App freizuschalten:<br />- Die komplette Bibliothek
+        mit 14 High-Fidelity-Klangumgebungen.<br />- Die 4 Gehirnwellen-Modi
+        (Delta, Theta, Alpha, Beta).<br />- Unbegrenztes Speichern deiner
+        eigenen Mixe.<br />- Programmierbarer Sleep-Timer (15m, 30m, 1h, 2h).<br />-
+        Intelligente Auto-Variation der Umgebung.<br /><br />100% OFFLINE &
+        DATENSCHUTZ RESPEKTIERT<br />Alle Klangelemente sind lokal auf deinem
+        Gerät eingebettet. Die Immersion startet sofort, ohne Netzwerklatenz, in
+        völliger Vertraulichkeit. Die App spielt im Hintergrund mit voller
+        Systemintegration weiter, auch wenn der Bildschirm gesperrt ist.
       </div>
-      
-        
-          <div class="app-name">
-            de-DE: Drift - Binaurale Beats
-          </div>
-        
+    </div>
 
-        
-          <div class="app-subtitle">
-            Subtitle:  Premium Schlaf & Fokus
-          </div>
-        
+    <div class="app-changelog">
+      <div class="cat-headline">Promotional Text</div>
+      Absolute Immersion durch die Natur. Echte, kontinuierliche Audioaufnahmen,
+      mit einem Einmalkauf und ohne Abonnements.
+    </div>
 
-        <div class="app-urls">
-          
-          
-            
-            
-          
-            
-            
-          
-        </div>
+    <div class="app-screenshots">
+      <div class="cat-headline">Screenshots</div>
 
-        
-          <div class="app-keyword">
-              <div class="cat-headline">Keywords</div>
-              <ul class="app-keyword-list">
-                
-                  <li>schlaf</li>
-                
-                  <li>binaural</li>
-                
-                  <li>natur</li>
-                
-                  <li>regen</li>
-                
-                  <li>sturm</li>
-                
-                  <li>meditation</li>
-                
-                  <li>konzentration</li>
-                
-                  <li>entspannung</li>
-                
-                  <li>kein abo</li>
-                
-                  <li>weißes rauschen</li>
-                
-              </ul>
-          </div>
-        
+      <!-- no screenshots -->
+      <div style="border: 3px solid red; padding: 0px 20px">
+        <h2 style="color: red">No Screenshots Found</h2>
+        <p>
+          deliver couldn't find any screenshots. The existing screenshots on App
+          Store Connect will be kept. if you want to remove them you have to use
+          the <i>--overwrite_screenshots</i> flag.
+        </p>
 
-        
-          <div class="app-description">
-               <div class="cat-headline">Description</div>
-               <div class="app-description-text">
-                  Willkommen bei Drift, deinem neuen klanglichen Heiligtum.<br /><br />Vergiss künstliche Schleifen von wenigen Sekunden: Drift verwendet ausschließlich echte, kontinuierliche Feldaufnahmen in sehr hoher binauraler Qualität, die auf der ganzen Welt aufgenommen wurden. Tauche sofort in eine weite, lebendige und tief immersive Klanglandschaft ein.<br /><br />EIN LEBENDIGES AUDIOERLEBNIS<br />Unsere intelligente Audio-Engine sorgt dafür, dass du niemals genau dieselbe Mischung zweimal hörst. Dank des temporalen Zufallsgenerators und der Auto-Variation-Funktion verändert die App die Lautstärke natürlicher Umgebungen im Laufe der Zeit zufällig und sehr langsam, wodurch deine mentale Belastung vollständig befreit wird.<br /><br />GEHIRNWELLEN & BINAURALES STEREO<br />Drift integriert einen hybriden Mixer reiner Frequenzen, um deine Gehirnwellen mit 4 speziell entwickelten Modi zu synchronisieren (Stereokopfhörer empfohlen):<br />- Delta (Schlaf): Fördert das Einschlafen und einen tiefen, erholsamen Schlaf.<br />- Theta (Entspannung): Ideal für tiefe Meditation und Stressabbau.<br />- Alpha (Fokus): Für Gedächtnis, Lernen und kreative Arbeit.<br />- Beta (Wach): Stimuliert Wachsamkeit und kognitive Fähigkeiten.<br /><br />EIN PREMIUM-TOOL, KEIN ABONNEMENT<br />Wir lehnen die Abo-Müdigkeit ab. Die App bietet eine kostenlose Version ohne Zeitlimit mit 3 Naturgeräuschen (Vögel, Wind, Strand) und der Delta-Welle für den Schlaf.<br /><br />Wechsle zur Premium-Version mit einer EINMALIGEN LEBENSLANGEN ZAHLUNG, um das volle Potenzial der App freizuschalten:<br />- Die komplette Bibliothek mit 12 High-Fidelity-Klangumgebungen.<br />- Die 4 Gehirnwellen-Modi (Delta, Theta, Alpha, Beta).<br />- Unbegrenztes Speichern deiner eigenen Mixe.<br />- Programmierbarer Sleep-Timer (15m, 30m, 1h, 2h).<br />- Intelligente Auto-Variation der Umgebung.<br /><br />100% OFFLINE & DATENSCHUTZ RESPEKTIERT<br />Alle Klangelemente sind lokal auf deinem Gerät eingebettet. Die Immersion startet sofort, ohne Netzwerklatenz, in völliger Vertraulichkeit. Die App spielt im Hintergrund mit voller Systemintegration weiter, auch wenn der Bildschirm gesperrt ist.
-               </div>
-          </div>
-        
+        <p>
+          If you want to download your existing screenshots, run
+          <i>deliver download_screenshots</i>.
+        </p>
+      </div>
+    </div>
 
-        
+    <hr />
 
-        
-          <div class="app-changelog">
-              <div class="cat-headline">Promotional Text</div>
-              Absolute Immersion durch die Natur. Echte, kontinuierliche Audioaufnahmen, mit einem Einmalkauf und ohne Abonnements.
-          </div>
-        
+    <div class="app-name">en-US: Drift - Binaural Beats</div>
 
-        <div class="app-screenshots">
-          <div class="cat-headline">Screenshots</div>
+    <div class="app-subtitle">Subtitle: Premium Sleep & Focus</div>
 
-          
-            <!-- no screenshots -->
-            <div style="border: 3px solid red; padding: 0px 20px">
-              <h2 style="color: red">No Screenshots Found</h2>
-              <p>
-                deliver couldn't find any screenshots.
-                
-                  The existing screenshots on App Store Connect will be kept.
-                  if you want to remove them you have to use the <i>--overwrite_screenshots</i> flag.
-                
-              <p>
-                If you want to download your existing screenshots, run <i>deliver download_screenshots</i>.
-              </p>
-            </div>
-          
-          </div>
+    <div class="app-urls"></div>
 
-        <hr />
-      
-        
-          <div class="app-name">
-            en-US: Drift - Binaural Beats
-          </div>
-        
+    <div class="app-keyword">
+      <div class="cat-headline">Keywords</div>
+      <ul class="app-keyword-list">
+        <li>sleep</li>
 
-        
-          <div class="app-subtitle">
-            Subtitle:  Premium Sleep & Focus
-          </div>
-        
+        <li>binaural</li>
 
-        <div class="app-urls">
-          
-          
-            
-            
-          
-            
-            
-          
-        </div>
+        <li>nature</li>
 
-        
-          <div class="app-keyword">
-              <div class="cat-headline">Keywords</div>
-              <ul class="app-keyword-list">
-                
-                  <li>sleep</li>
-                
-                  <li>binaural</li>
-                
-                  <li>nature</li>
-                
-                  <li>rain</li>
-                
-                  <li>storm</li>
-                
-                  <li>meditation</li>
-                
-                  <li>concentration</li>
-                
-                  <li>relax</li>
-                
-                  <li>no subscription</li>
-                
-                  <li>white noise</li>
-                
-              </ul>
-          </div>
-        
+        <li>rain</li>
 
-        
-          <div class="app-description">
-               <div class="cat-headline">Description</div>
-               <div class="app-description-text">
-                  Welcome to Drift, your new sonic sanctuary.<br /><br />Forget artificial loops of a few seconds: Drift exclusively uses continuous, real field recordings of very high binaural quality, captured around the world. Dive instantly into a vast, living, and deeply immersive soundscape.<br /><br />A LIVING AUDIO EXPERIENCE<br />Our intelligent audio engine ensures you will never hear the exact same mix repeat. Thanks to the temporal random generator and the Auto-Variation feature, the app slowly and randomly evolves the volume of natural environments over time, completely freeing your mental load.<br /><br />BRAINWAVES & BINAURAL STEREO<br />Drift integrates a hybrid mixer of pure frequencies to synchronize your brainwaves with 4 specifically designed modes (stereo headphones recommended):<br />- Delta (Sleep): Promotes falling asleep and deep restorative sleep.<br />- Theta (Relaxation): Ideal for deep meditation and stress reduction.<br />- Alpha (Focus): For memory, learning, and creative work.<br />- Beta (Awake): Stimulates alertness and cognitive abilities.<br /><br />A PREMIUM TOOL, NO SUBSCRIPTION<br />We reject subscription fatigue. The app offers a free version with no time limit including 3 nature sounds (Birds, Wind, Beach) and the Delta wave for sleep.<br /><br />Upgrade to the Premium version with a ONE-TIME LIFETIME PAYMENT to unlock the app's full potential:<br />- The complete library of 12 high-fidelity sound environments.<br />- The 4 brainwave modes (Delta, Theta, Alpha, Beta).<br />- Unlimited saving of your own mixes.<br />- Programmable sleep timer (15m, 30m, 1h, 2h).<br />- Intelligent Auto-Variation of the environment.<br /><br />100% OFFLINE & PRIVACY RESPECTED<br />All sound elements are embedded locally on your device. Immersion launches instantly, without any network latency, in complete confidentiality. The app continues to play in the background with full system integration, even when the screen is locked.
-               </div>
-          </div>
-        
+        <li>storm</li>
 
-        
+        <li>meditation</li>
 
-        
-          <div class="app-changelog">
-              <div class="cat-headline">Promotional Text</div>
-              Absolute immersion through nature. True continuous audio recordings, with a one-time purchase and zero subscriptions.
-          </div>
-        
+        <li>concentration</li>
 
-        <div class="app-screenshots">
-          <div class="cat-headline">Screenshots</div>
+        <li>relax</li>
 
-          
-            <!-- no screenshots -->
-            <div style="border: 3px solid red; padding: 0px 20px">
-              <h2 style="color: red">No Screenshots Found</h2>
-              <p>
-                deliver couldn't find any screenshots.
-                
-                  The existing screenshots on App Store Connect will be kept.
-                  if you want to remove them you have to use the <i>--overwrite_screenshots</i> flag.
-                
-              <p>
-                If you want to download your existing screenshots, run <i>deliver download_screenshots</i>.
-              </p>
-            </div>
-          
-          </div>
+        <li>no subscription</li>
 
-        <hr />
-      
-        
-          <div class="app-name">
-            es-ES: Oasis - Sonidos Binaurales
-          </div>
-        
+        <li>white noise</li>
+      </ul>
+    </div>
 
-        
-          <div class="app-subtitle">
-            Subtitle:  Sueño y Enfoque Premium
-          </div>
-        
+    <div class="app-description">
+      <div class="cat-headline">Description</div>
+      <div class="app-description-text">
+        Welcome to Drift, your new sonic sanctuary.<br /><br />Forget artificial
+        loops of a few seconds: Drift exclusively uses continuous, real field
+        recordings of very high binaural quality, captured around the world.
+        Dive instantly into a vast, living, and deeply immersive soundscape.<br /><br />A
+        LIVING AUDIO EXPERIENCE<br />Our intelligent audio engine ensures you
+        will never hear the exact same mix repeat. Thanks to the temporal random
+        generator and the Auto-Variation feature, the app slowly and randomly
+        evolves the volume of natural environments over time, completely freeing
+        your mental load.<br /><br />BRAINWAVES & BINAURAL STEREO<br />Drift
+        integrates a hybrid mixer of pure frequencies to synchronize your
+        brainwaves with 4 specifically designed modes (stereo headphones
+        recommended):<br />- Delta (Sleep): Promotes falling asleep and deep
+        restorative sleep.<br />- Theta (Relaxation): Ideal for deep meditation
+        and stress reduction.<br />- Alpha (Focus): For memory, learning, and
+        creative work.<br />- Beta (Awake): Stimulates alertness and cognitive
+        abilities.<br /><br />A PREMIUM TOOL, NO SUBSCRIPTION<br />We reject
+        subscription fatigue. The app offers a free version with no time limit
+        including 3 nature sounds (Birds, Wind, Beach) and the Delta wave for
+        sleep.<br /><br />Upgrade to the Premium version with a ONE-TIME
+        LIFETIME PAYMENT to unlock the app's full potential:<br />- The complete
+        library of 14 high-fidelity sound environments.<br />- The 4 brainwave
+        modes (Delta, Theta, Alpha, Beta).<br />- Unlimited saving of your own
+        mixes.<br />- Programmable sleep timer (15m, 30m, 1h, 2h).<br />-
+        Intelligent Auto-Variation of the environment.<br /><br />100% OFFLINE &
+        PRIVACY RESPECTED<br />All sound elements are embedded locally on your
+        device. Immersion launches instantly, without any network latency, in
+        complete confidentiality. The app continues to play in the background
+        with full system integration, even when the screen is locked.
+      </div>
+    </div>
 
-        <div class="app-urls">
-          
-          
-            
-            
-          
-            
-            
-          
-        </div>
+    <div class="app-changelog">
+      <div class="cat-headline">Promotional Text</div>
+      Absolute immersion through nature. True continuous audio recordings, with
+      a one-time purchase and zero subscriptions.
+    </div>
 
-        
-          <div class="app-keyword">
-              <div class="cat-headline">Keywords</div>
-              <ul class="app-keyword-list">
-                
-                  <li>sueño</li>
-                
-                  <li>binaural</li>
-                
-                  <li>naturaleza</li>
-                
-                  <li>lluvia</li>
-                
-                  <li>tormenta</li>
-                
-                  <li>meditación</li>
-                
-                  <li>concentración</li>
-                
-                  <li>relax</li>
-                
-                  <li>sin suscripción</li>
-                
-                  <li>ruido blanco</li>
-                
-              </ul>
-          </div>
-        
+    <div class="app-screenshots">
+      <div class="cat-headline">Screenshots</div>
 
-        
-          <div class="app-description">
-               <div class="cat-headline">Description</div>
-               <div class="app-description-text">
-                  Bienvenido a Oasis, tu nuevo santuario sonoro.<br /><br />Olvídate de los bucles artificiales de unos pocos segundos: Oasis utiliza exclusivamente verdaderas grabaciones de campo continuas de muy alta calidad binaural, capturadas en todo el mundo. Sumérgete al instante en un paisaje sonoro vasto, vivo y profundamente inmersivo.<br /><br />UNA EXPERIENCIA DE AUDIO VIVA<br />Nuestro motor de audio inteligente garantiza que nunca escucharás la misma mezcla repetirse exactamente. Gracias al generador aleatorio temporal y a la función de Autovariación, la aplicación hace evolucionar el volumen de los entornos naturales de forma aleatoria y muy lenta en el tiempo, liberando totalmente tu carga mental.<br /><br />ONDAS CEREBRALES Y ESTÉREO BINAURAL<br />Oasis integra un mezclador híbrido de frecuencias puras para sincronizar tus ondas cerebrales con 4 modos diseñados específicamente (se recomiendan auriculares estéreo):<br />- Delta (Sueño): Favorece la conciliación del sueño y un sueño profundo reparador.<br />- Theta (Relajación): Ideal para la meditación profunda y la reducción del estrés.<br />- Alpha (Concentración): Para la memorización, el aprendizaje y el trabajo creativo.<br />- Beta (Despertar): Estimula la vigilancia y las capacidades cognitivas.<br /><br />UNA HERRAMIENTA PREMIUM, SIN SUSCRIPCIÓN<br />Rechazamos la fatiga de las suscripciones. La aplicación ofrece una versión gratuita sin límite de tiempo que incluye 3 sonidos de la naturaleza (Pájaros, Viento, Playa) y la onda Delta para dormir.<br /><br />Pásate a la versión Premium con un PAGO ÚNICO DE POR VIDA para desbloquear todo el potencial de la aplicación:<br />- La biblioteca completa de 12 entornos sonoros de alta fidelidad.<br />- Los 4 modos de ondas cerebrales (Delta, Theta, Alpha, Beta).<br />- Guardado ilimitado de tus propias mezclas.<br />- Temporizador de sueño programable (15m, 30m, 1h, 2h).<br />- Autovariación inteligente del entorno.<br /><br />100% OFFLINE Y RESPETO A LA PRIVACIDAD<br />Todos los elementos sonoros están integrados localmente en tu dispositivo. La inmersión se lanza al instante, sin latencia de red, con total confidencialidad. La aplicación sigue reproduciéndose en segundo plano con total integración en tu sistema, incluso con la pantalla bloqueada.
-               </div>
-          </div>
-        
+      <!-- no screenshots -->
+      <div style="border: 3px solid red; padding: 0px 20px">
+        <h2 style="color: red">No Screenshots Found</h2>
+        <p>
+          deliver couldn't find any screenshots. The existing screenshots on App
+          Store Connect will be kept. if you want to remove them you have to use
+          the <i>--overwrite_screenshots</i> flag.
+        </p>
 
-        
+        <p>
+          If you want to download your existing screenshots, run
+          <i>deliver download_screenshots</i>.
+        </p>
+      </div>
+    </div>
 
-        
-          <div class="app-changelog">
-              <div class="cat-headline">Promotional Text</div>
-              Inmersión absoluta en la naturaleza. Grabaciones de audio reales y continuas, con un pago único y sin suscripciones.
-          </div>
-        
+    <hr />
 
-        <div class="app-screenshots">
-          <div class="cat-headline">Screenshots</div>
+    <div class="app-name">es-ES: Oasis - Sonidos Binaurales</div>
 
-          
-            <!-- no screenshots -->
-            <div style="border: 3px solid red; padding: 0px 20px">
-              <h2 style="color: red">No Screenshots Found</h2>
-              <p>
-                deliver couldn't find any screenshots.
-                
-                  The existing screenshots on App Store Connect will be kept.
-                  if you want to remove them you have to use the <i>--overwrite_screenshots</i> flag.
-                
-              <p>
-                If you want to download your existing screenshots, run <i>deliver download_screenshots</i>.
-              </p>
-            </div>
-          
-          </div>
+    <div class="app-subtitle">Subtitle: Sueño y Enfoque Premium</div>
 
-        <hr />
-      
-        
-          <div class="app-name">
-            fr-FR: Évasion - Sons Binauraux
-          </div>
-        
+    <div class="app-urls"></div>
 
-        
-          <div class="app-subtitle">
-            Subtitle:  Sommeil & Focus Premium
-          </div>
-        
+    <div class="app-keyword">
+      <div class="cat-headline">Keywords</div>
+      <ul class="app-keyword-list">
+        <li>sueño</li>
 
-        <div class="app-urls">
-          
-          
-            
-            
-          
-            
-            
-          
-        </div>
+        <li>binaural</li>
 
-        
-          <div class="app-keyword">
-              <div class="cat-headline">Keywords</div>
-              <ul class="app-keyword-list">
-                
-                  <li>sommeil</li>
-                
-                  <li>binaural</li>
-                
-                  <li>nature</li>
-                
-                  <li>pluie</li>
-                
-                  <li>orage</li>
-                
-                  <li>méditation</li>
-                
-                  <li>concentration</li>
-                
-                  <li>relax</li>
-                
-                  <li>sans abonnement</li>
-                
-                  <li>bruit blanc</li>
-                
-              </ul>
-          </div>
-        
+        <li>naturaleza</li>
 
-        
-          <div class="app-description">
-               <div class="cat-headline">Description</div>
-               <div class="app-description-text">
-                  Bienvenue dans Évasion, votre nouveau sanctuaire sonore.<br /><br />Oubliez les boucles artificielles de quelques secondes : Évasion utilise exclusivement de véritables enregistrements de terrain continus et de très haute qualité binaurale, capturés à travers le monde. Plongez instantanément dans un paysage sonore vaste, vivant et profondément immersif.<br /><br />UNE EXPÉRIENCE AUDIO VIVANTE<br />Notre moteur audio intelligent garantit que vous n'entendrez jamais exactement le même mixage se répéter. Grâce au générateur d'aléatoire temporel et à la fonction d'Auto-Variation, l'application fait évoluer le volume des environnements naturels de façon aléatoire et très lente dans le temps, libérant totalement votre charge mentale.<br /><br />ONDES CÉRÉBRALES & STÉRÉO BINAURALE<br />Évasion intègre un mixeur hybride de fréquences pures pour synchroniser vos ondes cérébrales avec 4 modes spécifiquement conçus (casque stéréo recommandé) :<br />- Delta (Sommeil) : Favorise l'endormissement et un sommeil profond réparateur.<br />- Theta (Relaxation) : Idéal pour la méditation profonde et la réduction du stress.<br />- Alpha (Concentration) : Pour la mémorisation, l'apprentissage et le travail créatif.<br />- Beta (Éveil) : Stimule la vigilance et les capacités cognitives.<br /><br />UN OUTIL PREMIUM, SANS ABONNEMENT<br />Nous refusons la fatigue des abonnements. L'application propose une version gratuite sans limite de temps incluant 3 sons de la nature (Oiseaux, Vent, Plage) et l'onde Delta pour le sommeil.<br /><br />Passez à la version Premium avec un PAIEMENT UNIQUE À VIE pour débloquer le plein potentiel de l'application :<br />- La bibliothèque complète de 12 environnements sonores haute fidélité.<br />- Les 4 modes d'ondes cérébrales (Delta, Theta, Alpha, Beta).<br />- La sauvegarde illimitée de vos propres mixages.<br />- La minuterie de sommeil programmable (15m, 30m, 1h, 2h).<br />- L'Auto-Variation intelligente de l'environnement.<br /><br />100% HORS-LIGNE & RESPECT DE LA VIE PRIVÉE<br />Tous les éléments sonores sont embarqués localement dans votre appareil. L'immersion se lance instantanément, sans aucune latence réseau, de manière totalement confidentielle. L'application continue de jouer en arrière-plan avec une intégration totale à votre système, même lorsque l'écran est verrouillé.
-               </div>
-          </div>
-        
+        <li>lluvia</li>
 
-        
+        <li>tormenta</li>
 
-        
-          <div class="app-changelog">
-              <div class="cat-headline">Promotional Text</div>
-              L'immersion absolue par la nature. De véritables enregistrements audio, avec un achat unique et zéro abonnement.
-          </div>
-        
+        <li>meditación</li>
 
-        <div class="app-screenshots">
-          <div class="cat-headline">Screenshots</div>
+        <li>concentración</li>
 
-          
-            <!-- no screenshots -->
-            <div style="border: 3px solid red; padding: 0px 20px">
-              <h2 style="color: red">No Screenshots Found</h2>
-              <p>
-                deliver couldn't find any screenshots.
-                
-                  The existing screenshots on App Store Connect will be kept.
-                  if you want to remove them you have to use the <i>--overwrite_screenshots</i> flag.
-                
-              <p>
-                If you want to download your existing screenshots, run <i>deliver download_screenshots</i>.
-              </p>
-            </div>
-          
-          </div>
+        <li>relax</li>
 
-        <hr />
-      
-        
-          <div class="app-name">
-            it: Oasi - Suoni Binaurali
-          </div>
-        
+        <li>sin suscripción</li>
 
-        
-          <div class="app-subtitle">
-            Subtitle:  Sonno e Focus Premium
-          </div>
-        
+        <li>ruido blanco</li>
+      </ul>
+    </div>
 
-        <div class="app-urls">
-          
-          
-            
-            
-          
-            
-            
-          
-        </div>
+    <div class="app-description">
+      <div class="cat-headline">Description</div>
+      <div class="app-description-text">
+        Bienvenido a Oasis, tu nuevo santuario sonoro.<br /><br />Olvídate de
+        los bucles artificiales de unos pocos segundos: Oasis utiliza
+        exclusivamente verdaderas grabaciones de campo continuas de muy alta
+        calidad binaural, capturadas en todo el mundo. Sumérgete al instante en
+        un paisaje sonoro vasto, vivo y profundamente inmersivo.<br /><br />UNA
+        EXPERIENCIA DE AUDIO VIVA<br />Nuestro motor de audio inteligente
+        garantiza que nunca escucharás la misma mezcla repetirse exactamente.
+        Gracias al generador aleatorio temporal y a la función de Autovariación,
+        la aplicación hace evolucionar el volumen de los entornos naturales de
+        forma aleatoria y muy lenta en el tiempo, liberando totalmente tu carga
+        mental.<br /><br />ONDAS CEREBRALES Y ESTÉREO BINAURAL<br />Oasis
+        integra un mezclador híbrido de frecuencias puras para sincronizar tus
+        ondas cerebrales con 4 modos diseñados específicamente (se recomiendan
+        auriculares estéreo):<br />- Delta (Sueño): Favorece la conciliación del
+        sueño y un sueño profundo reparador.<br />- Theta (Relajación): Ideal
+        para la meditación profunda y la reducción del estrés.<br />- Alpha
+        (Concentración): Para la memorización, el aprendizaje y el trabajo
+        creativo.<br />- Beta (Despertar): Estimula la vigilancia y las
+        capacidades cognitivas.<br /><br />UNA HERRAMIENTA PREMIUM, SIN
+        SUSCRIPCIÓN<br />Rechazamos la fatiga de las suscripciones. La
+        aplicación ofrece una versión gratuita sin límite de tiempo que incluye
+        3 sonidos de la naturaleza (Pájaros, Viento, Playa) y la onda Delta para
+        dormir.<br /><br />Pásate a la versión Premium con un PAGO ÚNICO DE POR
+        VIDA para desbloquear todo el potencial de la aplicación:<br />- La
+        biblioteca completa de 14 entornos sonoros de alta fidelidad.<br />- Los
+        4 modos de ondas cerebrales (Delta, Theta, Alpha, Beta).<br />- Guardado
+        ilimitado de tus propias mezclas.<br />- Temporizador de sueño
+        programable (15m, 30m, 1h, 2h).<br />- Autovariación inteligente del
+        entorno.<br /><br />100% OFFLINE Y RESPETO A LA PRIVACIDAD<br />Todos
+        los elementos sonoros están integrados localmente en tu dispositivo. La
+        inmersión se lanza al instante, sin latencia de red, con total
+        confidencialidad. La aplicación sigue reproduciéndose en segundo plano
+        con total integración en tu sistema, incluso con la pantalla bloqueada.
+      </div>
+    </div>
 
-        
-          <div class="app-keyword">
-              <div class="cat-headline">Keywords</div>
-              <ul class="app-keyword-list">
-                
-                  <li>sonno</li>
-                
-                  <li>binaurale</li>
-                
-                  <li>natura</li>
-                
-                  <li>pioggia</li>
-                
-                  <li>tempesta</li>
-                
-                  <li>meditazione</li>
-                
-                  <li>concentrazione</li>
-                
-                  <li>relax</li>
-                
-                  <li>nessun abbonamento</li>
-                
-                  <li>rumore bianco</li>
-                
-              </ul>
-          </div>
-        
+    <div class="app-changelog">
+      <div class="cat-headline">Promotional Text</div>
+      Inmersión absoluta en la naturaleza. Grabaciones de audio reales y
+      continuas, con un pago único y sin suscripciones.
+    </div>
 
-        
-          <div class="app-description">
-               <div class="cat-headline">Description</div>
-               <div class="app-description-text">
-                  Benvenuto in Oasi, il tuo nuovo santuario sonoro.<br /><br />Dimentica i loop artificiali di pochi secondi: Oasi utilizza esclusivamente vere registrazioni sul campo continue di altissima qualità binaurale, catturate in tutto il mondo. Immergiti istantaneamente in un paesaggio sonoro vasto, vivo e profondamente immersivo.<br /><br />UN'ESPERIENZA AUDIO VIVA<br />Il nostro motore audio intelligente garantisce che non ascolterai mai lo stesso mix ripetersi. Grazie al generatore casuale temporale e alla funzione di Auto-Variazione, l'app fa evolvere il volume degli ambienti naturali in modo casuale e molto lento nel tempo, liberando totalmente il tuo carico mentale.<br /><br />ONDE CEREBRALI E STEREO BINAURALE<br />Oasi integra un mixer ibrido di frequenze pure per sincronizzare le tue onde cerebrali con 4 modalità specificamente progettate (si consigliano cuffie stereo):<br />- Delta (Sonno): Favorisce l'addormentamento e un sonno profondo e ristoratore.<br />- Theta (Rilassamento): Ideale per la meditazione profonda e la riduzione dello stress.<br />- Alpha (Concentrazione): Per la memorizzazione, l'apprendimento e il lavoro creativo.<br />- Beta (Risveglio): Stimola la vigilanza e le capacità cognitive.<br /><br />UNO STRUMENTO PREMIUM, NESSUN ABBONAMENTO<br />Rifiutiamo l'affaticamento da abbonamento. L'app offre una versione gratuita senza limiti di tempo che include 3 suoni della natura (Uccelli, Vento, Spiaggia) e l'onda Delta per il sonno.<br /><br />Passa alla versione Premium con un PAGAMENTO UNICO A VITA per sbloccare tutto il potenziale dell'app:<br />- La libreria completa di 12 ambienti sonori ad alta fedeltà.<br />- Le 4 modalità di onde cerebrali (Delta, Theta, Alpha, Beta).<br />- Il salvataggio illimitato dei tuoi mix.<br />- Il timer di spegnimento programmabile (15m, 30m, 1h, 2h).<br />- L'Auto-Variazione intelligente dell'ambiente.<br /><br />100% OFFLINE E RISPETTO DELLA PRIVACY<br />Tutti gli elementi sonori sono incorporati localmente nel tuo dispositivo. L'immersione si avvia istantaneamente, senza latenza di rete, in totale riservatezza. L'app continua a riprodurre in background con un'integrazione totale nel tuo sistema, anche a schermo bloccato.
-               </div>
-          </div>
-        
+    <div class="app-screenshots">
+      <div class="cat-headline">Screenshots</div>
 
-        
+      <!-- no screenshots -->
+      <div style="border: 3px solid red; padding: 0px 20px">
+        <h2 style="color: red">No Screenshots Found</h2>
+        <p>
+          deliver couldn't find any screenshots. The existing screenshots on App
+          Store Connect will be kept. if you want to remove them you have to use
+          the <i>--overwrite_screenshots</i> flag.
+        </p>
 
-        
-          <div class="app-changelog">
-              <div class="cat-headline">Promotional Text</div>
-              Immersione assoluta nella natura. Vere registrazioni audio continue, con un acquisto unico e zero abbonamenti.
-          </div>
-        
+        <p>
+          If you want to download your existing screenshots, run
+          <i>deliver download_screenshots</i>.
+        </p>
+      </div>
+    </div>
 
-        <div class="app-screenshots">
-          <div class="cat-headline">Screenshots</div>
+    <hr />
 
-          
-            <!-- no screenshots -->
-            <div style="border: 3px solid red; padding: 0px 20px">
-              <h2 style="color: red">No Screenshots Found</h2>
-              <p>
-                deliver couldn't find any screenshots.
-                
-                  The existing screenshots on App Store Connect will be kept.
-                  if you want to remove them you have to use the <i>--overwrite_screenshots</i> flag.
-                
-              <p>
-                If you want to download your existing screenshots, run <i>deliver download_screenshots</i>.
-              </p>
-            </div>
-          
-          </div>
+    <div class="app-name">fr-FR: Évasion - Sons Binauraux</div>
 
-        <hr />
-      
-        
-          <div class="app-name">
-            pt-BR: Refúgio - Sons Binaurais
-          </div>
-        
+    <div class="app-subtitle">Subtitle: Sommeil & Focus Premium</div>
 
-        
-          <div class="app-subtitle">
-            Subtitle:  Sono e Foco Premium
-          </div>
-        
+    <div class="app-urls"></div>
 
-        <div class="app-urls">
-          
-          
-            
-            
-          
-            
-            
-          
-        </div>
+    <div class="app-keyword">
+      <div class="cat-headline">Keywords</div>
+      <ul class="app-keyword-list">
+        <li>sommeil</li>
 
-        
-          <div class="app-keyword">
-              <div class="cat-headline">Keywords</div>
-              <ul class="app-keyword-list">
-                
-                  <li>sono</li>
-                
-                  <li>binaural</li>
-                
-                  <li>natureza</li>
-                
-                  <li>chuva</li>
-                
-                  <li>tempestade</li>
-                
-                  <li>meditação</li>
-                
-                  <li>concentração</li>
-                
-                  <li>relaxar</li>
-                
-                  <li>sem assinatura</li>
-                
-                  <li>ruído branco</li>
-                
-              </ul>
-          </div>
-        
+        <li>binaural</li>
 
-        
-          <div class="app-description">
-               <div class="cat-headline">Description</div>
-               <div class="app-description-text">
-                  Bem-vindo ao Refúgio, o seu novo santuário sonoro.<br /><br />Esqueça os loops artificiais de alguns segundos: Refúgio utiliza exclusivamente verdadeiras gravações de campo contínuas e de altíssima qualidade binaural, capturadas em todo o mundo. Mergulhe instantaneamente numa paisagem sonora vasta, viva e profundamente imersiva.<br /><br />UMA EXPERIÊNCIA DE ÁUDIO VIVA<br />O nosso motor de áudio inteligente garante que nunca ouvirá exatamente a mesma mistura repetir-se. Graças ao gerador aleatório temporal e à função de Autovariação, a aplicação faz evoluir o volume dos ambientes naturais de forma aleatória e muito lenta no tempo, libertando totalmente a sua carga mental.<br /><br />ONDAS CEREBRAIS E ESTÉREO BINAURAL<br />Refúgio integra um misturador híbrido de frequências puras para sincronizar as suas ondas cerebrais com 4 modos especificamente concebidos (recomendam-se auscultadores estéreo):<br />- Delta (Sono): Favorece o adormecimento e um sono profundo e reparador.<br />- Theta (Relaxamento): Ideal para a meditação profunda e a redução do stress.<br />- Alpha (Concentração): Para a memorização, a aprendizagem e o trabalho criativo.<br />- Beta (Despertar): Estimula a vigilância e as capacidades cognitivas.<br /><br />UMA FERRAMENTA PREMIUM, SEM ASSINATURA<br />Rejeitamos a fadiga das assinaturas. A aplicação oferece uma versão gratuita sem limite de tempo que inclui 3 sons da natureza (Pássaros, Vento, Praia) e a onda Delta para o sono.<br /><br />Mude para a versão Premium com um PAGAMENTO ÚNICO VITALÍCIO para desbloquear todo o potencial da aplicação:<br />- A biblioteca completa de 12 ambientes sonoros de alta fidelidade.<br />- Os 4 modos de ondas cerebrais (Delta, Theta, Alpha, Beta).<br />- Gravação ilimitada das suas próprias misturas.<br />- Temporizador de sono programável (15m, 30m, 1h, 2h).<br />- Autovariação inteligente do ambiente.<br /><br />100% OFFLINE E RESPEITO PELA PRIVACIDADE<br />Todos os elementos sonoros estão incorporados localmente no seu dispositivo. A imersão arranca instantaneamente, sem latência de rede, com total confidencialidade. A aplicação continua a tocar em segundo plano com integração total no seu sistema, mesmo quando o ecrã está bloqueado.
-               </div>
-          </div>
-        
+        <li>nature</li>
 
-        
+        <li>pluie</li>
 
-        
-          <div class="app-changelog">
-              <div class="cat-headline">Promotional Text</div>
-              Imersão absoluta na natureza. Verdadeiras gravações de áudio contínuas, com uma compra única e zero assinaturas.
-          </div>
-        
+        <li>orage</li>
 
-        <div class="app-screenshots">
-          <div class="cat-headline">Screenshots</div>
+        <li>méditation</li>
 
-          
-            <!-- no screenshots -->
-            <div style="border: 3px solid red; padding: 0px 20px">
-              <h2 style="color: red">No Screenshots Found</h2>
-              <p>
-                deliver couldn't find any screenshots.
-                
-                  The existing screenshots on App Store Connect will be kept.
-                  if you want to remove them you have to use the <i>--overwrite_screenshots</i> flag.
-                
-              <p>
-                If you want to download your existing screenshots, run <i>deliver download_screenshots</i>.
-              </p>
-            </div>
-          
-          </div>
+        <li>concentration</li>
 
-        <hr />
-      
-      
+        <li>relax</li>
 
-      
-        <div class="app-minor-information">
-          <div class="cat-headline">Review Information</div>
-          <dl class="app-minor-information">
-            
-          </dl>
-        </div>
-      
-    </body>
+        <li>sans abonnement</li>
+
+        <li>bruit blanc</li>
+      </ul>
+    </div>
+
+    <div class="app-description">
+      <div class="cat-headline">Description</div>
+      <div class="app-description-text">
+        Bienvenue dans Évasion, votre nouveau sanctuaire sonore.<br /><br />Oubliez
+        les boucles artificielles de quelques secondes : Évasion utilise
+        exclusivement de véritables enregistrements de terrain continus et de
+        très haute qualité binaurale, capturés à travers le monde. Plongez
+        instantanément dans un paysage sonore vaste, vivant et profondément
+        immersif.<br /><br />UNE EXPÉRIENCE AUDIO VIVANTE<br />Notre moteur
+        audio intelligent garantit que vous n'entendrez jamais exactement le
+        même mixage se répéter. Grâce au générateur d'aléatoire temporel et à la
+        fonction d'Auto-Variation, l'application fait évoluer le volume des
+        environnements naturels de façon aléatoire et très lente dans le temps,
+        libérant totalement votre charge mentale.<br /><br />ONDES CÉRÉBRALES &
+        STÉRÉO BINAURALE<br />Évasion intègre un mixeur hybride de fréquences
+        pures pour synchroniser vos ondes cérébrales avec 4 modes spécifiquement
+        conçus (casque stéréo recommandé) :<br />- Delta (Sommeil) : Favorise
+        l'endormissement et un sommeil profond réparateur.<br />- Theta
+        (Relaxation) : Idéal pour la méditation profonde et la réduction du
+        stress.<br />- Alpha (Concentration) : Pour la mémorisation,
+        l'apprentissage et le travail créatif.<br />- Beta (Éveil) : Stimule la
+        vigilance et les capacités cognitives.<br /><br />UN OUTIL PREMIUM, SANS
+        ABONNEMENT<br />Nous refusons la fatigue des abonnements. L'application
+        propose une version gratuite sans limite de temps incluant 3 sons de la
+        nature (Oiseaux, Vent, Plage) et l'onde Delta pour le sommeil.<br /><br />Passez
+        à la version Premium avec un PAIEMENT UNIQUE À VIE pour débloquer le
+        plein potentiel de l'application :<br />- La bibliothèque complète de 14
+        environnements sonores haute fidélité.<br />- Les 4 modes d'ondes
+        cérébrales (Delta, Theta, Alpha, Beta).<br />- La sauvegarde illimitée
+        de vos propres mixages.<br />- La minuterie de sommeil programmable
+        (15m, 30m, 1h, 2h).<br />- L'Auto-Variation intelligente de
+        l'environnement.<br /><br />100% HORS-LIGNE & RESPECT DE LA VIE
+        PRIVÉE<br />Tous les éléments sonores sont embarqués localement dans
+        votre appareil. L'immersion se lance instantanément, sans aucune latence
+        réseau, de manière totalement confidentielle. L'application continue de
+        jouer en arrière-plan avec une intégration totale à votre système, même
+        lorsque l'écran est verrouillé.
+      </div>
+    </div>
+
+    <div class="app-changelog">
+      <div class="cat-headline">Promotional Text</div>
+      L'immersion absolue par la nature. De véritables enregistrements audio,
+      avec un achat unique et zéro abonnement.
+    </div>
+
+    <div class="app-screenshots">
+      <div class="cat-headline">Screenshots</div>
+
+      <!-- no screenshots -->
+      <div style="border: 3px solid red; padding: 0px 20px">
+        <h2 style="color: red">No Screenshots Found</h2>
+        <p>
+          deliver couldn't find any screenshots. The existing screenshots on App
+          Store Connect will be kept. if you want to remove them you have to use
+          the <i>--overwrite_screenshots</i> flag.
+        </p>
+
+        <p>
+          If you want to download your existing screenshots, run
+          <i>deliver download_screenshots</i>.
+        </p>
+      </div>
+    </div>
+
+    <hr />
+
+    <div class="app-name">it: Oasi - Suoni Binaurali</div>
+
+    <div class="app-subtitle">Subtitle: Sonno e Focus Premium</div>
+
+    <div class="app-urls"></div>
+
+    <div class="app-keyword">
+      <div class="cat-headline">Keywords</div>
+      <ul class="app-keyword-list">
+        <li>sonno</li>
+
+        <li>binaurale</li>
+
+        <li>natura</li>
+
+        <li>pioggia</li>
+
+        <li>tempesta</li>
+
+        <li>meditazione</li>
+
+        <li>concentrazione</li>
+
+        <li>relax</li>
+
+        <li>nessun abbonamento</li>
+
+        <li>rumore bianco</li>
+      </ul>
+    </div>
+
+    <div class="app-description">
+      <div class="cat-headline">Description</div>
+      <div class="app-description-text">
+        Benvenuto in Oasi, il tuo nuovo santuario sonoro.<br /><br />Dimentica i
+        loop artificiali di pochi secondi: Oasi utilizza esclusivamente vere
+        registrazioni sul campo continue di altissima qualità binaurale,
+        catturate in tutto il mondo. Immergiti istantaneamente in un paesaggio
+        sonoro vasto, vivo e profondamente immersivo.<br /><br />UN'ESPERIENZA
+        AUDIO VIVA<br />Il nostro motore audio intelligente garantisce che non
+        ascolterai mai lo stesso mix ripetersi. Grazie al generatore casuale
+        temporale e alla funzione di Auto-Variazione, l'app fa evolvere il
+        volume degli ambienti naturali in modo casuale e molto lento nel tempo,
+        liberando totalmente il tuo carico mentale.<br /><br />ONDE CEREBRALI E
+        STEREO BINAURALE<br />Oasi integra un mixer ibrido di frequenze pure per
+        sincronizzare le tue onde cerebrali con 4 modalità specificamente
+        progettate (si consigliano cuffie stereo):<br />- Delta (Sonno):
+        Favorisce l'addormentamento e un sonno profondo e ristoratore.<br />-
+        Theta (Rilassamento): Ideale per la meditazione profonda e la riduzione
+        dello stress.<br />- Alpha (Concentrazione): Per la memorizzazione,
+        l'apprendimento e il lavoro creativo.<br />- Beta (Risveglio): Stimola
+        la vigilanza e le capacità cognitive.<br /><br />UNO STRUMENTO PREMIUM,
+        NESSUN ABBONAMENTO<br />Rifiutiamo l'affaticamento da abbonamento. L'app
+        offre una versione gratuita senza limiti di tempo che include 3 suoni
+        della natura (Uccelli, Vento, Spiaggia) e l'onda Delta per il sonno.<br /><br />Passa
+        alla versione Premium con un PAGAMENTO UNICO A VITA per sbloccare tutto
+        il potenziale dell'app:<br />- La libreria completa di 14 ambienti
+        sonori ad alta fedeltà.<br />- Le 4 modalità di onde cerebrali (Delta,
+        Theta, Alpha, Beta).<br />- Il salvataggio illimitato dei tuoi mix.<br />-
+        Il timer di spegnimento programmabile (15m, 30m, 1h, 2h).<br />-
+        L'Auto-Variazione intelligente dell'ambiente.<br /><br />100% OFFLINE E
+        RISPETTO DELLA PRIVACY<br />Tutti gli elementi sonori sono incorporati
+        localmente nel tuo dispositivo. L'immersione si avvia istantaneamente,
+        senza latenza di rete, in totale riservatezza. L'app continua a
+        riprodurre in background con un'integrazione totale nel tuo sistema,
+        anche a schermo bloccato.
+      </div>
+    </div>
+
+    <div class="app-changelog">
+      <div class="cat-headline">Promotional Text</div>
+      Immersione assoluta nella natura. Vere registrazioni audio continue, con
+      un acquisto unico e zero abbonamenti.
+    </div>
+
+    <div class="app-screenshots">
+      <div class="cat-headline">Screenshots</div>
+
+      <!-- no screenshots -->
+      <div style="border: 3px solid red; padding: 0px 20px">
+        <h2 style="color: red">No Screenshots Found</h2>
+        <p>
+          deliver couldn't find any screenshots. The existing screenshots on App
+          Store Connect will be kept. if you want to remove them you have to use
+          the <i>--overwrite_screenshots</i> flag.
+        </p>
+
+        <p>
+          If you want to download your existing screenshots, run
+          <i>deliver download_screenshots</i>.
+        </p>
+      </div>
+    </div>
+
+    <hr />
+
+    <div class="app-name">pt-BR: Refúgio - Sons Binaurais</div>
+
+    <div class="app-subtitle">Subtitle: Sono e Foco Premium</div>
+
+    <div class="app-urls"></div>
+
+    <div class="app-keyword">
+      <div class="cat-headline">Keywords</div>
+      <ul class="app-keyword-list">
+        <li>sono</li>
+
+        <li>binaural</li>
+
+        <li>natureza</li>
+
+        <li>chuva</li>
+
+        <li>tempestade</li>
+
+        <li>meditação</li>
+
+        <li>concentração</li>
+
+        <li>relaxar</li>
+
+        <li>sem assinatura</li>
+
+        <li>ruído branco</li>
+      </ul>
+    </div>
+
+    <div class="app-description">
+      <div class="cat-headline">Description</div>
+      <div class="app-description-text">
+        Bem-vindo ao Refúgio, o seu novo santuário sonoro.<br /><br />Esqueça os
+        loops artificiais de alguns segundos: Refúgio utiliza exclusivamente
+        verdadeiras gravações de campo contínuas e de altíssima qualidade
+        binaural, capturadas em todo o mundo. Mergulhe instantaneamente numa
+        paisagem sonora vasta, viva e profundamente imersiva.<br /><br />UMA
+        EXPERIÊNCIA DE ÁUDIO VIVA<br />O nosso motor de áudio inteligente
+        garante que nunca ouvirá exatamente a mesma mistura repetir-se. Graças
+        ao gerador aleatório temporal e à função de Autovariação, a aplicação
+        faz evoluir o volume dos ambientes naturais de forma aleatória e muito
+        lenta no tempo, libertando totalmente a sua carga mental.<br /><br />ONDAS
+        CEREBRAIS E ESTÉREO BINAURAL<br />Refúgio integra um misturador híbrido
+        de frequências puras para sincronizar as suas ondas cerebrais com 4
+        modos especificamente concebidos (recomendam-se auscultadores
+        estéreo):<br />- Delta (Sono): Favorece o adormecimento e um sono
+        profundo e reparador.<br />- Theta (Relaxamento): Ideal para a meditação
+        profunda e a redução do stress.<br />- Alpha (Concentração): Para a
+        memorização, a aprendizagem e o trabalho criativo.<br />- Beta
+        (Despertar): Estimula a vigilância e as capacidades cognitivas.<br /><br />UMA
+        FERRAMENTA PREMIUM, SEM ASSINATURA<br />Rejeitamos a fadiga das
+        assinaturas. A aplicação oferece uma versão gratuita sem limite de tempo
+        que inclui 3 sons da natureza (Pássaros, Vento, Praia) e a onda Delta
+        para o sono.<br /><br />Mude para a versão Premium com um PAGAMENTO
+        ÚNICO VITALÍCIO para desbloquear todo o potencial da aplicação:<br />- A
+        biblioteca completa de 14 ambientes sonoros de alta fidelidade.<br />-
+        Os 4 modos de ondas cerebrais (Delta, Theta, Alpha, Beta).<br />-
+        Gravação ilimitada das suas próprias misturas.<br />- Temporizador de
+        sono programável (15m, 30m, 1h, 2h).<br />- Autovariação inteligente do
+        ambiente.<br /><br />100% OFFLINE E RESPEITO PELA PRIVACIDADE<br />Todos
+        os elementos sonoros estão incorporados localmente no seu dispositivo. A
+        imersão arranca instantaneamente, sem latência de rede, com total
+        confidencialidade. A aplicação continua a tocar em segundo plano com
+        integração total no seu sistema, mesmo quando o ecrã está bloqueado.
+      </div>
+    </div>
+
+    <div class="app-changelog">
+      <div class="cat-headline">Promotional Text</div>
+      Imersão absoluta na natureza. Verdadeiras gravações de áudio contínuas,
+      com uma compra única e zero assinaturas.
+    </div>
+
+    <div class="app-screenshots">
+      <div class="cat-headline">Screenshots</div>
+
+      <!-- no screenshots -->
+      <div style="border: 3px solid red; padding: 0px 20px">
+        <h2 style="color: red">No Screenshots Found</h2>
+        <p>
+          deliver couldn't find any screenshots. The existing screenshots on App
+          Store Connect will be kept. if you want to remove them you have to use
+          the <i>--overwrite_screenshots</i> flag.
+        </p>
+
+        <p>
+          If you want to download your existing screenshots, run
+          <i>deliver download_screenshots</i>.
+        </p>
+      </div>
+    </div>
+
+    <hr />
+
+    <div class="app-minor-information">
+      <div class="cat-headline">Review Information</div>
+      <dl class="app-minor-information"></dl>
+    </div>
+  </body>
 </html>
