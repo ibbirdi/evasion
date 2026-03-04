@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     zIndex: 10,
-    paddingBottom: 40, // Extended padding for a smoother blur fade
+    paddingBottom: 30, // Extended padding for a smoother blur fade
   },
   header: {
     paddingTop: 50,

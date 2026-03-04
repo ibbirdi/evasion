@@ -91,6 +91,7 @@ export const LiquidButton: React.FC<LiquidButtonProps> = ({
           height: size,
           borderRadius,
           overflow: "hidden",
+          borderWidth: 0,
         },
         isActive && styles.active,
         isActive && activeColor ? { borderColor: activeColor } : {},

@@ -205,7 +205,6 @@ export default function HomeScreen() {
 
       {/* Main content */}
       <View style={styles.container}>
-        <LanguageSwitcher />
         <AudioEngine />
         <BinauralAudioEngine />
         <AnimatedBackground />

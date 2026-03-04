@@ -77,8 +77,8 @@ export const useMixerStore = create<MixerStore>()(
         const newChannels = { ...INITIAL_CHANNELS }; // Start with completely muted base
 
         // Pick 2 to 4 random channels to activate
-        const maxActive = Math.min(4, channelIds.length);
-        const minActive = Math.min(2, channelIds.length);
+        const maxActive = Math.min(8, channelIds.length);
+        const minActive = Math.min(4, channelIds.length);
         const numActive =
           Math.floor(Math.random() * (maxActive - minActive + 1)) + minActive;
         const shuffled = channelIds.sort(() => 0.5 - Math.random());

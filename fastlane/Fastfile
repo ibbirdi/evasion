@@ -59,7 +59,6 @@ YAML
       # Remove the first two lines (appId: ... and ---) from the base template so they don't duplicate
       clean_template = base_template.lines.drop(2).join
 
-
       File.write("../maestro/generated-flow.yaml", yaml_content + clean_template)
 
       # 4. Run the explicitly generated Maestro flow
@@ -67,9 +66,11 @@ YAML
       
       # 5. Move the screenshots to fastlane/screenshots/
       sh("mkdir -p screenshots/#{locale}")
-      sh("cd .. && mv MainScreen*.png fastlane/screenshots/#{locale}/MainScreen.png", error_callback: ->(result) { UI.message("Missing screenshot") })
-      sh("cd .. && mv BinauralScreen*.png fastlane/screenshots/#{locale}/BinauralScreen.png", error_callback: ->(result) { UI.message("Missing screenshot") })
-      sh("cd .. && mv PresetsScreen*.png fastlane/screenshots/#{locale}/PresetsScreen.png", error_callback: ->(result) { UI.message("Missing screenshot") })
+      sh("cd .. && mv MainScreen1*.png fastlane/screenshots/#{locale}/1_MainScreen_Shuffle1.png", error_callback: ->(result) { UI.message("Missing screenshot") })
+      sh("cd .. && mv MainScreen2*.png fastlane/screenshots/#{locale}/2_MainScreen_Shuffle2.png", error_callback: ->(result) { UI.message("Missing screenshot") })
+      sh("cd .. && mv BinauralScreen*.png fastlane/screenshots/#{locale}/3_BinauralScreen.png", error_callback: ->(result) { UI.message("Missing screenshot") })
+      sh("cd .. && mv PresetsModalScreen*.png fastlane/screenshots/#{locale}/4_PresetsModalScreen.png", error_callback: ->(result) { UI.message("Missing screenshot") })
+      sh("cd .. && mv FinalScreen*.png fastlane/screenshots/#{locale}/5_FinalScreen.png", error_callback: ->(result) { UI.message("Missing screenshot") })
     end
     
     # Clean up the generated file

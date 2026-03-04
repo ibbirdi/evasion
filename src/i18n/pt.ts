@@ -2,7 +2,7 @@ import type { Translations } from "./en";
 
 export const pt: Translations = {
   header: {
-    title: "Refúgio",
+    title: "Oasis",
     timer: "Timer",
   },
   channels: {
@@ -26,7 +26,7 @@ export const pt: Translations = {
     default_storm: "Tempestade Distante",
   },
   modal: {
-    title: "Meus refúgios",
+    title: "Meus Oasis",
     defaultPresets: "Padrão",
     yourPresets: "Seus Presets",
     saveNew: "Salvar novo",

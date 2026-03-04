@@ -125,6 +125,7 @@ function DraggablePresetRow({
     <GestureDetector gesture={panGesture}>
       <Animated.View style={animatedStyle}>
         <Pressable
+          testID={preset.id}
           style={({ pressed }) => [
             styles.presetRow,
             isActive && {

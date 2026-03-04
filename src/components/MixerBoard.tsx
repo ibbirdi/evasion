@@ -68,6 +68,6 @@ const styles = StyleSheet.create({
   },
   content: {
     paddingBottom: 140,
-    paddingTop: 180, // Adds space for the absolute header so the first slider isn't hidden
+    paddingTop: 150, // Adds space for the absolute header so the first slider isn't hidden
   },
 });

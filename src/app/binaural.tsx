@@ -198,6 +198,7 @@ export default function BinauralScreen() {
             </View>
             <View style={styles.headerActions}>
               <Switch
+                testID="BinauralToggle"
                 value={isBinauralActive}
                 onValueChange={() => {
                   Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);

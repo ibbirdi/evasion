@@ -1,0 +1,96 @@
+diff --git a/node_modules/react-native/.DS_Store b/node_modules/react-native/.DS_Store
+new file mode 100644
+index 0000000..09d8e0e
+Binary files /dev/null and b/node_modules/react-native/.DS_Store differ
+diff --git a/node_modules/react-native/scripts/cocoapods/helpers.rb b/node_modules/react-native/scripts/cocoapods/helpers.rb
+index cdb1e14..fbd2539 100644
+--- a/node_modules/react-native/scripts/cocoapods/helpers.rb
++++ b/node_modules/react-native/scripts/cocoapods/helpers.rb
+@@ -31,7 +31,7 @@ class Finder
+     def self.find_codegen_file(path)
+         js_files = '-name "Native*.js" -or -name "*NativeComponent.js"'
+         ts_files = '-name "Native*.ts" -or -name "*NativeComponent.ts"'
+-        return `find #{path} -type f \\( #{js_files} -or #{ts_files} \\)`.split("\n").sort()
++        return `find "#{path}" -type f \\( #{js_files} -or #{ts_files} \\)`.split("\n").sort()
+     end
+ end
+ 
+diff --git a/node_modules/react-native/scripts/cocoapods/new_architecture.rb b/node_modules/react-native/scripts/cocoapods/new_architecture.rb
+index 8c7508b..2602322 100644
+--- a/node_modules/react-native/scripts/cocoapods/new_architecture.rb
++++ b/node_modules/react-native/scripts/cocoapods/new_architecture.rb
+@@ -165,7 +165,7 @@ class NewArchitectureHelper
+         excluded_info_plist = ["/Pods", "Tests", "metainternal", ".bundle", "build/", "DerivedData/", ".xcframework", ".framework", "watchkitapp", "today-extention"]
+         projectPaths.each do |projectPath|
+             projectFolderPath = File.dirname(projectPath)
+-            infoPlistFiles = `find #{projectFolderPath} -name "Info.plist"`
++            infoPlistFiles = `find "#{projectFolderPath}" -name "Info.plist"`
+             infoPlistFiles = infoPlistFiles.split("\n").map { |f| f.strip }
+ 
+             infoPlistFiles.each do |infoPlistFile|
+diff --git a/node_modules/react-native/scripts/cocoapods/rncore.rb b/node_modules/react-native/scripts/cocoapods/rncore.rb
+index 597c4b4..23a05d2 100644
+--- a/node_modules/react-native/scripts/cocoapods/rncore.rb
++++ b/node_modules/react-native/scripts/cocoapods/rncore.rb
+@@ -143,7 +143,7 @@ class ReactNativeCoreUtils
+         rncore_log("  #{Pathname.new(destinationDebug).relative_path_from(Pathname.pwd).to_s}")
+         rncore_log("  #{Pathname.new(destinationRelease).relative_path_from(Pathname.pwd).to_s}")
+ 
+-        return {:http => URI::File.build(path: destinationDebug).to_s }
++        return {:http => "file://#{destinationDebug.gsub(' ', '%20')}" }
+     end
+ 
+     def self.podspec_source_download_prebuilt_nightly_tarball()
+@@ -179,7 +179,7 @@ class ReactNativeCoreUtils
+         rncore_log("Resolved nightly ReactNativeCore-prebuilt version:")
+         rncore_log("  #{Pathname.new(destinationDebug).relative_path_from(Pathname.pwd).to_s}")
+         rncore_log("  #{Pathname.new(destinationRelease).relative_path_from(Pathname.pwd).to_s}")
+-        return {:http => URI::File.build(path: destinationDebug).to_s }
++        return {:http => "file://#{destinationDebug.gsub(' ', '%20')}" }
+     end
+ 
+     def self.process_dsyms(frameworkTarball, dSymsTarball)
+diff --git a/node_modules/react-native/scripts/cocoapods/rndependencies.rb b/node_modules/react-native/scripts/cocoapods/rndependencies.rb
+index a901840..506922c 100644
+--- a/node_modules/react-native/scripts/cocoapods/rndependencies.rb
++++ b/node_modules/react-native/scripts/cocoapods/rndependencies.rb
+@@ -161,7 +161,7 @@ class ReactNativeDependenciesUtils
+         destinationDebug = download_stable_rndeps(@@react_native_path, @@react_native_version, :debug)
+         download_stable_rndeps(@@react_native_path, @@react_native_version, :release)
+ 
+-        return {:http => URI::File.build(path: destinationDebug).to_s }
++        return {:http => "file://#{destinationDebug.gsub(' ', '%20')}" }
+     end
+ 
+     def self.release_tarball_url(version, build_type)
+@@ -228,7 +228,7 @@ class ReactNativeDependenciesUtils
+         destinationDebug = download_nightly_rndeps(@@react_native_path, @@react_native_version, :debug)
+         download_nightly_rndeps(@@react_native_path, @@react_native_version, :release)
+ 
+-        return {:http => URI::File.build(path: destinationDebug).to_s }
++        return {:http => "file://#{destinationDebug.gsub(' ', '%20')}" }
+         return {:http => url}
+     end
+ 
+diff --git a/node_modules/react-native/scripts/cocoapods/utils.rb b/node_modules/react-native/scripts/cocoapods/utils.rb
+index a244896..b1f0f40 100644
+--- a/node_modules/react-native/scripts/cocoapods/utils.rb
++++ b/node_modules/react-native/scripts/cocoapods/utils.rb
+@@ -229,7 +229,7 @@ class ReactNativePodsUtils
+         file_path = file_manager.join(relative_path, '.xcode.env')
+ 
+         if !file_manager.exist?(file_path)
+-            system("echo 'export NODE_BINARY=$(command -v node)' > #{file_path}")
++            system("echo 'export NODE_BINARY=$(command -v node)' > \"#{file_path}\"")
+         end
+ 
+         if !file_manager.exist?("#{file_path}.local")
+@@ -238,7 +238,7 @@ class ReactNativePodsUtils
+             # Using `node --print "process.argv[0]";` we are able to retrieve the actual path from which node is running.
+             # see https://github.com/facebook/react-native/issues/43285 for more info. We've tweaked this slightly.
+             node_binary = Shellwords.escape(`node --print "process.argv[0]"`.strip)
+-            system("echo 'export NODE_BINARY=#{node_binary}' > #{file_path}.local")
++            system("echo 'export NODE_BINARY=#{node_binary}' > \"#{file_path}.local\"")
+         end
+     end
+ 

@@ -1,16 +1,16 @@
 appId: com.jonathanluquet.drift
 env:
-  BINAURAL_TITLE: "BINAURAL BEATS"
-  PRESETS_TITLE: "My Drifts"
+  BINAURAL_TITLE: "SONS BINAURAUX"
+  PRESETS_TITLE: "Mes évasions"
 ---
 - clearState
 - launchApp:
     arguments:
-      AppleLanguages: "(en)"
-      AppleLocale: "en_US"
+      AppleLanguages: "(fr)"
+      AppleLocale: "fr_FR"
 # Wait for app to be ready
 - extendedWaitUntil:
-    visible: "Drift"
+    visible: "Oasis"
     timeout: 20000
 
 # Small pause for UI to settle
@@ -19,30 +19,46 @@ env:
     end: "50%, 50%"
     duration: 2000
 
-# Tap Shuffle (Approx 30% from left, bottom of screen)
-- tapOn:
-    point: "30%, 93%"
-
-# Pause for shuffle animation
+# 1. Tap Shuffle 1 time
+- tapOn: "Shuffle"
 - swipe:
     start: "50%, 50%"
     end: "50%, 50%"
     duration: 1000
 
-# Take main screenshot showing active mixer
-- takeScreenshot: MainScreen
+# 2. Screenshot MainScreen1
+- takeScreenshot: MainScreen1
 
-# Open Binaural Modal (approx 50% width, bottom)
-- tapOn:
-    point: "50%, 93%"
+# 3. Tap Shuffle 1 time
+- tapOn: "Shuffle"
+- swipe:
+    start: "50%, 50%"
+    end: "50%, 50%"
+    duration: 1000
+
+# 4. Screenshot MainScreen2
+- takeScreenshot: MainScreen2
+
+# 5. Open Binaural Modal
+- tapOn: "Waveform"
 
 # Wait for binaural modal to appear using translated variable
 - extendedWaitUntil:
     visible: "${BINAURAL_TITLE}"
     timeout: 5000
+
+# 6. Toggle ON on the BINAURAL SOUND modal
+- tapOn:
+    id: "BinauralToggle"
+- swipe:
+    start: "50%, 50%"
+    end: "50%, 50%"
+    duration: 1000
+
+# 7. Screenshot BinauralScreen
 - takeScreenshot: BinauralScreen
 
-# Close Binaural Modal by tapping empty space at top
+# 8. Close Binaural Modal
 - tapOn:
     point: "50%, 10%"
 
@@ -52,16 +68,26 @@ env:
     end: "50%, 50%"
     duration: 2000
 
-# Open Presets Modal (approx 90% width, bottom)
-- tapOn:
-    point: "90%, 93%"
+# 9. Open Presets Modal
+- tapOn: "bookmark"
 
 # Wait for presets modal to appear using translated variable
 - extendedWaitUntil:
     visible: "${PRESETS_TITLE}"
     timeout: 5000
+
+# 10. Screenshot Presets Modal (since selection closes it)
+- takeScreenshot: PresetsModalScreen
+
+# 11. Select the first preset
+- tapOn:
+    id: "preset_default_calm"
+
+# Wait for modal to close
 - swipe:
     start: "50%, 50%"
     end: "50%, 50%"
     duration: 2000
-- takeScreenshot: PresetsScreen
+
+# 12. Final screenshot (Main screen with preset active)
+- takeScreenshot: FinalScreen
