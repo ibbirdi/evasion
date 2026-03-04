@@ -23,7 +23,9 @@
     "ios": {
       "supportsTablet": false,
       "infoPlist": {
-        "UIBackgroundModes": ["audio"],
+        "UIBackgroundModes": [
+          "audio"
+        ],
         "ITSAppUsesNonExemptEncryption": false,
         "CFBundleAllowMixedLocalizations": true
       },
@@ -33,12 +35,26 @@
       "favicon": "./assets/favicon.png",
       "bundler": "metro"
     },
-    "plugins": ["expo-router", "expo-audio", "expo-localization", "expo-font"],
+    "plugins": [
+      "expo-router",
+      "expo-audio",
+      "expo-localization",
+      "expo-font"
+    ],
     "extra": {
       "eas": {
         "projectId": "497de8ae-c7c2-462c-bef4-0d5d8904d02e"
       }
     },
-    "owner": "ibbirdi"
+    "owner": "ibbirdi",
+    "android": {
+      "permissions": [
+        "android.permission.RECORD_AUDIO",
+        "android.permission.MODIFY_AUDIO_SETTINGS",
+        "android.permission.FOREGROUND_SERVICE",
+        "android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"
+      ],
+      "package": "com.jonathanluquet.drift"
+    }
   }
 }
