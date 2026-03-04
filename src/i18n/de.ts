@@ -2,7 +2,7 @@ import type { Translations } from "./en";
 
 export const de: Translations = {
   header: {
-    title: "Drift",
+    title: "Oasis",
     timer: "Timer",
   },
   channels: {
@@ -26,7 +26,7 @@ export const de: Translations = {
     default_storm: "Fernes Gewitter",
   },
   modal: {
-    title: "Meine Drifts",
+    title: "Meine Oasis",
     defaultPresets: "Standard Presets",
     yourPresets: "Deine Presets",
     saveNew: "Neues Preset speichern",

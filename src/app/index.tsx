@@ -103,6 +103,7 @@ export default function HomeScreen() {
           selected={isPlaying}
           accessibilityLabel={isPlaying ? "Pause" : "Play"}
           key={isPlaying ? "pauseButton" : "playButton"}
+          tintColor={isPlaying ? "#00ffbfff" : "#FFFFFF"}
         />
 
         {/* Shuffle */}

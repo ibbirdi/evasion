@@ -23,9 +23,9 @@ platform :ios do
     }
 
     presets_labels = {
-      "en" => "My Drifts",
+      "en" => "My Oasis",
       "fr" => "Mes évasions",
-      "de" => "Meine Drifts",
+      "de" => "Meine Oasis",
       "es" => "Mis oasis",
       "it" => "Le mie oasi",
       "pt" => "Meus refúgios"

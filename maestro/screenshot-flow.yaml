@@ -2,7 +2,7 @@ appId: com.jonathanluquet.drift
 ---
 # Wait for app to be ready
 - extendedWaitUntil:
-    visible: "Drift"
+    visible: "Oasis"
     timeout: 20000
 
 # Small pause for UI to settle

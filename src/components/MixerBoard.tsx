@@ -65,10 +65,9 @@ export const MixerBoard: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 20,
   },
   content: {
     paddingBottom: 140,
-    paddingTop: 10,
+    paddingTop: 180, // Adds space for the absolute header so the first slider isn't hidden
   },
 });

@@ -38,21 +38,21 @@ Passez à la version Premium avec un PAIEMENT UNIQUE À VIE pour débloquer le p
 Tous les éléments sonores sont embarqués localement dans votre appareil. L'immersion se lance instantanément, sans aucune latence réseau, de manière totalement confidentielle. L'application continue de jouer en arrière-plan avec une intégration totale à votre système, même lorsque l'écran est verrouillé.`,
   },
   "en-US": {
-    name: "Drift - Binaural Beats",
+    name: "Oasis - Binaural Beats",
     subtitle: "Premium Sleep & Focus",
     promotional_text:
       "Absolute immersion through nature. True continuous audio recordings, with a one-time purchase and zero subscriptions.",
     keywords:
       "sleep,binaural,nature,rain,storm,meditation,concentration,relax,no subscription,white noise",
-    description: `Welcome to Drift, your new sonic sanctuary.
+    description: `Welcome to Oasis, your new sonic sanctuary.
 
-Forget artificial loops of a few seconds: Drift exclusively uses continuous, real field recordings of very high binaural quality, captured around the world. Dive instantly into a vast, living, and deeply immersive soundscape.
+Forget artificial loops of a few seconds: Oasis exclusively uses continuous, real field recordings of very high binaural quality, captured around the world. Dive instantly into a vast, living, and deeply immersive soundscape.
 
 A LIVING AUDIO EXPERIENCE
 Our intelligent audio engine ensures you will never hear the exact same mix repeat. Thanks to the temporal random generator and the Auto-Variation feature, the app slowly and randomly evolves the volume of natural environments over time, completely freeing your mental load.
 
 BRAINWAVES & BINAURAL STEREO
-Drift integrates a hybrid mixer of pure frequencies to synchronize your brainwaves with 4 specifically designed modes (stereo headphones recommended):
+Oasis integrates a hybrid mixer of pure frequencies to synchronize your brainwaves with 4 specifically designed modes (stereo headphones recommended):
 - Delta (Sleep): Promotes falling asleep and deep restorative sleep.
 - Theta (Relaxation): Ideal for deep meditation and stress reduction.
 - Alpha (Focus): For memory, learning, and creative work.
@@ -106,21 +106,21 @@ Pásate a la versión Premium con un PAGO ÚNICO DE POR VIDA para desbloquear to
 Todos los elementos sonoros están integrados localmente en tu dispositivo. La inmersión se lanza al instante, sin latencia de red, con total confidencialidad. La aplicación sigue reproduciéndose en segundo plano con total integración en tu sistema, incluso con la pantalla bloqueada.`,
   },
   "de-DE": {
-    name: "Drift - Binaurale Beats",
+    name: "Oasis - Binaurale Beats",
     subtitle: "Premium Schlaf & Fokus",
     promotional_text:
       "Absolute Immersion durch die Natur. Echte, kontinuierliche Audioaufnahmen, mit einem Einmalkauf und ohne Abonnements.",
     keywords:
       "schlaf,binaural,natur,regen,sturm,meditation,konzentration,entspannung,kein abo,weißes rauschen",
-    description: `Willkommen bei Drift, deinem neuen klanglichen Heiligtum.
+    description: `Willkommen bei Oasis, deinem neuen klanglichen Heiligtum.
 
-Vergiss künstliche Schleifen von wenigen Sekunden: Drift verwendet ausschließlich echte, kontinuierliche Feldaufnahmen in sehr hoher binauraler Qualität, die auf der ganzen Welt aufgenommen wurden. Tauche sofort in eine weite, lebendige und tief immersive Klanglandschaft ein.
+Vergiss künstliche Schleifen von wenigen Sekunden: Oasis verwendet ausschließlich echte, kontinuierliche Feldaufnahmen in sehr hoher binauraler Qualität, die auf der ganzen Welt aufgenommen wurden. Tauche sofort in eine weite, lebendige und tief immersive Klanglandschaft ein.
 
 EIN LEBENDIGES AUDIOERLEBNIS
 Unsere intelligente Audio-Engine sorgt dafür, dass du niemals genau dieselbe Mischung zweimal hörst. Dank des temporalen Zufallsgenerators und der Auto-Variation-Funktion verändert die App die Lautstärke natürlicher Umgebungen im Laufe der Zeit zufällig und sehr langsam, wodurch deine mentale Belastung vollständig befreit wird.
 
 GEHIRNWELLEN & BINAURALES STEREO
-Drift integriert einen hybriden Mixer reiner Frequenzen, um deine Gehirnwellen mit 4 speziell entwickelten Modi zu synchronisieren (Stereokopfhörer empfohlen):
+Oasis integriert einen hybriden Mixer reiner Frequenzen, um deine Gehirnwellen mit 4 speziell entwickelten Modi zu synchronisieren (Stereokopfhörer empfohlen):
 - Delta (Schlaf): Fördert das Einschlafen und einen tiefen, erholsamen Schlaf.
 - Theta (Entspannung): Ideal für tiefe Meditation und Stressabbau.
 - Alpha (Fokus): Für Gedächtnis, Lernen und kreative Arbeit.

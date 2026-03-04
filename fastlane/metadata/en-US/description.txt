@@ -1,12 +1,12 @@
-Welcome to Drift, your new sonic sanctuary.
+Welcome to Oasis, your new sonic sanctuary.
 
-Forget artificial loops of a few seconds: Drift exclusively uses continuous, real field recordings of very high binaural quality, captured around the world. Dive instantly into a vast, living, and deeply immersive soundscape.
+Forget artificial loops of a few seconds: Oasis exclusively uses continuous, real field recordings of very high binaural quality, captured around the world. Dive instantly into a vast, living, and deeply immersive soundscape.
 
 A LIVING AUDIO EXPERIENCE
 Our intelligent audio engine ensures you will never hear the exact same mix repeat. Thanks to the temporal random generator and the Auto-Variation feature, the app slowly and randomly evolves the volume of natural environments over time, completely freeing your mental load.
 
 BRAINWAVES & BINAURAL STEREO
-Drift integrates a hybrid mixer of pure frequencies to synchronize your brainwaves with 4 specifically designed modes (stereo headphones recommended):
+Oasis integrates a hybrid mixer of pure frequencies to synchronize your brainwaves with 4 specifically designed modes (stereo headphones recommended):
 - Delta (Sleep): Promotes falling asleep and deep restorative sleep.
 - Theta (Relaxation): Ideal for deep meditation and stress reduction.
 - Alpha (Focus): For memory, learning, and creative work.
