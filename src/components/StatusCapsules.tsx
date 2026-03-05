@@ -123,7 +123,13 @@ export const StatusCapsules: React.FC = () => {
             style={styles.capsule}
           >
             <Bookmark size={12} color="#FFF" opacity={0.8} />
-            <Text style={styles.text}>{activePreset.name}</Text>
+            <Text style={styles.text}>
+              {activePreset.id === "preset_default_calm"
+                ? t.presets.default_calm
+                : activePreset.id === "preset_default_storm"
+                  ? t.presets.default_storm
+                  : activePreset.name}
+            </Text>
           </Pressable>
         </Animated.View>
       )}

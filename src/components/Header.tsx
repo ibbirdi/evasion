@@ -2,13 +2,20 @@ import MaskedView from "@react-native-masked-view/masked-view";
 import { GlassView } from "expo-glass-effect";
 import { LinearGradient } from "expo-linear-gradient";
 import React from "react";
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import Animated, { LinearTransition } from "react-native-reanimated";
-import { useI18n } from "../i18n";
+import { useI18n, SUPPORTED_LANGUAGES } from "../i18n";
 import { StatusCapsules } from "./StatusCapsules";
 
 export const Header: React.FC = () => {
+  const { setLanguage, currentLanguage } = useI18n();
   const t = useI18n();
+
+  const handleLogoPress = () => {
+    const currentIndex = SUPPORTED_LANGUAGES.indexOf(currentLanguage);
+    const nextIndex = (currentIndex + 1) % SUPPORTED_LANGUAGES.length;
+    setLanguage(SUPPORTED_LANGUAGES[nextIndex]);
+  };
 
   return (
     <Animated.View
@@ -32,12 +39,17 @@ export const Header: React.FC = () => {
 
       <View style={styles.header} pointerEvents="box-none">
         <View style={styles.titleContainer} pointerEvents="box-none">
-          <Image
-            source={require("../../assets/oasisLogo.png")}
-            style={styles.logo}
-            resizeMode="contain"
+          <TouchableOpacity
+            onPress={handleLogoPress}
+            activeOpacity={0.7}
             testID="AppLogo"
-          />
+          >
+            <Image
+              source={require("../../assets/oasisLogo.png")}
+              style={styles.logo}
+              resizeMode="contain"
+            />
+          </TouchableOpacity>
           <Text style={styles.subtitle}>Binaural Nature</Text>
           <StatusCapsules />
         </View>

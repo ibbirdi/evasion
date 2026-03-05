@@ -152,21 +152,21 @@ export default function HomeScreen() {
           </Stack.Toolbar.MenuAction>
           <Stack.Toolbar.MenuAction
             onPress={() => handleTimerSelect(30)}
-            icon="clock.fill"
+            icon="clock"
             isOn={timerDurationChosen === 30}
           >
             30 min
           </Stack.Toolbar.MenuAction>
           <Stack.Toolbar.MenuAction
             onPress={() => handleTimerSelect(60)}
-            icon="clock.badge"
+            icon="clock"
             isOn={timerDurationChosen === 60}
           >
             1h
           </Stack.Toolbar.MenuAction>
           <Stack.Toolbar.MenuAction
             onPress={() => handleTimerSelect(120)}
-            icon="clock.badge.checkmark"
+            icon="clock"
             isOn={timerDurationChosen === 120}
           >
             2h
