@@ -1,0 +1,3 @@
+- 2 nouveaux sons de la nature (rivière de montagne et pluie sous la tente)
+- Refonte graphique
+- Amélioration des performances

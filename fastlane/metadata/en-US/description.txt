@@ -1,26 +1,16 @@
 Welcome to Oasis, your new sonic sanctuary.
 
-Forget artificial loops of a few seconds: Oasis exclusively uses continuous, real field recordings of very high binaural quality, captured around the world. Dive instantly into a vast, living, and deeply immersive soundscape.
+Forget artificial loops: we use real, royalty-free sound recordings for each type of sound. Dive instantly into a living and deeply immersive soundscape to fall asleep or stay focused.
 
-A LIVING AUDIO EXPERIENCE
-Our intelligent audio engine ensures you will never hear the exact same mix repeat. Thanks to the temporal random generator and the Auto-Variation feature, the app slowly and randomly evolves the volume of natural environments over time, completely freeing your mental load.
+A LIVING EXPERIENCE
+Our audio engine slowly evolves the volume of natural environments, completely freeing your mental load.
 
-BRAINWAVES & BINAURAL STEREO
-Oasis integrates a hybrid mixer of pure frequencies to synchronize your brainwaves with 4 specifically designed modes (stereo headphones recommended):
-- Delta (Sleep): Promotes falling asleep and deep restorative sleep.
-- Theta (Relaxation): Ideal for deep meditation and stress reduction.
-- Alpha (Focus): For memory, learning, and creative work.
-- Beta (Awake): Stimulates alertness and cognitive abilities.
+BRAINWAVES
+Synchronize your mind with 4 modes:
+- Delta: Deep sleep.
+- Theta: Relaxation & stress relief.
+- Alpha: Focus & learning.
+- Beta: Alertness.
 
-A PREMIUM TOOL, NO SUBSCRIPTION
-We reject subscription fatigue. The app offers a free version with no time limit including 3 nature sounds (Birds, Wind, Beach) and the Delta wave for sleep.
-
-Upgrade to the Premium version with a ONE-TIME LIFETIME PAYMENT to unlock the app's full potential:
-- The complete library of 14 high-fidelity sound environments.
-- The 4 brainwave modes (Delta, Theta, Alpha, Beta).
-- Unlimited saving of your own mixes.
-- Programmable sleep timer (15m, 30m, 1h, 2h).
-- Intelligent Auto-Variation of the environment.
-
-100% OFFLINE & PRIVACY RESPECTED
-All sound elements are embedded locally on your device. Immersion launches instantly, without any network latency, in complete confidentiality. The app continues to play in the background with full system integration, even when the screen is locked.
+NO SUBSCRIPTION
+Enjoy 3 free ambiances forever. Upgrade to Premium with a ONE-TIME PAYMENT for 14 environments, brainwaves, and sleep timers. 100% offline.

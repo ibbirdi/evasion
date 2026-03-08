@@ -39,17 +39,17 @@ export const Header: React.FC = () => {
 
       <View style={styles.header} pointerEvents="box-none">
         <View style={styles.titleContainer} pointerEvents="box-none">
-          <TouchableOpacity
+          {/* <TouchableOpacity
             onPress={handleLogoPress}
             activeOpacity={0.7}
             testID="AppLogo"
-          >
-            <Image
-              source={require("../../assets/oasisLogo.png")}
-              style={styles.logo}
-              resizeMode="contain"
-            />
-          </TouchableOpacity>
+          > */}
+          <Image
+            source={require("../../assets/oasisLogo.png")}
+            style={styles.logo}
+            resizeMode="contain"
+          />
+          {/* </TouchableOpacity> */}
           <Text style={styles.subtitle}>Binaural Nature</Text>
           <StatusCapsules />
         </View>

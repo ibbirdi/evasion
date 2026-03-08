@@ -1,0 +1,3 @@
+- 2 nuevos sonidos de la naturaleza (río de montaña y lluvia bajo la tienda)
+- Rediseño gráfico
+- Mejoras de rendimiento

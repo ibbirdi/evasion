@@ -1,0 +1,3 @@
+- 2 new nature sounds (mountain river and rain under the tent)
+- Visual redesign
+- Performance improvements

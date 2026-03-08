@@ -1,1 +1,1 @@
-sommeil,binaural,nature,pluie,orage,méditation,concentration,relax,sans abonnement,bruit blanc
+sommeil,dormir,nature,pluie,bruit,blanc,concentration,insomnie,relax,meditation

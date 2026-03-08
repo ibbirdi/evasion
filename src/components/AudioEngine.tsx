@@ -246,15 +246,31 @@ export const AudioEngine: React.FC = () => {
 
   // Sync Remote Commands from Lock Screen back to Store
   useEffect(() => {
+    let timeout: NodeJS.Timeout | null = null;
+
     if (masterStatus.isLoaded) {
-      if (isPlaying && !masterStatus.playing) {
-        // Paused via Lock Screen
-        togglePlayPause();
-      } else if (!isPlaying && masterStatus.playing) {
+      // Get the current true state without putting it in the dependency array
+      // This prevents the effect from running right when the user clicks 'Play'
+      const isPlayingCurrent = useMixerStore.getState().isPlaying;
+
+      if (isPlayingCurrent && !masterStatus.playing) {
+        // Paused via Lock Screen or loop gap.
+        // Wait briefly to see if it's just the AVPlayer gap while looping
+        timeout = setTimeout(() => {
+          const stillPlaying = useMixerStore.getState().isPlaying;
+          if (stillPlaying) {
+            togglePlayPause();
+          }
+        }, 500); // 500ms to comfortably cover AVPlayer gap
+      } else if (!isPlayingCurrent && masterStatus.playing) {
         // Played via Lock Screen
         togglePlayPause();
       }
     }
+
+    return () => {
+      if (timeout) clearTimeout(timeout);
+    };
   }, [masterStatus.playing, masterStatus.isLoaded]);
 
   useEffect(() => {
