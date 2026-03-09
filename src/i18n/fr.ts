@@ -26,7 +26,7 @@ export const fr: Translations = {
     default_storm: "Orage lointain",
   },
   modal: {
-    title: "Mes évasions",
+    title: "Mes Oasis",
     defaultPresets: "Presets par défaut",
     yourPresets: "Vos presets",
     saveNew: "Nouveau preset",

@@ -2,6 +2,8 @@ import { GlassView } from "expo-glass-effect";
 import { useRouter } from "expo-router";
 import React, { useCallback, useRef, useState } from "react";
 import {
+  KeyboardAvoidingView,
+  Platform,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -224,7 +226,10 @@ export default function PresetsScreen() {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <View style={styles.screenContainer}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={styles.screenContainer}
+      >
         {/* Tap backdrop to dismiss */}
         <Pressable
           style={StyleSheet.absoluteFill}
@@ -335,7 +340,7 @@ export default function PresetsScreen() {
             </ScrollView>
           </View>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     </GestureHandlerRootView>
   );
 }
