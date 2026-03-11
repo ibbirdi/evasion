@@ -1,0 +1,558 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 54;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		00F3829FDCFB4B4D8A534DE6 /* orage1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = E5677F9181F05CBFA9ECBD82 /* orage1.m4a */; };
+		0615518950DF1172865B9B49 /* vent1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 39ABCC6B62E603231C8996C2 /* vent1.m4a */; };
+		080F82716F2105E2C1AE70C3 /* SharedComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841606C326E04DFF03B7E93D /* SharedComponents.swift */; };
+		0A2B537BEDCBBB599FAD1938 /* PaywallOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2469755A3D5761130851F6A /* PaywallOverlay.swift */; };
+		28A51EAE37145DF726FEB7AF /* RoutePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EF26FEC385D715E51E8403 /* RoutePickerView.swift */; };
+		29A717C9FF00F6112C28C4C3 /* foret1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = E80A38CD3FBEF1316593528F /* foret1.m4a */; };
+		2A050F5C65655C181B676A28 /* goelants1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 51CA2558D7125A34251D6FA2 /* goelants1.m4a */; };
+		2CDA2E96ABC7303ABA585391 /* plage1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 9D7341845BA35170122C932C /* plage1.m4a */; };
+		31D07795D3A2233E0E608679 /* BinauralPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB27CFC3D70F7E932E47A603 /* BinauralPanel.swift */; };
+		3D2FBCCF640768DBACD53432 /* ville1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = D91BD861B68F32DB42423CBD /* ville1.m4a */; };
+		44DF00F0E8DDCE3EBD35EB0D /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7551F70E98206AF931DDA4C3 /* AppModel.swift */; };
+		4A0F7C5F461EE9A2F2192DAE /* AppModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2ACBBA97B9B278AA93A654E /* AppModels.swift */; };
+		4BFF53CB457F7F993DA28E90 /* oiseaux1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 06AAC662F4F6A72DBBF69FE6 /* oiseaux1.m4a */; };
+		573669F564628CB3F67F75F8 /* pluie1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 634768B8A0C337CE767958E4 /* pluie1.m4a */; };
+		5AE5A6AD72E483BBFD7D4260 /* 2_binaural_meditation_theta.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 0118F1E923F41608404CCA01 /* 2_binaural_meditation_theta.m4a */; };
+		678F138A2A8FC1FCBD37356E /* oasisLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 10B850D9E383061D9AAF218D /* oasisLogo.png */; };
+		6CC655F7374C1381D46D4AFD /* train1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 4A60B2CA3FD5156B54E2B535 /* train1.m4a */; };
+		759372128AD13926DFD25C1B /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75431E070C3D8F30CEE51CA8 /* AppConfiguration.swift */; };
+		796A0369ECFF53B632ADE369 /* tente1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = A564EE875170DB6991DC5A45 /* tente1.m4a */; };
+		7FA6399F29F8E4B884D4E865 /* 3_binaural_relax_alpha.m4a in Resources */ = {isa = PBXBuildFile; fileRef = D66236599DD7A82A037AC762 /* 3_binaural_relax_alpha.m4a */; };
+		8470D23F2A92C26946339BFC /* grillons1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = E8EDA458CB4B05305E42A02C /* grillons1.m4a */; };
+		92FB525460D6512471BC38FE /* PresetsPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A979366E08952D227B0D29 /* PresetsPanel.swift */; };
+		94140FCD717C62DCD49AF7D7 /* 4_binaural_focus_beta.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 93A3B1B7E50EDC4C131950A9 /* 4_binaural_focus_beta.m4a */; };
+		9FCB2348AAE5DA0449AEFC44 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7CCC5CBDA5C415E3A5D3B5 /* HomeView.swift */; };
+		AF5B0C4502B1239A0925D0B5 /* AppCopy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8136A7D1A679C2BC79750314 /* AppCopy.swift */; };
+		B4B2FBA3323E914311926B9E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73E10820FF34279AF48AA6B2 /* Foundation.framework */; };
+		C6F668A9BF365509F3CB493F /* 1_binaural_sleep_delta.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 49A2298DE0D333FAFC209E8D /* 1_binaural_sleep_delta.m4a */; };
+		CEDAA169FE95D1E1A82042EC /* voiture1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 0037C020B03A931CB70399FC /* voiture1.m4a */; };
+		D4ECCD6A620F17ECABA98DC2 /* riviere1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 0CF4EC0AF4BF5038221B1447 /* riviere1.m4a */; };
+		E3D04949CE80AAE29DC7B12C /* cigales1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = ECE362D6D80BA187C48B08E6 /* cigales1.m4a */; };
+		E4E2D7655436F0481A9CEE9A /* OasisNativeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5968BEDBC13C6C24E670E16B /* OasisNativeApp.swift */; };
+		E869CC7643CC2D2823152A3C /* AudioMixerEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A78F01ED4D477BFAE64984 /* AudioMixerEngine.swift */; };
+		FDC0BBFE0980CE7F64EB947A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D5082C9615E343DEE93B7B7 /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0037C020B03A931CB70399FC /* voiture1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = voiture1.m4a; sourceTree = "<group>"; };
+		0058F14CE277A4B90AAD2743 /* Oasis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Oasis.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0118F1E923F41608404CCA01 /* 2_binaural_meditation_theta.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = 2_binaural_meditation_theta.m4a; sourceTree = "<group>"; };
+		06AAC662F4F6A72DBBF69FE6 /* oiseaux1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = oiseaux1.m4a; sourceTree = "<group>"; };
+		0CF4EC0AF4BF5038221B1447 /* riviere1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = riviere1.m4a; sourceTree = "<group>"; };
+		10B850D9E383061D9AAF218D /* oasisLogo.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = oasisLogo.png; sourceTree = "<group>"; };
+		3605533785DFC855F7A9381F /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		39ABCC6B62E603231C8996C2 /* vent1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = vent1.m4a; sourceTree = "<group>"; };
+		49A2298DE0D333FAFC209E8D /* 1_binaural_sleep_delta.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = 1_binaural_sleep_delta.m4a; sourceTree = "<group>"; };
+		4A60B2CA3FD5156B54E2B535 /* train1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = train1.m4a; sourceTree = "<group>"; };
+		4D5082C9615E343DEE93B7B7 /* Assets.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		51CA2558D7125A34251D6FA2 /* goelants1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = goelants1.m4a; sourceTree = "<group>"; };
+		5968BEDBC13C6C24E670E16B /* OasisNativeApp.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OasisNativeApp.swift; sourceTree = "<group>"; };
+		634768B8A0C337CE767958E4 /* pluie1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = pluie1.m4a; sourceTree = "<group>"; };
+		68A979366E08952D227B0D29 /* PresetsPanel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PresetsPanel.swift; sourceTree = "<group>"; };
+		73E10820FF34279AF48AA6B2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		75431E070C3D8F30CEE51CA8 /* AppConfiguration.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
+		7551F70E98206AF931DDA4C3 /* AppModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
+		8136A7D1A679C2BC79750314 /* AppCopy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AppCopy.swift; sourceTree = "<group>"; };
+		841606C326E04DFF03B7E93D /* SharedComponents.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SharedComponents.swift; sourceTree = "<group>"; };
+		93A3B1B7E50EDC4C131950A9 /* 4_binaural_focus_beta.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = 4_binaural_focus_beta.m4a; sourceTree = "<group>"; };
+		9D7341845BA35170122C932C /* plage1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = plage1.m4a; sourceTree = "<group>"; };
+		A2ACBBA97B9B278AA93A654E /* AppModels.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AppModels.swift; sourceTree = "<group>"; };
+		A564EE875170DB6991DC5A45 /* tente1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = tente1.m4a; sourceTree = "<group>"; };
+		AB27CFC3D70F7E932E47A603 /* BinauralPanel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BinauralPanel.swift; sourceTree = "<group>"; };
+		D2469755A3D5761130851F6A /* PaywallOverlay.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PaywallOverlay.swift; sourceTree = "<group>"; };
+		D66236599DD7A82A037AC762 /* 3_binaural_relax_alpha.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = 3_binaural_relax_alpha.m4a; sourceTree = "<group>"; };
+		D91BD861B68F32DB42423CBD /* ville1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = ville1.m4a; sourceTree = "<group>"; };
+		E5677F9181F05CBFA9ECBD82 /* orage1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = orage1.m4a; sourceTree = "<group>"; };
+		E80A38CD3FBEF1316593528F /* foret1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = foret1.m4a; sourceTree = "<group>"; };
+		E8EDA458CB4B05305E42A02C /* grillons1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = grillons1.m4a; sourceTree = "<group>"; };
+		ECE362D6D80BA187C48B08E6 /* cigales1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = cigales1.m4a; sourceTree = "<group>"; };
+		EF7CCC5CBDA5C415E3A5D3B5 /* HomeView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		F8A78F01ED4D477BFAE64984 /* AudioMixerEngine.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AudioMixerEngine.swift; sourceTree = "<group>"; };
+		F8EF26FEC385D715E51E8403 /* RoutePickerView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RoutePickerView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F300597C006BC22D6FA89AD6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B4B2FBA3323E914311926B9E /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		00ABC3B9C04F2A487DDCACD1 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				73E10820FF34279AF48AA6B2 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		12C574FF948452B062D7CCB1 /* OasisNative */ = {
+			isa = PBXGroup;
+			children = (
+				4D5082C9615E343DEE93B7B7 /* Assets.xcassets */,
+				711F12420DC34FE315B86CE0 /* Models */,
+				5968BEDBC13C6C24E670E16B /* OasisNativeApp.swift */,
+				6CDAFE6E73A4DE874AAD2668 /* Resources */,
+				CD7534C0ADC9715772803A0F /* Services */,
+				230073980E903EC21DC9ACEF /* Support */,
+				899F043BE7A51F5E5692BCF7 /* Views */,
+			);
+			path = OasisNative;
+			sourceTree = "<group>";
+		};
+		2017B87FBA81EC4DB5544B2A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				00ABC3B9C04F2A487DDCACD1 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		230073980E903EC21DC9ACEF /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				75431E070C3D8F30CEE51CA8 /* AppConfiguration.swift */,
+				3605533785DFC855F7A9381F /* Info.plist */,
+				F8EF26FEC385D715E51E8403 /* RoutePickerView.swift */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
+		5D26CED0CA0737C4CD233915 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				841606C326E04DFF03B7E93D /* SharedComponents.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		6CDAFE6E73A4DE874AAD2668 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				DDE7879041F82BA668577A34 /* Audio */,
+				C697F83BF930B75E465400EC /* Images */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		711F12420DC34FE315B86CE0 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				8136A7D1A679C2BC79750314 /* AppCopy.swift */,
+				A2ACBBA97B9B278AA93A654E /* AppModels.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		899F043BE7A51F5E5692BCF7 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5D26CED0CA0737C4CD233915 /* Components */,
+				EF7CCC5CBDA5C415E3A5D3B5 /* HomeView.swift */,
+				EDB485E32376A63453065486 /* Overlays */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		C697F83BF930B75E465400EC /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				10B850D9E383061D9AAF218D /* oasisLogo.png */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+		C88C8ECEEC34057ACE5B4BB0 = {
+			isa = PBXGroup;
+			children = (
+				F0FA176BC0E664D2EDE7F7D6 /* Products */,
+				2017B87FBA81EC4DB5544B2A /* Frameworks */,
+				12C574FF948452B062D7CCB1 /* OasisNative */,
+			);
+			sourceTree = "<group>";
+		};
+		CD7534C0ADC9715772803A0F /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				7551F70E98206AF931DDA4C3 /* AppModel.swift */,
+				F8A78F01ED4D477BFAE64984 /* AudioMixerEngine.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		DDE7879041F82BA668577A34 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				49A2298DE0D333FAFC209E8D /* 1_binaural_sleep_delta.m4a */,
+				0118F1E923F41608404CCA01 /* 2_binaural_meditation_theta.m4a */,
+				D66236599DD7A82A037AC762 /* 3_binaural_relax_alpha.m4a */,
+				93A3B1B7E50EDC4C131950A9 /* 4_binaural_focus_beta.m4a */,
+				ECE362D6D80BA187C48B08E6 /* cigales1.m4a */,
+				E80A38CD3FBEF1316593528F /* foret1.m4a */,
+				51CA2558D7125A34251D6FA2 /* goelants1.m4a */,
+				E8EDA458CB4B05305E42A02C /* grillons1.m4a */,
+				06AAC662F4F6A72DBBF69FE6 /* oiseaux1.m4a */,
+				E5677F9181F05CBFA9ECBD82 /* orage1.m4a */,
+				9D7341845BA35170122C932C /* plage1.m4a */,
+				634768B8A0C337CE767958E4 /* pluie1.m4a */,
+				0CF4EC0AF4BF5038221B1447 /* riviere1.m4a */,
+				A564EE875170DB6991DC5A45 /* tente1.m4a */,
+				4A60B2CA3FD5156B54E2B535 /* train1.m4a */,
+				39ABCC6B62E603231C8996C2 /* vent1.m4a */,
+				D91BD861B68F32DB42423CBD /* ville1.m4a */,
+				0037C020B03A931CB70399FC /* voiture1.m4a */,
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
+		EDB485E32376A63453065486 /* Overlays */ = {
+			isa = PBXGroup;
+			children = (
+				AB27CFC3D70F7E932E47A603 /* BinauralPanel.swift */,
+				D2469755A3D5761130851F6A /* PaywallOverlay.swift */,
+				68A979366E08952D227B0D29 /* PresetsPanel.swift */,
+			);
+			path = Overlays;
+			sourceTree = "<group>";
+		};
+		F0FA176BC0E664D2EDE7F7D6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0058F14CE277A4B90AAD2743 /* Oasis.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0345F4FCB39A9A348611C56B /* OasisNative */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AABC8ADC43084C96630BB1FC /* Build configuration list for PBXNativeTarget "OasisNative" */;
+			buildPhases = (
+				9E3C13CC4181DFCE6FD45598 /* Sources */,
+				F300597C006BC22D6FA89AD6 /* Frameworks */,
+				980896E91C293A24AC533F85 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OasisNative;
+			productName = Oasis;
+			productReference = 0058F14CE277A4B90AAD2743 /* Oasis.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D8374E733A92827421505363 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 2620;
+				TargetAttributes = {
+					0345F4FCB39A9A348611C56B = {
+						CreatedOnToolsVersion = 26.2;
+					};
+				};
+			};
+			buildConfigurationList = 0F84345081170623A0D3550D /* Build configuration list for PBXProject "OasisNative" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = C88C8ECEEC34057ACE5B4BB0;
+			productRefGroup = F0FA176BC0E664D2EDE7F7D6 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0345F4FCB39A9A348611C56B /* OasisNative */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		980896E91C293A24AC533F85 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FDC0BBFE0980CE7F64EB947A /* Assets.xcassets in Resources */,
+				C6F668A9BF365509F3CB493F /* 1_binaural_sleep_delta.m4a in Resources */,
+				5AE5A6AD72E483BBFD7D4260 /* 2_binaural_meditation_theta.m4a in Resources */,
+				7FA6399F29F8E4B884D4E865 /* 3_binaural_relax_alpha.m4a in Resources */,
+				94140FCD717C62DCD49AF7D7 /* 4_binaural_focus_beta.m4a in Resources */,
+				E3D04949CE80AAE29DC7B12C /* cigales1.m4a in Resources */,
+				29A717C9FF00F6112C28C4C3 /* foret1.m4a in Resources */,
+				2A050F5C65655C181B676A28 /* goelants1.m4a in Resources */,
+				8470D23F2A92C26946339BFC /* grillons1.m4a in Resources */,
+				4BFF53CB457F7F993DA28E90 /* oiseaux1.m4a in Resources */,
+				00F3829FDCFB4B4D8A534DE6 /* orage1.m4a in Resources */,
+				2CDA2E96ABC7303ABA585391 /* plage1.m4a in Resources */,
+				573669F564628CB3F67F75F8 /* pluie1.m4a in Resources */,
+				D4ECCD6A620F17ECABA98DC2 /* riviere1.m4a in Resources */,
+				796A0369ECFF53B632ADE369 /* tente1.m4a in Resources */,
+				6CC655F7374C1381D46D4AFD /* train1.m4a in Resources */,
+				0615518950DF1172865B9B49 /* vent1.m4a in Resources */,
+				3D2FBCCF640768DBACD53432 /* ville1.m4a in Resources */,
+				CEDAA169FE95D1E1A82042EC /* voiture1.m4a in Resources */,
+				678F138A2A8FC1FCBD37356E /* oasisLogo.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9E3C13CC4181DFCE6FD45598 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AF5B0C4502B1239A0925D0B5 /* AppCopy.swift in Sources */,
+				4A0F7C5F461EE9A2F2192DAE /* AppModels.swift in Sources */,
+				E4E2D7655436F0481A9CEE9A /* OasisNativeApp.swift in Sources */,
+				44DF00F0E8DDCE3EBD35EB0D /* AppModel.swift in Sources */,
+				E869CC7643CC2D2823152A3C /* AudioMixerEngine.swift in Sources */,
+				759372128AD13926DFD25C1B /* AppConfiguration.swift in Sources */,
+				28A51EAE37145DF726FEB7AF /* RoutePickerView.swift in Sources */,
+				080F82716F2105E2C1AE70C3 /* SharedComponents.swift in Sources */,
+				9FCB2348AAE5DA0449AEFC44 /* HomeView.swift in Sources */,
+				31D07795D3A2233E0E608679 /* BinauralPanel.swift in Sources */,
+				0A2B537BEDCBBB599FAD1938 /* PaywallOverlay.swift in Sources */,
+				92FB525460D6512471BC38FE /* PresetsPanel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		99B9DF9D4BF04249602C231C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		A0016A9A37B42AE8F5BFD7E4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		AF64D3724E3072DA902721C6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"\"";
+				DEVELOPMENT_TEAM = 346GF2QVCC;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = OasisNative/Support/Info.plist;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jonathanluquet.drift;
+				PRODUCT_NAME = Oasis;
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		EEAB4FAB84AD356DC7742796 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"\"";
+				DEVELOPMENT_TEAM = 346GF2QVCC;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = OasisNative/Support/Info.plist;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jonathanluquet.drift;
+				PRODUCT_NAME = Oasis;
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0F84345081170623A0D3550D /* Build configuration list for PBXProject "OasisNative" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				99B9DF9D4BF04249602C231C /* Debug */,
+				A0016A9A37B42AE8F5BFD7E4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AABC8ADC43084C96630BB1FC /* Build configuration list for PBXNativeTarget "OasisNative" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EEAB4FAB84AD356DC7742796 /* Release */,
+				AF64D3724E3072DA902721C6 /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D8374E733A92827421505363 /* Project object */;
+}
