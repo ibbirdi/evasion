@@ -116,8 +116,10 @@ final class AudioMixerEngine: @unchecked Sendable {
         do {
             let session = AVAudioSession.sharedInstance()
             try session.setCategory(.playback, mode: .default, options: [.allowAirPlay, .allowBluetoothA2DP])
-            try session.setPreferredSampleRate(44_100)
-            try session.setPreferredIOBufferDuration(0.046)
+            if !AppConfiguration.isSimulator {
+                try session.setPreferredSampleRate(44_100)
+                try session.setPreferredIOBufferDuration(0.046)
+            }
             try session.setActive(true)
         } catch {
             print("Failed to configure audio session: \(error)")

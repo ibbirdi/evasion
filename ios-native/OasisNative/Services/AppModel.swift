@@ -1,44 +1,45 @@
-import Combine
-import StoreKit
 import Foundation
+import Observation
+import StoreKit
 
 @MainActor
-final class AppModel: ObservableObject {
-    @Published var isPlaying = false
-    @Published var timerDurationMinutes: Int?
-    @Published var timerEndDate: Date?
-    @Published var timerRemainingWhenPaused: TimeInterval?
-    @Published var currentPresetID: String?
+@Observable
+final class AppModel {
+    var isPlaying = false
+    var timerDurationMinutes: Int?
+    var timerEndDate: Date?
+    var timerRemainingWhenPaused: TimeInterval?
+    var currentPresetID: String?
 
-    @Published var isPremium = AppConfiguration.simulatesPremium
-    @Published var showsPaywall = false
-    @Published var showsBinauralPanel = false
-    @Published var showsPresetsPanel = false
+    var isPremium = AppConfiguration.simulatesPremium
+    var showsPaywall = false
+    var showsBinauralPanel = false
+    var showsPresetsPanel = false
 
-    @Published var isBinauralActive = false
-    @Published var activeBinauralTrack: BinauralTrack = .delta
-    @Published var binauralVolume = 0.5
+    var isBinauralActive = false
+    var activeBinauralTrack: BinauralTrack = .delta
+    var binauralVolume = 0.5
 
-    @Published var channels: [SoundChannel: ChannelState] = .initialChannels
-    @Published var presets: [Preset] = .defaultPresets()
-    @Published var selectedLanguage = AppLanguage.resolved()
+    var channels: [SoundChannel: ChannelState] = .initialChannels
+    var presets: [Preset] = .defaultPresets()
+    var selectedLanguage = AppLanguage.resolved()
 
-    @Published var premiumPriceText = "..."
-    @Published var isLoadingPremiumProduct = false
-    @Published var isPurchasingPremium = false
-    @Published var isRestoringPurchases = false
-    @Published var purchaseErrorMessage: String?
+    var premiumPriceText = "..."
+    var isLoadingPremiumProduct = false
+    var isPurchasingPremium = false
+    var isRestoringPurchases = false
+    var purchaseErrorMessage: String?
 
-    @Published var timerDisplayValue: TimeInterval?
-    @Published private(set) var variationDisplayVolumes: [SoundChannel: Double] = [:]
+    var timerDisplayValue: TimeInterval?
+    private(set) var variationDisplayVolumes: [SoundChannel: Double] = [:]
 
-    private let audioEngine = AudioMixerEngine()
-    private var premiumProduct: Product?
-    private var timerTicker: Timer?
-    private var bootstrapTask: Task<Void, Never>?
-    private var transactionUpdatesTask: Task<Void, Never>?
-    private var persistenceTask: Task<Void, Never>?
-    private var didBootstrap = false
+    @ObservationIgnored private let audioEngine = AudioMixerEngine()
+    @ObservationIgnored private var premiumProduct: Product?
+    @ObservationIgnored private var timerTicker: Timer?
+    @ObservationIgnored private var bootstrapTask: Task<Void, Never>?
+    @ObservationIgnored private var transactionUpdatesTask: Task<Void, Never>?
+    @ObservationIgnored private var persistenceTask: Task<Void, Never>?
+    @ObservationIgnored private var didBootstrap = false
 
     var copy: AppStrings {
         AppTranslations.all[selectedLanguage] ?? AppTranslations.all[.en]!

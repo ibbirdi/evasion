@@ -1,10 +1,7 @@
 import SwiftUI
 
 struct BinauralPanel: View {
-    @EnvironmentObject private var model: AppModel
-
-    let sourceID: String
-    let panelTransition: Namespace.ID
+    @Environment(AppModel.self) private var model
 
     private let columns = [
         GridItem(.flexible(), spacing: 8),
@@ -30,24 +27,21 @@ struct BinauralPanel: View {
     }
 
     var body: some View {
-        MorphingGlassPanel(
-            sourceID: sourceID,
-            panelTransition: panelTransition,
-            maxWidth: 348,
-            contentPadding: EdgeInsets(top: 14, leading: 14, bottom: 14, trailing: 14)
-        ) {
-            VStack(spacing: 12) {
-                VStack(spacing: 2) {
+        ScrollView(showsIndicators: false) {
+            VStack(spacing: 14) {
+                VStack(spacing: 4) {
                     Text("Sons binauraux")
-                        .font(.system(size: 18, weight: .semibold, design: .rounded))
+                        .font(.system(size: 24, weight: .semibold, design: .rounded))
                         .foregroundStyle(.white)
                         .multilineTextAlignment(.center)
 
                     Text(model.copy.binaural.headphonesHint)
-                        .font(.system(size: 11, weight: .medium, design: .rounded))
-                        .foregroundStyle(.white.opacity(0.56))
+                        .font(.system(size: 13, weight: .medium, design: .rounded))
+                        .foregroundStyle(.white.opacity(0.58))
                         .multilineTextAlignment(.center)
                 }
+                .frame(maxWidth: .infinity)
+                .padding(.top, 10)
 
                 activeTrackSummary
 
@@ -57,7 +51,10 @@ struct BinauralPanel: View {
                     }
                 }
             }
+            .padding(.horizontal, 20)
+            .padding(.bottom, 18)
         }
+        .background(.clear)
     }
 
     private var activeTrackSummary: some View {
@@ -75,15 +72,24 @@ struct BinauralPanel: View {
 
                 Spacer(minLength: 8)
 
-                Toggle("", isOn: binauralEnabledBinding)
-                    .labelsHidden()
-                    .tint(model.activeBinauralTrack.tint)
+                if AppConfiguration.supportsSensoryFeedback {
+                    Toggle("", isOn: binauralEnabledBinding)
+                        .labelsHidden()
+                        .tint(model.activeBinauralTrack.tint)
+                        .sensoryFeedback(.impact(weight: .heavy, intensity: 0.92), trigger: model.isBinauralActive)
+                } else {
+                    Toggle("", isOn: binauralEnabledBinding)
+                        .labelsHidden()
+                        .tint(model.activeBinauralTrack.tint)
+                }
             }
 
             if model.isBinauralActive {
                 VStack(alignment: .leading, spacing: 6) {
-                    Slider(value: binauralVolumeBinding, in: 0...1)
-                        .tint(model.activeBinauralTrack.tint)
+                    HapticSlider(
+                        value: binauralVolumeBinding,
+                        tint: model.activeBinauralTrack.tint
+                    )
 
                     Text("Mix binaural actif")
                         .font(.system(size: 10, weight: .medium, design: .rounded))
@@ -111,7 +117,7 @@ struct BinauralPanel: View {
 }
 
 private struct BinauralTrackCard: View {
-    @EnvironmentObject private var model: AppModel
+    @Environment(AppModel.self) private var model
     let track: BinauralTrack
 
     private var isActive: Bool {
@@ -182,8 +188,17 @@ private struct BinauralTrackCard: View {
 
 private struct BinauralButtonScaleStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .scaleEffect(configuration.isPressed ? 0.97 : 1)
-            .animation(.easeInOut(duration: 0.14), value: configuration.isPressed)
+        if AppConfiguration.supportsSensoryFeedback {
+            configuration.label
+                .scaleEffect(configuration.isPressed ? 0.97 : 1)
+                .animation(.easeInOut(duration: 0.14), value: configuration.isPressed)
+                .sensoryFeedback(.impact(weight: .heavy, intensity: 1.0), trigger: configuration.isPressed) { _, isPressed in
+                    isPressed
+                }
+        } else {
+            configuration.label
+                .scaleEffect(configuration.isPressed ? 0.97 : 1)
+                .animation(.easeInOut(duration: 0.14), value: configuration.isPressed)
+        }
     }
 }

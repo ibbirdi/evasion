@@ -1,42 +1,37 @@
 import SwiftUI
 
 struct PresetsPanel: View {
-    @EnvironmentObject private var model: AppModel
+    @Environment(AppModel.self) private var model
     @FocusState private var isNamingPreset: Bool
     @State private var newPresetName = ""
     @State private var activeDragPresetID: String?
     @State private var lastReorderTargetID: String?
     @State private var rowMidpoints: [String: CGFloat] = [:]
 
-    let sourceID: String
-    let panelTransition: Namespace.ID
-
     var body: some View {
-        MorphingGlassPanel(
-            sourceID: sourceID,
-            panelTransition: panelTransition,
-            maxWidth: 352,
-            contentPadding: EdgeInsets(top: 14, leading: 14, bottom: 14, trailing: 14),
-            reducesEffects: true
-        ) {
-            VStack(spacing: 12) {
-                VStack(spacing: 3) {
-                    Text(model.copy.modal.title)
-                        .font(.system(size: 18, weight: .semibold, design: .rounded))
-                        .foregroundStyle(.white)
+        VStack(spacing: 16) {
+            VStack(spacing: 4) {
+                Text(model.copy.modal.title)
+                    .font(.system(size: 24, weight: .semibold, design: .rounded))
+                    .foregroundStyle(.white)
 
-                    Text("Chargez, réorganisez ou sauvegardez vos paysages sonores.")
-                        .font(.system(size: 11, weight: .medium, design: .rounded))
-                        .foregroundStyle(.white.opacity(0.56))
-                        .multilineTextAlignment(.center)
-                }
-                .frame(maxWidth: .infinity)
-
-                presetsList
-
-                saveComposer
+                Text("Chargez, réorganisez ou sauvegardez vos paysages sonores.")
+                    .font(.system(size: 13, weight: .medium, design: .rounded))
+                    .foregroundStyle(.white.opacity(0.58))
+                    .multilineTextAlignment(.center)
             }
+            .frame(maxWidth: .infinity)
+            .padding(.top, 10)
+
+            presetsList
+                .padding(.horizontal, 20)
+
+            saveComposer
+                .padding(.horizontal, 20)
+                .padding(.bottom, 16)
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+        .background(.clear)
         .onDisappear {
             isNamingPreset = false
         }
@@ -59,10 +54,11 @@ struct PresetsPanel: View {
                 }
             }
             .coordinateSpace(name: "presetPanel")
+            .scrollDismissesKeyboard(.never)
             .onPreferenceChange(PresetRowMidpointKey.self) { value in
                 rowMidpoints = value
             }
-            .frame(maxHeight: 248)
+            .frame(maxHeight: 320)
         }
     }
 
@@ -199,7 +195,7 @@ struct PresetsPanel: View {
 }
 
 private struct PresetRow: View {
-    @EnvironmentObject private var model: AppModel
+    @Environment(AppModel.self) private var model
     let preset: Preset
     let isDragging: Bool
     let isReorderEnabled: Bool
@@ -315,9 +311,18 @@ private struct PresetRow: View {
 
 private struct PresetButtonScaleStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .scaleEffect(configuration.isPressed ? 0.97 : 1)
-            .animation(.easeInOut(duration: 0.14), value: configuration.isPressed)
+        if AppConfiguration.supportsSensoryFeedback {
+            configuration.label
+                .scaleEffect(configuration.isPressed ? 0.97 : 1)
+                .animation(.easeInOut(duration: 0.14), value: configuration.isPressed)
+                .sensoryFeedback(.impact(weight: .heavy, intensity: 1.0), trigger: configuration.isPressed) { _, isPressed in
+                    isPressed
+                }
+        } else {
+            configuration.label
+                .scaleEffect(configuration.isPressed ? 0.97 : 1)
+                .animation(.easeInOut(duration: 0.14), value: configuration.isPressed)
+        }
     }
 }
 

@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0345F4FCB39A9A348611C56B"
+               BlueprintIdentifier = "C13EAD371A7A00224B06979C"
                BuildableName = "Oasis.app"
                BlueprintName = "OasisNative"
                ReferencedContainer = "container:OasisNative.xcodeproj">
@@ -30,7 +30,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "0345F4FCB39A9A348611C56B"
+            BlueprintIdentifier = "C13EAD371A7A00224B06979C"
             BuildableName = "Oasis.app"
             BlueprintName = "OasisNative"
             ReferencedContainer = "container:OasisNative.xcodeproj">
@@ -53,7 +53,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "0345F4FCB39A9A348611C56B"
+            BlueprintIdentifier = "C13EAD371A7A00224B06979C"
             BuildableName = "Oasis.app"
             BlueprintName = "OasisNative"
             ReferencedContainer = "container:OasisNative.xcodeproj">
@@ -70,7 +70,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "0345F4FCB39A9A348611C56B"
+            BlueprintIdentifier = "C13EAD371A7A00224B06979C"
             BuildableName = "Oasis.app"
             BlueprintName = "OasisNative"
             ReferencedContainer = "container:OasisNative.xcodeproj">

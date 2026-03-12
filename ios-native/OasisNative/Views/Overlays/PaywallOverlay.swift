@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct PaywallOverlay: View {
-    @EnvironmentObject private var model: AppModel
+    @Environment(AppModel.self) private var model
     @Environment(\.openURL) private var openURL
     @Environment(\.dismiss) private var dismiss
 

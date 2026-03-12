@@ -69,7 +69,7 @@ def add_group(parent:, absolute_path:, target:)
     file_reference = parent.new_file(entry)
 
     case File.extname(entry)
-    when ".swift"
+    when ".swift", ".metal"
       target.source_build_phase.add_file_reference(file_reference)
     when ".png", ".m4a"
       target.resources_build_phase.add_file_reference(file_reference)
