@@ -343,10 +343,12 @@ final class AudioMixerEngine: @unchecked Sendable {
 
             while !Task.isCancelled {
                 let target = Double.random(in: 0...1)
-                let steps = 20
+                let stepDurationMilliseconds = 120
+                let rampDurationMilliseconds = Int.random(in: 7_200...11_000)
+                let steps = max(24, rampDurationMilliseconds / stepDurationMilliseconds)
 
                 for step in 1...steps {
-                    try? await Task.sleep(for: .milliseconds(500))
+                    try? await Task.sleep(for: .milliseconds(stepDurationMilliseconds))
                     guard !Task.isCancelled else { return }
 
                     let progress = Double(step) / Double(steps)
@@ -359,13 +361,10 @@ final class AudioMixerEngine: @unchecked Sendable {
                         self.refreshPlayerVolumes()
                     }
 
-                    if step.isMultiple(of: 2) {
-                        self.dispatchVariationChange(for: channel, value: valueToApply)
-                    }
+                    self.dispatchVariationChange(for: channel, value: valueToApply)
                 }
 
                 currentValue = target
-                self.dispatchVariationChange(for: channel, value: currentValue)
 
                 let pauseMilliseconds = Int.random(in: 4_000...10_000)
                 try? await Task.sleep(for: .milliseconds(pauseMilliseconds))

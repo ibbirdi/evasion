@@ -1,52 +1,57 @@
 import SwiftUI
 
+enum PanelTransitionSource: String, Hashable, Sendable {
+    case headerPresets
+    case bottomPresets
+    case headerBinaural
+    case bottomBinaural
+
+    var transitionID: String { rawValue }
+
+    var usesZoomTransition: Bool {
+        switch self {
+        case .bottomPresets, .bottomBinaural:
+            true
+        case .headerPresets, .headerBinaural:
+            false
+        }
+    }
+}
+
+private enum ActiveHomePanel: String, Identifiable {
+    case presets
+    case binaural
+
+    var id: String { rawValue }
+}
+
 struct HomeView: View {
     @Environment(AppModel.self) private var model
     @State private var scrollOffset: CGFloat = 0
+    @State private var activePanel: ActiveHomePanel?
+    @State private var activePanelSource: PanelTransitionSource?
+    @Namespace private var panelTransitionNamespace
 
-    private var showsPresetsSheet: Binding<Bool> {
-        Binding(
-            get: { model.showsPresetsPanel },
-            set: { newValue in
-                model.showsPresetsPanel = newValue
+    private func openPresets(from source: PanelTransitionSource) {
+        if model.isPremium {
+            activePanelSource = source.usesZoomTransition ? source : nil
+            activePanel = .presets
+        } else {
+            withAnimation(.smooth(duration: 0.24, extraBounce: 0.02)) {
+                model.showsPaywall = true
             }
-        )
-    }
-
-    private var showsBinauralSheet: Binding<Bool> {
-        Binding(
-            get: { model.showsBinauralPanel },
-            set: { newValue in
-                model.showsBinauralPanel = newValue
-            }
-        )
-    }
-
-    private func openPresets() {
-        withAnimation(.smooth(duration: 0.24, extraBounce: 0.02)) {
-            model.openPresetsPanel()
         }
     }
 
-    private func openBinaural() {
-        withAnimation(.smooth(duration: 0.24, extraBounce: 0.02)) {
-            model.openBinauralPanel()
-        }
-    }
-
-    private var showsPaywallSheet: Binding<Bool> {
-        Binding(
-            get: { model.showsPaywall },
-            set: {
-                model.showsPaywall = $0
-                if !$0 {
-                    model.purchaseErrorMessage = nil
-                }
-            }
-        )
+    private func openBinaural(from source: PanelTransitionSource) {
+        model.prepareBinauralPanel()
+        activePanelSource = source.usesZoomTransition ? source : nil
+        activePanel = .binaural
     }
 
     var body: some View {
+        @Bindable var model = model
+
         NavigationStack {
             GeometryReader { proxy in
                 ZStack {
@@ -61,6 +66,7 @@ struct HomeView: View {
                         .padding(.bottom, 110)
                         .frame(maxWidth: .infinity, alignment: .top)
                     }
+                    .accessibilityIdentifier("home.scroll")
                     .scrollIndicators(.hidden)
                     .scrollBounceBehavior(.basedOnSize)
                     .onScrollGeometryChange(
@@ -91,6 +97,7 @@ struct HomeView: View {
                 .ignoresSafeArea(.keyboard)
                 .safeAreaBar(edge: .bottom, spacing: 0) {
                     BottomBarView(
+                        transitionNamespace: panelTransitionNamespace,
                         onOpenPresets: openPresets,
                         onOpenBinaural: openBinaural
                     )
@@ -101,28 +108,44 @@ struct HomeView: View {
             }
             .toolbar(.hidden, for: .navigationBar)
         }
-        .sheet(isPresented: showsPresetsSheet) {
-            PresetsPanel()
-                .presentationDetents([.medium, .large])
-                .presentationContentInteraction(.scrolls)
-                .presentationDragIndicator(.visible)
-                .presentationCornerRadius(30)
-                .presentationBackground(.thinMaterial)
+        .sheet(item: $activePanel, onDismiss: {
+            activePanelSource = nil
+        }) { panel in
+            switch panel {
+            case .presets:
+                if let source = activePanelSource {
+                    PresetsPanel()
+                        .navigationTransition(.zoom(sourceID: source.transitionID, in: panelTransitionNamespace))
+                        .presentationDetents([.medium, .large])
+                        .presentationContentInteraction(.scrolls)
+                        .presentationDragIndicator(.visible)
+                } else {
+                    PresetsPanel()
+                        .presentationDetents([.medium, .large])
+                        .presentationContentInteraction(.scrolls)
+                        .presentationDragIndicator(.visible)
+                }
+            case .binaural:
+                if let source = activePanelSource {
+                    BinauralPanel()
+                        .navigationTransition(.zoom(sourceID: source.transitionID, in: panelTransitionNamespace))
+                        .presentationDetents([.height(396)])
+                        .presentationContentInteraction(.resizes)
+                        .presentationDragIndicator(.visible)
+                } else {
+                    BinauralPanel()
+                        .presentationDetents([.height(396)])
+                        .presentationContentInteraction(.resizes)
+                        .presentationDragIndicator(.visible)
+                }
+            }
         }
-        .sheet(isPresented: showsBinauralSheet) {
-            BinauralPanel()
-                .presentationDetents([.height(378), .medium])
-                .presentationContentInteraction(.scrolls)
-                .presentationDragIndicator(.visible)
-                .presentationCornerRadius(30)
-                .presentationBackground(.thinMaterial)
-        }
-        .sheet(isPresented: showsPaywallSheet) {
+        .fullScreenCover(isPresented: $model.showsPaywall) {
             PaywallOverlay()
-                .presentationDetents([.large])
-                .presentationDragIndicator(.visible)
-                .presentationCornerRadius(36)
-                .presentationBackground(.clear)
+        }
+        .onChange(of: activePanel) { _, panel in
+            model.showsPresetsPanel = panel == .presets
+            model.showsBinauralPanel = panel == .binaural
         }
         .preferredColorScheme(.dark)
         .task {

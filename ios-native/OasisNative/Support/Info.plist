@@ -24,8 +24,10 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>PremiumProductID</key>
-	<string>premium_lifetime</string>
+	<key>RevenueCatAPIKey</key>
+	<string>appl_KJQnGRCJPIZiOAWmEVXSnqKTMUU</string>
+	<key>RevenueCatEntitlementID</key>
+	<string>premium</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

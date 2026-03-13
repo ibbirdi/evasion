@@ -1,0 +1,35 @@
+repo_root = [
+  Dir.pwd,
+  File.expand_path("..", Dir.pwd)
+].uniq.find do |candidate|
+  File.exist?(File.join(candidate, "ios-native", "OasisNative.xcodeproj"))
+end
+
+raise "Unable to locate repo root for OasisNative.xcodeproj" unless repo_root
+
+project(File.join(repo_root, "ios-native", "OasisNative.xcodeproj"))
+scheme("OasisNative")
+test_target_name("OasisNativeUITests")
+
+devices([
+  ENV["SCREENSHOT_DEVICE"] || "iPhone 17 Pro Max"
+])
+
+languages([
+  "en-US",
+  "fr-FR",
+  "de-DE",
+  "es-ES",
+  "it",
+  "pt-BR"
+])
+
+clear_previous_screenshots(true)
+output_directory(File.join(repo_root, "fastlane", "screenshots"))
+reinstall_app(true)
+override_status_bar(true)
+localize_simulator(true)
+launch_arguments([
+  "-OASISPremiumOverride premium",
+  "-OASISResetState YES"
+])

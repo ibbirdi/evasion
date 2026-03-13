@@ -4,6 +4,7 @@ struct AppStrings {
     struct Header {
         var title: String
         var timer: String
+        var off: String
     }
 
     struct Channels {
@@ -49,6 +50,7 @@ struct AppStrings {
 
     struct Modal {
         var title: String
+        var subtitle: String
         var defaultPresets: String
         var yourPresets: String
         var saveNew: String
@@ -103,6 +105,11 @@ struct AppStrings {
 
     struct Mixer {
         var autoVariation: String
+        var autoShort: String
+        var mute: String
+        var premium: String
+        var signaturePreset: String
+        var customPreset: String
     }
 
     var header: Header
@@ -117,7 +124,7 @@ struct AppStrings {
 enum AppTranslations {
     static let all: [AppLanguage: AppStrings] = [
         .en: AppStrings(
-            header: .init(title: "Oasis", timer: "Timer"),
+            header: .init(title: "Oasis", timer: "Timer", off: "Off"),
             channels: .init(
                 oiseaux: "Birds",
                 vent: "Wind",
@@ -137,6 +144,7 @@ enum AppTranslations {
             presets: .init(defaultCalm: "Calm Forest", defaultStorm: "Distant Storm"),
             modal: .init(
                 title: "My Oasis",
+                subtitle: "Load, reorder, or save your soundscapes.",
                 defaultPresets: "Default Presets",
                 yourPresets: "Your Presets",
                 saveNew: "Save new preset",
@@ -168,10 +176,17 @@ enum AppTranslations {
                 betaFreq: "Beta (15 Hz)",
                 headphonesHint: "Stereo headphones recommended"
             ),
-            mixer: .init(autoVariation: "AUTO VARIATION")
+            mixer: .init(
+                autoVariation: "AUTO VARIATION",
+                autoShort: "AUTO",
+                mute: "MUTE",
+                premium: "PREMIUM",
+                signaturePreset: "Signature Oasis",
+                customPreset: "Custom preset"
+            )
         ),
         .fr: AppStrings(
-            header: .init(title: "Oasis", timer: "Timer"),
+            header: .init(title: "Oasis", timer: "Timer", off: "Off"),
             channels: .init(
                 oiseaux: "Oiseaux",
                 vent: "Vent",
@@ -191,6 +206,7 @@ enum AppTranslations {
             presets: .init(defaultCalm: "Calme en forêt", defaultStorm: "Orage lointain"),
             modal: .init(
                 title: "Mes Oasis",
+                subtitle: "Chargez, réorganisez ou sauvegardez vos paysages sonores.",
                 defaultPresets: "Presets par défaut",
                 yourPresets: "Vos presets",
                 saveNew: "Nouveau preset",
@@ -222,10 +238,17 @@ enum AppTranslations {
                 betaFreq: "Beta (15 Hz)",
                 headphonesHint: "Casque stéréo recommandé"
             ),
-            mixer: .init(autoVariation: "VARIATION AUTO")
+            mixer: .init(
+                autoVariation: "VARIATION AUTO",
+                autoShort: "AUTO",
+                mute: "MUTE",
+                premium: "PREMIUM",
+                signaturePreset: "Signature Oasis",
+                customPreset: "Preset personnalisé"
+            )
         ),
         .es: AppStrings(
-            header: .init(title: "Oasis", timer: "Temp"),
+            header: .init(title: "Oasis", timer: "Temporizador", off: "Off"),
             channels: .init(
                 oiseaux: "Pájaros",
                 vent: "Viento",
@@ -242,9 +265,10 @@ enum AppTranslations {
                 voiture: "Coche",
                 train: "Tren"
             ),
-            presets: .init(defaultCalm: "Bosque Trancuilo", defaultStorm: "Tormenta Lejana"),
+            presets: .init(defaultCalm: "Bosque Tranquilo", defaultStorm: "Tormenta Lejana"),
             modal: .init(
                 title: "Mis oasis",
+                subtitle: "Carga, reordena o guarda tus paisajes sonoros.",
                 defaultPresets: "Presets por defecto",
                 yourPresets: "Tus presets",
                 saveNew: "Guardar nuevo",
@@ -276,10 +300,17 @@ enum AppTranslations {
                 betaFreq: "Beta (15 Hz)",
                 headphonesHint: "Auriculares estéreo recomendados"
             ),
-            mixer: .init(autoVariation: "VARIACIÓN AUTO")
+            mixer: .init(
+                autoVariation: "VARIACIÓN AUTO",
+                autoShort: "AUTO",
+                mute: "MUDO",
+                premium: "PREMIUM",
+                signaturePreset: "Oasis Signature",
+                customPreset: "Preset personalizado"
+            )
         ),
         .de: AppStrings(
-            header: .init(title: "Oasis", timer: "Timer"),
+            header: .init(title: "Oasis", timer: "Timer", off: "Aus"),
             channels: .init(
                 oiseaux: "Vögel",
                 vent: "Wind",
@@ -299,6 +330,7 @@ enum AppTranslations {
             presets: .init(defaultCalm: "Ruhiger Wald", defaultStorm: "Fernes Gewitter"),
             modal: .init(
                 title: "Meine Oasis",
+                subtitle: "Lade, ordne oder speichere deine Klanglandschaften.",
                 defaultPresets: "Standard Presets",
                 yourPresets: "Deine Presets",
                 saveNew: "Neues Preset speichern",
@@ -330,10 +362,17 @@ enum AppTranslations {
                 betaFreq: "Beta (15 Hz)",
                 headphonesHint: "Stereokopfhörer empfohlen"
             ),
-            mixer: .init(autoVariation: "AUTO-VARIATION")
+            mixer: .init(
+                autoVariation: "AUTO-VARIATION",
+                autoShort: "AUTO",
+                mute: "STUMM",
+                premium: "PREMIUM",
+                signaturePreset: "Oasis Signature",
+                customPreset: "Eigenes Preset"
+            )
         ),
         .it: AppStrings(
-            header: .init(title: "Oasi", timer: "Timer"),
+            header: .init(title: "Oasi", timer: "Timer", off: "Off"),
             channels: .init(
                 oiseaux: "Uccelli",
                 vent: "Vento",
@@ -353,6 +392,7 @@ enum AppTranslations {
             presets: .init(defaultCalm: "Foresta Calma", defaultStorm: "Tempesta Lontana"),
             modal: .init(
                 title: "Le mie oasi",
+                subtitle: "Carica, riordina o salva i tuoi paesaggi sonori.",
                 defaultPresets: "Preset Predefiniti",
                 yourPresets: "I tuoi Preset",
                 saveNew: "Salva nuovo",
@@ -384,10 +424,17 @@ enum AppTranslations {
                 betaFreq: "Beta (15 Hz)",
                 headphonesHint: "Cuffie stereo consigliate"
             ),
-            mixer: .init(autoVariation: "VARIAZIONE AUTO")
+            mixer: .init(
+                autoVariation: "VARIAZIONE AUTO",
+                autoShort: "AUTO",
+                mute: "MUTO",
+                premium: "PREMIUM",
+                signaturePreset: "Oasis Signature",
+                customPreset: "Preset personalizzato"
+            )
         ),
         .pt: AppStrings(
-            header: .init(title: "Oasis", timer: "Timer"),
+            header: .init(title: "Oasis", timer: "Timer", off: "Off"),
             channels: .init(
                 oiseaux: "Pássaros",
                 vent: "Vento",
@@ -407,6 +454,7 @@ enum AppTranslations {
             presets: .init(defaultCalm: "Floresta Calma", defaultStorm: "Tempestade Distante"),
             modal: .init(
                 title: "Meus Oasis",
+                subtitle: "Carregue, reorganize ou salve suas paisagens sonoras.",
                 defaultPresets: "Padrão",
                 yourPresets: "Seus Presets",
                 saveNew: "Salvar novo",
@@ -438,7 +486,14 @@ enum AppTranslations {
                 betaFreq: "Beta (15 Hz)",
                 headphonesHint: "Fones estéreo recomendados"
             ),
-            mixer: .init(autoVariation: "VARIAÇÃO AUTO")
+            mixer: .init(
+                autoVariation: "VARIAÇÃO AUTO",
+                autoShort: "AUTO",
+                mute: "MUDO",
+                premium: "PREMIUM",
+                signaturePreset: "Oasis Signature",
+                customPreset: "Preset personalizado"
+            )
         )
     ]
 }

@@ -89,27 +89,37 @@ enum SoundChannel: String, CaseIterable, Codable, Identifiable {
         }
     }
 
-    var hueDegrees: Double {
-        switch self {
-        case .oiseaux: return 0
-        case .vent: return 26
-        case .plage: return 51
-        case .goelands: return 77
-        case .foret: return 103
-        case .pluie: return 129
-        case .tonnerre: return 154
-        case .cigales: return 180
-        case .grillons: return 206
-        case .tente: return 231
-        case .riviere: return 257
-        case .village: return 283
-        case .voiture: return 309
-        case .train: return 334
-        }
-    }
-
     var tint: Color {
-        Color(hslHue: hueDegrees / 360.0, saturation: 0.65, lightness: 0.80)
+        switch self {
+        case .oiseaux:
+            return Color(red: 0.96, green: 0.74, blue: 0.53)
+        case .vent:
+            return Color(red: 0.96, green: 0.97, blue: 0.92)
+        case .plage:
+            return Color(red: 0.93, green: 0.86, blue: 0.57)
+        case .goelands:
+            return Color(red: 0.71, green: 0.86, blue: 0.66)
+        case .foret:
+            return Color(red: 0.63, green: 0.86, blue: 0.55)
+        case .pluie:
+            return Color(red: 0.45, green: 0.79, blue: 0.92)
+        case .tonnerre:
+            return Color(red: 0.69, green: 0.57, blue: 0.92)
+        case .cigales:
+            return Color(red: 0.89, green: 0.86, blue: 0.51)
+        case .grillons:
+            return Color(red: 0.65, green: 0.80, blue: 0.97)
+        case .tente:
+            return Color(red: 0.85, green: 0.73, blue: 0.60)
+        case .riviere:
+            return Color(red: 0.50, green: 0.85, blue: 0.95)
+        case .village:
+            return Color(red: 0.90, green: 0.72, blue: 0.60)
+        case .voiture:
+            return Color(red: 0.83, green: 0.70, blue: 0.90)
+        case .train:
+            return Color(red: 0.94, green: 0.66, blue: 0.72)
+        }
     }
 }
 
@@ -164,7 +174,6 @@ struct PersistedMixerState: Codable {
     var channels: [SoundChannel: ChannelState]
     var presets: [Preset]
     var currentPresetID: String?
-    var isPremium: Bool
     var isBinauralActive: Bool
     var activeBinauralTrack: BinauralTrack
     var binauralVolume: Double

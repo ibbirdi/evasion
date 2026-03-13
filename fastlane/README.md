@@ -21,7 +21,7 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 [bundle exec] fastlane ios screenshots
 ```
 
-Automates taking screenshots via Maestro for multiple locales
+Generate App Store screenshots for the native iOS app with XCTest + snapshot
 
 ### ios screenshots_only
 
@@ -29,7 +29,7 @@ Automates taking screenshots via Maestro for multiple locales
 [bundle exec] fastlane ios screenshots_only
 ```
 
-Runs Maestro screenshots without rebuilding the app (assumes app is already installed)
+Alias for screenshot generation
 
 ----
 

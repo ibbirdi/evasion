@@ -10,18 +10,22 @@ struct PresetsPanel: View {
 
     var body: some View {
         VStack(spacing: 16) {
-            VStack(spacing: 4) {
+            VStack(spacing: 6) {
+                Image(systemName: model.currentPresetID == nil ? "bookmark" : "bookmark.fill")
+                    .font(.system(size: 18, weight: .semibold))
+                    .foregroundStyle(LiquidActivityPalette.preset[0])
+
                 Text(model.copy.modal.title)
                     .font(.system(size: 24, weight: .semibold, design: .rounded))
                     .foregroundStyle(.white)
 
-                Text("Chargez, réorganisez ou sauvegardez vos paysages sonores.")
+                Text(model.copy.modal.subtitle)
                     .font(.system(size: 13, weight: .medium, design: .rounded))
                     .foregroundStyle(.white.opacity(0.58))
                     .multilineTextAlignment(.center)
             }
             .frame(maxWidth: .infinity)
-            .padding(.top, 10)
+            .padding(.top, 18)
 
             presetsList
                 .padding(.horizontal, 20)
@@ -32,6 +36,7 @@ struct PresetsPanel: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .background(.clear)
+        .accessibilityIdentifier("panel.presets")
         .onDisappear {
             isNamingPreset = false
         }
@@ -72,7 +77,6 @@ struct PresetsPanel: View {
                 onSelect: {
                     withAnimation(.smooth(duration: 0.22)) {
                         model.loadPreset(preset)
-                        model.showsPresetsPanel = false
                     }
                 },
                 onDelete: { delete(preset) },
@@ -103,9 +107,11 @@ struct PresetsPanel: View {
             TextField(model.copy.modal.presetName, text: $newPresetName)
                 .textInputAutocapitalization(.words)
                 .disableAutocorrection(true)
+                .textContentType(nil)
                 .focused($isNamingPreset)
                 .submitLabel(.done)
                 .onSubmit(savePreset)
+                .accessibilityIdentifier("presets.name")
                 .padding(.horizontal, 14)
                 .frame(height: 42)
                 .background {
@@ -135,6 +141,7 @@ struct PresetsPanel: View {
                             }
                     }
             }
+            .accessibilityIdentifier("presets.save")
             .buttonStyle(PresetButtonScaleStyle())
             .disabled(newPresetName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
             .opacity(newPresetName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? 0.55 : 1)
@@ -212,7 +219,10 @@ private struct PresetRow: View {
         HStack(spacing: 8) {
             Button(action: onSelect) {
                 rowContent
+                    .accessibilityElement(children: .combine)
+                    .accessibilityIdentifier("presets.row.\(preset.id)")
             }
+            .accessibilityIdentifier("presets.row.\(preset.id)")
             .buttonStyle(PresetButtonScaleStyle())
 
             reorderHandle
@@ -224,21 +234,12 @@ private struct PresetRow: View {
 
     private var rowContent: some View {
         HStack(spacing: 10) {
-            Image(systemName: preset.isDefault ? "sparkles" : "bookmark")
-                .font(.system(size: 13, weight: .semibold))
-                .foregroundStyle(isActive ? rowTint : .white.opacity(0.70))
-                .frame(width: 16, height: 16)
-
-            VStack(alignment: .leading, spacing: 1) {
+            VStack(alignment: .leading, spacing: 0) {
                 Text(model.presetDisplayName(preset))
                     .font(.system(size: 15, weight: .semibold, design: .rounded))
                     .foregroundStyle(.white)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .lineLimit(1)
-
-                Text(preset.isDefault ? "Signature Oasis" : "Preset personnalise")
-                    .font(.system(size: 10, weight: .medium, design: .rounded))
-                    .foregroundStyle(.white.opacity(0.46))
             }
 
             if isActive {
@@ -255,12 +256,12 @@ private struct PresetRow: View {
                 .fill(.thinMaterial)
                 .overlay {
                     RoundedRectangle(cornerRadius: 18, style: .continuous)
-                        .fill(isActive ? rowTint.opacity(0.10) : Color.white.opacity(0.02))
+                        .fill(isActive ? rowTint.opacity(0.14) : Color.white.opacity(0.018))
                 }
         }
         .overlay {
             RoundedRectangle(cornerRadius: 18, style: .continuous)
-                .strokeBorder(isActive ? rowTint.opacity(0.26) : Color.white.opacity(0.06), lineWidth: 1)
+                .strokeBorder(isActive ? rowTint.opacity(0.30) : Color.white.opacity(0.06), lineWidth: 1)
         }
     }
 

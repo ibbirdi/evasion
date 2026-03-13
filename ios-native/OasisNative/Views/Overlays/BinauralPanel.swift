@@ -27,92 +27,59 @@ struct BinauralPanel: View {
     }
 
     var body: some View {
-        ScrollView(showsIndicators: false) {
-            VStack(spacing: 14) {
-                VStack(spacing: 4) {
-                    Text("Sons binauraux")
-                        .font(.system(size: 24, weight: .semibold, design: .rounded))
-                        .foregroundStyle(.white)
-                        .multilineTextAlignment(.center)
+        VStack(spacing: 14) {
+            VStack(spacing: 6) {
+                Image(systemName: "waveform.path")
+                    .font(.system(size: 18, weight: .semibold))
+                    .foregroundStyle(model.activeBinauralTrack.tint.opacity(0.92))
 
-                    Text(model.copy.binaural.headphonesHint)
-                        .font(.system(size: 13, weight: .medium, design: .rounded))
-                        .foregroundStyle(.white.opacity(0.58))
-                        .multilineTextAlignment(.center)
-                }
-                .frame(maxWidth: .infinity)
-                .padding(.top, 10)
+                Text(model.copy.binaural.title)
+                    .font(.system(size: 24, weight: .semibold, design: .rounded))
+                    .foregroundStyle(.white)
+                    .multilineTextAlignment(.center)
 
-                activeTrackSummary
+                Text(model.copy.binaural.headphonesHint)
+                    .font(.system(size: 13, weight: .medium, design: .rounded))
+                    .foregroundStyle(.white.opacity(0.58))
+                    .multilineTextAlignment(.center)
+            }
+            .frame(maxWidth: .infinity)
+            .padding(.top, 30)
 
-                LazyVGrid(columns: columns, spacing: 8) {
-                    ForEach(BinauralTrack.allCases) { track in
-                        BinauralTrackCard(track: track)
-                    }
+            controlsRow
+
+            LazyVGrid(columns: columns, spacing: 8) {
+                ForEach(BinauralTrack.allCases) { track in
+                    BinauralTrackCard(track: track)
                 }
             }
-            .padding(.horizontal, 20)
-            .padding(.bottom, 18)
         }
+        .padding(.horizontal, 20)
+        .padding(.bottom, 22)
         .background(.clear)
+        .accessibilityIdentifier("panel.binaural")
     }
 
-    private var activeTrackSummary: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            HStack(spacing: 10) {
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(model.copy.binaural[model.activeBinauralTrack])
-                        .font(.system(size: 16, weight: .semibold, design: .rounded))
-                        .foregroundStyle(.white)
+    private var controlsRow: some View {
+        HStack(spacing: 14) {
+            HapticSlider(
+                value: binauralVolumeBinding,
+                tint: model.activeBinauralTrack.tint
+            )
+            .opacity(model.isBinauralActive ? 1 : 0.54)
+            .frame(maxWidth: .infinity)
 
-                    Text(model.copy.binaural.frequencyLabel(for: model.activeBinauralTrack))
-                        .font(.system(size: 11, weight: .medium, design: .rounded))
-                        .foregroundStyle(model.activeBinauralTrack.tint.opacity(0.90))
-                }
-
-                Spacer(minLength: 8)
-
-                if AppConfiguration.supportsSensoryFeedback {
-                    Toggle("", isOn: binauralEnabledBinding)
-                        .labelsHidden()
-                        .tint(model.activeBinauralTrack.tint)
-                        .sensoryFeedback(.impact(weight: .heavy, intensity: 0.92), trigger: model.isBinauralActive)
-                } else {
-                    Toggle("", isOn: binauralEnabledBinding)
-                        .labelsHidden()
-                        .tint(model.activeBinauralTrack.tint)
-                }
-            }
-
-            if model.isBinauralActive {
-                VStack(alignment: .leading, spacing: 6) {
-                    HapticSlider(
-                        value: binauralVolumeBinding,
-                        tint: model.activeBinauralTrack.tint
-                    )
-
-                    Text("Mix binaural actif")
-                        .font(.system(size: 10, weight: .medium, design: .rounded))
-                        .foregroundStyle(.white.opacity(0.46))
-                }
-                .transition(.move(edge: .top).combined(with: .opacity))
+            if AppConfiguration.supportsSensoryFeedback {
+                Toggle("", isOn: binauralEnabledBinding)
+                    .labelsHidden()
+                    .tint(model.activeBinauralTrack.tint)
+                    .sensoryFeedback(.impact(weight: .heavy, intensity: 0.92), trigger: model.isBinauralActive)
+            } else {
+                Toggle("", isOn: binauralEnabledBinding)
+                    .labelsHidden()
+                    .tint(model.activeBinauralTrack.tint)
             }
         }
-        .padding(.horizontal, 12)
-        .padding(.vertical, 12)
-        .background {
-            RoundedRectangle(cornerRadius: 22, style: .continuous)
-                .fill(.thinMaterial)
-                .overlay {
-                    RoundedRectangle(cornerRadius: 22, style: .continuous)
-                        .fill(model.activeBinauralTrack.tint.opacity(0.10))
-                }
-        }
-        .overlay {
-            RoundedRectangle(cornerRadius: 22, style: .continuous)
-                .strokeBorder(Color.white.opacity(0.08), lineWidth: 1)
-        }
-        .animation(.smooth(duration: 0.24), value: model.isBinauralActive)
     }
 }
 
@@ -166,22 +133,26 @@ private struct BinauralTrackCard: View {
                         .lineLimit(1)
                 }
             }
+            .accessibilityElement(children: .combine)
+            .accessibilityIdentifier("binaural.track.\(track.id)")
             .frame(maxWidth: .infinity, minHeight: 92, alignment: .topLeading)
             .padding(.horizontal, 12)
             .padding(.vertical, 12)
             .background {
                 RoundedRectangle(cornerRadius: 20, style: .continuous)
-                    .fill(.thinMaterial)
+                    .fill(Color.white.opacity(0.001))
+                    .glassEffect(.regular, in: RoundedRectangle(cornerRadius: 20, style: .continuous))
                     .overlay {
                         RoundedRectangle(cornerRadius: 20, style: .continuous)
-                            .fill(isActive ? track.tint.opacity(0.12) : Color.white.opacity(0.02))
+                            .fill(isActive ? track.tint.opacity(0.13) : Color.white.opacity(0.018))
                     }
             }
-            .overlay {
-                RoundedRectangle(cornerRadius: 20, style: .continuous)
-                    .strokeBorder(isActive ? track.tint.opacity(0.34) : Color.white.opacity(0.06), lineWidth: 1)
-            }
+        .overlay {
+            RoundedRectangle(cornerRadius: 20, style: .continuous)
+                    .strokeBorder(isActive ? track.tint.opacity(0.28) : Color.white.opacity(0.06), lineWidth: 1)
         }
+        }
+        .accessibilityIdentifier("binaural.track.\(track.id)")
         .buttonStyle(BinauralButtonScaleStyle())
     }
 }

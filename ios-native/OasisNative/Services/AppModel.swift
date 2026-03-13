@@ -1,6 +1,6 @@
 import Foundation
 import Observation
-import StoreKit
+import RevenueCat
 
 @MainActor
 @Observable
@@ -11,7 +11,7 @@ final class AppModel {
     var timerRemainingWhenPaused: TimeInterval?
     var currentPresetID: String?
 
-    var isPremium = AppConfiguration.simulatesPremium
+    var isPremium = AppConfiguration.forcedPremiumAccess ?? false
     var showsPaywall = false
     var showsBinauralPanel = false
     var showsPresetsPanel = false
@@ -24,22 +24,17 @@ final class AppModel {
     var presets: [Preset] = .defaultPresets()
     var selectedLanguage = AppLanguage.resolved()
 
-    var premiumPriceText = "..."
-    var isLoadingPremiumProduct = false
-    var isPurchasingPremium = false
-    var isRestoringPurchases = false
-    var purchaseErrorMessage: String?
-
     var timerDisplayValue: TimeInterval?
     private(set) var variationDisplayVolumes: [SoundChannel: Double] = [:]
 
     @ObservationIgnored private let audioEngine = AudioMixerEngine()
-    @ObservationIgnored private var premiumProduct: Product?
+    @ObservationIgnored private let revenueCatObserver = RevenueCatObserver()
     @ObservationIgnored private var timerTicker: Timer?
     @ObservationIgnored private var bootstrapTask: Task<Void, Never>?
-    @ObservationIgnored private var transactionUpdatesTask: Task<Void, Never>?
     @ObservationIgnored private var persistenceTask: Task<Void, Never>?
     @ObservationIgnored private var didBootstrap = false
+    @ObservationIgnored private var revenueCatHasPremium = false
+    @ObservationIgnored private var screenshotShuffleIndex = 0
 
     var copy: AppStrings {
         AppTranslations.all[selectedLanguage] ?? AppTranslations.all[.en]!
@@ -58,23 +53,7 @@ final class AppModel {
 
     init() {
         loadPersistedState()
-
-        audioEngine.onRemotePlaybackChange = { [weak self] shouldPlay in
-            guard let self else { return }
-            self.setPlayback(shouldPlay)
-        }
-
-        audioEngine.onVariationChanged = { [weak self] channel, value in
-            guard let self else { return }
-            guard !self.showsPresetsPanel, !self.showsBinauralPanel else { return }
-
-            if let value {
-                self.variationDisplayVolumes[channel] = value
-            } else {
-                self.variationDisplayVolumes.removeValue(forKey: channel)
-            }
-        }
-
+        configureCallbacks()
         updateTimerDisplayValue()
         synchronizeAudio()
     }
@@ -82,13 +61,17 @@ final class AppModel {
     func bootstrapIfNeeded() {
         guard !didBootstrap else { return }
         didBootstrap = true
-        guard !AppConfiguration.simulatesPremium else { return }
+
+        guard AppConfiguration.shouldUseRevenueCatAccess, AppConfiguration.isRevenueCatConfigured else {
+            applyEffectivePremiumAccess()
+            return
+        }
+
+        Purchases.shared.delegate = revenueCatObserver
 
         bootstrapTask = Task { [weak self] in
             guard let self else { return }
-            await self.loadPremiumProduct()
             await self.refreshPremiumStatus()
-            self.startTransactionListener()
         }
     }
 
@@ -126,9 +109,13 @@ final class AppModel {
     }
 
     func openBinauralPanel() {
-        audioEngine.preloadBinauralTrack(activeBinauralTrack)
+        prepareBinauralPanel()
         showsPresetsPanel = false
         showsBinauralPanel = true
+    }
+
+    func prepareBinauralPanel() {
+        audioEngine.preloadBinauralTrack(activeBinauralTrack)
     }
 
     func openPresetsPanel() {
@@ -179,9 +166,14 @@ final class AppModel {
 
     func randomizeMix() {
         let availableChannels = isPremium ? SoundChannel.allCases : Array(SoundChannel.freeChannels)
+        if AppConfiguration.isRunningScreenshotAutomation {
+            applyScreenshotShuffle(availableChannels: availableChannels)
+            return
+        }
+
         var newChannels = [SoundChannel: ChannelState].initialChannels
 
-        let maxActive = min(4, availableChannels.count)
+        let maxActive = min(8, availableChannels.count)
         let minActive = min(2, availableChannels.count)
         let count = Int.random(in: minActive...maxActive)
         let selection = availableChannels.shuffled().prefix(count)
@@ -295,7 +287,12 @@ final class AppModel {
         variationDisplayVolumes.removeAll()
         currentPresetID = preset.id
         schedulePersistence()
-        synchronizeAudio()
+
+        if isPlaying {
+            synchronizeAudio()
+        } else {
+            setPlayback(true)
+        }
     }
 
     func savePreset(named name: String) {
@@ -330,72 +327,16 @@ final class AppModel {
         showsBinauralPanel = false
         showsPresetsPanel = false
         showsPaywall = false
-        purchaseErrorMessage = nil
-    }
-
-    func purchasePremium() async {
-        guard !AppConfiguration.simulatesPremium else {
-            applyPremiumStatus(true)
-            showsPaywall = false
-            return
-        }
-
-        purchaseErrorMessage = nil
-
-        if premiumProduct == nil {
-            await loadPremiumProduct()
-        }
-
-        guard let premiumProduct else {
-            purchaseErrorMessage = "Store unavailable."
-            return
-        }
-
-        isPurchasingPremium = true
-        defer { isPurchasingPremium = false }
-
-        do {
-            let result = try await premiumProduct.purchase()
-
-            switch result {
-            case .success(let verificationResult):
-                let transaction = try checkVerified(verificationResult)
-                await transaction.finish()
-                applyPremiumStatus(true)
-                showsPaywall = false
-            case .userCancelled:
-                break
-            case .pending:
-                purchaseErrorMessage = "Purchase pending approval."
-            @unknown default:
-                break
-            }
-        } catch {
-            purchaseErrorMessage = error.localizedDescription
-        }
     }
 
     func restorePurchases() async {
-        guard !AppConfiguration.simulatesPremium else {
-            applyPremiumStatus(true)
-            showsPaywall = false
-            return
-        }
-
-        purchaseErrorMessage = nil
-        isRestoringPurchases = true
-        defer { isRestoringPurchases = false }
+        guard AppConfiguration.shouldUseRevenueCatAccess, AppConfiguration.isRevenueCatConfigured else { return }
 
         do {
-            try await AppStore.sync()
-            await refreshPremiumStatus()
-            if isPremium {
-                showsPaywall = false
-            } else {
-                purchaseErrorMessage = "No purchase found to restore."
-            }
+            let customerInfo = try await Purchases.shared.restorePurchases()
+            applyCustomerInfo(customerInfo)
         } catch {
-            purchaseErrorMessage = error.localizedDescription
+            print("RevenueCat restore failed: \(error)")
         }
     }
 
@@ -416,25 +357,32 @@ final class AppModel {
         return presets.first { $0.id == currentPresetID }
     }
 
-    private func startTransactionListener() {
-        guard transactionUpdatesTask == nil else { return }
+    private func configureCallbacks() {
+        revenueCatObserver.onCustomerInfoChange = { [weak self] customerInfo in
+            Task { @MainActor [weak self] in
+                self?.applyCustomerInfo(customerInfo)
+            }
+        }
 
-        transactionUpdatesTask = Task { [weak self] in
+        audioEngine.onRemotePlaybackChange = { [weak self] shouldPlay in
             guard let self else { return }
+            self.setPlayback(shouldPlay)
+        }
 
-            for await result in Transaction.updates {
-                do {
-                    let transaction = try self.checkVerified(result)
-                    await transaction.finish()
-                    await self.refreshPremiumStatus()
-                } catch {
-                    continue
-                }
+        audioEngine.onVariationChanged = { [weak self] channel, value in
+            guard let self else { return }
+            guard !self.showsPresetsPanel, !self.showsBinauralPanel else { return }
+
+            if let value {
+                self.variationDisplayVolumes[channel] = value
+            } else {
+                self.variationDisplayVolumes.removeValue(forKey: channel)
             }
         }
     }
 
     private func loadPersistedState() {
+        guard !AppConfiguration.shouldResetStateOnLaunch else { return }
         guard let data = UserDefaults.standard.data(forKey: AppConfiguration.persistenceKey) else {
             return
         }
@@ -444,7 +392,6 @@ final class AppModel {
             channels = persisted.channels
             presets = persisted.presets
             currentPresetID = persisted.currentPresetID
-            isPremium = AppConfiguration.simulatesPremium ? true : persisted.isPremium
             isBinauralActive = persisted.isBinauralActive
             activeBinauralTrack = persisted.activeBinauralTrack
             binauralVolume = persisted.binauralVolume
@@ -458,11 +405,11 @@ final class AppModel {
     }
 
     private func persistState() {
+        guard AppConfiguration.shouldPersistState else { return }
         let persisted = PersistedMixerState(
             channels: channels,
             presets: presets,
             currentPresetID: currentPresetID,
-            isPremium: isPremium,
             isBinauralActive: isBinauralActive,
             activeBinauralTrack: activeBinauralTrack,
             binauralVolume: binauralVolume,
@@ -562,64 +509,113 @@ final class AppModel {
         return String(format: "%d:%02d", minutes, seconds)
     }
 
-    private func loadPremiumProduct() async {
-        guard !AppConfiguration.simulatesPremium else {
-            premiumPriceText = "Simulated"
+    private func refreshPremiumStatus() async {
+        guard AppConfiguration.shouldUseRevenueCatAccess, AppConfiguration.isRevenueCatConfigured else {
+            applyEffectivePremiumAccess()
             return
         }
-
-        guard !AppConfiguration.premiumProductID.isEmpty else { return }
-
-        isLoadingPremiumProduct = true
-        defer { isLoadingPremiumProduct = false }
 
         do {
-            premiumProduct = try await Product.products(for: [AppConfiguration.premiumProductID]).first
-            premiumPriceText = premiumProduct?.displayPrice ?? "..."
+            let customerInfo = try await Purchases.shared.customerInfo()
+            applyCustomerInfo(customerInfo)
         } catch {
-            premiumPriceText = "..."
+            print("RevenueCat customer info refresh failed: \(error)")
+            applyEffectivePremiumAccess()
         }
     }
 
-    private func refreshPremiumStatus() async {
-        guard !AppConfiguration.simulatesPremium else {
-            applyPremiumStatus(true)
-            return
-        }
-
-        guard !AppConfiguration.premiumProductID.isEmpty else { return }
-
-        var hasPremium = false
-
-        for await result in Transaction.currentEntitlements {
-            guard let transaction = try? checkVerified(result) else { continue }
-
-            if transaction.productID == AppConfiguration.premiumProductID, transaction.revocationDate == nil {
-                hasPremium = true
-                break
-            }
-        }
-
-        applyPremiumStatus(hasPremium)
+    private func applyCustomerInfo(_ customerInfo: CustomerInfo) {
+        revenueCatHasPremium = customerInfo.entitlements.active[AppConfiguration.revenueCatEntitlementID] != nil
+        applyEffectivePremiumAccess()
     }
 
-    private func applyPremiumStatus(_ isPremium: Bool) {
-        self.isPremium = AppConfiguration.simulatesPremium ? true : isPremium
+    private func applyEffectivePremiumAccess() {
+        let effectivePremium = AppConfiguration.forcedPremiumAccess ?? revenueCatHasPremium
+        let didChangePremium = isPremium != effectivePremium
+
+        isPremium = effectivePremium
+
+        if effectivePremium {
+            showsPaywall = false
+        }
+
+        guard didChangePremium else { return }
+
         enforcePremiumAccess()
         updateTimerDisplayValue()
         synchronizeAudio()
     }
 
-    private func checkVerified<T>(_ result: VerificationResult<T>) throws -> T {
-        switch result {
-        case .verified(let safe):
-            return safe
-        case .unverified:
-            throw StoreError.failedVerification
+    private func applyScreenshotShuffle(availableChannels: [SoundChannel]) {
+        guard !availableChannels.isEmpty else { return }
+
+        let templates = Self.screenshotShuffleTemplates
+        let template = templates[screenshotShuffleIndex % templates.count]
+        screenshotShuffleIndex += 1
+
+        var newChannels = [SoundChannel: ChannelState].initialChannels
+
+        for (channel, state) in template where availableChannels.contains(channel) {
+            newChannels[channel] = state
         }
+
+        if !isPremium {
+            for channel in SoundChannel.allCases where !SoundChannel.freeChannels.contains(channel) {
+                newChannels[channel] = ChannelState()
+            }
+        }
+
+        channels = newChannels
+        variationDisplayVolumes = newChannels.reduce(into: [:]) { partialResult, entry in
+            if entry.value.autoVariationEnabled, !entry.value.isMuted {
+                partialResult[entry.key] = entry.value.volume
+            }
+        }
+        currentPresetID = nil
+        persistState()
+
+        if !isPlaying {
+            isPlaying = true
+            if let minutes = timerDurationMinutes {
+                let remaining = timerRemainingWhenPaused ?? Double(minutes * 60)
+                timerEndDate = Date().addingTimeInterval(remaining)
+            }
+            startTimerTickerIfNeeded()
+        }
+
+        updateTimerDisplayValue()
+        synchronizeAudio()
     }
+
+    private static let screenshotShuffleTemplates: [[SoundChannel: ChannelState]] = [
+        [
+            .oiseaux: ChannelState(volume: 0.58, isMuted: false, autoVariationEnabled: false),
+            .vent: ChannelState(volume: 0.34, isMuted: false, autoVariationEnabled: true),
+            .plage: ChannelState(volume: 0.42, isMuted: false, autoVariationEnabled: false),
+            .foret: ChannelState(volume: 0.55, isMuted: false, autoVariationEnabled: false)
+        ],
+        [
+            .pluie: ChannelState(volume: 0.62, isMuted: false, autoVariationEnabled: false),
+            .tonnerre: ChannelState(volume: 0.48, isMuted: false, autoVariationEnabled: true),
+            .vent: ChannelState(volume: 0.31, isMuted: false, autoVariationEnabled: false),
+            .grillons: ChannelState(volume: 0.36, isMuted: false, autoVariationEnabled: false),
+            .riviere: ChannelState(volume: 0.52, isMuted: false, autoVariationEnabled: false)
+        ],
+        [
+            .train: ChannelState(volume: 0.44, isMuted: false, autoVariationEnabled: false),
+            .voiture: ChannelState(volume: 0.37, isMuted: false, autoVariationEnabled: true),
+            .village: ChannelState(volume: 0.29, isMuted: false, autoVariationEnabled: false),
+            .tente: ChannelState(volume: 0.50, isMuted: false, autoVariationEnabled: false),
+            .cigales: ChannelState(volume: 0.40, isMuted: false, autoVariationEnabled: true),
+            .grillons: ChannelState(volume: 0.33, isMuted: false, autoVariationEnabled: false)
+        ]
+    ]
 }
 
-private enum StoreError: Error {
-    case failedVerification
+private final class RevenueCatObserver: NSObject, PurchasesDelegate {
+    var onCustomerInfoChange: (@Sendable (CustomerInfo) -> Void)?
+
+    func purchases(_ purchases: Purchases, receivedUpdated customerInfo: CustomerInfo) {
+        onCustomerInfoChange?(customerInfo)
+    }
 }

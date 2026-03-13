@@ -5,12 +5,12 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.000211">
+      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.000251">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: cd .. &amp;&amp; npx expo run:ios --configuration Release" time="227.588969">
+      <testcase classname="fastlane.lanes" name="1: capture_screenshots" time="61.651549">
         
       </testcase>
     

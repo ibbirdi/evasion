@@ -1,0 +1,9 @@
+Command line invocation:
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -scheme OasisNative -project "/Users/jonathanluquet/CODE local/evasion/ios-native/OasisNative.xcodeproj" -derivedDataPath "/Users/jonathanluquet/CODE local/evasion/fastlane/snapshot-derived-data" -destination "platform=iOS Simulator,name=iPhone 17,OS=26.2" FASTLANE_SNAPSHOT=YES FASTLANE_LANGUAGE=en-US TEST_TARGET_NAME=OasisNativeUITests build test
+
+Build settings from command line:
+    FASTLANE_LANGUAGE = en-US
+    FASTLANE_SNAPSHOT = YES
+    TEST_TARGET_NAME = OasisNativeUITests
+
+Resolve Package Graph
