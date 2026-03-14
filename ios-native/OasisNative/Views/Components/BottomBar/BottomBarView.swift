@@ -57,6 +57,11 @@ struct PlaybackToolbarLabel: View {
             .font(.system(size: 24, weight: .bold))
             .foregroundStyle(.white)
             .symbolRenderingMode(.hierarchical)
+            .shadow(
+                color: .black.opacity(model.isPlaying ? 0.26 : 0.12),
+                radius: model.isPlaying ? 4 : 2,
+                y: model.isPlaying ? 1.5 : 1
+            )
             .symbolEffect(.bounce, value: model.isPlaying)
             .frame(width: 58, height: 58)
             .background {
@@ -75,14 +80,14 @@ struct PlaybackToolbarLabel: View {
                             shape: Circle(),
                             intensity: 0.78,
                             blurRadius: 5,
-                            baseBlendOpacity: 0.10,
+                            baseBlendOpacity: 0.04,
                             speedMultiplier: 2.65,
                             frameRate: 24,
                             isAnimated: true,
                             animationKey: "playback-\(model.isPlaying)-\(activePlaybackPalette.count)",
                             coverage: 1.05,
-                            accentMixAmount: 0.01,
-                            colorSeparation: 2.8
+                            accentMixAmount: 0.0,
+                            colorSeparation: 4.2
                         )
                         .padding(1)
                     }

@@ -32,7 +32,8 @@ enum LiquidActivityPalette {
 
     static func playback(from colors: [Color]) -> [Color] {
         let source = (colors.isEmpty ? playback : colors).map {
-            $0.boostedSaturation(by: 1.55, brightness: 1.10)
+            $0.boostedSaturation(by: 1.60, brightness: 1.10)
+                .withFixedOpacity(1)
         }
 
         if source.count <= 8 {
@@ -48,6 +49,25 @@ enum LiquidActivityPalette {
 }
 
 private extension Color {
+    func withFixedOpacity(_ opacity: CGFloat) -> Color {
+        let uiColor = UIColor(self)
+        var hue: CGFloat = 0
+        var saturation: CGFloat = 0
+        var bright: CGFloat = 0
+        var alpha: CGFloat = 0
+
+        guard uiColor.getHue(&hue, saturation: &saturation, brightness: &bright, alpha: &alpha) else {
+            return self.opacity(opacity)
+        }
+
+        return Color(
+            hue: Double(hue),
+            saturation: Double(saturation),
+            brightness: Double(bright),
+            opacity: Double(opacity)
+        )
+    }
+
     func boostedSaturation(by factor: CGFloat, brightness: CGFloat) -> Color {
         let uiColor = UIColor(self)
         var hue: CGFloat = 0

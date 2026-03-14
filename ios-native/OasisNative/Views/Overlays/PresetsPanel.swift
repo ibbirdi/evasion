@@ -36,7 +36,8 @@ struct PresetsPanel: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .background(.clear)
-        .accessibilityIdentifier("panel.presets")
+        .accessibilityElement(children: .contain)
+        .accessibilityIdentifier("panel.presets.container")
         .onDisappear {
             isNamingPreset = false
         }

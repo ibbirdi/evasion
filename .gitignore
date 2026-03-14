@@ -45,3 +45,4 @@ yarn-error.*
 maestro/generated-flow.yaml
 
 vendor
+fastlane

@@ -25,7 +25,6 @@ platform :ios do
     capture_screenshots(
       project: ios_project,
       scheme: "OasisNative",
-      test_target_name: "OasisNativeUITests",
       devices: [ENV["SCREENSHOT_DEVICE"] || "iPhone 17"],
       languages: [
         "en-US",
@@ -38,8 +37,17 @@ platform :ios do
       output_directory: output_directory,
       clear_previous_screenshots: true,
       reinstall_app: true,
+      erase_simulator: true,
+      app_identifier: "com.jonathanluquet.drift",
       override_status_bar: true,
       localize_simulator: true,
+      disable_slide_to_type: true,
+      headless: false,
+      concurrent_simulators: false,
+      clean: true,
+      result_bundle: true,
+      namespace_log_files: true,
+      number_of_retries: 0,
       launch_arguments: [
         "-OASISPremiumOverride premium",
         "-OASISResetState YES"

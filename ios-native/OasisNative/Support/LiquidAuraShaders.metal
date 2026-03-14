@@ -140,12 +140,12 @@ static inline float blob(float2 point, float2 center, float2 radius) {
     rgb = mix(rgb, accent, half(accentMixAmount));
 
     float highlightField = fbm((shapePoint * 2.10) + float2(t * 0.15, -t * 0.12) + 23.0);
-    float highlight = smoothstep(0.80, 0.97, highlightField) * 0.10;
+    float highlight = smoothstep(0.80, 0.97, highlightField) * (0.10 * accentMixAmount);
     rgb += accent * half(highlight);
 
     float radialEnvelope = smoothstep(1.12 + (softness * 0.04), 0.02, length(shapePoint * float2(0.84, 0.92)));
-    float alpha = clamp(smoothstep(0.16, 0.60, total) * radialEnvelope * intensity, 0.0, 1.0);
+    float alpha = clamp(smoothstep(0.22, 0.62, total) * radialEnvelope * intensity, 0.0, 1.0);
     half outAlpha = half(alpha);
 
-    return half4(rgb * outAlpha, outAlpha);
+    return half4(rgb, outAlpha);
 }

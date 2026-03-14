@@ -342,17 +342,20 @@ final class AudioMixerEngine: @unchecked Sendable {
             self.dispatchVariationChange(for: channel, value: startingValue)
 
             while !Task.isCancelled {
-                let target = Double.random(in: 0...1)
-                let stepDurationMilliseconds = 120
-                let rampDurationMilliseconds = Int.random(in: 7_200...11_000)
-                let steps = max(24, rampDurationMilliseconds / stepDurationMilliseconds)
+                let delta = Double.random(in: -0.22...0.22)
+                let target = min(max(currentValue + delta, 0), 1)
+                let distance = abs(target - currentValue)
+                let stepDurationMilliseconds = 180
+                let rampDurationMilliseconds = Int.random(in: 14_000...24_000) + Int(distance * 12_000)
+                let steps = max(48, rampDurationMilliseconds / stepDurationMilliseconds)
 
                 for step in 1...steps {
                     try? await Task.sleep(for: .milliseconds(stepDurationMilliseconds))
                     guard !Task.isCancelled else { return }
 
                     let progress = Double(step) / Double(steps)
-                    let nextValue = currentValue + (target - currentValue) * progress
+                    let easedProgress = progress * progress * (3 - 2 * progress)
+                    let nextValue = currentValue + (target - currentValue) * easedProgress
                     let valueToApply = nextValue
 
                     self.queue.async { [weak self] in
@@ -366,7 +369,7 @@ final class AudioMixerEngine: @unchecked Sendable {
 
                 currentValue = target
 
-                let pauseMilliseconds = Int.random(in: 4_000...10_000)
+                let pauseMilliseconds = Int.random(in: 8_000...16_000)
                 try? await Task.sleep(for: .milliseconds(pauseMilliseconds))
             }
         }

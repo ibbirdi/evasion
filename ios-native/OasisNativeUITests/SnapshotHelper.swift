@@ -71,6 +71,12 @@ open class Snapshot: NSObject {
         do {
             let cacheDir = try getCacheDirectory()
             Snapshot.cacheDirectory = cacheDir
+            if let screenshotsDir = Snapshot.screenshotsDirectory {
+                try FileManager.default.createDirectory(
+                    at: screenshotsDir,
+                    withIntermediateDirectories: true
+                )
+            }
             setLanguage(app)
             setLocale(app)
             setLaunchArguments(app)
@@ -182,6 +188,7 @@ open class Snapshot: NSObject {
                 simulator = regex.stringByReplacingMatches(in: simulator, range: range, withTemplate: "")
 
                 let path = screenshotsDir.appendingPathComponent("\(simulator)-\(name).png")
+                try FileManager.default.createDirectory(at: screenshotsDir, withIntermediateDirectories: true)
                 #if swift(<5.0)
                     try UIImagePNGRepresentation(image)?.write(to: path, options: .atomic)
                 #else
@@ -244,6 +251,10 @@ open class Snapshot: NSObject {
 }
 
 private extension XCUIElementAttributes {
+    var snapshotBundleID: String? {
+        (self as AnyObject).value(forKey: "bundleID") as? String
+    }
+
     var isNetworkLoadingIndicator: Bool {
         if hasAllowListedIdentifier { return false }
 
@@ -263,7 +274,7 @@ private extension XCUIElementAttributes {
         let statusBarIdentifiers = ["StatusBar", "Status Bar"]
 
         let isStatusBar = statusBarIdentifiers.contains(identifier)
-        let isNotFirstPartyApp = bundleID != "com.apple.springboard"
+        let isNotFirstPartyApp = snapshotBundleID != "com.apple.springboard"
         let hasStatusBarSize = frame.size.width == deviceWidth && frame.size.height <= 30
 
         return isStatusBar || (isNotFirstPartyApp && hasStatusBarSize)

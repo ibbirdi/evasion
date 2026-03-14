@@ -57,7 +57,8 @@ struct BinauralPanel: View {
         .padding(.horizontal, 20)
         .padding(.bottom, 22)
         .background(.clear)
-        .accessibilityIdentifier("panel.binaural")
+        .accessibilityElement(children: .contain)
+        .accessibilityIdentifier("panel.binaural.container")
     }
 
     private var controlsRow: some View {

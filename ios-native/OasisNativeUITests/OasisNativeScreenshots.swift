@@ -15,131 +15,83 @@ final class OasisNativeScreenshots: XCTestCase {
         ]
         app.launch()
 
-        waitForHittable(app.buttons["home.header.timer"])
-        app.buttons["home.header.timer"].tap()
-        waitForHittable(app.buttons["30 min"])
-        app.buttons["30 min"].tap()
+        let timerButton = button(in: app, id: "home.header.timer")
+        waitForHittable(timerButton)
+        timerButton.tap()
+        let thirtyMinutesButton = app.buttons.matching(identifier: "30 min").firstMatch
+        waitForHittable(thirtyMinutesButton)
+        thirtyMinutesButton.tap()
 
         captureShuffleState(named: "01_shuffle_a", in: app)
         captureShuffleState(named: "02_shuffle_b", in: app)
         captureShuffleState(named: "03_shuffle_c", in: app)
 
-        waitForHittable(app.buttons["home.bottom.presets"])
-        app.buttons["home.bottom.presets"].tap()
-        waitForLocalizedText(in: app, candidates: presetPanelTitles)
-        waitForHittable(firstExistingStaticText(in: app, candidates: firstPresetTitles))
-        firstExistingStaticText(in: app, candidates: firstPresetTitles).tap()
-
-        waitForHittable(app.buttons["home.bottom.presets"])
-        app.buttons["home.bottom.presets"].tap()
-        waitForLocalizedText(in: app, candidates: presetPanelTitles)
+        let headerPresetsButton = button(in: app, id: "home.header.presets")
+        waitForHittable(headerPresetsButton)
+        headerPresetsButton.tap()
+        let presetsPanel = panel(in: app, id: "panel.presets.container")
+        waitForExistence(of: presetsPanel)
+        tapFirstPreset(in: app)
+        waitForExistence(of: presetsPanel)
         snapshot("04_presets", waitForLoadingIndicator: false)
-        dismissSheet(on: app, waitingForTitlesToDisappear: presetPanelTitles)
+        dismissSheet(panel: presetsPanel, in: app)
 
-        waitForHittable(app.buttons["home.header.binaural"])
-        app.buttons["home.header.binaural"].tap()
-        waitForLocalizedText(in: app, candidates: binauralPanelTitles)
+        let binauralButton = button(in: app, id: "home.header.binaural")
+        waitForHittable(binauralButton)
+        binauralButton.tap()
+        let binauralPanel = panel(in: app, id: "panel.binaural.container")
+        waitForExistence(of: binauralPanel)
         snapshot("05_binaural", waitForLoadingIndicator: false)
-        dismissSheet(on: app, waitingForTitlesToDisappear: binauralPanelTitles)
+        dismissSheet(panel: binauralPanel, in: app)
 
         scrollToBottom(in: app)
         snapshot("06_bottom", waitForLoadingIndicator: false)
     }
 
     private func captureShuffleState(named name: String, in app: XCUIApplication) {
-        waitForHittable(app.buttons["home.bottom.shuffle"])
-        app.buttons["home.bottom.shuffle"].tap()
+        let shuffleButton = button(in: app, id: "home.bottom.shuffle")
+        waitForHittable(shuffleButton)
+        shuffleButton.tap()
         snapshot(name, waitForLoadingIndicator: false)
     }
 
     private func scrollToBottom(in app: XCUIApplication) {
-        let scrollView = app.scrollViews["home.scroll"]
+        let scrollView = app.scrollViews.matching(identifier: "home.scroll").firstMatch
         for _ in 0..<5 {
             scrollView.swipeUp()
         }
     }
 
-    private func dismissSheet(on app: XCUIApplication, waitingForTitlesToDisappear titles: [String]) {
-        let title = firstExistingStaticText(in: app, candidates: titles)
-        if title.exists {
-            let start = title.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.2))
-            let end = start.withOffset(CGVector(dx: 0, dy: 360))
-            start.press(forDuration: 0.05, thenDragTo: end)
-        } else {
-            app.swipeDown()
-        }
-        waitForLocalizedTextToDisappear(in: app, candidates: titles)
-    }
+    private func dismissSheet(panel: XCUIElement, in app: XCUIApplication, timeout: TimeInterval = 8) {
+        waitForExistence(of: panel, timeout: timeout)
 
-    private var presetPanelTitles: [String] {
-        [
-            "My Oasis",
-            "Mes Oasis",
-            "Mis oasis",
-            "Meine Oasis",
-            "Le mie oasi",
-            "Meus Oasis"
-        ]
-    }
+        let outsideTap = app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.10))
+        outsideTap.tap()
 
-    private var firstPresetTitles: [String] {
-        [
-            "Calm Forest",
-            "Calme en forêt",
-            "Bosque Tranquilo",
-            "Ruhiger Wald",
-            "Foresta Calma",
-            "Floresta Calma"
-        ]
-    }
-
-    private var binauralPanelTitles: [String] {
-        [
-            "BINAURAL BEATS",
-            "SONS BINAURAUX",
-            "SONIDOS BINAURALES",
-            "BINAURALE BEATS",
-            "SUONI BINAURALI",
-            "SONS BINAURAIS"
-        ]
-    }
-
-    private func firstExistingStaticText(in app: XCUIApplication, candidates: [String]) -> XCUIElement {
-        for title in candidates {
-            let text = app.staticTexts[title]
-            if text.exists {
-                return text
-            }
-        }
-
-        return app.staticTexts[candidates[0]]
-    }
-
-    private func waitForLocalizedText(in app: XCUIApplication, candidates: [String], timeout: TimeInterval = 8) {
         let deadline = Date().addingTimeInterval(timeout)
-
+        var didFallbackSwipe = false
         while Date() < deadline {
-            for title in candidates where app.staticTexts[title].exists {
+            if !panel.exists {
                 return
+            }
+            if !didFallbackSwipe, Date() > deadline.addingTimeInterval(-timeout / 2) {
+                didFallbackSwipe = true
+                let start = panel.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.18))
+                let end = panel.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.92))
+                start.press(forDuration: 0.05, thenDragTo: end)
             }
             RunLoop.current.run(until: Date().addingTimeInterval(0.2))
         }
 
-        XCTFail("Localized text not found: \(candidates.joined(separator: ", "))")
+        XCTFail("Panel still visible after dismissal: \(panel)")
     }
 
-    private func waitForLocalizedTextToDisappear(in app: XCUIApplication, candidates: [String], timeout: TimeInterval = 8) {
-        let deadline = Date().addingTimeInterval(timeout)
+    private func button(in app: XCUIApplication, id: String) -> XCUIElement {
+        app.descendants(matching: .button).matching(identifier: id).firstMatch
+    }
 
-        while Date() < deadline {
-            let anyVisible = candidates.contains { app.staticTexts[$0].exists }
-            if !anyVisible {
-                return
-            }
-            RunLoop.current.run(until: Date().addingTimeInterval(0.2))
-        }
-
-        XCTFail("Localized text still visible: \(candidates.joined(separator: ", "))")
+    private func panel(in app: XCUIApplication, id: String) -> XCUIElement {
+        app.otherElements.matching(identifier: id).firstMatch
     }
 
     private func waitForHittable(_ element: XCUIElement, timeout: TimeInterval = 8) {
@@ -151,5 +103,38 @@ final class OasisNativeScreenshots: XCTestCase {
 
     private func waitForExistence(of element: XCUIElement, timeout: TimeInterval = 8) {
         XCTAssertTrue(element.waitForExistence(timeout: timeout), "Element not found: \(element)")
+    }
+
+    private func tapFirstPreset(in app: XCUIApplication, timeout: TimeInterval = 8) {
+        let presetsPanel = panel(in: app, id: "panel.presets.container")
+        if presetsPanel.waitForExistence(timeout: timeout) {
+            let presetButton = presetsPanel
+                .descendants(matching: .button)
+                .matching(identifier: "presets.row.preset_default_calm")
+                .firstMatch
+
+            if presetButton.exists {
+                tapElementReliably(presetButton, timeout: 1)
+                return
+            }
+
+            let coordinate = presetsPanel.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.34))
+            coordinate.tap()
+            return
+        }
+
+        XCTFail("Presets panel not found")
+    }
+
+    private func tapElementReliably(_ element: XCUIElement, timeout: TimeInterval = 8) {
+        waitForExistence(of: element, timeout: timeout)
+
+        if element.isHittable {
+            element.tap()
+            return
+        }
+
+        let coordinate = element.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5))
+        coordinate.tap()
     }
 }
