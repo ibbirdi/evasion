@@ -31,6 +31,14 @@ Generate App Store screenshots for the native iOS app with XCTest + snapshot
 
 Alias for screenshot generation
 
+### ios appstore_metadata
+
+```sh
+[bundle exec] fastlane ios appstore_metadata
+```
+
+Upload screenshots and metadata to App Store Connect for version 1.2.0
+
 ----
 
 This README.md is auto-generated and will be re-generated every time [_fastlane_](https://fastlane.tools) is run.

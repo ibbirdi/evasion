@@ -329,6 +329,10 @@ final class AppModel {
         showsPaywall = false
     }
 
+    func applyRevenueCatCustomerInfo(_ customerInfo: CustomerInfo) {
+        applyCustomerInfo(customerInfo)
+    }
+
     func restorePurchases() async {
         guard AppConfiguration.shouldUseRevenueCatAccess, AppConfiguration.isRevenueCatConfigured else { return }
 

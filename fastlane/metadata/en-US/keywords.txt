@@ -1,1 +1,1 @@
-sleep,nature,rain,white,noise,focus,relax,study,insomnia,calm,meditation
+rain,relax,study,insomnia,meditation,binaural,ambient,calm,soundscapes,ocean,fan

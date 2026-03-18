@@ -1,1 +1,1 @@
-sonno,natura,pioggia,rumore,bianco,concentrazione,relax,studio,insonnia,meditazione
+pioggia,relax,studio,insonnia,meditazione,binaurale,calma,ambiente,oceano,ventilatore

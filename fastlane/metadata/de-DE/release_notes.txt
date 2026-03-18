@@ -1,3 +1,4 @@
-- 2 neue Naturklänge (Gebirgsbach und Regen im Zelt)
-- Grafische Überarbeitung
-- Leistungsverbesserungen
+Neu in dieser Version:
+• 2 neue Naturgeräusche: Gebirgsbach und Regen im Zelt
+• Visuelles Redesign
+• Leistungsverbesserungen

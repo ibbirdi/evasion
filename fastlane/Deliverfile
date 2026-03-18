@@ -1,3 +1,22 @@
-# The Deliverfile allows you to store various App Store Connect metadata
-# For more information, check out the docs
-# https://docs.fastlane.tools/actions/deliver/
+repo_root = [
+  Dir.pwd,
+  File.expand_path("..", __dir__)
+].uniq.find do |candidate|
+  File.exist?(File.join(candidate, "ios-native", "OasisNative.xcodeproj"))
+end
+
+raise "Unable to locate repo root for Deliverfile" unless repo_root
+
+username("jonathanluquet@me.com")
+app_identifier("com.jonathanluquet.drift")
+app_version("1.2.0")
+metadata_path(File.join(repo_root, "fastlane", "metadata"))
+screenshots_path(File.join(repo_root, "fastlane", "screenshots"))
+skip_binary_upload(true)
+skip_metadata(false)
+skip_screenshots(false)
+skip_app_version_update(false)
+overwrite_screenshots(true)
+submit_for_review(false)
+force(true)
+run_precheck_before_submit(false)

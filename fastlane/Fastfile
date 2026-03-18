@@ -61,4 +61,27 @@ platform :ios do
   lane :screenshots_only do
     screenshots
   end
+
+  desc "Upload screenshots and metadata to App Store Connect for version 1.2.0"
+  lane :appstore_metadata do
+    repo_root = oasis_repo_root
+
+    upload_to_app_store(
+      username: "jonathanluquet@me.com",
+      app_identifier: "com.jonathanluquet.drift",
+      app_version: "1.2.0",
+      metadata_path: File.join(repo_root, "fastlane", "metadata"),
+      screenshots_path: File.join(repo_root, "fastlane", "screenshots"),
+      skip_binary_upload: true,
+      skip_metadata: false,
+      skip_screenshots: false,
+      skip_app_version_update: false,
+      overwrite_screenshots: true,
+      submit_for_review: false,
+      force: true,
+      precheck_include_in_app_purchases: false,
+      run_precheck_before_submit: false,
+      version_check_wait_retry_limit: 15
+    )
+  end
 end
