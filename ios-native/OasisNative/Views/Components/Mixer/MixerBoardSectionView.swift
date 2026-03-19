@@ -3,6 +3,7 @@ import UIKit
 
 struct MixerBoardSectionView: View {
     @Environment(AppModel.self) private var model
+    let onOpenSpatial: (SoundChannel) -> Void
 
     private var labelColumnWidth: CGFloat {
         let roundedDescriptor = UIFont.systemFont(ofSize: 13, weight: .semibold).fontDescriptor.withDesign(.rounded)
@@ -20,7 +21,8 @@ struct MixerBoardSectionView: View {
             ForEach(SoundChannel.allCases) { channel in
                 SoundRowView(
                     channel: channel,
-                    labelColumnWidth: labelColumnWidth
+                    labelColumnWidth: labelColumnWidth,
+                    onOpenSpatial: onOpenSpatial
                 )
             }
         }
@@ -31,6 +33,7 @@ struct SoundRowView: View {
     @Environment(AppModel.self) private var model
     let channel: SoundChannel
     let labelColumnWidth: CGFloat
+    let onOpenSpatial: (SoundChannel) -> Void
 
     private var state: ChannelState {
         model.channelState(for: channel)
@@ -46,6 +49,10 @@ struct SoundRowView: View {
 
     private var isActive: Bool {
         !isLocked && !state.isMuted
+    }
+
+    private var isSpatialized: Bool {
+        !state.spatialPosition.isCentered
     }
 
     private var statusText: String? {
@@ -137,6 +144,40 @@ struct SoundRowView: View {
             }
             .frame(maxWidth: .infinity)
             .opacity(sliderOpacity)
+
+            Button {
+                if isLocked {
+                    withAnimation(.smooth(duration: 0.22)) {
+                        model.showsPaywall = true
+                    }
+                } else {
+                    onOpenSpatial(channel)
+                }
+            } label: {
+                ZStack {
+                    Circle()
+                        .fill(Color.white.opacity(0.001))
+                        .glassEffect(.regular, in: Circle())
+                        .overlay {
+                            Circle()
+                                .fill(isSpatialized ? channel.tint.opacity(0.18) : Color.white.opacity(0.02))
+                        }
+                        .overlay {
+                            Circle()
+                                .strokeBorder(
+                                    isSpatialized ? channel.tint.opacity(0.36) : Color.white.opacity(0.08),
+                                    lineWidth: 1.1
+                                )
+                        }
+
+                    Image(systemName: isSpatialized ? "scope" : "scope")
+                        .font(.system(size: 12, weight: .semibold))
+                        .foregroundStyle(.white)
+                }
+                .frame(width: 36, height: 36)
+            }
+            .buttonStyle(PressScaleButtonStyle())
+            .accessibilityIdentifier("channel.spatial.\(channel.id)")
 
             Button {
                 if isLocked {

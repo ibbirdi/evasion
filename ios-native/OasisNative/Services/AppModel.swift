@@ -15,6 +15,7 @@ final class AppModel {
     var showsPaywall = false
     var showsBinauralPanel = false
     var showsPresetsPanel = false
+    var showsSpatialPanel = false
 
     var isBinauralActive = false
     var activeBinauralTrack: BinauralTrack = .delta
@@ -251,6 +252,23 @@ final class AppModel {
         synchronizeAudio()
     }
 
+    func setChannelSpatialPosition(_ channel: SoundChannel, value: SpatialPoint) {
+        guard var state = channels[channel], !isChannelLocked(channel) else {
+            showsPaywall = true
+            return
+        }
+
+        state.spatialPosition = value.clamped()
+        channels[channel] = state
+        currentPresetID = nil
+        schedulePersistence()
+        synchronizeAudio()
+    }
+
+    func resetChannelSpatialPosition(_ channel: SoundChannel) {
+        setChannelSpatialPosition(channel, value: .center)
+    }
+
     func setBinauralEnabled(_ enabled: Bool) {
         guard isBinauralActive != enabled else { return }
         if enabled {
@@ -326,6 +344,7 @@ final class AppModel {
     func closeOverlays() {
         showsBinauralPanel = false
         showsPresetsPanel = false
+        showsSpatialPanel = false
         showsPaywall = false
     }
 
@@ -375,7 +394,7 @@ final class AppModel {
 
         audioEngine.onVariationChanged = { [weak self] channel, value in
             guard let self else { return }
-            guard !self.showsPresetsPanel, !self.showsBinauralPanel else { return }
+            guard !self.showsPresetsPanel, !self.showsBinauralPanel, !self.showsSpatialPanel else { return }
 
             if let value {
                 self.variationDisplayVolumes[channel] = value

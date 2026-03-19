@@ -158,6 +158,52 @@ struct ChannelState: Codable, Equatable {
     var volume: Double = 0.5
     var isMuted = true
     var autoVariationEnabled = false
+    var spatialPosition = SpatialPoint.center
+
+    private enum CodingKeys: String, CodingKey {
+        case volume
+        case isMuted
+        case autoVariationEnabled
+        case spatialPosition
+    }
+
+    init(
+        volume: Double = 0.5,
+        isMuted: Bool = true,
+        autoVariationEnabled: Bool = false,
+        spatialPosition: SpatialPoint = .center
+    ) {
+        self.volume = volume
+        self.isMuted = isMuted
+        self.autoVariationEnabled = autoVariationEnabled
+        self.spatialPosition = spatialPosition
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        volume = try container.decodeIfPresent(Double.self, forKey: .volume) ?? 0.5
+        isMuted = try container.decodeIfPresent(Bool.self, forKey: .isMuted) ?? true
+        autoVariationEnabled = try container.decodeIfPresent(Bool.self, forKey: .autoVariationEnabled) ?? false
+        spatialPosition = try container.decodeIfPresent(SpatialPoint.self, forKey: .spatialPosition) ?? .center
+    }
+}
+
+struct SpatialPoint: Codable, Equatable {
+    var x: Double
+    var y: Double
+
+    static let center = SpatialPoint(x: 0, y: 0)
+
+    var isCentered: Bool {
+        abs(x) < 0.001 && abs(y) < 0.001
+    }
+
+    func clamped() -> SpatialPoint {
+        SpatialPoint(
+            x: min(max(x, -1), 1),
+            y: min(max(y, -1), 1)
+        )
+    }
 }
 
 struct Preset: Codable, Equatable, Identifiable {

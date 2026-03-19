@@ -30,6 +30,7 @@ struct HomeView: View {
     @State private var scrollOffset: CGFloat = 0
     @State private var activePanel: ActiveHomePanel?
     @State private var activePanelSource: PanelTransitionSource?
+    @State private var activeSpatialChannel: SoundChannel?
     @Namespace private var panelTransitionNamespace
 
     private func openPresets(from source: PanelTransitionSource) {
@@ -49,6 +50,12 @@ struct HomeView: View {
         activePanel = .binaural
     }
 
+    private func openSpatial(for channel: SoundChannel) {
+        activePanel = nil
+        activePanelSource = nil
+        activeSpatialChannel = channel
+    }
+
     var body: some View {
         @Bindable var model = model
 
@@ -59,7 +66,7 @@ struct HomeView: View {
 
                     ScrollView {
                         LazyVStack(spacing: 8) {
-                            MixerBoardSectionView()
+                            MixerBoardSectionView(onOpenSpatial: openSpatial)
                         }
                         .padding(.horizontal, 16)
                         .padding(.top, proxy.safeAreaInsets.top + 156)
@@ -140,12 +147,23 @@ struct HomeView: View {
                 }
             }
         }
+        .sheet(item: $activeSpatialChannel, onDismiss: {
+            model.showsSpatialPanel = false
+        }) { channel in
+            SpatialAudioPanel(channel: channel)
+                .presentationDetents([.height(460)])
+                .presentationContentInteraction(.resizes)
+                .presentationDragIndicator(.visible)
+        }
         .fullScreenCover(isPresented: $model.showsPaywall) {
             PaywallOverlay()
         }
         .onChange(of: activePanel) { _, panel in
             model.showsPresetsPanel = panel == .presets
             model.showsBinauralPanel = panel == .binaural
+        }
+        .onChange(of: activeSpatialChannel) { _, channel in
+            model.showsSpatialPanel = channel != nil
         }
         .preferredColorScheme(.dark)
         .task {

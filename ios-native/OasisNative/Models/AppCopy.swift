@@ -103,6 +103,16 @@ struct AppStrings {
         }
     }
 
+    struct Spatial {
+        var title: String
+        var subtitle: String
+        var reset: String
+        var front: String
+        var back: String
+        var left: String
+        var right: String
+    }
+
     struct Mixer {
         var autoVariation: String
         var autoShort: String
@@ -118,6 +128,7 @@ struct AppStrings {
     var modal: Modal
     var paywall: Paywall
     var binaural: Binaural
+    var spatial: Spatial
     var mixer: Mixer
 }
 
@@ -175,6 +186,15 @@ enum AppTranslations {
                 beta: "Awake",
                 betaFreq: "Beta (15 Hz)",
                 headphonesHint: "Stereo headphones recommended"
+            ),
+            spatial: .init(
+                title: "Spatial Audio",
+                subtitle: "Place this sound around you.",
+                reset: "Center",
+                front: "Front",
+                back: "Back",
+                left: "Left",
+                right: "Right"
             ),
             mixer: .init(
                 autoVariation: "AUTO VARIATION",
@@ -238,6 +258,15 @@ enum AppTranslations {
                 betaFreq: "Beta (15 Hz)",
                 headphonesHint: "Casque stéréo recommandé"
             ),
+            spatial: .init(
+                title: "Audio spatial",
+                subtitle: "Placez ce son autour de vous.",
+                reset: "Centrer",
+                front: "Avant",
+                back: "Arrière",
+                left: "Gauche",
+                right: "Droite"
+            ),
             mixer: .init(
                 autoVariation: "VARIATION AUTO",
                 autoShort: "AUTO",
@@ -299,6 +328,15 @@ enum AppTranslations {
                 beta: "Despierto",
                 betaFreq: "Beta (15 Hz)",
                 headphonesHint: "Auriculares estéreo recomendados"
+            ),
+            spatial: .init(
+                title: "Audio espacial",
+                subtitle: "Coloca este sonido a tu alrededor.",
+                reset: "Centrar",
+                front: "Frente",
+                back: "Atrás",
+                left: "Izquierda",
+                right: "Derecha"
             ),
             mixer: .init(
                 autoVariation: "VARIACIÓN AUTO",
@@ -362,6 +400,15 @@ enum AppTranslations {
                 betaFreq: "Beta (15 Hz)",
                 headphonesHint: "Stereokopfhörer empfohlen"
             ),
+            spatial: .init(
+                title: "Raumklang",
+                subtitle: "Platziere diesen Klang um dich herum.",
+                reset: "Zentrieren",
+                front: "Vorne",
+                back: "Hinten",
+                left: "Links",
+                right: "Rechts"
+            ),
             mixer: .init(
                 autoVariation: "AUTO-VARIATION",
                 autoShort: "AUTO",
@@ -424,6 +471,15 @@ enum AppTranslations {
                 betaFreq: "Beta (15 Hz)",
                 headphonesHint: "Cuffie stereo consigliate"
             ),
+            spatial: .init(
+                title: "Audio spaziale",
+                subtitle: "Posiziona questo suono intorno a te.",
+                reset: "Centra",
+                front: "Davanti",
+                back: "Dietro",
+                left: "Sinistra",
+                right: "Destra"
+            ),
             mixer: .init(
                 autoVariation: "VARIAZIONE AUTO",
                 autoShort: "AUTO",
@@ -485,6 +541,15 @@ enum AppTranslations {
                 beta: "Desperto",
                 betaFreq: "Beta (15 Hz)",
                 headphonesHint: "Fones estéreo recomendados"
+            ),
+            spatial: .init(
+                title: "Áudio espacial",
+                subtitle: "Posicione este som ao seu redor.",
+                reset: "Centralizar",
+                front: "Frente",
+                back: "Trás",
+                left: "Esquerda",
+                right: "Direita"
             ),
             mixer: .init(
                 autoVariation: "VARIAÇÃO AUTO",

@@ -1,17 +1,38 @@
 import AVFoundation
-import MediaPlayer
 import Foundation
+import MediaPlayer
+
+private final class AmbientChannelPlayback: @unchecked Sendable {
+    let channel: SoundChannel
+    let node: AVAudioPlayerNode
+    let url: URL
+    let frameLength: AVAudioFramePosition
+    let format: AVAudioFormat
+
+    var scheduledFile: AVAudioFile?
+    var isScheduled = false
+    var scheduleToken = UUID()
+
+    init(channel: SoundChannel, url: URL, file: AVAudioFile) {
+        self.channel = channel
+        self.node = AVAudioPlayerNode()
+        self.url = url
+        self.frameLength = file.length
+        self.format = file.processingFormat
+    }
+}
 
 final class AudioMixerEngine: @unchecked Sendable {
     var onVariationChanged: (@MainActor @Sendable (SoundChannel, Double?) -> Void)?
     var onRemotePlaybackChange: (@MainActor @Sendable (Bool) -> Void)?
 
     private let queue = DispatchQueue(label: "com.jonathanluquet.oasis.audio-engine", qos: .userInitiated)
+    private let ambientEngine = AVAudioEngine()
+    private let environmentNode = AVAudioEnvironmentNode()
 
-    private var ambientPlayers: [SoundChannel: AVAudioPlayer] = [:]
+    private var ambientPlayers: [SoundChannel: AmbientChannelPlayback] = [:]
     private var binauralPlayers: [BinauralTrack: AVAudioPlayer] = [:]
     private var variationTasks: [SoundChannel: Task<Void, Never>] = [:]
-    private var randomizedOffsets: Set<SoundChannel> = []
     private var fadeTask: Task<Void, Never>?
     private var masterFade: Double = 0
     private var previousPlayingState = false
@@ -26,17 +47,33 @@ final class AudioMixerEngine: @unchecked Sendable {
     )
     private var liveVariationVolumes: [SoundChannel: Double] = [:]
     private var remoteCommandsConfigured = false
+    private var isAmbientEngineConfigured = false
+    private var isStopping = false
+    private var routeObserver: NSObjectProtocol?
 
     init() {
         configureRemoteCommands()
         queue.async { [weak self] in
             self?.configureAudioSession()
+            self?.configureAmbientEngineIfNeeded()
+        }
+        routeObserver = NotificationCenter.default.addObserver(
+            forName: AVAudioSession.routeChangeNotification,
+            object: nil,
+            queue: nil
+        ) { [weak self] _ in
+            self?.queue.async { [weak self] in
+                self?.updateEnvironmentOutputType()
+            }
         }
     }
 
     deinit {
         fadeTask?.cancel()
         variationTasks.values.forEach { $0.cancel() }
+        if let routeObserver {
+            NotificationCenter.default.removeObserver(routeObserver)
+        }
     }
 
     func sync(with snapshot: MixerSnapshot) {
@@ -88,16 +125,31 @@ final class AudioMixerEngine: @unchecked Sendable {
         }
     }
 
-    private func ambientPlayer(for channel: SoundChannel) -> AVAudioPlayer? {
+    private func ambientPlayer(for channel: SoundChannel) -> AmbientChannelPlayback? {
         if let player = ambientPlayers[channel] {
             return player
         }
 
-        let player = makePlayer(filename: channel.filename)
-        if let player {
-            ambientPlayers[channel] = player
+        guard let url = Bundle.main.url(forResource: channel.filename, withExtension: nil) else {
+            return nil
         }
-        return player
+
+        do {
+            configureAmbientEngineIfNeeded()
+
+            let file = try AVAudioFile(forReading: url)
+            let playback = AmbientChannelPlayback(channel: channel, url: url, file: file)
+            ambientEngine.attach(playback.node)
+            playback.node.volume = 0
+            ambientEngine.connect(playback.node, to: environmentNode, format: playback.format)
+            applySpatialMixingConfiguration(for: channel, playback: playback)
+
+            ambientPlayers[channel] = playback
+            return playback
+        } catch {
+            print("Failed to prepare spatial audio for \(channel.filename): \(error)")
+            return nil
+        }
     }
 
     private func binauralPlayer(for track: BinauralTrack) -> AVAudioPlayer? {
@@ -116,6 +168,9 @@ final class AudioMixerEngine: @unchecked Sendable {
         do {
             let session = AVAudioSession.sharedInstance()
             try session.setCategory(.playback, mode: .default, options: [.allowAirPlay, .allowBluetoothA2DP])
+            if #available(iOS 15.0, *) {
+                try session.setSupportsMultichannelContent(true)
+            }
             if !AppConfiguration.isSimulator {
                 try session.setPreferredSampleRate(44_100)
                 try session.setPreferredIOBufferDuration(0.046)
@@ -123,6 +178,35 @@ final class AudioMixerEngine: @unchecked Sendable {
             try session.setActive(true)
         } catch {
             print("Failed to configure audio session: \(error)")
+        }
+    }
+
+    private func configureAmbientEngineIfNeeded() {
+        guard !isAmbientEngineConfigured else { return }
+        isAmbientEngineConfigured = true
+
+        ambientEngine.attach(environmentNode)
+        ambientEngine.connect(environmentNode, to: ambientEngine.mainMixerNode, format: nil)
+        environmentNode.distanceAttenuationParameters.distanceAttenuationModel = .linear
+        environmentNode.distanceAttenuationParameters.referenceDistance = 10
+        environmentNode.distanceAttenuationParameters.maximumDistance = 10
+        environmentNode.distanceAttenuationParameters.rolloffFactor = 0
+        environmentNode.reverbParameters.enable = true
+        environmentNode.reverbParameters.level = -18
+        environmentNode.outputVolume = 1
+        environmentNode.listenerPosition = AVAudio3DPoint(x: 0, y: 0, z: 0)
+        updateEnvironmentOutputType()
+    }
+
+    private func startAmbientEngineIfNeeded() {
+        configureAmbientEngineIfNeeded()
+
+        guard !ambientEngine.isRunning else { return }
+
+        do {
+            try ambientEngine.start()
+        } catch {
+            print("Failed to start ambient engine: \(error)")
         }
     }
 
@@ -164,11 +248,14 @@ final class AudioMixerEngine: @unchecked Sendable {
         fadeTask?.cancel()
 
         if isPlaying {
+            isStopping = false
             startActivePlayersIfNeeded()
             fadeTask = animateFade(from: masterFade, to: 1, duration: 1.6)
         } else {
+            isStopping = true
             fadeTask = animateFade(from: masterFade, to: 0, duration: 0.9, completion: { [weak self] in
                 self?.pauseAllPlayers()
+                self?.isStopping = false
             })
         }
     }
@@ -206,16 +293,14 @@ final class AudioMixerEngine: @unchecked Sendable {
     }
 
     private func startActivePlayersIfNeeded() {
+        startAmbientEngineIfNeeded()
+
         for channel in SoundChannel.allCases where shouldPlayAmbient(channel) {
             guard let player = ambientPlayer(for: channel) else { continue }
-
-            if randomizedOffsets.contains(channel) == false {
-                player.currentTime = Double.random(in: 0..<max(player.duration, 0.01))
-                randomizedOffsets.insert(channel)
-            }
-
-            if !player.isPlaying {
-                player.play()
+            applySpatialMixingConfiguration(for: channel, playback: player)
+            scheduleAmbientPlaybackIfNeeded(player)
+            if !player.node.isPlaying {
+                player.node.play()
             }
         }
 
@@ -225,8 +310,66 @@ final class AudioMixerEngine: @unchecked Sendable {
         }
     }
 
+    private func scheduleAmbientPlaybackIfNeeded(_ playback: AmbientChannelPlayback) {
+        guard !playback.isScheduled else { return }
+        scheduleAmbientLoop(for: playback, randomStart: true)
+    }
+
+    private func scheduleAmbientLoop(for playback: AmbientChannelPlayback, randomStart: Bool) {
+        let token = UUID()
+        playback.scheduleToken = token
+        playback.isScheduled = true
+
+        do {
+            let file = try AVAudioFile(forReading: playback.url)
+            let maxStartFrame = max(playback.frameLength - 1, 0)
+            let startFrame = randomStart && maxStartFrame > 0
+                ? AVAudioFramePosition.random(in: 0..<maxStartFrame)
+                : 0
+            let remainingFrames = max(playback.frameLength - startFrame, 1)
+
+            playback.scheduledFile = file
+            playback.node.scheduleSegment(
+                file,
+                startingFrame: startFrame,
+                frameCount: AVAudioFrameCount(remainingFrames),
+                at: nil
+            ) { [weak self, weak playback] in
+                guard let self, let playback else { return }
+                self.queue.async { [weak self, weak playback] in
+                    guard let self, let playback else { return }
+                    guard playback.scheduleToken == token else { return }
+
+                    playback.scheduledFile = nil
+                    playback.isScheduled = false
+
+                    guard self.latestSnapshot.isPlaying, self.shouldPlayAmbient(playback.channel) else {
+                        return
+                    }
+
+                    self.scheduleAmbientLoop(for: playback, randomStart: false)
+                    if !playback.node.isPlaying {
+                        playback.node.play()
+                    }
+                }
+            }
+        } catch {
+            playback.isScheduled = false
+            playback.scheduledFile = nil
+            print("Failed to schedule ambient loop for \(playback.channel.filename): \(error)")
+        }
+    }
+
+    private func stopAmbientPlayback(_ playback: AmbientChannelPlayback) {
+        playback.scheduleToken = UUID()
+        playback.isScheduled = false
+        playback.scheduledFile = nil
+        playback.node.stop()
+        playback.node.reset()
+    }
+
     private func pauseAllPlayers() {
-        ambientPlayers.values.forEach { $0.pause() }
+        ambientPlayers.values.forEach(stopAmbientPlayback(_:))
         binauralPlayers.values.forEach { $0.pause() }
     }
 
@@ -236,28 +379,39 @@ final class AudioMixerEngine: @unchecked Sendable {
         }
 
         for channel in SoundChannel.allCases {
-            guard let player = ambientPlayers[channel] ?? (shouldPlayAmbient(channel) ? ambientPlayer(for: channel) : nil) else { continue }
+            let keepAliveForFade = isStopping && (ambientPlayers[channel]?.node.isPlaying == true)
+            let shouldStayActive = shouldPlayAmbient(channel) || keepAliveForFade
 
-            let volume = targetAmbientVolume(for: channel)
-            player.volume = Float(volume)
+            guard let playback = ambientPlayers[channel] ?? (shouldStayActive ? ambientPlayer(for: channel) : nil) else { continue }
 
-            if volume <= 0.0001, !latestSnapshot.isPlaying || !shouldPlayAmbient(channel) {
-                player.pause()
-            } else if latestSnapshot.isPlaying, shouldPlayAmbient(channel), !player.isPlaying {
-                player.play()
+            applySpatialMixingConfiguration(for: channel, playback: playback)
+            playback.node.volume = Float(targetAmbientVolume(for: channel))
+
+            if shouldPlayAmbient(channel) {
+                scheduleAmbientPlaybackIfNeeded(playback)
+                if latestSnapshot.isPlaying, !playback.node.isPlaying {
+                    playback.node.play()
+                }
+            } else if !keepAliveForFade {
+                stopAmbientPlayback(playback)
             }
         }
 
         for track in BinauralTrack.allCases {
-            guard let player = binauralPlayers[track] ?? (shouldPlayBinaural(track) ? binauralPlayer(for: track) : nil) else { continue }
+            let keepAliveForFade = isStopping && (binauralPlayers[track]?.isPlaying == true)
+            let shouldStayActive = shouldPlayBinaural(track) || keepAliveForFade
+
+            guard let player = binauralPlayers[track] ?? (shouldStayActive ? binauralPlayer(for: track) : nil) else { continue }
 
             let volume = targetBinauralVolume(for: track)
             player.volume = Float(volume)
 
-            if volume <= 0.0001 || !latestSnapshot.isPlaying || !shouldPlayBinaural(track) {
+            if shouldPlayBinaural(track) {
+                if !player.isPlaying {
+                    player.play()
+                }
+            } else if !keepAliveForFade {
                 player.pause()
-            } else if !player.isPlaying {
-                player.play()
             }
         }
     }
@@ -265,7 +419,7 @@ final class AudioMixerEngine: @unchecked Sendable {
     private func refreshPlayerVolumes() {
         for channel in SoundChannel.allCases {
             if let player = ambientPlayers[channel] {
-                player.volume = Float(targetAmbientVolume(for: channel))
+                player.node.volume = Float(targetAmbientVolume(for: channel))
             }
         }
 
@@ -379,6 +533,52 @@ final class AudioMixerEngine: @unchecked Sendable {
         guard let callback = onVariationChanged else { return }
         Task { @MainActor in
             callback(channel, value)
+        }
+    }
+
+    private func applySpatialMixingConfiguration(for channel: SoundChannel, playback: AmbientChannelPlayback) {
+        let point = latestSnapshot.channels[channel]?.spatialPosition ?? .center
+        let clamped = point.clamped()
+        let backAmount = max(clamped.y, 0)
+
+        if playback.format.channelCount > 1 {
+            playback.node.sourceMode = .ambienceBed
+            playback.node.renderingAlgorithm = .auto
+        } else {
+            playback.node.sourceMode = .pointSource
+            playback.node.pointSourceInHeadMode = .bypass
+            playback.node.renderingAlgorithm = .HRTFHQ
+        }
+
+        playback.node.position = mappedSpatialPoint(for: clamped)
+        playback.node.reverbBlend = Float(0.01 + (backAmount * 0.08))
+        playback.node.obstruction = Float(-(backAmount * 6.0))
+        playback.node.occlusion = Float(-(backAmount * 12.0))
+    }
+
+    private func mappedSpatialPoint(for point: SpatialPoint) -> AVAudio3DPoint {
+        let clamped = point.clamped()
+        return AVAudio3DPoint(
+            x: Float(clamped.x * 4.5),
+            y: 0,
+            z: Float(clamped.y * 5.5)
+        )
+    }
+
+    private func updateEnvironmentOutputType() {
+        let outputs = AVAudioSession.sharedInstance().currentRoute.outputs
+        if outputs.contains(where: { output in
+            output.portType == .headphones
+                || output.portType == .headsetMic
+                || output.portType == .bluetoothA2DP
+                || output.portType == .bluetoothLE
+                || output.portType == .bluetoothHFP
+        }) {
+            environmentNode.outputType = .headphones
+        } else if outputs.contains(where: { $0.portType == .builtInSpeaker }) {
+            environmentNode.outputType = .builtInSpeakers
+        } else {
+            environmentNode.outputType = .auto
         }
     }
 
