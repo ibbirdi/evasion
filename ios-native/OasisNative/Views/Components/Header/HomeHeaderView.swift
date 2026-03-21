@@ -23,7 +23,7 @@ struct HomeHeaderView: View {
                 onOpenBinaural: onOpenBinaural
             )
         }
-        .padding(.horizontal, 8)
+        .padding(.horizontal, 0)
         .padding(.vertical, 6)
         .frame(maxWidth: .infinity)
         .animation(.smooth(duration: 0.22), value: compactProgress)
@@ -59,11 +59,6 @@ private struct BrandLockupView: View {
                     .font(.system(size: 24, weight: .semibold, design: .rounded))
                     .foregroundStyle(.white)
             }
-
-            Text("BINAURAL NATURE")
-                .font(.system(size: 9, weight: .semibold, design: .rounded))
-                .tracking(2.6)
-                .foregroundStyle(.white.opacity(0.54))
         }
         .frame(maxWidth: .infinity)
         .frame(height: 74 * visibility, alignment: .top)
@@ -80,7 +75,7 @@ private struct QuickControlsStrip: View {
     let onOpenBinaural: (PanelTransitionSource) -> Void
 
     var body: some View {
-        HStack(spacing: 8) {
+        HStack(spacing: 7) {
             presetChip
                 .frame(maxWidth: .infinity)
 
@@ -88,7 +83,8 @@ private struct QuickControlsStrip: View {
                 .frame(maxWidth: .infinity)
 
             TimerChip()
-                .frame(maxWidth: .infinity)
+
+            ActiveChannelsChip()
         }
         .frame(maxWidth: .infinity, alignment: .center)
     }
@@ -147,7 +143,8 @@ private struct TimerChip: View {
                     title: model.timerToolbarTitle,
                     tint: model.timerDurationMinutes == nil
                         ? .white.opacity(0.82)
-                        : Color(red: 0.52, green: 0.91, blue: 0.64)
+                        : Color(red: 0.52, green: 0.91, blue: 0.64),
+                    expands: false
                 )
             }
             .menuIndicator(.hidden)
@@ -161,7 +158,8 @@ private struct TimerChip: View {
                 HeaderChipLabel(
                     symbol: "timer",
                     title: model.copy.header.timer,
-                    tint: .white.opacity(0.82)
+                    tint: .white.opacity(0.82),
+                    expands: false
                 )
             }
             .accessibilityIdentifier("home.header.timer")
@@ -178,15 +176,59 @@ private struct TimerChip: View {
     }
 }
 
+private struct ActiveChannelsChip: View {
+    @Environment(AppModel.self) private var model
+
+    private var isActivated: Bool {
+        model.showsOnlyActiveChannels
+    }
+
+    private var tint: Color {
+        if isActivated {
+            return Color(red: 0.54, green: 0.88, blue: 0.70)
+        }
+
+        return Color.white.opacity(0.82)
+    }
+
+    private var symbol: String {
+        if isActivated {
+            return "line.3.horizontal.decrease.circle.fill"
+        }
+
+        return "line.3.horizontal.circle"
+    }
+
+    var body: some View {
+        Button {
+            withAnimation(.smooth(duration: 0.26, extraBounce: 0.02)) {
+                model.showsOnlyActiveChannels.toggle()
+            }
+        } label: {
+            HeaderChipLabel(
+                symbol: symbol,
+                title: "\(model.activeAmbientChannelsCount)",
+                tint: tint,
+                isActivated: isActivated,
+                expands: false
+            )
+        }
+        .accessibilityIdentifier("home.header.active-filter")
+        .buttonStyle(PressScaleButtonStyle())
+    }
+}
+
 private struct HeaderChipLabel: View {
     let symbol: String
     let title: String
     let tint: Color
+    var isActivated = false
+    var expands = true
 
     var body: some View {
         HStack(spacing: 7) {
             Image(systemName: symbol)
-                .font(.system(size: 11, weight: .semibold))
+                .font(.system(size: 12, weight: .semibold))
                 .foregroundStyle(tint)
                 .symbolRenderingMode(.hierarchical)
 
@@ -197,22 +239,25 @@ private struct HeaderChipLabel: View {
                 .truncationMode(.tail)
                 .contentTransition(.numericText(countsDown: true))
         }
-        .padding(.horizontal, 12)
+        .padding(.horizontal, 10)
         .padding(.vertical, 8)
-        .frame(maxWidth: .infinity)
+        .frame(maxWidth: expands ? .infinity : nil)
         .background {
             Capsule()
                 .fill(Color.white.opacity(0.001))
                 .glassEffect(.regular, in: Capsule())
                 .overlay {
                     Capsule()
-                        .fill(Color.white.opacity(0.02))
+                        .fill(isActivated ? tint.opacity(0.18) : Color.white.opacity(0.02))
                 }
         }
         .overlay {
             Capsule()
-                .strokeBorder(Color.white.opacity(0.08), lineWidth: 1)
+                .strokeBorder(isActivated ? tint.opacity(0.30) : Color.white.opacity(0.08), lineWidth: 1)
         }
+        .shadow(color: isActivated ? tint.opacity(0.06) : .clear, radius: 8, y: 2)
+        .fixedSize(horizontal: !expands, vertical: false)
+        .animation(.smooth(duration: 0.22), value: isActivated)
     }
 }
 
@@ -226,7 +271,7 @@ private struct PanelTriggerChip: View {
     var body: some View {
         HStack(spacing: 7) {
             Image(systemName: symbol)
-                .font(.system(size: 11, weight: .semibold))
+                .font(.system(size: 12, weight: .semibold))
                 .foregroundStyle(.white)
                 .symbolRenderingMode(.hierarchical)
 
@@ -237,7 +282,7 @@ private struct PanelTriggerChip: View {
                 .truncationMode(.tail)
                 .contentTransition(.numericText(countsDown: true))
         }
-        .padding(.horizontal, 12)
+        .padding(.horizontal, 10)
         .padding(.vertical, 8)
         .frame(maxWidth: .infinity)
         .background {

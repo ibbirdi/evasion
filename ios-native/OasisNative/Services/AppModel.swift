@@ -16,6 +16,7 @@ final class AppModel {
     var showsBinauralPanel = false
     var showsPresetsPanel = false
     var showsSpatialPanel = false
+    var showsOnlyActiveChannels = false
 
     var isBinauralActive = false
     var activeBinauralTrack: BinauralTrack = .delta
@@ -101,6 +102,15 @@ final class AppModel {
         !isPremium && !SoundChannel.freeChannels.contains(channel)
     }
 
+    func isAmbientChannelActive(_ channel: SoundChannel) -> Bool {
+        guard let state = channels[channel] else { return false }
+        return !state.isMuted && !isChannelLocked(channel)
+    }
+
+    var activeAmbientChannelsCount: Int {
+        SoundChannel.allCases.filter(isAmbientChannelActive(_:)).count
+    }
+
     func channelState(for channel: SoundChannel) -> ChannelState {
         channels[channel] ?? ChannelState()
     }
@@ -126,12 +136,8 @@ final class AppModel {
     }
 
     func openPresetsPanel() {
-        if isPremium {
-            showsBinauralPanel = false
-            showsPresetsPanel = true
-        } else {
-            showsPaywall = true
-        }
+        showsBinauralPanel = false
+        showsPresetsPanel = true
     }
 
     func togglePlayback() {

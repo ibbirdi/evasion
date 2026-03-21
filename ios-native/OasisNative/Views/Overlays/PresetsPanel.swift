@@ -8,6 +8,10 @@ struct PresetsPanel: View {
     @State private var lastReorderTargetID: String?
     @State private var rowMidpoints: [String: CGFloat] = [:]
 
+    private var canManagePresets: Bool {
+        model.isPremium
+    }
+
     var body: some View {
         VStack(spacing: 16) {
             VStack(spacing: 6) {
@@ -74,8 +78,13 @@ struct PresetsPanel: View {
             PresetRow(
                 preset: preset,
                 isDragging: activeDragPresetID == preset.id,
-                isReorderEnabled: !isNamingPreset,
+                isReorderEnabled: canManagePresets && !isNamingPreset,
                 onSelect: {
+                    guard canManagePresets else {
+                        showPaywall()
+                        return
+                    }
+
                     withAnimation(.smooth(duration: 0.22)) {
                         model.loadPreset(preset)
                     }
@@ -150,6 +159,11 @@ struct PresetsPanel: View {
     }
 
     private func savePreset() {
+        guard canManagePresets else {
+            showPaywall()
+            return
+        }
+
         let trimmed = newPresetName.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { return }
 
@@ -161,6 +175,8 @@ struct PresetsPanel: View {
     }
 
     private func delete(_ preset: Preset) {
+        guard canManagePresets else { return }
+
         withAnimation(.smooth(duration: 0.22)) {
             model.deletePreset(preset)
         }
@@ -199,6 +215,12 @@ struct PresetsPanel: View {
             fromOffsets: IndexSet(integer: fromIndex),
             toOffset: toIndex > fromIndex ? toIndex + 1 : toIndex
         )
+    }
+
+    private func showPaywall() {
+        withAnimation(.smooth(duration: 0.24, extraBounce: 0.02)) {
+            model.showsPaywall = true
+        }
     }
 }
 
@@ -302,6 +324,8 @@ private struct PresetRow: View {
                 }
         }
         .buttonStyle(PresetButtonScaleStyle())
+        .disabled(!isReorderEnabled)
+        .opacity(isReorderEnabled ? 1 : 0.36)
     }
 
     private var rowTint: Color {

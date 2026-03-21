@@ -5,12 +5,20 @@ struct MixerBoardSectionView: View {
     @Environment(AppModel.self) private var model
     let onOpenSpatial: (SoundChannel) -> Void
 
+    private var displayedChannels: [SoundChannel] {
+        if model.showsOnlyActiveChannels {
+            return SoundChannel.allCases.filter(model.isAmbientChannelActive(_:))
+        }
+
+        return SoundChannel.allCases
+    }
+
     private var labelColumnWidth: CGFloat {
         let roundedDescriptor = UIFont.systemFont(ofSize: 13, weight: .semibold).fontDescriptor.withDesign(.rounded)
             ?? UIFont.systemFont(ofSize: 13, weight: .semibold).fontDescriptor
         let font = UIFont(descriptor: roundedDescriptor, size: 13)
 
-        return SoundChannel.allCases.reduce(CGFloat.zero) { currentMax, channel in
+        return displayedChannels.reduce(CGFloat.zero) { currentMax, channel in
             let width = ceil((model.channelName(channel) as NSString).size(withAttributes: [.font: font]).width) + 2
             return max(currentMax, width)
         }
@@ -18,14 +26,21 @@ struct MixerBoardSectionView: View {
 
     var body: some View {
         LazyVStack(spacing: 8) {
-            ForEach(SoundChannel.allCases) { channel in
+            ForEach(displayedChannels) { channel in
                 SoundRowView(
                     channel: channel,
                     labelColumnWidth: labelColumnWidth,
                     onOpenSpatial: onOpenSpatial
                 )
+                .transition(
+                    .asymmetric(
+                        insertion: .move(edge: .top).combined(with: .opacity),
+                        removal: .scale(scale: 0.96).combined(with: .opacity)
+                    )
+                )
             }
         }
+        .animation(.smooth(duration: 0.26, extraBounce: 0.02), value: displayedChannels)
     }
 }
 

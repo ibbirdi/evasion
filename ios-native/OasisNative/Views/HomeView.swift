@@ -34,14 +34,8 @@ struct HomeView: View {
     @Namespace private var panelTransitionNamespace
 
     private func openPresets(from source: PanelTransitionSource) {
-        if model.isPremium {
-            activePanelSource = source.usesZoomTransition ? source : nil
-            activePanel = .presets
-        } else {
-            withAnimation(.smooth(duration: 0.24, extraBounce: 0.02)) {
-                model.showsPaywall = true
-            }
-        }
+        activePanelSource = source.usesZoomTransition ? source : nil
+        activePanel = .presets
     }
 
     private func openBinaural(from source: PanelTransitionSource) {
@@ -93,7 +87,7 @@ struct HomeView: View {
                             onOpenBinaural: openBinaural
                         )
                         .padding(.top, proxy.safeAreaInsets.top + 4)
-                        .padding(.horizontal, 18)
+                        .padding(.horizontal, 8)
 
                         Spacer(minLength: 0)
                     }
