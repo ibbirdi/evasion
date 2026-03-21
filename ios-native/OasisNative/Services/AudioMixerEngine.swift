@@ -329,6 +329,8 @@ final class AudioMixerEngine: @unchecked Sendable {
             let remainingFrames = max(playback.frameLength - startFrame, 1)
 
             playback.scheduledFile = file
+            // The next segment is chained directly here without any fade in/out,
+            // so the loop seam stays as inaudible as possible.
             playback.node.scheduleSegment(
                 file,
                 startingFrame: startFrame,

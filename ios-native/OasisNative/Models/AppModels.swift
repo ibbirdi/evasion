@@ -241,6 +241,14 @@ extension Dictionary where Key == SoundChannel, Value == ChannelState {
             partialResult[channel] = ChannelState()
         }
     }
+
+    static var starterChannels: [SoundChannel: ChannelState] {
+        var channels = [SoundChannel: ChannelState].initialChannels
+        channels[.oiseaux] = ChannelState(volume: 0.45, isMuted: false, autoVariationEnabled: true)
+        channels[.vent] = ChannelState(volume: 0.35, isMuted: false, autoVariationEnabled: true)
+        channels[.plage] = ChannelState(volume: 0.40, isMuted: false, autoVariationEnabled: false)
+        return channels
+    }
 }
 
 extension Array where Element == Preset {

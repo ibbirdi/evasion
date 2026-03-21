@@ -53,7 +53,13 @@ final class AppModel {
     }
 
     init() {
-        loadPersistedState()
+        let didLoadPersistedState = loadPersistedState()
+
+        if !didLoadPersistedState && !AppConfiguration.shouldResetStateOnLaunch {
+            channels = .starterChannels
+            persistState()
+        }
+
         configureCallbacks()
         updateTimerDisplayValue()
         synchronizeAudio()
@@ -404,10 +410,10 @@ final class AppModel {
         }
     }
 
-    private func loadPersistedState() {
-        guard !AppConfiguration.shouldResetStateOnLaunch else { return }
+    private func loadPersistedState() -> Bool {
+        guard !AppConfiguration.shouldResetStateOnLaunch else { return false }
         guard let data = UserDefaults.standard.data(forKey: AppConfiguration.persistenceKey) else {
-            return
+            return false
         }
 
         do {
@@ -422,8 +428,10 @@ final class AppModel {
                 self.selectedLanguage = selectedLanguage
             }
             enforcePremiumAccess()
+            return true
         } catch {
             print("Failed to decode persisted mixer state: \(error)")
+            return false
         }
     }
 
