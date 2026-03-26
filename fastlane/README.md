@@ -37,7 +37,7 @@ Alias for screenshot generation
 [bundle exec] fastlane ios appstore_metadata
 ```
 
-Upload screenshots and metadata to App Store Connect for version 1.2.0
+Upload metadata to App Store Connect without screenshots
 
 ----
 

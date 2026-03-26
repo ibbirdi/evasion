@@ -1,4 +1,4 @@
-New in this version:
-• 2 new nature sounds: mountain river and rain under the tent
-• Visual redesign
-• Performance improvements
+What's new:
+• Immersive spatial audio: place each track left, right, front or back for a 3D soundscape.
+• New interface for positioning sounds in space.
+• Bug fixes and performance improvements.

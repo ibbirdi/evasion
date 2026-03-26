@@ -62,6 +62,7 @@ final class AppModel {
         }
 
         configureCallbacks()
+        handleNoActiveChannelsIfNeeded()
         updateTimerDisplayValue()
         synchronizeAudio()
     }
@@ -202,7 +203,6 @@ final class AppModel {
         channels = newChannels
         variationDisplayVolumes.removeAll()
         currentPresetID = nil
-        persistState()
 
         if !isPlaying {
             isPlaying = true
@@ -213,6 +213,11 @@ final class AppModel {
             startTimerTickerIfNeeded()
         }
 
+        if handleNoActiveChannelsIfNeeded() {
+            return
+        }
+
+        persistState()
         updateTimerDisplayValue()
         synchronizeAudio()
     }
@@ -242,6 +247,11 @@ final class AppModel {
             variationDisplayVolumes.removeValue(forKey: channel)
         }
         currentPresetID = nil
+
+        if handleNoActiveChannelsIfNeeded() {
+            return
+        }
+
         schedulePersistence()
         synchronizeAudio()
     }
@@ -316,7 +326,16 @@ final class AppModel {
         channels = preset.channels
         variationDisplayVolumes.removeAll()
         currentPresetID = preset.id
+
+        if handleNoActiveChannelsIfNeeded() {
+            return
+        }
+
         schedulePersistence()
+
+        guard activeAmbientChannelsCount > 0 else {
+            return
+        }
 
         if isPlaying {
             synchronizeAudio()
@@ -579,6 +598,10 @@ final class AppModel {
         guard didChangePremium else { return }
 
         enforcePremiumAccess()
+        if handleNoActiveChannelsIfNeeded() {
+            return
+        }
+
         updateTimerDisplayValue()
         synchronizeAudio()
     }
@@ -609,7 +632,6 @@ final class AppModel {
             }
         }
         currentPresetID = nil
-        persistState()
 
         if !isPlaying {
             isPlaying = true
@@ -620,8 +642,27 @@ final class AppModel {
             startTimerTickerIfNeeded()
         }
 
+        if handleNoActiveChannelsIfNeeded() {
+            return
+        }
+
+        persistState()
         updateTimerDisplayValue()
         synchronizeAudio()
+    }
+
+    @discardableResult
+    private func handleNoActiveChannelsIfNeeded() -> Bool {
+        guard activeAmbientChannelsCount == 0 else { return false }
+
+        if showsOnlyActiveChannels {
+            showsOnlyActiveChannels = false
+        }
+
+        guard isPlaying else { return false }
+
+        setPlayback(false)
+        return true
     }
 
     private static let screenshotShuffleTemplates: [[SoundChannel: ChannelState]] = [

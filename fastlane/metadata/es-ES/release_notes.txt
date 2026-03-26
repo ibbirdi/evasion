@@ -1,4 +1,4 @@
-Novedades de esta versión:
-• 2 nuevos sonidos de la naturaleza: río de montaña y lluvia bajo la tienda
-• Rediseño visual
-• Mejoras de rendimiento
+Novedades en esta versión:
+• Audio 3D inmersivo: coloca cada pista a la izquierda, derecha, delante o detrás para un sonido espacial.
+• Nueva interfaz para el posicionamiento en el espacio.
+• Corrección de errores y mejoras de rendimiento.

@@ -1,4 +1,4 @@
 Neu in dieser Version:
-• 2 neue Naturgeräusche: Gebirgsbach und Regen im Zelt
-• Visuelles Redesign
-• Leistungsverbesserungen
+• Immersives 3D‑Audio: Platziere jede Spur links, rechts, vorne oder hinten für einen räumlichen Sound.
+• Neue Benutzeroberfläche für das Platzieren im Raum.
+• Fehlerbehebungen und Leistungsverbesserungen.

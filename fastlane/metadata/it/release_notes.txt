@@ -1,4 +1,4 @@
 Novità di questa versione:
-• 2 nuovi suoni della natura: fiume di montagna e pioggia sotto la tenda
-• Restyling visivo
-• Miglioramenti delle prestazioni
+• Audio 3D immersivo: posiziona ogni traccia a sinistra, destra, davanti o dietro per un suono spaziale.
+• Nuova interfaccia per il posizionamento nello spazio.
+• Correzioni di bug e miglioramenti delle prestazioni.

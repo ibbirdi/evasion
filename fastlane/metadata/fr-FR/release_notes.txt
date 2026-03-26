@@ -1,4 +1,4 @@
-Nouveautés de cette version :
-• 2 nouveaux sons de la nature : rivière de montagne et pluie sous la tente
-• Refonte visuelle
-• Amélioration des performances
+Nouveau dans cette version :
+• Audio spatial immersif : placez chaque piste à gauche, à droite, devant ou derrière pour un rendu 3D.
+• Interface améliorée pour gérer le positionnement dans l’espace.
+• Corrections de bugs et améliorations des performances.
