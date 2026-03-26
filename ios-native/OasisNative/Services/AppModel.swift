@@ -12,11 +12,14 @@ final class AppModel {
     var currentPresetID: String?
 
     var isPremium = AppConfiguration.forcedPremiumAccess ?? false
-    var showsPaywall = false
+    var activePaywallContext: PremiumPaywallContext?
+    var activeInlineUpsell: PremiumInlineUpsellContext?
     var showsBinauralPanel = false
     var showsPresetsPanel = false
     var showsSpatialPanel = false
     var showsOnlyActiveChannels = false
+    var showsPremiumHomeBanner = false
+    var isSignaturePreviewActive = false
 
     var isBinauralActive = false
     var activeBinauralTrack: BinauralTrack = .delta
@@ -24,23 +27,28 @@ final class AppModel {
 
     var channels: [SoundChannel: ChannelState] = .initialChannels
     var presets: [Preset] = .defaultPresets()
-    var selectedLanguage = AppLanguage.resolved()
+    var premiumBannerLastDismissedAt: Date?
+    var signaturePreviewLastPlayedAt: Date?
 
     var timerDisplayValue: TimeInterval?
     private(set) var variationDisplayVolumes: [SoundChannel: Double] = [:]
 
     @ObservationIgnored private let audioEngine = AudioMixerEngine()
     @ObservationIgnored private let revenueCatObserver = RevenueCatObserver()
+    @ObservationIgnored private let premiumCoordinator = PremiumCoordinator()
+    @ObservationIgnored private let premiumRevenueCatService = PremiumRevenueCatService()
+    @ObservationIgnored private let premiumAnalytics: any PremiumAnalyticsSink = LoggerPremiumAnalyticsSink()
     @ObservationIgnored private var timerTicker: Timer?
     @ObservationIgnored private var bootstrapTask: Task<Void, Never>?
     @ObservationIgnored private var persistenceTask: Task<Void, Never>?
+    @ObservationIgnored private var premiumBannerTask: Task<Void, Never>?
+    @ObservationIgnored private var signaturePreviewTask: Task<Void, Never>?
     @ObservationIgnored private var didBootstrap = false
     @ObservationIgnored private var revenueCatHasPremium = false
     @ObservationIgnored private var screenshotShuffleIndex = 0
-
-    var copy: AppStrings {
-        AppTranslations.all[selectedLanguage] ?? AppTranslations.all[.en]!
-    }
+    @ObservationIgnored private var previewUnlockedChannels = Set<SoundChannel>()
+    @ObservationIgnored private var previewUnlockedTracks = Set<BinauralTrack>()
+    @ObservationIgnored private var signaturePreviewRestoreState: SignaturePreviewRestoreState?
 
     var mixerSnapshot: MixerSnapshot {
         MixerSnapshot(
@@ -49,8 +57,89 @@ final class AppModel {
             channels: channels,
             isBinauralActive: isBinauralActive,
             activeBinauralTrack: activeBinauralTrack,
-            binauralVolume: binauralVolume
+            binauralVolume: binauralVolume,
+            previewUnlockedChannels: previewUnlockedChannels,
+            previewUnlockedTracks: previewUnlockedTracks
         )
+    }
+
+    var homeBannerPresentation: PremiumHomeBannerPresentation {
+        PremiumHomeBannerPresentation(
+            title: L10n.string(L10n.Premium.bannerTitle),
+            message: L10n.string(L10n.Premium.bannerSubtitle),
+            ctaTitle: L10n.string(L10n.Premium.bannerCTA)
+        )
+    }
+
+    var libraryTeaserPresentation: PremiumLibraryTeaserPresentation {
+        let lockedCount = max(SoundChannel.allCases.count - SoundChannel.freeChannels.count, 0)
+
+        return PremiumLibraryTeaserPresentation(
+            title: L10n.string(L10n.Premium.libraryTitle),
+            badgeTitle: "+\(lockedCount)",
+            message: L10n.string(L10n.Premium.librarySubtitle),
+            ctaTitle: L10n.string(L10n.Premium.libraryCTA),
+            expandTitle: L10n.string(L10n.Premium.libraryExpand),
+            collapseTitle: L10n.string(L10n.Premium.libraryCollapse),
+            lockedCount: lockedCount
+        )
+    }
+
+    var timerSheetPresentation: PremiumTimerSheetPresentation {
+        PremiumTimerSheetPresentation(
+            title: L10n.string(L10n.Premium.timerTitle),
+            message: L10n.string(L10n.Premium.timerSubtitle),
+            lockedLabel: L10n.string(L10n.Premium.timerIncluded)
+        )
+    }
+
+    var presetsUpsellPresentation: PremiumInlineUpsellPresentation? {
+        guard activeInlineUpsell?.entryPoint.category == .preset else { return nil }
+
+        let secondaryActionTitle = isSignaturePreviewAvailable
+            ? L10n.string(L10n.Premium.previewCTA)
+            : L10n.string(L10n.Premium.inlineNotNow)
+        let footnote: String?
+        if isSignaturePreviewActive {
+            footnote = L10n.string(L10n.Premium.previewPlaying)
+        } else if !isSignaturePreviewAvailable {
+            footnote = L10n.string(L10n.Premium.previewLimit)
+        } else {
+            footnote = nil
+        }
+
+        return PremiumInlineUpsellPresentation(
+            title: L10n.string(L10n.Premium.inlinePresetTitle),
+            message: L10n.string(L10n.Premium.inlinePresetSubtitle),
+            primaryActionTitle: L10n.string(L10n.Premium.inlineUnlock),
+            secondaryActionTitle: secondaryActionTitle,
+            footnote: footnote,
+            symbolName: "bookmark.fill",
+            accentToken: .preset
+        )
+    }
+
+    var binauralUpsellPresentation: PremiumInlineUpsellPresentation? {
+        guard activeInlineUpsell?.entryPoint.category == .binaural else { return nil }
+
+        return PremiumInlineUpsellPresentation(
+            title: L10n.string(L10n.Premium.inlineBinauralTitle),
+            message: L10n.string(L10n.Premium.inlineBinauralSubtitle),
+            primaryActionTitle: L10n.string(L10n.Premium.inlineUnlock),
+            secondaryActionTitle: L10n.string(L10n.Premium.inlineNotNow),
+            footnote: nil,
+            symbolName: "waveform.path",
+            accentToken: .binaural
+        )
+    }
+
+    var paywallPresentation: PremiumPaywallPresentation? {
+        guard let context = activePaywallContext else { return nil }
+        return paywallPresentation(for: context.entryPoint)
+    }
+
+    var isSignaturePreviewAvailable: Bool {
+        premiumCoordinator.canStartSignaturePreview(lastPlayedAt: signaturePreviewLastPlayedAt)
     }
 
     init() {
@@ -85,15 +174,19 @@ final class AppModel {
     }
 
     func channelName(_ channel: SoundChannel) -> String {
-        copy.channels[channel]
+        channel.localizedName
     }
 
     func presetDisplayName(_ preset: Preset) -> String {
         switch preset.id {
+        case "preset_default_starter":
+            return L10n.string(L10n.Presets.defaultStarter)
         case "preset_default_calm":
-            return copy.presets.defaultCalm
+            return L10n.string(L10n.Presets.defaultCalm)
         case "preset_default_storm":
-            return copy.presets.defaultStorm
+            return L10n.string(L10n.Presets.defaultStorm)
+        case "preset_signature_oasis":
+            return L10n.string(L10n.Presets.afterTheRain)
         default:
             return preset.name
         }
@@ -103,13 +196,34 @@ final class AppModel {
         !isPremium && !SoundChannel.freeChannels.contains(channel)
     }
 
+    func isPresetLocked(_ preset: Preset) -> Bool {
+        !isPremium && preset.requiresPremium
+    }
+
     func isAmbientChannelActive(_ channel: SoundChannel) -> Bool {
         guard let state = channels[channel] else { return false }
-        return !state.isMuted && !isChannelLocked(channel)
+        return !state.isMuted && hasAmbientPlaybackAccess(to: channel)
     }
 
     var activeAmbientChannelsCount: Int {
         SoundChannel.allCases.filter(isAmbientChannelActive(_:)).count
+    }
+
+    var timerToolbarTitle: String {
+        if let timerDisplayValue {
+            return formatTimer(timerDisplayValue)
+        }
+
+        if let timerDurationMinutes {
+            return L10n.timerOptionLabel(minutes: timerDurationMinutes)
+        }
+
+        return L10n.string(L10n.Header.timer)
+    }
+
+    var activePreset: Preset? {
+        guard let currentPresetID else { return nil }
+        return presets.first { $0.id == currentPresetID }
     }
 
     func channelState(for channel: SoundChannel) -> ChannelState {
@@ -153,9 +267,13 @@ final class AppModel {
             if let pausedRemaining = timerRemainingWhenPaused, timerDurationMinutes != nil {
                 timerEndDate = Date().addingTimeInterval(pausedRemaining)
             }
+            schedulePremiumBannerIfNeeded()
         } else if let endDate = timerEndDate {
             timerRemainingWhenPaused = max(endDate.timeIntervalSinceNow, 0)
             timerEndDate = nil
+            cancelPremiumBannerScheduling()
+        } else {
+            cancelPremiumBannerScheduling()
         }
 
         startTimerTickerIfNeeded()
@@ -166,7 +284,7 @@ final class AppModel {
 
     func setTimer(_ minutes: Int?) {
         guard isPremium else {
-            showsPaywall = true
+            presentPaywall(from: .timer)
             return
         }
 
@@ -185,8 +303,9 @@ final class AppModel {
             return
         }
 
-        var newChannels = [SoundChannel: ChannelState].initialChannels
+        finishSignaturePreview(restoreState: false, shouldPromotePaywall: false)
 
+        var newChannels = [SoundChannel: ChannelState].initialChannels
         let maxActive = min(8, availableChannels.count)
         let minActive = min(2, availableChannels.count)
         let count = Int.random(in: minActive...maxActive)
@@ -211,6 +330,7 @@ final class AppModel {
                 timerEndDate = Date().addingTimeInterval(remaining)
             }
             startTimerTickerIfNeeded()
+            schedulePremiumBannerIfNeeded()
         }
 
         if handleNoActiveChannelsIfNeeded() {
@@ -224,7 +344,7 @@ final class AppModel {
 
     func setChannelVolume(_ channel: SoundChannel, value: Double) {
         guard var state = channels[channel], !isChannelLocked(channel) else {
-            showsPaywall = true
+            presentPaywall(from: .sound(channel))
             return
         }
 
@@ -237,7 +357,7 @@ final class AppModel {
 
     func toggleMute(_ channel: SoundChannel) {
         guard var state = channels[channel], !isChannelLocked(channel) else {
-            showsPaywall = true
+            presentPaywall(from: .sound(channel))
             return
         }
 
@@ -258,7 +378,7 @@ final class AppModel {
 
     func toggleAutoVariation(_ channel: SoundChannel) {
         guard var state = channels[channel], !isChannelLocked(channel) else {
-            showsPaywall = true
+            presentPaywall(from: .sound(channel))
             return
         }
 
@@ -276,7 +396,7 @@ final class AppModel {
 
     func setChannelSpatialPosition(_ channel: SoundChannel, value: SpatialPoint) {
         guard var state = channels[channel], !isChannelLocked(channel) else {
-            showsPaywall = true
+            presentPaywall(from: .spatial(channel))
             return
         }
 
@@ -304,8 +424,7 @@ final class AppModel {
     @discardableResult
     func selectBinauralTrack(_ track: BinauralTrack) -> Bool {
         guard isPremium || !track.isPremium else {
-            showsBinauralPanel = false
-            showsPaywall = true
+            requestPremiumAccess(from: .binaural(track))
             return false
         }
 
@@ -323,6 +442,13 @@ final class AppModel {
     }
 
     func loadPreset(_ preset: Preset) {
+        guard !isPresetLocked(preset) else {
+            requestPremiumAccess(from: .presetLoad)
+            return
+        }
+
+        finishSignaturePreview(restoreState: false, shouldPromotePaywall: false)
+
         channels = preset.channels
         variationDisplayVolumes.removeAll()
         currentPresetID = preset.id
@@ -333,9 +459,7 @@ final class AppModel {
 
         schedulePersistence()
 
-        guard activeAmbientChannelsCount > 0 else {
-            return
-        }
+        guard activeAmbientChannelsCount > 0 else { return }
 
         if isPlaying {
             synchronizeAudio()
@@ -345,6 +469,11 @@ final class AppModel {
     }
 
     func savePreset(named name: String) {
+        guard isPremium else {
+            requestPremiumAccess(from: .presetSave)
+            return
+        }
+
         let trimmedName = name.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmedName.isEmpty else { return }
 
@@ -372,43 +501,274 @@ final class AppModel {
         schedulePersistence()
     }
 
+    func requestPremiumAccess(from entryPoint: PremiumEntryPoint) {
+        guard !isPremium else { return }
+
+        switch premiumCoordinator.route(for: entryPoint) {
+        case let .inline(context):
+            activeInlineUpsell = context
+            premiumAnalytics.track(.inlineShown(source: entryPoint.analyticsSource))
+
+        case let .paywall(context):
+            activeInlineUpsell = nil
+            activePaywallContext = context
+            premiumAnalytics.track(.paywallShown(source: entryPoint.analyticsSource))
+        }
+    }
+
+    func paywallPresentation(for entryPoint: PremiumEntryPoint) -> PremiumPaywallPresentation {
+        let title: String
+        let subtitle: String
+        let benefitRows: [String]
+
+        switch entryPoint.category {
+        case .manual:
+            title = L10n.string(L10n.Paywall.titleGeneric)
+            subtitle = L10n.string(L10n.Paywall.subtitleGeneric)
+            benefitRows = [
+                L10n.string(L10n.Paywall.benefitSounds),
+                L10n.string(L10n.Paywall.benefitPresets),
+                L10n.string(L10n.Paywall.benefitTimer),
+                L10n.string(L10n.Paywall.benefitBinaural)
+            ]
+
+        case .sound, .spatial:
+            title = L10n.string(L10n.Paywall.titleSounds)
+            subtitle = L10n.string(L10n.Paywall.subtitleSounds)
+            benefitRows = [
+                L10n.string(L10n.Paywall.benefitSounds),
+                L10n.string(L10n.Paywall.benefitPresets),
+                L10n.string(L10n.Paywall.benefitTimer),
+                L10n.string(L10n.Paywall.benefitBinaural)
+            ]
+
+        case .timer:
+            title = L10n.string(L10n.Paywall.titleTimer)
+            subtitle = L10n.string(L10n.Paywall.subtitleTimer)
+            benefitRows = [
+                L10n.string(L10n.Paywall.benefitTimer),
+                L10n.string(L10n.Paywall.benefitSounds),
+                L10n.string(L10n.Paywall.benefitPresets),
+                L10n.string(L10n.Paywall.benefitBinaural)
+            ]
+
+        case .preset:
+            title = L10n.string(L10n.Paywall.titlePresets)
+            subtitle = L10n.string(L10n.Paywall.subtitlePresets)
+            benefitRows = [
+                L10n.string(L10n.Paywall.benefitPresets),
+                L10n.string(L10n.Paywall.benefitSounds),
+                L10n.string(L10n.Paywall.benefitTimer),
+                L10n.string(L10n.Paywall.benefitBinaural)
+            ]
+
+        case .binaural:
+            title = L10n.string(L10n.Paywall.titleBinaural)
+            subtitle = L10n.string(L10n.Paywall.subtitleBinaural)
+            benefitRows = [
+                L10n.string(L10n.Paywall.benefitBinaural),
+                L10n.string(L10n.Paywall.benefitSounds),
+                L10n.string(L10n.Paywall.benefitPresets),
+                L10n.string(L10n.Paywall.benefitTimer)
+            ]
+
+        case .preview:
+            title = L10n.string(L10n.Paywall.titlePreview)
+            subtitle = L10n.string(L10n.Paywall.subtitlePreview)
+            benefitRows = [
+                L10n.string(L10n.Paywall.benefitPresets),
+                L10n.string(L10n.Paywall.benefitSounds),
+                L10n.string(L10n.Paywall.benefitTimer),
+                L10n.string(L10n.Paywall.benefitBinaural)
+            ]
+        }
+
+        return PremiumPaywallPresentation(
+            title: title,
+            subtitle: subtitle,
+            benefitRows: benefitRows,
+            symbolName: entryPoint.symbolName,
+            accentToken: entryPoint.accentToken
+        )
+    }
+
+    func presentPaywall(from entryPoint: PremiumEntryPoint) {
+        guard !isPremium else { return }
+        activeInlineUpsell = nil
+        activePaywallContext = PremiumPaywallContext(entryPoint: entryPoint)
+        premiumAnalytics.track(.paywallShown(source: entryPoint.analyticsSource))
+    }
+
+    func dismissPaywall() {
+        activePaywallContext = nil
+    }
+
+    func dismissInlineUpsell() {
+        activeInlineUpsell = nil
+    }
+
+    func dismissPremiumHomeBanner() {
+        showsPremiumHomeBanner = false
+        premiumBannerLastDismissedAt = Date()
+        premiumAnalytics.track(.bannerDismissed)
+        persistState()
+    }
+
+    func startSignaturePreview() {
+        guard !isPremium, isSignaturePreviewAvailable else { return }
+        guard let preset = presets.first(where: \.isSignature) else { return }
+
+        premiumAnalytics.track(.previewStarted)
+        signaturePreviewTask?.cancel()
+        signaturePreviewRestoreState = SignaturePreviewRestoreState(
+            channels: channels,
+            currentPresetID: currentPresetID,
+            isPlaying: isPlaying,
+            isBinauralActive: isBinauralActive,
+            activeBinauralTrack: activeBinauralTrack,
+            binauralVolume: binauralVolume,
+            timerDurationMinutes: timerDurationMinutes,
+            timerEndDate: timerEndDate,
+            timerRemainingWhenPaused: timerRemainingWhenPaused,
+            timerDisplayValue: timerDisplayValue
+        )
+
+        signaturePreviewLastPlayedAt = Date()
+        isSignaturePreviewActive = true
+        activeInlineUpsell = nil
+
+        channels = preset.channels
+        variationDisplayVolumes.removeAll()
+        currentPresetID = preset.id
+        previewUnlockedChannels = Set(
+            preset.channels.compactMap { channel, state in
+                guard !state.isMuted, !SoundChannel.freeChannels.contains(channel) else { return nil }
+                return channel
+            }
+        )
+        previewUnlockedTracks.removeAll()
+
+        if !isPlaying {
+            isPlaying = true
+            startTimerTickerIfNeeded()
+        }
+
+        updateTimerDisplayValue()
+        schedulePersistence()
+        synchronizeAudio()
+
+        signaturePreviewTask = Task { [weak self] in
+            try? await Task.sleep(for: PremiumCoordinator.signaturePreviewDuration)
+            guard !Task.isCancelled else { return }
+            await MainActor.run {
+                self?.finishSignaturePreview(restoreState: true, shouldPromotePaywall: true)
+            }
+        }
+    }
+
+    func finishSignaturePreview(restoreState: Bool, shouldPromotePaywall: Bool) {
+        guard isSignaturePreviewActive || !previewUnlockedChannels.isEmpty else { return }
+
+        premiumAnalytics.track(.previewFinished)
+        signaturePreviewTask?.cancel()
+        signaturePreviewTask = nil
+        previewUnlockedChannels.removeAll()
+        previewUnlockedTracks.removeAll()
+        isSignaturePreviewActive = false
+
+        if restoreState, !isPremium, let restoreState = signaturePreviewRestoreState {
+            channels = restoreState.channels
+            currentPresetID = restoreState.currentPresetID
+            isPlaying = restoreState.isPlaying
+            isBinauralActive = restoreState.isBinauralActive
+            activeBinauralTrack = restoreState.activeBinauralTrack
+            binauralVolume = restoreState.binauralVolume
+            timerDurationMinutes = restoreState.timerDurationMinutes
+            timerEndDate = restoreState.timerEndDate
+            timerRemainingWhenPaused = restoreState.timerRemainingWhenPaused
+            timerDisplayValue = restoreState.timerDisplayValue
+            variationDisplayVolumes.removeAll()
+        }
+
+        signaturePreviewRestoreState = nil
+        startTimerTickerIfNeeded()
+        updateTimerDisplayValue()
+
+        if handleNoActiveChannelsIfNeeded() {
+            return
+        }
+
+        schedulePersistence()
+        synchronizeAudio()
+
+        if shouldPromotePaywall, !isPremium {
+            presentPaywall(from: .previewEnd)
+        }
+    }
+
     func closeOverlays() {
         showsBinauralPanel = false
         showsPresetsPanel = false
         showsSpatialPanel = false
-        showsPaywall = false
+        activePaywallContext = nil
+        activeInlineUpsell = nil
     }
 
     func applyRevenueCatCustomerInfo(_ customerInfo: CustomerInfo) {
         applyCustomerInfo(customerInfo)
     }
 
+    func currentLifetimePackage() async throws -> Package {
+        guard AppConfiguration.shouldUseRevenueCatAccess, AppConfiguration.isRevenueCatConfigured else {
+            throw PremiumRevenueCatError.missingOffering
+        }
+
+        if let source = activePaywallContext?.entryPoint.analyticsSource {
+            premiumAnalytics.track(.paywallLoading(source: source))
+        }
+
+        return try await premiumRevenueCatService.currentLifetimePackage()
+    }
+
+    func currentLifetimePackageCustomerInfo() async throws -> CustomerInfo {
+        guard AppConfiguration.shouldUseRevenueCatAccess, AppConfiguration.isRevenueCatConfigured else {
+            throw PremiumRevenueCatError.missingOffering
+        }
+
+        return try await premiumRevenueCatService.customerInfo()
+    }
+
+    func purchaseLifetime(package: Package) async throws -> PremiumPurchaseResult {
+        let source = activePaywallContext?.entryPoint.analyticsSource ?? "manual"
+        premiumAnalytics.track(.purchaseStarted(source: source))
+
+        let result = try await premiumRevenueCatService.purchase(package: package)
+        applyCustomerInfo(result.customerInfo)
+
+        if result.userCancelled {
+            premiumAnalytics.track(.purchaseCancelled(source: source))
+        } else if result.customerInfo.entitlements.active[AppConfiguration.revenueCatEntitlementID] != nil {
+            premiumAnalytics.track(.purchaseSucceeded(source: source))
+        }
+
+        return result
+    }
+
     func restorePurchases() async {
         guard AppConfiguration.shouldUseRevenueCatAccess, AppConfiguration.isRevenueCatConfigured else { return }
+        let source = activePaywallContext?.entryPoint.analyticsSource ?? "manual"
+        premiumAnalytics.track(.restoreStarted(source: source))
 
         do {
-            let customerInfo = try await Purchases.shared.restorePurchases()
+            let customerInfo = try await premiumRevenueCatService.restorePurchases()
             applyCustomerInfo(customerInfo)
+
+            if customerInfo.entitlements.active[AppConfiguration.revenueCatEntitlementID] != nil {
+                premiumAnalytics.track(.restoreSucceeded(source: source))
+            }
         } catch {
             print("RevenueCat restore failed: \(error)")
         }
-    }
-
-    var timerToolbarTitle: String {
-        if let timerDisplayValue {
-            return formatTimer(timerDisplayValue)
-        }
-
-        if let timerDurationMinutes {
-            return "\(timerDurationMinutes)m"
-        }
-
-        return copy.header.timer
-    }
-
-    var activePreset: Preset? {
-        guard let currentPresetID else { return nil }
-        return presets.first { $0.id == currentPresetID }
     }
 
     private func configureCallbacks() {
@@ -444,14 +804,14 @@ final class AppModel {
         do {
             let persisted = try JSONDecoder().decode(PersistedMixerState.self, from: data)
             channels = persisted.channels
-            presets = persisted.presets
+            presets = mergeMissingDefaultPresets(into: persisted.presets)
             currentPresetID = persisted.currentPresetID
             isBinauralActive = persisted.isBinauralActive
             activeBinauralTrack = persisted.activeBinauralTrack
             binauralVolume = persisted.binauralVolume
-            if let selectedLanguage = persisted.selectedLanguage {
-                self.selectedLanguage = selectedLanguage
-            }
+            premiumBannerLastDismissedAt = persisted.premiumBannerLastDismissedAt
+            signaturePreviewLastPlayedAt = persisted.signaturePreviewLastPlayedAt
+
             enforcePremiumAccess()
             return true
         } catch {
@@ -469,7 +829,9 @@ final class AppModel {
             isBinauralActive: isBinauralActive,
             activeBinauralTrack: activeBinauralTrack,
             binauralVolume: binauralVolume,
-            selectedLanguage: selectedLanguage
+            selectedLanguage: nil,
+            premiumBannerLastDismissedAt: premiumBannerLastDismissedAt,
+            signaturePreviewLastPlayedAt: signaturePreviewLastPlayedAt
         )
 
         do {
@@ -498,6 +860,7 @@ final class AppModel {
         guard !isPremium else { return }
 
         for channel in SoundChannel.allCases where !SoundChannel.freeChannels.contains(channel) {
+            guard !previewUnlockedChannels.contains(channel) else { continue }
             if var state = channels[channel] {
                 state.isMuted = true
                 state.autoVariationEnabled = false
@@ -506,11 +869,12 @@ final class AppModel {
             }
         }
 
-        if activeBinauralTrack.isPremium {
+        if activeBinauralTrack.isPremium && !previewUnlockedTracks.contains(activeBinauralTrack) {
             activeBinauralTrack = .delta
         }
 
-        if timerDurationMinutes != nil {
+        let shouldPreserveTimerState = isSignaturePreviewActive && signaturePreviewRestoreState?.timerDurationMinutes != nil
+        if timerDurationMinutes != nil && !shouldPreserveTimerState {
             timerDurationMinutes = nil
             timerEndDate = nil
             timerRemainingWhenPaused = nil
@@ -572,7 +936,7 @@ final class AppModel {
         }
 
         do {
-            let customerInfo = try await Purchases.shared.customerInfo()
+            let customerInfo = try await premiumRevenueCatService.customerInfo()
             applyCustomerInfo(customerInfo)
         } catch {
             print("RevenueCat customer info refresh failed: \(error)")
@@ -592,7 +956,15 @@ final class AppModel {
         isPremium = effectivePremium
 
         if effectivePremium {
-            showsPaywall = false
+            activePaywallContext = nil
+            activeInlineUpsell = nil
+            showsPremiumHomeBanner = false
+            cancelPremiumBannerScheduling()
+            premiumCoordinator.resetInlineHistory()
+
+            if isSignaturePreviewActive {
+                finishSignaturePreview(restoreState: false, shouldPromotePaywall: false)
+            }
         }
 
         guard didChangePremium else { return }
@@ -604,6 +976,37 @@ final class AppModel {
 
         updateTimerDisplayValue()
         synchronizeAudio()
+    }
+
+    private func schedulePremiumBannerIfNeeded() {
+        guard !isPremium else { return }
+        guard !showsPremiumHomeBanner else { return }
+        guard premiumCoordinator.canShowHomeBanner(lastDismissedAt: premiumBannerLastDismissedAt) else { return }
+
+        premiumBannerTask?.cancel()
+        premiumBannerTask = Task { [weak self] in
+            try? await Task.sleep(for: PremiumCoordinator.homeBannerDelay)
+            guard !Task.isCancelled else { return }
+
+            await MainActor.run {
+                guard let self else { return }
+                guard self.isPlaying else { return }
+                guard !self.isPremium else { return }
+                guard self.premiumCoordinator.canShowHomeBanner(lastDismissedAt: self.premiumBannerLastDismissedAt) else { return }
+
+                self.showsPremiumHomeBanner = true
+                self.premiumAnalytics.track(.bannerShown)
+            }
+        }
+    }
+
+    private func cancelPremiumBannerScheduling() {
+        premiumBannerTask?.cancel()
+        premiumBannerTask = nil
+    }
+
+    private func hasAmbientPlaybackAccess(to channel: SoundChannel) -> Bool {
+        isPremium || SoundChannel.freeChannels.contains(channel) || previewUnlockedChannels.contains(channel)
     }
 
     private func applyScreenshotShuffle(availableChannels: [SoundChannel]) {
@@ -665,6 +1068,17 @@ final class AppModel {
         return true
     }
 
+    private func mergeMissingDefaultPresets(into storedPresets: [Preset]) -> [Preset] {
+        var mergedPresets = storedPresets
+        let existingIDs = Set(storedPresets.map(\.id))
+
+        for preset in Array.defaultPresets() where !existingIDs.contains(preset.id) {
+            mergedPresets.append(preset)
+        }
+
+        return mergedPresets
+    }
+
     private static let screenshotShuffleTemplates: [[SoundChannel: ChannelState]] = [
         [
             .oiseaux: ChannelState(volume: 0.58, isMuted: false, autoVariationEnabled: false),
@@ -688,6 +1102,19 @@ final class AppModel {
             .grillons: ChannelState(volume: 0.33, isMuted: false, autoVariationEnabled: false)
         ]
     ]
+}
+
+private struct SignaturePreviewRestoreState {
+    let channels: [SoundChannel: ChannelState]
+    let currentPresetID: String?
+    let isPlaying: Bool
+    let isBinauralActive: Bool
+    let activeBinauralTrack: BinauralTrack
+    let binauralVolume: Double
+    let timerDurationMinutes: Int?
+    let timerEndDate: Date?
+    let timerRemainingWhenPaused: TimeInterval?
+    let timerDisplayValue: TimeInterval?
 }
 
 private final class RevenueCatObserver: NSObject, PurchasesDelegate {

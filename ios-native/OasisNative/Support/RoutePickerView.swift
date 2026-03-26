@@ -7,14 +7,17 @@ struct RoutePickerView: UIViewRepresentable {
 
     func makeUIView(context: Context) -> AVRoutePickerView {
         let view = AVRoutePickerView(frame: .zero)
-        view.tintColor = tintColor
-        view.activeTintColor = activeTintColor
-        view.backgroundColor = .clear
+        applyConfiguration(to: view)
         return view
     }
 
     func updateUIView(_ uiView: AVRoutePickerView, context: Context) {
-        uiView.tintColor = tintColor
-        uiView.activeTintColor = activeTintColor
+        applyConfiguration(to: uiView)
+    }
+
+    private func applyConfiguration(to view: AVRoutePickerView) {
+        view.tintColor = tintColor
+        view.activeTintColor = activeTintColor
+        view.backgroundColor = .clear
     }
 }

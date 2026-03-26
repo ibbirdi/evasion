@@ -21,17 +21,21 @@ enum PanelTransitionSource: String, Hashable, Sendable {
 private enum ActiveHomePanel: String, Identifiable {
     case presets
     case binaural
+    case timerUnlock
 
     var id: String { rawValue }
 }
 
 struct HomeView: View {
     @Environment(AppModel.self) private var model
-    @State private var scrollOffset: CGFloat = 0
+    @State private var headerCompactProgress: CGFloat = 0
     @State private var activePanel: ActiveHomePanel?
     @State private var activePanelSource: PanelTransitionSource?
     @State private var activeSpatialChannel: SoundChannel?
     @Namespace private var panelTransitionNamespace
+
+    private static let headerCollapseDistance: CGFloat = 140
+    private static let headerProgressSteps: CGFloat = 48
 
     private func openPresets(from source: PanelTransitionSource) {
         activePanelSource = source.usesZoomTransition ? source : nil
@@ -48,6 +52,43 @@ struct HomeView: View {
         activePanel = nil
         activePanelSource = nil
         activeSpatialChannel = channel
+    }
+
+    private func openTimerUnlock() {
+        activePanelSource = nil
+        activePanel = .timerUnlock
+    }
+
+    @ViewBuilder
+    private func presetsPanelView(source: PanelTransitionSource?) -> some View {
+        if let source {
+            PresetsPanel()
+                .navigationTransition(.zoom(sourceID: source.transitionID, in: panelTransitionNamespace))
+                .presentationSizing(.fitted.fitted(horizontal: false, vertical: true))
+                .presentationContentInteraction(.scrolls)
+                .presentationDragIndicator(.visible)
+        } else {
+            PresetsPanel()
+                .presentationSizing(.fitted.fitted(horizontal: false, vertical: true))
+                .presentationContentInteraction(.scrolls)
+                .presentationDragIndicator(.visible)
+        }
+    }
+
+    @ViewBuilder
+    private func binauralPanelView(source: PanelTransitionSource?) -> some View {
+        if let source {
+            BinauralPanel()
+                .navigationTransition(.zoom(sourceID: source.transitionID, in: panelTransitionNamespace))
+                .presentationSizing(.fitted.fitted(horizontal: false, vertical: true))
+                .presentationContentInteraction(.resizes)
+                .presentationDragIndicator(.visible)
+        } else {
+            BinauralPanel()
+                .presentationSizing(.fitted.fitted(horizontal: false, vertical: true))
+                .presentationContentInteraction(.resizes)
+                .presentationDragIndicator(.visible)
+        }
     }
 
     var body: some View {
@@ -73,18 +114,21 @@ struct HomeView: View {
                     .onScrollGeometryChange(
                         for: CGFloat.self,
                         of: { geometry in
-                            max(geometry.contentOffset.y + geometry.contentInsets.top, 0)
+                            let offset = max(geometry.contentOffset.y + geometry.contentInsets.top, 0)
+                            let rawProgress = min(max(offset / Self.headerCollapseDistance, 0), 1)
+                            return (rawProgress * Self.headerProgressSteps).rounded() / Self.headerProgressSteps
                         },
                         action: { _, newValue in
-                            scrollOffset = newValue
+                            headerCompactProgress = newValue
                         }
                     )
 
                     VStack(spacing: 0) {
                         HomeHeaderView(
-                            scrollOffset: scrollOffset,
+                            compactProgress: headerCompactProgress,
                             onOpenPresets: openPresets,
-                            onOpenBinaural: openBinaural
+                            onOpenBinaural: openBinaural,
+                            onOpenTimerUnlock: openTimerUnlock
                         )
                         .padding(.top, proxy.safeAreaInsets.top + 4)
                         .padding(.horizontal, 8)
@@ -114,31 +158,14 @@ struct HomeView: View {
         }) { panel in
             switch panel {
             case .presets:
-                if let source = activePanelSource {
-                    PresetsPanel()
-                        .navigationTransition(.zoom(sourceID: source.transitionID, in: panelTransitionNamespace))
-                        .presentationDetents([.medium, .large])
-                        .presentationContentInteraction(.scrolls)
-                        .presentationDragIndicator(.visible)
-                } else {
-                    PresetsPanel()
-                        .presentationDetents([.medium, .large])
-                        .presentationContentInteraction(.scrolls)
-                        .presentationDragIndicator(.visible)
-                }
+                presetsPanelView(source: activePanelSource)
             case .binaural:
-                if let source = activePanelSource {
-                    BinauralPanel()
-                        .navigationTransition(.zoom(sourceID: source.transitionID, in: panelTransitionNamespace))
-                        .presentationDetents([.height(396)])
-                        .presentationContentInteraction(.resizes)
-                        .presentationDragIndicator(.visible)
-                } else {
-                    BinauralPanel()
-                        .presentationDetents([.height(396)])
-                        .presentationContentInteraction(.resizes)
-                        .presentationDragIndicator(.visible)
-                }
+                binauralPanelView(source: activePanelSource)
+            case .timerUnlock:
+                TimerUnlockPanel()
+                    .presentationDetents([.height(318)])
+                    .presentationContentInteraction(.resizes)
+                    .presentationDragIndicator(.visible)
             }
         }
         .sheet(item: $activeSpatialChannel, onDismiss: {
@@ -149,8 +176,10 @@ struct HomeView: View {
                 .presentationContentInteraction(.resizes)
                 .presentationDragIndicator(.visible)
         }
-        .fullScreenCover(isPresented: $model.showsPaywall) {
-            PaywallOverlay()
+        .fullScreenCover(item: $model.activePaywallContext, onDismiss: {
+            model.dismissPaywall()
+        }) { context in
+            PaywallOverlay(context: context)
         }
         .onChange(of: activePanel) { _, panel in
             model.showsPresetsPanel = panel == .presets
@@ -159,7 +188,13 @@ struct HomeView: View {
         .onChange(of: activeSpatialChannel) { _, channel in
             model.showsSpatialPanel = channel != nil
         }
-        .preferredColorScheme(.dark)
+        .onChange(of: model.activePaywallContext?.id) { _, paywallID in
+            guard paywallID != nil else { return }
+
+            activePanel = nil
+            activePanelSource = nil
+            activeSpatialChannel = nil
+        }
         .task {
             model.bootstrapIfNeeded()
         }

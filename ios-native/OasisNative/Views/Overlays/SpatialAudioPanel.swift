@@ -19,7 +19,7 @@ struct SpatialAudioPanel: View {
                     .font(.system(size: 24, weight: .semibold, design: .rounded))
                     .foregroundStyle(.white)
 
-                Text(model.copy.spatial.subtitle)
+                Text(L10n.Spatial.subtitle)
                     .font(.system(size: 13, weight: .medium, design: .rounded))
                     .foregroundStyle(.white.opacity(0.58))
                     .multilineTextAlignment(.center)
@@ -35,7 +35,7 @@ struct SpatialAudioPanel: View {
                     model.resetChannelSpatialPosition(channel)
                 }
             } label: {
-                Text(model.copy.spatial.reset)
+                Text(L10n.Spatial.reset)
                     .font(.system(size: 13, weight: .semibold, design: .rounded))
                     .foregroundStyle(.white)
                     .padding(.horizontal, 18)
@@ -129,13 +129,13 @@ private struct SpatialPlacementStage: View {
                 .position(center)
         }
 
-        label(model.copy.spatial.front)
+        label(L10n.string(L10n.Spatial.front))
             .position(x: center.x, y: 14)
-        label(model.copy.spatial.back)
+        label(L10n.string(L10n.Spatial.back))
             .position(x: center.x, y: size.height - 14)
-        label(model.copy.spatial.left)
+        label(L10n.string(L10n.Spatial.left))
             .position(x: 20, y: center.y)
-        label(model.copy.spatial.right)
+        label(L10n.string(L10n.Spatial.right))
             .position(x: size.width - 20, y: center.y)
     }
 

@@ -1,37 +1,17 @@
 import Foundation
 import SwiftUI
 
-enum AppLanguage: String, CaseIterable, Codable, Identifiable {
+// Legacy persisted language values kept for backward compatibility with previously saved state.
+enum AppLanguage: String, Codable, Sendable {
     case en
     case fr
     case es
     case de
     case it
     case pt
-
-    var id: String { rawValue }
-
-    static func resolved(from locale: Locale = .autoupdatingCurrent) -> AppLanguage {
-        let languageCode = locale.language.languageCode?.identifier.lowercased() ?? "en"
-
-        switch languageCode {
-        case "fr":
-            return .fr
-        case "es":
-            return .es
-        case "de":
-            return .de
-        case "it":
-            return .it
-        case "pt":
-            return .pt
-        default:
-            return .en
-        }
-    }
 }
 
-enum SoundChannel: String, CaseIterable, Codable, Identifiable {
+enum SoundChannel: String, CaseIterable, Codable, Identifiable, Sendable {
     case oiseaux
     case vent
     case plage
@@ -123,7 +103,7 @@ enum SoundChannel: String, CaseIterable, Codable, Identifiable {
     }
 }
 
-enum BinauralTrack: String, CaseIterable, Codable, Identifiable {
+enum BinauralTrack: String, CaseIterable, Codable, Identifiable, Sendable {
     case delta
     case theta
     case alpha
@@ -212,7 +192,17 @@ struct Preset: Codable, Equatable, Identifiable {
     var channels: [SoundChannel: ChannelState]
 
     var isDefault: Bool {
-        id == "preset_default_calm" || id == "preset_default_storm"
+        id.hasPrefix("preset_default_") || isSignature
+    }
+
+    var isSignature: Bool {
+        id == "preset_signature_oasis"
+    }
+
+    var requiresPremium: Bool {
+        channels.contains { channel, state in
+            !state.isMuted && !SoundChannel.freeChannels.contains(channel)
+        }
     }
 }
 
@@ -223,7 +213,10 @@ struct PersistedMixerState: Codable {
     var isBinauralActive: Bool
     var activeBinauralTrack: BinauralTrack
     var binauralVolume: Double
+    // Legacy field kept to decode older persisted states after the app moved to Apple-managed localization.
     var selectedLanguage: AppLanguage?
+    var premiumBannerLastDismissedAt: Date?
+    var signaturePreviewLastPlayedAt: Date?
 }
 
 struct MixerSnapshot {
@@ -233,6 +226,16 @@ struct MixerSnapshot {
     var isBinauralActive: Bool
     var activeBinauralTrack: BinauralTrack
     var binauralVolume: Double
+    var previewUnlockedChannels: Set<SoundChannel>
+    var previewUnlockedTracks: Set<BinauralTrack>
+
+    func hasAmbientAccess(to channel: SoundChannel) -> Bool {
+        isPremium || SoundChannel.freeChannels.contains(channel) || previewUnlockedChannels.contains(channel)
+    }
+
+    func hasBinauralAccess(to track: BinauralTrack) -> Bool {
+        isPremium || !track.isPremium || previewUnlockedTracks.contains(track)
+    }
 }
 
 extension Dictionary where Key == SoundChannel, Value == ChannelState {
@@ -253,19 +256,31 @@ extension Dictionary where Key == SoundChannel, Value == ChannelState {
 
 extension Array where Element == Preset {
     static func defaultPresets() -> [Preset] {
+        var starter = [SoundChannel: ChannelState].initialChannels
+        starter[.oiseaux] = ChannelState(volume: 0.42, isMuted: false, autoVariationEnabled: false)
+        starter[.vent] = ChannelState(volume: 0.28, isMuted: false, autoVariationEnabled: true)
+        starter[.plage] = ChannelState(volume: 0.48, isMuted: false, autoVariationEnabled: false)
+
         var calm = [SoundChannel: ChannelState].initialChannels
         calm[.foret] = ChannelState(volume: 0.6, isMuted: false, autoVariationEnabled: false)
         calm[.oiseaux] = ChannelState(volume: 0.4, isMuted: false, autoVariationEnabled: false)
         calm[.vent] = ChannelState(volume: 0.3, isMuted: false, autoVariationEnabled: true)
 
         var storm = [SoundChannel: ChannelState].initialChannels
-        storm[.pluie] = ChannelState(volume: 0.7, isMuted: false, autoVariationEnabled: false)
+        storm[.pluie] = ChannelState(volume: 0.7, isMuted: false, autoVariationEnabled: true)
         storm[.tonnerre] = ChannelState(volume: 0.6, isMuted: false, autoVariationEnabled: true)
         storm[.vent] = ChannelState(volume: 0.4, isMuted: false, autoVariationEnabled: false)
 
+        var signature = [SoundChannel: ChannelState].initialChannels
+        signature[.foret] = ChannelState(volume: 0.46, isMuted: false, autoVariationEnabled: true)
+        signature[.riviere] = ChannelState(volume: 0.38, isMuted: false, autoVariationEnabled: false)
+        signature[.oiseaux] = ChannelState(volume: 0.28, isMuted: false, autoVariationEnabled: true)
+
         return [
-            Preset(id: "preset_default_calm", name: "Calm Forest", channels: calm),
-            Preset(id: "preset_default_storm", name: "Distant Storm", channels: storm)
+            Preset(id: "preset_default_starter", name: "Sea Breeze", channels: starter),
+            Preset(id: "preset_default_calm", name: "Quiet Forest", channels: calm),
+            Preset(id: "preset_default_storm", name: "Distant Storm", channels: storm),
+            Preset(id: "preset_signature_oasis", name: "After the Rain", channels: signature)
         ]
     }
 }

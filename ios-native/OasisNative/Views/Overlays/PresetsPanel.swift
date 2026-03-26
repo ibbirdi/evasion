@@ -19,17 +19,46 @@ struct PresetsPanel: View {
                     .font(.system(size: 18, weight: .semibold))
                     .foregroundStyle(LiquidActivityPalette.preset[0])
 
-                Text(model.copy.modal.title)
+                Text(L10n.Presets.panelTitle)
                     .font(.system(size: 24, weight: .semibold, design: .rounded))
                     .foregroundStyle(.white)
 
-                Text(model.copy.modal.subtitle)
+                Text(L10n.Presets.panelSubtitle)
                     .font(.system(size: 13, weight: .medium, design: .rounded))
                     .foregroundStyle(.white.opacity(0.58))
                     .multilineTextAlignment(.center)
+
+                if model.isSignaturePreviewActive {
+                    Text(L10n.Premium.previewPlaying)
+                        .font(.system(size: 11, weight: .semibold, design: .rounded))
+                        .foregroundStyle(LiquidActivityPalette.preset[0].opacity(0.90))
+                        .padding(.top, 2)
+                }
             }
             .frame(maxWidth: .infinity)
             .padding(.top, 18)
+
+            if let presentation = model.presetsUpsellPresentation {
+                PremiumInlineUpsellCard(
+                    presentation: presentation,
+                    onPrimaryAction: {
+                        if let entryPoint = model.activeInlineUpsell?.entryPoint {
+                            model.presentPaywall(from: entryPoint)
+                        }
+                    },
+                    onSecondaryAction: {
+                        if model.isSignaturePreviewAvailable {
+                            model.startSignaturePreview()
+                        } else {
+                            model.dismissInlineUpsell()
+                        }
+                    },
+                    onDismiss: {
+                        model.dismissInlineUpsell()
+                    }
+                )
+                .padding(.horizontal, 20)
+            }
 
             presetsList
                 .padding(.horizontal, 20)
@@ -77,11 +106,13 @@ struct PresetsPanel: View {
         ForEach(model.presets) { preset in
             PresetRow(
                 preset: preset,
+                isLocked: model.isPresetLocked(preset),
                 isDragging: activeDragPresetID == preset.id,
+                showsManagementControls: canManagePresets,
                 isReorderEnabled: canManagePresets && !isNamingPreset,
                 onSelect: {
-                    guard canManagePresets else {
-                        showPaywall()
+                    guard !model.isPresetLocked(preset) else {
+                        model.requestPremiumAccess(from: .presetLoad)
                         return
                     }
 
@@ -114,7 +145,7 @@ struct PresetsPanel: View {
 
     private var saveComposer: some View {
         HStack(spacing: 8) {
-            TextField(model.copy.modal.presetName, text: $newPresetName)
+            TextField("", text: $newPresetName, prompt: Text(L10n.Presets.namePrompt))
                 .textInputAutocapitalization(.words)
                 .disableAutocorrection(true)
                 .textContentType(nil)
@@ -160,7 +191,7 @@ struct PresetsPanel: View {
 
     private func savePreset() {
         guard canManagePresets else {
-            showPaywall()
+            model.requestPremiumAccess(from: .presetSave)
             return
         }
 
@@ -217,17 +248,14 @@ struct PresetsPanel: View {
         )
     }
 
-    private func showPaywall() {
-        withAnimation(.smooth(duration: 0.24, extraBounce: 0.02)) {
-            model.showsPaywall = true
-        }
-    }
 }
 
 private struct PresetRow: View {
     @Environment(AppModel.self) private var model
     let preset: Preset
+    let isLocked: Bool
     let isDragging: Bool
+    let showsManagementControls: Bool
     let isReorderEnabled: Bool
     let onSelect: () -> Void
     let onDelete: () -> Void
@@ -248,9 +276,10 @@ private struct PresetRow: View {
             .accessibilityIdentifier("presets.row.\(preset.id)")
             .buttonStyle(PresetButtonScaleStyle())
 
-            reorderHandle
-
-            deleteButton
+            if showsManagementControls {
+                reorderHandle
+                deleteButton
+            }
         }
         .opacity(isDragging ? 0.92 : 1)
     }
@@ -260,12 +289,23 @@ private struct PresetRow: View {
             VStack(alignment: .leading, spacing: 0) {
                 Text(model.presetDisplayName(preset))
                     .font(.system(size: 15, weight: .semibold, design: .rounded))
-                    .foregroundStyle(.white)
+                    .foregroundStyle(isLocked ? .white.opacity(0.62) : .white)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .lineLimit(1)
+
+                if isLocked {
+                    Text(L10n.Mixer.statusPremium)
+                        .font(.system(size: 9, weight: .semibold, design: .rounded))
+                        .foregroundStyle(.white.opacity(0.42))
+                        .tracking(1.0)
+                }
             }
 
-            if isActive {
+            if isLocked {
+                Image(systemName: "lock.fill")
+                    .font(.system(size: 12, weight: .bold))
+                    .foregroundStyle(.white.opacity(0.44))
+            } else if isActive {
                 Image(systemName: "checkmark.circle.fill")
                     .font(.system(size: 15, weight: .semibold))
                     .foregroundStyle(rowTint)
@@ -286,6 +326,7 @@ private struct PresetRow: View {
             RoundedRectangle(cornerRadius: 18, style: .continuous)
                 .strokeBorder(isActive ? rowTint.opacity(0.30) : Color.white.opacity(0.06), lineWidth: 1)
         }
+        .opacity(isLocked ? 0.88 : 1)
     }
 
     private var reorderHandle: some View {

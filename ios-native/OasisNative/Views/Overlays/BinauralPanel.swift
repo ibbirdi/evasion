@@ -33,12 +33,12 @@ struct BinauralPanel: View {
                     .font(.system(size: 18, weight: .semibold))
                     .foregroundStyle(model.activeBinauralTrack.tint.opacity(0.92))
 
-                Text(model.copy.binaural.title)
+                Text(L10n.Binaural.title)
                     .font(.system(size: 24, weight: .semibold, design: .rounded))
                     .foregroundStyle(.white)
                     .multilineTextAlignment(.center)
 
-                Text(model.copy.binaural.headphonesHint)
+                Text(L10n.Binaural.headphonesHint)
                     .font(.system(size: 13, weight: .medium, design: .rounded))
                     .foregroundStyle(.white.opacity(0.58))
                     .multilineTextAlignment(.center)
@@ -47,6 +47,23 @@ struct BinauralPanel: View {
             .padding(.top, 30)
 
             controlsRow
+
+            if let presentation = model.binauralUpsellPresentation {
+                PremiumInlineUpsellCard(
+                    presentation: presentation,
+                    onPrimaryAction: {
+                        if let entryPoint = model.activeInlineUpsell?.entryPoint {
+                            model.presentPaywall(from: entryPoint)
+                        }
+                    },
+                    onSecondaryAction: {
+                        model.dismissInlineUpsell()
+                    },
+                    onDismiss: {
+                        model.dismissInlineUpsell()
+                    }
+                )
+            }
 
             LazyVGrid(columns: columns, spacing: 8) {
                 ForEach(BinauralTrack.allCases) { track in
@@ -123,12 +140,12 @@ private struct BinauralTrackCard: View {
                 }
 
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(model.copy.binaural[track])
+                    Text(track.localizedTitle)
                         .font(.system(size: 14, weight: .semibold, design: .rounded))
                         .foregroundStyle(isLocked ? .white.opacity(0.46) : .white)
                         .lineLimit(1)
 
-                    Text(model.copy.binaural.frequencyLabel(for: track))
+                    Text(track.localizedFrequencyLabel)
                         .font(.system(size: 10, weight: .medium, design: .rounded))
                         .foregroundStyle(isActive ? track.tint.opacity(0.84) : .white.opacity(0.42))
                         .lineLimit(1)

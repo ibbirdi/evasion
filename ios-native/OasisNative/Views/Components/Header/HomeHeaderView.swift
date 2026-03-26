@@ -2,13 +2,10 @@ import SwiftUI
 import UIKit
 
 struct HomeHeaderView: View {
-    let scrollOffset: CGFloat
+    let compactProgress: CGFloat
     let onOpenPresets: (PanelTransitionSource) -> Void
     let onOpenBinaural: (PanelTransitionSource) -> Void
-
-    private var compactProgress: CGFloat {
-        min(max(scrollOffset / 140, 0), 1)
-    }
+    let onOpenTimerUnlock: () -> Void
 
     private var logoVisibility: CGFloat {
         max(0, 1 - (compactProgress * 3.4))
@@ -20,7 +17,8 @@ struct HomeHeaderView: View {
 
             QuickControlsStrip(
                 onOpenPresets: onOpenPresets,
-                onOpenBinaural: onOpenBinaural
+                onOpenBinaural: onOpenBinaural,
+                onOpenTimerUnlock: onOpenTimerUnlock
             )
         }
         .padding(.horizontal, 0)
@@ -55,7 +53,7 @@ private struct BrandLockupView: View {
                     .frame(width: 132)
                     .shadow(color: .black.opacity(0.14), radius: 10, y: 4)
             } else {
-                Text(model.copy.header.title)
+                Text(L10n.App.title)
                     .font(.system(size: 24, weight: .semibold, design: .rounded))
                     .foregroundStyle(.white)
             }
@@ -73,6 +71,7 @@ private struct QuickControlsStrip: View {
     @Environment(AppModel.self) private var model
     let onOpenPresets: (PanelTransitionSource) -> Void
     let onOpenBinaural: (PanelTransitionSource) -> Void
+    let onOpenTimerUnlock: () -> Void
 
     var body: some View {
         HStack(spacing: 7) {
@@ -82,7 +81,7 @@ private struct QuickControlsStrip: View {
             binauralChip
                 .frame(maxWidth: .infinity)
 
-            TimerChip()
+            TimerChip(onOpenTimerUnlock: onOpenTimerUnlock)
 
             ActiveChannelsChip()
         }
@@ -97,7 +96,7 @@ private struct QuickControlsStrip: View {
         } label: {
             PanelTriggerChip(
                 symbol: model.activePreset == nil ? "bookmark" : "bookmark.fill",
-                title: model.activePreset.map(model.presetDisplayName) ?? model.copy.modal.title,
+                title: model.activePreset.map(model.presetDisplayName) ?? L10n.string(L10n.Presets.panelTitle),
                 tint: isPresetActive ? LiquidActivityPalette.preset[0] : .white,
                 isActivated: isPresetActive,
                 palette: LiquidActivityPalette.preset
@@ -115,7 +114,7 @@ private struct QuickControlsStrip: View {
         } label: {
             PanelTriggerChip(
                 symbol: model.isBinauralActive ? "waveform.path.ecg" : "waveform.path",
-                title: model.copy.binaural[model.activeBinauralTrack],
+                title: model.activeBinauralTrack.localizedTitle,
                 tint: isBinauralActive ? model.activeBinauralTrack.tint : .white.opacity(0.84),
                 isActivated: isBinauralActive,
                 palette: LiquidActivityPalette.binaural(for: model.activeBinauralTrack.tint)
@@ -128,15 +127,16 @@ private struct QuickControlsStrip: View {
 
 private struct TimerChip: View {
     @Environment(AppModel.self) private var model
+    let onOpenTimerUnlock: () -> Void
 
     var body: some View {
         if model.isPremium {
             Menu {
-                timerAction(model.copy.header.off, minutes: nil)
-                timerAction("15 min", minutes: 15)
-                timerAction("30 min", minutes: 30)
-                timerAction("1h", minutes: 60)
-                timerAction("2h", minutes: 120)
+                timerAction(L10n.timerOptionLabel(minutes: nil), minutes: nil)
+                timerAction(L10n.timerOptionLabel(minutes: 15), minutes: 15)
+                timerAction(L10n.timerOptionLabel(minutes: 30), minutes: 30)
+                timerAction(L10n.timerOptionLabel(minutes: 60), minutes: 60)
+                timerAction(L10n.timerOptionLabel(minutes: 120), minutes: 120)
             } label: {
                 HeaderChipLabel(
                     symbol: "timer",
@@ -151,13 +151,11 @@ private struct TimerChip: View {
             .accessibilityIdentifier("home.header.timer")
         } else {
             Button {
-                withAnimation(.smooth(duration: 0.22)) {
-                    model.showsPaywall = true
-                }
+                onOpenTimerUnlock()
             } label: {
                 HeaderChipLabel(
                     symbol: "timer",
-                    title: model.copy.header.timer,
+                    title: L10n.string(L10n.Header.timer),
                     tint: .white.opacity(0.82),
                     expands: false
                 )

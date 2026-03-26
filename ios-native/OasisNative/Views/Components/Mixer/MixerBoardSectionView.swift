@@ -3,44 +3,86 @@ import UIKit
 
 struct MixerBoardSectionView: View {
     @Environment(AppModel.self) private var model
+    @Environment(\.locale) private var locale
     let onOpenSpatial: (SoundChannel) -> Void
+    @State private var showsLockedLibrary = false
+    @State private var labelColumnWidth: CGFloat = 0
 
     private var displayedChannels: [SoundChannel] {
+        if model.isPremium {
+            if model.showsOnlyActiveChannels {
+                return SoundChannel.allCases.filter(model.isAmbientChannelActive(_:))
+            }
+            return SoundChannel.allCases
+        }
+
         if model.showsOnlyActiveChannels {
-            return SoundChannel.allCases.filter(model.isAmbientChannelActive(_:))
+            return SoundChannel.allCases
+                .filter(SoundChannel.freeChannels.contains(_:))
+                .filter(model.isAmbientChannelActive(_:))
         }
 
-        return SoundChannel.allCases
-    }
-
-    private var labelColumnWidth: CGFloat {
-        let roundedDescriptor = UIFont.systemFont(ofSize: 13, weight: .semibold).fontDescriptor.withDesign(.rounded)
-            ?? UIFont.systemFont(ofSize: 13, weight: .semibold).fontDescriptor
-        let font = UIFont(descriptor: roundedDescriptor, size: 13)
-
-        return displayedChannels.reduce(CGFloat.zero) { currentMax, channel in
-            let width = ceil((model.channelName(channel) as NSString).size(withAttributes: [.font: font]).width) + 2
-            return max(currentMax, width)
-        }
+        let freeChannels = SoundChannel.allCases.filter(SoundChannel.freeChannels.contains(_:))
+        let lockedChannels = SoundChannel.allCases.filter { !SoundChannel.freeChannels.contains($0) }
+        return showsLockedLibrary ? freeChannels + lockedChannels : freeChannels
     }
 
     var body: some View {
+        let channels = displayedChannels
+
         LazyVStack(spacing: 8) {
-            ForEach(displayedChannels) { channel in
+            ForEach(channels) { channel in
                 SoundRowView(
                     channel: channel,
                     labelColumnWidth: labelColumnWidth,
                     onOpenSpatial: onOpenSpatial
                 )
-                .transition(
-                    .asymmetric(
-                        insertion: .move(edge: .top).combined(with: .opacity),
-                        removal: .scale(scale: 0.96).combined(with: .opacity)
-                    )
+            }
+
+            if !model.isPremium {
+                PremiumLibraryTeaserCard(
+                    presentation: model.libraryTeaserPresentation,
+                    isExpanded: showsLockedLibrary,
+                    onPrimaryAction: {
+                        model.presentPaywall(from: .manual)
+                    },
+                    onToggleExpanded: {
+                        withAnimation(.smooth(duration: 0.24, extraBounce: 0.02)) {
+                            showsLockedLibrary.toggle()
+                        }
+                    }
                 )
+                .padding(.top, 4)
             }
         }
-        .animation(.smooth(duration: 0.26, extraBounce: 0.02), value: displayedChannels)
+        .task(id: labelMeasurementKey) {
+            updateLabelColumnWidth(for: channels)
+        }
+    }
+
+    private var labelMeasurementKey: String {
+        let channelIDs = displayedChannels.map(\.id).joined(separator: "|")
+        let localeID = locale.identifier(.bcp47)
+        return "\(localeID)#\(channelIDs)"
+    }
+
+    private func updateLabelColumnWidth(for channels: [SoundChannel]) {
+        guard !channels.isEmpty else {
+            labelColumnWidth = 0
+            return
+        }
+
+        let roundedDescriptor = UIFont.systemFont(ofSize: 13, weight: .semibold).fontDescriptor.withDesign(.rounded)
+            ?? UIFont.systemFont(ofSize: 13, weight: .semibold).fontDescriptor
+        let font = UIFont(descriptor: roundedDescriptor, size: 13)
+
+        let measuredWidth = channels.reduce(CGFloat.zero) { currentMax, channel in
+            let title = channel.localizedName
+            let width = ceil((title as NSString).size(withAttributes: [.font: font]).width) + 2
+            return max(currentMax, width)
+        }
+
+        labelColumnWidth = measuredWidth
     }
 }
 
@@ -72,13 +114,13 @@ struct SoundRowView: View {
 
     private var statusText: String? {
         if isLocked {
-            return model.copy.mixer.premium
+            return L10n.string(L10n.Mixer.statusPremium)
         }
         if state.isMuted {
-            return model.copy.mixer.mute
+            return L10n.string(L10n.Mixer.statusMuted)
         }
         if state.autoVariationEnabled {
-            return model.copy.mixer.autoShort
+            return L10n.string(L10n.Mixer.statusAuto)
         }
         return nil
     }
@@ -87,9 +129,7 @@ struct SoundRowView: View {
         HStack(spacing: 10) {
             Button {
                 if isLocked {
-                    withAnimation(.smooth(duration: 0.22)) {
-                        model.showsPaywall = true
-                    }
+                    model.presentPaywall(from: .sound(channel))
                 } else {
                     withAnimation(.easeInOut(duration: 0.18)) {
                         model.toggleMute(channel)
@@ -162,9 +202,7 @@ struct SoundRowView: View {
 
             Button {
                 if isLocked {
-                    withAnimation(.smooth(duration: 0.22)) {
-                        model.showsPaywall = true
-                    }
+                    model.presentPaywall(from: .spatial(channel))
                 } else {
                     onOpenSpatial(channel)
                 }
@@ -196,9 +234,7 @@ struct SoundRowView: View {
 
             Button {
                 if isLocked {
-                    withAnimation(.smooth(duration: 0.22)) {
-                        model.showsPaywall = true
-                    }
+                    model.presentPaywall(from: .sound(channel))
                 } else {
                     withAnimation(.easeInOut(duration: 0.18)) {
                         model.toggleAutoVariation(channel)
@@ -210,7 +246,7 @@ struct SoundRowView: View {
                         Image(systemName: "lock.fill")
                             .font(.system(size: 10, weight: .semibold))
                     } else {
-                        Text(model.copy.mixer.autoShort)
+                        Text(L10n.Mixer.statusAuto)
                             .font(.system(size: 10, weight: .bold, design: .rounded))
                     }
                 }

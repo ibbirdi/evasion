@@ -1,23 +1,17 @@
-import SwiftUI
 import RevenueCat
+import SwiftUI
 
 struct PaywallOverlay: View {
+    let context: PremiumPaywallContext
+
     @Environment(AppModel.self) private var model
-    @Environment(\.openURL) private var openURL
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.openURL) private var openURL
+
     @State private var currentPackage: Package?
     @State private var isPurchasing = false
     @State private var isRestoring = false
-
-    private let accentGradient = LinearGradient(
-        colors: [
-            SoundChannel.pluie.tint.opacity(0.95),
-            BinauralTrack.alpha.tint.opacity(0.85),
-            SoundChannel.oiseaux.tint.opacity(0.95)
-        ],
-        startPoint: .topLeading,
-        endPoint: .bottomTrailing
-    )
+    @State private var loadState: PaywallLoadState = .idle
 
     private let ctaGradient = LinearGradient(
         colors: [
@@ -27,6 +21,10 @@ struct PaywallOverlay: View {
         startPoint: .topLeading,
         endPoint: .bottomTrailing
     )
+
+    private var presentation: PremiumPaywallPresentation {
+        model.paywallPresentation(for: context.entryPoint)
+    }
 
     var body: some View {
         GeometryReader { proxy in
@@ -59,7 +57,7 @@ struct PaywallOverlay: View {
                         Spacer()
 
                         Button {
-                            model.showsPaywall = false
+                            model.dismissPaywall()
                             dismiss()
                         } label: {
                             Image(systemName: "xmark")
@@ -81,15 +79,16 @@ struct PaywallOverlay: View {
                                 }
                         }
                         .buttonStyle(PressScaleButtonStyle())
+                        .accessibilityIdentifier("premium.paywall.close")
                     }
                     .padding(.horizontal, 20)
                     .padding(.top, topInset + 8)
 
                     Spacer(minLength: isCompactHeight ? 12 : 24)
 
-                    VStack(spacing: isCompactHeight ? 14 : 20) {
+                    VStack(spacing: isCompactHeight ? 14 : 18) {
                         GlassSurface(
-                            tint: Color.white.opacity(0.045),
+                            tint: presentation.accentToken.tint.opacity(0.08),
                             cornerRadius: 34,
                             padding: EdgeInsets(
                                 top: isCompactHeight ? 20 : 24,
@@ -99,123 +98,57 @@ struct PaywallOverlay: View {
                             )
                         ) {
                             VStack(spacing: 0) {
-                                Text(model.copy.paywall.title)
-                                    .font(.system(size: isCompactHeight ? 30 : 34, weight: .semibold, design: .rounded))
-                                    .foregroundStyle(.white)
-                                    .multilineTextAlignment(.center)
-                                    .minimumScaleFactor(0.85)
-                                    .padding(.bottom, isCompactHeight ? 12 : 16)
+                                VStack(spacing: 10) {
+                                    HStack(spacing: 8) {
+                                        Text(L10n.Paywall.badgeLifetime)
+                                        Text("•")
+                                        Text(L10n.Paywall.badgeOnePurchase)
+                                    }
+                                    .font(.system(size: 11, weight: .bold, design: .rounded))
+                                    .foregroundStyle(presentation.accentToken.tint.opacity(0.96))
+                                    .tracking(1.1)
 
-                                Text(model.copy.paywall.noSub)
-                                    .font(.system(size: isCompactHeight ? 14 : 15, weight: .medium, design: .rounded))
-                                    .foregroundStyle(.white.opacity(0.60))
-                                    .multilineTextAlignment(.center)
-                                    .padding(.bottom, isCompactHeight ? 20 : 28)
+                                    Image(systemName: presentation.symbolName)
+                                        .font(.system(size: 22, weight: .semibold))
+                                        .foregroundStyle(presentation.accentToken.tint)
 
-                                VStack(alignment: .leading, spacing: isCompactHeight ? 10 : 14) {
-                                    BenefitRow(
-                                        text: model.copy.paywall.benefit1,
-                                        tint: SoundChannel.oiseaux.tint,
-                                        isCompact: isCompactHeight
-                                    )
-                                    BenefitRow(
-                                        text: model.copy.paywall.benefit2,
-                                        tint: SoundChannel.foret.tint,
-                                        isCompact: isCompactHeight
-                                    )
-                                    BenefitRow(
-                                        text: model.copy.paywall.benefit3,
-                                        tint: BinauralTrack.alpha.tint,
-                                        isCompact: isCompactHeight
-                                    )
-                                    BenefitRow(
-                                        text: model.copy.paywall.benefit4,
-                                        tint: SoundChannel.pluie.tint,
-                                        isCompact: isCompactHeight
-                                    )
+                                    Text(presentation.title)
+                                        .font(.system(size: isCompactHeight ? 29 : 33, weight: .semibold, design: .rounded))
+                                        .foregroundStyle(.white)
+                                        .multilineTextAlignment(.center)
+                                        .minimumScaleFactor(0.85)
+
+                                    Text(presentation.subtitle)
+                                        .font(.system(size: isCompactHeight ? 14 : 15, weight: .medium, design: .rounded))
+                                        .foregroundStyle(.white.opacity(0.64))
+                                        .multilineTextAlignment(.center)
+                                        .fixedSize(horizontal: false, vertical: true)
                                 }
                                 .padding(.bottom, isCompactHeight ? 18 : 24)
 
-                                Button {
-                                    Task {
-                                        await purchaseCurrentPackage()
-                                    }
-                                } label: {
-                                    Group {
-                                        if isPurchasing {
-                                            ProgressView()
-                                                .tint(Color(red: 0.06, green: 0.08, blue: 0.12))
-                                        } else {
-                                            Text(model.copy.paywall.cta + (currentPackage?.localizedPriceString ?? "..."))
-                                                .font(.system(size: 18, weight: .bold, design: .rounded))
-                                                .foregroundStyle(Color(red: 0.06, green: 0.08, blue: 0.12))
-                                        }
-                                    }
-                                    .frame(maxWidth: .infinity)
-                                    .padding(.vertical, isCompactHeight ? 16 : 18)
-                                    .background {
-                                        RoundedRectangle(cornerRadius: 26, style: .continuous)
-                                            .fill(ctaGradient)
-                                            .shadow(color: Color(red: 0.97, green: 0.74, blue: 0.32).opacity(0.18), radius: 16, y: 8)
+                                VStack(alignment: .leading, spacing: isCompactHeight ? 10 : 14) {
+                                    ForEach(Array(presentation.benefitRows.enumerated()), id: \.offset) { index, benefit in
+                                        BenefitRow(
+                                            text: benefit,
+                                            tint: benefitTint(for: index),
+                                            isCompact: isCompactHeight
+                                        )
                                     }
                                 }
-                                .buttonStyle(PressScaleButtonStyle())
-                                .disabled(currentPackage == nil || isPurchasing)
+                                .padding(.bottom, isCompactHeight ? 18 : 24)
+
+                                Text(L10n.Paywall.noSubscription)
+                                    .font(.system(size: isCompactHeight ? 13 : 14, weight: .medium, design: .rounded))
+                                    .foregroundStyle(.white.opacity(0.58))
+                                    .multilineTextAlignment(.center)
+                                    .padding(.bottom, isCompactHeight ? 18 : 22)
+
+                                primaryActionButton(isCompactHeight: isCompactHeight)
                             }
                         }
 
-                        HStack(spacing: 12) {
-                            Button {
-                                Task {
-                                    await restorePurchases()
-                                }
-                            } label: {
-                                Text(isRestoring ? "..." : model.copy.paywall.restore)
-                                    .font(.system(size: isCompactHeight ? 12 : 13, weight: .semibold, design: .rounded))
-                                    .foregroundStyle(.white.opacity(0.78))
-                                    .frame(maxWidth: .infinity)
-                                    .padding(.vertical, isCompactHeight ? 13 : 14)
-                                    .background {
-                                        Capsule()
-                                            .fill(Color.white.opacity(0.001))
-                                            .glassEffect(.regular, in: Capsule())
-                                            .overlay {
-                                                Capsule()
-                                                    .fill(Color.white.opacity(0.026))
-                                            }
-                                    }
-                                    .overlay {
-                                        Capsule()
-                                            .strokeBorder(Color.white.opacity(0.10), lineWidth: 1)
-                                    }
-                            }
-                            .buttonStyle(PressScaleButtonStyle())
-
-                            Button {
-                                openURL(AppConfiguration.supportURL)
-                            } label: {
-                                Text(model.copy.paywall.terms)
-                                    .font(.system(size: isCompactHeight ? 12 : 13, weight: .semibold, design: .rounded))
-                                    .foregroundStyle(.white.opacity(0.78))
-                                    .frame(maxWidth: .infinity)
-                                    .padding(.vertical, isCompactHeight ? 13 : 14)
-                                    .background {
-                                        Capsule()
-                                            .fill(Color.white.opacity(0.001))
-                                            .glassEffect(.regular, in: Capsule())
-                                            .overlay {
-                                                Capsule()
-                                                    .fill(Color.white.opacity(0.026))
-                                            }
-                                    }
-                                    .overlay {
-                                        Capsule()
-                                            .strokeBorder(Color.white.opacity(0.10), lineWidth: 1)
-                                    }
-                            }
-                            .buttonStyle(PressScaleButtonStyle())
-                        }
-                        .padding(.horizontal, 6)
+                        footerButtons(isCompactHeight: isCompactHeight)
+                            .padding(.horizontal, 6)
                     }
                     .padding(.horizontal, isCompactHeight ? 22 : 26)
 
@@ -225,30 +158,196 @@ struct PaywallOverlay: View {
             }
         }
         .task {
-            guard currentPackage == nil, AppConfiguration.isRevenueCatConfigured else { return }
-
-            do {
-                let customerInfo = try await Purchases.shared.customerInfo()
-                model.applyRevenueCatCustomerInfo(customerInfo)
-
-                if customerInfo.entitlements.active[AppConfiguration.revenueCatEntitlementID] != nil {
-                    model.showsPaywall = false
-                    dismiss()
-                    return
-                }
-
-                let offerings = try await Purchases.shared.offerings()
-                currentPackage = offerings.current?.availablePackages.first
-            } catch {
-                print("RevenueCat offerings load failed: \(error)")
-            }
+            await loadCurrentPackage()
         }
         .onChange(of: model.isPremium) { _, isPremium in
             guard isPremium else { return }
-            model.showsPaywall = false
+            model.dismissPaywall()
             dismiss()
         }
-        .preferredColorScheme(.dark)
+        .accessibilityElement(children: .contain)
+        .accessibilityIdentifier("premium.paywall.container")
+    }
+
+    @ViewBuilder
+    private func primaryActionButton(isCompactHeight: Bool) -> some View {
+        switch loadState {
+        case .idle, .loading:
+            HStack(spacing: 10) {
+                ProgressView()
+                    .tint(Color(red: 0.06, green: 0.08, blue: 0.12))
+
+                Text(L10n.Paywall.loading)
+                    .font(.system(size: 16, weight: .bold, design: .rounded))
+                    .foregroundStyle(Color(red: 0.06, green: 0.08, blue: 0.12))
+            }
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, isCompactHeight ? 16 : 18)
+            .background {
+                RoundedRectangle(cornerRadius: 26, style: .continuous)
+                    .fill(ctaGradient.opacity(0.82))
+            }
+            .accessibilityIdentifier("premium.paywall.loading")
+
+        case .loaded:
+            Button {
+                Task {
+                    await purchaseCurrentPackage()
+                }
+            } label: {
+                Group {
+                    if isPurchasing {
+                        ProgressView()
+                            .tint(Color(red: 0.06, green: 0.08, blue: 0.12))
+                    } else {
+                        VStack(spacing: 2) {
+                            Text(L10n.Paywall.primaryTitle)
+                                .font(.system(size: 17, weight: .bold, design: .rounded))
+                                .multilineTextAlignment(.center)
+
+                            if let price = currentPackage?.localizedPriceString, !price.isEmpty {
+                                Text(price)
+                                    .font(.system(size: 13, weight: .semibold, design: .rounded))
+                                    .foregroundStyle(Color(red: 0.06, green: 0.08, blue: 0.12).opacity(0.72))
+                            }
+                        }
+                        .foregroundStyle(Color(red: 0.06, green: 0.08, blue: 0.12))
+                    }
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, isCompactHeight ? 16 : 18)
+                .background {
+                    RoundedRectangle(cornerRadius: 26, style: .continuous)
+                        .fill(ctaGradient)
+                        .shadow(color: Color(red: 0.97, green: 0.74, blue: 0.32).opacity(0.18), radius: 16, y: 8)
+                }
+            }
+            .buttonStyle(PressScaleButtonStyle())
+            .disabled(currentPackage == nil || isPurchasing)
+            .accessibilityIdentifier("premium.paywall.primary")
+
+        case .failed, .unavailable:
+            VStack(spacing: 10) {
+                Button {
+                    Task {
+                        await loadCurrentPackage(forceReload: true)
+                    }
+                } label: {
+                    Text(L10n.Paywall.retry)
+                        .font(.system(size: 17, weight: .bold, design: .rounded))
+                        .foregroundStyle(Color(red: 0.06, green: 0.08, blue: 0.12))
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, isCompactHeight ? 16 : 18)
+                        .background {
+                            RoundedRectangle(cornerRadius: 26, style: .continuous)
+                                .fill(ctaGradient)
+                        }
+                }
+                .buttonStyle(PressScaleButtonStyle())
+                .accessibilityIdentifier("premium.paywall.retry")
+
+                Text(L10n.Paywall.unavailable)
+                    .font(.system(size: 12, weight: .medium, design: .rounded))
+                    .foregroundStyle(.white.opacity(0.58))
+                    .multilineTextAlignment(.center)
+            }
+        }
+    }
+
+    @ViewBuilder
+    private func footerButtons(isCompactHeight: Bool) -> some View {
+        HStack(spacing: 12) {
+            Button {
+                Task {
+                    await restorePurchases()
+                }
+            } label: {
+                Text(isRestoring ? L10n.Paywall.restoring : L10n.Paywall.restore)
+                    .font(.system(size: isCompactHeight ? 12 : 13, weight: .semibold, design: .rounded))
+                    .foregroundStyle(.white.opacity(0.78))
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, isCompactHeight ? 13 : 14)
+                    .background {
+                        Capsule()
+                            .fill(Color.white.opacity(0.001))
+                            .glassEffect(.regular, in: Capsule())
+                            .overlay {
+                                Capsule()
+                                    .fill(Color.white.opacity(0.026))
+                            }
+                    }
+                    .overlay {
+                        Capsule()
+                            .strokeBorder(Color.white.opacity(0.10), lineWidth: 1)
+                    }
+            }
+            .buttonStyle(PressScaleButtonStyle())
+            .accessibilityIdentifier("premium.paywall.restore")
+
+            Button {
+                openURL(AppConfiguration.supportURL)
+            } label: {
+                Text(L10n.Paywall.support)
+                    .font(.system(size: isCompactHeight ? 12 : 13, weight: .semibold, design: .rounded))
+                    .foregroundStyle(.white.opacity(0.78))
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, isCompactHeight ? 13 : 14)
+                    .background {
+                        Capsule()
+                            .fill(Color.white.opacity(0.001))
+                            .glassEffect(.regular, in: Capsule())
+                            .overlay {
+                                Capsule()
+                                    .fill(Color.white.opacity(0.026))
+                            }
+                    }
+                    .overlay {
+                        Capsule()
+                            .strokeBorder(Color.white.opacity(0.10), lineWidth: 1)
+                    }
+            }
+            .buttonStyle(PressScaleButtonStyle())
+            .accessibilityIdentifier("premium.paywall.help")
+        }
+    }
+
+    private func benefitTint(for index: Int) -> Color {
+        switch index {
+        case 0:
+            return presentation.accentToken.tint
+        case 1:
+            return SoundChannel.foret.tint
+        case 2:
+            return SoundChannel.pluie.tint
+        default:
+            return BinauralTrack.alpha.tint
+        }
+    }
+
+    private func loadCurrentPackage(forceReload: Bool = false) async {
+        guard forceReload || loadState == .idle else { return }
+
+        loadState = .loading
+        currentPackage = nil
+
+        do {
+            let customerInfo = try await model.currentLifetimePackageCustomerInfo()
+            model.applyRevenueCatCustomerInfo(customerInfo)
+
+            if customerInfo.entitlements.active[AppConfiguration.revenueCatEntitlementID] != nil {
+                model.dismissPaywall()
+                dismiss()
+                return
+            }
+
+            currentPackage = try await model.currentLifetimePackage()
+            loadState = currentPackage == nil ? .unavailable : .loaded
+        } catch PremiumRevenueCatError.missingOffering, PremiumRevenueCatError.missingPackage {
+            loadState = .unavailable
+        } catch {
+            print("RevenueCat offerings load failed: \(error)")
+            loadState = .failed
+        }
     }
 
     private func purchaseCurrentPackage() async {
@@ -258,35 +357,36 @@ struct PaywallOverlay: View {
         defer { isPurchasing = false }
 
         do {
-            let result = try await Purchases.shared.purchase(package: currentPackage)
-            model.applyRevenueCatCustomerInfo(result.customerInfo)
-
+            let result = try await model.purchaseLifetime(package: currentPackage)
             if !result.userCancelled,
                result.customerInfo.entitlements.active[AppConfiguration.revenueCatEntitlementID] != nil {
-                model.showsPaywall = false
+                model.dismissPaywall()
                 dismiss()
             }
         } catch {
             print("RevenueCat purchase failed: \(error)")
+            loadState = .failed
         }
     }
 
     private func restorePurchases() async {
         isRestoring = true
         defer { isRestoring = false }
+        await model.restorePurchases()
 
-        do {
-            let customerInfo = try await Purchases.shared.restorePurchases()
-            model.applyRevenueCatCustomerInfo(customerInfo)
-
-            if customerInfo.entitlements.active[AppConfiguration.revenueCatEntitlementID] != nil {
-                model.showsPaywall = false
-                dismiss()
-            }
-        } catch {
-            print("RevenueCat restore failed: \(error)")
+        if model.isPremium {
+            model.dismissPaywall()
+            dismiss()
         }
     }
+}
+
+private enum PaywallLoadState {
+    case idle
+    case loading
+    case loaded
+    case unavailable
+    case failed
 }
 
 private struct BenefitRow: View {

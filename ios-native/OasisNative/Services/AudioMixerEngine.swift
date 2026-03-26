@@ -43,7 +43,9 @@ final class AudioMixerEngine: @unchecked Sendable {
         channels: .initialChannels,
         isBinauralActive: false,
         activeBinauralTrack: .delta,
-        binauralVolume: 0.5
+        binauralVolume: 0.5,
+        previewUnlockedChannels: [],
+        previewUnlockedTracks: []
     )
     private var liveVariationVolumes: [SoundChannel: Double] = [:]
     private var remoteCommandsConfigured = false
@@ -89,6 +91,9 @@ final class AudioMixerEngine: @unchecked Sendable {
             }
 
             self.refreshPlayerStates()
+            if !snapshot.isPlaying {
+                self.prewarmPausedSnapshot(snapshot)
+            }
             self.updateNowPlayingInfo()
         }
     }
@@ -418,6 +423,30 @@ final class AudioMixerEngine: @unchecked Sendable {
         }
     }
 
+    private func prewarmPausedSnapshot(_ snapshot: MixerSnapshot) {
+        configureAudioSession()
+        let ambientChannelsToPrime = SoundChannel.allCases.filter { channel in
+            guard let state = snapshot.channels[channel], !state.isMuted else { return false }
+            return snapshot.hasAmbientAccess(to: channel)
+        }
+
+        if !ambientChannelsToPrime.isEmpty {
+            configureAmbientEngineIfNeeded()
+            startAmbientEngineIfNeeded()
+        }
+
+        for channel in ambientChannelsToPrime {
+            guard let playback = ambientPlayer(for: channel) else { continue }
+
+            applySpatialMixingConfiguration(for: channel, playback: playback)
+            scheduleAmbientPlaybackIfNeeded(playback)
+        }
+
+        if snapshot.hasBinauralAccess(to: snapshot.activeBinauralTrack) {
+            _ = binauralPlayer(for: snapshot.activeBinauralTrack)
+        }
+    }
+
     private func refreshPlayerVolumes() {
         for channel in SoundChannel.allCases {
             if let player = ambientPlayers[channel] {
@@ -434,7 +463,7 @@ final class AudioMixerEngine: @unchecked Sendable {
 
     private func targetAmbientVolume(for channel: SoundChannel) -> Double {
         guard let state = latestSnapshot.channels[channel], state.isMuted == false else { return 0 }
-        guard latestSnapshot.isPremium || SoundChannel.freeChannels.contains(channel) else { return 0 }
+        guard latestSnapshot.hasAmbientAccess(to: channel) else { return 0 }
 
         let sourceVolume = state.autoVariationEnabled
             ? (liveVariationVolumes[channel] ?? state.volume)
@@ -446,21 +475,21 @@ final class AudioMixerEngine: @unchecked Sendable {
     private func targetBinauralVolume(for track: BinauralTrack) -> Double {
         guard latestSnapshot.isBinauralActive else { return 0 }
         guard latestSnapshot.activeBinauralTrack == track else { return 0 }
-        guard latestSnapshot.isPremium || !track.isPremium else { return 0 }
+        guard latestSnapshot.hasBinauralAccess(to: track) else { return 0 }
         return latestSnapshot.binauralVolume * masterFade
     }
 
     private func shouldPlayAmbient(_ channel: SoundChannel) -> Bool {
         guard latestSnapshot.isPlaying else { return false }
         guard let state = latestSnapshot.channels[channel] else { return false }
-        return !state.isMuted && (latestSnapshot.isPremium || SoundChannel.freeChannels.contains(channel))
+        return !state.isMuted && latestSnapshot.hasAmbientAccess(to: channel)
     }
 
     private func shouldPlayBinaural(_ track: BinauralTrack) -> Bool {
         latestSnapshot.isPlaying
             && latestSnapshot.isBinauralActive
             && latestSnapshot.activeBinauralTrack == track
-            && (latestSnapshot.isPremium || !track.isPremium)
+            && latestSnapshot.hasBinauralAccess(to: track)
     }
 
     private func synchronizeVariationTasks(for snapshot: MixerSnapshot) {
@@ -469,7 +498,7 @@ final class AudioMixerEngine: @unchecked Sendable {
             let shouldVary = snapshot.isPlaying
                 && !state.isMuted
                 && state.autoVariationEnabled
-                && (snapshot.isPremium || SoundChannel.freeChannels.contains(channel))
+                && snapshot.hasAmbientAccess(to: channel)
 
             if shouldVary {
                 if variationTasks[channel] == nil {
@@ -591,8 +620,8 @@ final class AudioMixerEngine: @unchecked Sendable {
 
         DispatchQueue.main.async {
             MPNowPlayingInfoCenter.default().nowPlayingInfo = [
-                MPMediaItemPropertyTitle: "Oasis",
-                MPMediaItemPropertyArtist: "Binaural Nature",
+                MPMediaItemPropertyTitle: L10n.string(L10n.App.title),
+                MPMediaItemPropertyArtist: L10n.string(L10n.App.nowPlayingArtist),
                 MPNowPlayingInfoPropertyPlaybackRate: playbackRate
             ]
         }
