@@ -1,3903 +1,3863 @@
 {
-  "sourceLanguage": "en",
-  "strings": {
-    "": {},
-    "•": {},
-    "app.title": {
-      "comment": "App title and fallback brand label when the logo image is unavailable.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Oasis"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Oasis"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Oasis"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Oasis"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Oasis"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Oasis"
-          }
-        }
-      }
+  "sourceLanguage" : "en",
+  "strings" : {
+    "" : {
+
     },
-    "audio.nowPlaying.artist": {
-      "comment": "Artist line shown in iOS Now Playing for the app audio session.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Natürliche Klangwelten"
+    "app.title" : {
+      "comment" : "App title and fallback brand label when the logo image is unavailable.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oasis"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nature soundscapes"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oasis"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ambientes naturales"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oasis"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ambiances naturelles"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oasis"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ambienti naturali"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oasis"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ambientes naturais"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oasis"
           }
         }
       }
     },
-    "binaural.alpha.frequency": {
-      "comment": "Short descriptive label for the alpha binaural mode.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Entspannung • 10 Hz"
+    "audio.nowPlaying.artist" : {
+      "comment" : "Artist line shown in iOS Now Playing for the app audio session.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Natürliche Klangwelten"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Relaxation • 10 Hz"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nature soundscapes"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Relajación • 10 Hz"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ambientes naturales"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Détente • 10 Hz"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ambiances naturelles"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Rilassamento • 10 Hz"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ambienti naturali"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Relaxamento • 10 Hz"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ambientes naturais"
           }
         }
       }
     },
-    "binaural.alpha.title": {
-      "comment": "Name of the alpha binaural mode.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Alpha"
+    "binaural.alpha.frequency" : {
+      "comment" : "Short descriptive label for the alpha binaural mode.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entspannung • 10 Hz"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Alpha"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Relaxation • 10 Hz"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Alpha"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Relajación • 10 Hz"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Alpha"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Détente • 10 Hz"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Alpha"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rilassamento • 10 Hz"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Alpha"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Relaxamento • 10 Hz"
           }
         }
       }
     },
-    "binaural.beta.frequency": {
-      "comment": "Short descriptive label for the beta binaural mode.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Fokus • 18 Hz"
+    "binaural.alpha.title" : {
+      "comment" : "Name of the alpha binaural mode.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alpha"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Focus • 18 Hz"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alpha"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Concentración • 18 Hz"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alpha"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Concentration • 18 Hz"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alpha"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Concentrazione • 18 Hz"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alpha"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Foco • 18 Hz"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alpha"
           }
         }
       }
     },
-    "binaural.beta.title": {
-      "comment": "Name of the beta binaural mode.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Beta"
+    "binaural.beta.frequency" : {
+      "comment" : "Short descriptive label for the beta binaural mode.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fokus • 18 Hz"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Beta"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Focus • 18 Hz"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Beta"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Concentración • 18 Hz"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Beta"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Concentration • 18 Hz"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Beta"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Concentrazione • 18 Hz"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Beta"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Foco • 18 Hz"
           }
         }
       }
     },
-    "binaural.delta.frequency": {
-      "comment": "Short descriptive label for the delta binaural mode.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tiefschlaf • 4 Hz"
+    "binaural.beta.title" : {
+      "comment" : "Name of the beta binaural mode.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beta"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Deep sleep • 4 Hz"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beta"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sueño profundo • 4 Hz"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beta"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sommeil profond • 4 Hz"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beta"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sonno profondo • 4 Hz"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beta"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sono profundo • 4 Hz"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beta"
           }
         }
       }
     },
-    "binaural.delta.title": {
-      "comment": "Name of the free delta binaural mode.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Delta"
+    "binaural.delta.frequency" : {
+      "comment" : "Short descriptive label for the delta binaural mode.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tiefschlaf • 4 Hz"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Delta"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deep sleep • 4 Hz"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Delta"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sueño profundo • 4 Hz"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Delta"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sommeil profond • 4 Hz"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Delta"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sonno profondo • 4 Hz"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Delta"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sono profundo • 4 Hz"
           }
         }
       }
     },
-    "binaural.headphones": {
-      "comment": "Helper line in the binaural panel encouraging headphone use.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mit Kopfhörern wirkt es am besten."
+    "binaural.delta.title" : {
+      "comment" : "Name of the free delta binaural mode.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delta"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Headphones are recommended for the best effect."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delta"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Se recomiendan auriculares para un mejor efecto."
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delta"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Casque recommandé pour un meilleur effet."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delta"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Per un effetto migliore usa le cuffie."
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delta"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Fones de ouvido são recomendados para o melhor efeito."
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delta"
           }
         }
       }
     },
-    "binaural.theta.frequency": {
-      "comment": "Short descriptive label for the theta binaural mode.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Meditation • 6 Hz"
+    "binaural.headphones" : {
+      "comment" : "Helper line in the binaural panel encouraging headphone use.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mit Kopfhörern wirkt es am besten."
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Meditation • 6 Hz"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Headphones are recommended for the best effect."
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Meditación • 6 Hz"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se recomiendan auriculares para un mejor efecto."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Méditation • 6 Hz"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Casque recommandé pour un meilleur effet."
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Meditazione • 6 Hz"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Per un effetto migliore usa le cuffie."
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Meditação • 6 Hz"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fones de ouvido são recomendados para o melhor efeito."
           }
         }
       }
     },
-    "binaural.theta.title": {
-      "comment": "Name of the theta binaural mode.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Theta"
+    "binaural.theta.frequency" : {
+      "comment" : "Short descriptive label for the theta binaural mode.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Meditation • 6 Hz"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Theta"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Meditation • 6 Hz"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Theta"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Meditación • 6 Hz"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Theta"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Méditation • 6 Hz"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Theta"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Meditazione • 6 Hz"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Theta"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Meditação • 6 Hz"
           }
         }
       }
     },
-    "binaural.title": {
-      "comment": "Title of the binaural panel.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Binaurale Modi"
+    "binaural.theta.title" : {
+      "comment" : "Name of the theta binaural mode.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Theta"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Binaural modes"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Theta"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Modos binaurales"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Theta"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Modes binauraux"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Theta"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Modi binaurali"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Theta"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Modos binaurais"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Theta"
           }
         }
       }
     },
-    "channel.birds": {
-      "comment": "Ambient sound channel name.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vögel"
+    "binaural.title" : {
+      "comment" : "Title of the binaural panel.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Binaurale Modi"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Birds"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Binaural modes"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pájaros"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Modos binaurales"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Oiseaux"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Modes binauraux"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Uccelli"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Modi binaurali"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pássaros"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Modos binaurais"
           }
         }
       }
     },
-    "channel.carRide": {
-      "comment": "Ambient sound channel name.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Autofahrt"
+    "channel.birds" : {
+      "comment" : "Ambient sound channel name.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vögel"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Car ride"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Birds"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Coche"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pájaros"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Voiture"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oiseaux"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Auto"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uccelli"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Passeio de carro"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pássaros"
           }
         }
       }
     },
-    "channel.cicadas": {
-      "comment": "Ambient sound channel name.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Zikaden"
+    "channel.carRide" : {
+      "comment" : "Ambient sound channel name.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Autofahrt"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cicadas"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Car ride"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cigarras"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Coche"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cigales"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Voiture"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cicale"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Auto"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cigarras"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passeio de carro"
           }
         }
       }
     },
-    "channel.crickets": {
-      "comment": "Ambient sound channel name.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Grillen"
+    "channel.cicadas" : {
+      "comment" : "Ambient sound channel name.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zikaden"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Crickets"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cicadas"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Grillos"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cigarras"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Grillons"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cigales"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Grilli"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cicale"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Grilos"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cigarras"
           }
         }
       }
     },
-    "channel.forest": {
-      "comment": "Ambient sound channel name.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Wald"
+    "channel.crickets" : {
+      "comment" : "Ambient sound channel name.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grillen"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Forest"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crickets"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bosque"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grillos"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Forêt"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grillons"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bosco"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grilli"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Floresta"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grilos"
           }
         }
       }
     },
-    "channel.rain": {
-      "comment": "Ambient sound channel name.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Regen"
+    "channel.forest" : {
+      "comment" : "Ambient sound channel name.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wald"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Rain"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Forest"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Lluvia"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bosque"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pluie"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Forêt"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pioggia"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bosco"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Chuva"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Floresta"
           }
         }
       }
     },
-    "channel.river": {
-      "comment": "Ambient sound channel name.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Fluss"
+    "channel.rain" : {
+      "comment" : "Ambient sound channel name.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Regen"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "River"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rain"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Río"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lluvia"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Rivière"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pluie"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Fiume"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pioggia"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Rio"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chuva"
           }
         }
       }
     },
-    "channel.seagulls": {
-      "comment": "Ambient sound channel name.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Möwen"
+    "channel.river" : {
+      "comment" : "Ambient sound channel name.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fluss"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Seagulls"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "River"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gaviotas"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Río"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Goélands"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rivière"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gabbiani"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fiume"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gaivotas"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rio"
           }
         }
       }
     },
-    "channel.shore": {
-      "comment": "Ambient sound channel name.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ufer"
+    "channel.seagulls" : {
+      "comment" : "Ambient sound channel name.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Möwen"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Shore"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seagulls"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Orilla"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gaviotas"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Plage"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Goélands"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Spiaggia"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gabbiani"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Praia"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gaivotas"
           }
         }
       }
     },
-    "channel.tent": {
-      "comment": "Ambient sound channel name.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Zelt"
+    "channel.shore" : {
+      "comment" : "Ambient sound channel name.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ufer"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tent"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shore"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tienda"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Orilla"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tente"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plage"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tenda"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spiaggia"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Barraca"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Praia"
           }
         }
       }
     },
-    "channel.thunder": {
-      "comment": "Ambient sound channel name.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Donner"
+    "channel.tent" : {
+      "comment" : "Ambient sound channel name.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zelt"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Thunder"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tent"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Trueno"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tienda"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tonnerre"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tente"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tuono"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tenda"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Trovão"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Barraca"
           }
         }
       }
     },
-    "channel.train": {
-      "comment": "Ambient sound channel name.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Zug"
+    "channel.thunder" : {
+      "comment" : "Ambient sound channel name.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Donner"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Train"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thunder"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tren"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trueno"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Train"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tonnerre"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Treno"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tuono"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Trem"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trovão"
           }
         }
       }
     },
-    "channel.village": {
-      "comment": "Ambient sound channel name.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Dorf"
+    "channel.train" : {
+      "comment" : "Ambient sound channel name.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zug"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Village"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Train"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pueblo"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tren"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Village"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Train"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Villaggio"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Treno"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vila"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trem"
           }
         }
       }
     },
-    "channel.wind": {
-      "comment": "Ambient sound channel name.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Wind"
+    "channel.village" : {
+      "comment" : "Ambient sound channel name.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dorf"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Wind"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Village"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Viento"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pueblo"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vent"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Village"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vento"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Villaggio"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vento"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vila"
           }
         }
       }
     },
-    "header.off": {
-      "comment": "Menu action that disables the timer.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Aus"
+    "channel.wind" : {
+      "comment" : "Ambient sound channel name.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wind"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Off"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wind"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sin temporizador"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Viento"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sans minuteur"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vent"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Disattivato"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vento"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Desligado"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vento"
           }
         }
       }
     },
-    "header.timer": {
-      "comment": "Short label for the timer control in the home header.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Timer"
+    "header.off" : {
+      "comment" : "Menu action that disables the timer.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aus"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Timer"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Off"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Temporizador"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sin temporizador"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Minuteur"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sans minuteur"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Timer"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Disattivato"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Temporizador"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desligado"
           }
         }
       }
     },
-    "mixer.status.auto": {
-      "comment": "Small uppercase status label shown when automatic variation is enabled.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "AUTO"
+    "header.timer" : {
+      "comment" : "Short label for the timer control in the home header.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Timer"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "AUTO"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Timer"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "AUTO"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Temporizador"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "AUTO"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Minuteur"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "AUTO"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Timer"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "AUTO"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Temporizador"
           }
         }
       }
     },
-    "mixer.status.muted": {
-      "comment": "Small uppercase status label shown on muted sound rows.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "STUMM"
+    "mixer.status.auto" : {
+      "comment" : "Small uppercase status label shown when automatic variation is enabled.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AUTO"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "MUTED"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AUTO"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "SILENCIADO"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AUTO"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "COUPÉ"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AUTO"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "MUTO"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AUTO"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "MUDO"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AUTO"
           }
         }
       }
     },
-    "mixer.status.premium": {
-      "comment": "Small uppercase status label shown on locked premium rows.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "PREMIUM"
+    "mixer.status.muted" : {
+      "comment" : "Small uppercase status label shown on muted sound rows.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "STUMM"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "PREMIUM"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "MUTED"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "PREMIUM"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SILENCIADO"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "PREMIUM"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "COUPÉ"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "PREMIUM"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "MUTO"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "PREMIUM"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "MUDO"
           }
         }
       }
     },
-    "paywall.badge.lifetime": {
-      "comment": "Small uppercase badge at the top of the paywall emphasizing lifetime access.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "LEBENSLANG"
+    "mixer.status.premium" : {
+      "comment" : "Small uppercase status label shown on locked premium rows.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PREMIUM"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "LIFETIME"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PREMIUM"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "DE POR VIDA"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PREMIUM"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "À VIE"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PREMIUM"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "A VITA"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PREMIUM"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "VITALÍCIO"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PREMIUM"
           }
         }
       }
     },
-    "paywall.badge.onePurchase": {
-      "comment": "Small uppercase badge at the top of the paywall emphasizing a single payment.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "EIN KAUF"
+    "paywall.benefit.binaural" : {
+      "comment" : "Premium benefit row about the binaural modes.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delta, Theta, Alpha und Beta"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ONE PURCHASE"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delta, Theta, Alpha and Beta"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "UN SOLO PAGO"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delta, Theta, Alpha y Beta"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "UN SEUL ACHAT"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delta, Theta, Alpha et Beta"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "UN SOLO ACQUISTO"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delta, Theta, Alpha e Beta"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "UM PAGAMENTO"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delta, Theta, Alpha e Beta"
           }
         }
       }
     },
-    "paywall.benefit.binaural": {
-      "comment": "Premium benefit row about the binaural modes.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Delta, Theta, Alpha und Beta"
+    "paywall.benefit.presets" : {
+      "comment" : "Premium benefit row about saved mixes.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mischungen speichern"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Delta, Theta, Alpha and Beta"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save your mixes"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Delta, Theta, Alpha y Beta"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Guardar tus mezclas"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Delta, Theta, Alpha et Beta"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enregistrer vos ambiances"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Delta, Theta, Alpha e Beta"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salvare i tuoi mix"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Delta, Theta, Alpha e Beta"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salvar suas misturas"
           }
         }
       }
     },
-    "paywall.benefit.presets": {
-      "comment": "Premium benefit row about saved mixes.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mischungen speichern"
+    "paywall.benefit.sounds" : {
+      "comment" : "First premium benefit row about the extra ambient library.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "11 zusätzliche echte HD-Aufnahmen: Regen, Wald, Donner, Fluss..."
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Save your mixes"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "11 extra real HD recordings: rain, forest, thunder, river..."
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Guardar tus mezclas"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "11 sonidos reales más, grabados en alta definición: lluvia, bosque, tormenta, río..."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Enregistrer vos ambiances"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "11 sons réels supplémentaires, captés en haute définition : pluie, forêt, tonnerre, rivière..."
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Salvare i tuoi mix"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "11 suoni reali in più, registrati in alta definizione: pioggia, foresta, tuono, fiume..."
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Salvar suas misturas"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mais 11 sons reais, gravados em alta definição: chuva, floresta, trovoada, rio..."
           }
         }
       }
     },
-    "paywall.benefit.sounds": {
-      "comment": "First premium benefit row about the extra ambient library.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "11 weitere Klänge"
+    "paywall.benefit.timer" : {
+      "comment" : "Premium benefit row about the timer.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Timer von 15 Min. bis 2 Std."
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "11 extra sounds"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Timer from 15 min to 2 hr"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "11 sonidos más"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Temporizador de 15 min a 2 h"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "11 sons en plus"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Minuteur de 15 min à 2 h"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "11 suoni in più"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Timer da 15 min a 2 h"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mais 11 sons"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Temporizador de 15 min a 2 h"
           }
         }
       }
     },
-    "paywall.benefit.timer": {
-      "comment": "Premium benefit row about the timer.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Timer von 15 Min. bis 2 Std."
+    "paywall.benefit.updates" : {
+      "comment" : "Premium benefit row clarifying that future app updates are included without extra charge.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Künftige Updates ohne Zusatzkosten"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Timer from 15 min to 2 hr"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Future updates at no extra cost"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Temporizador de 15 min a 2 h"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Actualizaciones futuras sin coste adicional"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Minuteur de 15 min à 2 h"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mises à jour futures sans frais supplémentaires"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Timer da 15 min a 2 h"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aggiornamenti futuri senza costi aggiuntivi"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Temporizador de 15 min a 2 h"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atualizações futuras sem custo extra"
           }
         }
       }
     },
-    "paywall.cta.title": {
-      "comment": "Main paywall call to action above the localized price.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Lebenslangen Zugriff erhalten"
+    "paywall.cta.title" : {
+      "comment" : "Main paywall call to action above the localized price.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lebenslangen Zugriff erhalten"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Get lifetime access"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Get lifetime access"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Obtener acceso de por vida"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obtener acceso de por vida"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Obtenir l'accès à vie"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obtenir l'accès à vie"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ottieni l'accesso a vita"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ottieni l'accesso a vita"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Obter acesso vitalício"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obter acesso vitalício"
           }
         }
       }
     },
-    "paywall.footer.restore": {
-      "comment": "Paywall footer button that restores previous purchases.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Wiederherstellen"
+    "paywall.footer.restore" : {
+      "comment" : "Paywall footer button that restores previous purchases.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wiederherstellen"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Restore"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restore"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Restaurar"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restaurar"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Restaurer"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restaurer"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ripristina"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ripristina"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Restaurar"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restaurar"
           }
         }
       }
     },
-    "paywall.footer.restoring": {
-      "comment": "Temporary paywall footer label shown while purchases are being restored.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Wird wiederhergestellt..."
+    "paywall.footer.restoring" : {
+      "comment" : "Temporary paywall footer label shown while purchases are being restored.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wird wiederhergestellt..."
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Restoring..."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restoring..."
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Restaurando..."
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restaurando..."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Restauration..."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restauration..."
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ripristino..."
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ripristino..."
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Restaurando..."
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restaurando..."
           }
         }
       }
     },
-    "paywall.footer.support": {
-      "comment": "Paywall footer button that opens the support URL.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Hilfe"
+    "paywall.footer.support" : {
+      "comment" : "Paywall footer button that opens the support URL.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hilfe"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Support"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Support"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ayuda"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ayuda"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Aide"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aide"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Aiuto"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aiuto"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ajuda"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajuda"
           }
         }
       }
     },
-    "paywall.state.loading": {
-      "comment": "Paywall loading state while RevenueCat offerings are fetched.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Preis wird geladen..."
+    "paywall.state.loading" : {
+      "comment" : "Paywall loading state while RevenueCat offerings are fetched.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preis wird geladen..."
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Loading price..."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Loading price..."
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cargando precio..."
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cargando precio..."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Chargement du prix..."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chargement du prix..."
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Caricamento del prezzo..."
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Caricamento del prezzo..."
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Carregando preço..."
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Carregando preço..."
           }
         }
       }
     },
-    "paywall.state.retry": {
-      "comment": "Retry button shown when the paywall fails to load.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Erneut versuchen"
+    "paywall.state.retry" : {
+      "comment" : "Retry button shown when the paywall fails to load.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erneut versuchen"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Try again"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Try again"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Reintentar"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reintentar"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Réessayer"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Réessayer"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Riprova"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Riprova"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tentar novamente"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tentar novamente"
           }
         }
       }
     },
-    "paywall.state.unavailable": {
-      "comment": "Error message shown when the paywall has no available product.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kauf ist vorübergehend nicht verfügbar."
+    "paywall.state.unavailable" : {
+      "comment" : "Error message shown when the paywall has no available product.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kauf ist vorübergehend nicht verfügbar."
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Purchase is temporarily unavailable."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchase is temporarily unavailable."
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "La compra no está disponible en este momento."
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La compra no está disponible en este momento."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Achat momentanément indisponible."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Achat momentanément indisponible."
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "L'acquisto è momentaneamente non disponibile."
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L'acquisto è momentaneamente non disponibile."
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "A compra está temporariamente indisponível."
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A compra está temporariamente indisponível."
           }
         }
       }
     },
-    "paywall.subtitle.binaural": {
-      "comment": "Paywall subtitle when the user wants locked binaural modes.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Theta, Alpha und Beta für Meditation, Entspannung und Fokus."
+    "paywall.subtitle.binaural" : {
+      "comment" : "Paywall subtitle when the user wants locked binaural modes.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Theta, Alpha und Beta für Meditation, Entspannung und Fokus."
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Theta, Alpha and Beta for meditation, relaxation and focus."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Theta, Alpha and Beta for meditation, relaxation and focus."
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Theta, Alpha y Beta para meditación, relajación y concentración."
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Theta, Alpha y Beta para meditación, relajación y concentración."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Theta, Alpha et Beta pour la méditation, la détente et la concentration."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Theta, Alpha et Beta pour la méditation, la détente et la concentration."
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Theta, Alpha e Beta per meditazione, rilassamento e concentrazione."
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Theta, Alpha e Beta per meditazione, rilassamento e concentrazione."
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Theta, Alpha e Beta para meditação, relaxamento e foco."
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Theta, Alpha e Beta para meditação, relaxamento e foco."
           }
         }
       }
     },
-    "paywall.subtitle.generic": {
-      "comment": "Generic paywall subtitle summarizing the full premium offer.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mehr Klänge, gespeicherte Mischungen, Timer und alle binauralen Modi."
+    "paywall.subtitle.generic" : {
+      "comment" : "Generic paywall subtitle summarizing the full premium offer.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mehr Klänge, gespeicherte Mischungen und alle binauralen Modi."
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "More sounds, saved mixes, the timer and all binaural modes."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "More sounds, saved mixes and all binaural modes."
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Más sonidos, tus mezclas guardadas, el temporizador y todos los modos binaurales."
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Más sonidos, tus mezclas guardadas y todos los modos binaurales."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Plus de sons, vos ambiances enregistrées, le minuteur et tous les modes binauraux."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plus de sons, vos ambiances enregistrées et tous les modes binauraux."
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Più suoni, mix salvati, timer e tutti i modi binaurali."
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Più suoni, mix salvati e tutti i modi binaurali."
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mais sons, misturas salvas, temporizador e todos os modos binaurais."
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mais sons, misturas salvas e todos os modos binaurais."
           }
         }
       }
     },
-    "paywall.subtitle.presets": {
-      "comment": "Paywall subtitle when the user wants to save or reload mixes.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Finde deine Lieblingsmischungen mit einem Tippen wieder."
+    "paywall.subtitle.presets" : {
+      "comment" : "Paywall subtitle when the user wants to save or reload mixes.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Finde deine Lieblingsmischungen mit einem Tippen wieder."
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Find your favorite mixes again in one tap."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Find your favorite mixes again in one tap."
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Recupera tus mezclas favoritas con un toque."
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recupera tus mezclas favoritas con un toque."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Retrouvez vos ambiances préférées en un geste."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Retrouvez vos ambiances préférées en un geste."
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ritrova i tuoi mix preferiti con un tocco."
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ritrova i tuoi mix preferiti con un tocco."
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Encontre suas misturas favoritas com um toque."
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Encontre suas misturas favoritas com um toque."
           }
         }
       }
     },
-    "paywall.subtitle.preview": {
-      "comment": "Paywall subtitle shown after the featured ambience preview has finished.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mit vollem Zugriff kannst du jederzeit zu dieser Mischung zurückkehren."
+    "paywall.subtitle.preview" : {
+      "comment" : "Paywall subtitle shown after the featured ambience preview has finished.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mit vollem Zugriff kannst du jederzeit zu dieser Mischung zurückkehren."
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Come back to this ambience anytime with full access."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Come back to this ambience anytime with full access."
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vuelve a este ambiente cuando quieras con el acceso completo."
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vuelve a este ambiente cuando quieras con el acceso completo."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Retrouvez cette ambiance quand vous voulez avec l'accès complet."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Retrouvez cette ambiance quand vous voulez avec l'accès complet."
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Torna a questa atmosfera quando vuoi con l'accesso completo."
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Torna a questa atmosfera quando vuoi con l'accesso completo."
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Volte a esta ambiência quando quiser com o acesso completo."
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Volte a esta ambiência quando quiser com o acesso completo."
           }
         }
       }
     },
-    "paywall.subtitle.sounds": {
-      "comment": "Paywall subtitle when the user wants more ambient sounds.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Regen, Wald, Donner, Fluss und 7 weitere Klänge."
+    "paywall.subtitle.sounds" : {
+      "comment" : "Paywall subtitle when the user wants more ambient sounds.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Regen, Wald, Donner, Fluss und 7 weitere Klänge."
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Rain, forest, thunder, river and 7 other sounds."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rain, forest, thunder, river and 7 other sounds."
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Lluvia, bosque, trueno, río y 7 sonidos más."
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lluvia, bosque, trueno, río y 7 sonidos más."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "La pluie, la forêt, le tonnerre, la rivière et 7 autres sons."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La pluie, la forêt, le tonnerre, la rivière et 7 autres sons."
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pioggia, foresta, tuono, fiume e altri 7 suoni."
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pioggia, foresta, tuono, fiume e altri 7 suoni."
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Chuva, floresta, trovão, rio e mais 7 sons."
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chuva, floresta, trovão, rio e mais 7 sons."
           }
         }
       }
     },
-    "paywall.subtitle.timer": {
-      "comment": "Paywall subtitle when the user wants to use the timer.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Automatisches Stoppen von 15 Min. bis 2 Std."
+    "paywall.subtitle.timer" : {
+      "comment" : "Paywall subtitle when the user wants to use the timer.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Automatisches Stoppen von 15 Min. bis 2 Std."
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Automatic stop from 15 min to 2 hr."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Automatic stop from 15 min to 2 hr."
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Parada automática de 15 min a 2 h."
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Parada automática de 15 min a 2 h."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Arrêt automatique de 15 min à 2 h."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arrêt automatique de 15 min à 2 h."
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Arresto automatico da 15 min a 2 h."
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arresto automatico da 15 min a 2 h."
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Parada automática de 15 min a 2 h."
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Parada automática de 15 min a 2 h."
           }
         }
       }
     },
-    "paywall.title.binaural": {
-      "comment": "Paywall title when the user taps a locked binaural mode.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Alle binauralen Modi"
+    "paywall.title.binaural" : {
+      "comment" : "Paywall title when the user taps a locked binaural mode.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alle binauralen Modi"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "All binaural modes"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All binaural modes"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Todos los modos binaurales"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Todos los modos binaurales"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tous les modes binauraux"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tous les modes binauraux"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tutti i modi binaurali"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tutti i modi binaurali"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Todos os modos binaurais"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Todos os modos binaurais"
           }
         }
       }
     },
-    "paywall.title.generic": {
-      "comment": "Generic paywall title when no specific premium entry point needs to be highlighted.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Voller Zugriff"
+    "paywall.title.generic" : {
+      "comment" : "Generic paywall title when no specific premium entry point needs to be highlighted.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Voller Zugriff"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Full access"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Full access"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Acceso completo"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Acceso completo"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Accès complet"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Accès complet"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Accesso completo"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Accesso completo"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Acesso completo"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Acesso completo"
           }
         }
       }
     },
-    "paywall.title.presets": {
-      "comment": "Paywall title when the user wants premium preset features.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gespeicherte Mischungen"
+    "paywall.title.presets" : {
+      "comment" : "Paywall title when the user wants premium preset features.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gespeicherte Mischungen"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Saved mixes"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saved mixes"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mezclas guardadas"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mezclas guardadas"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ambiances enregistrées"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ambiances enregistrées"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mix salvati"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mix salvati"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Misturas salvas"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Misturas salvas"
           }
         }
       }
     },
-    "paywall.title.preview": {
-      "comment": "Paywall title shown after the featured ambience preview has ended.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Noch einmal anhören"
+    "paywall.title.preview" : {
+      "comment" : "Paywall title shown after the featured ambience preview has ended.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Noch einmal anhören"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Listen again"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Listen again"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Escuchar de nuevo"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Escuchar de nuevo"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Réécouter"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Réécouter"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ascolta di nuovo"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ascolta di nuovo"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ouvir de novo"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ouvir de novo"
           }
         }
       }
     },
-    "paywall.title.sounds": {
-      "comment": "Paywall title when triggered from a locked sound or spatial control.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mehr Klänge"
+    "paywall.title.sounds" : {
+      "comment" : "Paywall title when triggered from a locked sound or spatial control.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mehr Klänge"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "More sounds"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "More sounds"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Más sonidos"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Más sonidos"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Plus de sons"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plus de sons"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Più suoni"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Più suoni"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mais sons"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mais sons"
           }
         }
       }
     },
-    "paywall.title.timer": {
-      "comment": "Paywall title when the user wants the premium timer.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Timer"
+    "paywall.title.timer" : {
+      "comment" : "Paywall title when the user wants the premium timer.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Timer"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Timer"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Timer"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Temporizador"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Temporizador"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Minuteur"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Minuteur"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Timer"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Timer"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Temporizador"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Temporizador"
           }
         }
       }
     },
-    "paywall.trust.noSubscription": {
-      "comment": "Trust line below the paywall benefits clarifying that premium is a one-time purchase.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ein Kauf. Lebenslanger Zugriff. Kein Abo."
+    "paywall.trust.noSubscription" : {
+      "comment" : "Trust line below the paywall benefits clarifying that premium is a one-time purchase.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ein Kauf. Lebenslanger Zugriff. Kein Abo."
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "One purchase. Lifetime access. No subscription."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "One purchase. Lifetime access. No subscription."
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Un solo pago. Acceso de por vida. Sin suscripción."
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un solo pago. Acceso de por vida. Sin suscripción."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Un seul achat. Accès à vie. Sans abonnement."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un seul achat. Accès à vie. Sans abonnement."
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Un solo acquisto. Accesso a vita. Nessun abbonamento."
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un solo acquisto. Accesso a vita. Nessun abbonamento."
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Um único pagamento. Acesso vitalício. Sem assinatura."
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Um único pagamento. Acesso vitalício. Sem assinatura."
           }
         }
       }
     },
-    "premium.banner.cta": {
-      "comment": "Call to action in the premium home banner.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mehr erfahren"
+    "premium.banner.cta" : {
+      "comment" : "Call to action in the premium home banner.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mehr erfahren"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Learn more"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Learn more"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Más información"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Más información"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "En savoir plus"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "En savoir plus"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Scopri di più"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scopri di più"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Saiba mais"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saiba mais"
           }
         }
       }
     },
-    "premium.banner.subtitle": {
-      "comment": "Short explanatory line in the premium home banner.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mehr Klänge, gespeicherte Mischungen und der Timer."
+    "premium.banner.subtitle" : {
+      "comment" : "Short explanatory line in the premium home banner.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mehr Klänge, gespeicherte Mischungen und mehr binaurale Modi."
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "More sounds, saved mixes and the timer."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "More sounds, saved mixes and more binaural modes."
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Más sonidos, mezclas guardadas y el temporizador."
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Más sonidos, mezclas guardadas y más modos binaurales."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Plus de sons, vos ambiances enregistrées et le minuteur."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plus de sons, vos ambiances enregistrées et plus de modes binauraux."
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Più suoni, mix salvati e timer."
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Più suoni, mix salvati e più modi binaurali."
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mais sons, misturas salvas e o temporizador."
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mais sons, misturas salvas e mais modos binaurais."
           }
         }
       }
     },
-    "premium.banner.title": {
-      "comment": "Title of the subtle premium banner shown on the home screen.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mehr zu entdecken"
+    "premium.banner.title" : {
+      "comment" : "Title of the subtle premium banner shown on the home screen.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mehr zu entdecken"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "More to discover"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "More to discover"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Más por descubrir"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Más por descubrir"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Plus à découvrir"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plus à découvrir"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Altro da scoprire"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Altro da scoprire"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mais para descobrir"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mais para descobrir"
           }
         }
       }
     },
-    "premium.inline.binaural.subtitle": {
-      "comment": "Inline upsell message shown when the user taps a locked binaural mode.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Theta, Alpha und Beta für Meditation, Entspannung und Fokus."
+    "premium.inline.binaural.subtitle" : {
+      "comment" : "Inline upsell message shown when the user taps a locked binaural mode.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Theta, Alpha und Beta für Meditation, Entspannung und Fokus."
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Theta, Alpha and Beta for meditation, relaxation and focus."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Theta, Alpha and Beta for meditation, relaxation and focus."
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Theta, Alpha y Beta para meditación, relajación y concentración."
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Theta, Alpha y Beta para meditación, relajación y concentración."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Theta, Alpha et Beta pour la méditation, la détente et la concentration."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Theta, Alpha et Beta pour la méditation, la détente et la concentration."
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Theta, Alpha e Beta per meditazione, rilassamento e concentrazione."
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Theta, Alpha e Beta per meditazione, rilassamento e concentrazione."
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Theta, Alpha e Beta para meditação, relaxamento e foco."
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Theta, Alpha e Beta para meditação, relaxamento e foco."
           }
         }
       }
     },
-    "premium.inline.binaural.title": {
-      "comment": "Inline upsell title shown in the binaural panel.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Alle binauralen Modi"
+    "premium.inline.binaural.title" : {
+      "comment" : "Inline upsell title shown in the binaural panel.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alle binauralen Modi"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "All binaural modes"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All binaural modes"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Todos los modos binaurales"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Todos los modos binaurales"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tous les modes binauraux"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tous les modes binauraux"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tutti i modi binaurali"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tutti i modi binaurali"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Todos os modos binaurais"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Todos os modos binaurais"
           }
         }
       }
     },
-    "premium.inline.notNow": {
-      "comment": "Dismissive secondary action on inline premium cards.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Jetzt nicht"
+    "premium.inline.notNow" : {
+      "comment" : "Dismissive secondary action on inline premium cards.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jetzt nicht"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Not now"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not now"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ahora no"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ahora no"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Plus tard"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plus tard"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ora no"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ora no"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Agora não"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agora não"
           }
         }
       }
     },
-    "premium.inline.preset.subtitle": {
-      "comment": "Inline upsell message shown when the user wants premium preset features.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Speichere sie jetzt und finde sie mit einem Tippen wieder."
+    "premium.inline.preset.subtitle" : {
+      "comment" : "Inline upsell message shown when the user wants premium preset features.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Speichere sie jetzt und finde sie mit einem Tippen wieder."
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Save it now and find it again in one tap."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save it now and find it again in one tap."
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Guardala ahora y recuperala con un toque."
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Guardala ahora y recuperala con un toque."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Enregistrez-la maintenant et retrouvez-la en un geste."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enregistrez-la maintenant et retrouvez-la en un geste."
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Salvalo ora e ritrovalo con un tocco."
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salvalo ora e ritrovalo con un tocco."
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Salve agora e encontre de novo com um toque."
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salve agora e encontre de novo com um toque."
           }
         }
       }
     },
-    "premium.inline.preset.title": {
-      "comment": "Inline upsell title shown in the presets panel.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Diese Mischung speichern"
+    "premium.inline.preset.title" : {
+      "comment" : "Inline upsell title shown in the presets panel.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diese Mischung speichern"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Save this mix"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save this mix"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Guardar esta mezcla"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Guardar esta mezcla"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Enregistrer cette ambiance"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enregistrer cette ambiance"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Salva questo mix"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salva questo mix"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Salvar esta mistura"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salvar esta mistura"
           }
         }
       }
     },
-    "premium.inline.unlock": {
-      "comment": "Primary call to action on inline premium cards.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mehr erfahren"
+    "premium.inline.unlock" : {
+      "comment" : "Primary call to action on inline premium cards.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mehr erfahren"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Learn more"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Learn more"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Más información"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Más información"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "En savoir plus"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "En savoir plus"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Scopri di più"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scopri di più"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Saiba mais"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saiba mais"
           }
         }
       }
     },
-    "premium.library.badgeSuffix": {
-      "comment": "Suffix used after the locked sound count in the home teaser badge, for example '11 more sounds'.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "verfügbar"
+    "premium.library.badgeSuffix" : {
+      "comment" : "Suffix used after the locked sound count in the home teaser badge, for example '11 more sounds'.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "verfügbar"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "available"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "available"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "disponibles"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "disponibles"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "disponibles"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "disponibles"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "disponibili"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "disponibili"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "disponíveis"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "disponíveis"
           }
         }
       }
     },
-    "premium.library.collapse": {
-      "comment": "Secondary action that collapses the locked sound list in the home teaser.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Liste ausblenden"
+    "premium.library.collapse" : {
+      "comment" : "Secondary action that collapses the locked sound list in the home teaser.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Liste ausblenden"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Hide list"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hide list"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ocultar la lista"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ocultar la lista"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Masquer la liste"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Masquer la liste"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nascondi l'elenco"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nascondi l'elenco"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ocultar a lista"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ocultar a lista"
           }
         }
       }
     },
-    "premium.library.cta": {
-      "comment": "Primary action of the locked sound library teaser.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mehr erfahren"
+    "premium.library.cta" : {
+      "comment" : "Primary action of the locked sound library teaser.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mehr erfahren"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Learn more"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Learn more"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Más información"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Más información"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "En savoir plus"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "En savoir plus"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Scopri di più"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scopri di più"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Saiba mais"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saiba mais"
           }
         }
       }
     },
-    "premium.library.expand": {
-      "comment": "Secondary action that expands the locked sound list in the home teaser.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Liste zeigen"
+    "premium.library.expand" : {
+      "comment" : "Secondary action that expands the locked sound list in the home teaser.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Liste zeigen"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Show list"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show list"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ver la lista"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ver la lista"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Voir la liste"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Voir la liste"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mostra l'elenco"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostra l'elenco"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ver a lista"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ver a lista"
           }
         }
       }
     },
-    "premium.library.subtitle": {
-      "comment": "Body copy in the locked sound library teaser.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Regen, Wald, Donner, Fluss und 7 weitere Klänge."
+    "premium.library.subtitle" : {
+      "comment" : "Body copy in the locked sound library teaser.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Regen, Wald, Donner, Fluss und 7 weitere Klänge."
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Rain, forest, thunder, river and 7 other sounds."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rain, forest, thunder, river and 7 other sounds."
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Lluvia, bosque, trueno, río y 7 sonidos más."
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lluvia, bosque, trueno, río y 7 sonidos más."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "La pluie, la forêt, le tonnerre, la rivière et 7 autres sons."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La pluie, la forêt, le tonnerre, la rivière et 7 autres sons."
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pioggia, foresta, tuono, fiume e altri 7 suoni."
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pioggia, foresta, tuono, fiume e altri 7 suoni."
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Chuva, floresta, trovão, rio e mais 7 sons."
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chuva, floresta, trovão, rio e mais 7 sons."
           }
         }
       }
     },
-    "premium.library.title": {
-      "comment": "Title of the home teaser card for the locked sound library.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mehr Klänge"
+    "premium.library.title" : {
+      "comment" : "Title of the home teaser card for the locked sound library.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mehr Klänge"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "More sounds"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "More sounds"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Más sonidos"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Más sonidos"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Plus de sons"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plus de sons"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Più suoni"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Più suoni"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mais sons"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mais sons"
           }
         }
       }
     },
-    "premium.preview.cta": {
-      "comment": "Secondary inline upsell action that launches the featured ambience preview.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vorschau anhören"
+    "premium.preview.cta" : {
+      "comment" : "Secondary inline upsell action that launches the featured ambience preview.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vorschau anhören"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Listen to a sample"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Listen to a sample"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Escuchar una muestra"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Escuchar una muestra"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Écouter un aperçu"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Écouter un aperçu"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ascolta un'anteprima"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ascolta un'anteprima"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ouvir uma prévia"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ouvir uma prévia"
           }
         }
       }
     },
-    "premium.preview.limit": {
-      "comment": "Footnote shown when the daily ambience preview has already been used.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Morgen ist wieder eine Vorschau verfügbar."
+    "premium.preview.limit" : {
+      "comment" : "Footnote shown when the daily ambience preview has already been used.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Morgen ist wieder eine Vorschau verfügbar."
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Another sample will be available tomorrow."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Another sample will be available tomorrow."
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Habrá otra vista previa mañana."
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Habrá otra vista previa mañana."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Un autre aperçu sera disponible demain."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un autre aperçu sera disponible demain."
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Domani sarà disponibile un'altra anteprima."
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Domani sarà disponibile un'altra anteprima."
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Outra prévia estará disponível amanhã."
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Outra prévia estará disponível amanhã."
           }
         }
       }
     },
-    "premium.preview.playing": {
-      "comment": "Small status line shown while the featured ambience preview is playing.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vorschau läuft"
+    "premium.preview.playing" : {
+      "comment" : "Small status line shown while the featured ambience preview is playing.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vorschau läuft"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sample playing"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sample playing"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vista previa en curso"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vista previa en curso"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Aperçu en cours"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aperçu en cours"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Anteprima in corso"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anteprima in corso"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Prévia em reprodução"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prévia em reprodução"
           }
         }
       }
     },
-    "premium.timer.included": {
-      "comment": "Small caption under the locked timer durations.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Im vollen Zugriff enthalten"
+    "premium.timer.included" : {
+      "comment" : "Small caption under the locked timer durations.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Im vollen Zugriff enthalten"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Included with full access"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Included with full access"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Incluido en el acceso completo"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Incluido en el acceso completo"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Inclus avec l'accès complet"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inclus avec l'accès complet"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Incluso nell'accesso completo"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Incluso nell'accesso completo"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Incluído no acesso completo"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Incluído no acesso completo"
           }
         }
       }
     },
-    "premium.timer.subtitle": {
-      "comment": "Subtitle of the timer unlock panel shown to free users.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Wähle, wann die Wiedergabe automatisch enden soll."
+    "premium.timer.subtitle" : {
+      "comment" : "Subtitle of the timer unlock panel shown to free users.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wähle, wann die Wiedergabe automatisch enden soll."
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Choose when playback should stop automatically."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose when playback should stop automatically."
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Elige cuándo debe detenerse la reproducción automáticamente."
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Elige cuándo debe detenerse la reproducción automáticamente."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Choisissez quand la lecture doit s'arrêter automatiquement."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choisissez quand la lecture doit s'arrêter automatiquement."
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Scegli quando la riproduzione deve fermarsi automaticamente."
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scegli quando la riproduzione deve fermarsi automaticamente."
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Escolha quando a reprodução deve parar automaticamente."
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Escolha quando a reprodução deve parar automaticamente."
           }
         }
       }
     },
-    "premium.timer.title": {
-      "comment": "Title of the timer unlock panel shown to free users.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Timer"
+    "premium.timer.title" : {
+      "comment" : "Title of the timer unlock panel shown to free users.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Timer"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Timer"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Timer"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Temporizador"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Temporizador"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Minuteur"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Minuteur"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Timer"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Timer"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Temporizador"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Temporizador"
           }
         }
       }
     },
-    "presets.default.afterRain": {
-      "comment": "Public name of the featured preview ambience that keeps the preset_signature_oasis internal identifier.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nach dem Regen"
+    "presets.default.afterRain" : {
+      "comment" : "Public name of the featured preview ambience that keeps the preset_signature_oasis internal identifier.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nach dem Regen"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "After the Rain"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "After the Rain"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Después de la lluvia"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Después de la lluvia"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Après la pluie"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Après la pluie"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Dopo la pioggia"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dopo la pioggia"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Depois da chuva"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Depois da chuva"
           }
         }
       }
     },
-    "presets.default.calm": {
-      "comment": "Name of the second default ambience.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ruhiger Wald"
+    "presets.default.calm" : {
+      "comment" : "Name of the second default ambience.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ruhiger Wald"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Quiet Forest"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quiet Forest"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bosque en calma"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bosque en calma"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Forêt paisible"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Forêt paisible"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bosco quieto"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bosco quieto"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Floresta calma"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Floresta calma"
           }
         }
       }
     },
-    "presets.default.starter": {
-      "comment": "Name of the first default ambience.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Meeresbrise"
+    "presets.default.starter" : {
+      "comment" : "Name of the first default ambience.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Meeresbrise"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sea Breeze"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sea Breeze"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Brisa marina"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brisa marina"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Brise marine"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brise marine"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Brezza marina"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brezza marina"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Brisa do mar"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brisa do mar"
           }
         }
       }
     },
-    "presets.default.storm": {
-      "comment": "Name of the third default ambience.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ferner Sturm"
+    "presets.default.storm" : {
+      "comment" : "Name of the third default ambience.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ferner Sturm"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Distant Storm"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Distant Storm"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tormenta lejana"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tormenta lejana"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Orage lointain"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Orage lointain"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Temporale lontano"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Temporale lontano"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tempestade distante"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tempestade distante"
           }
         }
       }
     },
-    "presets.name.prompt": {
-      "comment": "Placeholder in the text field used to save a new mix.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mischung benennen"
+    "presets.name.prompt" : {
+      "comment" : "Placeholder in the text field used to save a new mix.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mischung benennen"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Name this mix"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Name this mix"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nombre de la mezcla"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nombre de la mezcla"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nom de l'ambiance"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nom de l'ambiance"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nome del mix"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nome del mix"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nome da mistura"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nome da mistura"
           }
         }
       }
     },
-    "presets.panel.subtitle": {
-      "comment": "Subtitle in the presets panel explaining that the user can reopen or save mixes.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Öffne eine gespeicherte Mischung oder sichere die aktuelle."
+    "presets.panel.subtitle" : {
+      "comment" : "Subtitle in the presets panel explaining that the user can reopen or save mixes.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Öffne eine gespeicherte Mischung oder sichere die aktuelle."
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Open a saved mix or save the one you're shaping now."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open a saved mix or save the one you're shaping now."
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Abre una mezcla guardada o guarda la que estás creando ahora."
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abre una mezcla guardada o guarda la que estás creando ahora."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Retrouvez une ambiance ou enregistrez celle du moment."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Retrouvez une ambiance ou enregistrez celle du moment."
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Apri un mix salvato o salva quello che stai creando adesso."
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apri un mix salvato o salva quello che stai creando adesso."
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Abra uma mistura salva ou salve a que está criando agora."
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abra uma mistura salva ou salve a que está criando agora."
           }
         }
       }
     },
-    "presets.panel.title": {
-      "comment": "Short title of the presets panel and inactive presets chip.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mischungen"
+    "presets.panel.title" : {
+      "comment" : "Short title of the presets panel and inactive presets chip.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mischungen"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mixes"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mixes"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mezclas"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mezclas"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ambiances"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ambiances"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mix"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mix"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Misturas"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Misturas"
           }
         }
       }
     },
-    "spatial.back": {
-      "comment": "Bottom label in the spatial positioning panel.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Hinten"
+    "spatial.back" : {
+      "comment" : "Bottom label in the spatial positioning panel.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hinten"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Back"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Back"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Detrás"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Detrás"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Arrière"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arrière"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Dietro"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dietro"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Trás"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trás"
           }
         }
       }
     },
-    "spatial.front": {
-      "comment": "Top label in the spatial positioning panel.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vorne"
+    "spatial.front" : {
+      "comment" : "Top label in the spatial positioning panel.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vorne"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Front"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Front"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Delante"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delante"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Avant"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Avant"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Davanti"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Davanti"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Frente"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Frente"
           }
         }
       }
     },
-    "spatial.left": {
-      "comment": "Left label in the spatial positioning panel.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Links"
+    "spatial.left" : {
+      "comment" : "Left label in the spatial positioning panel.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Links"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Left"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Left"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Izquierda"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Izquierda"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gauche"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gauche"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sinistra"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sinistra"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Esquerda"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Esquerda"
           }
         }
       }
     },
-    "spatial.reset": {
-      "comment": "Button title that recenters a sound in the spatial positioning panel.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Klang zentrieren"
+    "spatial.reset" : {
+      "comment" : "Button title that recenters a sound in the spatial positioning panel.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Klang zentrieren"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Center sound"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Center sound"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Centrar sonido"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Centrar sonido"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Recentrer le son"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recentrer le son"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Centra il suono"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Centra il suono"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Centralizar som"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Centralizar som"
           }
         }
       }
     },
-    "spatial.right": {
-      "comment": "Right label in the spatial positioning panel.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Rechts"
+    "spatial.right" : {
+      "comment" : "Right label in the spatial positioning panel.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rechts"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Right"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Right"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Derecha"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Derecha"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Droite"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Droite"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Destra"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Destra"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Direita"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Direita"
           }
         }
       }
     },
-    "spatial.subtitle": {
-      "comment": "Subtitle in the spatial positioning panel.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Platziere diesen Klang um dich herum."
+    "spatial.subtitle" : {
+      "comment" : "Subtitle in the spatial positioning panel.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Platziere diesen Klang um dich herum."
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Place this sound around you."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Place this sound around you."
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Coloca este sonido a tu alrededor."
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Coloca este sonido a tu alrededor."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Déplacez ce son autour de vous."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Déplacez ce son autour de vous."
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Posiziona questo suono intorno a te."
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Posiziona questo suono intorno a te."
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Posicione este som ao seu redor."
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Posicione este som ao seu redor."
           }
         }
       }
     },
-    "timer.option.15": {
-      "comment": "15 minute duration label in timer controls.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "15 min"
+    "timer.option.15" : {
+      "comment" : "15 minute duration label in timer controls.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "15 min"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "15 min"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "15 min"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "15 min"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "15 min"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "15 min"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "15 min"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "15 min"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "15 min"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "15 min"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "15 min"
           }
         }
       }
     },
-    "timer.option.30": {
-      "comment": "30 minute duration label in timer controls.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "30 min"
+    "timer.option.30" : {
+      "comment" : "30 minute duration label in timer controls.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "30 min"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "30 min"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "30 min"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "30 min"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "30 min"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "30 min"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "30 min"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "30 min"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "30 min"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "30 min"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "30 min"
           }
         }
       }
     },
-    "timer.option.60": {
-      "comment": "1 hour duration label in timer controls.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "1 h"
+    "timer.option.60" : {
+      "comment" : "1 hour duration label in timer controls.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 h"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "1 hr"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 hr"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "1 h"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 h"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "1 h"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 h"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "1 h"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 h"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "1 h"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 h"
           }
         }
       }
     },
-    "timer.option.120": {
-      "comment": "2 hour duration label in timer controls.",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "2 h"
+    "timer.option.120" : {
+      "comment" : "2 hour duration label in timer controls.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2 h"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "2 hr"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2 hr"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "2 h"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2 h"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "2 h"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2 h"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "2 h"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2 h"
           }
         },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "2 h"
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2 h"
           }
         }
       }
     }
   },
-  "version": "1.0"
+  "version" : "1.0"
 }

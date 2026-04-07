@@ -1,4 +1,2 @@
 What's new:
-• Immersive spatial audio: place each track left, right, front or back for a 3D soundscape.
-• New interface for positioning sounds in space.
-• Bug fixes and performance improvements.
+• Performance improvements.

@@ -85,14 +85,6 @@ final class AppModel {
         )
     }
 
-    var timerSheetPresentation: PremiumTimerSheetPresentation {
-        PremiumTimerSheetPresentation(
-            title: L10n.string(L10n.Premium.timerTitle),
-            message: L10n.string(L10n.Premium.timerSubtitle),
-            lockedLabel: L10n.string(L10n.Premium.timerIncluded)
-        )
-    }
-
     var presetsUpsellPresentation: PremiumInlineUpsellPresentation? {
         guard activeInlineUpsell?.entryPoint.category == .preset else { return nil }
 
@@ -283,11 +275,6 @@ final class AppModel {
     }
 
     func setTimer(_ minutes: Int?) {
-        guard isPremium else {
-            presentPaywall(from: .timer)
-            return
-        }
-
         timerDurationMinutes = minutes
         timerRemainingWhenPaused = minutes.map { Double($0 * 60) }
         timerEndDate = minutes.map { Date().addingTimeInterval(Double($0 * 60)) }
@@ -528,8 +515,8 @@ final class AppModel {
             benefitRows = [
                 L10n.string(L10n.Paywall.benefitSounds),
                 L10n.string(L10n.Paywall.benefitPresets),
-                L10n.string(L10n.Paywall.benefitTimer),
-                L10n.string(L10n.Paywall.benefitBinaural)
+                L10n.string(L10n.Paywall.benefitBinaural),
+                L10n.string(L10n.Paywall.benefitUpdates)
             ]
 
         case .sound, .spatial:
@@ -538,18 +525,18 @@ final class AppModel {
             benefitRows = [
                 L10n.string(L10n.Paywall.benefitSounds),
                 L10n.string(L10n.Paywall.benefitPresets),
-                L10n.string(L10n.Paywall.benefitTimer),
-                L10n.string(L10n.Paywall.benefitBinaural)
+                L10n.string(L10n.Paywall.benefitBinaural),
+                L10n.string(L10n.Paywall.benefitUpdates)
             ]
 
         case .timer:
-            title = L10n.string(L10n.Paywall.titleTimer)
-            subtitle = L10n.string(L10n.Paywall.subtitleTimer)
+            title = L10n.string(L10n.Paywall.titleGeneric)
+            subtitle = L10n.string(L10n.Paywall.subtitleGeneric)
             benefitRows = [
-                L10n.string(L10n.Paywall.benefitTimer),
                 L10n.string(L10n.Paywall.benefitSounds),
                 L10n.string(L10n.Paywall.benefitPresets),
-                L10n.string(L10n.Paywall.benefitBinaural)
+                L10n.string(L10n.Paywall.benefitBinaural),
+                L10n.string(L10n.Paywall.benefitUpdates)
             ]
 
         case .preset:
@@ -558,8 +545,8 @@ final class AppModel {
             benefitRows = [
                 L10n.string(L10n.Paywall.benefitPresets),
                 L10n.string(L10n.Paywall.benefitSounds),
-                L10n.string(L10n.Paywall.benefitTimer),
-                L10n.string(L10n.Paywall.benefitBinaural)
+                L10n.string(L10n.Paywall.benefitBinaural),
+                L10n.string(L10n.Paywall.benefitUpdates)
             ]
 
         case .binaural:
@@ -569,7 +556,7 @@ final class AppModel {
                 L10n.string(L10n.Paywall.benefitBinaural),
                 L10n.string(L10n.Paywall.benefitSounds),
                 L10n.string(L10n.Paywall.benefitPresets),
-                L10n.string(L10n.Paywall.benefitTimer)
+                L10n.string(L10n.Paywall.benefitUpdates)
             ]
 
         case .preview:
@@ -578,8 +565,8 @@ final class AppModel {
             benefitRows = [
                 L10n.string(L10n.Paywall.benefitPresets),
                 L10n.string(L10n.Paywall.benefitSounds),
-                L10n.string(L10n.Paywall.benefitTimer),
-                L10n.string(L10n.Paywall.benefitBinaural)
+                L10n.string(L10n.Paywall.benefitBinaural),
+                L10n.string(L10n.Paywall.benefitUpdates)
             ]
         }
 

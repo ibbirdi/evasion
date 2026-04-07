@@ -1,4 +1,2 @@
 Novità di questa versione:
-• Audio 3D immersivo: posiziona ogni traccia a sinistra, destra, davanti o dietro per un suono spaziale.
-• Nuova interfaccia per il posizionamento nello spazio.
-• Correzioni di bug e miglioramenti delle prestazioni.
+• Miglioramenti delle prestazioni.

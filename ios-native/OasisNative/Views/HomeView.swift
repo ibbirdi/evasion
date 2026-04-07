@@ -1,4 +1,7 @@
 import SwiftUI
+import UIKit
+
+private let minimumAdaptivePanelHeight: CGFloat = 240
 
 enum PanelTransitionSource: String, Hashable, Sendable {
     case headerPresets
@@ -21,7 +24,6 @@ enum PanelTransitionSource: String, Hashable, Sendable {
 private enum ActiveHomePanel: String, Identifiable {
     case presets
     case binaural
-    case timerUnlock
 
     var id: String { rawValue }
 }
@@ -32,18 +34,21 @@ struct HomeView: View {
     @State private var activePanel: ActiveHomePanel?
     @State private var activePanelSource: PanelTransitionSource?
     @State private var activeSpatialChannel: SoundChannel?
+    @State private var presetsPanelHeight: CGFloat = 360
+    @State private var binauralPanelHeight: CGFloat = 360
     @Namespace private var panelTransitionNamespace
 
     private static let headerCollapseDistance: CGFloat = 140
     private static let headerProgressSteps: CGFloat = 48
-
     private func openPresets(from source: PanelTransitionSource) {
+        presetsPanelHeight = measurePanelHeight(for: PresetsPanel().environment(model))
         activePanelSource = source.usesZoomTransition ? source : nil
         activePanel = .presets
     }
 
     private func openBinaural(from source: PanelTransitionSource) {
         model.prepareBinauralPanel()
+        binauralPanelHeight = measurePanelHeight(for: BinauralPanel().environment(model))
         activePanelSource = source.usesZoomTransition ? source : nil
         activePanel = .binaural
     }
@@ -54,22 +59,19 @@ struct HomeView: View {
         activeSpatialChannel = channel
     }
 
-    private func openTimerUnlock() {
-        activePanelSource = nil
-        activePanel = .timerUnlock
-    }
-
     @ViewBuilder
     private func presetsPanelView(source: PanelTransitionSource?) -> some View {
         if let source {
             PresetsPanel()
                 .navigationTransition(.zoom(sourceID: source.transitionID, in: panelTransitionNamespace))
-                .presentationSizing(.fitted.fitted(horizontal: false, vertical: true))
+                .adaptiveSheetDetent($presetsPanelHeight)
+                .presentationDetents([.height(presetsPanelHeight)])
                 .presentationContentInteraction(.scrolls)
                 .presentationDragIndicator(.visible)
         } else {
             PresetsPanel()
-                .presentationSizing(.fitted.fitted(horizontal: false, vertical: true))
+                .adaptiveSheetDetent($presetsPanelHeight)
+                .presentationDetents([.height(presetsPanelHeight)])
                 .presentationContentInteraction(.scrolls)
                 .presentationDragIndicator(.visible)
         }
@@ -80,15 +82,55 @@ struct HomeView: View {
         if let source {
             BinauralPanel()
                 .navigationTransition(.zoom(sourceID: source.transitionID, in: panelTransitionNamespace))
-                .presentationSizing(.fitted.fitted(horizontal: false, vertical: true))
+                .adaptiveSheetDetent($binauralPanelHeight)
+                .presentationDetents([.height(binauralPanelHeight)])
                 .presentationContentInteraction(.resizes)
                 .presentationDragIndicator(.visible)
         } else {
             BinauralPanel()
-                .presentationSizing(.fitted.fitted(horizontal: false, vertical: true))
+                .adaptiveSheetDetent($binauralPanelHeight)
+                .presentationDetents([.height(binauralPanelHeight)])
                 .presentationContentInteraction(.resizes)
                 .presentationDragIndicator(.visible)
         }
+    }
+
+    @MainActor
+    private func measurePanelHeight<Content: View>(for content: Content) -> CGFloat {
+        let width = currentWindowWidth()
+        let host = UIHostingController(rootView: content)
+        host.view.backgroundColor = .clear
+        host.view.bounds = CGRect(x: 0, y: 0, width: width, height: 1)
+
+        let fittedSize = host.sizeThatFits(
+            in: CGSize(width: width, height: UIView.layoutFittingExpandedSize.height)
+        )
+
+        return detentHeight(for: fittedSize.height)
+    }
+
+    @MainActor
+    private func currentWindowWidth() -> CGFloat {
+        let activeScenes = UIApplication.shared.connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+            .filter { $0.activationState == .foregroundActive }
+
+        let keyWindow = activeScenes
+            .flatMap(\.windows)
+            .first(where: \.isKeyWindow)
+
+        let fallbackWindow = activeScenes
+            .flatMap(\.windows)
+            .first
+
+        let window = keyWindow ?? fallbackWindow
+        let width = window?.bounds.width ?? activeScenes.first?.screen.bounds.width ?? 390
+
+        return max(width, 320)
+    }
+
+    private func detentHeight(for contentHeight: CGFloat) -> CGFloat {
+        max(minimumAdaptivePanelHeight, ceil(contentHeight))
     }
 
     var body: some View {
@@ -127,8 +169,7 @@ struct HomeView: View {
                         HomeHeaderView(
                             compactProgress: headerCompactProgress,
                             onOpenPresets: openPresets,
-                            onOpenBinaural: openBinaural,
-                            onOpenTimerUnlock: openTimerUnlock
+                            onOpenBinaural: openBinaural
                         )
                         .padding(.top, proxy.safeAreaInsets.top + 4)
                         .padding(.horizontal, 8)
@@ -161,11 +202,6 @@ struct HomeView: View {
                 presetsPanelView(source: activePanelSource)
             case .binaural:
                 binauralPanelView(source: activePanelSource)
-            case .timerUnlock:
-                TimerUnlockPanel()
-                    .presentationDetents([.height(318)])
-                    .presentationContentInteraction(.resizes)
-                    .presentationDragIndicator(.visible)
             }
         }
         .sheet(item: $activeSpatialChannel, onDismiss: {
@@ -198,5 +234,28 @@ struct HomeView: View {
         .task {
             model.bootstrapIfNeeded()
         }
+    }
+}
+
+private struct AdaptiveSheetDetentModifier: ViewModifier {
+    @Binding var detentHeight: CGFloat
+
+    func body(content: Content) -> some View {
+        content.onGeometryChange(for: CGFloat.self, of: { proxy in
+            proxy.size.height
+        }) { _, newHeight in
+            guard newHeight.isFinite, newHeight > 44 else { return }
+
+            let targetHeight = max(minimumAdaptivePanelHeight, ceil(newHeight))
+            guard abs(detentHeight - targetHeight) > 1 else { return }
+
+            detentHeight = targetHeight
+        }
+    }
+}
+
+private extension View {
+    func adaptiveSheetDetent(_ detentHeight: Binding<CGFloat>) -> some View {
+        modifier(AdaptiveSheetDetentModifier(detentHeight: detentHeight))
     }
 }

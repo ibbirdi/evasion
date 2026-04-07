@@ -5,7 +5,6 @@ struct HomeHeaderView: View {
     let compactProgress: CGFloat
     let onOpenPresets: (PanelTransitionSource) -> Void
     let onOpenBinaural: (PanelTransitionSource) -> Void
-    let onOpenTimerUnlock: () -> Void
 
     private var logoVisibility: CGFloat {
         max(0, 1 - (compactProgress * 3.4))
@@ -17,8 +16,7 @@ struct HomeHeaderView: View {
 
             QuickControlsStrip(
                 onOpenPresets: onOpenPresets,
-                onOpenBinaural: onOpenBinaural,
-                onOpenTimerUnlock: onOpenTimerUnlock
+                onOpenBinaural: onOpenBinaural
             )
         }
         .padding(.horizontal, 0)
@@ -71,7 +69,6 @@ private struct QuickControlsStrip: View {
     @Environment(AppModel.self) private var model
     let onOpenPresets: (PanelTransitionSource) -> Void
     let onOpenBinaural: (PanelTransitionSource) -> Void
-    let onOpenTimerUnlock: () -> Void
 
     var body: some View {
         HStack(spacing: 7) {
@@ -81,7 +78,7 @@ private struct QuickControlsStrip: View {
             binauralChip
                 .frame(maxWidth: .infinity)
 
-            TimerChip(onOpenTimerUnlock: onOpenTimerUnlock)
+            TimerChip()
 
             ActiveChannelsChip()
         }
@@ -127,42 +124,26 @@ private struct QuickControlsStrip: View {
 
 private struct TimerChip: View {
     @Environment(AppModel.self) private var model
-    let onOpenTimerUnlock: () -> Void
 
     var body: some View {
-        if model.isPremium {
-            Menu {
-                timerAction(L10n.timerOptionLabel(minutes: nil), minutes: nil)
-                timerAction(L10n.timerOptionLabel(minutes: 15), minutes: 15)
-                timerAction(L10n.timerOptionLabel(minutes: 30), minutes: 30)
-                timerAction(L10n.timerOptionLabel(minutes: 60), minutes: 60)
-                timerAction(L10n.timerOptionLabel(minutes: 120), minutes: 120)
-            } label: {
-                HeaderChipLabel(
-                    symbol: "timer",
-                    title: model.timerToolbarTitle,
-                    tint: model.timerDurationMinutes == nil
-                        ? .white.opacity(0.82)
-                        : Color(red: 0.52, green: 0.91, blue: 0.64),
-                    expands: false
-                )
-            }
-            .menuIndicator(.hidden)
-            .accessibilityIdentifier("home.header.timer")
-        } else {
-            Button {
-                onOpenTimerUnlock()
-            } label: {
-                HeaderChipLabel(
-                    symbol: "timer",
-                    title: L10n.string(L10n.Header.timer),
-                    tint: .white.opacity(0.82),
-                    expands: false
-                )
-            }
-            .accessibilityIdentifier("home.header.timer")
-            .buttonStyle(PressScaleButtonStyle())
+        Menu {
+            timerAction(L10n.timerOptionLabel(minutes: nil), minutes: nil)
+            timerAction(L10n.timerOptionLabel(minutes: 15), minutes: 15)
+            timerAction(L10n.timerOptionLabel(minutes: 30), minutes: 30)
+            timerAction(L10n.timerOptionLabel(minutes: 60), minutes: 60)
+            timerAction(L10n.timerOptionLabel(minutes: 120), minutes: 120)
+        } label: {
+            HeaderChipLabel(
+                symbol: "timer",
+                title: model.timerToolbarTitle,
+                tint: model.timerDurationMinutes == nil
+                    ? .white.opacity(0.82)
+                    : Color(red: 0.52, green: 0.91, blue: 0.64),
+                expands: false
+            )
         }
+        .menuIndicator(.hidden)
+        .accessibilityIdentifier("home.header.timer")
     }
 
     private func timerAction(_ title: String, minutes: Int?) -> some View {

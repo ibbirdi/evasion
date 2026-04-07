@@ -147,9 +147,3 @@ struct PremiumLibraryTeaserPresentation {
     let collapseTitle: String
     let lockedCount: Int
 }
-
-struct PremiumTimerSheetPresentation {
-    let title: String
-    let message: String
-    let lockedLabel: String
-}

@@ -99,15 +99,6 @@ struct PaywallOverlay: View {
                         ) {
                             VStack(spacing: 0) {
                                 VStack(spacing: 10) {
-                                    HStack(spacing: 8) {
-                                        Text(L10n.Paywall.badgeLifetime)
-                                        Text("•")
-                                        Text(L10n.Paywall.badgeOnePurchase)
-                                    }
-                                    .font(.system(size: 11, weight: .bold, design: .rounded))
-                                    .foregroundStyle(presentation.accentToken.tint.opacity(0.96))
-                                    .tracking(1.1)
-
                                     Image(systemName: presentation.symbolName)
                                         .font(.system(size: 22, weight: .semibold))
                                         .foregroundStyle(presentation.accentToken.tint)

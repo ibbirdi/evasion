@@ -1,4 +1,2 @@
 Neu in dieser Version:
-• Immersives 3D‑Audio: Platziere jede Spur links, rechts, vorne oder hinten für einen räumlichen Sound.
-• Neue Benutzeroberfläche für das Platzieren im Raum.
-• Fehlerbehebungen und Leistungsverbesserungen.
+• Leistungsverbesserungen.

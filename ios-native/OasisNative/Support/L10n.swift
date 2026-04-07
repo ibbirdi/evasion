@@ -107,20 +107,6 @@ enum L10n {
     }
 
     enum Paywall {
-        static let badgeLifetime = LocalizedStringResource(
-            "paywall.badge.lifetime",
-            defaultValue: "LIFETIME",
-            bundle: .main,
-            comment: "Small uppercase badge at the top of the paywall emphasizing lifetime access."
-        )
-
-        static let badgeOnePurchase = LocalizedStringResource(
-            "paywall.badge.onePurchase",
-            defaultValue: "ONE PURCHASE",
-            bundle: .main,
-            comment: "Small uppercase badge at the top of the paywall emphasizing a single payment."
-        )
-
         static let titleGeneric = LocalizedStringResource(
             "paywall.title.generic",
             defaultValue: "Full access",
@@ -165,7 +151,7 @@ enum L10n {
 
         static let subtitleGeneric = LocalizedStringResource(
             "paywall.subtitle.generic",
-            defaultValue: "More sounds, saved mixes, the timer and all binaural modes.",
+            defaultValue: "More sounds, saved mixes and all binaural modes.",
             bundle: .main,
             comment: "Generic paywall subtitle summarizing the full premium offer."
         )
@@ -207,7 +193,7 @@ enum L10n {
 
         static let benefitSounds = LocalizedStringResource(
             "paywall.benefit.sounds",
-            defaultValue: "11 extra sounds",
+            defaultValue: "11 extra real HD recordings: rain, forest, thunder, river...",
             bundle: .main,
             comment: "First premium benefit row about the extra ambient library."
         )
@@ -231,6 +217,13 @@ enum L10n {
             defaultValue: "Delta, Theta, Alpha and Beta",
             bundle: .main,
             comment: "Premium benefit row about the binaural modes."
+        )
+
+        static let benefitUpdates = LocalizedStringResource(
+            "paywall.benefit.updates",
+            defaultValue: "Future updates at no extra cost",
+            bundle: .main,
+            comment: "Premium benefit row clarifying that future app updates are included without extra charge."
         )
 
         static let noSubscription = LocalizedStringResource(
@@ -300,7 +293,7 @@ enum L10n {
 
         static let bannerSubtitle = LocalizedStringResource(
             "premium.banner.subtitle",
-            defaultValue: "More sounds, saved mixes and the timer.",
+            defaultValue: "More sounds, saved mixes and more binaural modes.",
             bundle: .main,
             comment: "Short explanatory line in the premium home banner."
         )

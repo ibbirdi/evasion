@@ -1,4 +1,2 @@
 Novo nesta versão:
-• Áudio 3D imersivo: posicione cada faixa à esquerda, direita, frente ou trás para um som espacial.
-• Nova interface para o posicionamento no espaço.
-• Correções de erros e melhorias de desempenho.
+• Melhorias de desempenho.
