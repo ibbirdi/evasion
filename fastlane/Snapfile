@@ -1,3 +1,62 @@
+require "json"
+require "snapshot/test_command_generator"
+require "snapshot/latest_os_version"
+
+unless defined?(OasisSnapshotDestinationPatch)
+  module OasisSnapshotDestinationPatch
+    def destination(devices)
+      unless verify_devices_share_os(devices)
+        FastlaneCore::UI.user_error!("All devices provided to snapshot should run the same operating system")
+      end
+
+      return ["-destination 'platform=macOS'"] if devices.first.to_s =~ /^Mac/
+
+      os = case devices.first.to_s
+           when /^Apple TV/
+             "tvOS"
+           when /^Apple Watch/
+             "watchOS"
+           else
+             "iOS"
+           end
+      os_version = Snapshot.config[:ios_version] || Snapshot::LatestOsVersion.version(os)
+
+      destinations = devices.map do |device_name|
+        device = find_device(device_name, os_version)
+        FastlaneCore::UI.user_error!("No device found named '#{device_name}' for version '#{os_version}'") if device.nil?
+
+        if device.os_version != os_version
+          FastlaneCore::UI.important(
+            "Using simulator id '#{device.udid}' for '#{device.name}' because simctl reports '#{device.os_version}' while xcodebuild expects '#{os_version}'"
+          )
+        end
+
+        "-destination 'platform=#{os} Simulator,id=#{device.udid}'"
+      end
+
+      [destinations.join(" ")]
+    end
+  end
+
+  Snapshot::TestCommandGenerator.singleton_class.prepend(OasisSnapshotDestinationPatch)
+end
+
+def oasis_screenshot_ios_version
+  explicit_version = ENV["SCREENSHOT_IOS_VERSION"].to_s.strip
+  return explicit_version unless explicit_version.empty?
+
+  runtimes = JSON.parse(`xcrun simctl list runtimes -j`).fetch("runtimes", [])
+  ios_runtimes = runtimes.select do |runtime|
+    runtime["isAvailable"] &&
+      runtime["version"].to_s.length.positive? &&
+      (runtime["platform"] == "iOS" || runtime["identifier"].to_s.include?("iOS"))
+  end
+
+  ios_runtimes.max_by { |runtime| Gem::Version.new(runtime["version"]) }&.fetch("version", nil)
+rescue StandardError
+  nil
+end
+
 repo_root = [
   Dir.pwd,
   File.expand_path("..", Dir.pwd)
@@ -13,6 +72,9 @@ scheme("OasisNative")
 devices([
   ENV["SCREENSHOT_DEVICE"] || "iPhone 17 Pro Max"
 ])
+
+screenshot_ios_version = oasis_screenshot_ios_version
+ios_version(screenshot_ios_version) if screenshot_ios_version
 
 languages([
   "en-US",
@@ -38,6 +100,5 @@ result_bundle(true)
 namespace_log_files(true)
 number_of_retries(0)
 launch_arguments([
-  "-OASISPremiumOverride premium",
   "-OASISResetState YES"
 ])

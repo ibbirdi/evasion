@@ -5,6 +5,7 @@ struct HomeHeaderView: View {
     let compactProgress: CGFloat
     let onOpenPresets: (PanelTransitionSource) -> Void
     let onOpenBinaural: (PanelTransitionSource) -> Void
+    let onRequestPremiumTimer: () -> Void
 
     private var logoVisibility: CGFloat {
         max(0, 1 - (compactProgress * 3.4))
@@ -16,7 +17,8 @@ struct HomeHeaderView: View {
 
             QuickControlsStrip(
                 onOpenPresets: onOpenPresets,
-                onOpenBinaural: onOpenBinaural
+                onOpenBinaural: onOpenBinaural,
+                onRequestPremiumTimer: onRequestPremiumTimer
             )
         }
         .padding(.horizontal, 0)
@@ -30,38 +32,106 @@ private struct BrandLockupView: View {
     @Environment(AppModel.self) private var model
     let visibility: CGFloat
 
-    private static let cachedLogo: UIImage? = {
-        guard let url = Bundle.main.url(forResource: "oasisLogo", withExtension: "png"),
-              let image = UIImage(contentsOfFile: url.path) else {
-            return nil
-        }
-        return image
-    }()
-
-    private var bundleLogo: UIImage? {
-        Self.cachedLogo
+    var body: some View {
+        // Anchoring the waveform to the Text's own bounds via `.background` guarantees the
+        // two share the exact same horizontal frame. Any side-bearing or trailing-kerning
+        // quirk from the font shifts both elements together instead of drifting the line
+        // away from the wordmark — fixing the visual-axis misalignment reported from the
+        // previous VStack layout.
+        Text(verbatim: "OASIS")
+            .font(.system(size: 22, weight: .semibold))
+            .kerning(4)
+            .foregroundStyle(.white.opacity(0.96))
+            .padding(.bottom, 12)
+            .background(alignment: .bottom) {
+                WaveformSignatureLine()
+                    .frame(maxWidth: .infinity, maxHeight: 8)
+            }
+            .frame(maxWidth: .infinity)
+            // Height matched to natural content (22pt wordmark + 12pt padding + 8pt wave ≈
+            // 42pt) instead of the legacy 74pt box. Drops the excess empty space below the
+            // logo so the lockup reads as vertically centred against the quick-controls row.
+            .frame(height: 42 * visibility, alignment: .top)
+            .opacity(visibility)
+            .scaleEffect(0.92 + (visibility * 0.08), anchor: .top)
+            .clipped()
+            .accessibilityElement(children: .combine)
+            .accessibilityLabel(L10n.App.title)
+            .animation(.smooth(duration: 0.18), value: visibility)
     }
+}
+
+/// Thin signature line rendered beneath the OASIS wordmark. Stays flat at rest and
+/// undulates when the app is playing. Amplitude grows with the number of active ambient
+/// channels, colour reflects the tints of the currently mixed palette.
+private struct WaveformSignatureLine: View {
+    @Environment(AppModel.self) private var model
 
     var body: some View {
-        VStack(alignment: .center, spacing: 8) {
-            if let logo = bundleLogo {
-                Image(uiImage: logo)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 132)
-                    .shadow(color: .black.opacity(0.14), radius: 10, y: 4)
-            } else {
-                Text(L10n.App.title)
-                    .font(.system(size: 24, weight: .semibold, design: .rounded))
-                    .foregroundStyle(.white)
+        TimelineView(.animation(minimumInterval: 1.0 / 30.0, paused: !model.isPlaying)) { context in
+            let palette = model.activePlaybackPalette
+            let amplitude: Double = model.isPlaying
+                ? min(1.0, 0.35 + Double(palette.count) * 0.11)
+                : 0
+
+            Canvas { gc, size in
+                drawWave(
+                    gc: gc,
+                    size: size,
+                    time: context.date.timeIntervalSinceReferenceDate,
+                    amplitude: amplitude,
+                    palette: palette
+                )
             }
         }
-        .frame(maxWidth: .infinity)
-        .frame(height: 74 * visibility, alignment: .top)
-        .opacity(visibility)
-        .scaleEffect(0.92 + (visibility * 0.08), anchor: .top)
-        .clipped()
-        .animation(.smooth(duration: 0.18), value: visibility)
+    }
+
+    private func drawWave(
+        gc: GraphicsContext,
+        size: CGSize,
+        time: TimeInterval,
+        amplitude: Double,
+        palette: [Color]
+    ) {
+        var path = Path()
+        let midY = size.height / 2
+        let width = size.width
+        let step: Double = 1.4
+        let phase = time * 0.9
+
+        path.move(to: CGPoint(x: 0, y: midY))
+
+        var x: Double = 0
+        while x <= Double(width) {
+            let nx = x / Double(width)           // 0 ... 1
+
+            // Three detuned sines produce an organic breathing motion; the hard-coded
+            // frequencies (4.5π, 7π, 10π) were picked so the peaks never align for long.
+            let wave =
+                sin(nx * 4.5 * .pi + phase) * 0.55 +
+                sin(nx * 7.0 * .pi + phase * 1.4) * 0.30 +
+                sin(nx * 10.0 * .pi + phase * 1.8) * 0.15
+
+            // Raised-sine envelope tapers both ends to zero so the line fades in/out
+            // instead of stopping abruptly at the edges of the frame.
+            let envelope = sin(nx * .pi)
+            let y = midY + amplitude * Double(size.height) * 0.38 * wave * envelope
+
+            path.addLine(to: CGPoint(x: x, y: y))
+            x += step
+        }
+
+        let colors: [Color] = palette.isEmpty
+            ? [Color.white.opacity(0.55)]
+            : palette.map { $0.opacity(0.82) }
+
+        let shading = GraphicsContext.Shading.linearGradient(
+            Gradient(colors: colors),
+            startPoint: .zero,
+            endPoint: CGPoint(x: width, y: 0)
+        )
+
+        gc.stroke(path, with: shading, lineWidth: 1.1)
     }
 }
 
@@ -69,6 +139,7 @@ private struct QuickControlsStrip: View {
     @Environment(AppModel.self) private var model
     let onOpenPresets: (PanelTransitionSource) -> Void
     let onOpenBinaural: (PanelTransitionSource) -> Void
+    let onRequestPremiumTimer: () -> Void
 
     var body: some View {
         HStack(spacing: 7) {
@@ -78,7 +149,7 @@ private struct QuickControlsStrip: View {
             binauralChip
                 .frame(maxWidth: .infinity)
 
-            TimerChip()
+            TimerChip(onRequestPremiumTimer: onRequestPremiumTimer)
 
             ActiveChannelsChip()
         }
@@ -124,6 +195,7 @@ private struct QuickControlsStrip: View {
 
 private struct TimerChip: View {
     @Environment(AppModel.self) private var model
+    let onRequestPremiumTimer: () -> Void
 
     var body: some View {
         Menu {
@@ -149,7 +221,11 @@ private struct TimerChip: View {
     private func timerAction(_ title: String, minutes: Int?) -> some View {
         Button(title) {
             withAnimation(.smooth(duration: 0.22)) {
-                model.setTimer(minutes)
+                if model.canUseTimer(minutes: minutes) {
+                    model.setTimer(minutes)
+                } else {
+                    onRequestPremiumTimer()
+                }
             }
         }
     }
@@ -224,7 +300,7 @@ private struct HeaderChipLabel: View {
         .background {
             Capsule()
                 .fill(Color.white.opacity(0.001))
-                .glassEffect(.regular, in: Capsule())
+                .oasisGlassEffect(in: Capsule())
                 .overlay {
                     Capsule()
                         .fill(isActivated ? tint.opacity(0.18) : Color.white.opacity(0.02))
@@ -267,7 +343,7 @@ private struct PanelTriggerChip: View {
         .background {
             Capsule()
                 .fill(Color.white.opacity(0.001))
-                .glassEffect(.regular, in: Capsule())
+                .oasisGlassEffect(in: Capsule())
                 .overlay {
                     Capsule()
                         .fill(

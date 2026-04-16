@@ -1,5 +1,16 @@
 import SwiftUI
 
+extension View {
+    @ViewBuilder
+    func oasisGlassEffect<S: Shape>(in shape: S) -> some View {
+        if #available(iOS 26.0, *) {
+            glassEffect(.regular, in: shape)
+        } else {
+            background(.ultraThinMaterial, in: shape)
+        }
+    }
+}
+
 struct GlassSurface<Content: View>: View {
     let tint: Color
     let cornerRadius: CGFloat
@@ -24,7 +35,7 @@ struct GlassSurface<Content: View>: View {
             .background {
                 RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
                     .fill(Color.white.opacity(0.001))
-                    .glassEffect(.regular, in: RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
+                    .oasisGlassEffect(in: RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
                     .overlay {
                         RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
                             .fill(tint)
@@ -62,7 +73,7 @@ struct CompactGlassPanel<Content: View>: View {
         .background {
             RoundedRectangle(cornerRadius: 30, style: .continuous)
                 .fill(Color.white.opacity(0.001))
-                .glassEffect(.regular, in: RoundedRectangle(cornerRadius: 30, style: .continuous))
+                .oasisGlassEffect(in: RoundedRectangle(cornerRadius: 30, style: .continuous))
                 .overlay {
                     RoundedRectangle(cornerRadius: 30, style: .continuous)
                         .fill(Color.white.opacity(0.03))

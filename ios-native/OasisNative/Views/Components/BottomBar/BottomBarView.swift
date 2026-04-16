@@ -16,7 +16,7 @@ struct BottomToolbarItemLabel: View {
                 ZStack {
                     Circle()
                         .fill(Color.white.opacity(0.001))
-                        .glassEffect(.regular, in: Circle())
+                        .oasisGlassEffect(in: Circle())
                         .overlay {
                             Circle()
                                 .fill(isActivated ? tint.opacity(0.18) : Color.white.opacity(0.022))
@@ -43,16 +43,11 @@ struct BottomToolbarItemLabel: View {
 struct PlaybackToolbarLabel: View {
     @Environment(AppModel.self) private var model
 
-    private var activePlaybackPalette: [Color] {
-        let colors = SoundChannel.allCases.compactMap { channel -> Color? in
-            let state = model.channelState(for: channel)
-            return state.isMuted ? nil : channel.tint
-        }
-
-        return LiquidActivityPalette.playback(from: colors)
-    }
-
     var body: some View {
+        // Compute the palette once per body pass instead of three times
+        // (aura input, animationKey, border gradient) — each pass iterates all 20 channels.
+        let palette = model.activePlaybackPalette
+
         Image(systemName: model.isPlaying ? "pause.fill" : "play.fill")
             .font(.system(size: 24, weight: .bold))
             .foregroundStyle(.white)
@@ -68,7 +63,7 @@ struct PlaybackToolbarLabel: View {
                 ZStack {
                     Circle()
                         .fill(Color.white.opacity(0.001))
-                        .glassEffect(.regular, in: Circle())
+                        .oasisGlassEffect(in: Circle())
                         .overlay {
                             Circle()
                                 .fill(Color.white.opacity(model.isPlaying ? 0.04 : 0.022))
@@ -76,7 +71,7 @@ struct PlaybackToolbarLabel: View {
 
                     if model.isPlaying {
                         AnimatedLiquidAura(
-                            palette: activePlaybackPalette,
+                            palette: palette,
                             shape: Circle(),
                             intensity: 0.78,
                             blurRadius: 5,
@@ -84,7 +79,7 @@ struct PlaybackToolbarLabel: View {
                             speedMultiplier: 2.65,
                             frameRate: 24,
                             isAnimated: true,
-                            animationKey: "playback-\(model.isPlaying)-\(activePlaybackPalette.count)",
+                            animationKey: "playback-\(model.isPlaying)-\(palette.count)",
                             coverage: 1.05,
                             accentMixAmount: 0.0,
                             colorSeparation: 4.2
@@ -98,23 +93,22 @@ struct PlaybackToolbarLabel: View {
             }
             .overlay {
                 Circle()
-                    .strokeBorder(playbackBorderStyle, lineWidth: 1.3)
+                    .strokeBorder(borderStyle(for: palette), lineWidth: 1.3)
             }
             .animation(.smooth(duration: 0.22), value: model.isPlaying)
     }
 
-    private var playbackBorderStyle: AnyShapeStyle {
-        if model.isPlaying {
-            AnyShapeStyle(
-                LinearGradient(
-                    colors: activePlaybackPalette.map { $0.opacity(0.42) },
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                )
-            )
-        } else {
-            AnyShapeStyle(Color.white.opacity(0.08))
+    private func borderStyle(for palette: [Color]) -> AnyShapeStyle {
+        guard model.isPlaying else {
+            return AnyShapeStyle(Color.white.opacity(0.08))
         }
+        return AnyShapeStyle(
+            LinearGradient(
+                colors: palette.map { $0.opacity(0.42) },
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+        )
     }
 }
 
@@ -141,23 +135,7 @@ struct BottomBarView: View {
             .accessibilityIdentifier("home.bottom.shuffle")
             .buttonStyle(PressScaleButtonStyle())
 
-            Button {
-                onOpenPresets(.bottomPresets)
-            } label: {
-                BottomToolbarItemLabel(
-                    systemImage: model.currentPresetID == nil ? "bookmark" : "bookmark.fill",
-                    tint: LiquidActivityPalette.preset[0],
-                    isActivated: model.activePreset != nil,
-                    palette: LiquidActivityPalette.preset
-                )
-            }
-            .accessibilityIdentifier("home.bottom.presets")
-            .buttonStyle(PressScaleButtonStyle())
-            .matchedTransitionSource(id: PanelTransitionSource.bottomPresets.transitionID, in: transitionNamespace) { source in
-                source
-                    .background(.clear)
-                    .clipShape(RoundedRectangle(cornerRadius: 26, style: .continuous))
-            }
+            presetsButton
 
             Button {
                 model.togglePlayback()
@@ -167,23 +145,7 @@ struct BottomBarView: View {
             .accessibilityIdentifier("home.bottom.playback")
             .buttonStyle(PressScaleButtonStyle())
 
-            Button {
-                onOpenBinaural(.bottomBinaural)
-            } label: {
-                BottomToolbarItemLabel(
-                    systemImage: "waveform.path",
-                    tint: model.activeBinauralTrack.tint,
-                    isActivated: model.isBinauralActive,
-                    palette: LiquidActivityPalette.binaural(for: model.activeBinauralTrack.tint)
-                )
-            }
-            .accessibilityIdentifier("home.bottom.binaural")
-            .buttonStyle(PressScaleButtonStyle())
-            .matchedTransitionSource(id: PanelTransitionSource.bottomBinaural.transitionID, in: transitionNamespace) { source in
-                source
-                    .background(.clear)
-                    .clipShape(RoundedRectangle(cornerRadius: 26, style: .continuous))
-            }
+            binauralButton
 
             RoutePickerView()
                 .frame(width: 22, height: 22)
@@ -193,7 +155,7 @@ struct BottomBarView: View {
                 .background {
                     Circle()
                         .fill(Color.white.opacity(0.001))
-                        .glassEffect(.regular, in: Circle())
+                        .oasisGlassEffect(in: Circle())
                         .overlay {
                             Circle()
                                 .fill(Color.white.opacity(0.022))
@@ -207,5 +169,66 @@ struct BottomBarView: View {
         .padding(.vertical, 12)
         .frame(maxWidth: 412)
         .frame(maxWidth: .infinity)
+    }
+
+    @ViewBuilder
+    private var presetsButton: some View {
+        let button = Button {
+            onOpenPresets(.bottomPresets)
+        } label: {
+            BottomToolbarItemLabel(
+                systemImage: model.currentPresetID == nil ? "bookmark" : "bookmark.fill",
+                tint: LiquidActivityPalette.preset[0],
+                isActivated: model.activePreset != nil,
+                palette: LiquidActivityPalette.preset
+            )
+        }
+        .accessibilityIdentifier("home.bottom.presets")
+        .buttonStyle(PressScaleButtonStyle())
+
+        if #available(iOS 26.0, *) {
+            button.matchedTransitionSource(id: PanelTransitionSource.bottomPresets.transitionID, in: transitionNamespace) { source in
+                // Match the actual circular shape of `BottomToolbarItemLabel` so the source
+                // config does not leave a slightly off RoundedRectangle clip on the button
+                // after the sheet transition ends.
+                // 48pt button with cornerRadius == half = perfect circle. The previous
+                // value of 26 overshot the half-size, leaving a slightly bulged outline
+                // after the sheet transition finished.
+                source
+                    .background(.clear)
+                    .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
+            }
+        } else {
+            button
+        }
+    }
+
+    @ViewBuilder
+    private var binauralButton: some View {
+        let button = Button {
+            onOpenBinaural(.bottomBinaural)
+        } label: {
+            BottomToolbarItemLabel(
+                systemImage: "waveform.path",
+                tint: model.activeBinauralTrack.tint,
+                isActivated: model.isBinauralActive,
+                palette: LiquidActivityPalette.binaural(for: model.activeBinauralTrack.tint)
+            )
+        }
+        .accessibilityIdentifier("home.bottom.binaural")
+        .buttonStyle(PressScaleButtonStyle())
+
+        if #available(iOS 26.0, *) {
+            button.matchedTransitionSource(id: PanelTransitionSource.bottomBinaural.transitionID, in: transitionNamespace) { source in
+                // 48pt button with cornerRadius == half = perfect circle. The previous
+                // value of 26 overshot the half-size, leaving a slightly bulged outline
+                // after the sheet transition finished.
+                source
+                    .background(.clear)
+                    .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
+            }
+        } else {
+            button
+        }
     }
 }

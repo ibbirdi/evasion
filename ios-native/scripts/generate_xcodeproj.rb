@@ -14,9 +14,9 @@ project = Xcodeproj::Project.new(PROJECT_DIR)
 project.root_object.attributes["LastUpgradeCheck"] = "2620"
 project.root_object.attributes["TargetAttributes"] = {}
 
-target = project.new_target(:application, "OasisNative", :ios, "26.0")
+target = project.new_target(:application, "OasisNative", :ios, "18.0")
 target.product_name = "Oasis"
-ui_test_target = project.new_target(:ui_test_bundle, "OasisNativeUITests", :ios, "26.0")
+ui_test_target = project.new_target(:ui_test_bundle, "OasisNativeUITests", :ios, "18.0")
 
 revenuecat_package = project.new(Xcodeproj::Project::Object::XCRemoteSwiftPackageReference)
 revenuecat_package.repositoryURL = "https://github.com/RevenueCat/purchases-ios-spm.git"
@@ -51,12 +51,12 @@ project.root_object.attributes["TargetAttributes"][ui_test_target.uuid] = {
 target.build_configurations.each do |config|
   settings = config.build_settings
   settings["PRODUCT_BUNDLE_IDENTIFIER"] = "com.jonathanluquet.drift"
-  settings["MARKETING_VERSION"] = "1.2.0"
+  settings["MARKETING_VERSION"] = "1.3.0"
   settings["CURRENT_PROJECT_VERSION"] = "1"
   settings["INFOPLIST_FILE"] = "OasisNative/Support/Info.plist"
   settings["GENERATE_INFOPLIST_FILE"] = "NO"
   settings["SWIFT_VERSION"] = "6.0"
-  settings["IPHONEOS_DEPLOYMENT_TARGET"] = "26.0"
+  settings["IPHONEOS_DEPLOYMENT_TARGET"] = "18.0"
   settings["TARGETED_DEVICE_FAMILY"] = "1"
   settings["PRODUCT_NAME"] = "Oasis"
   settings["INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]"] = "YES"
@@ -78,7 +78,7 @@ ui_test_target.build_configurations.each do |config|
   settings["PRODUCT_BUNDLE_IDENTIFIER"] = "com.jonathanluquet.drift.UITests"
   settings["GENERATE_INFOPLIST_FILE"] = "YES"
   settings["SWIFT_VERSION"] = "6.0"
-  settings["IPHONEOS_DEPLOYMENT_TARGET"] = "26.0"
+  settings["IPHONEOS_DEPLOYMENT_TARGET"] = "18.0"
   settings["TARGETED_DEVICE_FAMILY"] = "1"
   settings["PRODUCT_NAME"] = "OasisNativeUITests"
   settings["CODE_SIGN_STYLE"] = "Automatic"

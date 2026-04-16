@@ -8,7 +8,7 @@ struct PresetsPanel: View {
     @State private var lastReorderTargetID: String?
     @State private var rowMidpoints: [String: CGFloat] = [:]
 
-    private var canManagePresets: Bool {
+    private var canReorderPresets: Bool {
         model.isPremium
     }
 
@@ -108,8 +108,9 @@ struct PresetsPanel: View {
                 preset: preset,
                 isLocked: model.isPresetLocked(preset),
                 isDragging: activeDragPresetID == preset.id,
-                showsManagementControls: canManagePresets,
-                isReorderEnabled: canManagePresets && !isNamingPreset,
+                showsReorderControl: canReorderPresets,
+                isReorderEnabled: canReorderPresets && !isNamingPreset,
+                isDeleteEnabled: canDelete(preset) && !isNamingPreset,
                 onSelect: {
                     guard !model.isPresetLocked(preset) else {
                         model.requestPremiumAccess(from: .presetLoad)
@@ -190,23 +191,19 @@ struct PresetsPanel: View {
     }
 
     private func savePreset() {
-        guard canManagePresets else {
-            model.requestPremiumAccess(from: .presetSave)
-            return
-        }
-
         let trimmed = newPresetName.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { return }
 
-        withAnimation(.smooth(duration: 0.22)) {
+        let didSave = withAnimation(.smooth(duration: 0.22)) {
             model.savePreset(named: trimmed)
         }
+        guard didSave else { return }
         newPresetName = ""
         isNamingPreset = false
     }
 
     private func delete(_ preset: Preset) {
-        guard canManagePresets else { return }
+        guard canDelete(preset) else { return }
 
         withAnimation(.smooth(duration: 0.22)) {
             model.deletePreset(preset)
@@ -248,6 +245,10 @@ struct PresetsPanel: View {
         )
     }
 
+    private func canDelete(_ preset: Preset) -> Bool {
+        model.isPremium || preset.isUser
+    }
+
 }
 
 private struct PresetRow: View {
@@ -255,8 +256,9 @@ private struct PresetRow: View {
     let preset: Preset
     let isLocked: Bool
     let isDragging: Bool
-    let showsManagementControls: Bool
+    let showsReorderControl: Bool
     let isReorderEnabled: Bool
+    let isDeleteEnabled: Bool
     let onSelect: () -> Void
     let onDelete: () -> Void
     let onReorderChanged: (CGFloat) -> Void
@@ -276,8 +278,11 @@ private struct PresetRow: View {
             .accessibilityIdentifier("presets.row.\(preset.id)")
             .buttonStyle(PresetButtonScaleStyle())
 
-            if showsManagementControls {
+            if showsReorderControl {
                 reorderHandle
+            }
+
+            if isDeleteEnabled {
                 deleteButton
             }
         }
@@ -365,8 +370,8 @@ private struct PresetRow: View {
                 }
         }
         .buttonStyle(PresetButtonScaleStyle())
-        .disabled(!isReorderEnabled)
-        .opacity(isReorderEnabled ? 1 : 0.36)
+        .disabled(!isDeleteEnabled)
+        .opacity(isDeleteEnabled ? 1 : 0.36)
     }
 
     private var rowTint: Color {

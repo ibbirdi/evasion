@@ -66,6 +66,14 @@
 		F85F1FF2175C985EEEBEFEAD /* riviere1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 765FA55A9B5AACCD5B3F7F7B /* riviere1.m4a */; };
 		FA305E963F051B40E1FD43DB /* 4_binaural_focus_beta.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 42847BB91E3AF7081433E2BB /* 4_binaural_focus_beta.m4a */; };
 		FB653F6749AB7071C75FC24F /* RoutePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E500E49953F94DA77881EFD /* RoutePickerView.swift */; };
+		A10000000000000000000010 /* SoundChannelMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000010 /* SoundChannelMetadata.swift */; };
+		A10000000000000000000011 /* SoundDetailSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000011 /* SoundDetailSheet.swift */; };
+		A10000000000000000000020 /* campfire1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000020 /* campfire1.m4a */; };
+		A10000000000000000000021 /* cafe1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000021 /* cafe1.m4a */; };
+		A10000000000000000000022 /* lac1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000022 /* lac1.m4a */; };
+		A10000000000000000000023 /* savane1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000023 /* savane1.m4a */; };
+		A10000000000000000000024 /* jungleamerique1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000024 /* jungleamerique1.m4a */; };
+		A10000000000000000000025 /* jungleasie1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000025 /* jungleasie1.m4a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -138,6 +146,14 @@
 		E87F899C1983B423603591A1 /* orage1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = orage1.m4a; sourceTree = "<group>"; };
 		E9DCCC7233ECB3C67BBFDA0B /* Assets.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F03E6421CAADC71EA3C6E79D /* oiseaux1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = oiseaux1.m4a; sourceTree = "<group>"; };
+		A20000000000000000000010 /* SoundChannelMetadata.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SoundChannelMetadata.swift; sourceTree = "<group>"; };
+		A20000000000000000000011 /* SoundDetailSheet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SoundDetailSheet.swift; sourceTree = "<group>"; };
+		A20000000000000000000020 /* campfire1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = campfire1.m4a; sourceTree = "<group>"; };
+		A20000000000000000000021 /* cafe1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = cafe1.m4a; sourceTree = "<group>"; };
+		A20000000000000000000022 /* lac1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = lac1.m4a; sourceTree = "<group>"; };
+		A20000000000000000000023 /* savane1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = savane1.m4a; sourceTree = "<group>"; };
+		A20000000000000000000024 /* jungleamerique1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = jungleamerique1.m4a; sourceTree = "<group>"; };
+		A20000000000000000000025 /* jungleasie1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = jungleasie1.m4a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -255,6 +271,7 @@
 				99B0853EBD4EB64D5A0E9E62 /* PresetsPanel.swift */,
 				C28A2B7AF2B3DEC147A9515C /* SpatialAudioPanel.swift */,
 				A20000000000000000000006 /* TimerUnlockPanel.swift */,
+				A20000000000000000000011 /* SoundDetailSheet.swift */,
 			);
 			path = Overlays;
 			sourceTree = "<group>";
@@ -298,6 +315,7 @@
 			children = (
 				7EFC122A10EC730D7A188709 /* AppModels.swift */,
 				A20000000000000000000001 /* PremiumModels.swift */,
+				A20000000000000000000010 /* SoundChannelMetadata.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -353,6 +371,12 @@
 				D9D5D9C2DDDCF5398A85A83C /* vent1.m4a */,
 				C8A636367B327875891D0A9B /* ville1.m4a */,
 				AE94FCCD29022F9F4A97C007 /* voiture1.m4a */,
+				A20000000000000000000020 /* campfire1.m4a */,
+				A20000000000000000000021 /* cafe1.m4a */,
+				A20000000000000000000022 /* lac1.m4a */,
+				A20000000000000000000023 /* savane1.m4a */,
+				A20000000000000000000024 /* jungleamerique1.m4a */,
+				A20000000000000000000025 /* jungleasie1.m4a */,
 			);
 			path = Audio;
 			sourceTree = "<group>";
@@ -523,7 +547,13 @@
 				550D7D0F4D45F4A21518F58A /* ville1.m4a in Resources */,
 				46A59B27C87EA1FFFAE3EB18 /* voiture1.m4a in Resources */,
 				35EA58B79B61B5615322BC27 /* oasisLogo.png in Resources */,
-			);
+			A10000000000000000000020 /* campfire1.m4a in Resources */,
+			A10000000000000000000021 /* cafe1.m4a in Resources */,
+			A10000000000000000000022 /* lac1.m4a in Resources */,
+			A10000000000000000000023 /* savane1.m4a in Resources */,
+			A10000000000000000000024 /* jungleamerique1.m4a in Resources */,
+			A10000000000000000000025 /* jungleasie1.m4a in Resources */,
+		);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
@@ -564,7 +594,9 @@
 				B10000000000000000000001 /* RootView.swift in Sources */,
 				B10000000000000000000002 /* OnboardingView.swift in Sources */,
 				B10000000000000000000003 /* TelemetryDeckAnalyticsSink.swift in Sources */,
-			);
+			A10000000000000000000010 /* SoundChannelMetadata.swift in Sources */,
+			A10000000000000000000011 /* SoundDetailSheet.swift in Sources */,
+		);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		B182E049A53738E9E7B8448B /* Sources */ = {

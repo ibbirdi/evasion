@@ -34,12 +34,14 @@ struct HomeView: View {
     @State private var activePanel: ActiveHomePanel?
     @State private var activePanelSource: PanelTransitionSource?
     @State private var activeSpatialChannel: SoundChannel?
+    @State private var activeDetailChannel: SoundChannel?
+    @State private var showsTimerUnlockPanel = false
     @State private var presetsPanelHeight: CGFloat = 360
     @State private var binauralPanelHeight: CGFloat = 360
     @Namespace private var panelTransitionNamespace
 
-    private static let headerCollapseDistance: CGFloat = 140
-    private static let headerProgressSteps: CGFloat = 48
+    fileprivate static let headerCollapseDistance: CGFloat = 140
+    fileprivate static let headerProgressSteps: CGFloat = 48
     private func openPresets(from source: PanelTransitionSource) {
         presetsPanelHeight = measurePanelHeight(for: PresetsPanel().environment(model))
         activePanelSource = source.usesZoomTransition ? source : nil
@@ -56,12 +58,27 @@ struct HomeView: View {
     private func openSpatial(for channel: SoundChannel) {
         activePanel = nil
         activePanelSource = nil
+        activeDetailChannel = nil
         activeSpatialChannel = channel
+    }
+
+    private func openDetail(for channel: SoundChannel) {
+        activePanel = nil
+        activePanelSource = nil
+        activeSpatialChannel = nil
+        activeDetailChannel = channel
+    }
+
+    private func openTimerUnlock() {
+        activePanel = nil
+        activePanelSource = nil
+        activeSpatialChannel = nil
+        showsTimerUnlockPanel = true
     }
 
     @ViewBuilder
     private func presetsPanelView(source: PanelTransitionSource?) -> some View {
-        if let source {
+        if let source, #available(iOS 26.0, *) {
             PresetsPanel()
                 .navigationTransition(.zoom(sourceID: source.transitionID, in: panelTransitionNamespace))
                 .adaptiveSheetDetent($presetsPanelHeight)
@@ -79,7 +96,7 @@ struct HomeView: View {
 
     @ViewBuilder
     private func binauralPanelView(source: PanelTransitionSource?) -> some View {
-        if let source {
+        if let source, #available(iOS 26.0, *) {
             BinauralPanel()
                 .navigationTransition(.zoom(sourceID: source.transitionID, in: panelTransitionNamespace))
                 .adaptiveSheetDetent($binauralPanelHeight)
@@ -143,45 +160,58 @@ struct HomeView: View {
 
                     ScrollView {
                         LazyVStack(spacing: 8) {
-                            MixerBoardSectionView(onOpenSpatial: openSpatial)
+                            MixerBoardSectionView(
+                                onOpenSpatial: openSpatial,
+                                onOpenDetail: openDetail
+                            )
                         }
                         .padding(.horizontal, 16)
-                        .padding(.top, proxy.safeAreaInsets.top + 156)
+                        // Header footprint is ~103 after the logo height reduction; this
+                        // padding leaves ~17 pt of breathing room before the first row
+                        // rather than the 53 pt gap that came from the legacy 156 value.
+                        .padding(.top, proxy.safeAreaInsets.top + 120)
                         .padding(.bottom, 110)
                         .frame(maxWidth: .infinity, alignment: .top)
                     }
                     .accessibilityIdentifier("home.scroll")
                     .scrollIndicators(.hidden)
                     .scrollBounceBehavior(.basedOnSize)
-                    .onScrollGeometryChange(
-                        for: CGFloat.self,
-                        of: { geometry in
-                            let offset = max(geometry.contentOffset.y + geometry.contentInsets.top, 0)
-                            let rawProgress = min(max(offset / Self.headerCollapseDistance, 0), 1)
-                            return (rawProgress * Self.headerProgressSteps).rounded() / Self.headerProgressSteps
-                        },
-                        action: { _, newValue in
-                            headerCompactProgress = newValue
-                        }
-                    )
+                    .headerCompactProgress($headerCompactProgress)
 
                     VStack(spacing: 0) {
                         HomeHeaderView(
                             compactProgress: headerCompactProgress,
                             onOpenPresets: openPresets,
-                            onOpenBinaural: openBinaural
+                            onOpenBinaural: openBinaural,
+                            onRequestPremiumTimer: openTimerUnlock
                         )
                         .padding(.top, proxy.safeAreaInsets.top + 4)
                         .padding(.horizontal, 8)
 
                         Spacer(minLength: 0)
+
+                        // Subtle dark gradient fading up from the bottom edge, used to make
+                        // the floating toolbar readable on any backdrop colour. Non-interactive
+                        // so scrolling and taps pass straight through to the content below.
+                        LinearGradient(
+                            colors: [
+                                Color.black.opacity(0),
+                                Color.black.opacity(0.34),
+                                Color.black.opacity(0.60)
+                            ],
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
+                        .frame(height: 160)
+                        .allowsHitTesting(false)
                     }
+                    .ignoresSafeArea(edges: .bottom)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                 .background(Color.clear)
                 .ignoresSafeArea()
                 .ignoresSafeArea(.keyboard)
-                .safeAreaBar(edge: .bottom, spacing: 0) {
+                .oasisBottomBar(spacing: 0) {
                     BottomBarView(
                         transitionNamespace: panelTransitionNamespace,
                         onOpenPresets: openPresets,
@@ -212,6 +242,16 @@ struct HomeView: View {
                 .presentationContentInteraction(.resizes)
                 .presentationDragIndicator(.visible)
         }
+        .sheet(item: $activeDetailChannel) { channel in
+            SoundDetailSheet(channel: channel)
+                .presentationDetents([.medium, .large])
+                .presentationDragIndicator(.visible)
+        }
+        .sheet(isPresented: $showsTimerUnlockPanel) {
+            TimerUnlockPanel()
+                .presentationDetents([.height(300)])
+                .presentationDragIndicator(.visible)
+        }
         .fullScreenCover(item: $model.activePaywallContext, onDismiss: {
             model.dismissPaywall()
         }) { context in
@@ -230,6 +270,8 @@ struct HomeView: View {
             activePanel = nil
             activePanelSource = nil
             activeSpatialChannel = nil
+            activeDetailChannel = nil
+            showsTimerUnlockPanel = false
         }
         .task {
             model.bootstrapIfNeeded()
@@ -254,8 +296,46 @@ private struct AdaptiveSheetDetentModifier: ViewModifier {
     }
 }
 
+private struct HeaderCompactProgressModifier: ViewModifier {
+    @Binding var progress: CGFloat
+
+    func body(content: Content) -> some View {
+        if #available(iOS 26.0, *) {
+            content.onScrollGeometryChange(
+                for: CGFloat.self,
+                of: { geometry in
+                    let offset = max(geometry.contentOffset.y + geometry.contentInsets.top, 0)
+                    let rawProgress = min(max(offset / HomeView.headerCollapseDistance, 0), 1)
+                    return (rawProgress * HomeView.headerProgressSteps).rounded() / HomeView.headerProgressSteps
+                },
+                action: { _, newValue in
+                    progress = newValue
+                }
+            )
+        } else {
+            content
+        }
+    }
+}
+
 private extension View {
     func adaptiveSheetDetent(_ detentHeight: Binding<CGFloat>) -> some View {
         modifier(AdaptiveSheetDetentModifier(detentHeight: detentHeight))
+    }
+
+    func headerCompactProgress(_ progress: Binding<CGFloat>) -> some View {
+        modifier(HeaderCompactProgressModifier(progress: progress))
+    }
+
+    // `safeAreaInset` reserves bottom space without adding any implicit glass container.
+    // On iOS 26+, `safeAreaBar` would add its own Liquid Glass layer beneath the toolbar,
+    // which then double-stacks with the per-button `oasisGlassEffect` and flattens the
+    // blur. Mirroring what the top header does (just a padded VStack, no container) keeps
+    // the glass quality consistent across top and bottom toolbars.
+    func oasisBottomBar<Content: View>(
+        spacing: CGFloat,
+        @ViewBuilder content: () -> Content
+    ) -> some View {
+        safeAreaInset(edge: .bottom, spacing: spacing, content: content)
     }
 }

@@ -2,6 +2,7 @@ import Foundation
 import Observation
 import RevenueCat
 import StoreKit
+import SwiftUI
 import UIKit
 
 @MainActor
@@ -40,8 +41,14 @@ final class AppModel {
     @ObservationIgnored private let revenueCatObserver = RevenueCatObserver()
     @ObservationIgnored private let premiumCoordinator = PremiumCoordinator()
     @ObservationIgnored private let premiumRevenueCatService = PremiumRevenueCatService()
-    @ObservationIgnored private let premiumAnalytics: any PremiumAnalyticsSink =
-        AppConfiguration.isTelemetryDeckConfigured ? TelemetryDeckAnalyticsSink() : LoggerPremiumAnalyticsSink()
+    @ObservationIgnored private let premiumAnalytics: any PremiumAnalyticsSink = {
+        #if canImport(TelemetryDeck)
+        if AppConfiguration.isTelemetryDeckConfigured {
+            return TelemetryDeckAnalyticsSink()
+        }
+        #endif
+        return LoggerPremiumAnalyticsSink()
+    }()
     @ObservationIgnored private var timerTicker: Timer?
     @ObservationIgnored private var bootstrapTask: Task<Void, Never>?
     @ObservationIgnored private var persistenceTask: Task<Void, Never>?
@@ -207,6 +214,16 @@ final class AppModel {
 
     var activeAmbientChannelsCount: Int {
         SoundChannel.allCases.filter(isAmbientChannelActive(_:)).count
+    }
+
+    /// Ordered palette of channel tints for every unmuted ambient channel, shaped for the
+    /// liquid aura that breathes inside the main play/pause button.
+    var activePlaybackPalette: [Color] {
+        let colors = SoundChannel.allCases.compactMap { channel -> Color? in
+            guard let state = channels[channel], !state.isMuted else { return nil }
+            return channel.tint
+        }
+        return LiquidActivityPalette.playback(from: colors)
     }
 
     var timerToolbarTitle: String {

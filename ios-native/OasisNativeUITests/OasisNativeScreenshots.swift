@@ -7,45 +7,46 @@ final class OasisNativeScreenshots: XCTestCase {
     }
 
     func testAppStoreScreenshots() throws {
+        let app = launchApp(premiumOverride: "free")
+
+        waitForHittable(button(in: app, id: "home.header.timer"))
+        snapshot("01_free_sleep", waitForLoadingIndicator: false)
+
+        openTimerMenu(in: app)
+        tapTimerMenuOption(in: app, candidates: ["30 min"])
+        snapshot("02_free_timer", waitForLoadingIndicator: false)
+
+        captureShuffleState(named: "03_free_shuffle", in: app)
+
+        scrollToBottom(in: app)
+        waitForExistence(of: app.otherElements.matching(identifier: "premium.library.teaser").firstMatch)
+        snapshot("04_premium_library", waitForLoadingIndicator: false)
+
+        openTimerMenu(in: app)
+        tapTimerMenuOption(in: app, candidates: ["1 hr", "1 h", "1 Std."])
+        waitForExistence(of: panel(in: app, id: "panel.timer.unlock"))
+        snapshot("05_timer_upsell", waitForLoadingIndicator: false)
+
+        app.terminate()
+
+        let premiumApp = launchApp(premiumOverride: "premium")
+        let binauralButton = button(in: premiumApp, id: "home.header.binaural")
+        waitForHittable(binauralButton)
+        binauralButton.tap()
+        let binauralPanel = panel(in: premiumApp, id: "panel.binaural.container")
+        waitForExistence(of: binauralPanel)
+        snapshot("06_premium_binaural", waitForLoadingIndicator: false)
+    }
+
+    private func launchApp(premiumOverride: String) -> XCUIApplication {
         let app = XCUIApplication()
         setupSnapshot(app, waitForAnimations: true)
         app.launchArguments += [
-            "-OASISPremiumOverride", "premium",
+            "-OASISPremiumOverride", premiumOverride,
             "-OASISResetState", "YES"
         ]
         app.launch()
-
-        let timerButton = button(in: app, id: "home.header.timer")
-        waitForHittable(timerButton)
-        timerButton.tap()
-        let thirtyMinutesButton = app.buttons.matching(identifier: "30 min").firstMatch
-        waitForHittable(thirtyMinutesButton)
-        thirtyMinutesButton.tap()
-
-        captureShuffleState(named: "01_shuffle_a", in: app)
-        captureShuffleState(named: "02_shuffle_b", in: app)
-        captureShuffleState(named: "03_shuffle_c", in: app)
-
-        let headerPresetsButton = button(in: app, id: "home.header.presets")
-        waitForHittable(headerPresetsButton)
-        headerPresetsButton.tap()
-        let presetsPanel = panel(in: app, id: "panel.presets.container")
-        waitForExistence(of: presetsPanel)
-        tapFirstPreset(in: app)
-        waitForExistence(of: presetsPanel)
-        snapshot("04_presets", waitForLoadingIndicator: false)
-        dismissSheet(panel: presetsPanel, in: app)
-
-        let binauralButton = button(in: app, id: "home.header.binaural")
-        waitForHittable(binauralButton)
-        binauralButton.tap()
-        let binauralPanel = panel(in: app, id: "panel.binaural.container")
-        waitForExistence(of: binauralPanel)
-        snapshot("05_binaural", waitForLoadingIndicator: false)
-        dismissSheet(panel: binauralPanel, in: app)
-
-        scrollToBottom(in: app)
-        snapshot("06_bottom", waitForLoadingIndicator: false)
+        return app
     }
 
     private func captureShuffleState(named name: String, in app: XCUIApplication) {
@@ -62,28 +63,27 @@ final class OasisNativeScreenshots: XCTestCase {
         }
     }
 
-    private func dismissSheet(panel: XCUIElement, in app: XCUIApplication, timeout: TimeInterval = 8) {
-        waitForExistence(of: panel, timeout: timeout)
+    private func openTimerMenu(in app: XCUIApplication) {
+        let timerButton = button(in: app, id: "home.header.timer")
+        waitForHittable(timerButton)
+        timerButton.tap()
+    }
 
-        let outsideTap = app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.10))
-        outsideTap.tap()
-
+    private func tapTimerMenuOption(in app: XCUIApplication, candidates: [String], timeout: TimeInterval = 8) {
         let deadline = Date().addingTimeInterval(timeout)
-        var didFallbackSwipe = false
         while Date() < deadline {
-            if !panel.exists {
-                return
+            for candidate in candidates {
+                let option = app.buttons.matching(identifier: candidate).firstMatch
+                if option.exists {
+                    tapElementReliably(option, timeout: 1)
+                    return
+                }
             }
-            if !didFallbackSwipe, Date() > deadline.addingTimeInterval(-timeout / 2) {
-                didFallbackSwipe = true
-                let start = panel.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.18))
-                let end = panel.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.92))
-                start.press(forDuration: 0.05, thenDragTo: end)
-            }
+
             RunLoop.current.run(until: Date().addingTimeInterval(0.2))
         }
 
-        XCTFail("Panel still visible after dismissal: \(panel)")
+        XCTFail("Timer option not found: \(candidates.joined(separator: ", "))")
     }
 
     private func button(in app: XCUIApplication, id: String) -> XCUIElement {
@@ -103,27 +103,6 @@ final class OasisNativeScreenshots: XCTestCase {
 
     private func waitForExistence(of element: XCUIElement, timeout: TimeInterval = 8) {
         XCTAssertTrue(element.waitForExistence(timeout: timeout), "Element not found: \(element)")
-    }
-
-    private func tapFirstPreset(in app: XCUIApplication, timeout: TimeInterval = 8) {
-        let presetsPanel = panel(in: app, id: "panel.presets.container")
-        if presetsPanel.waitForExistence(timeout: timeout) {
-            let presetButton = presetsPanel
-                .descendants(matching: .button)
-                .matching(identifier: "presets.row.preset_default_calm")
-                .firstMatch
-
-            if presetButton.exists {
-                tapElementReliably(presetButton, timeout: 1)
-                return
-            }
-
-            let coordinate = presetsPanel.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.34))
-            coordinate.tap()
-            return
-        }
-
-        XCTFail("Presets panel not found")
     }
 
     private func tapElementReliably(_ element: XCUIElement, timeout: TimeInterval = 8) {

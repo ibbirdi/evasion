@@ -82,7 +82,7 @@ private struct SpatialPlacementStage: View {
             ZStack {
                 RoundedRectangle(cornerRadius: 28, style: .continuous)
                     .fill(Color.white.opacity(0.001))
-                    .glassEffect(.regular, in: RoundedRectangle(cornerRadius: 28, style: .continuous))
+                    .oasisGlassEffect(in: RoundedRectangle(cornerRadius: 28, style: .continuous))
                     .overlay {
                         RoundedRectangle(cornerRadius: 28, style: .continuous)
                             .fill(channel.tint.opacity(0.06))
@@ -148,7 +148,7 @@ private struct SpatialPlacementStage: View {
 
             Circle()
                 .fill(Color.white.opacity(0.001))
-                .glassEffect(.regular, in: Circle())
+                .oasisGlassEffect(in: Circle())
                 .overlay {
                     Circle()
                         .fill(channel.tint.opacity(0.22))

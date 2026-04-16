@@ -674,44 +674,8 @@ enum L10n {
     }
 }
 
-extension SoundChannel {
-    var localizedName: String {
-        L10n.string(localizedNameResource)
-    }
-
-    private var localizedNameResource: LocalizedStringResource {
-        switch self {
-        case .oiseaux:
-            return LocalizedStringResource("channel.birds", defaultValue: "Birds", bundle: .main, comment: "Ambient sound channel name.")
-        case .vent:
-            return LocalizedStringResource("channel.wind", defaultValue: "Wind", bundle: .main, comment: "Ambient sound channel name.")
-        case .plage:
-            return LocalizedStringResource("channel.shore", defaultValue: "Shore", bundle: .main, comment: "Ambient sound channel name.")
-        case .goelands:
-            return LocalizedStringResource("channel.seagulls", defaultValue: "Seagulls", bundle: .main, comment: "Ambient sound channel name.")
-        case .foret:
-            return LocalizedStringResource("channel.forest", defaultValue: "Forest", bundle: .main, comment: "Ambient sound channel name.")
-        case .pluie:
-            return LocalizedStringResource("channel.rain", defaultValue: "Rain", bundle: .main, comment: "Ambient sound channel name.")
-        case .tonnerre:
-            return LocalizedStringResource("channel.thunder", defaultValue: "Thunder", bundle: .main, comment: "Ambient sound channel name.")
-        case .cigales:
-            return LocalizedStringResource("channel.cicadas", defaultValue: "Cicadas", bundle: .main, comment: "Ambient sound channel name.")
-        case .grillons:
-            return LocalizedStringResource("channel.crickets", defaultValue: "Crickets", bundle: .main, comment: "Ambient sound channel name.")
-        case .tente:
-            return LocalizedStringResource("channel.tent", defaultValue: "Tent", bundle: .main, comment: "Ambient sound channel name.")
-        case .riviere:
-            return LocalizedStringResource("channel.river", defaultValue: "River", bundle: .main, comment: "Ambient sound channel name.")
-        case .village:
-            return LocalizedStringResource("channel.village", defaultValue: "Village", bundle: .main, comment: "Ambient sound channel name.")
-        case .voiture:
-            return LocalizedStringResource("channel.carRide", defaultValue: "Car ride", bundle: .main, comment: "Ambient sound channel name.")
-        case .train:
-            return LocalizedStringResource("channel.train", defaultValue: "Train", bundle: .main, comment: "Ambient sound channel name.")
-        }
-    }
-}
+// `SoundChannel` localized names are defined alongside the rest of the per-channel metadata in
+// `SoundChannelMetadata.swift`.
 
 extension BinauralTrack {
     var localizedTitle: String {

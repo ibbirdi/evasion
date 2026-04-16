@@ -26,81 +26,19 @@ enum SoundChannel: String, CaseIterable, Codable, Identifiable, Sendable {
     case village
     case voiture
     case train
+    case campfire
+    case cafe
+    case lac
+    case savane
+    case jungleAmerique
+    case jungleAsie
 
     var id: String { rawValue }
 
     static let freeChannels: Set<SoundChannel> = [.oiseaux, .vent, .plage]
 
-    var filename: String {
-        switch self {
-        case .oiseaux: return "oiseaux1.m4a"
-        case .vent: return "vent1.m4a"
-        case .plage: return "plage1.m4a"
-        case .goelands: return "goelants1.m4a"
-        case .foret: return "foret1.m4a"
-        case .pluie: return "pluie1.m4a"
-        case .tonnerre: return "orage1.m4a"
-        case .cigales: return "cigales1.m4a"
-        case .grillons: return "grillons1.m4a"
-        case .tente: return "tente1.m4a"
-        case .riviere: return "riviere1.m4a"
-        case .village: return "ville1.m4a"
-        case .voiture: return "voiture1.m4a"
-        case .train: return "train1.m4a"
-        }
-    }
-
-    var systemImage: String {
-        switch self {
-        case .oiseaux: return "bird.fill"
-        case .vent: return "wind"
-        case .plage: return "water.waves"
-        case .goelands: return "bird"
-        case .foret: return "tree.fill"
-        case .pluie: return "cloud.rain.fill"
-        case .tonnerre: return "cloud.bolt.fill"
-        case .cigales: return "ladybug.fill"
-        case .grillons: return "moon.stars"
-        case .tente: return "tent.fill"
-        case .riviere: return "drop.fill"
-        case .village: return "house.fill"
-        case .voiture: return "car.fill"
-        case .train: return "tram.fill"
-        }
-    }
-
-    var tint: Color {
-        switch self {
-        case .oiseaux:
-            return Color(red: 0.96, green: 0.74, blue: 0.53)
-        case .vent:
-            return Color(red: 0.96, green: 0.97, blue: 0.92)
-        case .plage:
-            return Color(red: 0.93, green: 0.86, blue: 0.57)
-        case .goelands:
-            return Color(red: 0.71, green: 0.86, blue: 0.66)
-        case .foret:
-            return Color(red: 0.63, green: 0.86, blue: 0.55)
-        case .pluie:
-            return Color(red: 0.45, green: 0.79, blue: 0.92)
-        case .tonnerre:
-            return Color(red: 0.69, green: 0.57, blue: 0.92)
-        case .cigales:
-            return Color(red: 0.89, green: 0.86, blue: 0.51)
-        case .grillons:
-            return Color(red: 0.65, green: 0.80, blue: 0.97)
-        case .tente:
-            return Color(red: 0.85, green: 0.73, blue: 0.60)
-        case .riviere:
-            return Color(red: 0.50, green: 0.85, blue: 0.95)
-        case .village:
-            return Color(red: 0.90, green: 0.72, blue: 0.60)
-        case .voiture:
-            return Color(red: 0.83, green: 0.70, blue: 0.90)
-        case .train:
-            return Color(red: 0.94, green: 0.66, blue: 0.72)
-        }
-    }
+    // Per-channel audio file, visual identity, location and freesound credits live in
+    // `SoundChannelMetadata.swift` so that adding a channel is a single-entry change.
 }
 
 enum BinauralTrack: String, CaseIterable, Codable, Identifiable, Sendable {
@@ -197,6 +135,10 @@ struct Preset: Codable, Equatable, Identifiable {
 
     var isSignature: Bool {
         id == "preset_signature_oasis"
+    }
+
+    var isUser: Bool {
+        id.hasPrefix("preset_user_")
     }
 
     var requiresPremium: Bool {

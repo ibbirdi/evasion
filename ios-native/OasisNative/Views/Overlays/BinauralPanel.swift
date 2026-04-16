@@ -159,7 +159,7 @@ private struct BinauralTrackCard: View {
             .background {
                 RoundedRectangle(cornerRadius: 20, style: .continuous)
                     .fill(Color.white.opacity(0.001))
-                    .glassEffect(.regular, in: RoundedRectangle(cornerRadius: 20, style: .continuous))
+                    .oasisGlassEffect(in: RoundedRectangle(cornerRadius: 20, style: .continuous))
                     .overlay {
                         RoundedRectangle(cornerRadius: 20, style: .continuous)
                             .fill(isActive ? track.tint.opacity(0.13) : Color.white.opacity(0.018))

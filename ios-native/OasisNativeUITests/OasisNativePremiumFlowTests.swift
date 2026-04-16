@@ -52,7 +52,7 @@ final class OasisNativePremiumFlowTests: XCTestCase {
         XCTAssertFalse(app.buttons["premium.paywall.close"].exists)
     }
 
-    func testTimerChipShowsUnlockPanelBeforePaywall() throws {
+    func testFreeShortTimerDoesNotShowPaywall() throws {
         let app = makeApp()
         app.launch()
 
@@ -60,10 +60,26 @@ final class OasisNativePremiumFlowTests: XCTestCase {
         waitForHittable(timerButton)
         timerButton.tap()
 
+        tapTimerMenuOption(in: app, labels: ["30 min"])
+
+        XCTAssertFalse(app.otherElements["panel.timer.unlock"].exists)
+        XCTAssertFalse(app.buttons["premium.paywall.close"].exists)
+    }
+
+    func testPremiumLongTimerShowsUnlockPanelBeforePaywall() throws {
+        let app = makeApp()
+        app.launch()
+
+        let timerButton = button(in: app, id: "home.header.timer")
+        waitForHittable(timerButton)
+        timerButton.tap()
+
+        tapTimerMenuOption(in: app, labels: ["1 hr", "1 h"])
+
         let unlockPanel = app.otherElements["panel.timer.unlock"]
         waitForExistence(of: unlockPanel)
 
-        let durationButton = app.buttons["timer.unlock.option.30"]
+        let durationButton = app.buttons["timer.unlock.option.60"]
         waitForExistence(of: durationButton)
         durationButton.tap()
 
@@ -97,5 +113,28 @@ final class OasisNativePremiumFlowTests: XCTestCase {
 
     private func waitForPaywall(in app: XCUIApplication, timeout: TimeInterval = 8) {
         waitForExistence(of: app.buttons["premium.paywall.close"], timeout: timeout)
+    }
+
+    private func tapTimerMenuOption(in app: XCUIApplication, labels: [String], timeout: TimeInterval = 8) {
+        for label in labels {
+            let option = app.buttons.matching(identifier: label).firstMatch
+            if option.waitForExistence(timeout: 1) {
+                tapElementReliably(option, timeout: timeout)
+                return
+            }
+        }
+
+        XCTFail("No timer menu option found for labels: \(labels)")
+    }
+
+    private func tapElementReliably(_ element: XCUIElement, timeout: TimeInterval = 8) {
+        waitForExistence(of: element, timeout: timeout)
+
+        if element.isHittable {
+            element.tap()
+            return
+        }
+
+        element.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
     }
 }

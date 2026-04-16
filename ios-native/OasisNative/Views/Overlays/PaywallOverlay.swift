@@ -12,6 +12,7 @@ struct PaywallOverlay: View {
     @State private var isPurchasing = false
     @State private var isRestoring = false
     @State private var loadState: PaywallLoadState = .idle
+    @State private var ctaPulse = false
 
     private let ctaGradient = LinearGradient(
         colors: [
@@ -67,7 +68,7 @@ struct PaywallOverlay: View {
                                 .background {
                                     Circle()
                                         .fill(Color.white.opacity(0.001))
-                                        .glassEffect(.regular, in: Circle())
+                                        .oasisGlassEffect(in: Circle())
                                         .overlay {
                                             Circle()
                                                 .fill(Color.white.opacity(0.028))
@@ -135,6 +136,14 @@ struct PaywallOverlay: View {
                                     .padding(.bottom, isCompactHeight ? 18 : 22)
 
                                 primaryActionButton(isCompactHeight: isCompactHeight)
+
+                                if let price = currentPackage?.localizedPriceString {
+                                    Text(L10n.Paywall.dailyPrice)
+                                        .font(.system(size: isCompactHeight ? 11 : 12, weight: .medium, design: .rounded))
+                                        .foregroundStyle(.white.opacity(0.50))
+                                        .multilineTextAlignment(.center)
+                                        .padding(.top, 4)
+                                }
                             }
                         }
 
@@ -210,7 +219,12 @@ struct PaywallOverlay: View {
                 .background {
                     RoundedRectangle(cornerRadius: 26, style: .continuous)
                         .fill(ctaGradient)
-                        .shadow(color: Color(red: 0.97, green: 0.74, blue: 0.32).opacity(0.18), radius: 16, y: 8)
+                        .shadow(color: Color(red: 0.97, green: 0.74, blue: 0.32).opacity(ctaPulse ? 0.32 : 0.14), radius: ctaPulse ? 20 : 12, y: 8)
+                }
+                .onAppear {
+                    withAnimation(.easeInOut(duration: 1.8).repeatForever(autoreverses: true)) {
+                        ctaPulse = true
+                    }
                 }
             }
             .buttonStyle(PressScaleButtonStyle())
@@ -261,7 +275,7 @@ struct PaywallOverlay: View {
                     .background {
                         Capsule()
                             .fill(Color.white.opacity(0.001))
-                            .glassEffect(.regular, in: Capsule())
+                            .oasisGlassEffect(in: Capsule())
                             .overlay {
                                 Capsule()
                                     .fill(Color.white.opacity(0.026))
@@ -286,7 +300,7 @@ struct PaywallOverlay: View {
                     .background {
                         Capsule()
                             .fill(Color.white.opacity(0.001))
-                            .glassEffect(.regular, in: Capsule())
+                            .oasisGlassEffect(in: Capsule())
                             .overlay {
                                 Capsule()
                                     .fill(Color.white.opacity(0.026))

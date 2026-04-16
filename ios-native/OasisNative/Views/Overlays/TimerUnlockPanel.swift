@@ -4,7 +4,7 @@ struct TimerUnlockPanel: View {
     @Environment(AppModel.self) private var model
     @Environment(\.dismiss) private var dismiss
 
-    private let durations: [Int] = [15, 30, 60, 120]
+    private let durations: [Int] = [60, 120]
 
     var body: some View {
         VStack(spacing: 18) {
@@ -31,8 +31,8 @@ struct TimerUnlockPanel: View {
                     ], spacing: 10) {
                         ForEach(durations, id: \.self) { duration in
                             Button {
-                                model.setTimer(duration)
                                 dismiss()
+                                model.requestPremiumAccess(from: .timer)
                             } label: {
                                 Text(L10n.timerOptionLabel(minutes: duration))
                                     .font(.system(size: 14, weight: .semibold, design: .rounded))
@@ -48,6 +48,11 @@ struct TimerUnlockPanel: View {
                             .accessibilityIdentifier("timer.unlock.option.\(duration)")
                         }
                     }
+
+                    Text(L10n.string(L10n.Premium.timerIncluded))
+                        .font(.system(size: 11, weight: .semibold, design: .rounded))
+                        .foregroundStyle(.white.opacity(0.54))
+                        .multilineTextAlignment(.center)
                 }
             }
         }
