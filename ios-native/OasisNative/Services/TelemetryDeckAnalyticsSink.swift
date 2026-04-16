@@ -1,3 +1,4 @@
+#if canImport(TelemetryDeck)
 import Foundation
 import OSLog
 import TelemetryDeck
@@ -65,3 +66,4 @@ private extension PremiumAnalyticsEvent {
         }
     }
 }
+#endif

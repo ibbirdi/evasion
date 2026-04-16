@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B10000000000000000000001 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000001 /* RootView.swift */; };
+		B10000000000000000000002 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000002 /* OnboardingView.swift */; };
+		B10000000000000000000003 /* TelemetryDeckAnalyticsSink.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000003 /* TelemetryDeckAnalyticsSink.swift */; };
 		02CE8D389F1ED0F561FE1826 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 785AF2C1D76D398E373E2362 /* Foundation.framework */; };
 		06F24F03E9640FD3B01391F4 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEFC997B0E5414F91223E154 /* AppModel.swift */; };
 		0E63777FA399648E78B70EDC /* cigales1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 7340E544B3851C272E909EF1 /* cigales1.m4a */; };
@@ -121,6 +124,9 @@
 		AAA1A4AF3CC2220790E148E3 /* OasisNativeApp.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OasisNativeApp.swift; sourceTree = "<group>"; };
 		AE94FCCD29022F9F4A97C007 /* voiture1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = voiture1.m4a; sourceTree = "<group>"; };
 		AEFC997B0E5414F91223E154 /* AppModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
+		B20000000000000000000001 /* RootView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		B20000000000000000000002 /* OnboardingView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		B20000000000000000000003 /* TelemetryDeckAnalyticsSink.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TelemetryDeckAnalyticsSink.swift; sourceTree = "<group>"; };
 		C03168C674C06A7341360774 /* train1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = train1.m4a; sourceTree = "<group>"; };
 		C28A2B7AF2B3DEC147A9515C /* SpatialAudioPanel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SpatialAudioPanel.swift; sourceTree = "<group>"; };
 		C8A636367B327875891D0A9B /* ville1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = ville1.m4a; sourceTree = "<group>"; };
@@ -187,6 +193,7 @@
 			children = (
 				55684EE38E45B2030798A48C /* Components */,
 				64A8268C252D11831B37EC53 /* HomeView.swift */,
+				B20000000000000000000001 /* RootView.swift */,
 				5B442EC6BC27A1C9EF841888 /* Overlays */,
 			);
 			path = Views;
@@ -243,6 +250,7 @@
 			isa = PBXGroup;
 			children = (
 				015B5AC27A8F47A635D17E41 /* BinauralPanel.swift */,
+				B20000000000000000000002 /* OnboardingView.swift */,
 				74CF7918052A5BD6271C72CE /* PaywallOverlay.swift */,
 				99B0853EBD4EB64D5A0E9E62 /* PresetsPanel.swift */,
 				C28A2B7AF2B3DEC147A9515C /* SpatialAudioPanel.swift */,
@@ -310,6 +318,7 @@
 				A20000000000000000000002 /* PremiumAnalytics.swift */,
 				A20000000000000000000003 /* PremiumCoordinator.swift */,
 				A20000000000000000000004 /* PremiumRevenueCatService.swift */,
+				B20000000000000000000003 /* TelemetryDeckAnalyticsSink.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -552,6 +561,9 @@
 				DAFA7CA647D04A59E399AD3C /* PresetsPanel.swift in Sources */,
 				787C3E1C39EC596FB021AA29 /* SpatialAudioPanel.swift in Sources */,
 				A10000000000000000000006 /* TimerUnlockPanel.swift in Sources */,
+				B10000000000000000000001 /* RootView.swift in Sources */,
+				B10000000000000000000002 /* OnboardingView.swift in Sources */,
+				B10000000000000000000003 /* TelemetryDeckAnalyticsSink.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -638,7 +650,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jonathanluquet.drift.UITests;
 				PRODUCT_NAME = OasisNativeUITests;
 				SDKROOT = iphoneos;
@@ -656,7 +668,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jonathanluquet.drift.UITests;
 				PRODUCT_NAME = OasisNativeUITests;
 				SDKROOT = iphoneos;
@@ -685,12 +697,12 @@
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
-				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.2;
+				MARKETING_VERSION = 1.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jonathanluquet.drift;
 				PRODUCT_NAME = Oasis;
 				SDKROOT = iphoneos;
@@ -720,12 +732,12 @@
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
-				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.2;
+				MARKETING_VERSION = 1.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jonathanluquet.drift;
 				PRODUCT_NAME = Oasis;
 				SDKROOT = iphoneos;

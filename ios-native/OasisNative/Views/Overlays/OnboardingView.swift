@@ -7,26 +7,20 @@ struct OnboardingView: View {
     private let pages: [OnboardingPage] = [
         OnboardingPage(
             symbol: "waveform.path.ecg",
-            titleKey: "onboarding.page1.title",
-            titleDefault: "Your sound bed for sleep",
-            subtitleKey: "onboarding.page1.subtitle",
-            subtitleDefault: "Mix nature sounds, adjust each volume, and place them around you in 3D audio.",
+            title: L10n.Onboarding.page1Title,
+            subtitle: L10n.Onboarding.page1Subtitle,
             tint: Color(red: 0.45, green: 0.79, blue: 0.92)
         ),
         OnboardingPage(
             symbol: "timer",
-            titleKey: "onboarding.page2.title",
-            titleDefault: "Set a timer, drift off",
-            subtitleKey: "onboarding.page2.subtitle",
-            subtitleDefault: "Start a sleep timer, lock your phone, and let Oasis play in the background. Everything works offline.",
+            title: L10n.Onboarding.page2Title,
+            subtitle: L10n.Onboarding.page2Subtitle,
             tint: Color(red: 0.52, green: 0.91, blue: 0.64)
         ),
         OnboardingPage(
             symbol: "sparkles",
-            titleKey: "onboarding.page3.title",
-            titleDefault: "14 sounds, one purchase",
-            subtitleKey: "onboarding.page3.subtitle",
-            subtitleDefault: "Start free with 3 sounds and 3D audio. Unlock 11 more sounds, longer timers and binaural modes — no subscription, ever.",
+            title: L10n.Onboarding.page3Title,
+            subtitle: L10n.Onboarding.page3Subtitle,
             tint: Color(red: 0.97, green: 0.79, blue: 0.41)
         ),
     ]
@@ -64,7 +58,7 @@ struct OnboardingView: View {
 
                     Spacer(minLength: 20)
 
-                    actionButtons(topInset: proxy.safeAreaInsets.top)
+                    actionButtons
 
                     Spacer(minLength: max(proxy.safeAreaInsets.bottom, 16) + 12)
                 }
@@ -85,7 +79,7 @@ struct OnboardingView: View {
     }
 
     @ViewBuilder
-    private func actionButtons(topInset: CGFloat) -> some View {
+    private var actionButtons: some View {
         let isLastPage = currentPage == pages.count - 1
 
         VStack(spacing: 12) {
@@ -101,8 +95,8 @@ struct OnboardingView: View {
                 }
             } label: {
                 Text(isLastPage
-                    ? String(localized: "onboarding.cta.start", defaultValue: "Start listening")
-                    : String(localized: "onboarding.cta.next", defaultValue: "Next")
+                    ? L10n.string(L10n.Onboarding.ctaStart)
+                    : L10n.string(L10n.Onboarding.ctaNext)
                 )
                 .font(.system(size: 17, weight: .bold, design: .rounded))
                 .foregroundStyle(Color(red: 0.06, green: 0.08, blue: 0.12))
@@ -130,7 +124,7 @@ struct OnboardingView: View {
                         model.completeOnboarding(fromPage: currentPage, skipped: true)
                     }
                 } label: {
-                    Text(String(localized: "onboarding.cta.skip", defaultValue: "Skip"))
+                    Text(L10n.string(L10n.Onboarding.ctaSkip))
                         .font(.system(size: 14, weight: .semibold, design: .rounded))
                         .foregroundStyle(.white.opacity(0.60))
                 }
@@ -143,10 +137,8 @@ struct OnboardingView: View {
 
 private struct OnboardingPage {
     let symbol: String
-    let titleKey: String
-    let titleDefault: String
-    let subtitleKey: String
-    let subtitleDefault: String
+    let title: LocalizedStringResource
+    let subtitle: LocalizedStringResource
     let tint: Color
 }
 
@@ -171,13 +163,13 @@ private struct OnboardingPageView: View {
             }
 
             VStack(spacing: 12) {
-                Text(String(localized: String.LocalizationValue(page.titleKey), defaultValue: String.LocalizationValue(page.titleDefault)))
+                Text(page.title)
                     .font(.system(size: 30, weight: .bold, design: .rounded))
                     .foregroundStyle(.white)
                     .multilineTextAlignment(.center)
                     .minimumScaleFactor(0.80)
 
-                Text(String(localized: String.LocalizationValue(page.subtitleKey), defaultValue: String.LocalizationValue(page.subtitleDefault)))
+                Text(page.subtitle)
                     .font(.system(size: 16, weight: .medium, design: .rounded))
                     .foregroundStyle(.white.opacity(0.68))
                     .multilineTextAlignment(.center)
