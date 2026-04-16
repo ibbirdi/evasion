@@ -1,235 +1,227 @@
 const fs = require("fs");
 const path = require("path");
 
-// Base de données des 6 langues traduites et optimisées pour l'ASO avec les noms localisés
 const metadata = {
   "fr-FR": {
-    name: "Évasion - Sons Binauraux",
-    subtitle: "Sommeil & Focus Premium",
+    name: "Oasis - Sons pour Dormir",
+    subtitle: "Bruit blanc, nature & sommeil",
     promotional_text:
-      "L'immersion absolue par la nature. De véritables enregistrements audio, avec un achat unique et zéro abonnement.",
+      "Mixez 14 sons nature en audio 3D, lancez un minuteur et endormez-vous. Hors ligne, sans compte, sans abonnement — un seul achat.",
     keywords:
-      "sommeil,binaural,nature,pluie,orage,méditation,concentration,relax,sans abonnement,bruit blanc",
-    description: `Bienvenue dans Évasion, votre nouveau sanctuaire sonore.
+      "relaxation,concentration,etude,binaural,mix,pluie,brun,rose,orage,ocean,ambiance,acouphene,insomnie,coucher,vent,ventilateur,bruit,grillons,ASMR",
+    release_notes: `Oasis 1.3.0 rend l'app plus simple à adopter :
+• Audios optimisés : l'app prend beaucoup moins de place.
+• Compatibilité iOS 18+.
+• Minuteurs 15 et 30 min gratuits.
+• Premium plus clair : 11 sons, mix illimités, minuteurs 1 h/2 h.
+• Achat unique conservé, sans abonnement.`,
+    description: `Quand la rue, les voisins ou les pensées qui tournent rendent le calme difficile, Oasis vous aide à créer un fond sonore stable pour dormir, lire ou travailler avec moins de distractions.
 
-Oubliez les boucles artificielles de quelques secondes : Évasion utilise exclusivement de véritables enregistrements de terrain continus et de très haute qualité binaurale, capturés à travers le monde. Plongez instantanément dans un paysage sonore vaste, vivant et profondément immersif.
+Choisissez des sons de la nature, ajustez chaque volume et placez-les autour de vous en audio 3D : vent à gauche, plage devant, oiseaux plus loin. Lancez un minuteur, verrouillez l'iPhone et laissez l'audio continuer en arrière-plan. Tout fonctionne hors ligne.
 
-UNE EXPÉRIENCE AUDIO VIVANTE
-Notre moteur audio intelligent garantit que vous n'entendrez jamais exactement le même mixage se répéter. Grâce au générateur d'aléatoire temporel et à la fonction d'Auto-Variation, l'application fait évoluer le volume des environnements naturels de façon aléatoire et très lente dans le temps, libérant totalement votre charge mentale.
+Inclus gratuitement :
+• Oiseaux, vent et plage
+• Audio 3D sur les sons gratuits
+• Mode binaural Delta
+• Shuffle
+• Minuteurs 15 et 30 min
+• 1 mix sauvegardé
 
-ONDES CÉRÉBRALES & STÉRÉO BINAURALE
-Évasion intègre un mixeur hybride de fréquences pures pour synchroniser vos ondes cérébrales avec 4 modes spécifiquement conçus (casque stéréo recommandé) :
-- Delta (Sommeil) : Favorise l'endormissement et un sommeil profond réparateur.
-- Theta (Relaxation) : Idéal pour la méditation profonde et la réduction du stress.
-- Alpha (Concentration) : Pour la mémorisation, l'apprentissage et le travail créatif.
-- Beta (Éveil) : Stimule la vigilance et les capacités cognitives.
+Premium, en achat unique :
+• 11 sons supplémentaires : pluie, forêt, orage, rivière, train...
+• Mix favoris illimités
+• Minuteurs 1 h et 2 h
+• Modes binauraux Theta, Alpha et Beta
+• Futures nouveautés Premium incluses
 
-UN OUTIL PREMIUM, SANS ABONNEMENT
-Nous refusons la fatigue des abonnements. L'application propose une version gratuite sans limite de temps incluant 3 sons de la nature (Oiseaux, Vent, Plage) et l'onde Delta pour le sommeil.
-
-Passez à la version Premium avec un PAIEMENT UNIQUE À VIE pour débloquer le plein potentiel de l'application :
-- La bibliothèque complète de 14 environnements sonores haute fidélité.
-- Les 4 modes d'ondes cérébrales (Delta, Theta, Alpha, Beta).
-- La sauvegarde illimitée de vos propres mixages.
-- La minuterie de sommeil programmable (15m, 30m, 1h, 2h).
-- L'Auto-Variation intelligente de l'environnement.
-
-100% HORS-LIGNE & RESPECT DE LA VIE PRIVÉE
-Tous les éléments sonores sont embarqués localement dans votre appareil. L'immersion se lance instantanément, sans aucune latence réseau, de manière totalement confidentielle. L'application continue de jouer en arrière-plan avec une intégration totale à votre système, même lorsque l'écran est verrouillé.`,
+Oasis n'essaie pas de tout faire. Pas de catalogue infini, pas de compte à créer, pas d'abonnement : juste un outil audio pour dormir, lire, travailler ou masquer les bruits du quotidien.`,
   },
   "en-US": {
-    name: "Oasis - Binaural Beats",
-    subtitle: "Premium Sleep & Focus",
+    name: "Oasis - Sleep Sounds 3D",
+    subtitle: "White noise, nature & timer",
     promotional_text:
-      "Absolute immersion through nature. True continuous audio recordings, with a one-time purchase and zero subscriptions.",
+      "Mix 14 nature sounds in 3D, set a sleep timer, and drift off. Offline, no account, no subscription — one purchase, yours forever.",
     keywords:
-      "sleep,binaural,nature,rain,storm,meditation,concentration,relax,no subscription,white noise",
-    description: `Welcome to Oasis, your new sonic sanctuary.
+      "relaxation,focus,study,binaural,mix,rain,brown,pink,thunder,ocean,soundscape,tinnitus,insomnia,bedtime,ambient,wind,fan,noise,crickets,ASMR",
+    release_notes: `Oasis 1.3.0 makes the app easier to try and keep:
+• Optimized audio: the app takes much less space.
+• iOS 18+ support.
+• Free 15 and 30 min timers.
+• Clearer Premium: 11 sounds, unlimited mixes, 1 hr/2 hr timers.
+• One-time purchase, still no subscription.`,
+    description: `Street noise, neighbors or a busy mind can make quiet hard to find. Oasis helps you build a steady sound bed for sleep, reading or focused work with fewer distractions.
 
-Forget artificial loops of a few seconds: Oasis exclusively uses continuous, real field recordings of very high binaural quality, captured around the world. Dive instantly into a vast, living, and deeply immersive soundscape.
+Choose nature sounds, adjust each volume and place them around you in 3D audio: wind to the left, beach ahead, birds further away. Start a timer, lock your iPhone and let playback continue in the background. Everything works offline.
 
-A LIVING AUDIO EXPERIENCE
-Our intelligent audio engine ensures you will never hear the exact same mix repeat. Thanks to the temporal random generator and the Auto-Variation feature, the app slowly and randomly evolves the volume of natural environments over time, completely freeing your mental load.
+Included for free:
+• Birds, wind and beach
+• 3D audio on free sounds
+• Delta binaural mode
+• Shuffle
+• 15 and 30 min timers
+• 1 saved mix
 
-BRAINWAVES & BINAURAL STEREO
-Oasis integrates a hybrid mixer of pure frequencies to synchronize your brainwaves with 4 specifically designed modes (stereo headphones recommended):
-- Delta (Sleep): Promotes falling asleep and deep restorative sleep.
-- Theta (Relaxation): Ideal for deep meditation and stress reduction.
-- Alpha (Focus): For memory, learning, and creative work.
-- Beta (Awake): Stimulates alertness and cognitive abilities.
+Premium, one-time purchase:
+• 11 extra sounds: rain, forest, thunder, river, train...
+• Unlimited saved mixes
+• 1 hr and 2 hr timers
+• Theta, Alpha and Beta binaural modes
+• Future Premium additions included
 
-A PREMIUM TOOL, NO SUBSCRIPTION
-We reject subscription fatigue. The app offers a free version with no time limit including 3 nature sounds (Birds, Wind, Beach) and the Delta wave for sleep.
-
-Upgrade to the Premium version with a ONE-TIME LIFETIME PAYMENT to unlock the app's full potential:
-- The complete library of 14 high-fidelity sound environments.
-- The 4 brainwave modes (Delta, Theta, Alpha, Beta).
-- Unlimited saving of your own mixes.
-- Programmable sleep timer (15m, 30m, 1h, 2h).
-- Intelligent Auto-Variation of the environment.
-
-100% OFFLINE & PRIVACY RESPECTED
-All sound elements are embedded locally on your device. Immersion launches instantly, without any network latency, in complete confidentiality. The app continues to play in the background with full system integration, even when the screen is locked.`,
-  },
-  "es-ES": {
-    name: "Oasis - Sonidos Binaurales",
-    subtitle: "Sueño y Enfoque Premium",
-    promotional_text:
-      "Inmersión absoluta en la naturaleza. Grabaciones de audio reales y continuas, con un pago único y sin suscripciones.",
-    keywords:
-      "sueño,binaural,naturaleza,lluvia,tormenta,meditación,concentración,relax,sin suscripción,ruido blanco",
-    description: `Bienvenido a Oasis, tu nuevo santuario sonoro.
-
-Olvídate de los bucles artificiales de unos pocos segundos: Oasis utiliza exclusivamente verdaderas grabaciones de campo continuas de muy alta calidad binaural, capturadas en todo el mundo. Sumérgete al instante en un paisaje sonoro vasto, vivo y profundamente inmersivo.
-
-UNA EXPERIENCIA DE AUDIO VIVA
-Nuestro motor de audio inteligente garantiza que nunca escucharás la misma mezcla repetirse exactamente. Gracias al generador aleatorio temporal y a la función de Autovariación, la aplicación hace evolucionar el volumen de los entornos naturales de forma aleatoria y muy lenta en el tiempo, liberando totalmente tu carga mental.
-
-ONDAS CEREBRALES Y ESTÉREO BINAURAL
-Oasis integra un mezclador híbrido de frecuencias puras para sincronizar tus ondas cerebrales con 4 modos diseñados específicamente (se recomiendan auriculares estéreo):
-- Delta (Sueño): Favorece la conciliación del sueño y un sueño profundo reparador.
-- Theta (Relajación): Ideal para la meditación profunda y la reducción del estrés.
-- Alpha (Concentración): Para la memorización, el aprendizaje y el trabajo creativo.
-- Beta (Despertar): Estimula la vigilancia y las capacidades cognitivas.
-
-UNA HERRAMIENTA PREMIUM, SIN SUSCRIPCIÓN
-Rechazamos la fatiga de las suscripciones. La aplicación ofrece una versión gratuita sin límite de tiempo que incluye 3 sonidos de la naturaleza (Pájaros, Viento, Playa) y la onda Delta para dormir.
-
-Pásate a la versión Premium con un PAGO ÚNICO DE POR VIDA para desbloquear todo el potencial de la aplicación:
-- La biblioteca completa de 14 entornos sonoros de alta fidelidad.
-- Los 4 modos de ondas cerebrales (Delta, Theta, Alpha, Beta).
-- Guardado ilimitado de tus propias mezclas.
-- Temporizador de sueño programable (15m, 30m, 1h, 2h).
-- Autovariación inteligente del entorno.
-
-100% OFFLINE Y RESPETO A LA PRIVACIDAD
-Todos los elementos sonoros están integrados localmente en tu dispositivo. La inmersión se lanza al instante, sin latencia de red, con total confidencialidad. La aplicación sigue reproduciéndose en segundo plano con total integración en tu sistema, incluso con la pantalla bloqueada.`,
+Oasis stays focused. No endless catalog, no account to create, no subscription: just an audio tool for sleep, reading, work or masking everyday noise.`,
   },
   "de-DE": {
-    name: "Oasis - Binaurale Beats",
-    subtitle: "Premium Schlaf & Fokus",
+    name: "Oasis - Schlafklänge 3D",
+    subtitle: "Weißes Rauschen & Natur",
     promotional_text:
-      "Absolute Immersion durch die Natur. Echte, kontinuierliche Audioaufnahmen, mit einem Einmalkauf und ohne Abonnements.",
+      "14 Naturklänge in 3D mischen, Schlaf-Timer starten und einschlafen. Offline, kein Konto, kein Abo — ein Kauf, für immer.",
     keywords:
-      "schlaf,binaural,natur,regen,sturm,meditation,konzentration,entspannung,kein abo,weißes rauschen",
-    description: `Willkommen bei Oasis, deinem neuen klanglichen Heiligtum.
+      "entspannung,fokus,lernen,binaural,mix,regen,braun,rosa,gewitter,meer,klanglandschaft,tinnitus,schlaflosigkeit,schlafzeit,ambient,wind,ventilator,rauschen,grillen,ASMR",
+    release_notes: `Oasis 1.3.0 macht den Einstieg leichter:
+• Optimierte Audiodateien: die App braucht deutlich weniger Speicher.
+• Unterstützung ab iOS 18.
+• Kostenlose Timer für 15 und 30 Min.
+• Premium klarer erklärt: 11 Sounds, unbegrenzte Mixe, Timer für 1/2 Std.
+• Einmalkauf bleibt, ohne Abo.`,
+    description: `Straßenlärm, Nachbarn oder kreisende Gedanken machen Ruhe manchmal schwer. Oasis hilft dir, einen gleichmäßigen Klangteppich zum Einschlafen, Lesen oder konzentrierten Arbeiten zu erstellen.
 
-Vergiss künstliche Schleifen von wenigen Sekunden: Oasis verwendet ausschließlich echte, kontinuierliche Feldaufnahmen in sehr hoher binauraler Qualität, die auf der ganzen Welt aufgenommen wurden. Tauche sofort in eine weite, lebendige und tief immersive Klanglandschaft ein.
+Wähle Naturklänge, passe jede Lautstärke an und platziere die Sounds in 3D-Audio um dich herum: Wind links, Strand vorne, Vögel weiter weg. Starte einen Timer, sperre dein iPhone und lass die Wiedergabe im Hintergrund laufen. Alles funktioniert offline.
 
-EIN LEBENDIGES AUDIOERLEBNIS
-Unsere intelligente Audio-Engine sorgt dafür, dass du niemals genau dieselbe Mischung zweimal hörst. Dank des temporalen Zufallsgenerators und der Auto-Variation-Funktion verändert die App die Lautstärke natürlicher Umgebungen im Laufe der Zeit zufällig und sehr langsam, wodurch deine mentale Belastung vollständig befreit wird.
+Kostenlos enthalten:
+• Vögel, Wind und Strand
+• 3D-Audio für kostenlose Sounds
+• Delta-Binauralmodus
+• Shuffle
+• Timer für 15 und 30 Min.
+• 1 gespeicherter Mix
 
-GEHIRNWELLEN & BINAURALES STEREO
-Oasis integriert einen hybriden Mixer reiner Frequenzen, um deine Gehirnwellen mit 4 speziell entwickelten Modi zu synchronisieren (Stereokopfhörer empfohlen):
-- Delta (Schlaf): Fördert das Einschlafen und einen tiefen, erholsamen Schlaf.
-- Theta (Entspannung): Ideal für tiefe Meditation und Stressabbau.
-- Alpha (Fokus): Für Gedächtnis, Lernen und kreative Arbeit.
-- Beta (Wach): Stimuliert Wachsamkeit und kognitive Fähigkeiten.
+Premium, als Einmalkauf:
+• 11 zusätzliche Sounds: Regen, Wald, Donner, Fluss, Zug...
+• Unbegrenzt gespeicherte Mixe
+• Timer für 1 Std. und 2 Std.
+• Theta-, Alpha- und Beta-Binauralmodi
+• Zukünftige Premium-Neuheiten inklusive
 
-EIN PREMIUM-TOOL, KEIN ABONNEMENT
-Wir lehnen die Abo-Müdigkeit ab. Die App bietet eine kostenlose Version ohne Zeitlimit mit 3 Naturgeräuschen (Vögel, Wind, Strand) und der Delta-Welle für den Schlaf.
-
-Wechsle zur Premium-Version mit einer EINMALIGEN LEBENSLANGEN ZAHLUNG, um das volle Potenzial der App freizuschalten:
-- Die komplette Bibliothek mit 14 High-Fidelity-Klangumgebungen.
-- Die 4 Gehirnwellen-Modi (Delta, Theta, Alpha, Beta).
-- Unbegrenztes Speichern deiner eigenen Mixe.
-- Programmierbarer Sleep-Timer (15m, 30m, 1h, 2h).
-- Intelligente Auto-Variation der Umgebung.
-
-100% OFFLINE & DATENSCHUTZ RESPEKTIERT
-Alle Klangelemente sind lokal auf deinem Gerät eingebettet. Die Immersion startet sofort, ohne Netzwerklatenz, in völliger Vertraulichkeit. Die App spielt im Hintergrund mit voller Systemintegration weiter, auch wenn der Bildschirm gesperrt ist.`,
+Oasis bleibt bewusst fokussiert. Kein endloser Katalog, kein Konto, kein Abo: nur ein Audiowerkzeug zum Schlafen, Lesen, Arbeiten oder Ausblenden von Alltagsgeräuschen.`,
   },
-  "it-IT": {
-    name: "Oasi - Suoni Binaurali",
-    subtitle: "Sonno e Focus Premium",
+  "es-ES": {
+    name: "Oasis - Sonidos para Dormir",
+    subtitle: "Ruido blanco y naturaleza",
     promotional_text:
-      "Immersione assoluta nella natura. Vere registrazioni audio continue, con un acquisto unico e zero abbonamenti.",
+      "Mezcla 14 sonidos naturales en 3D, activa un temporizador y descansa. Sin conexión, sin cuenta, sin suscripción — una sola compra.",
     keywords:
-      "sonno,binaurale,natura,pioggia,tempesta,meditazione,concentrazione,relax,nessun abbonamento,rumore bianco",
-    description: `Benvenuto in Oasi, il tuo nuovo santuario sonoro.
+      "relajacion,concentracion,estudio,binaural,mezcla,lluvia,marron,rosa,tormenta,oceano,paisaje sonoro,tinnitus,insomnio,dormir,ambiente,viento,ventilador,ruido,grillos,ASMR",
+    release_notes: `Oasis 1.3.0 hace que la app sea más fácil de probar y conservar:
+• Audio optimizado: la app ocupa mucho menos espacio.
+• Compatibilidad con iOS 18+.
+• Temporizadores de 15 y 30 min gratis.
+• Premium más claro: 11 sonidos, mezclas ilimitadas y temporizadores de 1/2 h.
+• Compra única, sin suscripción.`,
+    description: `El ruido de la calle, los vecinos o la mente acelerada pueden hacer que el silencio cueste. Oasis te ayuda a crear un fondo sonoro estable para dormir, leer o trabajar con menos distracciones.
 
-Dimentica i loop artificiali di pochi secondi: Oasi utilizza esclusivamente vere registrazioni sul campo continue di altissima qualità binaurale, catturate in tutto il mondo. Immergiti istantaneamente in un paesaggio sonoro vasto, vivo e profondamente immersivo.
+Elige sonidos de la naturaleza, ajusta cada volumen y colócalos a tu alrededor en audio 3D: viento a la izquierda, playa delante, pájaros más lejos. Activa un temporizador, bloquea el iPhone y deja que el audio siga en segundo plano. Todo funciona sin conexión.
 
-UN'ESPERIENZA AUDIO VIVA
-Il nostro motore audio intelligente garantisce che non ascolterai mai lo stesso mix ripetersi. Grazie al generatore casuale temporale e alla funzione di Auto-Variazione, l'app fa evolvere il volume degli ambienti naturali in modo casuale e molto lento nel tempo, liberando totalmente il tuo carico mentale.
+Incluido gratis:
+• Pájaros, viento y playa
+• Audio 3D en los sonidos gratis
+• Modo binaural Delta
+• Shuffle
+• Temporizadores de 15 y 30 min
+• 1 mezcla guardada
 
-ONDE CEREBRALI E STEREO BINAURALE
-Oasi integra un mixer ibrido di frequenze pure per sincronizzare le tue onde cerebrali con 4 modalità specificamente progettate (si consigliano cuffie stereo):
-- Delta (Sonno): Favorisce l'addormentamento e un sonno profondo e ristoratore.
-- Theta (Rilassamento): Ideale per la meditazione profonda e la riduzione dello stress.
-- Alpha (Concentrazione): Per la memorizzazione, l'apprendimento e il lavoro creativo.
-- Beta (Risveglio): Stimola la vigilanza e le capacità cognitive.
+Premium, con una compra única:
+• 11 sonidos adicionales: lluvia, bosque, trueno, río, tren...
+• Mezclas guardadas ilimitadas
+• Temporizadores de 1 h y 2 h
+• Modos binaurales Theta, Alpha y Beta
+• Futuras novedades Premium incluidas
 
-UNO STRUMENTO PREMIUM, NESSUN ABBONAMENTO
-Rifiutiamo l'affaticamento da abbonamento. L'app offre una versione gratuita senza limiti di tempo che include 3 suoni della natura (Uccelli, Vento, Spiaggia) e l'onda Delta per il sonno.
+Oasis se mantiene enfocada. Sin catálogo infinito, sin crear una cuenta, sin suscripción: solo una herramienta de audio para dormir, leer, trabajar o cubrir el ruido cotidiano.`,
+  },
+  it: {
+    name: "Oasis - Suoni per Dormire",
+    subtitle: "Rumore bianco e natura",
+    promotional_text:
+      "Mixa 14 suoni naturali in 3D, avvia un timer per dormire e rilassati. Offline, senza account, senza abbonamento — un solo acquisto.",
+    keywords:
+      "rilassamento,concentrazione,studio,binaurale,mix,pioggia,marrone,rosa,temporale,oceano,paesaggio sonoro,tinnito,insonnia,notte,ambiente,vento,ventola,rumore,grilli,ASMR",
+    release_notes: `Oasis 1.3.0 rende l'app più facile da provare e tenere:
+• Audio ottimizzati: l'app occupa molto meno spazio.
+• Compatibilità iOS 18+.
+• Timer da 15 e 30 min gratis.
+• Premium più chiaro: 11 suoni, mix illimitati e timer da 1/2 h.
+• Acquisto unico, senza abbonamento.`,
+    description: `Rumori dalla strada, vicini o pensieri che girano possono rendere difficile trovare calma. Oasis ti aiuta a creare un sottofondo sonoro stabile per dormire, leggere o lavorare con meno distrazioni.
 
-Passa alla versione Premium con un PAGAMENTO UNICO A VITA per sbloccare tutto il potenziale dell'app:
-- La libreria completa di 14 ambienti sonori ad alta fedeltà.
-- Le 4 modalità di onde cerebrali (Delta, Theta, Alpha, Beta).
-- Il salvataggio illimitato dei tuoi mix.
-- Il timer di spegnimento programmabile (15m, 30m, 1h, 2h).
-- L'Auto-Variazione intelligente dell'ambiente.
+Scegli suoni della natura, regola ogni volume e posizionali intorno a te in audio 3D: vento a sinistra, spiaggia davanti, uccelli più lontani. Avvia un timer, blocca l'iPhone e lascia l'audio in background. Tutto funziona offline.
 
-100% OFFLINE E RISPETTO DELLA PRIVACY
-Tutti gli elementi sonori sono incorporati localmente nel tuo dispositivo. L'immersione si avvia istantaneamente, senza latenza di rete, in totale riservatezza. L'app continua a riprodurre in background con un'integrazione totale nel tuo sistema, anche a schermo bloccato.`,
+Incluso gratis:
+• Uccelli, vento e spiaggia
+• Audio 3D sui suoni gratuiti
+• Modalità binaurale Delta
+• Shuffle
+• Timer 15 e 30 min
+• 1 mix salvato
+
+Premium, con acquisto unico:
+• 11 suoni extra: pioggia, foresta, tuono, fiume, treno...
+• Mix salvati illimitati
+• Timer da 1 h e 2 h
+• Modalità binaurali Theta, Alpha e Beta
+• Future novità Premium incluse
+
+Oasis resta concentrata. Niente catalogo infinito, nessun account da creare, nessun abbonamento: solo uno strumento audio per dormire, leggere, lavorare o coprire i rumori quotidiani.`,
   },
   "pt-BR": {
-    name: "Refúgio - Sons Binaurais",
-    subtitle: "Sono e Foco Premium",
+    name: "Oasis - Sons para Dormir",
+    subtitle: "Ruído branco e natureza",
     promotional_text:
-      "Imersão absoluta na natureza. Verdadeiras gravações de áudio contínuas, com uma compra única e zero assinaturas.",
+      "Mixe 14 sons da natureza em 3D, ative um timer e relaxe. Offline, sem conta, sem assinatura — uma única compra.",
     keywords:
-      "sono,binaural,natureza,chuva,tempestade,meditação,concentração,relaxar,sem assinatura,ruído branco",
-    description: `Bem-vindo ao Refúgio, o seu novo santuário sonoro.
+      "relaxamento,foco,estudo,binaural,mix,chuva,marrom,rosa,trovao,oceano,paisagem sonora,zumbido,insonia,noite,ambiente,vento,ventilador,ruido,grilos,ASMR",
+    release_notes: `Oasis 1.3.0 deixa o app mais fácil de experimentar e manter:
+• Áudios otimizados: o app ocupa muito menos espaço.
+• Compatível com iOS 18+.
+• Timers de 15 e 30 min grátis.
+• Premium mais claro: 11 sons, mixes ilimitados e timers de 1/2 h.
+• Compra única, sem assinatura.`,
+    description: `Barulho da rua, vizinhos ou pensamentos acelerados podem dificultar o silêncio. Oasis ajuda você a criar um som de fundo estável para dormir, ler ou trabalhar com menos distrações.
 
-Esqueça os loops artificiais de alguns segundos: Refúgio utiliza exclusivamente verdadeiras gravações de campo contínuas e de altíssima qualidade binaural, capturadas em todo o mundo. Mergulhe instantaneamente numa paisagem sonora vasta, viva e profundamente imersiva.
+Escolha sons da natureza, ajuste cada volume e posicione tudo ao seu redor em áudio 3D: vento à esquerda, praia à frente, pássaros mais longe. Inicie um timer, bloqueie o iPhone e deixe o áudio continuar em segundo plano. Tudo funciona offline.
 
-UMA EXPERIÊNCIA DE ÁUDIO VIVA
-O nosso motor de áudio inteligente garante que nunca ouvirá exatamente a mesma mistura repetir-se. Graças ao gerador aleatório temporal e à função de Autovariação, a aplicação faz evoluir o volume dos ambientes naturais de forma aleatória e muito lenta no tempo, libertando totalmente a sua carga mental.
+Incluído grátis:
+• Pássaros, vento e praia
+• Áudio 3D nos sons gratuitos
+• Modo binaural Delta
+• Shuffle
+• Timers de 15 e 30 min
+• 1 mix salvo
 
-ONDAS CEREBRAIS E ESTÉREO BINAURAL
-Refúgio integra um misturador híbrido de frequências puras para sincronizar as suas ondas cerebrais com 4 modos especificamente concebidos (recomendam-se auscultadores estéreo):
-- Delta (Sono): Favorece o adormecimento e um sono profundo e reparador.
-- Theta (Relaxamento): Ideal para a meditação profunda e a redução do stress.
-- Alpha (Concentração): Para a memorização, a aprendizagem e o trabalho criativo.
-- Beta (Despertar): Estimula a vigilância e as capacidades cognitivas.
+Premium, com compra única:
+• 11 sons extras: chuva, floresta, trovão, rio, trem...
+• Mixes salvos ilimitados
+• Timers de 1 h e 2 h
+• Modos binaurais Theta, Alpha e Beta
+• Futuras novidades Premium incluídas
 
-UMA FERRAMENTA PREMIUM, SEM ASSINATURA
-Rejeitamos a fadiga das assinaturas. A aplicação oferece uma versão gratuita sem limite de tempo que inclui 3 sons da natureza (Pássaros, Vento, Praia) e a onda Delta para o sono.
-
-Mude para a versão Premium com um PAGAMENTO ÚNICO VITALÍCIO para desbloquear todo o potencial da aplicação:
-- A biblioteca completa de 14 ambientes sonoros de alta fidelidade.
-- Os 4 modos de ondas cerebrais (Delta, Theta, Alpha, Beta).
-- Gravação ilimitada das suas próprias misturas.
-- Temporizador de sono programável (15m, 30m, 1h, 2h).
-- Autovariação inteligente do ambiente.
-
-100% OFFLINE E RESPEITO PELA PRIVACIDADE
-Todos os elementos sonoros estão incorporados localmente no seu dispositivo. A imersão arranca instantaneamente, sem latência de rede, com total confidencialidade. A aplicação continua a tocar em segundo plano com integração total no seu sistema, mesmo quando o ecrã está bloqueado.`,
+Oasis mantém o foco. Sem catálogo infinito, sem conta para criar, sem assinatura: só uma ferramenta de áudio para dormir, ler, trabalhar ou mascarar ruídos do dia a dia.`,
   },
 };
 
-// Exécution de la génération
-Object.keys(metadata).forEach((locale) => {
-  const dir = path.join(__dirname, "fastlane", "metadata", locale);
+const outputRoots = [
+  path.join(__dirname, "..", "fastlane", "metadata"),
+  path.join(__dirname, "fastlane", "metadata"),
+];
 
-  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+for (const [locale, values] of Object.entries(metadata)) {
+  for (const root of outputRoots) {
+    const dir = path.join(root, locale);
+    fs.mkdirSync(dir, { recursive: true });
 
-  fs.writeFileSync(path.join(dir, "name.txt"), metadata[locale].name);
-  fs.writeFileSync(path.join(dir, "subtitle.txt"), metadata[locale].subtitle);
-  fs.writeFileSync(
-    path.join(dir, "description.txt"),
-    metadata[locale].description,
-  );
-  fs.writeFileSync(path.join(dir, "keywords.txt"), metadata[locale].keywords);
-  fs.writeFileSync(
-    path.join(dir, "promotional_text.txt"),
-    metadata[locale].promotional_text,
-  );
+    for (const [field, value] of Object.entries(values)) {
+      fs.writeFileSync(path.join(dir, `${field}.txt`), `${value}\n`);
+    }
+  }
 
-  console.log(`✅ Dossier et fichiers Fastlane créés pour : ${locale}`);
-});
-
-console.log(
-  "🚀 Terminé ! Tu peux maintenant vérifier tes dossiers Fastlane et lancer 'fastlane deliver'.",
-);
+  console.log(`Generated Fastlane metadata for ${locale}`);
+}

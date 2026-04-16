@@ -2,10 +2,18 @@ import Foundation
 import OSLog
 
 enum PremiumAnalyticsEvent: Sendable {
+    case appSession(index: Int)
+    case firstPlay
+    case listened60s
+    case timerSet(minutes: Int?)
+    case presetSaved(kind: String)
+    case lockedFeatureTapped(source: String)
+    case reviewPromptRequested(reason: String)
     case bannerShown
     case bannerDismissed
     case inlineShown(source: String)
     case paywallShown(source: String)
+    case paywallDismissed(source: String)
     case paywallLoading(source: String)
     case paywallRetry(source: String)
     case purchaseStarted(source: String)
@@ -15,9 +23,25 @@ enum PremiumAnalyticsEvent: Sendable {
     case restoreSucceeded(source: String)
     case previewStarted
     case previewFinished
+    case onboardingCompleted(page: Int)
+    case onboardingSkipped(page: Int)
 
     var logMessage: String {
         switch self {
+        case let .appSession(index):
+            return "app_session:\(index)"
+        case .firstPlay:
+            return "first_play"
+        case .listened60s:
+            return "listened_60s"
+        case let .timerSet(minutes):
+            return "timer_set:\(minutes.map(String.init) ?? "off")"
+        case let .presetSaved(kind):
+            return "preset_saved:\(kind)"
+        case let .lockedFeatureTapped(source):
+            return "locked_feature_tap:\(source)"
+        case let .reviewPromptRequested(reason):
+            return "review_prompt_requested:\(reason)"
         case .bannerShown:
             return "banner_shown"
         case .bannerDismissed:
@@ -26,6 +50,8 @@ enum PremiumAnalyticsEvent: Sendable {
             return "inline_shown:\(source)"
         case let .paywallShown(source):
             return "paywall_shown:\(source)"
+        case let .paywallDismissed(source):
+            return "paywall_dismissed:\(source)"
         case let .paywallLoading(source):
             return "paywall_loading:\(source)"
         case let .paywallRetry(source):
@@ -44,6 +70,10 @@ enum PremiumAnalyticsEvent: Sendable {
             return "preview_started"
         case .previewFinished:
             return "preview_finished"
+        case let .onboardingCompleted(page):
+            return "onboarding_completed:\(page)"
+        case let .onboardingSkipped(page):
+            return "onboarding_skipped:\(page)"
         }
     }
 }

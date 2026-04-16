@@ -28,6 +28,8 @@
 	<string>appl_KJQnGRCJPIZiOAWmEVXSnqKTMUU</string>
 	<key>RevenueCatEntitlementID</key>
 	<string>premium</string>
+	<key>TelemetryDeckAppID</key>
+	<string></string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

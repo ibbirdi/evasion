@@ -1,6 +1,8 @@
 import Foundation
 import Observation
 import RevenueCat
+import StoreKit
+import UIKit
 
 @MainActor
 @Observable
@@ -20,6 +22,7 @@ final class AppModel {
     var showsOnlyActiveChannels = false
     var showsPremiumHomeBanner = false
     var isSignaturePreviewActive = false
+    var hasCompletedOnboarding = UserDefaults.standard.bool(forKey: "oasis.onboarding.completed")
 
     var isBinauralActive = false
     var activeBinauralTrack: BinauralTrack = .delta
@@ -37,12 +40,16 @@ final class AppModel {
     @ObservationIgnored private let revenueCatObserver = RevenueCatObserver()
     @ObservationIgnored private let premiumCoordinator = PremiumCoordinator()
     @ObservationIgnored private let premiumRevenueCatService = PremiumRevenueCatService()
-    @ObservationIgnored private let premiumAnalytics: any PremiumAnalyticsSink = LoggerPremiumAnalyticsSink()
+    @ObservationIgnored private let premiumAnalytics: any PremiumAnalyticsSink =
+        AppConfiguration.isTelemetryDeckConfigured ? TelemetryDeckAnalyticsSink() : LoggerPremiumAnalyticsSink()
     @ObservationIgnored private var timerTicker: Timer?
     @ObservationIgnored private var bootstrapTask: Task<Void, Never>?
     @ObservationIgnored private var persistenceTask: Task<Void, Never>?
     @ObservationIgnored private var premiumBannerTask: Task<Void, Never>?
     @ObservationIgnored private var signaturePreviewTask: Task<Void, Never>?
+    @ObservationIgnored private var listened60sTask: Task<Void, Never>?
+    @ObservationIgnored private var reviewPromptTask: Task<Void, Never>?
+    @ObservationIgnored private var listeningStartedAt: Date?
     @ObservationIgnored private var didBootstrap = false
     @ObservationIgnored private var revenueCatHasPremium = false
     @ObservationIgnored private var screenshotShuffleIndex = 0
@@ -143,6 +150,7 @@ final class AppModel {
         }
 
         configureCallbacks()
+        trackAppSession()
         handleNoActiveChannelsIfNeeded()
         updateTimerDisplayValue()
         synchronizeAudio()
@@ -218,6 +226,12 @@ final class AppModel {
         return presets.first { $0.id == currentPresetID }
     }
 
+    var canSaveFreePreset: Bool {
+        guard !isPremium else { return true }
+        guard currentMixUsesOnlyFreeChannels else { return false }
+        return presets.filter(\.isUser).isEmpty
+    }
+
     func channelState(for channel: SoundChannel) -> ChannelState {
         channels[channel] ?? ChannelState()
     }
@@ -256,15 +270,18 @@ final class AppModel {
         isPlaying = shouldPlay
 
         if shouldPlay {
+            beginListeningSession()
             if let pausedRemaining = timerRemainingWhenPaused, timerDurationMinutes != nil {
                 timerEndDate = Date().addingTimeInterval(pausedRemaining)
             }
             schedulePremiumBannerIfNeeded()
         } else if let endDate = timerEndDate {
+            endListeningSession()
             timerRemainingWhenPaused = max(endDate.timeIntervalSinceNow, 0)
             timerEndDate = nil
             cancelPremiumBannerScheduling()
         } else {
+            endListeningSession()
             cancelPremiumBannerScheduling()
         }
 
@@ -274,12 +291,22 @@ final class AppModel {
         synchronizeAudio()
     }
 
+    func canUseTimer(minutes: Int?) -> Bool {
+        isPremium || minutes == nil || minutes == 15 || minutes == 30
+    }
+
     func setTimer(_ minutes: Int?) {
+        guard canUseTimer(minutes: minutes) else {
+            requestPremiumAccess(from: .timer)
+            return
+        }
+
         timerDurationMinutes = minutes
         timerRemainingWhenPaused = minutes.map { Double($0 * 60) }
         timerEndDate = minutes.map { Date().addingTimeInterval(Double($0 * 60)) }
         startTimerTickerIfNeeded()
         updateTimerDisplayValue()
+        premiumAnalytics.track(.timerSet(minutes: minutes))
         persistState()
     }
 
@@ -312,6 +339,7 @@ final class AppModel {
 
         if !isPlaying {
             isPlaying = true
+            beginListeningSession()
             if let minutes = timerDurationMinutes {
                 let remaining = timerRemainingWhenPaused ?? Double(minutes * 60)
                 timerEndDate = Date().addingTimeInterval(remaining)
@@ -331,7 +359,7 @@ final class AppModel {
 
     func setChannelVolume(_ channel: SoundChannel, value: Double) {
         guard var state = channels[channel], !isChannelLocked(channel) else {
-            presentPaywall(from: .sound(channel))
+            requestPremiumAccess(from: .sound(channel))
             return
         }
 
@@ -344,7 +372,7 @@ final class AppModel {
 
     func toggleMute(_ channel: SoundChannel) {
         guard var state = channels[channel], !isChannelLocked(channel) else {
-            presentPaywall(from: .sound(channel))
+            requestPremiumAccess(from: .sound(channel))
             return
         }
 
@@ -365,7 +393,7 @@ final class AppModel {
 
     func toggleAutoVariation(_ channel: SoundChannel) {
         guard var state = channels[channel], !isChannelLocked(channel) else {
-            presentPaywall(from: .sound(channel))
+            requestPremiumAccess(from: .sound(channel))
             return
         }
 
@@ -383,7 +411,7 @@ final class AppModel {
 
     func setChannelSpatialPosition(_ channel: SoundChannel, value: SpatialPoint) {
         guard var state = channels[channel], !isChannelLocked(channel) else {
-            presentPaywall(from: .spatial(channel))
+            requestPremiumAccess(from: .spatial(channel))
             return
         }
 
@@ -455,14 +483,15 @@ final class AppModel {
         }
     }
 
-    func savePreset(named name: String) {
-        guard isPremium else {
-            requestPremiumAccess(from: .presetSave)
-            return
-        }
-
+    @discardableResult
+    func savePreset(named name: String) -> Bool {
         let trimmedName = name.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !trimmedName.isEmpty else { return }
+        guard !trimmedName.isEmpty else { return false }
+
+        guard isPremium || canSaveFreePreset else {
+            requestPremiumAccess(from: .presetSave)
+            return false
+        }
 
         let preset = Preset(
             id: "preset_user_\(Int(Date().timeIntervalSince1970 * 1000))",
@@ -472,7 +501,9 @@ final class AppModel {
 
         presets.append(preset)
         currentPresetID = preset.id
+        premiumAnalytics.track(.presetSaved(kind: isPremium ? "premium" : "free"))
         schedulePersistence()
+        return true
     }
 
     func deletePreset(_ preset: Preset) {
@@ -490,6 +521,8 @@ final class AppModel {
 
     func requestPremiumAccess(from entryPoint: PremiumEntryPoint) {
         guard !isPremium else { return }
+
+        premiumAnalytics.track(.lockedFeatureTapped(source: entryPoint.analyticsSource))
 
         switch premiumCoordinator.route(for: entryPoint) {
         case let .inline(context):
@@ -530,13 +563,13 @@ final class AppModel {
             ]
 
         case .timer:
-            title = L10n.string(L10n.Paywall.titleGeneric)
-            subtitle = L10n.string(L10n.Paywall.subtitleGeneric)
+            title = L10n.string(L10n.Paywall.titleTimer)
+            subtitle = L10n.string(L10n.Paywall.subtitleTimer)
             benefitRows = [
+                L10n.string(L10n.Paywall.benefitTimer),
                 L10n.string(L10n.Paywall.benefitSounds),
                 L10n.string(L10n.Paywall.benefitPresets),
-                L10n.string(L10n.Paywall.benefitBinaural),
-                L10n.string(L10n.Paywall.benefitUpdates)
+                L10n.string(L10n.Paywall.benefitBinaural)
             ]
 
         case .preset:
@@ -587,6 +620,10 @@ final class AppModel {
     }
 
     func dismissPaywall() {
+        if let source = activePaywallContext?.entryPoint.analyticsSource, !isPremium {
+            recordPaywallInteraction()
+            premiumAnalytics.track(.paywallDismissed(source: source))
+        }
         activePaywallContext = nil
     }
 
@@ -637,6 +674,7 @@ final class AppModel {
 
         if !isPlaying {
             isPlaying = true
+            beginListeningSession()
             startTimerTickerIfNeeded()
         }
 
@@ -693,6 +731,16 @@ final class AppModel {
         }
     }
 
+    func completeOnboarding(fromPage page: Int = -1, skipped: Bool = false) {
+        hasCompletedOnboarding = true
+        UserDefaults.standard.set(true, forKey: "oasis.onboarding.completed")
+        if skipped {
+            premiumAnalytics.track(.onboardingSkipped(page: page))
+        } else {
+            premiumAnalytics.track(.onboardingCompleted(page: page))
+        }
+    }
+
     func closeOverlays() {
         showsBinauralPanel = false
         showsPresetsPanel = false
@@ -733,6 +781,7 @@ final class AppModel {
         applyCustomerInfo(result.customerInfo)
 
         if result.userCancelled {
+            recordPaywallInteraction()
             premiumAnalytics.track(.purchaseCancelled(source: source))
         } else if result.customerInfo.entitlements.active[AppConfiguration.revenueCatEntitlementID] != nil {
             premiumAnalytics.track(.purchaseSucceeded(source: source))
@@ -756,6 +805,125 @@ final class AppModel {
         } catch {
             print("RevenueCat restore failed: \(error)")
         }
+    }
+
+    private var currentMixUsesOnlyFreeChannels: Bool {
+        channels.allSatisfy { channel, state in
+            state.isMuted || SoundChannel.freeChannels.contains(channel)
+        }
+    }
+
+    private func trackAppSession() {
+        guard AppConfiguration.shouldPersistState else { return }
+        let defaults = UserDefaults.standard
+        let sessionCount = defaults.integer(forKey: EngagementDefaults.sessionCountKey) + 1
+        defaults.set(sessionCount, forKey: EngagementDefaults.sessionCountKey)
+        premiumAnalytics.track(.appSession(index: sessionCount))
+    }
+
+    private func beginListeningSession() {
+        guard AppConfiguration.shouldPersistState else { return }
+        guard listeningStartedAt == nil else { return }
+        listeningStartedAt = Date()
+
+        let defaults = UserDefaults.standard
+        if !defaults.bool(forKey: EngagementDefaults.didTrackFirstPlayKey) {
+            defaults.set(true, forKey: EngagementDefaults.didTrackFirstPlayKey)
+            premiumAnalytics.track(.firstPlay)
+        }
+
+        scheduleListened60sTracking()
+        scheduleReviewPromptIfNeeded()
+    }
+
+    private func endListeningSession() {
+        guard AppConfiguration.shouldPersistState else { return }
+        guard let listeningStartedAt else { return }
+        let elapsed = max(Date().timeIntervalSince(listeningStartedAt), 0)
+        self.listeningStartedAt = nil
+        listened60sTask?.cancel()
+        listened60sTask = nil
+        reviewPromptTask?.cancel()
+        reviewPromptTask = nil
+
+        let defaults = UserDefaults.standard
+        let total = defaults.double(forKey: EngagementDefaults.listenedSecondsKey) + elapsed
+        defaults.set(total, forKey: EngagementDefaults.listenedSecondsKey)
+    }
+
+    private func scheduleListened60sTracking() {
+        let defaults = UserDefaults.standard
+        guard !defaults.bool(forKey: EngagementDefaults.didTrackListened60sKey) else { return }
+
+        listened60sTask?.cancel()
+        listened60sTask = Task { [weak self] in
+            try? await Task.sleep(for: .seconds(60))
+            guard !Task.isCancelled else { return }
+
+            await MainActor.run {
+                guard let self, self.isPlaying else { return }
+                let defaults = UserDefaults.standard
+                defaults.set(true, forKey: EngagementDefaults.didTrackListened60sKey)
+                self.premiumAnalytics.track(.listened60s)
+            }
+        }
+    }
+
+    private func scheduleReviewPromptIfNeeded() {
+        guard AppConfiguration.shouldPersistState else { return }
+
+        let defaults = UserDefaults.standard
+        guard !defaults.bool(forKey: EngagementDefaults.didRequestReviewKey) else { return }
+
+        let sessions = defaults.integer(forKey: EngagementDefaults.sessionCountKey)
+        let listenedSeconds = defaults.double(forKey: EngagementDefaults.listenedSecondsKey)
+        let delay = max(EngagementDefaults.reviewListenThreshold - listenedSeconds, 0)
+
+        if sessions >= EngagementDefaults.reviewSessionThreshold {
+            requestReviewAfterPositiveMoment(reason: "session")
+            return
+        }
+
+        guard delay > 0 else {
+            requestReviewAfterPositiveMoment(reason: "listened_5m")
+            return
+        }
+
+        reviewPromptTask?.cancel()
+        reviewPromptTask = Task { [weak self] in
+            try? await Task.sleep(for: .seconds(Int(delay.rounded(.up))))
+            guard !Task.isCancelled else { return }
+
+            await MainActor.run {
+                guard let self, self.isPlaying else { return }
+                self.requestReviewAfterPositiveMoment(reason: "listened_5m")
+            }
+        }
+    }
+
+    private func requestReviewAfterPositiveMoment(reason: String) {
+        let defaults = UserDefaults.standard
+        guard !defaults.bool(forKey: EngagementDefaults.didRequestReviewKey) else { return }
+        guard !recentlyInteractedWithPaywall else { return }
+        guard let scene = UIApplication.shared.connectedScenes
+            .compactMap({ $0 as? UIWindowScene })
+            .first(where: { $0.activationState == .foregroundActive })
+        else { return }
+
+        defaults.set(true, forKey: EngagementDefaults.didRequestReviewKey)
+        premiumAnalytics.track(.reviewPromptRequested(reason: reason))
+        AppStore.requestReview(in: scene)
+    }
+
+    private var recentlyInteractedWithPaywall: Bool {
+        let timestamp = UserDefaults.standard.double(forKey: EngagementDefaults.lastPaywallInteractionKey)
+        guard timestamp > 0 else { return false }
+        return Date().timeIntervalSince1970 - timestamp < EngagementDefaults.reviewPaywallCooldown
+    }
+
+    private func recordPaywallInteraction() {
+        guard AppConfiguration.shouldPersistState else { return }
+        UserDefaults.standard.set(Date().timeIntervalSince1970, forKey: EngagementDefaults.lastPaywallInteractionKey)
     }
 
     private func configureCallbacks() {
@@ -861,7 +1029,7 @@ final class AppModel {
         }
 
         let shouldPreserveTimerState = isSignaturePreviewActive && signaturePreviewRestoreState?.timerDurationMinutes != nil
-        if timerDurationMinutes != nil && !shouldPreserveTimerState {
+        if let duration = timerDurationMinutes, !canUseTimer(minutes: duration), !shouldPreserveTimerState {
             timerDurationMinutes = nil
             timerEndDate = nil
             timerRemainingWhenPaused = nil
@@ -889,13 +1057,24 @@ final class AppModel {
             timerRemainingWhenPaused = remaining
 
             if remaining <= 0.5 {
+                let wasFreeTimer = !isPremium
                 isPlaying = false
+                endListeningSession()
                 timerDurationMinutes = nil
                 self.timerEndDate = nil
                 timerRemainingWhenPaused = nil
                 timerDisplayValue = nil
                 persistState()
                 synchronizeAudio()
+
+                if wasFreeTimer {
+                    // Proactive paywall after a free timer ends — suggests longer timers
+                    Task { @MainActor [weak self] in
+                        try? await Task.sleep(for: .seconds(1.5))
+                        guard let self, !self.isPremium, self.activePaywallContext == nil else { return }
+                        self.presentPaywall(from: .timer)
+                    }
+                }
             }
             return
         }
@@ -1025,6 +1204,7 @@ final class AppModel {
 
         if !isPlaying {
             isPlaying = true
+            beginListeningSession()
             if let minutes = timerDurationMinutes {
                 let remaining = timerRemainingWhenPaused ?? Double(minutes * 60)
                 timerEndDate = Date().addingTimeInterval(remaining)
@@ -1102,6 +1282,18 @@ private struct SignaturePreviewRestoreState {
     let timerEndDate: Date?
     let timerRemainingWhenPaused: TimeInterval?
     let timerDisplayValue: TimeInterval?
+}
+
+private enum EngagementDefaults {
+    static let sessionCountKey = "oasis.engagement.sessionCount"
+    static let listenedSecondsKey = "oasis.engagement.listenedSeconds"
+    static let didTrackFirstPlayKey = "oasis.engagement.didTrackFirstPlay"
+    static let didTrackListened60sKey = "oasis.engagement.didTrackListened60s"
+    static let didRequestReviewKey = "oasis.engagement.didRequestReview"
+    static let lastPaywallInteractionKey = "oasis.engagement.lastPaywallInteraction"
+    static let reviewSessionThreshold = 3
+    static let reviewListenThreshold: TimeInterval = 5 * 60
+    static let reviewPaywallCooldown: TimeInterval = 60 * 60
 }
 
 private final class RevenueCatObserver: NSObject, PurchasesDelegate {

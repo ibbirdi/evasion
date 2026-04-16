@@ -58,6 +58,13 @@ enum AppConfiguration {
     static let shouldUseRevenueCatAccess = forcedPremiumAccess == nil
     static let isRevenueCatConfigured = !revenueCatAPIKey.isEmpty
 
+    static let telemetryDeckAppID = (
+        ProcessInfo.processInfo.environment["OASIS_TELEMETRYDECK_APP_ID"] ??
+        (Bundle.main.object(forInfoDictionaryKey: "TelemetryDeckAppID") as? String)
+    )?
+        .trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+    static let isTelemetryDeckConfigured = !telemetryDeckAppID.isEmpty
+
     #if targetEnvironment(simulator)
     static let isSimulator = true
     static let supportsSensoryFeedback = false

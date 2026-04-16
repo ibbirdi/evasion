@@ -1,5 +1,6 @@
 import SwiftUI
 import RevenueCat
+import TelemetryDeck
 
 @main
 struct OasisNativeApp: App {
@@ -12,11 +13,16 @@ struct OasisNativeApp: App {
 
         guard AppConfiguration.shouldUseRevenueCatAccess, AppConfiguration.isRevenueCatConfigured else { return }
         Purchases.configure(withAPIKey: AppConfiguration.revenueCatAPIKey)
+
+        if AppConfiguration.isTelemetryDeckConfigured {
+            let config = TelemetryDeck.Config(appID: AppConfiguration.telemetryDeckAppID)
+            TelemetryDeck.initialize(config: config)
+        }
     }
 
     var body: some Scene {
         WindowGroup {
-            HomeView()
+            RootView()
                 .environment(model)
         }
     }
