@@ -37,7 +37,16 @@ final class AppModel {
     var timerDisplayValue: TimeInterval?
     private(set) var variationDisplayVolumes: [SoundChannel: Double] = [:]
 
+    /// Current derived scene — the place the user is hearing. Nil when no channel is audible.
+    /// Projected by `SceneCoordinator` from `channels` + `activePreset` + system clock.
+    var currentScene: CurrentScene?
+
+    /// Incremented whenever the user-initiated play-from-silence transition should choreograph
+    /// an entry ritual. Views observe `.onChange` and present their overlay once per tick.
+    private(set) var entryRitualTicket: Int = 0
+
     @ObservationIgnored private let audioEngine = AudioMixerEngine()
+    @ObservationIgnored private let sceneCoordinator = SceneCoordinator()
     @ObservationIgnored private let revenueCatObserver = RevenueCatObserver()
     @ObservationIgnored private let premiumCoordinator = PremiumCoordinator()
     @ObservationIgnored private let premiumRevenueCatService = PremiumRevenueCatService()
@@ -161,6 +170,7 @@ final class AppModel {
         handleNoActiveChannelsIfNeeded()
         updateTimerDisplayValue()
         synchronizeAudio()
+        sceneCoordinator.forceUpdate(channels: channels, activePreset: activePreset)
     }
 
     func bootstrapIfNeeded() {
@@ -279,7 +289,16 @@ final class AppModel {
     }
 
     func togglePlayback() {
-        setPlayback(!isPlaying)
+        let wasPlaying = isPlaying
+        setPlayback(!wasPlaying)
+
+        // The entry ritual is reserved for the explicit user gesture of starting playback
+        // from a silent state. Auto-starts from preset load, randomize, or remote commands
+        // bypass `togglePlayback`, so this branch is the only place that arms the ritual.
+        if !wasPlaying, isPlaying, activeAmbientChannelsCount > 0 {
+            sceneCoordinator.forceUpdate(channels: channels, activePreset: activePreset)
+            entryRitualTicket &+= 1
+        }
     }
 
     func setPlayback(_ shouldPlay: Bool) {
@@ -492,6 +511,10 @@ final class AppModel {
         schedulePersistence()
 
         guard activeAmbientChannelsCount > 0 else { return }
+
+        // Preset loads are a deliberate user action — update the scene immediately so the
+        // SceneCard reflects the new place without waiting for the debounce window.
+        sceneCoordinator.forceUpdate(channels: channels, activePreset: activePreset)
 
         if isPlaying {
             synchronizeAudio()
@@ -965,6 +988,10 @@ final class AppModel {
                 self.variationDisplayVolumes.removeValue(forKey: channel)
             }
         }
+
+        sceneCoordinator.onSceneChange = { [weak self] scene in
+            self?.currentScene = scene
+        }
     }
 
     private func loadPersistedState() -> Bool {
@@ -1017,6 +1044,7 @@ final class AppModel {
     private func synchronizeAudio() {
         enforcePremiumAccess()
         audioEngine.sync(with: mixerSnapshot)
+        sceneCoordinator.requestUpdate(channels: channels, activePreset: activePreset)
     }
 
     private func schedulePersistence() {
