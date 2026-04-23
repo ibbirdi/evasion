@@ -17,6 +17,7 @@ struct SoundDetailSheet: View {
                 hero
                 header
                 locationBlock
+                SoundLocationMinimap(channel: channel)
                 creditBlock
             }
             .padding(.horizontal, 22)
