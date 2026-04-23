@@ -1075,6 +1075,7 @@ final class AppModel {
 
             if remaining <= 0.5 {
                 let wasFreeTimer = !isPremium
+                audioEngine.setNextPauseFadeDuration(Self.sleepTimerFadeOutDuration)
                 isPlaying = false
                 endListeningSession()
                 timerDurationMinutes = nil
@@ -1262,6 +1263,8 @@ final class AppModel {
 
         return mergedPresets
     }
+
+    private static let sleepTimerFadeOutDuration: TimeInterval = 15
 
     // Templates used exclusively by the App Store screenshot pipeline (shuffle button in
     // screenshot mode applies these instead of a random mix). Each template deliberately

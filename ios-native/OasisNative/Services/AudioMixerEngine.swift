@@ -35,6 +35,7 @@ final class AudioMixerEngine: @unchecked Sendable {
     private var variationTasks: [SoundChannel: Task<Void, Never>] = [:]
     private var fadeTask: Task<Void, Never>?
     private var masterFade: Double = 0
+    private var nextPauseFadeDuration: TimeInterval?
     private var previousPlayingState = false
     private var previousNowPlayingRate: Double?
     private var latestSnapshot = MixerSnapshot(
@@ -103,6 +104,16 @@ final class AudioMixerEngine: @unchecked Sendable {
             guard let self else { return }
             self.masterFade = value
             self.refreshPlayerVolumes()
+        }
+    }
+
+    /// Request a custom fade-out duration for the NEXT pause transition only.
+    /// Resets to default (0.9s) after being consumed. Used for the gentle
+    /// sleep-timer wind-down so audio doesn't cut abruptly at t=0.
+    func setNextPauseFadeDuration(_ duration: TimeInterval) {
+        queue.async { [weak self] in
+            guard let self else { return }
+            self.nextPauseFadeDuration = duration
         }
     }
 
@@ -258,7 +269,9 @@ final class AudioMixerEngine: @unchecked Sendable {
             fadeTask = animateFade(from: masterFade, to: 1, duration: 1.6)
         } else {
             isStopping = true
-            fadeTask = animateFade(from: masterFade, to: 0, duration: 0.9, completion: { [weak self] in
+            let pauseDuration = nextPauseFadeDuration ?? 0.9
+            nextPauseFadeDuration = nil
+            fadeTask = animateFade(from: masterFade, to: 0, duration: pauseDuration, completion: { [weak self] in
                 self?.pauseAllPlayers()
                 self?.isStopping = false
             })
