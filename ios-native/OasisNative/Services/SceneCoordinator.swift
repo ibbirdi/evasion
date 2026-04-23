@@ -63,6 +63,9 @@ final class SceneCoordinator {
         activePreset: Preset?,
         date: Date
     ) -> CurrentScene? {
+        let dominant = dominantChannel(channels: channels)
+        let particleStyle = dominant?.particleStyle ?? .none
+
         if let activePreset, let narrative = SceneNarrative.presetNarrative(for: activePreset.id) {
             return CurrentScene(
                 id: "preset:\(activePreset.id)",
@@ -70,11 +73,12 @@ final class SceneCoordinator {
                 detailLine: narrative.detailLine,
                 capturedAt: date,
                 timeOfDay: TimeOfDay.current(at: date),
-                tint: narrative.tint ?? dominantTint(channels: channels) ?? .white
+                tint: narrative.tint ?? dominant?.tint ?? .white,
+                particleStyle: particleStyle
             )
         }
 
-        guard let dominant = dominantChannel(channels: channels) else {
+        guard let dominant else {
             return nil
         }
 
@@ -85,7 +89,8 @@ final class SceneCoordinator {
             detailLine: nil,
             capturedAt: date,
             timeOfDay: TimeOfDay.current(at: date),
-            tint: dominant.tint
+            tint: dominant.tint,
+            particleStyle: particleStyle
         )
     }
 
@@ -104,10 +109,6 @@ final class SceneCoordinator {
         }
 
         return bestChannel
-    }
-
-    private static func dominantTint(channels: [SoundChannel: ChannelState]) -> Color? {
-        dominantChannel(channels: channels)?.tint
     }
 
     private static let debounceMilliseconds = 1000

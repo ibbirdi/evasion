@@ -39,6 +39,11 @@ struct ImmersionBackdrop: View {
 
             TimeOfDayTint(timeOfDay: timeOfDay)
 
+            ParticleField(
+                style: model.currentScene?.particleStyle ?? .none,
+                tint: model.currentScene?.tint ?? .white
+            )
+
             // Vertical dim keeps the toolbar readable against the brightest shader frames.
             LinearGradient(
                 colors: [
