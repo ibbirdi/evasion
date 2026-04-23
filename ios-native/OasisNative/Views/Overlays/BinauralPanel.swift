@@ -70,12 +70,52 @@ struct BinauralPanel: View {
                     BinauralTrackCard(track: track)
                 }
             }
+
+            tonalBedRow
         }
         .padding(.horizontal, 20)
         .padding(.bottom, 22)
         .background(.clear)
         .accessibilityElement(children: .contain)
         .accessibilityIdentifier("panel.binaural.container")
+    }
+
+    /// Compact toggle for the atmospheric pad. Kept inside this panel since it's the only
+    /// other "non-ambient audio texture" control — deliberately understated.
+    private var tonalBedRow: some View {
+        HStack(spacing: 10) {
+            VStack(alignment: .leading, spacing: 2) {
+                Text(L10n.TonalBed.rowTitle)
+                    .font(.system(size: 13, weight: .semibold, design: .rounded))
+                    .foregroundStyle(.white.opacity(0.92))
+                Text(L10n.TonalBed.rowSubtitle)
+                    .font(.system(size: 11, weight: .medium, design: .rounded))
+                    .foregroundStyle(.white.opacity(0.54))
+                    .lineLimit(2)
+            }
+            Spacer(minLength: 0)
+            Toggle("", isOn: Binding(
+                get: { model.isTonalBedEnabled },
+                set: { model.setTonalBedEnabled($0) }
+            ))
+            .labelsHidden()
+            .tint(Color(red: 0.64, green: 0.76, blue: 0.98))
+        }
+        .padding(.horizontal, 14)
+        .padding(.vertical, 12)
+        .background {
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .fill(.thinMaterial)
+                .overlay {
+                    RoundedRectangle(cornerRadius: 16, style: .continuous)
+                        .fill(Color.white.opacity(0.02))
+                }
+        }
+        .overlay {
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .strokeBorder(Color.white.opacity(0.06), lineWidth: 1)
+        }
+        .accessibilityIdentifier("binaural.tonalBed.toggle")
     }
 
     private var controlsRow: some View {

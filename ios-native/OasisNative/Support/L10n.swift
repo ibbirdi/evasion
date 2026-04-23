@@ -106,6 +106,24 @@ enum L10n {
         )
     }
 
+    enum TonalBed {
+        // DRAFT — review before ship.
+        static let rowTitle = LocalizedStringResource(
+            "tonalBed.row.title",
+            defaultValue: "Ambient pad",
+            bundle: .main,
+            comment: "DRAFT — title of the toggle for the subtle harmonic drone under the nature mix."
+        )
+
+        // DRAFT — review before ship.
+        static let rowSubtitle = LocalizedStringResource(
+            "tonalBed.row.subtitle",
+            defaultValue: "A quiet harmonic layer under the mix.",
+            bundle: .main,
+            comment: "DRAFT — one-line explanation of what the tonal bed toggle does."
+        )
+    }
+
     enum Paywall {
         static let titleGeneric = LocalizedStringResource(
             "paywall.title.generic",

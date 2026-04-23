@@ -29,6 +29,11 @@ final class AppModel {
     var activeBinauralTrack: BinauralTrack = .delta
     var binauralVolume = 0.5
 
+    /// Atmospheric tonal bed toggle. Defaults to on — the pad is meant to be the quiet
+    /// reference frame under the nature mix. Users who find it distracting can disable it
+    /// from the binaural panel; the flag is persisted across launches.
+    var isTonalBedEnabled = true
+
     var channels: [SoundChannel: ChannelState] = .initialChannels
     var presets: [Preset] = .defaultPresets()
     var premiumBannerLastDismissedAt: Date?
@@ -82,7 +87,8 @@ final class AppModel {
             activeBinauralTrack: activeBinauralTrack,
             binauralVolume: binauralVolume,
             previewUnlockedChannels: previewUnlockedChannels,
-            previewUnlockedTracks: previewUnlockedTracks
+            previewUnlockedTracks: previewUnlockedTracks,
+            isTonalBedEnabled: isTonalBedEnabled
         )
     }
 
@@ -488,6 +494,13 @@ final class AppModel {
 
     func setBinauralVolume(_ value: Double) {
         binauralVolume = value
+        schedulePersistence()
+        synchronizeAudio()
+    }
+
+    func setTonalBedEnabled(_ enabled: Bool) {
+        guard isTonalBedEnabled != enabled else { return }
+        isTonalBedEnabled = enabled
         schedulePersistence()
         synchronizeAudio()
     }
@@ -1010,6 +1023,9 @@ final class AppModel {
             binauralVolume = persisted.binauralVolume
             premiumBannerLastDismissedAt = persisted.premiumBannerLastDismissedAt
             signaturePreviewLastPlayedAt = persisted.signaturePreviewLastPlayedAt
+            // Missing field in older builds → default to on so upgrading users get the new
+            // atmospheric pad rather than silence.
+            isTonalBedEnabled = persisted.isTonalBedEnabled ?? true
 
             enforcePremiumAccess()
             return true
@@ -1030,7 +1046,8 @@ final class AppModel {
             binauralVolume: binauralVolume,
             selectedLanguage: nil,
             premiumBannerLastDismissedAt: premiumBannerLastDismissedAt,
-            signaturePreviewLastPlayedAt: signaturePreviewLastPlayedAt
+            signaturePreviewLastPlayedAt: signaturePreviewLastPlayedAt,
+            isTonalBedEnabled: isTonalBedEnabled
         )
 
         do {

@@ -29,6 +29,7 @@ final class AudioMixerEngine: @unchecked Sendable {
     private let queue = DispatchQueue(label: "com.jonathanluquet.oasis.audio-engine", qos: .userInitiated)
     private let ambientEngine = AVAudioEngine()
     private let environmentNode = AVAudioEnvironmentNode()
+    private let tonalMixerNode = AVAudioMixerNode()
 
     private var ambientPlayers: [SoundChannel: AmbientChannelPlayback] = [:]
     private var binauralPlayers: [BinauralTrack: AVAudioPlayer] = [:]
@@ -37,6 +38,13 @@ final class AudioMixerEngine: @unchecked Sendable {
     private var masterFade: Double = 0
     private var nextPauseFadeDuration: TimeInterval?
     private var previousPlayingState = false
+
+    /// Procedural harmonic pad — nil when initialization fails, in which case the graph
+    /// keeps working as if the synth didn't exist.
+    private var tonalBedSynth: TonalBedSynth?
+    /// Base amplitude for the tonal bed, scaled by masterFade and the enabled flag. Sits
+    /// ~15 dB below the ambient mix — felt rather than heard.
+    private static let tonalBedBaseAmplitude: Double = 0.18
     private var previousNowPlayingRate: Double?
     private var latestSnapshot = MixerSnapshot(
         isPlaying: false,
@@ -95,8 +103,16 @@ final class AudioMixerEngine: @unchecked Sendable {
             if !snapshot.isPlaying {
                 self.prewarmPausedSnapshot(snapshot)
             }
+            self.applyTonalSignatureForLatestSnapshot()
             self.updateNowPlayingInfo()
         }
+    }
+
+    /// Pushes the current dominant channel's tonal signature into the synth. Called from
+    /// `sync` — the synth itself debounces redundant signatures internally.
+    private func applyTonalSignatureForLatestSnapshot() {
+        guard let tonalBedSynth, let signature = dominantTonalSignature() else { return }
+        tonalBedSynth.applySignature(signature)
     }
 
     func setMasterFade(_ value: Double) {
@@ -212,6 +228,30 @@ final class AudioMixerEngine: @unchecked Sendable {
         environmentNode.outputVolume = 1
         environmentNode.listenerPosition = AVAudio3DPoint(x: 0, y: 0, z: 0)
         updateEnvironmentOutputType()
+
+        attachTonalBedIfPossible()
+    }
+
+    /// Wires the tonal bed synth into the ambient graph. Bypasses `environmentNode` so the
+    /// pad isn't spatialized — it's meant to feel like it's inside your head, not located
+    /// somewhere in the 3D field. On any failure during attach/connect, the synth is left
+    /// detached and `tonalBedSynth` is set to nil so the rest of the engine keeps running.
+    private func attachTonalBedIfPossible() {
+        let synth = TonalBedSynth(sampleRate: 44_100)
+        guard synth.isViable else { return }
+
+        ambientEngine.attach(synth.sourceNode)
+        ambientEngine.attach(tonalMixerNode)
+
+        let format = AVAudioFormat(
+            standardFormatWithSampleRate: 44_100,
+            channels: 2
+        )
+        ambientEngine.connect(synth.sourceNode, to: tonalMixerNode, format: format)
+        ambientEngine.connect(tonalMixerNode, to: ambientEngine.mainMixerNode, format: format)
+
+        tonalMixerNode.outputVolume = 0 // muted until the first snapshot arrives
+        tonalBedSynth = synth
     }
 
     private func startAmbientEngineIfNeeded() {
@@ -434,6 +474,8 @@ final class AudioMixerEngine: @unchecked Sendable {
                 player.pause()
             }
         }
+
+        refreshTonalBedAmplitude()
     }
 
     private func prewarmPausedSnapshot(_ snapshot: MixerSnapshot) {
@@ -472,6 +514,39 @@ final class AudioMixerEngine: @unchecked Sendable {
                 player.volume = Float(targetBinauralVolume(for: track))
             }
         }
+
+        refreshTonalBedAmplitude()
+    }
+
+    /// Updates the tonal bed's output gain based on the current snapshot's enabled flag and
+    /// the master fade envelope. The synth itself keeps a slow internal amplitude ramp for
+    /// click-free transitions; this method sets the node-level volume the ramp is scaled by.
+    private func refreshTonalBedAmplitude() {
+        guard let tonalBedSynth else { return }
+
+        let enabled = latestSnapshot.isTonalBedEnabled
+        let hasAudibleChannels = SoundChannel.allCases.contains { channel in
+            guard let state = latestSnapshot.channels[channel], !state.isMuted else { return false }
+            return latestSnapshot.hasAmbientAccess(to: channel)
+        }
+
+        let target = enabled && hasAudibleChannels ? Self.tonalBedBaseAmplitude : 0
+        tonalBedSynth.setTargetAmplitude(target)
+        tonalMixerNode.outputVolume = Float(masterFade)
+    }
+
+    /// Picks the tonal signature that matches the dominant unmuted channel. Used by `sync`
+    /// to keep the pad tuned to the current mix. Iterates `allCases` for deterministic ties.
+    private func dominantTonalSignature() -> TonalSignature? {
+        var best: (channel: SoundChannel, volume: Double)?
+        for channel in SoundChannel.allCases {
+            guard let state = latestSnapshot.channels[channel], !state.isMuted else { continue }
+            guard latestSnapshot.hasAmbientAccess(to: channel) else { continue }
+            if best == nil || state.volume > best!.volume {
+                best = (channel, state.volume)
+            }
+        }
+        return best?.channel.tonalSignature
     }
 
     private func targetAmbientVolume(for channel: SoundChannel) -> Double {
