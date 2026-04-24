@@ -46,3 +46,7 @@ maestro/generated-flow.yaml
 
 vendor
 fastlane
+
+# Tooling / session state
+.bundle
+.claude
