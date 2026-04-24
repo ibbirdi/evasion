@@ -34,6 +34,8 @@ struct SoundDetailSheet: View {
             )
             .ignoresSafeArea()
         )
+        .accessibilityElement(children: .contain)
+        .accessibilityIdentifier("panel.sound-detail.container")
     }
 
     private var hero: some View {
@@ -70,26 +72,19 @@ struct SoundDetailSheet: View {
     }
 
     private var locationBlock: some View {
-        HStack(alignment: .center, spacing: 12) {
-            if !location.flagEmoji.isEmpty {
-                Text(location.flagEmoji)
-                    .font(.system(size: 32))
+        VStack(alignment: .leading, spacing: 4) {
+            Text(location.fullLabel)
+                .font(.system(size: 16, weight: .medium, design: .rounded))
+                .foregroundStyle(.white.opacity(0.92))
+                .fixedSize(horizontal: false, vertical: true)
+
+            if location.isApproximate {
+                Text(L10n.SoundDetail.approximateLocation)
+                    .font(.system(size: 11, weight: .regular, design: .rounded))
+                    .foregroundStyle(.white.opacity(0.50))
             }
-
-            VStack(alignment: .leading, spacing: 2) {
-                Text(location.fullLabel)
-                    .font(.system(size: 16, weight: .medium, design: .rounded))
-                    .foregroundStyle(.white.opacity(0.92))
-
-                if location.isApproximate {
-                    Text(L10n.SoundDetail.approximateLocation)
-                        .font(.system(size: 11, weight: .regular, design: .rounded))
-                        .foregroundStyle(.white.opacity(0.50))
-                }
-            }
-
-            Spacer(minLength: 0)
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.vertical, 14)
         .padding(.horizontal, 16)
         .background {

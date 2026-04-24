@@ -39,6 +39,14 @@ Alias for screenshot generation
 
 Upload metadata to App Store Connect without screenshots
 
+### ios appstore_release
+
+```sh
+[bundle exec] fastlane ios appstore_release
+```
+
+Upload screenshots + metadata to App Store Connect (no binary)
+
 ----
 
 This README.md is auto-generated and will be re-generated every time [_fastlane_](https://fastlane.tools) is run.

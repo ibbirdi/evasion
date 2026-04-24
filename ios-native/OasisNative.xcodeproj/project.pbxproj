@@ -47,6 +47,7 @@
 		A10000000000000000000007 /* OasisNativePremiumFlowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000007 /* OasisNativePremiumFlowTests.swift */; };
 		A10000000000000000000008 /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000008 /* L10n.swift */; };
 		A10000000000000000000009 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000009 /* Localizable.xcstrings */; };
+		A10000000000000000000030 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000030 /* AppIcon.icon */; };
 		ABDC589AE15B276BDB2CAB4A /* RevenueCatUI in Frameworks */ = {isa = PBXBuildFile; productRef = CCB859ABD48E49C0540CF53F /* RevenueCatUI */; };
 		AEDF665AC0DF55765E928E26 /* BottomBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B71A122283830D2D4CE30EA /* BottomBarView.swift */; };
 		B315EBBA4FE6F962BF17907A /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64A8268C252D11831B37EC53 /* HomeView.swift */; };
@@ -126,6 +127,7 @@
 		A20000000000000000000007 /* OasisNativePremiumFlowTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OasisNativePremiumFlowTests.swift; sourceTree = "<group>"; };
 		A20000000000000000000008 /* L10n.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = L10n.swift; sourceTree = "<group>"; };
 		A20000000000000000000009 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		A20000000000000000000030 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		A4391692426D8929556F4FA5 /* grillons1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = grillons1.m4a; sourceTree = "<group>"; };
 		A8EA3F811B55E984673939DB /* OasisNativeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OasisNativeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA2170E58F0E63BED0043B00 /* oasisLogo.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = oasisLogo.png; sourceTree = "<group>"; };
@@ -236,6 +238,7 @@
 		5435BD9E85E00168BD57BA54 /* OasisNative */ = {
 			isa = PBXGroup;
 			children = (
+				A20000000000000000000030 /* AppIcon.icon */,
 				E9DCCC7233ECB3C67BBFDA0B /* Assets.xcassets */,
 				9F931F38A9610F04344AB17F /* Models */,
 				AAA1A4AF3CC2220790E148E3 /* OasisNativeApp.swift */,
@@ -526,6 +529,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A10000000000000000000030 /* AppIcon.icon in Resources */,
 				A10000000000000000000009 /* Localizable.xcstrings in Resources */,
 				6202D9B5F33AC0F270DA8DB4 /* Assets.xcassets in Resources */,
 				1C235874A2E3795F127CDED2 /* 1_binaural_sleep_delta.m4a in Resources */,

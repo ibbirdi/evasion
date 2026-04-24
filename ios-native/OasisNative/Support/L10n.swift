@@ -116,7 +116,7 @@ enum L10n {
 
         static let titleSounds = LocalizedStringResource(
             "paywall.title.sounds",
-            defaultValue: "Unlock 11 more sounds",
+            defaultValue: "Unlock 17 more sounds",
             bundle: .main,
             comment: "Paywall title when triggered from a locked sound or spatial control."
         )
@@ -151,7 +151,7 @@ enum L10n {
 
         static let subtitleGeneric = LocalizedStringResource(
             "paywall.subtitle.generic",
-            defaultValue: "Unlock 11 more sounds, 1 hr/2 hr timers and unlimited saved mixes. One purchase, no subscription.",
+            defaultValue: "Unlock 17 more sounds, 1 hr/2 hr timers and unlimited saved mixes. One purchase, no subscription.",
             bundle: .main,
             comment: "Generic paywall subtitle summarizing the full premium offer."
         )
@@ -300,7 +300,7 @@ enum L10n {
 
         static let bannerSubtitle = LocalizedStringResource(
             "premium.banner.subtitle",
-            defaultValue: "Unlock 11 more sounds, 1 hr/2 hr timers and unlimited saved mixes.",
+            defaultValue: "Unlock 17 more sounds, 1 hr/2 hr timers and unlimited saved mixes.",
             bundle: .main,
             comment: "Short explanatory line in the premium home banner."
         )
@@ -314,7 +314,7 @@ enum L10n {
 
         static let libraryTitle = LocalizedStringResource(
             "premium.library.title",
-            defaultValue: "11 more sounds",
+            defaultValue: "17 more sounds",
             bundle: .main,
             comment: "Title of the home teaser card for the locked sound library."
         )
@@ -586,14 +586,14 @@ enum L10n {
 
         static let page3Title = LocalizedStringResource(
             "onboarding.page3.title",
-            defaultValue: "14 sounds, one purchase",
+            defaultValue: "20 sounds, one purchase",
             bundle: .main,
             comment: "Onboarding page 3 title."
         )
 
         static let page3Subtitle = LocalizedStringResource(
             "onboarding.page3.subtitle",
-            defaultValue: "Start free with 3 sounds and 3D audio. Unlock 11 more sounds, longer timers and binaural modes — no subscription, ever.",
+            defaultValue: "Start free with 3 sounds and 3D audio. Unlock 17 more sounds, longer timers and binaural modes — no subscription, ever.",
             bundle: .main,
             comment: "Onboarding page 3 subtitle."
         )

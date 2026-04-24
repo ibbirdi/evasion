@@ -12,7 +12,7 @@ struct HomeHeaderView: View {
     }
 
     var body: some View {
-        VStack(spacing: max(6, 9 - (compactProgress * 4))) {
+        VStack(spacing: max(2, 9 - (compactProgress * 7))) {
             BrandLockupView(visibility: logoVisibility)
 
             QuickControlsStrip(
@@ -22,7 +22,7 @@ struct HomeHeaderView: View {
             )
         }
         .padding(.horizontal, 0)
-        .padding(.vertical, 6)
+        .padding(.vertical, max(2, 6 - compactProgress * 4))
         .frame(maxWidth: .infinity)
         .animation(.smooth(duration: 0.22), value: compactProgress)
     }
@@ -68,7 +68,15 @@ private struct WaveformSignatureLine: View {
     @Environment(AppModel.self) private var model
 
     var body: some View {
-        TimelineView(.animation(minimumInterval: 1.0 / 30.0, paused: !model.isPlaying)) { context in
+        // Under UI-test automation, pause the animation. The moving waveform otherwise
+        // keeps SwiftUI invalidating the view tree non-stop, which prevents the app from
+        // ever reaching quiescence — XCUITest then waits up to 60s per interaction,
+        // making the screenshot run ~5× slower and flaky.
+        //
+        // Paused = true still renders exactly one frame, so the marketing shots keep a
+        // nice frozen wave shape at `context.date`'s initial value.
+        let shouldPause = !model.isPlaying || AppConfiguration.isRunningScreenshotAutomation
+        TimelineView(.animation(minimumInterval: 1.0 / 30.0, paused: shouldPause)) { context in
             let palette = model.activePlaybackPalette
             let amplitude: Double = model.isPlaying
                 ? min(1.0, 0.35 + Double(palette.count) * 0.11)
@@ -78,7 +86,11 @@ private struct WaveformSignatureLine: View {
                 drawWave(
                     gc: gc,
                     size: size,
-                    time: context.date.timeIntervalSinceReferenceDate,
+                    // In screenshot mode, pin `time` to a deterministic value that produces
+                    // a visually-interesting peak (not a flat line frozen at t=0).
+                    time: AppConfiguration.isRunningScreenshotAutomation
+                        ? 3.4
+                        : context.date.timeIntervalSinceReferenceDate,
                     amplitude: amplitude,
                     palette: palette
                 )
@@ -301,15 +313,11 @@ private struct HeaderChipLabel: View {
             Capsule()
                 .fill(Color.white.opacity(0.001))
                 .oasisGlassEffect(in: Capsule())
-                .overlay {
-                    Capsule()
-                        .fill(isActivated ? tint.opacity(0.18) : Color.white.opacity(0.02))
-                }
+            if isActivated {
+                Capsule().fill(tint.opacity(0.18))
+            }
         }
-        .overlay {
-            Capsule()
-                .strokeBorder(isActivated ? tint.opacity(0.30) : Color.white.opacity(0.08), lineWidth: 1)
-        }
+        .contentShape(Capsule())
         .shadow(color: isActivated ? tint.opacity(0.06) : .clear, radius: 8, y: 2)
         .fixedSize(horizontal: !expands, vertical: false)
         .animation(.smooth(duration: 0.22), value: isActivated)
@@ -344,26 +352,12 @@ private struct PanelTriggerChip: View {
             Capsule()
                 .fill(Color.white.opacity(0.001))
                 .oasisGlassEffect(in: Capsule())
-                .overlay {
-                    Capsule()
-                        .fill(
-                            isActivated ? tint.opacity(0.18) : Color.white.opacity(0.018)
-                        )
-                }
+            if isActivated {
+                Capsule().fill(tint.opacity(0.18))
+            }
         }
-        .overlay {
-            Capsule()
-                .strokeBorder(activeBorderStyle, lineWidth: 1.15)
-        }
+        .contentShape(Capsule())
         .shadow(color: isActivated ? tint.opacity(0.04) : .clear, radius: 8, y: 2)
         .animation(.smooth(duration: 0.22), value: isActivated)
-    }
-
-    private var activeBorderStyle: AnyShapeStyle {
-        if isActivated {
-            AnyShapeStyle(tint.opacity(0.34))
-        } else {
-            AnyShapeStyle(Color.white.opacity(0.08))
-        }
     }
 }

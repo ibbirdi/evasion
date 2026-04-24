@@ -1,6 +1,17 @@
-Oasis 1.3.0 rende l'app più facile da provare e tenere:
-• Audio ottimizzati: l'app occupa molto meno spazio.
-• Compatibilità iOS 18+.
-• Timer da 15 e 30 min gratis.
-• Premium più chiaro: 11 suoni, mix illimitati e timer da 1/2 h.
-• Acquisto unico, senza abbonamento.
+Oasis 1.3.0 — 6 nuovi suoni naturali
+
+• Falò nei boschi del Michigan
+• Caffè di São Paulo
+• Lago di Fritton, Norfolk
+• Savana del KwaZulu-Natal
+• Giungla della foresta tropicale messicana
+• Giungla di Chiang Mai, Thailandia
+
+Ogni suono è registrato sul posto. Tocca l'icona info di una traccia per vedere la località esatta, l'autore e la licenza Creative Commons.
+
+Anche in questa versione:
+• Header ridisegnato con una forma d'onda animata che reagisce al tuo mix
+• Mixer più pulito con tracce attive evidenziate e località visibili
+• Transizioni di riproduzione più fluide
+
+Acquisto unico. Senza abbonamento, senza account, senza pubblicità — mai.

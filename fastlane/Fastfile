@@ -41,12 +41,20 @@ platform :ios do
     derived_data_directory = File.join(repo_root, "fastlane", "snapshot-derived-data")
     screenshot_ios_version = oasis_screenshot_ios_version
 
+    # Partial regeneration: when OASIS_SCREENSHOT_PARTIAL is set to any truthy
+    # value, we skip clearing existing screenshots so prior slides are
+    # preserved. Pair this with a hardcoded `onlyScenarios` filter inside the
+    # UI test for a targeted rerun.
+    only_filter_active = !ENV["OASIS_SCREENSHOT_PARTIAL"].to_s.strip.empty?
+
     capture_screenshots(
       project: ios_project,
       scheme: "OasisNative",
-      devices: [ENV["SCREENSHOT_DEVICE"] || "iPhone 17"],
+      # iPhone 17 Pro Max is the largest current App Store display class (6.9",
+      # 1320 × 2868 @ 3x) so Figma comps get the highest-resolution source material.
+      devices: [ENV["SCREENSHOT_DEVICE"] || "iPhone 17 Pro Max"],
       ios_version: screenshot_ios_version,
-      languages: [
+      languages: ENV["SCREENSHOT_LANGUAGES"]&.split(",")&.map(&:strip) || [
         "en-US",
         "fr-FR",
         "de-DE",
@@ -55,7 +63,7 @@ platform :ios do
         "pt-BR"
       ],
       output_directory: output_directory,
-      clear_previous_screenshots: true,
+      clear_previous_screenshots: !only_filter_active,
       reinstall_app: true,
       erase_simulator: true,
       app_identifier: "com.jonathanluquet.drift",
@@ -64,9 +72,16 @@ platform :ios do
       disable_slide_to_type: true,
       headless: false,
       concurrent_simulators: false,
-      clean: true,
+      # `clean: true` forced a full rebuild on every language — with 6 languages,
+      # that meant ~10 min of clean+compile wasted per run. The source didn't
+      # change between languages, so reuse the compiled test bundle across them.
+      clean: false,
       result_bundle: true,
       namespace_log_files: true,
+      # Retries used to mask UI quiescence issues (animating backdrop + waveform).
+      # Now that those views pause under screenshot automation we expect the first
+      # run to succeed. Fail fast if it doesn't — a retry would silently double
+      # the run time and hide regressions.
       number_of_retries: 0,
       launch_arguments: [
         "-OASISResetState YES"
@@ -95,6 +110,52 @@ platform :ios do
       skip_metadata: false,
       skip_screenshots: true,
       skip_app_version_update: false,
+      submit_for_review: false,
+      force: true,
+      precheck_include_in_app_purchases: false,
+      run_precheck_before_submit: false,
+      version_check_wait_retry_limit: 15
+    )
+  end
+
+  desc "Upload screenshots + metadata to App Store Connect (no binary)"
+  lane :appstore_release do |options|
+    repo_root = oasis_repo_root
+    app_version = options[:app_version] || "1.3.0"
+
+    # `upload_to_app_store` expects one flat directory per locale containing
+    # the screenshots. Our composites live under
+    # `fastlane/screenshots/<locale>/figma-pro/*.jpg` alongside raw captures,
+    # so stage them into a dedicated folder to avoid shipping raw captures
+    # or the `preview/` subdirectory.
+    staging_root = File.join(repo_root, "fastlane", "appstore-upload")
+    FileUtils.rm_rf(staging_root)
+    FileUtils.mkdir_p(staging_root)
+
+    composite_glob = File.join(repo_root, "fastlane", "screenshots", "*", "figma-pro", "*.jpg")
+    staged_count = 0
+    Dir.glob(composite_glob).each do |src|
+      # src = .../fastlane/screenshots/<locale>/figma-pro/<slug>.jpg
+      locale = File.basename(File.dirname(File.dirname(src)))
+      next if locale == "preview" || locale == "test_output"
+      dest_dir = File.join(staging_root, locale)
+      FileUtils.mkdir_p(dest_dir)
+      FileUtils.cp(src, File.join(dest_dir, File.basename(src)))
+      staged_count += 1
+    end
+    UI.message("Staged #{staged_count} composite screenshots into #{staging_root}")
+
+    upload_to_app_store(
+      username: "jonathanluquet@me.com",
+      app_identifier: "com.jonathanluquet.drift",
+      app_version: app_version,
+      metadata_path: File.join(repo_root, "fastlane", "metadata"),
+      screenshots_path: staging_root,
+      skip_binary_upload: true,
+      skip_metadata: false,
+      skip_screenshots: false,
+      skip_app_version_update: false,
+      overwrite_screenshots: true,
       submit_for_review: false,
       force: true,
       precheck_include_in_app_purchases: false,

@@ -1263,27 +1263,52 @@ final class AppModel {
         return mergedPresets
     }
 
+    // Templates used exclusively by the App Store screenshot pipeline (shuffle button in
+    // screenshot mode applies these instead of a random mix). Each template deliberately
+    // features one or more of the six new premium sounds so the marketing shots showcase
+    // the expanded library.
     private static let screenshotShuffleTemplates: [[SoundChannel: ChannelState]] = [
+        // Template 0 — "Campfire night". Warm + cosy.
+        // Ten active channels spanning the full list so no matter where the capture
+        // is taken (top of list or scrolled to the bottom), roughly half the visible
+        // rows read as active.
         [
-            .oiseaux: ChannelState(volume: 0.58, isMuted: false, autoVariationEnabled: false),
-            .vent: ChannelState(volume: 0.34, isMuted: false, autoVariationEnabled: true),
-            .plage: ChannelState(volume: 0.42, isMuted: false, autoVariationEnabled: false),
-            .foret: ChannelState(volume: 0.55, isMuted: false, autoVariationEnabled: false)
+            .oiseaux: ChannelState(volume: 0.22, isMuted: false, autoVariationEnabled: false),
+            .vent: ChannelState(volume: 0.26, isMuted: false, autoVariationEnabled: true),
+            .foret: ChannelState(volume: 0.28, isMuted: false, autoVariationEnabled: false),
+            .pluie: ChannelState(volume: 0.20, isMuted: false, autoVariationEnabled: false),
+            .tonnerre: ChannelState(volume: 0.16, isMuted: false, autoVariationEnabled: true),
+            .grillons: ChannelState(volume: 0.38, isMuted: false, autoVariationEnabled: false),
+            .tente: ChannelState(volume: 0.32, isMuted: false, autoVariationEnabled: false),
+            .riviere: ChannelState(volume: 0.22, isMuted: false, autoVariationEnabled: true),
+            .campfire: ChannelState(volume: 0.55, isMuted: false, autoVariationEnabled: false),
+            .lac: ChannelState(volume: 0.18, isMuted: false, autoVariationEnabled: false)
         ],
+        // Template 1 — "Exotic journey". Green/yellow palette, showcases the jungles + savanna.
         [
-            .pluie: ChannelState(volume: 0.62, isMuted: false, autoVariationEnabled: false),
-            .tonnerre: ChannelState(volume: 0.48, isMuted: false, autoVariationEnabled: true),
-            .vent: ChannelState(volume: 0.31, isMuted: false, autoVariationEnabled: false),
-            .grillons: ChannelState(volume: 0.36, isMuted: false, autoVariationEnabled: false),
-            .riviere: ChannelState(volume: 0.52, isMuted: false, autoVariationEnabled: false)
+            .oiseaux: ChannelState(volume: 0.30, isMuted: false, autoVariationEnabled: false),
+            .plage: ChannelState(volume: 0.20, isMuted: false, autoVariationEnabled: false),
+            .foret: ChannelState(volume: 0.24, isMuted: false, autoVariationEnabled: true),
+            .pluie: ChannelState(volume: 0.18, isMuted: false, autoVariationEnabled: true),
+            .cigales: ChannelState(volume: 0.32, isMuted: false, autoVariationEnabled: false),
+            .riviere: ChannelState(volume: 0.26, isMuted: false, autoVariationEnabled: false),
+            .savane: ChannelState(volume: 0.40, isMuted: false, autoVariationEnabled: false),
+            .jungleAmerique: ChannelState(volume: 0.50, isMuted: false, autoVariationEnabled: false),
+            .jungleAsie: ChannelState(volume: 0.34, isMuted: false, autoVariationEnabled: false),
+            .cafe: ChannelState(volume: 0.16, isMuted: false, autoVariationEnabled: true)
         ],
+        // Template 2 — "Cafe focus". Cool palette, showcases the cafe + lake for the urban angle.
         [
-            .train: ChannelState(volume: 0.44, isMuted: false, autoVariationEnabled: false),
-            .voiture: ChannelState(volume: 0.37, isMuted: false, autoVariationEnabled: true),
-            .village: ChannelState(volume: 0.29, isMuted: false, autoVariationEnabled: false),
-            .tente: ChannelState(volume: 0.50, isMuted: false, autoVariationEnabled: false),
-            .cigales: ChannelState(volume: 0.40, isMuted: false, autoVariationEnabled: true),
-            .grillons: ChannelState(volume: 0.33, isMuted: false, autoVariationEnabled: false)
+            .oiseaux: ChannelState(volume: 0.20, isMuted: false, autoVariationEnabled: false),
+            .vent: ChannelState(volume: 0.18, isMuted: false, autoVariationEnabled: true),
+            .goelands: ChannelState(volume: 0.22, isMuted: false, autoVariationEnabled: false),
+            .pluie: ChannelState(volume: 0.26, isMuted: false, autoVariationEnabled: true),
+            .grillons: ChannelState(volume: 0.16, isMuted: false, autoVariationEnabled: false),
+            .riviere: ChannelState(volume: 0.24, isMuted: false, autoVariationEnabled: false),
+            .train: ChannelState(volume: 0.22, isMuted: false, autoVariationEnabled: false),
+            .cafe: ChannelState(volume: 0.48, isMuted: false, autoVariationEnabled: false),
+            .lac: ChannelState(volume: 0.36, isMuted: false, autoVariationEnabled: false),
+            .jungleAsie: ChannelState(volume: 0.18, isMuted: false, autoVariationEnabled: true)
         ]
     ]
 }

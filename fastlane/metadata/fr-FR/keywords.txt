@@ -1,1 +1,1 @@
-relaxation,concentration,etude,binaural,mix,pluie,brun,rose,orage,ocean,ambiance,acouphene,insomnie,coucher,vent,ventilateur,bruit,grillons,ASMR
+bruit,blanc,brun,rose,pluie,orage,vent,binaural,sommeil,meditation,concentration,ASMR,cafe,foret

@@ -3477,37 +3477,37 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Starte kostenlos mit 3 Sounds und 3D-Audio. Schalte 11 weitere Sounds, längere Timer und Binauralmodi frei — kein Abo, nie."
+            "value" : "Starte kostenlos mit 3 Sounds und 3D-Audio. Schalte 17 weitere Sounds, längere Timer und Binauralmodi frei — kein Abo, nie."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Start free with 3 sounds and 3D audio. Unlock 11 more sounds, longer timers and binaural modes — no subscription, ever."
+            "value" : "Start free with 3 sounds and 3D audio. Unlock 17 more sounds, longer timers and binaural modes — no subscription, ever."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Empieza gratis con 3 sonidos y audio 3D. Desbloquea 11 sonidos más, temporizadores largos y modos binaurales — sin suscripción."
+            "value" : "Empieza gratis con 3 sonidos y audio 3D. Desbloquea 17 sonidos más, temporizadores largos y modos binaurales — sin suscripción."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Commencez gratuitement avec 3 sons et l'audio 3D. Débloquez 11 sons, des minuteurs plus longs et les modes binauraux — sans abonnement."
+            "value" : "Commencez gratuitement avec 3 sons et l'audio 3D. Débloquez 17 sons, des minuteurs plus longs et les modes binauraux — sans abonnement."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Inizia gratis con 3 suoni e audio 3D. Sblocca 11 suoni, timer più lunghi e modalità binaurali — senza abbonamento, mai."
+            "value" : "Inizia gratis con 3 suoni e audio 3D. Sblocca 17 suoni, timer più lunghi e modalità binaurali — senza abbonamento, mai."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Comece grátis com 3 sons e áudio 3D. Desbloqueie 11 sons, timers mais longos e modos binaurais — sem assinatura, nunca."
+            "value" : "Comece grátis com 3 sons e áudio 3D. Desbloqueie 17 sons, timers mais longos e modos binaurais — sem assinatura, nunca."
           }
         }
       }
@@ -3518,37 +3518,37 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "14 Sounds, ein Kauf"
+            "value" : "20 Sounds, ein Kauf"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "14 sounds, one purchase"
+            "value" : "20 sounds, one purchase"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "14 sonidos, una sola compra"
+            "value" : "20 sonidos, una sola compra"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "14 sons, un seul achat"
+            "value" : "20 sons, un seul achat"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "14 suoni, un solo acquisto"
+            "value" : "20 suoni, un solo acquisto"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "14 sons, uma única compra"
+            "value" : "20 sons, uma única compra"
           }
         }
       }
@@ -3685,37 +3685,37 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "11 zusätzliche Sounds: Regen, Wald, Donner, Fluss..."
+            "value" : "17 zusätzliche Sounds: Regen, Wald, Donner, Lagerfeuer, Café, Savanne, Dschungel..."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "11 extra sounds: rain, forest, thunder, river..."
+            "value" : "17 extra sounds: rain, forest, thunder, campfire, cafe, savanna, jungle..."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "11 sonidos extra: lluvia, bosque, trueno, río..."
+            "value" : "17 sonidos extra: lluvia, bosque, trueno, fogata, café, sabana, selva..."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "11 sons en plus : pluie, forêt, orage, rivière..."
+            "value" : "17 sons en plus : pluie, forêt, orage, feu de camp, café, savane, jungle..."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "11 suoni extra: pioggia, foresta, tuono, fiume..."
+            "value" : "17 suoni extra: pioggia, foresta, tuono, falò, caffè, savana, giungla..."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "11 sons extras: chuva, floresta, trovão, rio..."
+            "value" : "17 sons extras: chuva, floresta, trovão, fogueira, café, savana, selva..."
           }
         }
       }
@@ -4136,37 +4136,37 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Schalte 11 weitere Sounds, Timer für 1/2 Std. und unbegrenzt gespeicherte Mixe frei. Ein Kauf, kein Abo."
+            "value" : "Schalte 17 weitere Sounds, Timer für 1/2 Std. und unbegrenzt gespeicherte Mixe frei. Ein Kauf, kein Abo."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Unlock 11 more sounds, 1 hr/2 hr timers and unlimited saved mixes. One purchase, no subscription."
+            "value" : "Unlock 17 more sounds, 1 hr/2 hr timers and unlimited saved mixes. One purchase, no subscription."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Desbloquea 11 sonidos más, temporizadores de 1/2 h y mezclas guardadas ilimitadas. Una compra, sin suscripción."
+            "value" : "Desbloquea 17 sonidos más, temporizadores de 1/2 h y mezclas guardadas ilimitadas. Una compra, sin suscripción."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Débloquez 11 sons en plus, les minuteurs 1 h/2 h et les mix illimités. Un seul achat, sans abonnement."
+            "value" : "Débloquez 17 sons en plus, les minuteurs 1 h/2 h et les mix illimités. Un seul achat, sans abonnement."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sblocca 11 suoni in più, timer da 1/2 h e mix salvati illimitati. Un solo acquisto, nessun abbonamento."
+            "value" : "Sblocca 17 suoni in più, timer da 1/2 h e mix salvati illimitati. Un solo acquisto, nessun abbonamento."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Desbloqueie 11 sons extras, timers de 1/2 h e mixes salvos ilimitados. Uma compra, sem assinatura."
+            "value" : "Desbloqueie 17 sons extras, timers de 1/2 h e mixes salvos ilimitados. Uma compra, sem assinatura."
           }
         }
       }
@@ -4505,37 +4505,37 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "11 weitere Sounds freischalten"
+            "value" : "17 weitere Sounds freischalten"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Unlock 11 more sounds"
+            "value" : "Unlock 17 more sounds"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Desbloquear 11 sonidos"
+            "value" : "Desbloquear 17 sonidos"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Débloquer 11 sons"
+            "value" : "Débloquer 17 sons"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sblocca 11 suoni"
+            "value" : "Sblocca 17 suoni"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Desbloquear 11 sons"
+            "value" : "Desbloquear 17 sons"
           }
         }
       }
@@ -4669,37 +4669,37 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Schalte 11 weitere Sounds, Timer für 1/2 Std. und unbegrenzt gespeicherte Mixe frei."
+            "value" : "Schalte 17 weitere Sounds, Timer für 1/2 Std. und unbegrenzt gespeicherte Mixe frei."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Unlock 11 more sounds, 1 hr/2 hr timers and unlimited saved mixes."
+            "value" : "Unlock 17 more sounds, 1 hr/2 hr timers and unlimited saved mixes."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Desbloquea 11 sonidos, temporizadores de 1/2 h y mezclas ilimitadas."
+            "value" : "Desbloquea 17 sonidos, temporizadores de 1/2 h y mezclas ilimitadas."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Débloquez 11 sons, les minuteurs 1 h/2 h et les mix illimités."
+            "value" : "Débloquez 17 sons, les minuteurs 1 h/2 h et les mix illimités."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sblocca 11 suoni, timer da 1/2 h e mix illimitati."
+            "value" : "Sblocca 17 suoni, timer da 1/2 h e mix illimitati."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Desbloqueie 11 sons, timers de 1/2 h e mixes ilimitados."
+            "value" : "Desbloqueie 17 sons, timers de 1/2 h e mixes ilimitados."
           }
         }
       }
@@ -5202,37 +5202,37 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "11 weitere Sounds"
+            "value" : "17 weitere Sounds"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "11 more sounds"
+            "value" : "17 more sounds"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "11 sonidos más"
+            "value" : "17 sonidos más"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "11 sons en plus"
+            "value" : "17 sons en plus"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "11 suoni in più"
+            "value" : "17 suoni in più"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "11 sons extras"
+            "value" : "17 sons extras"
           }
         }
       }

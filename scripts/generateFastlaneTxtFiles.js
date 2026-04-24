@@ -6,14 +6,14 @@ const metadata = {
     name: "Oasis - Sons pour Dormir",
     subtitle: "Bruit blanc, nature & sommeil",
     promotional_text:
-      "Mixez 14 sons nature en audio 3D, lancez un minuteur et endormez-vous. Hors ligne, sans compte, sans abonnement — un seul achat.",
+      "Mixez 20 sons nature en audio 3D, lancez un minuteur et endormez-vous. Hors ligne, sans compte, sans abonnement — un seul achat.",
     keywords:
       "relaxation,concentration,etude,binaural,mix,pluie,brun,rose,orage,ocean,ambiance,acouphene,insomnie,coucher,vent,ventilateur,bruit,grillons,ASMR",
     release_notes: `Oasis 1.3.0 rend l'app plus simple à adopter :
 • Audios optimisés : l'app prend beaucoup moins de place.
 • Compatibilité iOS 18+.
 • Minuteurs 15 et 30 min gratuits.
-• Premium plus clair : 11 sons, mix illimités, minuteurs 1 h/2 h.
+• Premium plus clair : 17 sons, mix illimités, minuteurs 1 h/2 h.
 • Achat unique conservé, sans abonnement.`,
     description: `Quand la rue, les voisins ou les pensées qui tournent rendent le calme difficile, Oasis vous aide à créer un fond sonore stable pour dormir, lire ou travailler avec moins de distractions.
 
@@ -28,7 +28,7 @@ Inclus gratuitement :
 • 1 mix sauvegardé
 
 Premium, en achat unique :
-• 11 sons supplémentaires : pluie, forêt, orage, rivière, train...
+• 17 sons supplémentaires : pluie, forêt, orage, feu de camp, café, savane, jungle...
 • Mix favoris illimités
 • Minuteurs 1 h et 2 h
 • Modes binauraux Theta, Alpha et Beta
@@ -40,14 +40,14 @@ Oasis n'essaie pas de tout faire. Pas de catalogue infini, pas de compte à cré
     name: "Oasis - Sleep Sounds 3D",
     subtitle: "White noise, nature & timer",
     promotional_text:
-      "Mix 14 nature sounds in 3D, set a sleep timer, and drift off. Offline, no account, no subscription — one purchase, yours forever.",
+      "Mix 20 nature sounds in 3D, set a sleep timer, and drift off. Offline, no account, no subscription — one purchase, yours forever.",
     keywords:
       "relaxation,focus,study,binaural,mix,rain,brown,pink,thunder,ocean,soundscape,tinnitus,insomnia,bedtime,ambient,wind,fan,noise,crickets,ASMR",
     release_notes: `Oasis 1.3.0 makes the app easier to try and keep:
 • Optimized audio: the app takes much less space.
 • iOS 18+ support.
 • Free 15 and 30 min timers.
-• Clearer Premium: 11 sounds, unlimited mixes, 1 hr/2 hr timers.
+• Clearer Premium: 17 sounds, unlimited mixes, 1 hr/2 hr timers.
 • One-time purchase, still no subscription.`,
     description: `Street noise, neighbors or a busy mind can make quiet hard to find. Oasis helps you build a steady sound bed for sleep, reading or focused work with fewer distractions.
 
@@ -62,7 +62,7 @@ Included for free:
 • 1 saved mix
 
 Premium, one-time purchase:
-• 11 extra sounds: rain, forest, thunder, river, train...
+• 17 extra sounds: rain, forest, thunder, campfire, cafe, savanna, jungle...
 • Unlimited saved mixes
 • 1 hr and 2 hr timers
 • Theta, Alpha and Beta binaural modes
@@ -74,14 +74,14 @@ Oasis stays focused. No endless catalog, no account to create, no subscription: 
     name: "Oasis - Schlafklänge 3D",
     subtitle: "Weißes Rauschen & Natur",
     promotional_text:
-      "14 Naturklänge in 3D mischen, Schlaf-Timer starten und einschlafen. Offline, kein Konto, kein Abo — ein Kauf, für immer.",
+      "20 Naturklänge in 3D mischen, Schlaf-Timer starten und einschlafen. Offline, kein Konto, kein Abo — ein Kauf, für immer.",
     keywords:
       "entspannung,fokus,lernen,binaural,mix,regen,braun,rosa,gewitter,meer,klanglandschaft,tinnitus,schlaflosigkeit,schlafzeit,ambient,wind,ventilator,rauschen,grillen,ASMR",
     release_notes: `Oasis 1.3.0 macht den Einstieg leichter:
 • Optimierte Audiodateien: die App braucht deutlich weniger Speicher.
 • Unterstützung ab iOS 18.
 • Kostenlose Timer für 15 und 30 Min.
-• Premium klarer erklärt: 11 Sounds, unbegrenzte Mixe, Timer für 1/2 Std.
+• Premium klarer erklärt: 17 Sounds, unbegrenzte Mixe, Timer für 1/2 Std.
 • Einmalkauf bleibt, ohne Abo.`,
     description: `Straßenlärm, Nachbarn oder kreisende Gedanken machen Ruhe manchmal schwer. Oasis hilft dir, einen gleichmäßigen Klangteppich zum Einschlafen, Lesen oder konzentrierten Arbeiten zu erstellen.
 
@@ -108,14 +108,14 @@ Oasis bleibt bewusst fokussiert. Kein endloser Katalog, kein Konto, kein Abo: nu
     name: "Oasis - Sonidos para Dormir",
     subtitle: "Ruido blanco y naturaleza",
     promotional_text:
-      "Mezcla 14 sonidos naturales en 3D, activa un temporizador y descansa. Sin conexión, sin cuenta, sin suscripción — una sola compra.",
+      "Mezcla 20 sonidos naturales en 3D, activa un temporizador y descansa. Sin conexión, sin cuenta, sin suscripción — una sola compra.",
     keywords:
       "relajacion,concentracion,estudio,binaural,mezcla,lluvia,marron,rosa,tormenta,oceano,paisaje sonoro,tinnitus,insomnio,dormir,ambiente,viento,ventilador,ruido,grillos,ASMR",
     release_notes: `Oasis 1.3.0 hace que la app sea más fácil de probar y conservar:
 • Audio optimizado: la app ocupa mucho menos espacio.
 • Compatibilidad con iOS 18+.
 • Temporizadores de 15 y 30 min gratis.
-• Premium más claro: 11 sonidos, mezclas ilimitadas y temporizadores de 1/2 h.
+• Premium más claro: 17 sonidos, mezclas ilimitadas y temporizadores de 1/2 h.
 • Compra única, sin suscripción.`,
     description: `El ruido de la calle, los vecinos o la mente acelerada pueden hacer que el silencio cueste. Oasis te ayuda a crear un fondo sonoro estable para dormir, leer o trabajar con menos distracciones.
 
@@ -130,7 +130,7 @@ Incluido gratis:
 • 1 mezcla guardada
 
 Premium, con una compra única:
-• 11 sonidos adicionales: lluvia, bosque, trueno, río, tren...
+• 17 sonidos adicionales: lluvia, bosque, trueno, fogata, café, sabana, selva...
 • Mezclas guardadas ilimitadas
 • Temporizadores de 1 h y 2 h
 • Modos binaurales Theta, Alpha y Beta
@@ -142,14 +142,14 @@ Oasis se mantiene enfocada. Sin catálogo infinito, sin crear una cuenta, sin su
     name: "Oasis - Suoni per Dormire",
     subtitle: "Rumore bianco e natura",
     promotional_text:
-      "Mixa 14 suoni naturali in 3D, avvia un timer per dormire e rilassati. Offline, senza account, senza abbonamento — un solo acquisto.",
+      "Mixa 20 suoni naturali in 3D, avvia un timer per dormire e rilassati. Offline, senza account, senza abbonamento — un solo acquisto.",
     keywords:
       "rilassamento,concentrazione,studio,binaurale,mix,pioggia,marrone,rosa,temporale,oceano,paesaggio sonoro,tinnito,insonnia,notte,ambiente,vento,ventola,rumore,grilli,ASMR",
     release_notes: `Oasis 1.3.0 rende l'app più facile da provare e tenere:
 • Audio ottimizzati: l'app occupa molto meno spazio.
 • Compatibilità iOS 18+.
 • Timer da 15 e 30 min gratis.
-• Premium più chiaro: 11 suoni, mix illimitati e timer da 1/2 h.
+• Premium più chiaro: 17 suoni, mix illimitati e timer da 1/2 h.
 • Acquisto unico, senza abbonamento.`,
     description: `Rumori dalla strada, vicini o pensieri che girano possono rendere difficile trovare calma. Oasis ti aiuta a creare un sottofondo sonoro stabile per dormire, leggere o lavorare con meno distrazioni.
 
@@ -164,7 +164,7 @@ Incluso gratis:
 • 1 mix salvato
 
 Premium, con acquisto unico:
-• 11 suoni extra: pioggia, foresta, tuono, fiume, treno...
+• 17 suoni extra: pioggia, foresta, tuono, falò, caffè, savana, giungla...
 • Mix salvati illimitati
 • Timer da 1 h e 2 h
 • Modalità binaurali Theta, Alpha e Beta
@@ -176,14 +176,14 @@ Oasis resta concentrata. Niente catalogo infinito, nessun account da creare, nes
     name: "Oasis - Sons para Dormir",
     subtitle: "Ruído branco e natureza",
     promotional_text:
-      "Mixe 14 sons da natureza em 3D, ative um timer e relaxe. Offline, sem conta, sem assinatura — uma única compra.",
+      "Mixe 20 sons da natureza em 3D, ative um timer e relaxe. Offline, sem conta, sem assinatura — uma única compra.",
     keywords:
       "relaxamento,foco,estudo,binaural,mix,chuva,marrom,rosa,trovao,oceano,paisagem sonora,zumbido,insonia,noite,ambiente,vento,ventilador,ruido,grilos,ASMR",
     release_notes: `Oasis 1.3.0 deixa o app mais fácil de experimentar e manter:
 • Áudios otimizados: o app ocupa muito menos espaço.
 • Compatível com iOS 18+.
 • Timers de 15 e 30 min grátis.
-• Premium mais claro: 11 sons, mixes ilimitados e timers de 1/2 h.
+• Premium mais claro: 17 sons, mixes ilimitados e timers de 1/2 h.
 • Compra única, sem assinatura.`,
     description: `Barulho da rua, vizinhos ou pensamentos acelerados podem dificultar o silêncio. Oasis ajuda você a criar um som de fundo estável para dormir, ler ou trabalhar com menos distrações.
 
@@ -198,7 +198,7 @@ Incluído grátis:
 • 1 mix salvo
 
 Premium, com compra única:
-• 11 sons extras: chuva, floresta, trovão, rio, trem...
+• 17 sons extras: chuva, floresta, trovão, fogueira, café, savana, selva...
 • Mixes salvos ilimitados
 • Timers de 1 h e 2 h
 • Modos binaurais Theta, Alpha e Beta

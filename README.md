@@ -10,7 +10,7 @@ L'app est **offline-first**: tous les sons, les effets binauraux et les assets U
 
 | Fonctionnalité | Version gratuite | Version premium |
 | --- | --- | --- |
-| Canaux audio | 3 canaux: Oiseaux, Vent, Plage | 14 canaux: tous les sons du catalogue |
+| Canaux audio | 3 canaux: Oiseaux, Vent, Plage | 20 canaux: tous les sons du catalogue |
 | Mixeur | Volume, mute, auto-variation sur les 3 canaux gratuits | Contrôle complet sur tous les canaux |
 | Mix aléatoire | Oui, mais limité aux canaux gratuits | Oui, sur toute la bibliothèque |
 | Audio spatial | Oui sur les canaux gratuits | Oui sur tous les canaux accessibles |
@@ -69,7 +69,7 @@ En pratique, le verrouillage premium est appliqué à plusieurs endroits:
 
 ### Mixeur audio
 
-- 14 canaux audio intégrés: Oiseaux, Vent, Plage, Goélands, Forêt, Pluie, Orage, Cigales, Grillons, Tente, Rivière, Village, Voiture, Train.
+- 20 canaux audio intégrés: Oiseaux, Vent, Plage, Goélands, Forêt, Pluie, Orage, Cigales, Grillons, Tente, Rivière, Village, Voiture, Train, Feu de camp, Café, Lac, Savane, Jungle d'Amérique, Jungle d'Asie.
 - Lecture en arrière-plan avec reprise native sur iPhone.
 - Contrôle de volume par canal.
 - Auto-variation pour faire évoluer automatiquement certains volumes dans le temps.

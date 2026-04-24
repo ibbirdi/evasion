@@ -185,7 +185,9 @@ struct HomeView: View {
                             onOpenBinaural: openBinaural,
                             onRequestPremiumTimer: openTimerUnlock
                         )
-                        .padding(.top, proxy.safeAreaInsets.top + 4)
+                        // Pulls the top toolbar closer to the status bar as the logo
+                        // collapses. Saves ~14 pt of vertical space at full compact.
+                        .padding(.top, proxy.safeAreaInsets.top + 4 - (headerCompactProgress * 14))
                         .padding(.horizontal, 8)
 
                         Spacer(minLength: 0)
@@ -196,13 +198,13 @@ struct HomeView: View {
                         LinearGradient(
                             colors: [
                                 Color.black.opacity(0),
-                                Color.black.opacity(0.34),
-                                Color.black.opacity(0.60)
+                                Color.black.opacity(0.48),
+                                Color.black.opacity(0.82)
                             ],
                             startPoint: .top,
                             endPoint: .bottom
                         )
-                        .frame(height: 160)
+                        .frame(height: 180)
                         .allowsHitTesting(false)
                     }
                     .ignoresSafeArea(edges: .bottom)
@@ -243,8 +245,14 @@ struct HomeView: View {
                 .presentationDragIndicator(.visible)
         }
         .sheet(item: $activeDetailChannel) { channel in
+            // In screenshot automation the sheet opens directly at `.large` so the full
+            // detail content is visible in the App Store capture. Real users keep the
+            // `.medium` default with `.large` as a drag-up option.
+            let detents: Set<PresentationDetent> = AppConfiguration.isRunningScreenshotAutomation
+                ? [.large]
+                : [.medium, .large]
             SoundDetailSheet(channel: channel)
-                .presentationDetents([.medium, .large])
+                .presentationDetents(detents)
                 .presentationDragIndicator(.visible)
         }
         .sheet(isPresented: $showsTimerUnlockPanel) {
