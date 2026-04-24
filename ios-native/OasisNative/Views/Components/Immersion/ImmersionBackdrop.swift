@@ -1,109 +1,32 @@
 import SwiftUI
 
-/// Full-screen immersive backdrop for the home surface. Replaces the static `AnimatedBackdrop`
-/// when the device can afford the live shader; falls back to the static version under
-/// Reduce Motion or Low Power Mode so battery and accessibility preferences are honored.
-///
-/// Composition, back to front:
-///   1. A deep dark gradient so the scene has a stable base even if the shader is masked.
-///   2. `LiquidAuraBackdrop` — the Metal shader breathing slowly with the channel palette.
-///   3. `TimeOfDayTint` — a subtle color-temperature wash tied to the system clock.
-///   4. Vertical dim + radial vignette — preserves UI legibility against the moving backdrop.
+/// Full-screen backdrop for the home surface. Composes the production `AnimatedBackdrop`
+/// (static three-ellipse palette + vignette, reverted here after the LiquidAura shader
+/// experiment introduced contrast regressions) with a particle overlay tied to whichever
+/// channel is dominant in the mix. The particle layer is the only moving element — the
+/// base gradient is intentionally quiet so the particles read.
 struct ImmersionBackdrop: View {
     @Environment(AppModel.self) private var model
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
-    @State private var isLowPowerMode = ProcessInfo.processInfo.isLowPowerModeEnabled
-
-    private var useStaticFallback: Bool {
-        reduceMotion || isLowPowerMode
-    }
 
     var body: some View {
-        Group {
-            if useStaticFallback {
-                AnimatedBackdrop()
-            } else {
-                liveBackdrop
-            }
-        }
-        .onReceive(NotificationCenter.default.publisher(for: .NSProcessInfoPowerStateDidChange)) { _ in
-            isLowPowerMode = ProcessInfo.processInfo.isLowPowerModeEnabled
-        }
-    }
-
-    private var liveBackdrop: some View {
         ZStack {
-            baseGradient
+            AnimatedBackdrop()
 
-            LiquidAuraBackdrop(palette: backdropPalette)
-
-            TimeOfDayTint(timeOfDay: timeOfDay)
-
-            ParticleField(
-                style: dominantParticleStyle,
-                tint: dominantTint ?? .white
-            )
-
-            // Vertical dim keeps the toolbar readable against the brightest shader frames.
-            LinearGradient(
-                colors: [
-                    Color.black.opacity(0.04),
-                    Color.black.opacity(0.18),
-                    Color.black.opacity(0.38)
-                ],
-                startPoint: .top,
-                endPoint: .bottom
-            )
-            .allowsHitTesting(false)
-
-            // Radial vignette: quiet center, darker edges. Helps the eye settle on the
-            // mixer column even when the backdrop has high-contrast moments.
-            GeometryReader { proxy in
-                Rectangle()
-                    .fill(
-                        RadialGradient(
-                            colors: [
-                                Color.clear,
-                                Color.black.opacity(0.10),
-                                Color.black.opacity(0.32)
-                            ],
-                            center: .center,
-                            startRadius: 24,
-                            endRadius: max(proxy.size.width, proxy.size.height) * 0.88
-                        )
-                    )
-                    .blendMode(.multiply)
-                    .allowsHitTesting(false)
+            if !reduceMotion {
+                ParticleField(
+                    style: dominantParticleStyle,
+                    tint: dominantTint ?? .white
+                )
             }
         }
         .ignoresSafeArea()
     }
 
-    private var backdropPalette: [Color] {
-        // Reuse AppModel's curated playback palette so the shader room matches the mixer
-        // state. When no channel is audible the palette is empty — LiquidAuraBackdrop
-        // substitutes a quiet neutral internally.
-        let palette = model.activePlaybackPalette
-        if palette.isEmpty {
-            // Silent mixer: surface the three starter tints so the app never renders pure
-            // black while the user is deciding what to listen to.
-            return [
-                SoundChannel.oiseaux.tint,
-                SoundChannel.vent.tint,
-                SoundChannel.plage.tint
-            ]
-        }
-        return palette
-    }
-
-    private var timeOfDay: TimeOfDay {
-        TimeOfDay.current()
-    }
-
-    /// Dominant unmuted channel by volume. Iterates `allCases` so ties break on declaration
-    /// order, preventing flicker when two channels share volume. Computed directly rather
-    /// than via a debounced coordinator — ParticleStyle only changes when the dominant
-    /// channel's enum changes, which is rare enough that no debounce is needed.
+    /// Dominant unmuted, audible channel by volume. Iterates `allCases` so ties break on
+    /// declaration order, preventing flicker when two channels share volume. Locked
+    /// channels are skipped — a non-premium user's mix only pulls particles from channels
+    /// they can actually hear.
     private var dominantChannel: SoundChannel? {
         var best: SoundChannel?
         var bestVolume: Double = 0
@@ -124,17 +47,5 @@ struct ImmersionBackdrop: View {
 
     private var dominantTint: Color? {
         dominantChannel?.tint
-    }
-
-    private var baseGradient: some View {
-        LinearGradient(
-            colors: [
-                Color(red: 0.02, green: 0.03, blue: 0.06),
-                Color(red: 0.03, green: 0.03, blue: 0.07),
-                Color(red: 0.02, green: 0.03, blue: 0.05)
-            ],
-            startPoint: .top,
-            endPoint: .bottom
-        )
     }
 }

@@ -1,31 +1,6 @@
 import Foundation
 import SwiftUI
 
-/// Coarse buckets for the time-of-day palette used by `TimeOfDayTint`. Transitions are
-/// handled at the palette layer, not here — this enum is purely categorical.
-enum TimeOfDay: Equatable {
-    case dawn
-    case morning
-    case noon
-    case afternoon
-    case dusk
-    case evening
-    case night
-
-    static func current(at date: Date = Date(), calendar: Calendar = .current) -> TimeOfDay {
-        let hour = calendar.component(.hour, from: date)
-        switch hour {
-        case 5..<7: return .dawn
-        case 7..<11: return .morning
-        case 11..<14: return .noon
-        case 14..<17: return .afternoon
-        case 17..<19: return .dusk
-        case 19..<22: return .evening
-        default: return .night
-        }
-    }
-}
-
 /// Category of ambient particle rendered above the backdrop. Each style has its own spawn
 /// pattern, velocity, and color behavior in `ParticleField`.
 enum ParticleStyle: Equatable {
@@ -44,7 +19,7 @@ enum ParticleStyle: Equatable {
     /// Horizontal diffuse wisps — long, low opacity. Mist near water, spray on shore.
     case mist
 
-    /// No particle layer — the shader + tint alone carry the scene.
+    /// No particle layer — the backdrop alone carries the scene.
     case none
 }
 

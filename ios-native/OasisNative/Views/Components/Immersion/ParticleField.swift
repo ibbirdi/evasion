@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// Full-screen particle layer rendered above `LiquidAuraBackdrop`. Each `ParticleStyle` has
+/// Full-screen particle layer rendered above the static `AnimatedBackdrop`. Each `ParticleStyle` has
 /// its own spawn pattern, motion, and color rule. The field is deliberately modest: small
 /// counts, short lifetimes, low opacity. It suggests weather or place — it should never feel
 /// like effects piled onto the UI.
