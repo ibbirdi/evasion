@@ -105,6 +105,14 @@ def add_group(parent:, absolute_path:, target:, include_resources: true)
         next
       end
 
+      # iOS 17+ Icon Composer (.icon) folder — single resource, do not descend.
+      if File.extname(entry) == ".icon"
+        file_reference = parent.new_file(entry)
+        file_reference.last_known_file_type = "folder.iconcomposer.icon"
+        target.resources_build_phase.add_file_reference(file_reference) if include_resources
+        next
+      end
+
       subgroup = parent.new_group(entry, entry)
       add_group(parent: subgroup, absolute_path: child_absolute_path, target: target, include_resources: include_resources)
       next
