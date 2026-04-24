@@ -156,7 +156,7 @@ struct HomeView: View {
         NavigationStack {
             GeometryReader { proxy in
                 ZStack {
-                    ImmersionBackdrop()
+                    AnimatedBackdrop()
 
                     ScrollView {
                         LazyVStack(spacing: 8) {
