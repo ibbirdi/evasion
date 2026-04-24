@@ -14,10 +14,12 @@ struct ImmersionBackdrop: View {
             AnimatedBackdrop()
 
             if !reduceMotion {
-                ParticleField(
+                ParticleEmitterView(
                     style: dominantParticleStyle,
                     tint: dominantTint ?? .white
                 )
+                .allowsHitTesting(false)
+                .ignoresSafeArea()
             }
         }
         .ignoresSafeArea()
