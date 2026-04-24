@@ -40,8 +40,8 @@ struct ImmersionBackdrop: View {
             TimeOfDayTint(timeOfDay: timeOfDay)
 
             ParticleField(
-                style: model.currentScene?.particleStyle ?? .none,
-                tint: model.currentScene?.tint ?? .white
+                style: dominantParticleStyle,
+                tint: dominantTint ?? .white
             )
 
             // Vertical dim keeps the toolbar readable against the brightest shader frames.
@@ -97,7 +97,33 @@ struct ImmersionBackdrop: View {
     }
 
     private var timeOfDay: TimeOfDay {
-        model.currentScene?.timeOfDay ?? TimeOfDay.current()
+        TimeOfDay.current()
+    }
+
+    /// Dominant unmuted channel by volume. Iterates `allCases` so ties break on declaration
+    /// order, preventing flicker when two channels share volume. Computed directly rather
+    /// than via a debounced coordinator — ParticleStyle only changes when the dominant
+    /// channel's enum changes, which is rare enough that no debounce is needed.
+    private var dominantChannel: SoundChannel? {
+        var best: SoundChannel?
+        var bestVolume: Double = 0
+        for channel in SoundChannel.allCases {
+            guard let state = model.channels[channel], !state.isMuted else { continue }
+            guard !model.isChannelLocked(channel) else { continue }
+            if state.volume > bestVolume {
+                bestVolume = state.volume
+                best = channel
+            }
+        }
+        return best
+    }
+
+    private var dominantParticleStyle: ParticleStyle {
+        dominantChannel?.particleStyle ?? .none
+    }
+
+    private var dominantTint: Color? {
+        dominantChannel?.tint
     }
 
     private var baseGradient: some View {

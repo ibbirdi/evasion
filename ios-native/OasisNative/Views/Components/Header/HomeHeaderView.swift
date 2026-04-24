@@ -16,12 +16,6 @@ struct HomeHeaderView: View {
         VStack(spacing: max(2, 9 - (compactProgress * 7))) {
             BrandLockupView(visibility: logoVisibility)
 
-            if let scene = model.currentScene {
-                SceneCard(scene: scene, compactProgress: compactProgress)
-                    .padding(.horizontal, 16)
-                    .transition(.opacity.combined(with: .move(edge: .top)))
-            }
-
             QuickControlsStrip(
                 onOpenPresets: onOpenPresets,
                 onOpenBinaural: onOpenBinaural,
@@ -31,7 +25,6 @@ struct HomeHeaderView: View {
         .padding(.horizontal, 0)
         .padding(.vertical, max(2, 6 - compactProgress * 4))
         .frame(maxWidth: .infinity)
-        .animation(.smooth(duration: 0.28), value: model.currentScene?.id)
         .animation(.smooth(duration: 0.22), value: compactProgress)
     }
 }
