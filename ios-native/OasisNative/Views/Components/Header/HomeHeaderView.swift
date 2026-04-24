@@ -1,25 +1,22 @@
 import SwiftUI
 import UIKit
 
+/// Floating header, rendered above the home backdrop inside the ZStack. Reduced to the
+/// brand lockup (wordmark + waveform) after the per-surface chips moved to the navigation
+/// bar's native toolbar — kept custom because the animated waveform isn't a standard
+/// control surface.
 struct HomeHeaderView: View {
-    @Environment(AppModel.self) private var model
     let compactProgress: CGFloat
-    let onRequestPremiumTimer: () -> Void
 
     private var logoVisibility: CGFloat {
         max(0, 1 - (compactProgress * 3.4))
     }
 
     var body: some View {
-        VStack(spacing: max(2, 9 - (compactProgress * 7))) {
-            BrandLockupView(visibility: logoVisibility)
-
-            QuickControlsStrip(onRequestPremiumTimer: onRequestPremiumTimer)
-        }
-        .padding(.horizontal, 0)
-        .padding(.vertical, max(2, 6 - compactProgress * 4))
-        .frame(maxWidth: .infinity)
-        .animation(.smooth(duration: 0.22), value: compactProgress)
+        BrandLockupView(visibility: logoVisibility)
+            .padding(.vertical, max(2, 6 - compactProgress * 4))
+            .frame(maxWidth: .infinity)
+            .animation(.smooth(duration: 0.22), value: compactProgress)
     }
 }
 
@@ -142,27 +139,11 @@ private struct WaveformSignatureLine: View {
     }
 }
 
-/// Compact header row. Presets and binaural used to live here too but duplicated the
-/// bottom toolbar — both have been removed. What's left is content unique to this surface:
-/// the sleep-timer picker and the "show only active channels" filter.
-private struct QuickControlsStrip: View {
-    @Environment(AppModel.self) private var model
-    let onRequestPremiumTimer: () -> Void
+// MARK: - Native toolbar items
 
-    var body: some View {
-        HStack(spacing: 7) {
-            Spacer(minLength: 0)
-
-            TimerChip(onRequestPremiumTimer: onRequestPremiumTimer)
-
-            ActiveChannelsChip()
-        }
-        .padding(.horizontal, 16)
-        .frame(maxWidth: .infinity, alignment: .trailing)
-    }
-}
-
-private struct TimerChip: View {
+/// Sleep-timer picker, rendered as a native nav-bar Menu. The label adapts: just an icon
+/// when no timer is set, icon + remaining time while counting down.
+struct HomeToolbarTimerMenu: View {
     @Environment(AppModel.self) private var model
     let onRequestPremiumTimer: () -> Void
 
@@ -174,14 +155,15 @@ private struct TimerChip: View {
             timerAction(L10n.timerOptionLabel(minutes: 60), minutes: 60)
             timerAction(L10n.timerOptionLabel(minutes: 120), minutes: 120)
         } label: {
-            HeaderChipLabel(
-                symbol: "timer",
-                title: model.timerToolbarTitle,
-                tint: model.timerDurationMinutes == nil
-                    ? .white.opacity(0.82)
-                    : Color(red: 0.52, green: 0.91, blue: 0.64),
-                expands: false
-            )
+            if model.timerDurationMinutes != nil {
+                Label(model.timerToolbarTitle, systemImage: "timer")
+                    .labelStyle(.titleAndIcon)
+                    .foregroundStyle(Color(red: 0.52, green: 0.91, blue: 0.64))
+                    .contentTransition(.numericText(countsDown: true))
+            } else {
+                Image(systemName: "timer")
+                    .foregroundStyle(.white.opacity(0.86))
+            }
         }
         .menuIndicator(.hidden)
         .accessibilityIdentifier("home.header.timer")
@@ -200,27 +182,13 @@ private struct TimerChip: View {
     }
 }
 
-private struct ActiveChannelsChip: View {
+/// Toggles "show only audible channels". Native nav-bar button; SF Symbol swaps between
+/// outline and filled to signal state, tint turns mint green when on.
+struct HomeToolbarActiveFilter: View {
     @Environment(AppModel.self) private var model
 
     private var isActivated: Bool {
         model.showsOnlyActiveChannels
-    }
-
-    private var tint: Color {
-        if isActivated {
-            return Color(red: 0.54, green: 0.88, blue: 0.70)
-        }
-
-        return Color.white.opacity(0.82)
-    }
-
-    private var symbol: String {
-        if isActivated {
-            return "line.3.horizontal.decrease.circle.fill"
-        }
-
-        return "line.3.horizontal.circle"
     }
 
     var body: some View {
@@ -229,54 +197,15 @@ private struct ActiveChannelsChip: View {
                 model.showsOnlyActiveChannels.toggle()
             }
         } label: {
-            HeaderChipLabel(
-                symbol: symbol,
-                title: "\(model.activeAmbientChannelsCount)",
-                tint: tint,
-                isActivated: isActivated,
-                expands: false
-            )
+            Image(systemName: isActivated
+                ? "line.3.horizontal.decrease.circle.fill"
+                : "line.3.horizontal.decrease.circle")
+                .foregroundStyle(isActivated
+                    ? Color(red: 0.54, green: 0.88, blue: 0.70)
+                    : .white.opacity(0.86))
+                .symbolRenderingMode(.hierarchical)
         }
         .accessibilityIdentifier("home.header.active-filter")
-        .buttonStyle(PressScaleButtonStyle())
-    }
-}
-
-private struct HeaderChipLabel: View {
-    let symbol: String
-    let title: String
-    let tint: Color
-    var isActivated = false
-    var expands = true
-
-    var body: some View {
-        HStack(spacing: 7) {
-            Image(systemName: symbol)
-                .font(.system(size: 12, weight: .semibold))
-                .foregroundStyle(tint)
-                .symbolRenderingMode(.hierarchical)
-
-            Text(title)
-                .font(.system(size: 11, weight: .semibold, design: .rounded))
-                .foregroundStyle(.white)
-                .lineLimit(1)
-                .truncationMode(.tail)
-                .contentTransition(.numericText(countsDown: true))
-        }
-        .padding(.horizontal, 10)
-        .padding(.vertical, 8)
-        .frame(maxWidth: expands ? .infinity : nil)
-        .background {
-            Capsule()
-                .fill(Color.white.opacity(0.001))
-                .oasisGlassEffect(in: Capsule())
-            if isActivated {
-                Capsule().fill(tint.opacity(0.18))
-            }
-        }
-        .contentShape(Capsule())
-        .shadow(color: isActivated ? tint.opacity(0.06) : .clear, radius: 8, y: 2)
-        .fixedSize(horizontal: !expands, vertical: false)
-        .animation(.smooth(duration: 0.22), value: isActivated)
+        .accessibilityLabel("Show only active channels")
     }
 }

@@ -179,10 +179,7 @@ struct HomeView: View {
                     .headerCompactProgress($headerCompactProgress)
 
                     VStack(spacing: 0) {
-                        HomeHeaderView(
-                            compactProgress: headerCompactProgress,
-                            onRequestPremiumTimer: openTimerUnlock
-                        )
+                        HomeHeaderView(compactProgress: headerCompactProgress)
                         // Pulls the top toolbar closer to the status bar as the logo
                         // collapses. Saves ~14 pt of vertical space at full compact.
                         .padding(.top, proxy.safeAreaInsets.top + 4 - (headerCompactProgress * 14))
@@ -222,7 +219,15 @@ struct HomeView: View {
                     .padding(.bottom, -10)
                 }
             }
-            .toolbar(.hidden, for: .navigationBar)
+            .toolbarBackground(.hidden, for: .navigationBar)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    HomeToolbarTimerMenu(onRequestPremiumTimer: openTimerUnlock)
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    HomeToolbarActiveFilter()
+                }
+            }
         }
         .sheet(item: $activePanel, onDismiss: {
             activePanelSource = nil
