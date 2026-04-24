@@ -16,10 +16,12 @@ struct SoundLocationMinimap: View {
         self.channel = channel
         let coordinate = channel.location.coordinate
             ?? CLLocationCoordinate2D(latitude: 0, longitude: 0)
-        // Approximate locations zoom out so the pin doesn't imply false precision.
+        // Continental-scale view: we want the user to read "which part of the world is
+        // this from" at a glance, not "what street was the mic on". Approximate locations
+        // widen further so the pin doesn't imply documentation we don't have.
         let span = channel.location.isApproximate
-            ? MKCoordinateSpan(latitudeDelta: 2.5, longitudeDelta: 2.5)
-            : MKCoordinateSpan(latitudeDelta: 0.6, longitudeDelta: 0.6)
+            ? MKCoordinateSpan(latitudeDelta: 60, longitudeDelta: 60)
+            : MKCoordinateSpan(latitudeDelta: 40, longitudeDelta: 40)
         self._position = State(
             initialValue: .region(MKCoordinateRegion(center: coordinate, span: span))
         )
