@@ -102,31 +102,35 @@ struct SoundRowView: View {
         .accessibilityElement(children: .contain)
         .accessibilityIdentifier("channel.row.\(channel.id)")
         .background {
-            // Every row gets a frosted material so rows stay legible against the animated
-            // immersive backdrop. Active rows use `.ultraThinMaterial` (more opaque, more
-            // contrast for the tint); inactive rows use a lighter `.thinMaterial` with
-            // reduced alpha so they read as a quieter state without dissolving into the
-            // backdrop.
+            // Active rows read as alive: opaque frosted material + coloured tint wash +
+            // saturated channel-tint border + a soft glow shadow. Inactive rows read as
+            // receding: lighter material, almost no tint, thin neutral border, no glow.
             ZStack {
                 RoundedRectangle(cornerRadius: 18, style: .continuous)
                     .fill(isActive ? AnyShapeStyle(.ultraThinMaterial) : AnyShapeStyle(.thinMaterial))
-                    .opacity(isActive ? 1 : 0.70)
+                    .opacity(isActive ? 1 : 0.45)
                 RoundedRectangle(cornerRadius: 18, style: .continuous)
                     .fill(channelTint)
             }
         }
         .overlay {
             RoundedRectangle(cornerRadius: 18, style: .continuous)
-                .strokeBorder(borderStyle, lineWidth: isActive ? 1.2 : 1)
+                .strokeBorder(borderStyle, lineWidth: isActive ? 1.4 : 0.8)
         }
-        .opacity(isLocked ? 0.90 : 1)
-        .animation(.easeInOut(duration: 0.16), value: state.isMuted)
-        .animation(.easeInOut(duration: 0.16), value: state.autoVariationEnabled)
+        .shadow(
+            color: isActive ? channel.tint.opacity(0.28) : .clear,
+            radius: isActive ? 10 : 0,
+            y: isActive ? 3 : 0
+        )
+        .opacity(isLocked ? 0.84 : (isActive ? 1 : 0.82))
+        .scaleEffect(isActive ? 1 : 0.985, anchor: .center)
+        .animation(.easeInOut(duration: 0.18), value: state.isMuted)
+        .animation(.easeInOut(duration: 0.18), value: state.autoVariationEnabled)
     }
 
     private var borderStyle: AnyShapeStyle {
         if isActive {
-            return AnyShapeStyle(channel.tint.opacity(0.45))
+            return AnyShapeStyle(channel.tint.opacity(0.70))
         }
         return AnyShapeStyle(Color.white.opacity(0.05))
     }
@@ -363,11 +367,12 @@ struct SoundRowView: View {
 
     private var channelTint: Color {
         if isActive {
-            return channel.tint.opacity(state.autoVariationEnabled ? 0.10 : 0.07)
+            // Coloured wash that clearly signals "this track is part of the mix".
+            return channel.tint.opacity(state.autoVariationEnabled ? 0.26 : 0.20)
         }
-        // Inactive rows now sit on a thin-material backing; a slightly stronger white wash
-        // keeps their outlines readable against the brighter immersive backdrop.
-        return Color.white.opacity(state.isMuted && !isLocked ? 0.04 : 0.06)
+        // Inactive rows stay almost colorless — the faint white wash is enough since the
+        // material itself is already lighter.
+        return Color.white.opacity(state.isMuted && !isLocked ? 0.02 : 0.03)
     }
 
     private var buttonForeground: Color {
