@@ -181,8 +181,6 @@ struct HomeView: View {
                     VStack(spacing: 0) {
                         HomeHeaderView(
                             compactProgress: headerCompactProgress,
-                            onOpenPresets: openPresets,
-                            onOpenBinaural: openBinaural,
                             onRequestPremiumTimer: openTimerUnlock
                         )
                         // Pulls the top toolbar closer to the status bar as the logo

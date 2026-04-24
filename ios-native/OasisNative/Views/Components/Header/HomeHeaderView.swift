@@ -4,8 +4,6 @@ import UIKit
 struct HomeHeaderView: View {
     @Environment(AppModel.self) private var model
     let compactProgress: CGFloat
-    let onOpenPresets: (PanelTransitionSource) -> Void
-    let onOpenBinaural: (PanelTransitionSource) -> Void
     let onRequestPremiumTimer: () -> Void
 
     private var logoVisibility: CGFloat {
@@ -16,11 +14,7 @@ struct HomeHeaderView: View {
         VStack(spacing: max(2, 9 - (compactProgress * 7))) {
             BrandLockupView(visibility: logoVisibility)
 
-            QuickControlsStrip(
-                onOpenPresets: onOpenPresets,
-                onOpenBinaural: onOpenBinaural,
-                onRequestPremiumTimer: onRequestPremiumTimer
-            )
+            QuickControlsStrip(onRequestPremiumTimer: onRequestPremiumTimer)
         }
         .padding(.horizontal, 0)
         .padding(.vertical, max(2, 6 - compactProgress * 4))
@@ -148,61 +142,23 @@ private struct WaveformSignatureLine: View {
     }
 }
 
+/// Compact header row. Presets and binaural used to live here too but duplicated the
+/// bottom toolbar — both have been removed. What's left is content unique to this surface:
+/// the sleep-timer picker and the "show only active channels" filter.
 private struct QuickControlsStrip: View {
     @Environment(AppModel.self) private var model
-    let onOpenPresets: (PanelTransitionSource) -> Void
-    let onOpenBinaural: (PanelTransitionSource) -> Void
     let onRequestPremiumTimer: () -> Void
 
     var body: some View {
         HStack(spacing: 7) {
-            presetChip
-                .frame(maxWidth: .infinity)
-
-            binauralChip
-                .frame(maxWidth: .infinity)
+            Spacer(minLength: 0)
 
             TimerChip(onRequestPremiumTimer: onRequestPremiumTimer)
 
             ActiveChannelsChip()
         }
-        .frame(maxWidth: .infinity, alignment: .center)
-    }
-
-    private var presetChip: some View {
-        let isPresetActive = model.activePreset != nil
-
-        return Button {
-            onOpenPresets(.headerPresets)
-        } label: {
-            PanelTriggerChip(
-                symbol: model.activePreset == nil ? "bookmark" : "bookmark.fill",
-                title: model.activePreset.map(model.presetDisplayName) ?? L10n.string(L10n.Presets.panelTitle),
-                tint: isPresetActive ? LiquidActivityPalette.preset[0] : .white,
-                isActivated: isPresetActive,
-                palette: LiquidActivityPalette.preset
-            )
-        }
-        .accessibilityIdentifier("home.header.presets")
-        .buttonStyle(PressScaleButtonStyle())
-    }
-
-    private var binauralChip: some View {
-        let isBinauralActive = model.isBinauralActive
-
-        return Button {
-            onOpenBinaural(.headerBinaural)
-        } label: {
-            PanelTriggerChip(
-                symbol: model.isBinauralActive ? "waveform.path.ecg" : "waveform.path",
-                title: model.activeBinauralTrack.localizedTitle,
-                tint: isBinauralActive ? model.activeBinauralTrack.tint : .white.opacity(0.84),
-                isActivated: isBinauralActive,
-                palette: LiquidActivityPalette.binaural(for: model.activeBinauralTrack.tint)
-            )
-        }
-        .accessibilityIdentifier("home.header.binaural")
-        .buttonStyle(PressScaleButtonStyle())
+        .padding(.horizontal, 16)
+        .frame(maxWidth: .infinity, alignment: .trailing)
     }
 }
 
@@ -321,44 +277,6 @@ private struct HeaderChipLabel: View {
         .contentShape(Capsule())
         .shadow(color: isActivated ? tint.opacity(0.06) : .clear, radius: 8, y: 2)
         .fixedSize(horizontal: !expands, vertical: false)
-        .animation(.smooth(duration: 0.22), value: isActivated)
-    }
-}
-
-private struct PanelTriggerChip: View {
-    let symbol: String
-    let title: String
-    let tint: Color
-    let isActivated: Bool
-    let palette: [Color]
-
-    var body: some View {
-        HStack(spacing: 7) {
-            Image(systemName: symbol)
-                .font(.system(size: 12, weight: .semibold))
-                .foregroundStyle(.white)
-                .symbolRenderingMode(.hierarchical)
-
-            Text(title)
-                .font(.system(size: 11, weight: .semibold, design: .rounded))
-                .foregroundStyle(.white)
-                .lineLimit(1)
-                .truncationMode(.tail)
-                .contentTransition(.numericText(countsDown: true))
-        }
-        .padding(.horizontal, 10)
-        .padding(.vertical, 8)
-        .frame(maxWidth: .infinity)
-        .background {
-            Capsule()
-                .fill(Color.white.opacity(0.001))
-                .oasisGlassEffect(in: Capsule())
-            if isActivated {
-                Capsule().fill(tint.opacity(0.18))
-            }
-        }
-        .contentShape(Capsule())
-        .shadow(color: isActivated ? tint.opacity(0.04) : .clear, radius: 8, y: 2)
         .animation(.smooth(duration: 0.22), value: isActivated)
     }
 }

@@ -185,6 +185,21 @@ struct BottomBarView: View {
         }
         .accessibilityIdentifier("home.bottom.presets")
         .buttonStyle(PressScaleButtonStyle())
+        // Active preset name surfaces directly below the button — replaces the preset chip
+        // that used to live in the header. Rendered via overlay so it floats outside the
+        // bar's intrinsic layout and doesn't grow the toolbar's height.
+        .overlay(alignment: .bottom) {
+            if let preset = model.activePreset {
+                Text(model.presetDisplayName(preset))
+                    .font(.system(size: 10, weight: .semibold, design: .rounded))
+                    .foregroundStyle(LiquidActivityPalette.preset[0].opacity(0.92))
+                    .lineLimit(1)
+                    .fixedSize()
+                    .offset(y: 16)
+                    .transition(.opacity.combined(with: .move(edge: .top)))
+            }
+        }
+        .animation(.smooth(duration: 0.22), value: model.activePreset?.id)
 
         if #available(iOS 26.0, *) {
             button.matchedTransitionSource(id: PanelTransitionSource.bottomPresets.transitionID, in: transitionNamespace) { source in
