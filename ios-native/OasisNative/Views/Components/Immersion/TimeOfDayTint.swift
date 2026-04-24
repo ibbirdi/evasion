@@ -73,10 +73,10 @@ struct TimeOfDayTint: View {
 
     private var overlayOpacity: Double {
         switch timeOfDay {
-        case .noon, .afternoon: return 0.12
-        case .morning: return 0.14
-        case .dawn, .dusk: return 0.22
-        case .evening, .night: return 0.18
+        case .noon, .afternoon: return 0.22
+        case .morning: return 0.26
+        case .dawn, .dusk: return 0.40
+        case .evening, .night: return 0.34
         }
     }
 }

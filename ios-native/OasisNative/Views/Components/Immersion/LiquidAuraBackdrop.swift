@@ -14,16 +14,16 @@ struct LiquidAuraBackdrop: View {
         AnimatedLiquidAura(
             palette: normalized(palette),
             shape: Rectangle(),
-            intensity: 1.0,
-            blurRadius: 16,
-            baseBlendOpacity: 0.04,
-            speedMultiplier: 0.32,
-            frameRate: 24,
+            intensity: 1.5,
+            blurRadius: 22,
+            baseBlendOpacity: 0.08,
+            speedMultiplier: 0.48,
+            frameRate: 30,
             isAnimated: true,
             animationKey: paletteKey,
-            coverage: 1.18,
-            accentMixAmount: 0.14,
-            colorSeparation: 1.15
+            coverage: 1.35,
+            accentMixAmount: 0.22,
+            colorSeparation: 1.35
         )
         .ignoresSafeArea()
         .allowsHitTesting(false)
