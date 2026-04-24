@@ -102,14 +102,15 @@ struct SoundRowView: View {
         .accessibilityElement(children: .contain)
         .accessibilityIdentifier("channel.row.\(channel.id)")
         .background {
-            // Active rows keep the frosted material so the tint reads on any backdrop.
-            // Inactive rows skip the material entirely for a near-transparent card —
-            // only the faint white tint + stroke delineate them.
+            // Every row gets a frosted material so rows stay legible against the animated
+            // immersive backdrop. Active rows use `.ultraThinMaterial` (more opaque, more
+            // contrast for the tint); inactive rows use a lighter `.thinMaterial` with
+            // reduced alpha so they read as a quieter state without dissolving into the
+            // backdrop.
             ZStack {
-                if isActive {
-                    RoundedRectangle(cornerRadius: 18, style: .continuous)
-                        .fill(.ultraThinMaterial)
-                }
+                RoundedRectangle(cornerRadius: 18, style: .continuous)
+                    .fill(isActive ? AnyShapeStyle(.ultraThinMaterial) : AnyShapeStyle(.thinMaterial))
+                    .opacity(isActive ? 1 : 0.70)
                 RoundedRectangle(cornerRadius: 18, style: .continuous)
                     .fill(channelTint)
             }
@@ -364,9 +365,9 @@ struct SoundRowView: View {
         if isActive {
             return channel.tint.opacity(state.autoVariationEnabled ? 0.10 : 0.07)
         }
-        // Inactive rows no longer sit on a frosted material, so the tint itself is the
-        // only visual delineation — keep it extremely faint to preserve the transparent feel.
-        return Color.white.opacity(state.isMuted && !isLocked ? 0.006 : 0.010)
+        // Inactive rows now sit on a thin-material backing; a slightly stronger white wash
+        // keeps their outlines readable against the brighter immersive backdrop.
+        return Color.white.opacity(state.isMuted && !isLocked ? 0.04 : 0.06)
     }
 
     private var buttonForeground: Color {
