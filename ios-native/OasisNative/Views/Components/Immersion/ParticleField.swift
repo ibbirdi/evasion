@@ -202,6 +202,8 @@ struct ParticleField: View {
             ))
             gc.stroke(path, with: .color(drawColor), lineWidth: particle.size)
         case .embers:
+            // Halo at 3× radius so embers read as glowing coals rather than flat dots.
+            drawHalo(at: particle.position, radius: particle.size * 3, color: drawColor, gc: gc)
             let radius = particle.size
             let rect = CGRect(
                 x: particle.position.x - radius,
@@ -213,6 +215,8 @@ struct ParticleField: View {
         case .fireflies:
             // Slight twinkle via time-based opacity wobble.
             let twinkle = 0.65 + 0.35 * sin(now * 2.4 + particle.seed * 6.28)
+            let effective = drawColor.opacity(finalOpacity * twinkle)
+            drawHalo(at: particle.position, radius: particle.size * 3.5, color: effective, gc: gc)
             let radius = particle.size
             let rect = CGRect(
                 x: particle.position.x - radius,
@@ -220,10 +224,7 @@ struct ParticleField: View {
                 width: radius * 2,
                 height: radius * 2
             )
-            gc.fill(
-                Path(ellipseIn: rect),
-                with: .color(drawColor.opacity(finalOpacity * twinkle))
-            )
+            gc.fill(Path(ellipseIn: rect), with: .color(effective))
         case .motes:
             let radius = particle.size * 0.5
             let rect = CGRect(
@@ -247,6 +248,18 @@ struct ParticleField: View {
         case .none:
             return
         }
+    }
+
+    /// Draws a soft glow centered on a point. Used by embers and fireflies so they read as
+    /// luminous rather than flat — a single radial fill at ~20% of the particle's opacity.
+    private func drawHalo(at center: CGPoint, radius: CGFloat, color: Color, gc: GraphicsContext) {
+        let rect = CGRect(
+            x: center.x - radius,
+            y: center.y - radius,
+            width: radius * 2,
+            height: radius * 2
+        )
+        gc.fill(Path(ellipseIn: rect), with: .color(color.opacity(0.22)))
     }
 
     private func ageEnvelope(particle: Particle, now: TimeInterval) -> Double {
@@ -295,37 +308,37 @@ private struct StyleConfig {
         switch style {
         case .rain:
             return StyleConfig(
-                particleCount: 42,
-                sizeRange: 0.9...1.6,
-                opacityRange: 0.18...0.36,
+                particleCount: 55,
+                sizeRange: 1.0...1.9,
+                opacityRange: 0.32...0.58,
                 lifetime: 2.2
             )
         case .embers:
             return StyleConfig(
-                particleCount: 22,
-                sizeRange: 0.9...1.8,
-                opacityRange: 0.24...0.58,
+                particleCount: 28,
+                sizeRange: 1.0...2.1,
+                opacityRange: 0.38...0.72,
                 lifetime: 3.6
             )
         case .fireflies:
             return StyleConfig(
-                particleCount: 18,
-                sizeRange: 1.2...2.2,
-                opacityRange: 0.34...0.62,
+                particleCount: 22,
+                sizeRange: 1.4...2.6,
+                opacityRange: 0.48...0.78,
                 lifetime: 8.0
             )
         case .motes:
             return StyleConfig(
-                particleCount: 26,
-                sizeRange: 1.4...2.6,
-                opacityRange: 0.06...0.16,
+                particleCount: 32,
+                sizeRange: 1.8...3.2,
+                opacityRange: 0.18...0.34,
                 lifetime: 14.0
             )
         case .mist:
             return StyleConfig(
-                particleCount: 9,
-                sizeRange: 3.8...6.2,
-                opacityRange: 0.06...0.12,
+                particleCount: 12,
+                sizeRange: 4.4...7.0,
+                opacityRange: 0.16...0.28,
                 lifetime: 22.0
             )
         case .none:
