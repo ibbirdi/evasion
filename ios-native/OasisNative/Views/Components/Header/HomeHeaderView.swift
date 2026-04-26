@@ -34,17 +34,17 @@ private struct BrandLockupView: View {
             .font(.system(size: 22, weight: .semibold))
             .kerning(4)
             .foregroundStyle(.white.opacity(0.96))
-            // 24pt padding-bottom gives the wave a 20pt drawing zone with 4pt of gap
+            // 28pt padding-bottom gives the wave a 24pt drawing zone with 4pt of gap
             // between the wordmark and the top of the wave. Wave anchors to the bottom
             // of this padded text frame.
-            .padding(.bottom, 24)
+            .padding(.bottom, 28)
             .background(alignment: .bottom) {
                 WaveformSignatureLine()
-                    .frame(maxWidth: .infinity, maxHeight: 20)
+                    .frame(maxWidth: .infinity, maxHeight: 24)
             }
             .frame(maxWidth: .infinity)
-            // Total content is 22pt wordmark + 24pt padding (with 20pt wave inside) = 46pt.
-            .frame(height: 46 * visibility, alignment: .top)
+            // Total content is 22pt wordmark + 28pt padding (with 24pt wave inside) = 50pt.
+            .frame(height: 50 * visibility, alignment: .top)
             .opacity(visibility)
             .scaleEffect(0.92 + (visibility * 0.08), anchor: .top)
             .clipped()
@@ -89,9 +89,9 @@ private struct WaveformSignatureLine: View {
             let p = computePhaseProgress(at: now)
             let palette = model.activePlaybackPalette
 
-            // Speed varies between idle (0.40) and playback (0.65). The accumulator
+            // Speed varies between idle (0.40) and playback (0.95). The accumulator
             // integrates this over time so transitions don't lurch.
-            let speed = 0.40 + (0.65 - 0.40) * p
+            let speed = 0.40 + (0.95 - 0.40) * p
             let accumulatedPhase = phaseAccumulator.advance(to: now, speed: speed)
 
             Canvas { gc, size in
@@ -167,11 +167,11 @@ private struct WaveformSignatureLine: View {
         // Slow envelope breathing during playback only. At rest = constant 1.0.
         let envelopeNoise = 1.0 + (0.7 + 0.3 * sin(time * 0.42) - 1.0) * pClamped
 
-        // Multiplier 0.22 chosen so that even at amplitude_max × wave_max ×
-        // envelopeNoise_max × envelope_max × height, the y excursion + half-stroke fits
-        // inside the canvas with ≥1 pt of margin. With 20pt canvas: peak excursion ≤
-        // 1.20 × 1.0 × 20 × 0.22 × 1.30 × 1.0 ≈ 6.86pt out of 10pt available from midY.
-        let multiplier: Double = 0.22
+        // Multiplier 0.20 chosen so peak excursion stays well clear of the canvas
+        // edges, accounting for the larger 2.0pt stroke. With 24pt canvas:
+        // peak ≤ 1.20 × 1.30 × 1.0 × 24 × 0.20 = 7.49pt vs. 10.5pt available from
+        // midY (after 1.5pt half-stroke + cushion margin) → ~28% headroom.
+        let multiplier: Double = 0.20
 
         path.move(to: CGPoint(x: 0, y: midY))
 
@@ -186,9 +186,10 @@ private struct WaveformSignatureLine: View {
             let envelope = sin(nx * .pi)
             let yRaw = midY + amplitude * envelopeNoise * Double(size.height) * multiplier * wave * envelope
 
-            // Stroke half-width margin: stroke = 1.6 pt, so each side needs 0.8 pt clear.
-            // Extra 0.2 pt cushion absorbs sub-pixel rounding from SwiftUI layout.
-            let strokeMargin: Double = 1.0
+            // Stroke half-width margin: stroke = 2.0 pt, so each side needs 1.0 pt clear.
+            // Extra 0.5 pt cushion absorbs sub-pixel rounding from SwiftUI layout and
+            // prevents the bottom-edge "overflow hidden" clipping users were seeing.
+            let strokeMargin: Double = 1.5
             let y = min(max(yRaw, strokeMargin), Double(size.height) - strokeMargin)
 
             path.addLine(to: CGPoint(x: x, y: y))
@@ -205,7 +206,7 @@ private struct WaveformSignatureLine: View {
             endPoint: CGPoint(x: width, y: 0)
         )
 
-        gc.stroke(path, with: shading, lineWidth: 1.6)
+        gc.stroke(path, with: shading, lineWidth: 2.0)
     }
 }
 
