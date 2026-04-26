@@ -51,8 +51,8 @@ project.root_object.attributes["TargetAttributes"][ui_test_target.uuid] = {
 target.build_configurations.each do |config|
   settings = config.build_settings
   settings["PRODUCT_BUNDLE_IDENTIFIER"] = "com.jonathanluquet.drift"
-  settings["MARKETING_VERSION"] = "1.3.0"
-  settings["CURRENT_PROJECT_VERSION"] = "1"
+  settings["MARKETING_VERSION"] = "1.4.0"
+  settings["CURRENT_PROJECT_VERSION"] = "2"
   settings["INFOPLIST_FILE"] = "OasisNative/Support/Info.plist"
   settings["GENERATE_INFOPLIST_FILE"] = "NO"
   settings["SWIFT_VERSION"] = "6.0"
