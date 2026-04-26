@@ -76,7 +76,7 @@ private struct WaveformSignatureLine: View {
     @State private var transitionStartTime: TimeInterval = 0
     @State private var hasInitialised = false
 
-    private static let transitionDuration: Double = 0.7
+    private static let transitionDuration: Double = 0.40
 
     var body: some View {
         // Under UI-test automation, freeze the timeline so XCUITest can reach quiescence
@@ -155,28 +155,28 @@ private struct WaveformSignatureLine: View {
 
         let p = max(0, min(1, phase))
 
-        // Speed: 0.40 at rest → 1.20 at full playback. Faster than the previous 1.05 so
-        // playback motion reads as noticeably more energetic.
-        let speed = 0.40 + (1.20 - 0.40) * p
+        // Speed: 0.40 at rest → 0.65 at playback. Modest bump ("un peu plus rapide");
+        // larger jumps caused the lateral motion to read as accelerating rubbery during
+        // the transition.
+        let speed = 0.40 + (0.65 - 0.40) * p
         let phaseTime = time * speed
 
-        // Harmonic weights interpolate from "single regular sinusoid" (paused) to "three
-        // detuned sines + drift" (playing).
-        let primaryWeight = 1.00 + (0.55 - 1.00) * p
-        let secondaryWeight = 0.30 * p
-        let tertiaryWeight = 0.15 * p
-        let driftWeight = 0.18 * p
+        // Single sine baseline at all times — a slow drift overlay fades in only during
+        // playback. Previously three different harmonics faded in concurrently, which
+        // made the line gain new bumps at different frequencies during the transition
+        // and read as "spring-like" / chaotic. One harmonic + drift keeps the lateral
+        // shape continuous.
+        let driftMix = 0.30 * p
 
-        // Amplitude. Idle bumped slightly (0.40); playing bumped *significantly* — base
-        // 1.05 plus 0.10 per active channel, capped at 1.40. With the 16pt-tall canvas,
-        // peaks now reach ~7pt vertical excursion at full count, vs ~4pt in the previous
-        // 8pt canvas. Roughly 80% larger visible amplitude during playback.
-        let idleAmp = 0.40
-        let playAmp = min(1.40, 1.05 + Double(paletteCount) * 0.10)
+        // Idle amplitude pulled back to 0.22 (was 0.40) — visible but subtle. Playback
+        // amplitude bumped, capped at 1.20 (was 1.40) so peaks no longer graze the
+        // bottom edge of the canvas.
+        let idleAmp = 0.22
+        let playAmp = min(1.20, 0.85 + Double(paletteCount) * 0.08)
         let amplitude = idleAmp + (playAmp - idleAmp) * p
 
-        // Slow envelope modulator, scaled to phase. Constant 1.0 at rest; during playback
-        // varies 0.7…1.0 over time so peaks breathe instead of cycling at fixed height.
+        // Slow envelope modulator. Constant 1.0 at rest; 0.7…1.0 during playback so peaks
+        // breathe rather than cycling at the same height.
         let envelopeNoise = 1.0 + (0.7 + 0.3 * sin(time * 0.42) - 1.0) * p
 
         path.move(to: CGPoint(x: 0, y: midY))
@@ -185,14 +185,18 @@ private struct WaveformSignatureLine: View {
         while x <= Double(width) {
             let nx = x / Double(width)
 
-            let wave =
-                sin(nx * 4.5 * .pi + phaseTime) * primaryWeight +
-                sin(nx * 7.0 * .pi + phaseTime * 1.4) * secondaryWeight +
-                sin(nx * 10.0 * .pi + phaseTime * 1.8) * tertiaryWeight +
-                sin(nx * 1.7 * .pi + time * 0.6) * driftWeight
+            // Primary sine + slow drift overlay. driftMix → 0 at idle, 0.30 at play.
+            let primary = sin(nx * 4.5 * .pi + phaseTime)
+            let drift = sin(nx * 1.7 * .pi + time * 0.6)
+            let wave = primary + drift * driftMix
 
+            // Raised-sine envelope tapers both ends to zero so the line fades in/out
+            // instead of stopping abruptly at the edges of the frame.
             let envelope = sin(nx * .pi)
-            let y = midY + amplitude * envelopeNoise * Double(size.height) * 0.30 * wave * envelope
+            let yRaw = midY + amplitude * envelopeNoise * Double(size.height) * 0.27 * wave * envelope
+            // Safety clamp: keep the stroke inside the canvas with a 1pt margin even on
+            // edge cases where primary + drift align at high amplitude.
+            let y = min(max(yRaw, 1), Double(size.height) - 1)
 
             path.addLine(to: CGPoint(x: x, y: y))
             x += step
