@@ -1,6 +1,6 @@
-Oasis 1.3.0 deixa o app mais fácil de experimentar e manter:
-• Áudios otimizados: o app ocupa muito menos espaço.
-• Compatível com iOS 18+.
-• Timers de 15 e 30 min grátis.
-• Premium mais claro: 11 sons, mixes ilimitados e timers de 1/2 h.
-• Compra única, sem assinatura.
+Oasis 1.4.0
+
+• Interface redesenhada
+• Otimização de desempenho
+
+Compra única. Sem assinatura, sem conta, sem anúncios — nunca.

@@ -166,10 +166,11 @@ struct HomeView: View {
                             )
                         }
                         .padding(.horizontal, 16)
-                        // Header footprint is ~103 after the logo height reduction; this
-                        // padding leaves ~17 pt of breathing room before the first row
-                        // rather than the 53 pt gap that came from the legacy 156 value.
-                        .padding(.top, proxy.safeAreaInsets.top + 120)
+                        // Header is now ~58pt tall (brand lockup only — Timer/Filter
+                        // moved to the native nav-bar toolbar). Top inset reduced from
+                        // 120 → 78 so the first card sits ~16pt below the waveform
+                        // instead of the previous ~60pt empty band.
+                        .padding(.top, proxy.safeAreaInsets.top + 78)
                         .padding(.bottom, 110)
                         .frame(maxWidth: .infinity, alignment: .top)
                     }
@@ -179,13 +180,12 @@ struct HomeView: View {
                     .headerCompactProgress($headerCompactProgress)
 
                     VStack(spacing: 0) {
-                        HomeHeaderView(
-                            compactProgress: headerCompactProgress,
-                            onOpenPresets: openPresets,
-                            onOpenBinaural: openBinaural,
-                            onRequestPremiumTimer: openTimerUnlock
-                        )
-                        .padding(.top, proxy.safeAreaInsets.top + 4)
+                        HomeHeaderView(compactProgress: headerCompactProgress)
+                        // Wordmark sits flush with the status-bar boundary at rest
+                        // (no extra 4pt cushion — the wave already buffers the
+                        // bottom). Pulls 14pt closer to the status bar at full
+                        // compact.
+                        .padding(.top, proxy.safeAreaInsets.top - (headerCompactProgress * 14))
                         .padding(.horizontal, 8)
 
                         Spacer(minLength: 0)
@@ -196,13 +196,13 @@ struct HomeView: View {
                         LinearGradient(
                             colors: [
                                 Color.black.opacity(0),
-                                Color.black.opacity(0.34),
-                                Color.black.opacity(0.60)
+                                Color.black.opacity(0.48),
+                                Color.black.opacity(0.82)
                             ],
                             startPoint: .top,
                             endPoint: .bottom
                         )
-                        .frame(height: 160)
+                        .frame(height: 180)
                         .allowsHitTesting(false)
                     }
                     .ignoresSafeArea(edges: .bottom)
@@ -222,7 +222,15 @@ struct HomeView: View {
                     .padding(.bottom, -10)
                 }
             }
-            .toolbar(.hidden, for: .navigationBar)
+            .toolbarBackground(.hidden, for: .navigationBar)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    HomeToolbarTimerMenu(onRequestPremiumTimer: openTimerUnlock)
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    HomeToolbarActiveFilter()
+                }
+            }
         }
         .sheet(item: $activePanel, onDismiss: {
             activePanelSource = nil
@@ -243,8 +251,14 @@ struct HomeView: View {
                 .presentationDragIndicator(.visible)
         }
         .sheet(item: $activeDetailChannel) { channel in
+            // In screenshot automation the sheet opens directly at `.large` so the full
+            // detail content is visible in the App Store capture. Real users keep the
+            // `.medium` default with `.large` as a drag-up option.
+            let detents: Set<PresentationDetent> = AppConfiguration.isRunningScreenshotAutomation
+                ? [.large]
+                : [.medium, .large]
             SoundDetailSheet(channel: channel)
-                .presentationDetents([.medium, .large])
+                .presentationDetents(detents)
                 .presentationDragIndicator(.visible)
         }
         .sheet(isPresented: $showsTimerUnlockPanel) {

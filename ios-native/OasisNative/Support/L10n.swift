@@ -106,6 +106,22 @@ enum L10n {
         )
     }
 
+    enum TonalBed {
+        static let rowTitle = LocalizedStringResource(
+            "tonalBed.row.title",
+            defaultValue: "Ambient pad",
+            bundle: .main,
+            comment: "Title of the ambient-pad row in the binaural panel — controls the procedural harmonic drone that sits under the mix."
+        )
+
+        static let rowSubtitle = LocalizedStringResource(
+            "tonalBed.row.subtitle",
+            defaultValue: "A quiet harmonic layer under the mix.",
+            bundle: .main,
+            comment: "One-line explanation of what the ambient-pad toggle does, shown beneath the row title."
+        )
+    }
+
     enum Paywall {
         static let titleGeneric = LocalizedStringResource(
             "paywall.title.generic",
@@ -116,7 +132,7 @@ enum L10n {
 
         static let titleSounds = LocalizedStringResource(
             "paywall.title.sounds",
-            defaultValue: "Unlock 11 more sounds",
+            defaultValue: "Unlock 17 more sounds",
             bundle: .main,
             comment: "Paywall title when triggered from a locked sound or spatial control."
         )
@@ -151,7 +167,7 @@ enum L10n {
 
         static let subtitleGeneric = LocalizedStringResource(
             "paywall.subtitle.generic",
-            defaultValue: "Unlock 11 more sounds, 1 hr/2 hr timers and unlimited saved mixes. One purchase, no subscription.",
+            defaultValue: "Unlock 17 more sounds, 1 hr/2 hr timers and unlimited saved mixes. One purchase, no subscription.",
             bundle: .main,
             comment: "Generic paywall subtitle summarizing the full premium offer."
         )
@@ -221,9 +237,9 @@ enum L10n {
 
         static let benefitUpdates = LocalizedStringResource(
             "paywall.benefit.updates",
-            defaultValue: "Future Premium additions included",
+            defaultValue: "Free updates",
             bundle: .main,
-            comment: "Premium benefit row clarifying that future app updates are included without extra charge."
+            comment: "Premium benefit row stating that future updates are free."
         )
 
         static let noSubscription = LocalizedStringResource(
@@ -284,9 +300,9 @@ enum L10n {
 
         static let dailyPrice = LocalizedStringResource(
             "paywall.anchor.dailyPrice",
-            defaultValue: "Less than $0.03/day — yours forever",
+            defaultValue: "The price of a coffee in Paris",
             bundle: .main,
-            comment: "Price anchoring text shown below the CTA button demonstrating daily cost of lifetime purchase."
+            comment: "Price-anchoring tagline shown below the CTA. Uses a coffee-price metaphor (Paris kept across all locales — only the city name is grammatically adapted, e.g. 'Parigi' in IT, 'París' in ES) instead of an explicit per-day cost."
         )
     }
 
@@ -300,7 +316,7 @@ enum L10n {
 
         static let bannerSubtitle = LocalizedStringResource(
             "premium.banner.subtitle",
-            defaultValue: "Unlock 11 more sounds, 1 hr/2 hr timers and unlimited saved mixes.",
+            defaultValue: "Unlock 17 more sounds, 1 hr/2 hr timers and unlimited saved mixes.",
             bundle: .main,
             comment: "Short explanatory line in the premium home banner."
         )
@@ -314,7 +330,7 @@ enum L10n {
 
         static let libraryTitle = LocalizedStringResource(
             "premium.library.title",
-            defaultValue: "11 more sounds",
+            defaultValue: "17 more sounds",
             bundle: .main,
             comment: "Title of the home teaser card for the locked sound library."
         )
@@ -586,14 +602,14 @@ enum L10n {
 
         static let page3Title = LocalizedStringResource(
             "onboarding.page3.title",
-            defaultValue: "14 sounds, one purchase",
+            defaultValue: "20 sounds, one purchase",
             bundle: .main,
             comment: "Onboarding page 3 title."
         )
 
         static let page3Subtitle = LocalizedStringResource(
             "onboarding.page3.subtitle",
-            defaultValue: "Start free with 3 sounds and 3D audio. Unlock 11 more sounds, longer timers and binaural modes — no subscription, ever.",
+            defaultValue: "Start free with 3 sounds and 3D audio. Unlock 17 more sounds, longer timers and binaural modes — no subscription, ever.",
             bundle: .main,
             comment: "Onboarding page 3 subtitle."
         )

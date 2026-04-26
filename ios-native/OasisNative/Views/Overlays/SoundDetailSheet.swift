@@ -8,15 +8,21 @@ struct SoundDetailSheet: View {
 
     let channel: SoundChannel
 
+    /// Measured height of the title/subtitle stack. Drives the circular icon's
+    /// width and height so the glyph well stays exactly as tall as its sibling
+    /// no matter how the long name wraps. Sensible default keeps the layout
+    /// stable on first render before measurement reports in.
+    @State private var titleStackHeight: CGFloat = 68
+
     private var location: ChannelLocation { channel.location }
     private var credit: ChannelCredit { channel.credit }
 
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 24) {
-                hero
-                header
+                heroHeader
                 locationBlock
+                SoundLocationMinimap(channel: channel)
                 creditBlock
             }
             .padding(.horizontal, 22)
@@ -34,62 +40,80 @@ struct SoundDetailSheet: View {
             )
             .ignoresSafeArea()
         )
+        .accessibilityElement(children: .contain)
+        .accessibilityIdentifier("panel.sound-detail.container")
     }
 
-    private var hero: some View {
+    /// Icon + title + subtitle laid out horizontally and centered on the row's
+    /// vertical axis. The icon sits on the left as a square sized to match the
+    /// title/subtitle stack's intrinsic height — measured via a transparent
+    /// preference-key probe and fed back into the circle's frame.
+    private var heroHeader: some View {
+        HStack(alignment: .center, spacing: 14) {
+            iconWell
+
+            VStack(alignment: .leading, spacing: 4) {
+                Text(channel.localizedName)
+                    .font(.system(size: 13, weight: .semibold, design: .rounded))
+                    .tracking(1.4)
+                    .textCase(.uppercase)
+                    .foregroundStyle(channel.tint.opacity(0.85))
+
+                Text(channel.localizedLongName)
+                    .font(.system(size: 24, weight: .semibold, design: .rounded))
+                    .foregroundStyle(.white.opacity(0.98))
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+            .background(
+                GeometryReader { proxy in
+                    Color.clear.preference(
+                        key: TitleStackHeightKey.self,
+                        value: proxy.size.height
+                    )
+                }
+            )
+        }
+        .onPreferenceChange(TitleStackHeightKey.self) { newHeight in
+            // Avoid layout thrash on sub-pixel jitter.
+            guard abs(titleStackHeight - newHeight) > 0.5, newHeight > 0 else { return }
+            titleStackHeight = newHeight
+        }
+    }
+
+    /// Circular icon well. Width and height both track `titleStackHeight` so the
+    /// well stays a perfect circle as the title stack reflows. Glyph point size
+    /// scales with the well — same ~42 % ratio the previous 96 pt hero used.
+    private var iconWell: some View {
         ZStack {
             Circle()
                 .fill(channel.tint.opacity(0.22))
-                .frame(width: 96, height: 96)
                 .overlay {
                     Circle()
                         .strokeBorder(channel.tint.opacity(0.45), lineWidth: 1.2)
                 }
 
             Image(systemName: channel.systemImage)
-                .font(.system(size: 40, weight: .semibold))
+                .font(.system(size: max(18, titleStackHeight * 0.42), weight: .semibold))
                 .foregroundStyle(.white)
                 .symbolRenderingMode(.hierarchical)
         }
-        .frame(maxWidth: .infinity, alignment: .center)
-    }
-
-    private var header: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            Text(channel.localizedName)
-                .font(.system(size: 13, weight: .semibold, design: .rounded))
-                .tracking(1.4)
-                .textCase(.uppercase)
-                .foregroundStyle(channel.tint.opacity(0.85))
-
-            Text(channel.localizedLongName)
-                .font(.system(size: 24, weight: .semibold, design: .rounded))
-                .foregroundStyle(.white.opacity(0.98))
-                .fixedSize(horizontal: false, vertical: true)
-        }
+        .frame(width: titleStackHeight, height: titleStackHeight)
     }
 
     private var locationBlock: some View {
-        HStack(alignment: .center, spacing: 12) {
-            if !location.flagEmoji.isEmpty {
-                Text(location.flagEmoji)
-                    .font(.system(size: 32))
+        VStack(alignment: .leading, spacing: 4) {
+            Text(location.fullLabel)
+                .font(.system(size: 16, weight: .medium, design: .rounded))
+                .foregroundStyle(.white.opacity(0.92))
+                .fixedSize(horizontal: false, vertical: true)
+
+            if location.isApproximate {
+                Text(L10n.SoundDetail.approximateLocation)
+                    .font(.system(size: 11, weight: .regular, design: .rounded))
+                    .foregroundStyle(.white.opacity(0.50))
             }
-
-            VStack(alignment: .leading, spacing: 2) {
-                Text(location.fullLabel)
-                    .font(.system(size: 16, weight: .medium, design: .rounded))
-                    .foregroundStyle(.white.opacity(0.92))
-
-                if location.isApproximate {
-                    Text(L10n.SoundDetail.approximateLocation)
-                        .font(.system(size: 11, weight: .regular, design: .rounded))
-                        .foregroundStyle(.white.opacity(0.50))
-                }
-            }
-
-            Spacer(minLength: 0)
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.vertical, 14)
         .padding(.horizontal, 16)
         .background {
@@ -120,6 +144,17 @@ struct SoundDetailSheet: View {
         }
     }
 
+}
+
+/// Reports the measured height of the title/subtitle stack up the view tree so the
+/// adjacent circular icon well can match it. Reduce takes the max so a transient
+/// taller measurement (e.g. during a font-size animation) wins; the small dead-band
+/// in `onPreferenceChange` filters jitter back to a stable resting size.
+private struct TitleStackHeightKey: PreferenceKey {
+    static let defaultValue: CGFloat = 0
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        value = max(value, nextValue())
+    }
 }
 
 extension L10n {

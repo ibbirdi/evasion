@@ -95,27 +95,37 @@ struct SoundRowView: View {
         }
         .padding(.horizontal, 14)
         .padding(.vertical, 12)
+        // `.contain` is critical: without it SwiftUI flattens the VStack into one
+        // accessibility element and overrides every child's identifier with
+        // `channel.row.<id>`, which breaks UI tests that target `channel.identity.<id>`,
+        // `channel.mute.<id>`, `channel.spatial.<id>`, etc.
+        .accessibilityElement(children: .contain)
         .accessibilityIdentifier("channel.row.\(channel.id)")
         .background {
-            RoundedRectangle(cornerRadius: 18, style: .continuous)
-                .fill(.ultraThinMaterial)
-                .overlay {
-                    RoundedRectangle(cornerRadius: 18, style: .continuous)
-                        .fill(channelTint)
-                }
+            // Active rows: frosted material + a soft channel-tint wash. Inactive rows:
+            // lighter material, almost no tint. The signal of activity comes from the tint
+            // and the border — no glow shadow (was main scroll-jank source) and no scale
+            // change (forced layout invalidation on state mutation).
+            ZStack {
+                RoundedRectangle(cornerRadius: 18, style: .continuous)
+                    .fill(isActive ? AnyShapeStyle(.ultraThinMaterial) : AnyShapeStyle(.thinMaterial))
+                    .opacity(isActive ? 1 : 0.45)
+                RoundedRectangle(cornerRadius: 18, style: .continuous)
+                    .fill(channelTint)
+            }
         }
         .overlay {
             RoundedRectangle(cornerRadius: 18, style: .continuous)
-                .strokeBorder(borderStyle, lineWidth: isActive ? 1.2 : 1)
+                .strokeBorder(borderStyle, lineWidth: isActive ? 1.0 : 0.8)
         }
-        .opacity(isLocked ? 0.90 : 1)
-        .animation(.easeInOut(duration: 0.16), value: state.isMuted)
-        .animation(.easeInOut(duration: 0.16), value: state.autoVariationEnabled)
+        .opacity(isLocked ? 0.84 : (isActive ? 1 : 0.82))
+        .animation(.easeInOut(duration: 0.18), value: state.isMuted)
+        .animation(.easeInOut(duration: 0.18), value: state.autoVariationEnabled)
     }
 
     private var borderStyle: AnyShapeStyle {
         if isActive {
-            return AnyShapeStyle(channel.tint.opacity(0.45))
+            return AnyShapeStyle(channel.tint.opacity(0.42))
         }
         return AnyShapeStyle(Color.white.opacity(0.05))
     }
@@ -127,28 +137,27 @@ struct SoundRowView: View {
             onOpenDetail(channel)
         } label: {
             HStack(alignment: .center, spacing: 6) {
-                if !channel.location.flagEmoji.isEmpty {
-                    Text(channel.location.flagEmoji)
-                        .font(.system(size: 14))
-                }
-
                 Text(channel.localizedName)
                     .font(.system(size: 13, weight: .semibold, design: .rounded))
                     .foregroundStyle(identityForeground)
+                    .lineLimit(1)
+                    .fixedSize(horizontal: true, vertical: false)
 
-                if !channel.location.rowLabel.isEmpty {
+                if !channel.location.fullLabel.isEmpty {
                     Text("·")
                         .font(.system(size: 11))
                         .foregroundStyle(.white.opacity(0.30))
 
-                    Text(channel.location.rowLabel)
-                        .font(.system(size: 11, weight: .regular, design: .rounded))
-                        .foregroundStyle(locationForeground)
-                        .lineLimit(1)
-                        .truncationMode(.tail)
+                    // Location reads "Region, Country". Falls back to a smooth horizontal
+                    // marquee when the full label does not fit in the remaining width.
+                    MarqueeText(
+                        text: channel.location.fullLabel,
+                        font: .system(size: 11, weight: .regular, design: .rounded),
+                        foregroundStyle: locationForeground
+                    )
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .layoutPriority(0)
                 }
-
-                Spacer(minLength: 6)
 
                 if let statusText {
                     Text(statusText)
@@ -161,11 +170,13 @@ struct SoundRowView: View {
                             Capsule()
                                 .fill(statusBackground)
                         }
+                        .fixedSize(horizontal: true, vertical: false)
                 }
 
                 Image(systemName: "info.circle")
                     .font(.system(size: 11, weight: .semibold))
                     .foregroundStyle(.white.opacity(0.30))
+                    .fixedSize(horizontal: true, vertical: false)
             }
             .contentShape(Rectangle())
         }
@@ -351,9 +362,11 @@ struct SoundRowView: View {
 
     private var channelTint: Color {
         if isActive {
-            return channel.tint.opacity(state.autoVariationEnabled ? 0.10 : 0.07)
+            // Subtle coloured wash. Just enough to signal "this track is part of the mix"
+            // without reading as a glow.
+            return channel.tint.opacity(state.autoVariationEnabled ? 0.13 : 0.10)
         }
-        return Color.white.opacity(state.isMuted && !isLocked ? 0.010 : 0.018)
+        return Color.white.opacity(state.isMuted && !isLocked ? 0.02 : 0.03)
     }
 
     private var buttonForeground: Color {
@@ -368,6 +381,109 @@ struct SoundRowView: View {
             return Text(name)
         }
         return Text("\(name), \(location)")
+    }
+}
+
+/// Single-line Text that fades from left to right and, if the content overflows the
+/// available width, auto-scrolls back and forth with a short pause at each end so the
+/// user can read the whole label without tapping. Position is driven by `TimelineView`
+/// so the animation is deterministic and pauses when the view is off-screen.
+private struct MarqueeText: View {
+    let text: String
+    let font: Font
+    let foregroundStyle: Color
+
+    @State private var textWidth: CGFloat = 0
+    @State private var containerWidth: CGFloat = 0
+
+    private var overflow: CGFloat {
+        max(0, textWidth - containerWidth + 6)
+    }
+
+    private var needsScroll: Bool {
+        overflow > 1
+    }
+
+    var body: some View {
+        GeometryReader { proxy in
+            TimelineView(.animation(minimumInterval: 1.0 / 30.0, paused: !needsScroll)) { context in
+                Text(text)
+                    .font(font)
+                    .foregroundStyle(foregroundStyle)
+                    .lineLimit(1)
+                    .fixedSize(horizontal: true, vertical: false)
+                    .background(
+                        GeometryReader { textGeo in
+                            Color.clear
+                                .preference(key: MarqueeWidthKey.self, value: textGeo.size.width)
+                        }
+                    )
+                    .offset(x: offset(atTime: context.date.timeIntervalSinceReferenceDate))
+            }
+            // GeometryReader positions its content at the top-leading corner by default,
+            // which left the location text anchored at the top of the row while the
+            // title (at HStack centre) was vertically centred. Explicitly centre the
+            // inner content vertically so the two labels share the same baseline.
+            .frame(width: proxy.size.width, height: proxy.size.height, alignment: .leading)
+            .onAppear { containerWidth = proxy.size.width }
+            .onChange(of: proxy.size.width) { _, new in containerWidth = new }
+            .onPreferenceChange(MarqueeWidthKey.self) { textWidth = $0 }
+        }
+        .clipped()
+        // Only apply the edge-fade mask while the marquee is actually scrolling; when
+        // the text fits, the mask would otherwise fade the leading characters (text
+        // left-aligned at x=0 sits directly under the left stop of the gradient).
+        .mask {
+            if needsScroll {
+                LinearGradient(
+                    stops: [
+                        .init(color: .black.opacity(0), location: 0),
+                        .init(color: .black, location: 0.03),
+                        .init(color: .black, location: 0.97),
+                        .init(color: .black.opacity(0), location: 1)
+                    ],
+                    startPoint: .leading,
+                    endPoint: .trailing
+                )
+            } else {
+                Rectangle()
+            }
+        }
+    }
+
+    /// Piecewise constant/linear offset computed from a monotonic time source.
+    /// - Phase 1: dwell at origin (reader sees the beginning).
+    /// - Phase 2: slide left until the end of the text is exposed.
+    /// - Phase 3: dwell at the end.
+    /// - Phase 4: slide back to the origin.
+    private func offset(atTime time: TimeInterval) -> CGFloat {
+        guard needsScroll else { return 0 }
+
+        let scrollSpeed: Double = 26 // pt / second
+        let scrollDuration = max(1.0, Double(overflow) / scrollSpeed)
+        let dwell: Double = 1.6
+        let cycle = 2 * dwell + 2 * scrollDuration
+        let phase = time.truncatingRemainder(dividingBy: cycle)
+
+        if phase < dwell {
+            return 0
+        }
+        if phase < dwell + scrollDuration {
+            let progress = (phase - dwell) / scrollDuration
+            return -CGFloat(progress) * overflow
+        }
+        if phase < 2 * dwell + scrollDuration {
+            return -overflow
+        }
+        let progress = (phase - 2 * dwell - scrollDuration) / scrollDuration
+        return -overflow * (1 - CGFloat(progress))
+    }
+}
+
+private struct MarqueeWidthKey: PreferenceKey {
+    static let defaultValue: CGFloat = 0
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        value = nextValue()
     }
 }
 

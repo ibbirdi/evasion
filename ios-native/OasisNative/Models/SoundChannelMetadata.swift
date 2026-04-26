@@ -1,3 +1,4 @@
+import CoreLocation
 import Foundation
 import SwiftUI
 
@@ -35,11 +36,26 @@ struct ChannelLocation: Sendable {
     /// When true, the location has been inferred or imagined rather than documented by the
     /// original recording author. Shown discreetly in the detail sheet for transparency.
     let isApproximate: Bool
+    /// Approximate coordinate for the recording site. Precise to the region, not the meter —
+    /// most source recordings don't document exact GPS. Nil when no reasonable location
+    /// could be inferred. Used by `SoundLocationMinimap` in the detail sheet.
+    let coordinate: CLLocationCoordinate2D?
 
-    init(countryCode: String, region: LocalizedStringResource, isApproximate: Bool = false) {
+    init(
+        countryCode: String,
+        region: LocalizedStringResource,
+        isApproximate: Bool = false,
+        latitude: Double? = nil,
+        longitude: Double? = nil
+    ) {
         self.countryCode = countryCode
         self.region = region
         self.isApproximate = isApproximate
+        if let latitude, let longitude {
+            self.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        } else {
+            self.coordinate = nil
+        }
     }
 
     var flagEmoji: String {
@@ -131,7 +147,9 @@ extension SoundChannel {
             longName: LocalizedStringResource("channel.birds.long", defaultValue: "Mountain birds of Taoyuan", bundle: .main, comment: "Ambient sound channel long descriptive name shown in the detail sheet."),
             location: ChannelLocation(
                 countryCode: "TW",
-                region: LocalizedStringResource("channel.birds.location", defaultValue: "Taoyuan Mountains", bundle: .main, comment: "Region where the birds sound was recorded.")
+                region: LocalizedStringResource("channel.birds.location", defaultValue: "Taoyuan Mountains", bundle: .main, comment: "Region where the birds sound was recorded."),
+                latitude: 24.9936,
+                longitude: 121.3010
             ),
             credit: ChannelCredit(
                 author: "calebjay",
@@ -147,7 +165,9 @@ extension SoundChannel {
             longName: LocalizedStringResource("channel.wind.long", defaultValue: "Cliffside winds of Gavdos", bundle: .main, comment: "Ambient sound channel long descriptive name."),
             location: ChannelLocation(
                 countryCode: "GR",
-                region: LocalizedStringResource("channel.wind.location", defaultValue: "Gavdos island, Crete", bundle: .main, comment: "Region where the wind sound was recorded.")
+                region: LocalizedStringResource("channel.wind.location", defaultValue: "Gavdos island, Crete", bundle: .main, comment: "Region where the wind sound was recorded."),
+                latitude: 34.8403,
+                longitude: 24.0837
             ),
             credit: ChannelCredit(
                 author: "nicotep",
@@ -164,7 +184,9 @@ extension SoundChannel {
             location: ChannelLocation(
                 countryCode: "GB",
                 region: LocalizedStringResource("channel.shore.location", defaultValue: "Cornish coast", bundle: .main, comment: "Region where the shore sound was recorded."),
-                isApproximate: true
+                isApproximate: true,
+                latitude: 50.2660,
+                longitude: -5.0527
             ),
             credit: ChannelCredit(
                 author: "eqavox",
@@ -180,7 +202,9 @@ extension SoundChannel {
             longName: LocalizedStringResource("channel.seagulls.long", defaultValue: "Seagulls over a Breton harbour", bundle: .main, comment: "Ambient sound channel long descriptive name."),
             location: ChannelLocation(
                 countryCode: "FR",
-                region: LocalizedStringResource("channel.seagulls.location", defaultValue: "Brittany harbour", bundle: .main, comment: "Region where the seagulls sound was recorded.")
+                region: LocalizedStringResource("channel.seagulls.location", defaultValue: "Brittany harbour", bundle: .main, comment: "Region where the seagulls sound was recorded."),
+                latitude: 48.3904,
+                longitude: -4.4861
             ),
             credit: ChannelCredit(
                 author: "Further_Roman",
@@ -196,7 +220,9 @@ extension SoundChannel {
             longName: LocalizedStringResource("channel.forest.long", defaultValue: "Burgundy woodland at dawn", bundle: .main, comment: "Ambient sound channel long descriptive name."),
             location: ChannelLocation(
                 countryCode: "FR",
-                region: LocalizedStringResource("channel.forest.location", defaultValue: "Détain-Gergueil, Burgundy", bundle: .main, comment: "Region where the forest sound was recorded.")
+                region: LocalizedStringResource("channel.forest.location", defaultValue: "Détain-Gergueil, Burgundy", bundle: .main, comment: "Region where the forest sound was recorded."),
+                latitude: 47.2833,
+                longitude: 4.6500
             ),
             credit: ChannelCredit(
                 author: "Sadiquecat",
@@ -213,7 +239,9 @@ extension SoundChannel {
             location: ChannelLocation(
                 countryCode: "DK",
                 region: LocalizedStringResource("channel.rain.location", defaultValue: "Bornholm island", bundle: .main, comment: "Region where the rain sound was recorded."),
-                isApproximate: true
+                isApproximate: true,
+                latitude: 55.1656,
+                longitude: 14.9224
             ),
             credit: ChannelCredit(
                 author: "Petrosilia",
@@ -229,7 +257,9 @@ extension SoundChannel {
             longName: LocalizedStringResource("channel.thunder.long", defaultValue: "Summer storm in Southern France", bundle: .main, comment: "Ambient sound channel long descriptive name."),
             location: ChannelLocation(
                 countryCode: "FR",
-                region: LocalizedStringResource("channel.thunder.location", defaultValue: "Azillanet, Hérault", bundle: .main, comment: "Region where the thunder sound was recorded.")
+                region: LocalizedStringResource("channel.thunder.location", defaultValue: "Azillanet, Hérault", bundle: .main, comment: "Region where the thunder sound was recorded."),
+                latitude: 43.3667,
+                longitude: 2.7667
             ),
             credit: ChannelCredit(
                 author: "felix.blume",
@@ -246,7 +276,9 @@ extension SoundChannel {
             location: ChannelLocation(
                 countryCode: "IT",
                 region: LocalizedStringResource("channel.cicadas.location", defaultValue: "Lampedusa, Sicily", bundle: .main, comment: "Region where the cicadas sound was recorded."),
-                isApproximate: true
+                isApproximate: true,
+                latitude: 35.5049,
+                longitude: 12.5964
             ),
             credit: ChannelCredit(
                 author: "pablodavilla",
@@ -262,7 +294,9 @@ extension SoundChannel {
             longName: LocalizedStringResource("channel.crickets.long", defaultValue: "Countryside night crickets", bundle: .main, comment: "Ambient sound channel long descriptive name."),
             location: ChannelLocation(
                 countryCode: "FR",
-                region: LocalizedStringResource("channel.crickets.location", defaultValue: "Theneuille, Allier", bundle: .main, comment: "Region where the crickets sound was recorded.")
+                region: LocalizedStringResource("channel.crickets.location", defaultValue: "Theneuille, Allier", bundle: .main, comment: "Region where the crickets sound was recorded."),
+                latitude: 46.5778,
+                longitude: 2.8111
             ),
             credit: ChannelCredit(
                 author: "keng-wai-chane-chick-te",
@@ -279,7 +313,9 @@ extension SoundChannel {
             location: ChannelLocation(
                 countryCode: "DK",
                 region: LocalizedStringResource("channel.tent.location", defaultValue: "Bornholm island", bundle: .main, comment: "Region where the tent sound was recorded."),
-                isApproximate: true
+                isApproximate: true,
+                latitude: 55.1656,
+                longitude: 14.9224
             ),
             credit: ChannelCredit(
                 author: "Petrosilia",
@@ -295,7 +331,9 @@ extension SoundChannel {
             longName: LocalizedStringResource("channel.river.long", defaultValue: "Taiwan mountain stream", bundle: .main, comment: "Ambient sound channel long descriptive name."),
             location: ChannelLocation(
                 countryCode: "TW",
-                region: LocalizedStringResource("channel.river.location", defaultValue: "Taoyuan Mountains", bundle: .main, comment: "Region where the river sound was recorded.")
+                region: LocalizedStringResource("channel.river.location", defaultValue: "Taoyuan Mountains", bundle: .main, comment: "Region where the river sound was recorded."),
+                latitude: 24.9936,
+                longitude: 121.3010
             ),
             credit: ChannelCredit(
                 author: "calebjay",
@@ -311,7 +349,9 @@ extension SoundChannel {
             longName: LocalizedStringResource("channel.village.long", defaultValue: "Bustling Chinese pedestrian street", bundle: .main, comment: "Ambient sound channel long descriptive name."),
             location: ChannelLocation(
                 countryCode: "CN",
-                region: LocalizedStringResource("channel.village.location", defaultValue: "Liuzhou, Guangxi", bundle: .main, comment: "Region where the village sound was recorded.")
+                region: LocalizedStringResource("channel.village.location", defaultValue: "Liuzhou, Guangxi", bundle: .main, comment: "Region where the village sound was recorded."),
+                latitude: 24.3261,
+                longitude: 109.4135
             ),
             credit: ChannelCredit(
                 author: "lastraindrop",
@@ -328,7 +368,9 @@ extension SoundChannel {
             location: ChannelLocation(
                 countryCode: "CA",
                 region: LocalizedStringResource("channel.carRide.location", defaultValue: "Quebec highway", bundle: .main, comment: "Region where the car ride sound was recorded."),
-                isApproximate: true
+                isApproximate: true,
+                latitude: 46.8139,
+                longitude: -71.2080
             ),
             credit: ChannelCredit(
                 author: "leonelmail",
@@ -344,7 +386,9 @@ extension SoundChannel {
             longName: LocalizedStringResource("channel.train.long", defaultValue: "Intercity rail to Lisbon", bundle: .main, comment: "Ambient sound channel long descriptive name."),
             location: ChannelLocation(
                 countryCode: "PT",
-                region: LocalizedStringResource("channel.train.location", defaultValue: "Porto–Lisbon line", bundle: .main, comment: "Region where the train sound was recorded.")
+                region: LocalizedStringResource("channel.train.location", defaultValue: "Porto–Lisbon line", bundle: .main, comment: "Region where the train sound was recorded."),
+                latitude: 40.2166,
+                longitude: -8.4294
             ),
             credit: ChannelCredit(
                 author: "pblzr",
@@ -360,7 +404,9 @@ extension SoundChannel {
             longName: LocalizedStringResource("channel.campfire.long", defaultValue: "Riverside campfire at dusk", bundle: .main, comment: "Ambient sound channel long descriptive name."),
             location: ChannelLocation(
                 countryCode: "US",
-                region: LocalizedStringResource("channel.campfire.location", defaultValue: "St. Marys River, Michigan", bundle: .main, comment: "Region where the campfire sound was recorded.")
+                region: LocalizedStringResource("channel.campfire.location", defaultValue: "St. Marys River, Michigan", bundle: .main, comment: "Region where the campfire sound was recorded."),
+                latitude: 46.4909,
+                longitude: -84.3453
             ),
             credit: ChannelCredit(
                 author: "Ambient-X",
@@ -376,7 +422,9 @@ extension SoundChannel {
             longName: LocalizedStringResource("channel.cafe.long", defaultValue: "Late-night São Paulo café", bundle: .main, comment: "Ambient sound channel long descriptive name."),
             location: ChannelLocation(
                 countryCode: "BR",
-                region: LocalizedStringResource("channel.cafe.location", defaultValue: "São Paulo", bundle: .main, comment: "Region where the café sound was recorded.")
+                region: LocalizedStringResource("channel.cafe.location", defaultValue: "São Paulo", bundle: .main, comment: "Region where the café sound was recorded."),
+                latitude: -23.5505,
+                longitude: -46.6333
             ),
             credit: ChannelCredit(
                 author: "felix.blume",
@@ -392,7 +440,9 @@ extension SoundChannel {
             longName: LocalizedStringResource("channel.lake.long", defaultValue: "Twilight at Fritton Lake", bundle: .main, comment: "Ambient sound channel long descriptive name."),
             location: ChannelLocation(
                 countryCode: "GB",
-                region: LocalizedStringResource("channel.lake.location", defaultValue: "Fritton Lake, Norfolk", bundle: .main, comment: "Region where the lake sound was recorded.")
+                region: LocalizedStringResource("channel.lake.location", defaultValue: "Fritton Lake, Norfolk", bundle: .main, comment: "Region where the lake sound was recorded."),
+                latitude: 52.5575,
+                longitude: 1.6425
             ),
             credit: ChannelCredit(
                 author: "Yarmonics",
@@ -408,7 +458,9 @@ extension SoundChannel {
             longName: LocalizedStringResource("channel.savanna.long", defaultValue: "Mkuze River at sundown", bundle: .main, comment: "Ambient sound channel long descriptive name."),
             location: ChannelLocation(
                 countryCode: "ZA",
-                region: LocalizedStringResource("channel.savanna.location", defaultValue: "KwaZulu-Natal", bundle: .main, comment: "Region where the savanna sound was recorded.")
+                region: LocalizedStringResource("channel.savanna.location", defaultValue: "KwaZulu-Natal", bundle: .main, comment: "Region where the savanna sound was recorded."),
+                latitude: -27.6284,
+                longitude: 32.2169
             ),
             credit: ChannelCredit(
                 author: "eardeer",
@@ -424,7 +476,9 @@ extension SoundChannel {
             longName: LocalizedStringResource("channel.jungleAmericas.long", defaultValue: "Veracruz jungle at night", bundle: .main, comment: "Ambient sound channel long descriptive name."),
             location: ChannelLocation(
                 countryCode: "MX",
-                region: LocalizedStringResource("channel.jungleAmericas.location", defaultValue: "Los Tuxtlas, Veracruz", bundle: .main, comment: "Region where the tropical jungle sound was recorded.")
+                region: LocalizedStringResource("channel.jungleAmericas.location", defaultValue: "Los Tuxtlas, Veracruz", bundle: .main, comment: "Region where the tropical jungle sound was recorded."),
+                latitude: 18.4592,
+                longitude: -95.0600
             ),
             credit: ChannelCredit(
                 author: "Globofonia",
@@ -440,7 +494,9 @@ extension SoundChannel {
             longName: LocalizedStringResource("channel.jungleAsia.long", defaultValue: "Chiang Mai jungle at night", bundle: .main, comment: "Ambient sound channel long descriptive name."),
             location: ChannelLocation(
                 countryCode: "TH",
-                region: LocalizedStringResource("channel.jungleAsia.location", defaultValue: "Chiang Mai", bundle: .main, comment: "Region where the Asian jungle sound was recorded.")
+                region: LocalizedStringResource("channel.jungleAsia.location", defaultValue: "Chiang Mai", bundle: .main, comment: "Region where the Asian jungle sound was recorded."),
+                latitude: 18.7883,
+                longitude: 98.9853
             ),
             credit: ChannelCredit(
                 author: "Anantich",

@@ -51,8 +51,8 @@ project.root_object.attributes["TargetAttributes"][ui_test_target.uuid] = {
 target.build_configurations.each do |config|
   settings = config.build_settings
   settings["PRODUCT_BUNDLE_IDENTIFIER"] = "com.jonathanluquet.drift"
-  settings["MARKETING_VERSION"] = "1.3.0"
-  settings["CURRENT_PROJECT_VERSION"] = "1"
+  settings["MARKETING_VERSION"] = "1.4.0"
+  settings["CURRENT_PROJECT_VERSION"] = "2"
   settings["INFOPLIST_FILE"] = "OasisNative/Support/Info.plist"
   settings["GENERATE_INFOPLIST_FILE"] = "NO"
   settings["SWIFT_VERSION"] = "6.0"
@@ -101,6 +101,14 @@ def add_group(parent:, absolute_path:, target:, include_resources: true)
       if File.extname(entry) == ".xcassets"
         file_reference = parent.new_file(entry)
         file_reference.last_known_file_type = "folder.assetcatalog"
+        target.resources_build_phase.add_file_reference(file_reference) if include_resources
+        next
+      end
+
+      # iOS 17+ Icon Composer (.icon) folder — single resource, do not descend.
+      if File.extname(entry) == ".icon"
+        file_reference = parent.new_file(entry)
+        file_reference.last_known_file_type = "folder.iconcomposer.icon"
         target.resources_build_phase.add_file_reference(file_reference) if include_resources
         next
       end

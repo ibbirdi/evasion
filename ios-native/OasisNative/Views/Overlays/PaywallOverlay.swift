@@ -13,6 +13,11 @@ struct PaywallOverlay: View {
     @State private var isRestoring = false
     @State private var loadState: PaywallLoadState = .idle
     @State private var ctaPulse = false
+    /// True only under UI/screenshot automation. Lets the CTA render its
+    /// `.loaded` happy-path without a live RevenueCat offering and without
+    /// surfacing any price (prices change, App Store auto-localises them on
+    /// the live paywall anyway — no point baking one into a marketing asset).
+    @State private var isScreenshotMockMode = false
 
     private let ctaGradient = LinearGradient(
         colors: [
@@ -137,7 +142,7 @@ struct PaywallOverlay: View {
 
                                 primaryActionButton(isCompactHeight: isCompactHeight)
 
-                                if let price = currentPackage?.localizedPriceString {
+                                if currentPackage?.localizedPriceString != nil {
                                     Text(L10n.Paywall.dailyPrice)
                                         .font(.system(size: isCompactHeight ? 11 : 12, weight: .medium, design: .rounded))
                                         .foregroundStyle(.white.opacity(0.50))
@@ -228,7 +233,7 @@ struct PaywallOverlay: View {
                 }
             }
             .buttonStyle(PressScaleButtonStyle())
-            .disabled(currentPackage == nil || isPurchasing)
+            .disabled((currentPackage == nil && !isScreenshotMockMode) || isPurchasing)
             .accessibilityIdentifier("premium.paywall.primary")
 
         case .failed, .unavailable:
@@ -331,6 +336,21 @@ struct PaywallOverlay: View {
 
     private func loadCurrentPackage(forceReload: Bool = false) async {
         guard forceReload || loadState == .idle else { return }
+
+        // Under UI/screenshot automation, RevenueCat offerings aren't reachable
+        // (StoreKit sandbox isn't configured in CI and `premiumOverride=free`
+        // intentionally disables the RC call path). Without this branch the
+        // paywall would render its "Réessayer" error state and App Store
+        // screenshots would miss the actual purchase CTA. Render the `.loaded`
+        // happy path without a price — the App Store surfaces localised
+        // pricing on the live paywall, so there's no value in baking one in.
+        // No real purchase is triggered because `currentPackage` stays nil and
+        // `purchaseCurrentPackage()` early-outs on that guard.
+        if AppConfiguration.isRunningScreenshotAutomation {
+            isScreenshotMockMode = true
+            loadState = .loaded
+            return
+        }
 
         loadState = .loading
         currentPackage = nil

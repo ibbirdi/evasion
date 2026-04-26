@@ -1,0 +1,351 @@
+{
+  "bezelImage": "scripts/assets/iPhone-17-Pro-Max-DeepBlue.png",
+  "capturesDir": "fastlane/screenshots",
+  "capturePrefix": "iPhone 17 Pro Max-",
+  "slides": [
+    {
+      "slug": "01_hero",
+      "source": "01_hero.png",
+      "layout": "top",
+      "background": "warmGradient",
+      "accent": "#C24E1F",
+      "iconSymbol": "moon.stars.fill",
+      "darkText": true
+    },
+    {
+      "slug": "02_library",
+      "source": "02_library.png",
+      "layout": "peekBottom",
+      "background": "creamRadial",
+      "accent": "#2E9155",
+      "iconSymbol": "leaf.fill",
+      "darkText": true
+    },
+    {
+      "slug": "03_detail_sheet",
+      "source": "03_detail_sheet.png",
+      "layout": "bottom",
+      "background": "creamRadial",
+      "accent": "#B77A22",
+      "iconSymbol": "mappin.and.ellipse",
+      "darkText": true
+    },
+    {
+      "slug": "04_binaural",
+      "source": "04_binaural.png",
+      "layout": "peekBottom",
+      "background": "duskGradient",
+      "accent": "#B9A8FF",
+      "iconSymbol": "waveform.path.ecg",
+      "darkText": false
+    },
+    {
+      "slug": "05_spatial",
+      "source": "05_spatial.png",
+      "layout": "bottom",
+      "background": "creamRadial",
+      "accent": "#1F88B0",
+      "iconSymbol": "dot.radiowaves.left.and.right",
+      "darkText": true
+    },
+    {
+      "slug": "06_presets",
+      "source": "06_presets.png",
+      "layout": "peekBottom",
+      "background": "creamRadial",
+      "accent": "#BE3E8C",
+      "iconSymbol": "bookmark.fill",
+      "darkText": true
+    },
+    {
+      "slug": "07_timer",
+      "source": "07_timer.png",
+      "layout": "peekBottom",
+      "background": "duskGradient",
+      "accent": "#C0D1FF",
+      "iconSymbol": "moon.zzz.fill",
+      "darkText": false
+    },
+    {
+      "slug": "08_free_home",
+      "source": "08_free_home.png",
+      "layout": "bleed",
+      "background": "creamRadial",
+      "accent": "#2383C4",
+      "iconSymbol": "gift.fill",
+      "darkText": true
+    },
+    {
+      "slug": "09_library_teaser",
+      "source": "09_library_teaser.png",
+      "layout": "bleed",
+      "background": "creamRadial",
+      "accent": "#6A9E22",
+      "iconSymbol": "sparkles",
+      "darkText": true
+    },
+    {
+      "slug": "10_paywall",
+      "source": "10_paywall.png",
+      "layout": "top",
+      "background": "warmGradient",
+      "accent": "#C24E1F",
+      "iconSymbol": "checkmark.seal.fill",
+      "darkText": true
+    }
+  ],
+  "copy": {
+    "en-US": {
+      "01_hero": {
+        "headline": "Craft your\nperfect ambience.",
+        "subhead": "Mix 20 immersive sounds. Offline. No subscription."
+      },
+      "02_library": {
+        "headline": "20 ambiences,\nfor every mood.",
+        "subhead": "Forest, rain, café, jungle, campfire… all yours to mix."
+      },
+      "03_detail_sheet": {
+        "headline": "Every sound,\nrecorded on location.",
+        "subhead": "Place, artist, licence. No synthesis, no loops."
+      },
+      "04_binaural": {
+        "headline": "For sleep.\nFor focus.",
+        "subhead": "4 binaural waves: Delta, Theta, Alpha, Beta."
+      },
+      "05_spatial": {
+        "headline": "Sound,\nall around you.",
+        "subhead": "Full 3D spatial audio. Place every channel where you want."
+      },
+      "06_presets": {
+        "headline": "Your mixes,\nsaved.",
+        "subhead": "Save your favourite ambiences. Reload in one tap."
+      },
+      "07_timer": {
+        "headline": "Built-in\nsleep timer.",
+        "subhead": "15 min, 30 min, 1 h or 2 h. Fades out on its own."
+      },
+      "08_free_home": {
+        "headline": "Free,\nno strings attached.",
+        "subhead": "3 ambiences included. No account, no ads."
+      },
+      "09_library_teaser": {
+        "headline": "17 more\nambiences.",
+        "subhead": "Forest, storm, jungle, campfire… unlock them for life."
+      },
+      "10_paywall": {
+        "headline": "One payment.\nYours for life.",
+        "subhead": "No subscription. No account. 100% offline."
+      }
+    },
+    "fr-FR": {
+      "01_hero": {
+        "headline": "Créez votre\nambiance idéale.",
+        "subhead": "20 sons à mixer librement. Hors ligne. Sans abonnement."
+      },
+      "02_library": {
+        "headline": "20 ambiances,\npour chaque moment.",
+        "subhead": "Forêt, pluie, café, jungle, feu de camp… à mélanger à volonté."
+      },
+      "03_detail_sheet": {
+        "headline": "Chaque son,\nenregistré en vrai.",
+        "subhead": "Lieu, auteur, licence. Aucune synthèse, aucune boucle."
+      },
+      "04_binaural": {
+        "headline": "Pour dormir.\nPour se concentrer.",
+        "subhead": "4 ondes binaurales : Delta, Theta, Alpha, Beta."
+      },
+      "05_spatial": {
+        "headline": "Le son,\nautour de vous.",
+        "subhead": "Audio spatial 3D. Placez chaque canal où vous voulez."
+      },
+      "06_presets": {
+        "headline": "Vos mix,\nsauvegardés.",
+        "subhead": "Enregistrez vos ambiances favorites. Rechargez-les d'un geste."
+      },
+      "07_timer": {
+        "headline": "Timer de sommeil\nintégré.",
+        "subhead": "15 min, 30 min, 1 h ou 2 h. Fondu automatique."
+      },
+      "08_free_home": {
+        "headline": "Gratuit,\nsans condition.",
+        "subhead": "3 ambiances offertes. Sans compte, sans pub."
+      },
+      "09_library_teaser": {
+        "headline": "17 ambiances\nen plus.",
+        "subhead": "Forêt, orage, jungle, feu de camp… à débloquer à vie."
+      },
+      "10_paywall": {
+        "headline": "Un achat.\nÀ vie.",
+        "subhead": "Sans abonnement. Sans compte. 100% hors ligne."
+      }
+    },
+    "de-DE": {
+      "01_hero": {
+        "headline": "Gestalte deine\nperfekte Atmosphäre.",
+        "subhead": "20 Klänge frei mischen. Offline. Kein Abo."
+      },
+      "02_library": {
+        "headline": "20 Atmosphären,\nfür jeden Moment.",
+        "subhead": "Wald, Regen, Café, Dschungel, Lagerfeuer… alles zum Mischen."
+      },
+      "03_detail_sheet": {
+        "headline": "Jeder Klang,\nvor Ort aufgenommen.",
+        "subhead": "Ort, Autor, Lizenz. Keine Synthese, keine Loops."
+      },
+      "04_binaural": {
+        "headline": "Zum Schlafen.\nZum Fokussieren.",
+        "subhead": "4 binaurale Wellen: Delta, Theta, Alpha, Beta."
+      },
+      "05_spatial": {
+        "headline": "Klang,\num dich herum.",
+        "subhead": "3D-Raumklang. Platziere jeden Kanal, wo du willst."
+      },
+      "06_presets": {
+        "headline": "Deine Mixe,\ngespeichert.",
+        "subhead": "Speichere deine Lieblings-Atmosphären. Ein Tippen genügt."
+      },
+      "07_timer": {
+        "headline": "Schlaf-Timer,\nintegriert.",
+        "subhead": "15 Min, 30 Min, 1 Std oder 2 Std. Automatisches Ausblenden."
+      },
+      "08_free_home": {
+        "headline": "Kostenlos,\nohne Bedingungen.",
+        "subhead": "3 Atmosphären inklusive. Kein Konto, keine Werbung."
+      },
+      "09_library_teaser": {
+        "headline": "17 weitere\nAtmosphären.",
+        "subhead": "Wald, Gewitter, Dschungel, Lagerfeuer… für immer freischalten."
+      },
+      "10_paywall": {
+        "headline": "Einmal zahlen.\nFür immer.",
+        "subhead": "Kein Abo. Kein Konto. 100% offline."
+      }
+    },
+    "es-ES": {
+      "01_hero": {
+        "headline": "Crea tu\nambiente ideal.",
+        "subhead": "20 sonidos para mezclar. Sin conexión. Sin suscripción."
+      },
+      "02_library": {
+        "headline": "20 ambientes,\npara cada momento.",
+        "subhead": "Bosque, lluvia, cafetería, jungla, fogata… todo por mezclar."
+      },
+      "03_detail_sheet": {
+        "headline": "Cada sonido,\ngrabado en el lugar.",
+        "subhead": "Lugar, autor, licencia. Sin síntesis, sin bucles."
+      },
+      "04_binaural": {
+        "headline": "Para dormir.\nPara concentrarte.",
+        "subhead": "4 ondas binaurales: Delta, Theta, Alpha, Beta."
+      },
+      "05_spatial": {
+        "headline": "El sonido,\na tu alrededor.",
+        "subhead": "Audio espacial 3D. Coloca cada canal donde quieras."
+      },
+      "06_presets": {
+        "headline": "Tus mezclas,\nguardadas.",
+        "subhead": "Guarda tus ambientes favoritos. Recupéralos al instante."
+      },
+      "07_timer": {
+        "headline": "Temporizador de sueño\nintegrado.",
+        "subhead": "15 min, 30 min, 1 h o 2 h. Atenuación automática."
+      },
+      "08_free_home": {
+        "headline": "Gratis,\nsin condiciones.",
+        "subhead": "3 ambientes incluidos. Sin cuenta, sin anuncios."
+      },
+      "09_library_teaser": {
+        "headline": "17 ambientes\nmás.",
+        "subhead": "Bosque, tormenta, jungla, fogata… a desbloquear para siempre."
+      },
+      "10_paywall": {
+        "headline": "Paga una vez.\nPara siempre.",
+        "subhead": "Sin suscripción. Sin cuenta. 100% sin conexión."
+      }
+    },
+    "it": {
+      "01_hero": {
+        "headline": "Crea la tua\natmosfera ideale.",
+        "subhead": "20 suoni da mescolare liberamente. Offline. Nessun abbonamento."
+      },
+      "02_library": {
+        "headline": "20 atmosfere,\nper ogni momento.",
+        "subhead": "Bosco, pioggia, caffè, giungla, falò… tutto da mescolare."
+      },
+      "03_detail_sheet": {
+        "headline": "Ogni suono,\nregistrato sul posto.",
+        "subhead": "Luogo, autore, licenza. Nessuna sintesi, nessun loop."
+      },
+      "04_binaural": {
+        "headline": "Per dormire.\nPer concentrarsi.",
+        "subhead": "4 onde binaurali: Delta, Theta, Alpha, Beta."
+      },
+      "05_spatial": {
+        "headline": "Il suono,\ntutto intorno.",
+        "subhead": "Audio spaziale 3D. Posiziona ogni canale dove vuoi."
+      },
+      "06_presets": {
+        "headline": "I tuoi mix,\nsalvati.",
+        "subhead": "Salva le tue atmosfere preferite. Richiamale in un tocco."
+      },
+      "07_timer": {
+        "headline": "Timer di sonno\nintegrato.",
+        "subhead": "15 min, 30 min, 1 h o 2 h. Dissolvenza automatica."
+      },
+      "08_free_home": {
+        "headline": "Gratis,\nsenza condizioni.",
+        "subhead": "3 atmosfere incluse. Senza account, senza pubblicità."
+      },
+      "09_library_teaser": {
+        "headline": "17 atmosfere\nin più.",
+        "subhead": "Bosco, tempesta, giungla, falò… da sbloccare per sempre."
+      },
+      "10_paywall": {
+        "headline": "Paga una volta.\nPer sempre.",
+        "subhead": "Nessun abbonamento. Nessun account. 100% offline."
+      }
+    },
+    "pt-BR": {
+      "01_hero": {
+        "headline": "Crie sua\natmosfera ideal.",
+        "subhead": "20 sons para misturar. Offline. Sem assinatura."
+      },
+      "02_library": {
+        "headline": "20 atmosferas,\npara cada momento.",
+        "subhead": "Floresta, chuva, café, selva, fogueira… tudo para misturar."
+      },
+      "03_detail_sheet": {
+        "headline": "Cada som,\ngravado no local.",
+        "subhead": "Lugar, autor, licença. Sem síntese, sem loops."
+      },
+      "04_binaural": {
+        "headline": "Para dormir.\nPara se concentrar.",
+        "subhead": "4 ondas binaurais: Delta, Theta, Alpha, Beta."
+      },
+      "05_spatial": {
+        "headline": "O som,\nao seu redor.",
+        "subhead": "Áudio espacial 3D. Posicione cada canal onde quiser."
+      },
+      "06_presets": {
+        "headline": "Seus mixes,\nsalvos.",
+        "subhead": "Salve suas atmosferas favoritas. Recarregue em um toque."
+      },
+      "07_timer": {
+        "headline": "Timer de sono\nintegrado.",
+        "subhead": "15 min, 30 min, 1 h ou 2 h. Fade automático."
+      },
+      "08_free_home": {
+        "headline": "Grátis,\nsem condições.",
+        "subhead": "3 atmosferas inclusas. Sem conta, sem anúncios."
+      },
+      "09_library_teaser": {
+        "headline": "Mais 17\natmosferas.",
+        "subhead": "Floresta, tempestade, selva, fogueira… a desbloquear para sempre."
+      },
+      "10_paywall": {
+        "headline": "Pague uma vez.\nPara sempre.",
+        "subhead": "Sem assinatura. Sem conta. 100% offline."
+      }
+    }
+  }
+}

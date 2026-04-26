@@ -70,6 +70,16 @@ struct BinauralPanel: View {
                     BinauralTrackCard(track: track)
                 }
             }
+
+            // Ambient pad anchored at the bottom of the panel: the binaural tracks
+            // are the headline choice (user picks one), so they sit immediately
+            // under the volume + toggle. The pad is an *additive* texture that
+            // sits underneath whatever you've picked, so it reads better as a
+            // closing footer than as something interrupting the track grid.
+            AmbientPadCard(
+                isEnabled: model.isTonalBedEnabled,
+                onToggle: { model.setTonalBedEnabled($0) }
+            )
         }
         .padding(.horizontal, 20)
         .padding(.bottom, 22)
@@ -189,5 +199,132 @@ private struct BinauralButtonScaleStyle: ButtonStyle {
                 .scaleEffect(configuration.isPressed ? 0.97 : 1)
                 .animation(.easeInOut(duration: 0.14), value: configuration.isPressed)
         }
+    }
+}
+
+/// Atmospheric pad control surface. Anchored at the bottom of the binaural panel —
+/// the tracks above are the headline choice, the pad is an additive texture that
+/// sits underneath whichever track you pick. When active it gains an accent tint, a
+/// glowing border, and a subtle breathing wave so the user can see at a glance that
+/// something is sitting under their mix.
+private struct AmbientPadCard: View {
+    let isEnabled: Bool
+    let onToggle: (Bool) -> Void
+
+    private var accentColor: Color {
+        Color(red: 0.62, green: 0.74, blue: 0.98)
+    }
+
+    var body: some View {
+        HStack(alignment: .center, spacing: 14) {
+            iconWell
+
+            VStack(alignment: .leading, spacing: 4) {
+                Text(L10n.TonalBed.rowTitle)
+                    .font(.system(size: 16, weight: .semibold, design: .rounded))
+                    .foregroundStyle(.white)
+                    .lineLimit(1)
+
+                Text(L10n.TonalBed.rowSubtitle)
+                    .font(.system(size: 12, weight: .medium, design: .rounded))
+                    .foregroundStyle(.white.opacity(0.62))
+                    .lineLimit(2)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+
+            Spacer(minLength: 6)
+
+            Toggle("", isOn: Binding(get: { isEnabled }, set: onToggle))
+                .labelsHidden()
+                .tint(accentColor)
+        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 14)
+        .background {
+            RoundedRectangle(cornerRadius: 20, style: .continuous)
+                .fill(Color.white.opacity(0.001))
+                .oasisGlassEffect(in: RoundedRectangle(cornerRadius: 20, style: .continuous))
+                .overlay {
+                    RoundedRectangle(cornerRadius: 20, style: .continuous)
+                        .fill(isEnabled ? accentColor.opacity(0.14) : Color.white.opacity(0.018))
+                }
+        }
+        .overlay {
+            RoundedRectangle(cornerRadius: 20, style: .continuous)
+                .strokeBorder(
+                    isEnabled ? accentColor.opacity(0.34) : Color.white.opacity(0.08),
+                    lineWidth: 1.15
+                )
+        }
+        .shadow(color: isEnabled ? accentColor.opacity(0.14) : .clear, radius: 14, y: 2)
+        .animation(.smooth(duration: 0.26), value: isEnabled)
+        .accessibilityElement(children: .combine)
+        .accessibilityIdentifier("binaural.tonalBed.toggle")
+    }
+
+    /// Circular icon well on the left. The breathing wave inside makes the card feel like
+    /// an audio surface even when the pad is off — hints at what the toggle activates.
+    private var iconWell: some View {
+        ZStack {
+            Circle()
+                .fill(isEnabled ? accentColor.opacity(0.22) : Color.white.opacity(0.06))
+
+            Circle()
+                .strokeBorder(
+                    isEnabled ? accentColor.opacity(0.45) : Color.white.opacity(0.10),
+                    lineWidth: 1
+                )
+
+            AmbientPadWaveGlyph(accentColor: accentColor, isEnabled: isEnabled)
+                .padding(8)
+        }
+        .frame(width: 44, height: 44)
+    }
+}
+
+/// Minimal three-line wave rendered inside the pad card's icon well. Breathes when the pad
+/// is on (animated via `TimelineView`), holds a flat low-amplitude silhouette when off so
+/// the icon still reads as a frequency graph.
+private struct AmbientPadWaveGlyph: View {
+    let accentColor: Color
+    let isEnabled: Bool
+
+    var body: some View {
+        TimelineView(.animation(minimumInterval: 1.0 / 24.0, paused: !isEnabled)) { context in
+            Canvas { gc, size in
+                let t = isEnabled ? context.date.timeIntervalSinceReferenceDate : 0
+                drawWaves(gc: gc, size: size, time: t)
+            }
+        }
+    }
+
+    private func drawWaves(gc: GraphicsContext, size: CGSize, time: TimeInterval) {
+        let midY = size.height / 2
+        let amp = isEnabled ? size.height * 0.24 : size.height * 0.08
+        // Three detuned sines at different phase speeds so the motion reads as a slow drone,
+        // never as a metronome.
+        let frequencies: [Double] = [2.6, 3.8, 5.2]
+        let speeds: [Double] = [0.9, 1.3, 1.7]
+        let weights: [Double] = [0.55, 0.30, 0.15]
+        let color = isEnabled ? accentColor : Color.white.opacity(0.52)
+
+        var path = Path()
+        path.move(to: CGPoint(x: 0, y: midY))
+
+        var x: Double = 0
+        let step: Double = 1.2
+        while x <= Double(size.width) {
+            let nx = x / Double(size.width)
+            var wave: Double = 0
+            for i in 0..<frequencies.count {
+                wave += sin(nx * frequencies[i] * .pi + time * speeds[i]) * weights[i]
+            }
+            let envelope = sin(nx * .pi)
+            let y = midY + amp * wave * envelope
+            path.addLine(to: CGPoint(x: x, y: y))
+            x += step
+        }
+
+        gc.stroke(path, with: .color(color.opacity(0.88)), lineWidth: 1.2)
     }
 }

@@ -68,7 +68,12 @@ struct AnimatedLiquidAura<ShapeType: Shape>: View {
 
     @ViewBuilder
     private func auraBody(size: CGSize) -> some View {
-        if isAnimated, scenePhase == .active {
+        // Under UI-test automation we render a single static frame: a continuously
+        // running TimelineView keeps SwiftUI invalidating the view hierarchy, which
+        // prevents `XCUIApplication` from ever reaching quiescence. Every subsequent
+        // tap then spends up to 60s in the quiescence wait loop — tests become
+        // painfully slow and flaky. The static frame still looks great in captures.
+        if isAnimated, scenePhase == .active, !AppConfiguration.isRunningScreenshotAutomation {
             TimelineView(.periodic(from: .now, by: 1.0 / max(frameRate, 1))) { context in
                 auraLayer(size: size, time: relativeTime(at: context.date))
             }
