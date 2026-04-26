@@ -27,40 +27,42 @@ private struct BrandLockupView: View {
     /// Cap on the lockup's frame at full expanded state. The previous design
     /// hard-coded "47pt = 22pt wordmark + 25pt padding" which silently chopped
     /// the wave: 22pt is the font *size*, not the *line height* — SF Pro
-    /// semibold at 22pt actually renders at ~26pt of vertical typographic
-    /// metrics. Real intrinsic content height is ~51pt (26pt text + 1pt gap +
-    /// 24pt wave canvas), so the outer frame was ~4pt too short and the
-    /// bottom of the wave was being clipped by `.clipped()`. 60pt gives a
-    /// generous cushion against any iOS-version variance in font metrics.
+    /// semibold at 22pt actually renders at ~26pt of typographic metrics. The
+    /// real intrinsic content (~51pt) was ~4pt larger than the cap, and
+    /// `.clipped()` swallowed the wave's bottom strokes. 60pt gives a
+    /// generous cushion against iOS-version variance in font metrics.
     private static let expandedHeightCap: CGFloat = 60
-    private static let waveHeight: CGFloat = 24
-    private static let textWaveSpacing: CGFloat = 1
 
     var body: some View {
-        // Explicit VStack instead of the previous text-padding + background trick:
-        // the wave is now its own layout sibling with a guaranteed 24pt height,
-        // so its bottom strokes can never be clipped by an undersized outer
-        // frame. Using `maxHeight` (rather than a fixed `height`) lets the
-        // intrinsic content size win at full visibility while still collapsing
-        // toward zero as the user scrolls.
-        VStack(spacing: Self.textWaveSpacing) {
-            Text(verbatim: "OASIS")
-                .font(.system(size: 22, weight: .semibold))
-                .kerning(4)
-                .foregroundStyle(.white.opacity(0.96))
-
-            WaveformSignatureLine()
-                .frame(maxWidth: .infinity)
-                .frame(height: Self.waveHeight)
-        }
-        .frame(maxWidth: .infinity)
-        .frame(maxHeight: Self.expandedHeightCap * visibility, alignment: .top)
-        .opacity(visibility)
-        .scaleEffect(0.92 + (visibility * 0.08), anchor: .top)
-        .clipped()
-        .accessibilityElement(children: .combine)
-        .accessibilityLabel(L10n.App.title)
-        .animation(.smooth(duration: 0.18), value: visibility)
+        // Anchoring the waveform to the text's *own* frame via `.background`
+        // serves two purposes:
+        //   1. The wave inherits the text's intrinsic width (~95pt for
+        //      "OASIS" at 22pt semibold + 4pt kerning) instead of stretching
+        //      across the screen — matches the wordmark's footprint.
+        //   2. Any side-bearing or trailing-kerning quirk shifts wave and
+        //      wordmark together, never apart.
+        //
+        // 25pt bottom padding hosts the 24pt-tall wave with 1pt of clear space
+        // between the baseline of the wordmark and the top of the wave.
+        Text(verbatim: "OASIS")
+            .font(.system(size: 22, weight: .semibold))
+            .kerning(4)
+            .foregroundStyle(.white.opacity(0.96))
+            .padding(.bottom, 25)
+            .background(alignment: .bottom) {
+                WaveformSignatureLine()
+                    .frame(maxWidth: .infinity, maxHeight: 24)
+            }
+            // `maxHeight` (not a fixed `height`) so intrinsic ~51pt content
+            // wins at full visibility, while the cap still collapses to 0
+            // when the user scrolls.
+            .frame(maxHeight: Self.expandedHeightCap * visibility, alignment: .top)
+            .opacity(visibility)
+            .scaleEffect(0.92 + (visibility * 0.08), anchor: .top)
+            .clipped()
+            .accessibilityElement(children: .combine)
+            .accessibilityLabel(L10n.App.title)
+            .animation(.smooth(duration: 0.18), value: visibility)
     }
 }
 
