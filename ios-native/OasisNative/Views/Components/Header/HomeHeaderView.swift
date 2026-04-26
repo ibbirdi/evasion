@@ -200,13 +200,26 @@ struct HomeToolbarTimerMenu: View {
     }
 }
 
-/// Toggles "show only audible channels". Native nav-bar button; SF Symbol swaps between
-/// outline and filled to signal state, tint turns mint green when on.
+/// Toggles "show only audible channels". Native nav-bar button; tint turns mint green
+/// when the filter is on. Carries a small numeric badge in the top-trailing corner of
+/// the icon showing how many channels are currently audible — same pattern Apple uses
+/// for selection counts in Photos and filter indicators in Mail.
+///
+/// We use a manual overlay rather than SwiftUI's `.badge(_:)` modifier because the latter
+/// only attaches badges to `ToolbarItem` from iOS 26 (Liquid Glass) onwards. The overlay
+/// renders identically across the iOS 18 baseline and iOS 26+, and avoids a version
+/// branch.
 struct HomeToolbarActiveFilter: View {
     @Environment(AppModel.self) private var model
 
+    private static let activeAccent = Color(red: 0.54, green: 0.88, blue: 0.70)
+
     private var isActivated: Bool {
         model.showsOnlyActiveChannels
+    }
+
+    private var count: Int {
+        model.activeAmbientChannelsCount
     }
 
     var body: some View {
@@ -215,15 +228,51 @@ struct HomeToolbarActiveFilter: View {
                 model.showsOnlyActiveChannels.toggle()
             }
         } label: {
-            // No `.circle` variant — the toolbar button itself already provides the chrome.
-            // State is communicated by tint alone, so a duplicate stroked outline isn't
-            // needed.
             Image(systemName: "line.3.horizontal.decrease")
-                .foregroundStyle(isActivated
-                    ? Color(red: 0.54, green: 0.88, blue: 0.70)
-                    : .white.opacity(0.86))
+                .foregroundStyle(isActivated ? Self.activeAccent : .white.opacity(0.86))
+                .overlay(alignment: .topTrailing) {
+                    if count > 0 {
+                        badge
+                    }
+                }
+                // Reserve space so the badge doesn't get clipped against the toolbar's
+                // tight frame around the SF Symbol's intrinsic bounds.
+                .padding(.trailing, 4)
+                .padding(.top, 2)
         }
         .accessibilityIdentifier("home.header.active-filter")
-        .accessibilityLabel("Show only active channels")
+        .accessibilityLabel(accessibilityLabel)
+    }
+
+    /// Pill-shaped numeric badge. Picks up the active-state mint accent when the filter
+    /// is on; falls back to a neutral white wash when the filter is off but channels
+    /// are still audible — so the count remains readable without implying the filter
+    /// is engaged.
+    private var badge: some View {
+        Text("\(count)")
+            .font(.system(size: 10, weight: .bold, design: .rounded))
+            .foregroundStyle(.black.opacity(0.86))
+            .monospacedDigit()
+            .padding(.horizontal, 4)
+            .padding(.vertical, 0.5)
+            .frame(minWidth: 15, minHeight: 15)
+            .background {
+                Capsule()
+                    .fill(isActivated ? Self.activeAccent : Color.white.opacity(0.86))
+            }
+            .overlay {
+                Capsule().strokeBorder(Color.black.opacity(0.08), lineWidth: 0.5)
+            }
+            // Sits in the top-trailing corner of the SF Symbol, partially overhanging
+            // its bounding box the way iOS notification badges do.
+            .offset(x: 9, y: -8)
+            .accessibilityHidden(true)
+    }
+
+    private var accessibilityLabel: String {
+        if count > 0 {
+            return "Show only active channels. \(count) active."
+        }
+        return "Show only active channels"
     }
 }
