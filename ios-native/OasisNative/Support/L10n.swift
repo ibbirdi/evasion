@@ -300,9 +300,9 @@ enum L10n {
 
         static let dailyPrice = LocalizedStringResource(
             "paywall.anchor.dailyPrice",
-            defaultValue: "The price of a coffee in London",
+            defaultValue: "The price of a coffee in Paris",
             bundle: .main,
-            comment: "Price-anchoring tagline shown below the CTA. Uses a coffee-price metaphor (localized per market) instead of an explicit per-day cost — the value framing felt more relatable than the numeric one."
+            comment: "Price-anchoring tagline shown below the CTA. Uses a coffee-price metaphor (Paris kept across all locales — only the city name is grammatically adapted, e.g. 'Parigi' in IT, 'París' in ES) instead of an explicit per-day cost."
         )
     }
 
