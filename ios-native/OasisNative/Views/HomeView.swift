@@ -181,9 +181,11 @@ struct HomeView: View {
 
                     VStack(spacing: 0) {
                         HomeHeaderView(compactProgress: headerCompactProgress)
-                        // Pulls the top toolbar closer to the status bar as the logo
-                        // collapses. Saves ~14 pt of vertical space at full compact.
-                        .padding(.top, proxy.safeAreaInsets.top + 4 - (headerCompactProgress * 14))
+                        // Wordmark sits flush with the status-bar boundary at rest
+                        // (no extra 4pt cushion — the wave already buffers the
+                        // bottom). Pulls 14pt closer to the status bar at full
+                        // compact.
+                        .padding(.top, proxy.safeAreaInsets.top - (headerCompactProgress * 14))
                         .padding(.horizontal, 8)
 
                         Spacer(minLength: 0)

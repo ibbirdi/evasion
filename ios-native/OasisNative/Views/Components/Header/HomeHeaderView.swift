@@ -34,17 +34,18 @@ private struct BrandLockupView: View {
             .font(.system(size: 22, weight: .semibold))
             .kerning(4)
             .foregroundStyle(.white.opacity(0.96))
-            // 28pt padding-bottom gives the wave a 24pt drawing zone with 4pt of gap
-            // between the wordmark and the top of the wave. Wave anchors to the bottom
-            // of this padded text frame.
-            .padding(.bottom, 28)
+            // 25pt padding-bottom gives the wave a 24pt drawing zone with 1pt of gap
+            // between the wordmark and the top of the wave — tight visual coupling
+            // so the wave reads as the wordmark's underline, not a separate element.
+            // Wave anchors to the bottom of this padded text frame.
+            .padding(.bottom, 25)
             .background(alignment: .bottom) {
                 WaveformSignatureLine()
                     .frame(maxWidth: .infinity, maxHeight: 24)
             }
             .frame(maxWidth: .infinity)
-            // Total content is 22pt wordmark + 28pt padding (with 24pt wave inside) = 50pt.
-            .frame(height: 50 * visibility, alignment: .top)
+            // Total content is 22pt wordmark + 25pt padding (with 24pt wave inside) = 47pt.
+            .frame(height: 47 * visibility, alignment: .top)
             .opacity(visibility)
             .scaleEffect(0.92 + (visibility * 0.08), anchor: .top)
             .clipped()
