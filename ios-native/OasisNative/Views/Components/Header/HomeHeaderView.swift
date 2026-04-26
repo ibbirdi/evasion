@@ -34,15 +34,17 @@ private struct BrandLockupView: View {
             .font(.system(size: 22, weight: .semibold))
             .kerning(4)
             .foregroundStyle(.white.opacity(0.96))
-            .padding(.bottom, 12)
+            // Padding grown from 12 → 20 to give the wave a 16pt drawing zone; the
+            // .background overlay anchors to the bottom of this padded text frame so the
+            // wave sits in the bottom 16pt of the 20pt padding.
+            .padding(.bottom, 20)
             .background(alignment: .bottom) {
                 WaveformSignatureLine()
-                    .frame(maxWidth: .infinity, maxHeight: 8)
+                    .frame(maxWidth: .infinity, maxHeight: 16)
             }
             .frame(maxWidth: .infinity)
-            // Height matched to natural content (22pt wordmark + 12pt padding + 8pt wave ≈
-            // 42pt) instead of the legacy 74pt box. Drops the excess empty space below the
-            // logo so the lockup reads as vertically centred against the quick-controls row.
+            // Total content is 22pt wordmark + 20pt padding (with 16pt wave inside) = 42pt.
+            // Frame matched exactly so the lockup collapses cleanly with `visibility`.
             .frame(height: 42 * visibility, alignment: .top)
             .opacity(visibility)
             .scaleEffect(0.92 + (visibility * 0.08), anchor: .top)
@@ -54,47 +56,88 @@ private struct BrandLockupView: View {
 }
 
 /// Signature line rendered beneath the OASIS wordmark. Has two character states that the
-/// view smoothly interpolates between:
+/// view smoothly morphs between via an explicit time-based phase:
 ///
-/// - **Paused** (`playingPhase` = 0): a single regular sinusoid, slow phase, moderate
-///   amplitude. Reads as a quiet pulse — the wordmark is alive but at rest.
-/// - **Playing** (`playingPhase` = 1): three detuned sines plus a long-period drift term,
-///   faster phase, larger amplitude. The shape never repeats exactly.
+/// - **Paused** (`phase` = 0): a single regular sinusoid, slow speed, moderate amplitude.
+/// - **Playing** (`phase` = 1): three detuned sines plus a drift term, faster speed, much
+///   larger amplitude. The shape never repeats exactly.
 ///
-/// `playingPhase` is animated by `withAnimation(.easeInOut)` whenever `model.isPlaying`
-/// flips. Each TimelineView tick during the transition reads the current interpolated
-/// value, so the wave morphs continuously between the two characters.
+/// Transition: when `model.isPlaying` flips, we capture the current interpolated phase as
+/// `phaseFrom`, set `phaseTo` to the new target, and stamp `transitionStartTime`. Every
+/// TimelineView tick computes the current phase from `(now - start) / duration` clamped
+/// and eased — so the wave morphs frame-by-frame for the full 0.7 s, even though the
+/// drawing happens inside a `Canvas` (where SwiftUI's `withAnimation` does NOT interpolate
+/// raw `@State Double` values, since the canvas isn't an animatable view).
 private struct WaveformSignatureLine: View {
     @Environment(AppModel.self) private var model
-    @State private var playingPhase: Double = 0
+
+    @State private var phaseFrom: Double = 0
+    @State private var phaseTo: Double = 0
+    @State private var transitionStartTime: TimeInterval = 0
+    @State private var hasInitialised = false
+
+    private static let transitionDuration: Double = 0.7
 
     var body: some View {
         // Under UI-test automation, freeze the timeline so XCUITest can reach quiescence
         // for screenshot capture.
         let shouldPause = AppConfiguration.isRunningScreenshotAutomation
         TimelineView(.animation(minimumInterval: 1.0 / 24.0, paused: shouldPause)) { context in
+            let now = AppConfiguration.isRunningScreenshotAutomation
+                ? 3.4
+                : context.date.timeIntervalSinceReferenceDate
+            let phase = computePhase(at: now)
             let palette = model.activePlaybackPalette
+
             Canvas { gc, size in
                 drawWave(
                     gc: gc,
                     size: size,
-                    time: AppConfiguration.isRunningScreenshotAutomation
-                        ? 3.4
-                        : context.date.timeIntervalSinceReferenceDate,
+                    time: now,
                     palette: palette,
                     paletteCount: palette.count,
-                    phase: playingPhase
+                    phase: phase
                 )
             }
         }
         .onAppear {
-            playingPhase = model.isPlaying ? 1 : 0
+            initialiseIfNeeded()
         }
         .onChange(of: model.isPlaying) { _, newValue in
-            withAnimation(.easeInOut(duration: 0.7)) {
-                playingPhase = newValue ? 1 : 0
-            }
+            startTransition(toPlaying: newValue)
         }
+    }
+
+    private func initialiseIfNeeded() {
+        guard !hasInitialised else { return }
+        let initial: Double = model.isPlaying ? 1 : 0
+        phaseFrom = initial
+        phaseTo = initial
+        // A start time far in the past means the transition is already complete — phase
+        // returns `phaseTo` immediately.
+        transitionStartTime = 0
+        hasInitialised = true
+    }
+
+    private func startTransition(toPlaying: Bool) {
+        let now = Date().timeIntervalSinceReferenceDate
+        // Capture wherever the wave currently is, so rapid play/pause toggles animate
+        // smoothly from the in-flight value rather than snapping back to phaseFrom.
+        phaseFrom = computePhase(at: now)
+        phaseTo = toPlaying ? 1 : 0
+        transitionStartTime = now
+    }
+
+    private func computePhase(at now: TimeInterval) -> Double {
+        // Default: target value (no transition in progress, or we're past the duration).
+        guard transitionStartTime > 0 else { return phaseTo }
+        let elapsed = now - transitionStartTime
+        if elapsed >= Self.transitionDuration { return phaseTo }
+        if elapsed <= 0 { return phaseFrom }
+        let t = elapsed / Self.transitionDuration
+        // Smoothstep — ease in and ease out.
+        let eased = t * t * (3 - 2 * t)
+        return phaseFrom + (phaseTo - phaseFrom) * eased
     }
 
     private func drawWave(
@@ -110,38 +153,37 @@ private struct WaveformSignatureLine: View {
         let width = size.width
         let step: Double = 1.4
 
-        // Phase clamps. SwiftUI's animator can briefly overshoot a State Double, so guard
-        // against negative weights or amplitude.
         let p = max(0, min(1, phase))
 
-        // Speed: 0.40 at rest → 1.05 at full playback. Slightly faster than the previous
-        // 0.9 so the playing motion reads as more energetic.
-        let speed = 0.40 + (1.05 - 0.40) * p
+        // Speed: 0.40 at rest → 1.20 at full playback. Faster than the previous 1.05 so
+        // playback motion reads as noticeably more energetic.
+        let speed = 0.40 + (1.20 - 0.40) * p
         let phaseTime = time * speed
 
         // Harmonic weights interpolate from "single regular sinusoid" (paused) to "three
         // detuned sines + drift" (playing).
         let primaryWeight = 1.00 + (0.55 - 1.00) * p
-        let secondaryWeight = 0.0 + (0.30 - 0.0) * p
-        let tertiaryWeight = 0.0 + (0.15 - 0.0) * p
-        let driftWeight = 0.0 + (0.18 - 0.0) * p
+        let secondaryWeight = 0.30 * p
+        let tertiaryWeight = 0.15 * p
+        let driftWeight = 0.18 * p
 
-        // Amplitude grows with the active-channel count during playback. Idle amplitude
-        // bumped from the previous 0.18 to 0.30 so the resting motion feels intentional.
-        let idleAmp = 0.30
-        let playAmp = min(1.0, 0.55 + Double(paletteCount) * 0.13)
+        // Amplitude. Idle bumped slightly (0.40); playing bumped *significantly* — base
+        // 1.05 plus 0.10 per active channel, capped at 1.40. With the 16pt-tall canvas,
+        // peaks now reach ~7pt vertical excursion at full count, vs ~4pt in the previous
+        // 8pt canvas. Roughly 80% larger visible amplitude during playback.
+        let idleAmp = 0.40
+        let playAmp = min(1.40, 1.05 + Double(paletteCount) * 0.10)
         let amplitude = idleAmp + (playAmp - idleAmp) * p
 
-        // Slow envelope modulator, scaled in proportion to the playing phase. At rest it's
-        // a constant 1.0; during playback it varies between 0.7 and 1.0 over time so peaks
-        // breathe instead of sitting at the same height.
+        // Slow envelope modulator, scaled to phase. Constant 1.0 at rest; during playback
+        // varies 0.7…1.0 over time so peaks breathe instead of cycling at fixed height.
         let envelopeNoise = 1.0 + (0.7 + 0.3 * sin(time * 0.42) - 1.0) * p
 
         path.move(to: CGPoint(x: 0, y: midY))
 
         var x: Double = 0
         while x <= Double(width) {
-            let nx = x / Double(width)           // 0 ... 1
+            let nx = x / Double(width)
 
             let wave =
                 sin(nx * 4.5 * .pi + phaseTime) * primaryWeight +
@@ -149,10 +191,8 @@ private struct WaveformSignatureLine: View {
                 sin(nx * 10.0 * .pi + phaseTime * 1.8) * tertiaryWeight +
                 sin(nx * 1.7 * .pi + time * 0.6) * driftWeight
 
-            // Raised-sine envelope tapers both ends to zero so the line fades in/out
-            // instead of stopping abruptly at the edges of the frame.
             let envelope = sin(nx * .pi)
-            let y = midY + amplitude * envelopeNoise * Double(size.height) * 0.46 * wave * envelope
+            let y = midY + amplitude * envelopeNoise * Double(size.height) * 0.30 * wave * envelope
 
             path.addLine(to: CGPoint(x: x, y: y))
             x += step
