@@ -80,10 +80,12 @@ final class OasisNativeScreenshots: XCTestCase {
             runScenario { app in
                 // 04 Binaural panel — Delta (free) + Theta/Alpha/Beta (premium) visible.
                 // Ambient mix also playing so the background above the sheet feels alive.
+                // Binaural button lives in the bottom bar (was moved out of the
+                // header when the native toolbar took over).
                 launchApp(app, premiumOverride: "premium")
                 startPlayingMix(in: app, shuffleFirst: true)
-                waitForHittable(button(in: app, id: "home.header.binaural"))
-                tap(button(in: app, id: "home.header.binaural"))
+                waitForHittable(button(in: app, id: "home.bottom.binaural"))
+                tap(button(in: app, id: "home.bottom.binaural"))
                 _ = panel(in: app, id: "panel.binaural.container").waitForExistence(timeout: 6)
                 pause(seconds: 0.5)
                 snapshot("04_binaural", waitForLoadingIndicator: false)
@@ -106,10 +108,12 @@ final class OasisNativeScreenshots: XCTestCase {
         if shouldRun("06_presets") {
             runScenario { app in
                 // 06 Presets panel — default + signature "After the Rain" mix visible.
+                // Presets button lives in the bottom bar (moved out of the header
+                // when the native toolbar took over).
                 launchApp(app, premiumOverride: "premium")
                 startPlayingMix(in: app, shuffleFirst: true)
-                waitForHittable(button(in: app, id: "home.header.presets"))
-                tap(button(in: app, id: "home.header.presets"))
+                waitForHittable(button(in: app, id: "home.bottom.presets"))
+                tap(button(in: app, id: "home.bottom.presets"))
                 _ = panel(in: app, id: "panel.presets.container").waitForExistence(timeout: 6)
                 pause(seconds: 0.5)
                 snapshot("06_presets", waitForLoadingIndicator: false)
