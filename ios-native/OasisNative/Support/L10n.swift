@@ -237,9 +237,9 @@ enum L10n {
 
         static let benefitUpdates = LocalizedStringResource(
             "paywall.benefit.updates",
-            defaultValue: "Future Premium additions included",
+            defaultValue: "Free updates",
             bundle: .main,
-            comment: "Premium benefit row clarifying that future app updates are included without extra charge."
+            comment: "Premium benefit row stating that future updates are free."
         )
 
         static let noSubscription = LocalizedStringResource(
@@ -300,9 +300,9 @@ enum L10n {
 
         static let dailyPrice = LocalizedStringResource(
             "paywall.anchor.dailyPrice",
-            defaultValue: "Less than $0.03/day — yours forever",
+            defaultValue: "The price of a coffee in London",
             bundle: .main,
-            comment: "Price anchoring text shown below the CTA button demonstrating daily cost of lifetime purchase."
+            comment: "Price-anchoring tagline shown below the CTA. Uses a coffee-price metaphor (localized per market) instead of an explicit per-day cost — the value framing felt more relatable than the numeric one."
         )
     }
 

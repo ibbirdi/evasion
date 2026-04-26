@@ -3552,42 +3552,42 @@
     },
     "Opens sound details": {},
     "paywall.anchor.dailyPrice": {
-      "comment": "Price anchoring text shown below the CTA button demonstrating daily cost of lifetime purchase.",
+      "comment": "Price-anchoring tagline shown below the CTA. Uses a coffee-price metaphor (localized per market) instead of an explicit per-day cost — the value framing felt more relatable than the numeric one.",
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Weniger als 0,03 €/Tag — für immer deins"
+            "value": "Der Preis eines Kaffees in Berlin"
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Less than $0.03/day — yours forever"
+            "value": "The price of a coffee in London"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Menos de 0,03 €/día — tuyo para siempre"
+            "value": "El precio de un café en Madrid"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Moins de 0,03 €/jour — à vous pour toujours"
+            "value": "Le prix d'un café à Paris"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Meno di 0,03 €/giorno — tuo per sempre"
+            "value": "Il prezzo di un caffè a Milano"
           }
         },
         "pt": {
           "stringUnit": {
             "state": "translated",
-            "value": "Menos de R$ 0,15/dia — seu para sempre"
+            "value": "O preço de um café em Lisboa"
           }
         }
       }
@@ -3757,42 +3757,42 @@
       }
     },
     "paywall.benefit.updates": {
-      "comment": "Premium benefit row clarifying that future app updates are included without extra charge.",
+      "comment": "Premium benefit row stating that future updates are free.",
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Zukünftige Premium-Neuheiten inklusive"
+            "value": "Kostenlose Updates"
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Future Premium additions included"
+            "value": "Free updates"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Futuras novedades Premium incluidas"
+            "value": "Actualizaciones gratuitas"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nouveautés Premium incluses"
+            "value": "Mises à jour gratuites"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Future novità Premium incluse"
+            "value": "Aggiornamenti gratuiti"
           }
         },
         "pt": {
           "stringUnit": {
             "state": "translated",
-            "value": "Novidades Premium futuras incluídas"
+            "value": "Atualizações gratuitas"
           }
         }
       }
@@ -6342,18 +6342,17 @@
     },
     "tonalBed.row.subtitle": {
       "comment": "One-line explanation of what the ambient-pad toggle does, shown beneath the row title.",
-      "extractionState": "extracted_with_value",
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "A quiet harmonic layer under the mix."
-          }
-        },
         "de": {
           "stringUnit": {
             "state": "translated",
             "value": "Eine leise harmonische Schicht unter dem Mix."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A quiet harmonic layer under the mix."
           }
         },
         "es": {
@@ -6384,18 +6383,17 @@
     },
     "tonalBed.row.title": {
       "comment": "Title of the ambient-pad row in the binaural panel — controls the procedural harmonic drone that sits under the mix.",
-      "extractionState": "extracted_with_value",
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ambient pad"
-          }
-        },
         "de": {
           "stringUnit": {
             "state": "translated",
             "value": "Ambient-Pad"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ambient pad"
           }
         },
         "es": {
