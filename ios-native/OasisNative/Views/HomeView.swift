@@ -166,10 +166,11 @@ struct HomeView: View {
                             )
                         }
                         .padding(.horizontal, 16)
-                        // Header footprint is ~103 after the logo height reduction; this
-                        // padding leaves ~17 pt of breathing room before the first row
-                        // rather than the 53 pt gap that came from the legacy 156 value.
-                        .padding(.top, proxy.safeAreaInsets.top + 120)
+                        // Header is now ~58pt tall (brand lockup only — Timer/Filter
+                        // moved to the native nav-bar toolbar). Top inset reduced from
+                        // 120 → 78 so the first card sits ~16pt below the waveform
+                        // instead of the previous ~60pt empty band.
+                        .padding(.top, proxy.safeAreaInsets.top + 78)
                         .padding(.bottom, 110)
                         .frame(maxWidth: .infinity, alignment: .top)
                     }

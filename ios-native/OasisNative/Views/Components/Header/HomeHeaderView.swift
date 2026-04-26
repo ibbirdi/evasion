@@ -53,31 +53,27 @@ private struct BrandLockupView: View {
     }
 }
 
-/// Signature line rendered beneath the OASIS wordmark. Always carries a quiet sinusoidal
-/// motion so the wordmark feels alive even when the app is paused; gains amplitude and
-/// shape variation when audio is playing. Colour reflects the tints of the currently
-/// mixed palette, falling back to white when no channel is audible.
+/// Signature line rendered beneath the OASIS wordmark. Has two character states that the
+/// view smoothly interpolates between:
+///
+/// - **Paused** (`playingPhase` = 0): a single regular sinusoid, slow phase, moderate
+///   amplitude. Reads as a quiet pulse — the wordmark is alive but at rest.
+/// - **Playing** (`playingPhase` = 1): three detuned sines plus a long-period drift term,
+///   faster phase, larger amplitude. The shape never repeats exactly.
+///
+/// `playingPhase` is animated by `withAnimation(.easeInOut)` whenever `model.isPlaying`
+/// flips. Each TimelineView tick during the transition reads the current interpolated
+/// value, so the wave morphs continuously between the two characters.
 private struct WaveformSignatureLine: View {
     @Environment(AppModel.self) private var model
+    @State private var playingPhase: Double = 0
 
     var body: some View {
-        // Under UI-test automation, freeze the timeline. The animated waveform otherwise
-        // keeps SwiftUI invalidating the view tree non-stop, which blocks XCUITest's
-        // quiescence wait and slows screenshot runs ~5× while making them flaky.
-        //
-        // Paused renders exactly one frame, preserving a deterministic shape for marketing.
+        // Under UI-test automation, freeze the timeline so XCUITest can reach quiescence
+        // for screenshot capture.
         let shouldPause = AppConfiguration.isRunningScreenshotAutomation
-        // Lower framerate when paused to spend less main-thread budget on a nearly-still
-        // wave. 30fps while playing keeps the motion buttery.
-        let frameInterval: Double = model.isPlaying ? 1.0 / 30.0 : 1.0 / 18.0
-        TimelineView(.animation(minimumInterval: frameInterval, paused: shouldPause)) { context in
+        TimelineView(.animation(minimumInterval: 1.0 / 24.0, paused: shouldPause)) { context in
             let palette = model.activePlaybackPalette
-            // Quiet idle wave (~0.18) when paused; richer amplitude tied to active-channel
-            // count when playing.
-            let amplitude: Double = model.isPlaying
-                ? min(1.0, 0.55 + Double(palette.count) * 0.13)
-                : 0.18
-
             Canvas { gc, size in
                 drawWave(
                     gc: gc,
@@ -85,10 +81,18 @@ private struct WaveformSignatureLine: View {
                     time: AppConfiguration.isRunningScreenshotAutomation
                         ? 3.4
                         : context.date.timeIntervalSinceReferenceDate,
-                    amplitude: amplitude,
                     palette: palette,
-                    isPlaying: model.isPlaying
+                    paletteCount: palette.count,
+                    phase: playingPhase
                 )
+            }
+        }
+        .onAppear {
+            playingPhase = model.isPlaying ? 1 : 0
+        }
+        .onChange(of: model.isPlaying) { _, newValue in
+            withAnimation(.easeInOut(duration: 0.7)) {
+                playingPhase = newValue ? 1 : 0
             }
         }
     }
@@ -97,22 +101,41 @@ private struct WaveformSignatureLine: View {
         gc: GraphicsContext,
         size: CGSize,
         time: TimeInterval,
-        amplitude: Double,
         palette: [Color],
-        isPlaying: Bool
+        paletteCount: Int,
+        phase: Double
     ) {
         var path = Path()
         let midY = size.height / 2
         let width = size.width
         let step: Double = 1.4
-        let phase = time * (isPlaying ? 0.9 : 0.35)
 
-        // Slow envelope modulator, only active during playback. Multiplies the wave's
-        // amplitude over time and across X so peaks vary in height — keeps the line from
-        // looking like a perfect repeating cycle.
-        let envelopeNoise: Double = isPlaying
-            ? 0.7 + 0.3 * sin(time * 0.42)
-            : 1.0
+        // Phase clamps. SwiftUI's animator can briefly overshoot a State Double, so guard
+        // against negative weights or amplitude.
+        let p = max(0, min(1, phase))
+
+        // Speed: 0.40 at rest → 1.05 at full playback. Slightly faster than the previous
+        // 0.9 so the playing motion reads as more energetic.
+        let speed = 0.40 + (1.05 - 0.40) * p
+        let phaseTime = time * speed
+
+        // Harmonic weights interpolate from "single regular sinusoid" (paused) to "three
+        // detuned sines + drift" (playing).
+        let primaryWeight = 1.00 + (0.55 - 1.00) * p
+        let secondaryWeight = 0.0 + (0.30 - 0.0) * p
+        let tertiaryWeight = 0.0 + (0.15 - 0.0) * p
+        let driftWeight = 0.0 + (0.18 - 0.0) * p
+
+        // Amplitude grows with the active-channel count during playback. Idle amplitude
+        // bumped from the previous 0.18 to 0.30 so the resting motion feels intentional.
+        let idleAmp = 0.30
+        let playAmp = min(1.0, 0.55 + Double(paletteCount) * 0.13)
+        let amplitude = idleAmp + (playAmp - idleAmp) * p
+
+        // Slow envelope modulator, scaled in proportion to the playing phase. At rest it's
+        // a constant 1.0; during playback it varies between 0.7 and 1.0 over time so peaks
+        // breathe instead of sitting at the same height.
+        let envelopeNoise = 1.0 + (0.7 + 0.3 * sin(time * 0.42) - 1.0) * p
 
         path.move(to: CGPoint(x: 0, y: midY))
 
@@ -120,24 +143,16 @@ private struct WaveformSignatureLine: View {
         while x <= Double(width) {
             let nx = x / Double(width)           // 0 ... 1
 
-            // Three detuned sines produce organic breathing. While playing, a fourth slow
-            // sine adds shape variation that doesn't repeat on a short cycle.
-            var wave =
-                sin(nx * 4.5 * .pi + phase) * 0.55 +
-                sin(nx * 7.0 * .pi + phase * 1.4) * 0.30 +
-                sin(nx * 10.0 * .pi + phase * 1.8) * 0.15
-
-            if isPlaying {
-                // Long-period noise that drifts the peaks, varying by both x and time so
-                // the same shape never repeats exactly.
-                let drift = sin(nx * 1.7 * .pi + time * 0.6) * 0.18
-                wave += drift
-            }
+            let wave =
+                sin(nx * 4.5 * .pi + phaseTime) * primaryWeight +
+                sin(nx * 7.0 * .pi + phaseTime * 1.4) * secondaryWeight +
+                sin(nx * 10.0 * .pi + phaseTime * 1.8) * tertiaryWeight +
+                sin(nx * 1.7 * .pi + time * 0.6) * driftWeight
 
             // Raised-sine envelope tapers both ends to zero so the line fades in/out
             // instead of stopping abruptly at the edges of the frame.
             let envelope = sin(nx * .pi)
-            let y = midY + amplitude * envelopeNoise * Double(size.height) * 0.42 * wave * envelope
+            let y = midY + amplitude * envelopeNoise * Double(size.height) * 0.46 * wave * envelope
 
             path.addLine(to: CGPoint(x: x, y: y))
             x += step
