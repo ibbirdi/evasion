@@ -56,23 +56,28 @@ struct SoundLocationMinimap: View {
         .disabled(true)
     }
 
+    /// Pin shaped as a circle stacked on top of a downward-pointing triangle. We
+    /// use a `VStack` (not an `.overlay`) so the triangle is part of the pin's
+    /// layout frame: combined with `Annotation(anchor: .bottom)`, that puts the
+    /// triangle's tip — *not* the circle's bottom edge — exactly on the
+    /// coordinate. Without this, the pin visually reads as centered on the
+    /// location instead of pointing at it.
     private var pinGlyph: some View {
-        ZStack {
-            Circle()
-                .fill(channel.tint)
-                .frame(width: 30, height: 30)
-                .shadow(color: channel.tint.opacity(0.45), radius: 8, y: 2)
+        VStack(spacing: -1) {
+            ZStack {
+                Circle()
+                    .fill(channel.tint)
+                    .shadow(color: channel.tint.opacity(0.45), radius: 8, y: 2)
 
-            Image(systemName: channel.systemImage)
-                .font(.system(size: 13, weight: .semibold))
-                .foregroundStyle(.black.opacity(0.86))
-        }
-        .overlay(alignment: .bottom) {
-            // Small triangular tail so the pin reads as a marker rather than a dot.
+                Image(systemName: channel.systemImage)
+                    .font(.system(size: 13, weight: .semibold))
+                    .foregroundStyle(.black.opacity(0.86))
+            }
+            .frame(width: 30, height: 30)
+
             Triangle()
                 .fill(channel.tint)
                 .frame(width: 10, height: 8)
-                .offset(y: 7)
         }
     }
 
