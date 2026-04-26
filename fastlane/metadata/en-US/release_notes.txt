@@ -1,17 +1,6 @@
-Oasis 1.3.0 — 6 brand-new nature sounds
+Oasis 1.4.0
 
-• Campfire in the Michigan wilderness
-• Cafe in São Paulo
-• Lake at Fritton, Norfolk
-• Savanna in KwaZulu-Natal
-• Jungle in the Mexican rainforest
-• Jungle in Chiang Mai, Thailand
-
-Every sound is hand-recorded on location. Tap the info icon on any row to see the exact place, the field recordist, and the Creative Commons licence.
-
-Also in this release:
-• Redesigned header with a live waveform that reacts to your mix
-• Cleaner mixer with active-row highlights and location labels
-• Smoother playback transitions
+• Redesigned interface
+• Performance optimizations
 
 One-time purchase. No subscription, no account, no ads — ever.

@@ -1,17 +1,6 @@
-Oasis 1.3.0 — 6 sonidos naturales nuevos
+Oasis 1.4.0
 
-• Fogata en los bosques de Michigan
-• Café de São Paulo
-• Lago de Fritton, Norfolk
-• Sabana de KwaZulu-Natal
-• Selva tropical de México
-• Selva de Chiang Mai, Tailandia
-
-Cada sonido está grabado in situ. Toca el icono de información de una pista para ver la ubicación exacta, el autor y la licencia Creative Commons.
-
-También en esta versión:
-• Cabecera rediseñada con una onda animada que reacciona a tu mezcla
-• Mezclador más limpio con pistas activas destacadas y ubicaciones visibles
-• Transiciones de reproducción más suaves
+• Interfaz rediseñada
+• Optimización del rendimiento
 
 Compra única. Sin suscripción, sin cuenta, sin anuncios — nunca.
