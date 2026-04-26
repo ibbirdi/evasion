@@ -65,16 +65,21 @@ struct BinauralPanel: View {
                 )
             }
 
-            AmbientPadCard(
-                isEnabled: model.isTonalBedEnabled,
-                onToggle: { model.setTonalBedEnabled($0) }
-            )
-
             LazyVGrid(columns: columns, spacing: 8) {
                 ForEach(BinauralTrack.allCases) { track in
                     BinauralTrackCard(track: track)
                 }
             }
+
+            // Ambient pad anchored at the bottom of the panel: the binaural tracks
+            // are the headline choice (user picks one), so they sit immediately
+            // under the volume + toggle. The pad is an *additive* texture that
+            // sits underneath whatever you've picked, so it reads better as a
+            // closing footer than as something interrupting the track grid.
+            AmbientPadCard(
+                isEnabled: model.isTonalBedEnabled,
+                onToggle: { model.setTonalBedEnabled($0) }
+            )
         }
         .padding(.horizontal, 20)
         .padding(.bottom, 22)
@@ -197,10 +202,11 @@ private struct BinauralButtonScaleStyle: ButtonStyle {
     }
 }
 
-/// Atmospheric pad control surface. Sits above the binaural grid as a peer feature: it's
-/// another form of audio *texture*, not a setting toggle tucked in a footer. When active it
-/// gains an accent tint, a glowing border, and a subtle breathing wave so the user can see
-/// at a glance that something is sitting under their mix.
+/// Atmospheric pad control surface. Anchored at the bottom of the binaural panel —
+/// the tracks above are the headline choice, the pad is an additive texture that
+/// sits underneath whichever track you pick. When active it gains an accent tint, a
+/// glowing border, and a subtle breathing wave so the user can see at a glance that
+/// something is sitting under their mix.
 private struct AmbientPadCard: View {
     let isEnabled: Bool
     let onToggle: (Bool) -> Void

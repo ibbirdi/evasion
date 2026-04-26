@@ -107,20 +107,18 @@ enum L10n {
     }
 
     enum TonalBed {
-        // DRAFT — review before ship.
         static let rowTitle = LocalizedStringResource(
             "tonalBed.row.title",
             defaultValue: "Ambient pad",
             bundle: .main,
-            comment: "DRAFT — title of the toggle for the subtle harmonic drone under the nature mix."
+            comment: "Title of the ambient-pad row in the binaural panel — controls the procedural harmonic drone that sits under the mix."
         )
 
-        // DRAFT — review before ship.
         static let rowSubtitle = LocalizedStringResource(
             "tonalBed.row.subtitle",
             defaultValue: "A quiet harmonic layer under the mix.",
             bundle: .main,
-            comment: "DRAFT — one-line explanation of what the tonal bed toggle does."
+            comment: "One-line explanation of what the ambient-pad toggle does, shown beneath the row title."
         )
     }
 
