@@ -53,38 +53,41 @@ private struct BrandLockupView: View {
     }
 }
 
-/// Thin signature line rendered beneath the OASIS wordmark. Stays flat at rest and
-/// undulates when the app is playing. Amplitude grows with the number of active ambient
-/// channels, colour reflects the tints of the currently mixed palette.
+/// Signature line rendered beneath the OASIS wordmark. Always carries a quiet sinusoidal
+/// motion so the wordmark feels alive even when the app is paused; gains amplitude and
+/// shape variation when audio is playing. Colour reflects the tints of the currently
+/// mixed palette, falling back to white when no channel is audible.
 private struct WaveformSignatureLine: View {
     @Environment(AppModel.self) private var model
 
     var body: some View {
-        // Under UI-test automation, pause the animation. The moving waveform otherwise
-        // keeps SwiftUI invalidating the view tree non-stop, which prevents the app from
-        // ever reaching quiescence — XCUITest then waits up to 60s per interaction,
-        // making the screenshot run ~5× slower and flaky.
+        // Under UI-test automation, freeze the timeline. The animated waveform otherwise
+        // keeps SwiftUI invalidating the view tree non-stop, which blocks XCUITest's
+        // quiescence wait and slows screenshot runs ~5× while making them flaky.
         //
-        // Paused = true still renders exactly one frame, so the marketing shots keep a
-        // nice frozen wave shape at `context.date`'s initial value.
-        let shouldPause = !model.isPlaying || AppConfiguration.isRunningScreenshotAutomation
-        TimelineView(.animation(minimumInterval: 1.0 / 30.0, paused: shouldPause)) { context in
+        // Paused renders exactly one frame, preserving a deterministic shape for marketing.
+        let shouldPause = AppConfiguration.isRunningScreenshotAutomation
+        // Lower framerate when paused to spend less main-thread budget on a nearly-still
+        // wave. 30fps while playing keeps the motion buttery.
+        let frameInterval: Double = model.isPlaying ? 1.0 / 30.0 : 1.0 / 18.0
+        TimelineView(.animation(minimumInterval: frameInterval, paused: shouldPause)) { context in
             let palette = model.activePlaybackPalette
+            // Quiet idle wave (~0.18) when paused; richer amplitude tied to active-channel
+            // count when playing.
             let amplitude: Double = model.isPlaying
-                ? min(1.0, 0.35 + Double(palette.count) * 0.11)
-                : 0
+                ? min(1.0, 0.55 + Double(palette.count) * 0.13)
+                : 0.18
 
             Canvas { gc, size in
                 drawWave(
                     gc: gc,
                     size: size,
-                    // In screenshot mode, pin `time` to a deterministic value that produces
-                    // a visually-interesting peak (not a flat line frozen at t=0).
                     time: AppConfiguration.isRunningScreenshotAutomation
                         ? 3.4
                         : context.date.timeIntervalSinceReferenceDate,
                     amplitude: amplitude,
-                    palette: palette
+                    palette: palette,
+                    isPlaying: model.isPlaying
                 )
             }
         }
@@ -95,13 +98,21 @@ private struct WaveformSignatureLine: View {
         size: CGSize,
         time: TimeInterval,
         amplitude: Double,
-        palette: [Color]
+        palette: [Color],
+        isPlaying: Bool
     ) {
         var path = Path()
         let midY = size.height / 2
         let width = size.width
         let step: Double = 1.4
-        let phase = time * 0.9
+        let phase = time * (isPlaying ? 0.9 : 0.35)
+
+        // Slow envelope modulator, only active during playback. Multiplies the wave's
+        // amplitude over time and across X so peaks vary in height — keeps the line from
+        // looking like a perfect repeating cycle.
+        let envelopeNoise: Double = isPlaying
+            ? 0.7 + 0.3 * sin(time * 0.42)
+            : 1.0
 
         path.move(to: CGPoint(x: 0, y: midY))
 
@@ -109,17 +120,24 @@ private struct WaveformSignatureLine: View {
         while x <= Double(width) {
             let nx = x / Double(width)           // 0 ... 1
 
-            // Three detuned sines produce an organic breathing motion; the hard-coded
-            // frequencies (4.5π, 7π, 10π) were picked so the peaks never align for long.
-            let wave =
+            // Three detuned sines produce organic breathing. While playing, a fourth slow
+            // sine adds shape variation that doesn't repeat on a short cycle.
+            var wave =
                 sin(nx * 4.5 * .pi + phase) * 0.55 +
                 sin(nx * 7.0 * .pi + phase * 1.4) * 0.30 +
                 sin(nx * 10.0 * .pi + phase * 1.8) * 0.15
 
+            if isPlaying {
+                // Long-period noise that drifts the peaks, varying by both x and time so
+                // the same shape never repeats exactly.
+                let drift = sin(nx * 1.7 * .pi + time * 0.6) * 0.18
+                wave += drift
+            }
+
             // Raised-sine envelope tapers both ends to zero so the line fades in/out
             // instead of stopping abruptly at the edges of the frame.
             let envelope = sin(nx * .pi)
-            let y = midY + amplitude * Double(size.height) * 0.38 * wave * envelope
+            let y = midY + amplitude * envelopeNoise * Double(size.height) * 0.42 * wave * envelope
 
             path.addLine(to: CGPoint(x: x, y: y))
             x += step
@@ -135,7 +153,7 @@ private struct WaveformSignatureLine: View {
             endPoint: CGPoint(x: width, y: 0)
         )
 
-        gc.stroke(path, with: shading, lineWidth: 1.1)
+        gc.stroke(path, with: shading, lineWidth: 1.6)
     }
 }
 
@@ -197,13 +215,13 @@ struct HomeToolbarActiveFilter: View {
                 model.showsOnlyActiveChannels.toggle()
             }
         } label: {
-            Image(systemName: isActivated
-                ? "line.3.horizontal.decrease.circle.fill"
-                : "line.3.horizontal.decrease.circle")
+            // No `.circle` variant — the toolbar button itself already provides the chrome.
+            // State is communicated by tint alone, so a duplicate stroked outline isn't
+            // needed.
+            Image(systemName: "line.3.horizontal.decrease")
                 .foregroundStyle(isActivated
                     ? Color(red: 0.54, green: 0.88, blue: 0.70)
                     : .white.opacity(0.86))
-                .symbolRenderingMode(.hierarchical)
         }
         .accessibilityIdentifier("home.header.active-filter")
         .accessibilityLabel("Show only active channels")

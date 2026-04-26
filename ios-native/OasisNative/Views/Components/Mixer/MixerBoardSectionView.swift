@@ -102,9 +102,10 @@ struct SoundRowView: View {
         .accessibilityElement(children: .contain)
         .accessibilityIdentifier("channel.row.\(channel.id)")
         .background {
-            // Active rows read as alive: opaque frosted material + coloured tint wash +
-            // saturated channel-tint border + a soft glow shadow. Inactive rows read as
-            // receding: lighter material, almost no tint, thin neutral border, no glow.
+            // Active rows: frosted material + a soft channel-tint wash. Inactive rows:
+            // lighter material, almost no tint. The signal of activity comes from the tint
+            // and the border — no glow shadow (was main scroll-jank source) and no scale
+            // change (forced layout invalidation on state mutation).
             ZStack {
                 RoundedRectangle(cornerRadius: 18, style: .continuous)
                     .fill(isActive ? AnyShapeStyle(.ultraThinMaterial) : AnyShapeStyle(.thinMaterial))
@@ -115,22 +116,16 @@ struct SoundRowView: View {
         }
         .overlay {
             RoundedRectangle(cornerRadius: 18, style: .continuous)
-                .strokeBorder(borderStyle, lineWidth: isActive ? 1.4 : 0.8)
+                .strokeBorder(borderStyle, lineWidth: isActive ? 1.0 : 0.8)
         }
-        .shadow(
-            color: isActive ? channel.tint.opacity(0.28) : .clear,
-            radius: isActive ? 10 : 0,
-            y: isActive ? 3 : 0
-        )
         .opacity(isLocked ? 0.84 : (isActive ? 1 : 0.82))
-        .scaleEffect(isActive ? 1 : 0.985, anchor: .center)
         .animation(.easeInOut(duration: 0.18), value: state.isMuted)
         .animation(.easeInOut(duration: 0.18), value: state.autoVariationEnabled)
     }
 
     private var borderStyle: AnyShapeStyle {
         if isActive {
-            return AnyShapeStyle(channel.tint.opacity(0.70))
+            return AnyShapeStyle(channel.tint.opacity(0.42))
         }
         return AnyShapeStyle(Color.white.opacity(0.05))
     }
@@ -367,11 +362,10 @@ struct SoundRowView: View {
 
     private var channelTint: Color {
         if isActive {
-            // Coloured wash that clearly signals "this track is part of the mix".
-            return channel.tint.opacity(state.autoVariationEnabled ? 0.26 : 0.20)
+            // Subtle coloured wash. Just enough to signal "this track is part of the mix"
+            // without reading as a glow.
+            return channel.tint.opacity(state.autoVariationEnabled ? 0.13 : 0.10)
         }
-        // Inactive rows stay almost colorless — the faint white wash is enough since the
-        // material itself is already lighter.
         return Color.white.opacity(state.isMuted && !isLocked ? 0.02 : 0.03)
     }
 

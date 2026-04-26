@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -95,64 +95,64 @@
 		0467DCB186391252C9BF9B80 /* TonalBedSynth.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TonalBedSynth.swift; sourceTree = "<group>"; };
 		0583A9E3C0C53BFC58D08FA7 /* PremiumModels.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PremiumModels.swift; sourceTree = "<group>"; };
 		09041B5C9411241968F523F7 /* HomeHeaderView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HomeHeaderView.swift; sourceTree = "<group>"; };
-		1023573411684D26E39A438F /* train1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; path = train1.m4a; sourceTree = "<group>"; };
-		1904BBD6C3EB50B5FE0187EE /* campfire1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; path = campfire1.m4a; sourceTree = "<group>"; };
+		1023573411684D26E39A438F /* train1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = train1.m4a; sourceTree = "<group>"; };
+		1904BBD6C3EB50B5FE0187EE /* campfire1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = campfire1.m4a; sourceTree = "<group>"; };
 		19185DC1C6DFDF8474F81B55 /* SnapshotHelper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SnapshotHelper.swift; sourceTree = "<group>"; };
 		19D17A6F91CF3BF540581858 /* SoundDetailSheet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SoundDetailSheet.swift; sourceTree = "<group>"; };
-		1D241DFEA231E925B222AC51 /* 3_binaural_relax_alpha.m4a */ = {isa = PBXFileReference; includeInIndex = 1; path = 3_binaural_relax_alpha.m4a; sourceTree = "<group>"; };
+		1D241DFEA231E925B222AC51 /* 3_binaural_relax_alpha.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = 3_binaural_relax_alpha.m4a; sourceTree = "<group>"; };
 		1E49CEAB7ED0CC9B3E8AF91A /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2003B418811B476329A9A284 /* foret1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; path = foret1.m4a; sourceTree = "<group>"; };
-		231B474700628B0D4E3CB541 /* LiquidAuraShaders.metal */ = {isa = PBXFileReference; includeInIndex = 1; path = LiquidAuraShaders.metal; sourceTree = "<group>"; };
+		2003B418811B476329A9A284 /* foret1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = foret1.m4a; sourceTree = "<group>"; };
+		231B474700628B0D4E3CB541 /* LiquidAuraShaders.metal */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.metal; path = LiquidAuraShaders.metal; sourceTree = "<group>"; };
 		2C9CF5CB0296B8F31B7A9229 /* AppModels.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AppModels.swift; sourceTree = "<group>"; };
 		33709C7C96F6BEAB5CEAA908 /* AppIcon.icon */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
-		337C9CC25032842700DD5228 /* grillons1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; path = grillons1.m4a; sourceTree = "<group>"; };
+		337C9CC25032842700DD5228 /* grillons1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = grillons1.m4a; sourceTree = "<group>"; };
 		35267DE3C2476D6CD1886171 /* MixerBoardSectionView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MixerBoardSectionView.swift; sourceTree = "<group>"; };
-		388A5798D548ADC244F47019 /* oiseaux1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; path = oiseaux1.m4a; sourceTree = "<group>"; };
-		38B0A0EF4A9487CC39F4ED86 /* lac1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; path = lac1.m4a; sourceTree = "<group>"; };
+		388A5798D548ADC244F47019 /* oiseaux1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = oiseaux1.m4a; sourceTree = "<group>"; };
+		38B0A0EF4A9487CC39F4ED86 /* lac1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = lac1.m4a; sourceTree = "<group>"; };
 		394AB49792B4601680577175 /* OasisNativeScreenshots.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OasisNativeScreenshots.swift; sourceTree = "<group>"; };
-		3F5080DF2E12D6261119B454 /* cafe1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; path = cafe1.m4a; sourceTree = "<group>"; };
+		3F5080DF2E12D6261119B454 /* cafe1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = cafe1.m4a; sourceTree = "<group>"; };
 		4540A77013151E8A35B54323 /* OnboardingView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		45F2B47F9DE8AE9D87AB8CE5 /* AppModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
 		4784A01B738584AE350A7998 /* AppConfiguration.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
-		4C749707D9F4BAA717AF532E /* ville1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; path = ville1.m4a; sourceTree = "<group>"; };
+		4C749707D9F4BAA717AF532E /* ville1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = ville1.m4a; sourceTree = "<group>"; };
 		4CB2B954A30853038E3CBAD7 /* SoundChannelMetadata.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SoundChannelMetadata.swift; sourceTree = "<group>"; };
-		588FAD751DB4DE27F88F69DB /* 4_binaural_focus_beta.m4a */ = {isa = PBXFileReference; includeInIndex = 1; path = 4_binaural_focus_beta.m4a; sourceTree = "<group>"; };
-		5E37EEC6232E01697AF70334 /* 2_binaural_meditation_theta.m4a */ = {isa = PBXFileReference; includeInIndex = 1; path = 2_binaural_meditation_theta.m4a; sourceTree = "<group>"; };
-		641DBC3369E030826D4614B3 /* OasisNative.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OasisNative.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		66D0032B92564FA15A021A0F /* jungleasie1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; path = jungleasie1.m4a; sourceTree = "<group>"; };
-		681FB4460E600338293AA620 /* vent1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; path = vent1.m4a; sourceTree = "<group>"; };
-		6B2C89E7AA08A8CB01BE07D4 /* 1_binaural_sleep_delta.m4a */ = {isa = PBXFileReference; includeInIndex = 1; path = 1_binaural_sleep_delta.m4a; sourceTree = "<group>"; };
+		588FAD751DB4DE27F88F69DB /* 4_binaural_focus_beta.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = 4_binaural_focus_beta.m4a; sourceTree = "<group>"; };
+		5E37EEC6232E01697AF70334 /* 2_binaural_meditation_theta.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = 2_binaural_meditation_theta.m4a; sourceTree = "<group>"; };
+		641DBC3369E030826D4614B3 /* Oasis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Oasis.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		66D0032B92564FA15A021A0F /* jungleasie1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = jungleasie1.m4a; sourceTree = "<group>"; };
+		681FB4460E600338293AA620 /* vent1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = vent1.m4a; sourceTree = "<group>"; };
+		6B2C89E7AA08A8CB01BE07D4 /* 1_binaural_sleep_delta.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = 1_binaural_sleep_delta.m4a; sourceTree = "<group>"; };
 		715A425FF5BECA00D6A045F2 /* TelemetryDeckAnalyticsSink.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TelemetryDeckAnalyticsSink.swift; sourceTree = "<group>"; };
-		7ABC5B795CD8FA5895DE9F07 /* Localizable.xcstrings */ = {isa = PBXFileReference; includeInIndex = 1; path = Localizable.xcstrings; sourceTree = "<group>"; };
-		81F529689D0796BA36597F71 /* goelants1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; path = goelants1.m4a; sourceTree = "<group>"; };
+		7ABC5B795CD8FA5895DE9F07 /* Localizable.xcstrings */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		81F529689D0796BA36597F71 /* goelants1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = goelants1.m4a; sourceTree = "<group>"; };
 		86B527B16C9A4033095F6805 /* PremiumRevenueCatService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PremiumRevenueCatService.swift; sourceTree = "<group>"; };
 		8E3C5845DF95F93C71101EEB /* AnimatedLiquidAura.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AnimatedLiquidAura.swift; sourceTree = "<group>"; };
 		923E9E1A67A87DB4D00413D5 /* PressScaleButtonStyle.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PressScaleButtonStyle.swift; sourceTree = "<group>"; };
-		9625355B170D9668E14AF5E6 /* pluie1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; path = pluie1.m4a; sourceTree = "<group>"; };
+		9625355B170D9668E14AF5E6 /* pluie1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = pluie1.m4a; sourceTree = "<group>"; };
 		9C2B7C896E8B028C8B5A8DAD /* BinauralPanel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BinauralPanel.swift; sourceTree = "<group>"; };
-		A23571059B1A5B8569D1C897 /* savane1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; path = savane1.m4a; sourceTree = "<group>"; };
+		A23571059B1A5B8569D1C897 /* savane1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = savane1.m4a; sourceTree = "<group>"; };
 		A5299F4278BA80ABEF80C7BD /* oasisLogo.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = oasisLogo.png; sourceTree = "<group>"; };
 		B32541DAD45035BE48CA19E6 /* AudioMixerEngine.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AudioMixerEngine.swift; sourceTree = "<group>"; };
 		B557568A6A98D4FCBC1CE62D /* PremiumAnalytics.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PremiumAnalytics.swift; sourceTree = "<group>"; };
 		B9E2502D1FADFEF5A1C24AD2 /* RootView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
-		BB4EF47214DF65E6FE9A30F4 /* riviere1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; path = riviere1.m4a; sourceTree = "<group>"; };
+		BB4EF47214DF65E6FE9A30F4 /* riviere1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = riviere1.m4a; sourceTree = "<group>"; };
 		BD3F80FF81A6AA1036A1F6AB /* OasisNativeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OasisNativeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE0C34D7733F86F5A5BB6362 /* HapticSlider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HapticSlider.swift; sourceTree = "<group>"; };
 		D098E7943DCCC43154C6CF43 /* LiquidActivityPalette.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LiquidActivityPalette.swift; sourceTree = "<group>"; };
 		D1BADD1D03F328E401F8DF3F /* TimerUnlockPanel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TimerUnlockPanel.swift; sourceTree = "<group>"; };
-		D3C929E1471C537D81D126AC /* tente1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; path = tente1.m4a; sourceTree = "<group>"; };
-		D4F7946679A7F525E6B505DC /* orage1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; path = orage1.m4a; sourceTree = "<group>"; };
-		D5E4AA1C7C7C7771C0672609 /* jungleamerique1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; path = jungleamerique1.m4a; sourceTree = "<group>"; };
+		D3C929E1471C537D81D126AC /* tente1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = tente1.m4a; sourceTree = "<group>"; };
+		D4F7946679A7F525E6B505DC /* orage1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = orage1.m4a; sourceTree = "<group>"; };
+		D5E4AA1C7C7C7771C0672609 /* jungleamerique1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = jungleamerique1.m4a; sourceTree = "<group>"; };
 		D94B4BD6404CA74749CC5CA1 /* GlassSurfaces.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GlassSurfaces.swift; sourceTree = "<group>"; };
 		DA77671E1FA3336D62915614 /* SpatialAudioPanel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SpatialAudioPanel.swift; sourceTree = "<group>"; };
 		DBA11B1A5713D90D5E1FD7BF /* PremiumSurfaces.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PremiumSurfaces.swift; sourceTree = "<group>"; };
 		DDD876DAD1A5EE1BF7B69DED /* HomeView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
-		E61F12B9CE1CEFAC62352FAD /* plage1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; path = plage1.m4a; sourceTree = "<group>"; };
+		E61F12B9CE1CEFAC62352FAD /* plage1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = plage1.m4a; sourceTree = "<group>"; };
 		E6E299F814AD1B323ED7C0FF /* PaywallOverlay.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PaywallOverlay.swift; sourceTree = "<group>"; };
 		E6E768D16CAD66C04EBF83D5 /* PresetsPanel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PresetsPanel.swift; sourceTree = "<group>"; };
 		F09B4613FF02EFDD4026701A /* OasisNativeApp.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OasisNativeApp.swift; sourceTree = "<group>"; };
-		F1981A919DDF28B8E127431D /* cigales1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; path = cigales1.m4a; sourceTree = "<group>"; };
-		F36E432785BB3BFAB68A6785 /* voiture1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; path = voiture1.m4a; sourceTree = "<group>"; };
+		F1981A919DDF28B8E127431D /* cigales1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = cigales1.m4a; sourceTree = "<group>"; };
+		F36E432785BB3BFAB68A6785 /* voiture1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = voiture1.m4a; sourceTree = "<group>"; };
 		F47BC3411853DB1FFC8F30BE /* AnimatedBackdrop.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AnimatedBackdrop.swift; sourceTree = "<group>"; };
 		F7C4DA6135A3304763B3BC6F /* SoundLocationMinimap.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SoundLocationMinimap.swift; sourceTree = "<group>"; };
 		FC750FD7773139229B5C635F /* RoutePickerView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RoutePickerView.swift; sourceTree = "<group>"; };
@@ -189,7 +189,6 @@
 			children = (
 				A5299F4278BA80ABEF80C7BD /* oasisLogo.png */,
 			);
-			name = Images;
 			path = Images;
 			sourceTree = "<group>";
 		};
@@ -216,7 +215,6 @@
 				44947C7B15BBA5860E33206F /* Premium */,
 				1BD758DAD5653852A7238E37 /* Styles */,
 			);
-			name = Components;
 			path = Components;
 			sourceTree = "<group>";
 		};
@@ -227,7 +225,6 @@
 				394AB49792B4601680577175 /* OasisNativeScreenshots.swift */,
 				19185DC1C6DFDF8474F81B55 /* SnapshotHelper.swift */,
 			);
-			name = OasisNativeUITests;
 			path = OasisNativeUITests;
 			sourceTree = "<group>";
 		};
@@ -244,7 +241,6 @@
 			children = (
 				923E9E1A67A87DB4D00413D5 /* PressScaleButtonStyle.swift */,
 			);
-			name = Styles;
 			path = Styles;
 			sourceTree = "<group>";
 		};
@@ -255,7 +251,6 @@
 				0583A9E3C0C53BFC58D08FA7 /* PremiumModels.swift */,
 				4CB2B954A30853038E3CBAD7 /* SoundChannelMetadata.swift */,
 			);
-			name = Models;
 			path = Models;
 			sourceTree = "<group>";
 		};
@@ -264,7 +259,6 @@
 			children = (
 				D94B4BD6404CA74749CC5CA1 /* GlassSurfaces.swift */,
 			);
-			name = Glass;
 			path = Glass;
 			sourceTree = "<group>";
 		};
@@ -273,7 +267,6 @@
 			children = (
 				F7C4DA6135A3304763B3BC6F /* SoundLocationMinimap.swift */,
 			);
-			name = Immersion;
 			path = Immersion;
 			sourceTree = "<group>";
 		};
@@ -286,7 +279,6 @@
 				231B474700628B0D4E3CB541 /* LiquidAuraShaders.metal */,
 				FC750FD7773139229B5C635F /* RoutePickerView.swift */,
 			);
-			name = Support;
 			path = Support;
 			sourceTree = "<group>";
 		};
@@ -310,7 +302,6 @@
 				39938E71B53E5B2314C7E962 /* Support */,
 				8F7A76BD10017DCB0538AE59 /* Views */,
 			);
-			name = OasisNative;
 			path = OasisNative;
 			sourceTree = "<group>";
 		};
@@ -319,7 +310,6 @@
 			children = (
 				F47BC3411853DB1FFC8F30BE /* AnimatedBackdrop.swift */,
 			);
-			name = Background;
 			path = Background;
 			sourceTree = "<group>";
 		};
@@ -328,7 +318,6 @@
 			children = (
 				DBA11B1A5713D90D5E1FD7BF /* PremiumSurfaces.swift */,
 			);
-			name = Premium;
 			path = Premium;
 			sourceTree = "<group>";
 		};
@@ -337,14 +326,13 @@
 			children = (
 				033C60A95051A14ED6A399DE /* BottomBarView.swift */,
 			);
-			name = BottomBar;
 			path = BottomBar;
 			sourceTree = "<group>";
 		};
 		61CDD8EE67CE4DFDBFD0C311 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				641DBC3369E030826D4614B3 /* OasisNative.app */,
+				641DBC3369E030826D4614B3 /* Oasis.app */,
 				BD3F80FF81A6AA1036A1F6AB /* OasisNativeUITests.xctest */,
 			);
 			name = Products;
@@ -361,7 +349,6 @@
 				715A425FF5BECA00D6A045F2 /* TelemetryDeckAnalyticsSink.swift */,
 				0467DCB186391252C9BF9B80 /* TonalBedSynth.swift */,
 			);
-			name = Services;
 			path = Services;
 			sourceTree = "<group>";
 		};
@@ -373,7 +360,6 @@
 				FC34FCEBB3E335B5F63C84D3 /* Overlays */,
 				B9E2502D1FADFEF5A1C24AD2 /* RootView.swift */,
 			);
-			name = Views;
 			path = Views;
 			sourceTree = "<group>";
 		};
@@ -383,7 +369,6 @@
 				BE0C34D7733F86F5A5BB6362 /* HapticSlider.swift */,
 				35267DE3C2476D6CD1886171 /* MixerBoardSectionView.swift */,
 			);
-			name = Mixer;
 			path = Mixer;
 			sourceTree = "<group>";
 		};
@@ -392,7 +377,6 @@
 			children = (
 				09041B5C9411241968F523F7 /* HomeHeaderView.swift */,
 			);
-			name = Header;
 			path = Header;
 			sourceTree = "<group>";
 		};
@@ -402,7 +386,6 @@
 				8E3C5845DF95F93C71101EEB /* AnimatedLiquidAura.swift */,
 				D098E7943DCCC43154C6CF43 /* LiquidActivityPalette.swift */,
 			);
-			name = Liquid;
 			path = Liquid;
 			sourceTree = "<group>";
 		};
@@ -434,7 +417,6 @@
 				4C749707D9F4BAA717AF532E /* ville1.m4a */,
 				F36E432785BB3BFAB68A6785 /* voiture1.m4a */,
 			);
-			name = Audio;
 			path = Audio;
 			sourceTree = "<group>";
 		};
@@ -445,7 +427,6 @@
 				008085F35D555B2B02A6AE85 /* Images */,
 				7ABC5B795CD8FA5895DE9F07 /* Localizable.xcstrings */,
 			);
-			name = Resources;
 			path = Resources;
 			sourceTree = "<group>";
 		};
@@ -460,7 +441,6 @@
 				DA77671E1FA3336D62915614 /* SpatialAudioPanel.swift */,
 				D1BADD1D03F328E401F8DF3F /* TimerUnlockPanel.swift */,
 			);
-			name = Overlays;
 			path = Overlays;
 			sourceTree = "<group>";
 		};
@@ -503,7 +483,7 @@
 				CBBB28EC31D206E79E26ED86 /* RevenueCatUI */,
 			);
 			productName = Oasis;
-			productReference = 641DBC3369E030826D4614B3 /* OasisNative.app */;
+			productReference = 641DBC3369E030826D4614B3 /* Oasis.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -533,11 +513,9 @@
 				Base,
 			);
 			mainGroup = 09B1B205C115C20E9FA8096E;
-			minimizedProjectReferenceProxies = 0;
 			packageReferences = (
 				9FEA89B7139DB4A3B80BDE23 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */,
 			);
-			preferredProjectObjectVersion = 77;
 			productRefGroup = 61CDD8EE67CE4DFDBFD0C311 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -745,6 +723,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"\"";
+				DEVELOPMENT_TEAM = 346GF2QVCC;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = OasisNative/Support/Info.plist;
@@ -755,7 +734,10 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 1.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jonathanluquet.drift;
 				PRODUCT_NAME = Oasis;
@@ -848,6 +830,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"\"";
+				DEVELOPMENT_TEAM = 346GF2QVCC;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = OasisNative/Support/Info.plist;
@@ -858,7 +841,10 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 1.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jonathanluquet.drift;
 				PRODUCT_NAME = Oasis;
