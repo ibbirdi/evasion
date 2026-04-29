@@ -29,10 +29,10 @@ final class AppModel {
     var activeBinauralTrack: BinauralTrack = .delta
     var binauralVolume = 0.5
 
-    /// Atmospheric tonal bed toggle. Defaults to on — the pad is meant to be the quiet
-    /// reference frame under the nature mix. Users who find it distracting can disable it
-    /// from the binaural panel; the flag is persisted across launches.
-    var isTonalBedEnabled = true
+    /// Atmospheric tonal bed toggle. Defaults to off — the pad is an opt-in flavour that
+    /// users enable from the binaural panel when they want a quiet harmonic layer under
+    /// the mix. The flag is persisted across launches.
+    var isTonalBedEnabled = false
 
     var channels: [SoundChannel: ChannelState] = .initialChannels
     var presets: [Preset] = .defaultPresets()
@@ -996,9 +996,9 @@ final class AppModel {
             binauralVolume = persisted.binauralVolume
             premiumBannerLastDismissedAt = persisted.premiumBannerLastDismissedAt
             signaturePreviewLastPlayedAt = persisted.signaturePreviewLastPlayedAt
-            // Missing field in older builds → default to on so upgrading users get the new
-            // atmospheric pad rather than silence.
-            isTonalBedEnabled = persisted.isTonalBedEnabled ?? true
+            // Missing field in older builds → default to off so upgrading users land on
+            // the same opt-in baseline as fresh installs.
+            isTonalBedEnabled = persisted.isTonalBedEnabled ?? false
 
             enforcePremiumAccess()
             return true

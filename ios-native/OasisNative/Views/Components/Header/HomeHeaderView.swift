@@ -252,11 +252,18 @@ private final class PhaseAccumulator {
 
 // MARK: - Native toolbar items
 
-/// Sleep-timer picker, rendered as a native nav-bar Menu. The label adapts: just an icon
-/// when no timer is set, icon + remaining time while counting down.
+/// Sleep-timer picker, rendered as a native nav-bar Menu. Icon-only label; the live
+/// countdown is shown separately on the leading side of the nav bar
+/// (`HomeToolbarTimerCountdown`) because SwiftUI strips the title from `Menu` labels
+/// inside a toolbar.
 struct HomeToolbarTimerMenu: View {
     @Environment(AppModel.self) private var model
     let onRequestPremiumTimer: () -> Void
+
+    /// Warm yellow used to signal an active timer — picked to read clearly against the
+    /// dark playback backdrop while staying tonally close to the mint accent used by
+    /// `HomeToolbarActiveFilter`.
+    static let activeAccent = Color(red: 0.99, green: 0.84, blue: 0.41)
 
     var body: some View {
         Menu {
@@ -266,15 +273,10 @@ struct HomeToolbarTimerMenu: View {
             timerAction(L10n.timerOptionLabel(minutes: 60), minutes: 60)
             timerAction(L10n.timerOptionLabel(minutes: 120), minutes: 120)
         } label: {
-            if model.timerDurationMinutes != nil {
-                Label(model.timerToolbarTitle, systemImage: "timer")
-                    .labelStyle(.titleAndIcon)
-                    .foregroundStyle(Color(red: 0.52, green: 0.91, blue: 0.64))
-                    .contentTransition(.numericText(countsDown: true))
-            } else {
-                Image(systemName: "timer")
-                    .foregroundStyle(.white.opacity(0.86))
-            }
+            Image(systemName: "timer")
+                .foregroundStyle(model.timerDurationMinutes != nil
+                    ? Self.activeAccent
+                    : .white.opacity(0.86))
         }
         .menuIndicator(.hidden)
         .accessibilityIdentifier("home.header.timer")
@@ -289,6 +291,25 @@ struct HomeToolbarTimerMenu: View {
                     onRequestPremiumTimer()
                 }
             }
+        }
+    }
+}
+
+/// Live countdown shown at the leading edge of the home header while a sleep timer is
+/// set. Rendered as plain overlay text (not a `ToolbarItem`) so iOS 26's Liquid Glass
+/// doesn't wrap it in a button-shaped capsule.
+struct TimerCountdownIndicator: View {
+    @Environment(AppModel.self) private var model
+
+    var body: some View {
+        if model.timerDurationMinutes != nil {
+            Text(model.timerToolbarTitle)
+                .font(.system(size: 11, weight: .medium, design: .rounded))
+                .monospacedDigit()
+                .foregroundStyle(.white.opacity(0.78))
+                .contentTransition(.numericText(countsDown: true))
+                .fixedSize(horizontal: true, vertical: false)
+                .accessibilityIdentifier("home.header.timer.countdown")
         }
     }
 }

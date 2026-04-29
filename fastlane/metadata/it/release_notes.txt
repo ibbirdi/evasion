@@ -1,6 +1,7 @@
-Oasis 1.4.0
+Oasis 1.4.1
 
 • Interfaccia ridisegnata
 • Ottimizzazione delle prestazioni
+• Correzioni di bug
 
 Acquisto unico. Senza abbonamento, senza account, senza pubblicità — mai.

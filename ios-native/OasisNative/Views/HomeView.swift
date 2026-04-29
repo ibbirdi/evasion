@@ -206,6 +206,22 @@ struct HomeView: View {
                         .allowsHitTesting(false)
                     }
                     .ignoresSafeArea(edges: .bottom)
+
+                    // Live timer countdown, centered horizontally at the nav-bar's
+                    // vertical line. Rendered as a free-floating overlay rather than a
+                    // `ToolbarItem` because iOS 26's Liquid Glass wraps every toolbar
+                    // item in a button-shaped capsule, which made the plain text read
+                    // as a tappable control. The 44pt-tall frame matches the standard
+                    // nav-bar row height so the text lands on the same vertical line
+                    // as the trailing timer/filter icons.
+                    VStack(spacing: 0) {
+                        TimerCountdownIndicator()
+                            .frame(maxWidth: .infinity, alignment: .center)
+                            .frame(height: 44)
+                        Spacer(minLength: 0)
+                    }
+                    .padding(.top, max(0, proxy.safeAreaInsets.top - 52))
+                    .allowsHitTesting(false)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                 .background(Color.clear)
