@@ -220,7 +220,7 @@ extension SoundChannel {
     /// — nothing exotic — so the pad sits under the recording without asserting a genre.
     var tonalSignature: TonalSignature {
         switch self {
-        case .pluie, .tonnerre:
+        case .pluie, .tonnerre, .orageMontagne:
             return TonalSignature(rootHz: 130.81, voicing: .minorDrone) // C3 minor
         case .campfire:
             return TonalSignature(rootHz: 110.0, voicing: .majorTriad) // A2 major
@@ -230,11 +230,11 @@ extension SoundChannel {
             return TonalSignature(rootHz: 146.83, voicing: .openFifth) // D3 open
         case .riviere, .lac:
             return TonalSignature(rootHz: 130.81, voicing: .openFifth) // C3 open
-        case .plage, .goelands:
+        case .plage, .goelands, .mer:
             return TonalSignature(rootHz: 123.47, voicing: .openFifth) // B2 open
         case .oiseaux, .vent:
             return TonalSignature(rootHz: 146.83, voicing: .openFifth) // D3 open
-        case .tente, .village, .voiture, .train, .cafe:
+        case .tente, .village, .cafe:
             return TonalSignature(rootHz: 110.0, voicing: .openFifth) // A2 neutral
         }
     }

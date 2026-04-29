@@ -24,8 +24,8 @@ enum SoundChannel: String, CaseIterable, Codable, Identifiable, Sendable {
     case tente
     case riviere
     case village
-    case voiture
-    case train
+    case mer
+    case orageMontagne
     case campfire
     case cafe
     case lac

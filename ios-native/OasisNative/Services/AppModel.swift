@@ -1325,7 +1325,7 @@ final class AppModel {
             .pluie: ChannelState(volume: 0.26, isMuted: false, autoVariationEnabled: true),
             .grillons: ChannelState(volume: 0.16, isMuted: false, autoVariationEnabled: false),
             .riviere: ChannelState(volume: 0.24, isMuted: false, autoVariationEnabled: false),
-            .train: ChannelState(volume: 0.22, isMuted: false, autoVariationEnabled: false),
+            .mer: ChannelState(volume: 0.22, isMuted: false, autoVariationEnabled: false),
             .cafe: ChannelState(volume: 0.48, isMuted: false, autoVariationEnabled: false),
             .lac: ChannelState(volume: 0.36, isMuted: false, autoVariationEnabled: false),
             .jungleAsie: ChannelState(volume: 0.18, isMuted: false, autoVariationEnabled: true)

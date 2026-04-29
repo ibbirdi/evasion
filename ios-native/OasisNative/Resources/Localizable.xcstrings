@@ -563,37 +563,37 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Taoyuan-Berge"
+            "value": "Nivillac, Morbihan"
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Taoyuan Mountains"
+            "value": "Nivillac, Morbihan"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Montañas de Taoyuan"
+            "value": "Nivillac, Morbihan"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Montagnes de Taoyuan"
+            "value": "Nivillac, Morbihan"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Montagne di Taoyuan"
+            "value": "Nivillac, Morbihan"
           }
         },
         "pt": {
           "stringUnit": {
             "state": "translated",
-            "value": "Montanhas de Taoyuan"
+            "value": "Nivillac, Morbihan"
           }
         }
       }
@@ -604,37 +604,37 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Vögel der Taoyuan-Berge"
+            "value": "Vögel in der bretonischen Landschaft"
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mountain birds of Taoyuan"
+            "value": "Birds in the Breton countryside"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Aves de las montañas de Taoyuan"
+            "value": "Aves del campo bretón"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Oiseaux des montagnes de Taoyuan"
+            "value": "Oiseaux de la campagne bretonne"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Uccelli delle montagne di Taoyuan"
+            "value": "Uccelli della campagna bretone"
           }
         },
         "pt": {
           "stringUnit": {
             "state": "translated",
-            "value": "Aves das montanhas de Taoyuan"
+            "value": "Aves do campo bretão"
           }
         }
       }
@@ -885,125 +885,125 @@
         }
       }
     },
-    "channel.carRide": {
+    "channel.mountainStorm": {
       "comment": "Ambient sound channel short name.",
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Autofahrt"
+            "value": "Berggewitter"
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Car ride"
+            "value": "Mountain storm"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Coche"
+            "value": "Tormenta de montaña"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Voiture"
+            "value": "Orage en montagne"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Auto"
+            "value": "Temporale di montagna"
           }
         },
         "pt": {
           "stringUnit": {
             "state": "translated",
-            "value": "Passeio de carro"
+            "value": "Trovoada de montanha"
           }
         }
       }
     },
-    "channel.carRide.location": {
-      "comment": "Region where the car ride sound was recorded.",
+    "channel.mountainStorm.location": {
+      "comment": "Region where the mountain storm sound was recorded.",
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Autobahn in Québec"
+            "value": "Tremosine sul Garda, Brescia"
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Quebec highway"
+            "value": "Tremosine sul Garda, Brescia"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Autopista de Quebec"
+            "value": "Tremosine sul Garda, Brescia"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Autoroute québécoise"
+            "value": "Tremosine sul Garda, Brescia"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Autostrada del Québec"
+            "value": "Tremosine sul Garda, Brescia"
           }
         },
         "pt": {
           "stringUnit": {
             "state": "translated",
-            "value": "Autoestrada do Quebeque"
+            "value": "Tremosine sul Garda, Brescia"
           }
         }
       }
     },
-    "channel.carRide.long": {
+    "channel.mountainStorm.long": {
       "comment": "Ambient sound channel long descriptive name.",
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Fahrzeuginnenraum auf der Autobahn"
+            "value": "Fernes Donnergrollen über dem Gardasee"
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Highway cabin rumble"
+            "value": "Distant thunder over Lake Garda"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Interior de coche en autopista"
+            "value": "Truenos lejanos sobre el lago de Garda"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Intérieur de voiture sur l’autoroute"
+            "value": "Tonnerre lointain sur le lac de Garde"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Interno auto in autostrada"
+            "value": "Tuoni lontani sul lago di Garda"
           }
         },
         "pt": {
           "stringUnit": {
             "state": "translated",
-            "value": "Interior de carro na autoestrada"
+            "value": "Trovões distantes sobre o lago de Garda"
           }
         }
       }
@@ -1301,37 +1301,37 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Détain-Gergueil, Burgund"
+            "value": "Kampina, Nordbrabant"
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Détain-Gergueil, Burgundy"
+            "value": "Kampina, North Brabant"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Détain-Gergueil, Borgoña"
+            "value": "Kampina, Brabante Septentrional"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Détain-Gergueil, Bourgogne"
+            "value": "Kampina, Brabant-Septentrional"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Détain-Gergueil, Borgogna"
+            "value": "Kampina, Brabante Settentrionale"
           }
         },
         "pt": {
           "stringUnit": {
             "state": "translated",
-            "value": "Détain-Gergueil, Borgonha"
+            "value": "Kampina, Brabante do Norte"
           }
         }
       }
@@ -1342,37 +1342,37 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Burgundischer Wald bei Tagesanbruch"
+            "value": "Kampina-Wald im Frühjahr"
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Burgundy woodland at dawn"
+            "value": "Kampina woodland in early spring"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bosque de Borgoña al amanecer"
+            "value": "Bosque de Kampina a inicios de primavera"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Forêt bourguignonne à l’aube"
+            "value": "Forêt de Kampina au début du printemps"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bosco borgognone all’alba"
+            "value": "Foresta di Kampina a inizio primavera"
           }
         },
         "pt": {
           "stringUnit": {
             "state": "translated",
-            "value": "Floresta da Borgonha ao amanhecer"
+            "value": "Floresta de Kampina no início da primavera"
           }
         }
       }
@@ -1793,37 +1793,37 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Insel Bornholm"
+            "value": "Voghera, Pavia"
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bornholm island"
+            "value": "Voghera, Pavia"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Isla de Bornholm"
+            "value": "Voghera, Pavía"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Île de Bornholm"
+            "value": "Voghera, Pavie"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Isola di Bornholm"
+            "value": "Voghera, Pavia"
           }
         },
         "pt": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ilha de Bornholm"
+            "value": "Voghera, Pavia"
           }
         }
       }
@@ -1834,37 +1834,37 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Regen auf einem Zelt"
+            "value": "Mittlerer Regen in der Po-Ebene"
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Rain on a camping tent"
+            "value": "Medium rain in the Po valley"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Lluvia sobre una tienda de campaña"
+            "value": "Lluvia media en la llanura del Po"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Pluie sur une tente de camping"
+            "value": "Pluie modérée dans la plaine du Pô"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Pioggia su una tenda da campeggio"
+            "value": "Pioggia moderata nella pianura padana"
           }
         },
         "pt": {
           "stringUnit": {
             "state": "translated",
-            "value": "Chuva sobre uma tenda"
+            "value": "Chuva moderada na planície do Pó"
           }
         }
       }
@@ -2285,37 +2285,37 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Kornische Küste"
+            "value": "Shetlandinseln, Schottland"
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Cornish coast"
+            "value": "Shetland Islands, Scotland"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Costa de Cornualles"
+            "value": "Islas Shetland, Escocia"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Côte des Cornouailles"
+            "value": "Îles Shetland, Écosse"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Costa della Cornovaglia"
+            "value": "Isole Shetland, Scozia"
           }
         },
         "pt": {
           "stringUnit": {
             "state": "translated",
-            "value": "Costa da Cornualha"
+            "value": "Ilhas Shetland, Escócia"
           }
         }
       }
@@ -2326,37 +2326,37 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Windige Küste"
+            "value": "Wellen auf den Shetlandinseln"
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Breezy coastline"
+            "value": "Waves on the Shetland Islands"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Costa con brisa"
+            "value": "Olas en las Islas Shetland"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Côte venteuse"
+            "value": "Vagues aux îles Shetland"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Costa ventosa"
+            "value": "Onde sulle Isole Shetland"
           }
         },
         "pt": {
           "stringUnit": {
             "state": "translated",
-            "value": "Costa com brisa"
+            "value": "Ondas nas Ilhas Shetland"
           }
         }
       }
@@ -2607,125 +2607,125 @@
         }
       }
     },
-    "channel.train": {
+    "channel.sea": {
       "comment": "Ambient sound channel short name.",
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Zug"
+            "value": "Meer"
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Train"
+            "value": "Sea"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tren"
+            "value": "Mar"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Train"
+            "value": "Mer"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Treno"
+            "value": "Mare"
           }
         },
         "pt": {
           "stringUnit": {
             "state": "translated",
-            "value": "Trem"
+            "value": "Mar"
           }
         }
       }
     },
-    "channel.train.location": {
-      "comment": "Region where the train sound was recorded.",
+    "channel.sea.location": {
+      "comment": "Region where the sea sound was recorded.",
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Strecke Porto–Lissabon"
+            "value": "Epitalio, Westgriechenland"
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Porto–Lisbon line"
+            "value": "Epitalio, Western Greece"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Línea Oporto–Lisboa"
+            "value": "Epitalio, Grecia Occidental"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ligne Porto–Lisbonne"
+            "value": "Epitalio, Grèce-Occidentale"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Linea Porto–Lisbona"
+            "value": "Epitalio, Grecia Occidentale"
           }
         },
         "pt": {
           "stringUnit": {
             "state": "translated",
-            "value": "Linha Porto–Lisboa"
+            "value": "Epitalio, Grécia Ocidental"
           }
         }
       }
     },
-    "channel.train.long": {
+    "channel.sea.long": {
       "comment": "Ambient sound channel long descriptive name.",
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Intercidades nach Lissabon"
+            "value": "Mittelmeerküste bei Epitalio"
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Intercity rail to Lisbon"
+            "value": "Mediterranean shore at Epitalio"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Intercidades hasta Lisboa"
+            "value": "Costa mediterránea de Epitalio"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Intercidades jusqu’à Lisbonne"
+            "value": "Côte méditerranéenne d’Epitalio"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Intercidades fino a Lisbona"
+            "value": "Costa mediterranea a Epitalio"
           }
         },
         "pt": {
           "stringUnit": {
             "state": "translated",
-            "value": "Intercidades até Lisboa"
+            "value": "Costa mediterrânea de Epitalio"
           }
         }
       }
@@ -2900,37 +2900,37 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Insel Gavdos, Kreta"
+            "value": "Perpignan, Okzitanien"
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Gavdos island, Crete"
+            "value": "Perpignan, Occitanie"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Isla de Gavdos, Creta"
+            "value": "Perpiñán, Occitania"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Île de Gavdos, Crète"
+            "value": "Perpignan, Occitanie"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Isola di Gavdos, Creta"
+            "value": "Perpignano, Occitania"
           }
         },
         "pt": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ilha de Gavdos, Creta"
+            "value": "Perpinhão, Occitânia"
           }
         }
       }
@@ -2941,37 +2941,37 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Klippenwinde von Gavdos"
+            "value": "Wind im Freien bei Perpignan"
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Cliffside winds of Gavdos"
+            "value": "Outdoor wind at Perpignan"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Vientos del acantilado de Gavdos"
+            "value": "Viento al aire libre en Perpiñán"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Vents de la falaise de Gavdos"
+            "value": "Vent en plein air à Perpignan"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Venti sulla scogliera di Gavdos"
+            "value": "Vento all’aperto a Perpignano"
           }
         },
         "pt": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ventos do penhasco de Gavdos"
+            "value": "Vento ao ar livre em Perpinhão"
           }
         }
       }

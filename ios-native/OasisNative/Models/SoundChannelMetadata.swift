@@ -144,17 +144,17 @@ extension SoundChannel {
             systemImage: "bird.fill",
             tintRGB: .init(red: 0.96, green: 0.74, blue: 0.53),
             shortName: LocalizedStringResource("channel.birds", defaultValue: "Birds", bundle: .main, comment: "Ambient sound channel short name."),
-            longName: LocalizedStringResource("channel.birds.long", defaultValue: "Mountain birds of Taoyuan", bundle: .main, comment: "Ambient sound channel long descriptive name shown in the detail sheet."),
+            longName: LocalizedStringResource("channel.birds.long", defaultValue: "Birds in the Breton countryside", bundle: .main, comment: "Ambient sound channel long descriptive name shown in the detail sheet."),
             location: ChannelLocation(
-                countryCode: "TW",
-                region: LocalizedStringResource("channel.birds.location", defaultValue: "Taoyuan Mountains", bundle: .main, comment: "Region where the birds sound was recorded."),
-                latitude: 24.9936,
-                longitude: 121.3010
+                countryCode: "FR",
+                region: LocalizedStringResource("channel.birds.location", defaultValue: "Nivillac, Morbihan", bundle: .main, comment: "Region where the birds sound was recorded."),
+                latitude: 47.5839,
+                longitude: -2.2611
             ),
             credit: ChannelCredit(
-                author: "calebjay",
-                freesoundURL: URL(string: "https://freesound.org/people/calebjay/sounds/684901/")!,
-                license: .ccBy4
+                author: "bruno.auzet",
+                freesoundURL: URL(string: "https://freesound.org/people/bruno.auzet/sounds/838024/")!,
+                license: .cc0
             )
         ),
         .vent: ChannelMetadata(
@@ -162,16 +162,16 @@ extension SoundChannel {
             systemImage: "wind",
             tintRGB: .init(red: 0.96, green: 0.97, blue: 0.92),
             shortName: LocalizedStringResource("channel.wind", defaultValue: "Wind", bundle: .main, comment: "Ambient sound channel short name."),
-            longName: LocalizedStringResource("channel.wind.long", defaultValue: "Cliffside winds of Gavdos", bundle: .main, comment: "Ambient sound channel long descriptive name."),
+            longName: LocalizedStringResource("channel.wind.long", defaultValue: "Outdoor wind at Perpignan", bundle: .main, comment: "Ambient sound channel long descriptive name."),
             location: ChannelLocation(
-                countryCode: "GR",
-                region: LocalizedStringResource("channel.wind.location", defaultValue: "Gavdos island, Crete", bundle: .main, comment: "Region where the wind sound was recorded."),
-                latitude: 34.8403,
-                longitude: 24.0837
+                countryCode: "FR",
+                region: LocalizedStringResource("channel.wind.location", defaultValue: "Perpignan, Occitanie", bundle: .main, comment: "Region where the wind sound was recorded."),
+                latitude: 42.6886,
+                longitude: 2.8949
             ),
             credit: ChannelCredit(
-                author: "nicotep",
-                freesoundURL: URL(string: "https://freesound.org/people/nicotep/sounds/843931/")!,
+                author: "Sadiquecat",
+                freesoundURL: URL(string: "https://freesound.org/people/Sadiquecat/sounds/773670/")!,
                 license: .cc0
             )
         ),
@@ -180,18 +180,17 @@ extension SoundChannel {
             systemImage: "water.waves",
             tintRGB: .init(red: 0.93, green: 0.86, blue: 0.57),
             shortName: LocalizedStringResource("channel.shore", defaultValue: "Shore", bundle: .main, comment: "Ambient sound channel short name."),
-            longName: LocalizedStringResource("channel.shore.long", defaultValue: "Breezy coastline", bundle: .main, comment: "Ambient sound channel long descriptive name."),
+            longName: LocalizedStringResource("channel.shore.long", defaultValue: "Waves on the Shetland Islands", bundle: .main, comment: "Ambient sound channel long descriptive name."),
             location: ChannelLocation(
                 countryCode: "GB",
-                region: LocalizedStringResource("channel.shore.location", defaultValue: "Cornish coast", bundle: .main, comment: "Region where the shore sound was recorded."),
-                isApproximate: true,
-                latitude: 50.2660,
-                longitude: -5.0527
+                region: LocalizedStringResource("channel.shore.location", defaultValue: "Shetland Islands, Scotland", bundle: .main, comment: "Region where the shore sound was recorded."),
+                latitude: 60.5292,
+                longitude: -1.2659
             ),
             credit: ChannelCredit(
-                author: "eqavox",
-                freesoundURL: URL(string: "https://freesound.org/people/eqavox/sounds/683527/")!,
-                license: .cc0
+                author: "straget",
+                freesoundURL: URL(string: "https://freesound.org/people/straget/sounds/434615/")!,
+                license: .ccBy4
             )
         ),
         .goelands: ChannelMetadata(
@@ -217,17 +216,17 @@ extension SoundChannel {
             systemImage: "tree.fill",
             tintRGB: .init(red: 0.63, green: 0.86, blue: 0.55),
             shortName: LocalizedStringResource("channel.forest", defaultValue: "Forest", bundle: .main, comment: "Ambient sound channel short name."),
-            longName: LocalizedStringResource("channel.forest.long", defaultValue: "Burgundy woodland at dawn", bundle: .main, comment: "Ambient sound channel long descriptive name."),
+            longName: LocalizedStringResource("channel.forest.long", defaultValue: "Kampina woodland in early spring", bundle: .main, comment: "Ambient sound channel long descriptive name."),
             location: ChannelLocation(
-                countryCode: "FR",
-                region: LocalizedStringResource("channel.forest.location", defaultValue: "Détain-Gergueil, Burgundy", bundle: .main, comment: "Region where the forest sound was recorded."),
-                latitude: 47.2833,
-                longitude: 4.6500
+                countryCode: "NL",
+                region: LocalizedStringResource("channel.forest.location", defaultValue: "Kampina, North Brabant", bundle: .main, comment: "Region where the forest sound was recorded."),
+                latitude: 51.57181,
+                longitude: 5.24226
             ),
             credit: ChannelCredit(
-                author: "Sadiquecat",
-                freesoundURL: URL(string: "https://freesound.org/people/Sadiquecat/sounds/829587/")!,
-                license: .cc0
+                author: "klankbeeld",
+                freesoundURL: URL(string: "https://freesound.org/people/klankbeeld/sounds/468049/")!,
+                license: .ccBy4
             )
         ),
         .pluie: ChannelMetadata(
@@ -235,18 +234,17 @@ extension SoundChannel {
             systemImage: "cloud.rain.fill",
             tintRGB: .init(red: 0.45, green: 0.79, blue: 0.92),
             shortName: LocalizedStringResource("channel.rain", defaultValue: "Rain", bundle: .main, comment: "Ambient sound channel short name."),
-            longName: LocalizedStringResource("channel.rain.long", defaultValue: "Rain on a camping tent", bundle: .main, comment: "Ambient sound channel long descriptive name."),
+            longName: LocalizedStringResource("channel.rain.long", defaultValue: "Medium rain in the Po valley", bundle: .main, comment: "Ambient sound channel long descriptive name."),
             location: ChannelLocation(
-                countryCode: "DK",
-                region: LocalizedStringResource("channel.rain.location", defaultValue: "Bornholm island", bundle: .main, comment: "Region where the rain sound was recorded."),
-                isApproximate: true,
-                latitude: 55.1656,
-                longitude: 14.9224
+                countryCode: "IT",
+                region: LocalizedStringResource("channel.rain.location", defaultValue: "Voghera, Pavia", bundle: .main, comment: "Region where the rain sound was recorded."),
+                latitude: 44.9942,
+                longitude: 9.0086
             ),
             credit: ChannelCredit(
-                author: "Petrosilia",
-                freesoundURL: URL(string: "https://freesound.org/people/Petrosilia/sounds/592997/")!,
-                license: .cc0
+                author: "Stagno",
+                freesoundURL: URL(string: "https://freesound.org/people/Stagno/sounds/832262/")!,
+                license: .ccBy4
             )
         ),
         .tonnerre: ChannelMetadata(
@@ -355,44 +353,43 @@ extension SoundChannel {
             ),
             credit: ChannelCredit(
                 author: "lastraindrop",
-                freesoundURL: URL(string: "https://freesound.org/people/lastraindrop/sounds/790958/")!,
+                freesoundURL: URL(string: "https://freesound.org/people/lastraindrop/sounds/716384/")!,
                 license: .cc0
             )
         ),
-        .voiture: ChannelMetadata(
-            filename: "voiture1.m4a",
-            systemImage: "car.fill",
-            tintRGB: .init(red: 0.83, green: 0.70, blue: 0.90),
-            shortName: LocalizedStringResource("channel.carRide", defaultValue: "Car ride", bundle: .main, comment: "Ambient sound channel short name."),
-            longName: LocalizedStringResource("channel.carRide.long", defaultValue: "Highway cabin rumble", bundle: .main, comment: "Ambient sound channel long descriptive name."),
+        .mer: ChannelMetadata(
+            filename: "mer1.m4a",
+            systemImage: "water.waves",
+            tintRGB: .init(red: 0.32, green: 0.55, blue: 0.78),
+            shortName: LocalizedStringResource("channel.sea", defaultValue: "Sea", bundle: .main, comment: "Ambient sound channel short name."),
+            longName: LocalizedStringResource("channel.sea.long", defaultValue: "Mediterranean shore at Epitalio", bundle: .main, comment: "Ambient sound channel long descriptive name."),
             location: ChannelLocation(
-                countryCode: "CA",
-                region: LocalizedStringResource("channel.carRide.location", defaultValue: "Quebec highway", bundle: .main, comment: "Region where the car ride sound was recorded."),
-                isApproximate: true,
-                latitude: 46.8139,
-                longitude: -71.2080
+                countryCode: "GR",
+                region: LocalizedStringResource("channel.sea.location", defaultValue: "Epitalio, Western Greece", bundle: .main, comment: "Region where the sea sound was recorded."),
+                latitude: 37.6483,
+                longitude: 21.3877
             ),
             credit: ChannelCredit(
-                author: "leonelmail",
-                freesoundURL: URL(string: "https://freesound.org/people/leonelmail/sounds/570461/")!,
+                author: "yiorgis",
+                freesoundURL: URL(string: "https://freesound.org/people/yiorgis/sounds/705548/")!,
                 license: .cc0
             )
         ),
-        .train: ChannelMetadata(
-            filename: "train1.m4a",
-            systemImage: "tram.fill",
-            tintRGB: .init(red: 0.94, green: 0.66, blue: 0.72),
-            shortName: LocalizedStringResource("channel.train", defaultValue: "Train", bundle: .main, comment: "Ambient sound channel short name."),
-            longName: LocalizedStringResource("channel.train.long", defaultValue: "Intercity rail to Lisbon", bundle: .main, comment: "Ambient sound channel long descriptive name."),
+        .orageMontagne: ChannelMetadata(
+            filename: "orageMontagne1.m4a",
+            systemImage: "cloud.bolt.fill",
+            tintRGB: .init(red: 0.58, green: 0.62, blue: 0.78),
+            shortName: LocalizedStringResource("channel.mountainStorm", defaultValue: "Mountain storm", bundle: .main, comment: "Ambient sound channel short name."),
+            longName: LocalizedStringResource("channel.mountainStorm.long", defaultValue: "Distant thunder over Lake Garda", bundle: .main, comment: "Ambient sound channel long descriptive name."),
             location: ChannelLocation(
-                countryCode: "PT",
-                region: LocalizedStringResource("channel.train.location", defaultValue: "Porto–Lisbon line", bundle: .main, comment: "Region where the train sound was recorded."),
-                latitude: 40.2166,
-                longitude: -8.4294
+                countryCode: "IT",
+                region: LocalizedStringResource("channel.mountainStorm.location", defaultValue: "Tremosine sul Garda, Brescia", bundle: .main, comment: "Region where the mountain storm sound was recorded."),
+                latitude: 45.7456,
+                longitude: 10.6700
             ),
             credit: ChannelCredit(
-                author: "pblzr",
-                freesoundURL: URL(string: "https://freesound.org/people/pblzr/sounds/785390/")!,
+                author: "bruno.auzet",
+                freesoundURL: URL(string: "https://freesound.org/people/bruno.auzet/sounds/647420/")!,
                 license: .cc0
             )
         ),

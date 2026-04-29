@@ -3,5 +3,6 @@ Oasis 1.4.1
 • Interfaz rediseñada
 • Optimización del rendimiento
 • Corrección de errores
+• Mejoras en la calidad de audio
 
 Compra única. Sin suscripción, sin cuenta, sin anuncios — nunca.
