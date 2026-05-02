@@ -1,1 +1,1 @@
-bruit,blanc,brun,rose,pluie,orage,vent,binaural,sommeil,meditation,concentration,ASMR,cafe,foret
+pluie,bruit,blanc,brun,rose,orage,ocean,binaural,minuteur,meditation,acouphene,cafe,lecture

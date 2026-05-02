@@ -1,1 +1,1 @@
-ruido,blanco,marron,rosa,lluvia,viento,binaural,sueno,concentracion,relajacion,tinnitus,ASMR,cafe
+lluvia,ruido,blanco,marron,rosa,trueno,oceano,binaural,timer,meditacion,insomnio,tinnitus,cafe

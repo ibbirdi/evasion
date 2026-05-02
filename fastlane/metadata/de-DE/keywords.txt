@@ -1,1 +1,1 @@
-rauschen,weiss,braun,rosa,regen,gewitter,wind,binaural,schlaf,fokus,entspannung,tinnitus,ASMR,lernen
+regen,rauschen,weiss,braun,rosa,gewitter,ozean,binaural,timer,meditation,tinnitus,lesen

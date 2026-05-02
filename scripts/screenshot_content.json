@@ -6,27 +6,27 @@
     {
       "slug": "01_hero",
       "source": "01_hero.png",
-      "layout": "top",
-      "background": "warmGradient",
-      "accent": "#C24E1F",
-      "iconSymbol": "moon.stars.fill",
-      "darkText": true
+      "layout": "poster",
+      "background": "studioGradient",
+      "accent": "#F0B866",
+      "iconSymbol": "sparkles",
+      "darkText": false
     },
     {
       "slug": "02_library",
-      "source": "02_library.png",
-      "layout": "peekBottom",
-      "background": "creamRadial",
-      "accent": "#2E9155",
+      "source": "05_spatial.png",
+      "layout": "bottom",
+      "background": "spatialGradient",
+      "accent": "#70D2C2",
       "iconSymbol": "leaf.fill",
-      "darkText": true
+      "darkText": false
     },
     {
       "slug": "03_detail_sheet",
       "source": "03_detail_sheet.png",
       "layout": "bottom",
-      "background": "creamRadial",
-      "accent": "#B77A22",
+      "background": "sageMist",
+      "accent": "#9F6A32",
       "iconSymbol": "mappin.and.ellipse",
       "darkText": true
     },
@@ -34,17 +34,17 @@
       "slug": "04_binaural",
       "source": "04_binaural.png",
       "layout": "peekBottom",
-      "background": "duskGradient",
+      "background": "spatialGradient",
       "accent": "#B9A8FF",
       "iconSymbol": "waveform.path.ecg",
       "darkText": false
     },
     {
       "slug": "05_spatial",
-      "source": "05_spatial.png",
-      "layout": "bottom",
-      "background": "creamRadial",
-      "accent": "#1F88B0",
+      "source": "02_library.png",
+      "layout": "peekBottom",
+      "background": "sageMist",
+      "accent": "#2E9155",
       "iconSymbol": "dot.radiowaves.left.and.right",
       "darkText": true
     },
@@ -52,7 +52,7 @@
       "slug": "06_presets",
       "source": "06_presets.png",
       "layout": "peekBottom",
-      "background": "creamRadial",
+      "background": "sageMist",
       "accent": "#BE3E8C",
       "iconSymbol": "bookmark.fill",
       "darkText": true
@@ -61,16 +61,16 @@
       "slug": "07_timer",
       "source": "07_timer.png",
       "layout": "peekBottom",
-      "background": "duskGradient",
+      "background": "spatialGradient",
       "accent": "#C0D1FF",
       "iconSymbol": "moon.zzz.fill",
       "darkText": false
     },
     {
       "slug": "08_free_home",
-      "source": "08_free_home.png",
+      "source": "01_hero.png",
       "layout": "bleed",
-      "background": "creamRadial",
+      "background": "sageMist",
       "accent": "#2383C4",
       "iconSymbol": "gift.fill",
       "darkText": true
@@ -79,7 +79,7 @@
       "slug": "09_library_teaser",
       "source": "09_library_teaser.png",
       "layout": "bleed",
-      "background": "creamRadial",
+      "background": "sageMist",
       "accent": "#6A9E22",
       "iconSymbol": "sparkles",
       "darkText": true
@@ -88,262 +88,322 @@
       "slug": "10_paywall",
       "source": "10_paywall.png",
       "layout": "top",
-      "background": "warmGradient",
-      "accent": "#C24E1F",
+      "background": "midnightCopper",
+      "accent": "#E7A85B",
       "iconSymbol": "checkmark.seal.fill",
-      "darkText": true
+      "darkText": false
     }
   ],
   "copy": {
     "en-US": {
       "01_hero": {
-        "headline": "Craft your\nperfect ambience.",
-        "subhead": "Mix 20 immersive sounds. Offline. No subscription."
+        "eyebrow": "SLEEP · FOCUS · CALM",
+        "headline": "Craft your\nsoundscape.",
+        "subhead": "20 nature sounds. 3D audio. Offline."
       },
       "02_library": {
-        "headline": "20 ambiences,\nfor every mood.",
-        "subhead": "Forest, rain, café, jungle, campfire… all yours to mix."
+        "eyebrow": "SPATIAL AUDIO",
+        "headline": "Place every\nsound around you.",
+        "subhead": "Move each channel in a 3D sound field."
       },
       "03_detail_sheet": {
-        "headline": "Every sound,\nrecorded on location.",
-        "subhead": "Place, artist, licence. No synthesis, no loops."
+        "eyebrow": "REAL RECORDINGS",
+        "headline": "Every sound,\nrecorded in place.",
+        "subhead": "Locations, artists and licences stay visible."
       },
       "04_binaural": {
-        "headline": "For sleep.\nFor focus.",
-        "subhead": "4 binaural waves: Delta, Theta, Alpha, Beta."
+        "eyebrow": "BINAURAL WAVES",
+        "headline": "Tune your\nstate of mind.",
+        "subhead": "Delta, Theta, Alpha and Beta modes."
       },
       "05_spatial": {
-        "headline": "Sound,\nall around you.",
-        "subhead": "Full 3D spatial audio. Place every channel where you want."
+        "eyebrow": "SOUND LIBRARY",
+        "headline": "20 channels,\nready to mix.",
+        "subhead": "Rain, forest, café, campfire and more."
       },
       "06_presets": {
-        "headline": "Your mixes,\nsaved.",
-        "subhead": "Save your favourite ambiences. Reload in one tap."
+        "eyebrow": "SAVED MIXES",
+        "headline": "Return to\nyour favourites.",
+        "subhead": "Save ambience presets and reload in one tap."
       },
       "07_timer": {
-        "headline": "Built-in\nsleep timer.",
-        "subhead": "15 min, 30 min, 1 h or 2 h. Fades out on its own."
+        "eyebrow": "SLEEP TIMER",
+        "headline": "Fade out\non your time.",
+        "subhead": "15 min, 30 min, 1 h or 2 h timers."
       },
       "08_free_home": {
-        "headline": "Free,\nno strings attached.",
-        "subhead": "3 ambiences included. No account, no ads."
+        "eyebrow": "FREE START",
+        "headline": "Start free,\nno account.",
+        "subhead": "3 ambiences, spatial audio and timer included."
       },
       "09_library_teaser": {
-        "headline": "17 more\nambiences.",
-        "subhead": "Forest, storm, jungle, campfire… unlock them for life."
+        "eyebrow": "FULL LIBRARY",
+        "headline": "Unlock more\nsounds for life.",
+        "subhead": "17 premium ambiences with one purchase."
       },
       "10_paywall": {
-        "headline": "One payment.\nYours for life.",
+        "eyebrow": "LIFETIME PREMIUM",
+        "headline": "One purchase.\nYours for life.",
         "subhead": "No subscription. No account. 100% offline."
       }
     },
     "fr-FR": {
       "01_hero": {
-        "headline": "Créez votre\nambiance idéale.",
-        "subhead": "20 sons à mixer librement. Hors ligne. Sans abonnement."
+        "eyebrow": "SOMMEIL · FOCUS · CALME",
+        "headline": "Composez votre\nambiance.",
+        "subhead": "20 sons nature. Audio 3D. Hors ligne."
       },
       "02_library": {
-        "headline": "20 ambiances,\npour chaque moment.",
-        "subhead": "Forêt, pluie, café, jungle, feu de camp… à mélanger à volonté."
+        "eyebrow": "AUDIO SPATIAL",
+        "headline": "Placez chaque\nson autour de vous.",
+        "subhead": "Déplacez chaque canal dans un espace 3D."
       },
       "03_detail_sheet": {
-        "headline": "Chaque son,\nenregistré en vrai.",
-        "subhead": "Lieu, auteur, licence. Aucune synthèse, aucune boucle."
+        "eyebrow": "PRISES RÉELLES",
+        "headline": "Chaque son,\nenregistré sur place.",
+        "subhead": "Lieux, artistes et licences restent visibles."
       },
       "04_binaural": {
-        "headline": "Pour dormir.\nPour se concentrer.",
-        "subhead": "4 ondes binaurales : Delta, Theta, Alpha, Beta."
+        "eyebrow": "ONDES BINAURALES",
+        "headline": "Choisissez\nvotre état.",
+        "subhead": "Delta, Theta, Alpha et Beta."
       },
       "05_spatial": {
-        "headline": "Le son,\nautour de vous.",
-        "subhead": "Audio spatial 3D. Placez chaque canal où vous voulez."
+        "eyebrow": "BIBLIOTHÈQUE SONORE",
+        "headline": "20 canaux,\nà mixer.",
+        "subhead": "Pluie, forêt, café, feu de camp et plus."
       },
       "06_presets": {
-        "headline": "Vos mix,\nsauvegardés.",
-        "subhead": "Enregistrez vos ambiances favorites. Rechargez-les d'un geste."
+        "eyebrow": "MIX SAUVEGARDÉS",
+        "headline": "Retrouvez vos\nambiances.",
+        "subhead": "Sauvegardez vos mix et rechargez-les en un geste."
       },
       "07_timer": {
-        "headline": "Timer de sommeil\nintégré.",
-        "subhead": "15 min, 30 min, 1 h ou 2 h. Fondu automatique."
+        "eyebrow": "TIMER SOMMEIL",
+        "headline": "Un fondu,\nà votre rythme.",
+        "subhead": "15 min, 30 min, 1 h ou 2 h."
       },
       "08_free_home": {
-        "headline": "Gratuit,\nsans condition.",
-        "subhead": "3 ambiances offertes. Sans compte, sans pub."
+        "eyebrow": "DÉPART GRATUIT",
+        "headline": "Commencez sans\ncompte.",
+        "subhead": "3 ambiances, audio spatial et timer inclus."
       },
       "09_library_teaser": {
-        "headline": "17 ambiances\nen plus.",
-        "subhead": "Forêt, orage, jungle, feu de camp… à débloquer à vie."
+        "eyebrow": "BIBLIOTHÈQUE COMPLÈTE",
+        "headline": "Débloquez plus\nde sons à vie.",
+        "subhead": "17 ambiances premium avec un seul achat."
       },
       "10_paywall": {
+        "eyebrow": "PREMIUM À VIE",
         "headline": "Un achat.\nÀ vie.",
         "subhead": "Sans abonnement. Sans compte. 100% hors ligne."
       }
     },
     "de-DE": {
       "01_hero": {
-        "headline": "Gestalte deine\nperfekte Atmosphäre.",
-        "subhead": "20 Klänge frei mischen. Offline. Kein Abo."
+        "eyebrow": "SCHLAF · FOKUS · RUHE",
+        "headline": "Gestalte deine\nKlangwelt.",
+        "subhead": "20 Naturklänge. 3D-Audio. Offline."
       },
       "02_library": {
-        "headline": "20 Atmosphären,\nfür jeden Moment.",
-        "subhead": "Wald, Regen, Café, Dschungel, Lagerfeuer… alles zum Mischen."
+        "eyebrow": "3D-AUDIO",
+        "headline": "Platziere jeden\nKlang um dich.",
+        "subhead": "Bewege jeden Kanal im 3D-Klangfeld."
       },
       "03_detail_sheet": {
+        "eyebrow": "ECHTE AUFNAHMEN",
         "headline": "Jeder Klang,\nvor Ort aufgenommen.",
-        "subhead": "Ort, Autor, Lizenz. Keine Synthese, keine Loops."
+        "subhead": "Orte, Künstler und Lizenzen bleiben sichtbar."
       },
       "04_binaural": {
-        "headline": "Zum Schlafen.\nZum Fokussieren.",
-        "subhead": "4 binaurale Wellen: Delta, Theta, Alpha, Beta."
+        "eyebrow": "BINAURALE WELLEN",
+        "headline": "Stimme deinen\nZustand ab.",
+        "subhead": "Delta, Theta, Alpha und Beta."
       },
       "05_spatial": {
-        "headline": "Klang,\num dich herum.",
-        "subhead": "3D-Raumklang. Platziere jeden Kanal, wo du willst."
+        "eyebrow": "KLANGBIBLIOTHEK",
+        "headline": "20 Kanäle,\nbereit zum Mixen.",
+        "subhead": "Regen, Wald, Café, Lagerfeuer und mehr."
       },
       "06_presets": {
-        "headline": "Deine Mixe,\ngespeichert.",
-        "subhead": "Speichere deine Lieblings-Atmosphären. Ein Tippen genügt."
+        "eyebrow": "GESPEICHERTE MIXE",
+        "headline": "Zurück zu deinen\nFavoriten.",
+        "subhead": "Speichere Atmosphären und lade sie mit einem Tipp."
       },
       "07_timer": {
-        "headline": "Schlaf-Timer,\nintegriert.",
-        "subhead": "15 Min, 30 Min, 1 Std oder 2 Std. Automatisches Ausblenden."
+        "eyebrow": "SCHLAF-TIMER",
+        "headline": "Ausblenden,\nwenn du willst.",
+        "subhead": "15 Min, 30 Min, 1 Std oder 2 Std."
       },
       "08_free_home": {
-        "headline": "Kostenlos,\nohne Bedingungen.",
-        "subhead": "3 Atmosphären inklusive. Kein Konto, keine Werbung."
+        "eyebrow": "KOSTENLOS STARTEN",
+        "headline": "Starte gratis,\nohne Konto.",
+        "subhead": "3 Atmosphären, 3D-Audio und Timer inklusive."
       },
       "09_library_teaser": {
-        "headline": "17 weitere\nAtmosphären.",
-        "subhead": "Wald, Gewitter, Dschungel, Lagerfeuer… für immer freischalten."
+        "eyebrow": "VOLLE BIBLIOTHEK",
+        "headline": "Mehr Klänge\nfür immer.",
+        "subhead": "17 Premium-Atmosphären mit einem Kauf."
       },
       "10_paywall": {
+        "eyebrow": "PREMIUM FÜR IMMER",
         "headline": "Einmal zahlen.\nFür immer.",
         "subhead": "Kein Abo. Kein Konto. 100% offline."
       }
     },
     "es-ES": {
       "01_hero": {
-        "headline": "Crea tu\nambiente ideal.",
-        "subhead": "20 sonidos para mezclar. Sin conexión. Sin suscripción."
+        "eyebrow": "SUEÑO · FOCO · CALMA",
+        "headline": "Crea tu\npaisaje sonoro.",
+        "subhead": "20 sonidos naturales. Audio 3D. Sin conexión."
       },
       "02_library": {
-        "headline": "20 ambientes,\npara cada momento.",
-        "subhead": "Bosque, lluvia, cafetería, jungla, fogata… todo por mezclar."
+        "eyebrow": "AUDIO ESPACIAL",
+        "headline": "Coloca cada\nsonido alrededor.",
+        "subhead": "Mueve cada canal en un campo sonoro 3D."
       },
       "03_detail_sheet": {
-        "headline": "Cada sonido,\ngrabado en el lugar.",
-        "subhead": "Lugar, autor, licencia. Sin síntesis, sin bucles."
+        "eyebrow": "GRABACIONES REALES",
+        "headline": "Cada sonido,\ngrabado en lugar.",
+        "subhead": "Lugares, artistas y licencias siempre visibles."
       },
       "04_binaural": {
-        "headline": "Para dormir.\nPara concentrarte.",
-        "subhead": "4 ondas binaurales: Delta, Theta, Alpha, Beta."
+        "eyebrow": "ONDAS BINAURALES",
+        "headline": "Ajusta tu\nestado mental.",
+        "subhead": "Modos Delta, Theta, Alpha y Beta."
       },
       "05_spatial": {
-        "headline": "El sonido,\na tu alrededor.",
-        "subhead": "Audio espacial 3D. Coloca cada canal donde quieras."
+        "eyebrow": "BIBLIOTECA SONORA",
+        "headline": "20 canales,\nlistos para mezclar.",
+        "subhead": "Lluvia, bosque, café, fogata y más."
       },
       "06_presets": {
-        "headline": "Tus mezclas,\nguardadas.",
-        "subhead": "Guarda tus ambientes favoritos. Recupéralos al instante."
+        "eyebrow": "MEZCLAS GUARDADAS",
+        "headline": "Vuelve a tus\nfavoritas.",
+        "subhead": "Guarda ambientes y recupéralos al instante."
       },
       "07_timer": {
-        "headline": "Temporizador de sueño\nintegrado.",
-        "subhead": "15 min, 30 min, 1 h o 2 h. Atenuación automática."
+        "eyebrow": "TEMPORIZADOR",
+        "headline": "Se apaga\na tu ritmo.",
+        "subhead": "15 min, 30 min, 1 h o 2 h."
       },
       "08_free_home": {
-        "headline": "Gratis,\nsin condiciones.",
-        "subhead": "3 ambientes incluidos. Sin cuenta, sin anuncios."
+        "eyebrow": "INICIO GRATIS",
+        "headline": "Empieza gratis,\nsin cuenta.",
+        "subhead": "3 ambientes, audio espacial y timer incluidos."
       },
       "09_library_teaser": {
-        "headline": "17 ambientes\nmás.",
-        "subhead": "Bosque, tormenta, jungla, fogata… a desbloquear para siempre."
+        "eyebrow": "BIBLIOTECA COMPLETA",
+        "headline": "Desbloquea más\nsonidos para siempre.",
+        "subhead": "17 ambientes premium con una sola compra."
       },
       "10_paywall": {
-        "headline": "Paga una vez.\nPara siempre.",
+        "eyebrow": "PREMIUM DE POR VIDA",
+        "headline": "Una compra.\nPara siempre.",
         "subhead": "Sin suscripción. Sin cuenta. 100% sin conexión."
       }
     },
     "it": {
       "01_hero": {
-        "headline": "Crea la tua\natmosfera ideale.",
-        "subhead": "20 suoni da mescolare liberamente. Offline. Nessun abbonamento."
+        "eyebrow": "SONNO · FOCUS · CALMA",
+        "headline": "Crea il tuo\npaesaggio sonoro.",
+        "subhead": "20 suoni naturali. Audio 3D. Offline."
       },
       "02_library": {
-        "headline": "20 atmosfere,\nper ogni momento.",
-        "subhead": "Bosco, pioggia, caffè, giungla, falò… tutto da mescolare."
+        "eyebrow": "AUDIO SPAZIALE",
+        "headline": "Posiziona ogni\nsuono intorno a te.",
+        "subhead": "Muovi ogni canale in uno spazio sonoro 3D."
       },
       "03_detail_sheet": {
+        "eyebrow": "REGISTRAZIONI REALI",
         "headline": "Ogni suono,\nregistrato sul posto.",
-        "subhead": "Luogo, autore, licenza. Nessuna sintesi, nessun loop."
+        "subhead": "Luoghi, artisti e licenze sempre visibili."
       },
       "04_binaural": {
-        "headline": "Per dormire.\nPer concentrarsi.",
-        "subhead": "4 onde binaurali: Delta, Theta, Alpha, Beta."
+        "eyebrow": "ONDE BINAURALI",
+        "headline": "Scegli il tuo\nstato mentale.",
+        "subhead": "Modalità Delta, Theta, Alpha e Beta."
       },
       "05_spatial": {
-        "headline": "Il suono,\ntutto intorno.",
-        "subhead": "Audio spaziale 3D. Posiziona ogni canale dove vuoi."
+        "eyebrow": "LIBRERIA SONORA",
+        "headline": "20 canali,\npronti da mixare.",
+        "subhead": "Pioggia, foresta, caffè, falò e altro."
       },
       "06_presets": {
-        "headline": "I tuoi mix,\nsalvati.",
-        "subhead": "Salva le tue atmosfere preferite. Richiamale in un tocco."
+        "eyebrow": "MIX SALVATI",
+        "headline": "Ritrova le tue\natmosfere.",
+        "subhead": "Salva i mix e riaprili con un tap."
       },
       "07_timer": {
-        "headline": "Timer di sonno\nintegrato.",
-        "subhead": "15 min, 30 min, 1 h o 2 h. Dissolvenza automatica."
+        "eyebrow": "TIMER SONNO",
+        "headline": "Sfuma l’audio\nquando vuoi.",
+        "subhead": "15 min, 30 min, 1 h o 2 h."
       },
       "08_free_home": {
-        "headline": "Gratis,\nsenza condizioni.",
-        "subhead": "3 atmosfere incluse. Senza account, senza pubblicità."
+        "eyebrow": "INIZIO GRATIS",
+        "headline": "Inizia gratis,\nsenza account.",
+        "subhead": "3 atmosfere, audio spaziale e timer inclusi."
       },
       "09_library_teaser": {
-        "headline": "17 atmosfere\nin più.",
-        "subhead": "Bosco, tempesta, giungla, falò… da sbloccare per sempre."
+        "eyebrow": "LIBRERIA COMPLETA",
+        "headline": "Sblocca più\nsuoni a vita.",
+        "subhead": "17 atmosfere premium con un solo acquisto."
       },
       "10_paywall": {
-        "headline": "Paga una volta.\nPer sempre.",
-        "subhead": "Nessun abbonamento. Nessun account. 100% offline."
+        "eyebrow": "PREMIUM A VITA",
+        "headline": "Un acquisto.\nPer sempre.",
+        "subhead": "Senza abbonamento. Senza account. 100% offline."
       }
     },
     "pt-BR": {
       "01_hero": {
-        "headline": "Crie sua\natmosfera ideal.",
-        "subhead": "20 sons para misturar. Offline. Sem assinatura."
+        "eyebrow": "SONO · FOCO · CALMA",
+        "headline": "Crie sua\npaisagem sonora.",
+        "subhead": "20 sons da natureza. Áudio 3D. Offline."
       },
       "02_library": {
-        "headline": "20 atmosferas,\npara cada momento.",
-        "subhead": "Floresta, chuva, café, selva, fogueira… tudo para misturar."
+        "eyebrow": "ÁUDIO ESPACIAL",
+        "headline": "Coloque cada\nsom ao seu redor.",
+        "subhead": "Mova cada canal em um campo sonoro 3D."
       },
       "03_detail_sheet": {
+        "eyebrow": "GRAVAÇÕES REAIS",
         "headline": "Cada som,\ngravado no local.",
-        "subhead": "Lugar, autor, licença. Sem síntese, sem loops."
+        "subhead": "Locais, artistas e licenças sempre visíveis."
       },
       "04_binaural": {
-        "headline": "Para dormir.\nPara se concentrar.",
-        "subhead": "4 ondas binaurais: Delta, Theta, Alpha, Beta."
+        "eyebrow": "ONDAS BINAURAIS",
+        "headline": "Ajuste seu\nestado mental.",
+        "subhead": "Modos Delta, Theta, Alpha e Beta."
       },
       "05_spatial": {
-        "headline": "O som,\nao seu redor.",
-        "subhead": "Áudio espacial 3D. Posicione cada canal onde quiser."
+        "eyebrow": "BIBLIOTECA SONORA",
+        "headline": "20 canais,\nprontos para mixar.",
+        "subhead": "Chuva, floresta, café, fogueira e mais."
       },
       "06_presets": {
-        "headline": "Seus mixes,\nsalvos.",
-        "subhead": "Salve suas atmosferas favoritas. Recarregue em um toque."
+        "eyebrow": "MIXES SALVOS",
+        "headline": "Volte às suas\nambiências.",
+        "subhead": "Salve seus mixes e reabra com um toque."
       },
       "07_timer": {
-        "headline": "Timer de sono\nintegrado.",
-        "subhead": "15 min, 30 min, 1 h ou 2 h. Fade automático."
+        "eyebrow": "TIMER DE SONO",
+        "headline": "Desaparece\nno seu tempo.",
+        "subhead": "15 min, 30 min, 1 h ou 2 h."
       },
       "08_free_home": {
-        "headline": "Grátis,\nsem condições.",
-        "subhead": "3 atmosferas inclusas. Sem conta, sem anúncios."
+        "eyebrow": "COMECE GRÁTIS",
+        "headline": "Comece grátis,\nsem conta.",
+        "subhead": "3 ambiências, áudio espacial e timer incluídos."
       },
       "09_library_teaser": {
-        "headline": "Mais 17\natmosferas.",
-        "subhead": "Floresta, tempestade, selva, fogueira… a desbloquear para sempre."
+        "eyebrow": "BIBLIOTECA COMPLETA",
+        "headline": "Desbloqueie mais\nsons para sempre.",
+        "subhead": "17 ambiências premium com uma compra."
       },
       "10_paywall": {
-        "headline": "Pague uma vez.\nPara sempre.",
+        "eyebrow": "PREMIUM VITALÍCIO",
+        "headline": "Uma compra.\nPara sempre.",
         "subhead": "Sem assinatura. Sem conta. 100% offline."
       }
     }

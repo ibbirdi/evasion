@@ -1,1 +1,1 @@
-rumore,bianco,marrone,rosa,pioggia,temporale,vento,binaurale,sonno,concentrazione,relax,tinnito,ASMR
+pioggia,rumore,bianco,marrone,rosa,temporale,oceano,binaurale,timer,meditazione,acufene,caffe

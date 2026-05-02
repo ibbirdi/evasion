@@ -1,4 +1,5 @@
 require "json"
+require "fileutils"
 
 default_platform(:ios)
 
@@ -29,6 +30,47 @@ def oasis_screenshot_ios_version
   ios_runtimes.max_by { |runtime| Gem::Version.new(runtime["version"]) }&.fetch("version", nil)
 rescue StandardError
   nil
+end
+
+def oasis_stage_appstore_media(repo_root)
+  # `upload_to_app_store` expects one flat directory per locale containing
+  # upload-ready media. Our composites live under
+  # `fastlane/screenshots/<locale>/figma-pro/*.jpg` alongside raw captures,
+  # so stage them into a dedicated folder to avoid shipping raw captures
+  # or the `preview/` subdirectory.
+  staging_root = File.join(repo_root, "fastlane", "appstore-upload")
+  FileUtils.rm_rf(staging_root)
+  FileUtils.mkdir_p(staging_root)
+
+  composite_glob = File.join(repo_root, "fastlane", "screenshots", "*", "figma-pro", "*.jpg")
+  staged_count = 0
+  Dir.glob(composite_glob).each do |src|
+    # src = .../fastlane/screenshots/<locale>/figma-pro/<slug>.jpg
+    locale = File.basename(File.dirname(File.dirname(src)))
+    next if locale == "preview" || locale == "test_output"
+    dest_dir = File.join(staging_root, locale)
+    FileUtils.mkdir_p(dest_dir)
+    FileUtils.cp(src, File.join(dest_dir, File.basename(src)))
+    staged_count += 1
+  end
+  UI.message("Staged #{staged_count} composite screenshots into #{staging_root}")
+
+  app_preview_glob = File.join(repo_root, "fastlane", "app-previews", "*", "*.mp4")
+  staged_preview_count = 0
+  Dir.glob(app_preview_glob).each do |src|
+    locale = File.basename(File.dirname(src))
+    dest_dir = File.join(staging_root, locale)
+    FileUtils.mkdir_p(dest_dir)
+    FileUtils.cp(src, File.join(dest_dir, File.basename(src)))
+    staged_preview_count += 1
+  end
+  UI.message("Staged #{staged_preview_count} App Preview videos into #{staging_root}")
+
+  {
+    staging_root: staging_root,
+    screenshots: staged_count,
+    app_previews: staged_preview_count
+  }
 end
 
 platform :ios do
@@ -96,6 +138,18 @@ platform :ios do
     screenshots
   end
 
+  desc "Generate localized App Preview videos from the App Store composites"
+  lane :app_previews do
+    repo_root = oasis_repo_root
+    sh("ruby", File.join(repo_root, "scripts", "generate_app_previews.rb"))
+  end
+
+  desc "Stage upload-ready screenshots and App Preview videos without uploading"
+  lane :stage_appstore_assets do
+    repo_root = oasis_repo_root
+    oasis_stage_appstore_media(repo_root)
+  end
+
   desc "Upload metadata to App Store Connect without screenshots"
   lane :appstore_metadata do |options|
     repo_root = oasis_repo_root
@@ -122,35 +176,14 @@ platform :ios do
   lane :appstore_release do |options|
     repo_root = oasis_repo_root
     app_version = options[:app_version] || "1.4.1"
-
-    # `upload_to_app_store` expects one flat directory per locale containing
-    # the screenshots. Our composites live under
-    # `fastlane/screenshots/<locale>/figma-pro/*.jpg` alongside raw captures,
-    # so stage them into a dedicated folder to avoid shipping raw captures
-    # or the `preview/` subdirectory.
-    staging_root = File.join(repo_root, "fastlane", "appstore-upload")
-    FileUtils.rm_rf(staging_root)
-    FileUtils.mkdir_p(staging_root)
-
-    composite_glob = File.join(repo_root, "fastlane", "screenshots", "*", "figma-pro", "*.jpg")
-    staged_count = 0
-    Dir.glob(composite_glob).each do |src|
-      # src = .../fastlane/screenshots/<locale>/figma-pro/<slug>.jpg
-      locale = File.basename(File.dirname(File.dirname(src)))
-      next if locale == "preview" || locale == "test_output"
-      dest_dir = File.join(staging_root, locale)
-      FileUtils.mkdir_p(dest_dir)
-      FileUtils.cp(src, File.join(dest_dir, File.basename(src)))
-      staged_count += 1
-    end
-    UI.message("Staged #{staged_count} composite screenshots into #{staging_root}")
+    staging_result = oasis_stage_appstore_media(repo_root)
 
     upload_to_app_store(
       username: "jonathanluquet@me.com",
       app_identifier: "com.jonathanluquet.drift",
       app_version: app_version,
       metadata_path: File.join(repo_root, "fastlane", "metadata"),
-      screenshots_path: staging_root,
+      screenshots_path: staging_result[:staging_root],
       skip_binary_upload: true,
       skip_metadata: false,
       skip_screenshots: false,
