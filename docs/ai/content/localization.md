@@ -1,0 +1,118 @@
+---
+title: Localization
+status: stable
+last_updated: 2026-05-03
+tracks:
+  - "ios-native/OasisNative/Support/L10n.swift"
+  - "ios-native/OasisNative/Resources/Localizable.xcstrings"
+  - "fastlane/metadata/**"
+related:
+  - "sounds-catalog.md"
+  - "../codebase/conventions.md"
+  - "../marketing/aso-strategy.md"
+---
+
+# Localization
+
+## Supported locales
+
+Six locales, in order of priority:
+
+1. `en-US` — English (United States)
+2. `fr-FR` — French (France)
+3. `de-DE` — German
+4. `es-ES` — Spanish (Spain)
+5. `it` — Italian
+6. `pt-BR` — Portuguese (Brazil)
+
+These are the locales for both:
+- **In-app strings** — `Localizable.xcstrings` (single string-catalog file).
+- **App Store metadata** — `fastlane/metadata/<locale>/`.
+
+## In-app strings
+
+Source of truth: [`Localizable.xcstrings`](../../../ios-native/OasisNative/Resources/Localizable.xcstrings) (Xcode 15+ string catalog format, single file).
+
+Access from Swift via `LocalizedStringResource` keys exposed in [`L10n.swift`](../../../ios-native/OasisNative/Support/L10n.swift):
+
+```swift
+Text(L10n.channelBirds)               // resolves channel.birds for current locale
+Text(L10n.paywallTitleGeneric)
+```
+
+### Key naming scheme
+
+```
+channel.<id>                          short label (e.g. "Birds")
+channel.<id>.long                     longer/contextual label
+channel.<id>.location                 location string (e.g. "Brittany, France")
+binaural.track.<id>                   delta / theta / alpha / beta
+paywall.<scope>.<key>
+premium.inline.<entry_point>
+presets.<scope>.<key>
+presets.default.<id>                  default preset names (starter / calm / storm)
+timer.option<minutes>                 timer.option15, timer.option30, …
+header.<key>
+spatial.<key>
+onboarding.<step>.<key>
+errors.<key>
+```
+
+When adding a new channel, run [`scripts/add_channel_translations.py`](../../../scripts/add_channel_translations.py) to scaffold the three `channel.<id>.*` entries in all 6 locales.
+
+### Special characters
+
+The catalog handles all needed glyphs:
+- German: `ä ö ü ß`
+- French: `é è ê ç à`
+- Spanish: `ñ ¡ ¿`
+- Italian: `à è ì`
+- Portuguese: `ã õ ç`
+
+Don't normalise away accents in keys or values.
+
+## App Store metadata
+
+Per-locale text files in `fastlane/metadata/<locale>/`. Each locale has a fixed set:
+
+| File | Apple character cap | Notes |
+| --- | --- | --- |
+| `name.txt` | 30 | App name. Indexed by ASO. |
+| `subtitle.txt` | 30 | App subtitle. Indexed by ASO. |
+| `keywords.txt` | 100 | Comma-separated, no spaces. Indexed but invisible. |
+| `description.txt` | 4 000 | Long description. Apple weighs the **first line** heavily for SERP. |
+| `promotional_text.txt` | 170 | Editable without binary review. Updated monthly. |
+| `release_notes.txt` | 4 000 | Per-version "What's new". Indexed for the current version. |
+| `support_url.txt` | URL | Required by ASC. |
+| `privacy_url.txt` | URL | Required when using RevenueCat / IAP. |
+| `marketing_url.txt` | URL | Optional. |
+| `primary_first_sub_category.txt` | enum | Set to `MIND_AND_BODY` (per 2026-05 audit). |
+| `secondary_first_sub_category.txt` | enum | Set to `TRAVEL` (per 2026-05 audit). |
+
+### Apple's deduplication rule
+
+Apple indexes each unique word **once** across `name + subtitle + keywords`. Repeating "Sleep" in the name and the keyword field wastes ~30 characters of search surface. Always check that name + subtitle + keywords have **zero word overlap** per locale.
+
+### Approval timing per file
+
+- `name.txt`, `subtitle.txt`, `description.txt`, screenshots, app icon → **24–48 h Apple review** on submit.
+- `keywords.txt`, `promotional_text.txt`, `release_notes.txt`, `support_url.txt`, `privacy_url.txt`, `marketing_url.txt`, sub-categories → **no review**, instant on push.
+
+## Adding a new locale — checklist
+
+1. Add the locale to `Localizable.xcstrings` (Xcode auto-fills English keys; you fill the translations).
+2. Create `fastlane/metadata/<locale>/` (use `scripts/createFastlaneCountriesFolders.js` or copy an existing locale).
+3. Add the locale to the `screenshots` lane's `languages:` array in `fastlane/Fastfile`.
+4. Add the locale-specific kicker, headline, subhead in [`scripts/screenshot_content.json`](../../../scripts/screenshot_content.json) and re-render screenshots via `generate_store_screenshot_comps.swift`.
+5. Update [marketing/aso-strategy.md](../marketing/aso-strategy.md) with the new locale's metadata.
+6. Bump this file's `last_updated`.
+
+## App Store Connect surface (per locale)
+
+Each locale has its own ASC view: name, subtitle, description, keywords, promotional text, release notes, screenshots, App Preview videos, optional URLs. fastlane lanes push all of them. See [../operations/release-process.md](../operations/release-process.md).
+
+## Feature notes
+
+- The legacy `selectedLanguage` field in `PersistedMixerState` is unused (kept for backward compat). The app honours the system locale; there is no in-app language picker.
+- The "Souffle harmonique" rename (commit `583537e`) is the canonical French translation for "tonal bed" / "ambient pad". Don't substitute "musique" or "fond" — that's been deliberately rejected.
+- ASO copy and brand lines (e.g. "No subscription. Ever.", "Pay once, yours forever.") have approved translations in 6 locales — see `marketing/store-assets.md` for the full table. Don't paraphrase them in random surfaces.

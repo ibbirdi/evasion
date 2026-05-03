@@ -1,0 +1,77 @@
+---
+title: Glossary
+status: stable
+last_updated: 2026-05-03
+tracks:
+  - "ios-native/OasisNative/Models/AppModels.swift"
+  - "ios-native/OasisNative/Models/SoundChannelMetadata.swift"
+  - "ios-native/OasisNative/Support/L10n.swift"
+related:
+  - "../architecture/audio-engine.md"
+  - "../architecture/binaural.md"
+  - "../content/sounds-catalog.md"
+---
+
+# Glossary
+
+Vocabulary used inside the codebase, the UI copy, and these memory files. Some terms have French aliases because the in-app copy is multilingual and the user thinks in French.
+
+## Audio terms
+
+**Channel** (`SoundChannel`). One of the 20 ambient sounds. Persistent identifier (e.g. `oiseaux`, `vent`, `tonnerre`). Each has a volume, mute state, auto-variation flag, and 2D spatial position. See [content/sounds-catalog.md](../content/sounds-catalog.md).
+
+**Free channel.** One of the 3 channels accessible without premium: Birds (`oiseaux`), Wind (`vent`), Beach (`plage`). Defined as `freeChannels` in code. The other 17 are premium.
+
+**Channel state** (`ChannelState`). `{ volume: Double, isMuted: Bool, autoVariationEnabled: Bool, spatialPosition: SpatialPoint }`.
+
+**Spatial position** (`SpatialPoint`). 2D point in `[-1, 1] × [-1, 1]`. Origin = listener. Mapped to `AVAudio3DPoint` for the `AVAudioEnvironmentNode`.
+
+**Auto-variation.** Slow automatic modulation of a channel's volume over time. Per-channel toggle. Used to keep mixes alive over multi-hour listening.
+
+**Tonal bed** / **souffle harmonique** (`TonalBedSynth`). Procedural harmonic pad layered on top of the ambient mix. Three voices (fundamental, fifth, octave) at ~15 dB below the ambient bus. The fundamental note is derived from the dominant active channel's *tonal group* (D3, B2, C3 minor, G3 sus4, A2 neutral, A2 major, C3 open). Off by default since v1.4.1. Localised "souffle harmonique" in French.
+
+**Tonal group.** Per-channel harmonic anchor (e.g. Birds → D3). Documented in [content/sounds-catalog.md](../content/sounds-catalog.md). Drives `TonalBedSynth.applySignature()`.
+
+**Master fade.** Multiplier applied to all ambient players during play/pause transitions. Animated 0 → 1 over 1.6 s on play, 1 → 0 over 0.9 s on pause (customizable per call via `setNextPauseFadeDuration`).
+
+**Binaural track** (`BinauralTrack`). One of `.delta`, `.theta`, `.alpha`, `.beta`. Played by a dedicated `AVAudioPlayer`, looped infinitely. Delta is free; the other three are premium. See [architecture/binaural.md](../architecture/binaural.md).
+
+## Mix and presets
+
+**Preset** (`Preset`). Named snapshot of `[SoundChannel: ChannelState]`. Fields: `id`, `name`, `channels`. Persisted in `PersistedMixerState`.
+
+**Default presets.** Three shipped presets: `preset_default_starter`, `preset_default_calm`, `preset_default_storm`. Always present.
+
+**Signature preset** (`preset_signature_oasis`). Special preview-able preset showcasing the "best of premium". Free users can preview it for 45 s, throttled to once per day (see [premium-model.md](premium-model.md)).
+
+**User preset.** `preset_user_<timestamp>`. Created by the user. Free tier caps at 1; premium has no cap.
+
+**Random mix.** UI affordance to generate a random ambient mix. Restricted to accessible channels.
+
+## Premium
+
+**Entitlement.** RevenueCat term for "the user has paid". The `premium` entitlement unlocks the full app.
+
+**Premium entry point** (`PremiumEntryPoint`). Categorisation of *why* the paywall was triggered (channel locked, preset, binaural, timer, signature preview, home banner, …). Drives whether `PremiumCoordinator` shows an inline upsell first or the full paywall.
+
+**Inline upsell.** Compact in-context teaser shown for `.preset` and `.binaural` entry points. If dismissed and the user re-attempts, falls through to the full paywall.
+
+**Paywall context** (`PremiumPaywallContext`). The state passed to `PaywallOverlay` describing what triggered it, used to colour the copy.
+
+## Timer
+
+**Sleep timer.** Optional countdown after which playback fades to silence. Durations: 15 / 30 / 60 / 120 minutes. 15 and 30 are free; 60 and 120 are premium.
+
+## Localization
+
+**Locale.** One of the 6 supported app-store locales: `en-US`, `fr-FR`, `de-DE`, `es-ES`, `it`, `pt-BR`. See [content/localization.md](../content/localization.md).
+
+**L10n key.** Dotted identifier resolved by `LocalizedStringResource`, e.g. `channel.birds`, `paywall.title.generic`. Source of truth: `Localizable.xcstrings`.
+
+## Build / test
+
+**Premium override.** `-OASISPremiumOverride free|premium|revenueCat` launch argument that bypasses RevenueCat and forces a tier. Used by UI tests and fastlane.
+
+**Reset state.** `-OASISResetState YES` clears persisted state on launch. Used by screenshot automation to start from a known mix.
+
+**Quiescence animations.** `WaveformSignatureLine` and `AnimatedLiquidAura` are paused under XCUITest so the snapshot frame is deterministic.
