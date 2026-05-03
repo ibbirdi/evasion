@@ -172,6 +172,36 @@ platform :ios do
     )
   end
 
+  desc "Archive + export an App Store IPA and upload it to TestFlight/App Store Connect"
+  lane :build_and_upload do |options|
+    repo_root = oasis_repo_root
+    ios_project = File.join(repo_root, "ios-native", "OasisNative.xcodeproj")
+    output_directory = File.join(repo_root, "fastlane", "builds")
+    buildlog_directory = File.join(repo_root, "fastlane", "buildlogs")
+    ipa_name = options[:ipa_name] || "OasisNative.ipa"
+
+    build_app(
+      project: ios_project,
+      scheme: "OasisNative",
+      configuration: "Release",
+      export_method: "app-store",
+      clean: true,
+      output_directory: output_directory,
+      output_name: ipa_name,
+      buildlog_path: buildlog_directory,
+      include_bitcode: false,
+      include_symbols: true
+    )
+
+    upload_to_testflight(
+      username: "jonathanluquet@me.com",
+      app_identifier: "com.jonathanluquet.drift",
+      ipa: File.join(output_directory, ipa_name),
+      skip_waiting_for_build_processing: true,
+      skip_submission: true
+    )
+  end
+
   desc "Upload screenshots + metadata to App Store Connect (no binary)"
   lane :appstore_release do |options|
     repo_root = oasis_repo_root

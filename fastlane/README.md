@@ -31,6 +31,22 @@ Generate App Store screenshots for the native iOS app with XCTest + snapshot
 
 Alias for screenshot generation
 
+### ios app_previews
+
+```sh
+[bundle exec] fastlane ios app_previews
+```
+
+Generate localized App Preview videos from the App Store composites
+
+### ios stage_appstore_assets
+
+```sh
+[bundle exec] fastlane ios stage_appstore_assets
+```
+
+Stage upload-ready screenshots and App Preview videos without uploading
+
 ### ios appstore_metadata
 
 ```sh
@@ -38,6 +54,14 @@ Alias for screenshot generation
 ```
 
 Upload metadata to App Store Connect without screenshots
+
+### ios build_and_upload
+
+```sh
+[bundle exec] fastlane ios build_and_upload
+```
+
+Archive + export an App Store IPA and upload it to TestFlight/App Store Connect
 
 ### ios appstore_release
 

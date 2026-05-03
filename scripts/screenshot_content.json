@@ -14,12 +14,12 @@
     },
     {
       "slug": "02_library",
-      "source": "05_spatial.png",
-      "layout": "bottom",
-      "background": "spatialGradient",
-      "accent": "#70D2C2",
+      "source": "02_library.png",
+      "layout": "peekBottom",
+      "background": "sageMist",
+      "accent": "#2E9155",
       "iconSymbol": "leaf.fill",
-      "darkText": false
+      "darkText": true
     },
     {
       "slug": "03_detail_sheet",
@@ -41,12 +41,12 @@
     },
     {
       "slug": "05_spatial",
-      "source": "02_library.png",
-      "layout": "peekBottom",
-      "background": "sageMist",
-      "accent": "#2E9155",
+      "source": "05_spatial.png",
+      "layout": "bottom",
+      "background": "spatialGradient",
+      "accent": "#70D2C2",
       "iconSymbol": "dot.radiowaves.left.and.right",
-      "darkText": true
+      "darkText": false
     },
     {
       "slug": "06_presets",
@@ -102,9 +102,9 @@
         "subhead": "20 nature sounds. 3D audio. Offline."
       },
       "02_library": {
-        "eyebrow": "SPATIAL AUDIO",
-        "headline": "Place every\nsound around you.",
-        "subhead": "Move each channel in a 3D sound field."
+        "eyebrow": "SOUND LIBRARY",
+        "headline": "20 channels,\nready to mix.",
+        "subhead": "Rain, forest, café, campfire and more."
       },
       "03_detail_sheet": {
         "eyebrow": "REAL RECORDINGS",
@@ -117,9 +117,9 @@
         "subhead": "Delta, Theta, Alpha and Beta modes."
       },
       "05_spatial": {
-        "eyebrow": "SOUND LIBRARY",
-        "headline": "20 channels,\nready to mix.",
-        "subhead": "Rain, forest, café, campfire and more."
+        "eyebrow": "SPATIAL AUDIO",
+        "headline": "Place every\nsound around you.",
+        "subhead": "Move each channel in a 3D sound field."
       },
       "06_presets": {
         "eyebrow": "SAVED MIXES",
@@ -154,9 +154,9 @@
         "subhead": "20 sons nature. Audio 3D. Hors ligne."
       },
       "02_library": {
-        "eyebrow": "AUDIO SPATIAL",
-        "headline": "Placez chaque\nson autour de vous.",
-        "subhead": "Déplacez chaque canal dans un espace 3D."
+        "eyebrow": "BIBLIOTHÈQUE SONORE",
+        "headline": "20 canaux,\nà mixer.",
+        "subhead": "Pluie, forêt, café, feu de camp et plus."
       },
       "03_detail_sheet": {
         "eyebrow": "PRISES RÉELLES",
@@ -169,9 +169,9 @@
         "subhead": "Delta, Theta, Alpha et Beta."
       },
       "05_spatial": {
-        "eyebrow": "BIBLIOTHÈQUE SONORE",
-        "headline": "20 canaux,\nà mixer.",
-        "subhead": "Pluie, forêt, café, feu de camp et plus."
+        "eyebrow": "AUDIO SPATIAL",
+        "headline": "Placez chaque\nson autour de vous.",
+        "subhead": "Déplacez chaque canal dans un espace 3D."
       },
       "06_presets": {
         "eyebrow": "MIX SAUVEGARDÉS",
@@ -206,9 +206,9 @@
         "subhead": "20 Naturklänge. 3D-Audio. Offline."
       },
       "02_library": {
-        "eyebrow": "3D-AUDIO",
-        "headline": "Platziere jeden\nKlang um dich.",
-        "subhead": "Bewege jeden Kanal im 3D-Klangfeld."
+        "eyebrow": "KLANGBIBLIOTHEK",
+        "headline": "20 Kanäle,\nbereit zum Mixen.",
+        "subhead": "Regen, Wald, Café, Lagerfeuer und mehr."
       },
       "03_detail_sheet": {
         "eyebrow": "ECHTE AUFNAHMEN",
@@ -221,9 +221,9 @@
         "subhead": "Delta, Theta, Alpha und Beta."
       },
       "05_spatial": {
-        "eyebrow": "KLANGBIBLIOTHEK",
-        "headline": "20 Kanäle,\nbereit zum Mixen.",
-        "subhead": "Regen, Wald, Café, Lagerfeuer und mehr."
+        "eyebrow": "3D-AUDIO",
+        "headline": "Platziere jeden\nKlang um dich.",
+        "subhead": "Bewege jeden Kanal im 3D-Klangfeld."
       },
       "06_presets": {
         "eyebrow": "GESPEICHERTE MIXE",
@@ -258,9 +258,9 @@
         "subhead": "20 sonidos naturales. Audio 3D. Sin conexión."
       },
       "02_library": {
-        "eyebrow": "AUDIO ESPACIAL",
-        "headline": "Coloca cada\nsonido alrededor.",
-        "subhead": "Mueve cada canal en un campo sonoro 3D."
+        "eyebrow": "BIBLIOTECA SONORA",
+        "headline": "20 canales,\nlistos para mezclar.",
+        "subhead": "Lluvia, bosque, café, fogata y más."
       },
       "03_detail_sheet": {
         "eyebrow": "GRABACIONES REALES",
@@ -273,9 +273,9 @@
         "subhead": "Modos Delta, Theta, Alpha y Beta."
       },
       "05_spatial": {
-        "eyebrow": "BIBLIOTECA SONORA",
-        "headline": "20 canales,\nlistos para mezclar.",
-        "subhead": "Lluvia, bosque, café, fogata y más."
+        "eyebrow": "AUDIO ESPACIAL",
+        "headline": "Coloca cada\nsonido alrededor.",
+        "subhead": "Mueve cada canal en un campo sonoro 3D."
       },
       "06_presets": {
         "eyebrow": "MEZCLAS GUARDADAS",
@@ -310,9 +310,9 @@
         "subhead": "20 suoni naturali. Audio 3D. Offline."
       },
       "02_library": {
-        "eyebrow": "AUDIO SPAZIALE",
-        "headline": "Posiziona ogni\nsuono intorno a te.",
-        "subhead": "Muovi ogni canale in uno spazio sonoro 3D."
+        "eyebrow": "LIBRERIA SONORA",
+        "headline": "20 canali,\npronti da mixare.",
+        "subhead": "Pioggia, foresta, caffè, falò e altro."
       },
       "03_detail_sheet": {
         "eyebrow": "REGISTRAZIONI REALI",
@@ -325,9 +325,9 @@
         "subhead": "Modalità Delta, Theta, Alpha e Beta."
       },
       "05_spatial": {
-        "eyebrow": "LIBRERIA SONORA",
-        "headline": "20 canali,\npronti da mixare.",
-        "subhead": "Pioggia, foresta, caffè, falò e altro."
+        "eyebrow": "AUDIO SPAZIALE",
+        "headline": "Posiziona ogni\nsuono intorno a te.",
+        "subhead": "Muovi ogni canale in uno spazio sonoro 3D."
       },
       "06_presets": {
         "eyebrow": "MIX SALVATI",
@@ -362,9 +362,9 @@
         "subhead": "20 sons da natureza. Áudio 3D. Offline."
       },
       "02_library": {
-        "eyebrow": "ÁUDIO ESPACIAL",
-        "headline": "Coloque cada\nsom ao seu redor.",
-        "subhead": "Mova cada canal em um campo sonoro 3D."
+        "eyebrow": "BIBLIOTECA SONORA",
+        "headline": "20 canais,\nprontos para mixar.",
+        "subhead": "Chuva, floresta, café, fogueira e mais."
       },
       "03_detail_sheet": {
         "eyebrow": "GRAVAÇÕES REAIS",
@@ -377,9 +377,9 @@
         "subhead": "Modos Delta, Theta, Alpha e Beta."
       },
       "05_spatial": {
-        "eyebrow": "BIBLIOTECA SONORA",
-        "headline": "20 canais,\nprontos para mixar.",
-        "subhead": "Chuva, floresta, café, fogueira e mais."
+        "eyebrow": "ÁUDIO ESPACIAL",
+        "headline": "Coloque cada\nsom ao seu redor.",
+        "subhead": "Mova cada canal em um campo sonoro 3D."
       },
       "06_presets": {
         "eyebrow": "MIXES SALVOS",

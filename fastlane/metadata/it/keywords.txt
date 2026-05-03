@@ -1,1 +1,1 @@
-pioggia,rumore,bianco,marrone,rosa,temporale,oceano,binaurale,timer,meditazione,acufene,caffe
+pioggia,rumore,bianco,temporale,oceano,binaurale,meditazione,acufene,dormire,insonnia,ansia,bebe,zen

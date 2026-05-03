@@ -1,7 +1,3 @@
-Oasis 1.4.1
+Oasis 1.4.2
 
-• Una presentación más clara de Oasis como mezclador inmersivo de sonidos naturales
-• Capturas del App Store actualizadas para sueño, foco y calma
-• Texto refinado sobre uso sin conexión, audio 3D y Premium de por vida
-
-Una compra. Sin suscripción, sin cuenta, sin anuncios.
+• Corrección de errores y mejoras de estabilidad.
