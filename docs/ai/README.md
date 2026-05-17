@@ -46,6 +46,11 @@ Touch in this order:
 2. [codebase/conventions.md](codebase/conventions.md)
 3. The relevant feature file (paywall, state, audio…)
 
+### "I'm producing TikTok / Reels / Shorts marketing videos"
+1. [marketing/video-factory.md](marketing/video-factory.md)
+2. [codebase/build-and-test.md](codebase/build-and-test.md) — UI test target overview
+3. [architecture/ui.md](architecture/ui.md) — accessibility identifier inventory
+
 ## File map
 
 ```
@@ -75,6 +80,7 @@ marketing/       — how Oasis is sold
   aso-strategy.md     Title/subtitle/keywords per locale, screenshot order
   store-assets.md     Screenshot specs, brief reconciliation, Figma workflow
   positioning.md      Multi-use angle, competitors, moats
+  video-factory.md    Scenario-driven social-video pipeline (simulator + FFmpeg)
 
 operations/      — how Oasis ships and runs
   release-process.md  Versioning, fastlane lanes, App Store Connect upload flow

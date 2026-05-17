@@ -1,13 +1,14 @@
 ---
 title: UI System
 status: stable
-last_updated: 2026-05-03
+last_updated: 2026-05-13
 tracks:
   - "ios-native/OasisNative/Views/**"
   - "ios-native/OasisNative/Support/Info.plist"
 related:
   - "overview.md"
   - "../codebase/conventions.md"
+  - "../marketing/video-factory.md"
 ---
 
 # UI System
@@ -102,6 +103,19 @@ Use `Text(L10n.someKey)` (where `L10n.someKey` returns a `LocalizedStringResourc
 ## Accessibility
 
 `HapticSlider` exposes its bound value as an accessibility value. Channel cards expose their channel name + locked state. The paywall and binaural panel have full VoiceOver labels.
+
+### Identifier inventory (XCUITest)
+
+The same identifiers serve VoiceOver and UI tests (screenshots, premium-flow tests, marketing video scenarios). Add new identifiers here when introducing a new control, not in the test files.
+
+- **Mixer rows** (per channel; `<id>` = `pluie`, `vent`, `foret`, `tonnerre`, `mer`, `plage`, `oiseaux`, etc.): `channel.row.<id>`, `channel.identity.<id>`, `channel.mute.<id>`, `channel.slider.<id>`, `channel.spatial.<id>`, `channel.auto.<id>`.
+- **Header + bottom bar**: `home.scroll`, `home.header.timer`, `home.bottom.{shuffle,playback,routepicker,presets,binaural}`.
+- **Panels** (sheets): `panel.spatial.container`, `panel.presets.container`, `panel.binaural.container`, `panel.sound-detail.container`, `panel.timer.unlock`.
+- **Spatial drag target**: `spatial.stage` — the drag stage inside `SpatialAudioPanel`. Carries `.accessibilityElement(children: .ignore)` plus a label so XCUITest can target it for synthetic drag gestures (the underlying ZStack would otherwise not register as an accessibility leaf).
+- **Presets / binaural / timer rows**: `presets.row.<id>`, `presets.name`, `presets.save`, `binaural.track.<id>`, `binaural.tonalBed.toggle`, `timer.unlock.option.<duration>`.
+- **Paywall + teaser**: `premium.paywall.{container,primary,restore,close,retry,help,loading}`, `premium.library.teaser`, `premium.library.teaser.primary`, `premium.library.teaser.toggle`, `premium.banner{,.primary,.dismiss}`, `premium.inline.{primary,secondary,dismiss}`.
+
+Convention: `<surface>.<role>[.<entity>]`. Lowercase, dot-separated, no spaces. The marketing video factory's scenario JSON references these strings verbatim — see [../marketing/video-factory.md](../marketing/video-factory.md).
 
 ## What lives where in `Views/`
 

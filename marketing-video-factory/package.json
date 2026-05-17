@@ -1,0 +1,30 @@
+{
+  "name": "oasis-marketing-video-factory",
+  "version": "0.2.0",
+  "private": true,
+  "description": "Scenario-driven marketing video factory for Oasis (simulator screen-record + FFmpeg post).",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "validate": "tsx src/cli.ts validate",
+    "list": "tsx src/cli.ts list",
+    "record": "tsx src/cli.ts record",
+    "clean": "tsx src/cli.ts clean",
+    "sync": "tsx scripts/sync-audio.ts",
+    "sync:audio": "tsx scripts/sync-audio.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "commander": "^12.1.0",
+    "execa": "^9.5.1",
+    "sharp": "^0.33.5",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^22.9.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3"
+  }
+}

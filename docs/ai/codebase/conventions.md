@@ -1,7 +1,7 @@
 ---
 title: Code Conventions
 status: stable
-last_updated: 2026-05-03
+last_updated: 2026-05-13
 tracks:
   - "ios-native/OasisNative/**/*.swift"
   - "ios-native/OasisNative/Support/L10n.swift"

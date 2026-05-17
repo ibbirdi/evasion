@@ -1,0 +1,24 @@
+node_modules/
+output/**/*
+!output/.gitkeep
+
+# Heavy raw assets — keep tree, never commit binaries
+assets/videos/*
+!assets/videos/.gitkeep
+assets/audio/*
+!assets/audio/.gitkeep
+assets/screenshots/*
+!assets/screenshots/.gitkeep
+!assets/screenshots/README.md
+assets/logos/*
+!assets/logos/.gitkeep
+!assets/logos/README.md
+assets/fonts/*
+!assets/fonts/.gitkeep
+!assets/fonts/README.md
+
+# tmp / build
+.tmp/
+*.log
+*.tsbuildinfo
+.DS_Store

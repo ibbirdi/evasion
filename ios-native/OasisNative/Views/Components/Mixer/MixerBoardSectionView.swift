@@ -207,6 +207,7 @@ struct SoundRowView: View {
                         tint: channel.tint
                     )
                     .disabled(isLocked || state.isMuted || state.autoVariationEnabled)
+                    .accessibilityIdentifier("channel.slider.\(channel.id)")
                 }
             }
             .frame(maxWidth: .infinity)

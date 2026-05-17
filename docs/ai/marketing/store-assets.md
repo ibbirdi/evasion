@@ -1,7 +1,7 @@
 ---
 title: App Store Assets
 status: stable
-last_updated: 2026-05-03
+last_updated: 2026-05-13
 tracks:
   - "fastlane/screenshots/**"
   - "scripts/generate_store_screenshot_comps.swift"
@@ -10,8 +10,11 @@ tracks:
 related:
   - "aso-strategy.md"
   - "positioning.md"
+  - "video-factory.md"
   - "../codebase/build-and-test.md"
 ---
+
+> **Scope.** This page covers the **10 static App Store screenshots** captured by `OasisNativeScreenshots.swift` and composited via `scripts/generate_store_screenshot_comps.swift`. For **social-marketing videos** (TikTok / Reels / Shorts) driven by a sibling XCUITest (`MarketingScenarioRunner.swift`), see [video-factory.md](video-factory.md).
 
 # App Store Assets
 

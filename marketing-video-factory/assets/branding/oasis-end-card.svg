@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Oasis end-card. Mirrors the in-app `HomeHeaderView` BrandLockup:
+    - "OASIS" wordmark, semibold uppercase, generous tracking
+    - True sinusoidal "WaveformSignatureLine" beneath it
+
+  Palette pulled from `LiquidActivityPalette.preset` in the iOS source:
+    blue   rgb(122, 204, 255)
+    pink   rgb(245, 148, 235)
+    orange rgb(255, 201, 143)
+
+  The wave's path data is a single `<path>` whose `d` is injected at render
+  time by `renderOutro.ts` (true sin() samples — bezier approximations were
+  too peaky compared to the in-app render). Two `<use>` references stack a
+  soft glow under a crisp stroke.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <defs>
+    <radialGradient id="bg-glow" cx="50%" cy="48%" r="65%">
+      <stop offset="0%"   stop-color="#152233" stop-opacity="1"/>
+      <stop offset="55%"  stop-color="#0A0F18" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#05080E" stop-opacity="1"/>
+    </radialGradient>
+
+    <linearGradient id="wave-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%"   stop-color="rgb(122,204,255)" stop-opacity="0.92"/>
+      <stop offset="50%"  stop-color="rgb(245,148,235)" stop-opacity="0.86"/>
+      <stop offset="100%" stop-color="rgb(255,201,143)" stop-opacity="0.78"/>
+    </linearGradient>
+
+    <filter id="wave-glow" x="-20%" y="-200%" width="140%" height="500%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="5"/>
+    </filter>
+
+    <!-- Wave path. `d` is injected by `renderOutro.ts` at render time. -->
+    <path id="wave-path" d="__WAVE_PATH__" fill="none" stroke-linecap="round"/>
+  </defs>
+
+  <!-- Backdrop -->
+  <rect width="1080" height="1920" fill="url(#bg-glow)"/>
+
+  <!-- OASIS wordmark.
+       Font-family resolves to SFPro at render time when the marketing factory
+       composes this with the bundled SF Pro font face. Falls back to SF Pro
+       / Helvetica Neue when previewed in a browser. -->
+  <text x="540" y="940"
+        text-anchor="middle"
+        font-family="SFPro, 'SF Pro', 'Helvetica Neue', sans-serif"
+        font-weight="600"
+        font-size="190"
+        letter-spacing="34"
+        fill="#FFFFFF"
+        fill-opacity="0.96">OASIS</text>
+
+  <!-- Multicolor sinusoid. Soft glow underneath, crisp stroke on top. -->
+  <use href="#wave-path" stroke="url(#wave-grad)" stroke-width="26" opacity="0.30" filter="url(#wave-glow)"/>
+  <use href="#wave-path" stroke="url(#wave-grad)" stroke-width="14"/>
+</svg>

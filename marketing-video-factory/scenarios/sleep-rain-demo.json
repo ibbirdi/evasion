@@ -1,0 +1,33 @@
+{
+  "id": "sleep-rain-demo",
+  "mood": "sleep",
+  "angle": "ambient-mixing",
+  "lang": "fr",
+  "duration": 18,
+  "premium": "premium",
+  "audioMix": "sleep-rain-thunder",
+  "hookCategory": "sleep",
+  "captionCategory": "sleep",
+  "hashtagCategories": ["core", "sleep", "general"],
+
+  "actions": [
+    { "at": 1.2, "type": "setSlider",  "target": "channel.slider.pluie",   "value": 0.75, "label": "Push rain up" },
+    { "at": 2.6, "type": "setSlider",  "target": "channel.slider.foret",   "value": 0.50, "label": "Bring forest in" },
+    { "at": 4.0, "type": "setSlider",  "target": "channel.slider.tonnerre","value": 0.22, "label": "A touch of thunder" },
+
+    { "at": 5.6, "type": "tap",        "target": "channel.spatial.pluie",  "label": "Open spatial sheet" },
+    { "at": 6.8, "type": "dragSpatial","to": { "x": -0.7, "y":  0.7 }, "duration": 1.6, "label": "Place rain back-left" },
+    { "at": 8.6, "type": "dragSpatial","to": { "x":  0.0, "y":  0.85 },"duration": 1.2, "label": "Slide rain centre-back" },
+    { "at": 10.2,"type": "dismissPanel", "label": "Close spatial sheet" },
+
+    { "at": 11.6,"type": "tap",        "target": "home.bottom.presets",     "label": "Open presets" },
+    { "at": 13.0,"type": "dismissPanel","label": "Close presets" }
+  ],
+
+  "overlays": [
+    { "start": 0.4, "duration": 4.4, "textRef": "hook",                                                                          "position": "top" },
+    { "start": 5.4, "duration": 4.6, "text": { "fr": "Place chaque son dans l'espace.", "en": "Place each sound in space." },     "position": "top" },
+    { "start": 10.4, "duration": 5.2, "text": { "fr": "Crée ton ambiance idéale.",       "en": "Build your perfect ambience." },  "position": "top" },
+    { "start": 15.8, "duration": 2.2, "text": { "fr": "Oasis — sons naturels immersifs", "en": "Oasis — immersive nature sounds" }, "position": "bottom" }
+  ]
+}

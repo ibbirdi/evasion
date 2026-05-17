@@ -102,6 +102,12 @@ private struct SpatialPlacementStage: View {
                         model.setChannelSpatialPosition(channel, value: normalizedPoint(from: value.location, in: stageSize))
                     }
             )
+            // Force the stage to expose itself as a single accessibility leaf
+            // so XCUITest can target it for synthetic drag gestures used by
+            // the marketing video factory.
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel("Spatial placement stage")
+            .accessibilityIdentifier("spatial.stage")
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
         }
     }

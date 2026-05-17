@@ -1,0 +1,77 @@
+{
+  "mixes": [
+    {
+      "id": "sleep-rain-thunder",
+      "description": "Cozy rain with a distant thunder and a faint forest base.",
+      "tracks": [
+        { "file": "rain.m4a", "volume": 0.7 },
+        { "file": "forest.m4a", "volume": 0.25 },
+        { "file": "thunder.m4a", "volume": 0.15 }
+      ],
+      "fadeIn": 1.5,
+      "fadeOut": 2
+    },
+    {
+      "id": "sleep-rain-tent",
+      "description": "Rain hitting a tent, warmer and more intimate.",
+      "tracks": [
+        { "file": "rain-tent.m4a", "volume": 0.85 },
+        { "file": "thunder.m4a", "volume": 0.12 }
+      ],
+      "fadeIn": 1.5,
+      "fadeOut": 2
+    },
+    {
+      "id": "focus-rain-wind",
+      "description": "Light rain on a windy day, ideal for focus.",
+      "tracks": [
+        { "file": "rain.m4a", "volume": 0.6 },
+        { "file": "wind.m4a", "volume": 0.35 }
+      ],
+      "fadeIn": 1.0,
+      "fadeOut": 1.5
+    },
+    {
+      "id": "focus-cafe",
+      "description": "Soft cafe murmur, ideal for deep work.",
+      "tracks": [
+        { "file": "cafe.m4a", "volume": 0.65 },
+        { "file": "rain.m4a", "volume": 0.2 }
+      ],
+      "fadeIn": 1.0,
+      "fadeOut": 1.5
+    },
+    {
+      "id": "spatial-storm",
+      "description": "Storm in the distance, rain near, wind around.",
+      "tracks": [
+        { "file": "rain.m4a", "volume": 0.55 },
+        { "file": "thunder.m4a", "volume": 0.25 },
+        { "file": "wind.m4a", "volume": 0.3 }
+      ],
+      "fadeIn": 1.5,
+      "fadeOut": 2
+    },
+    {
+      "id": "ocean-calm",
+      "description": "Slow ocean waves, almost meditative.",
+      "tracks": [
+        { "file": "sea.m4a", "volume": 0.75 },
+        { "file": "seagulls.m4a", "volume": 0.15 }
+      ],
+      "fadeIn": 2,
+      "fadeOut": 2
+    },
+    {
+      "id": "forest-morning",
+      "description": "Forest at dawn with birds, distant water.",
+      "tracks": [
+        { "file": "forest.m4a", "volume": 0.6 },
+        { "file": "birds.m4a", "volume": 0.4 },
+        { "file": "river.m4a", "volume": 0.2 }
+      ],
+      "fadeIn": 1.5,
+      "fadeOut": 2
+    }
+  ]
+}

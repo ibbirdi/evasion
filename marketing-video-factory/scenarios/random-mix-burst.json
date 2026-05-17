@@ -1,0 +1,50 @@
+{
+  "id": "random-mix-burst",
+  "mood": "immersion",
+  "angle": "random-mix-discovery",
+  "lang": "fr",
+  "duration": 12,
+  "premium": "premium",
+  "audioMix": "forest-morning",
+  "hookCategory": "spatial",
+  "captionCategory": "spatial",
+  "hashtagCategories": ["core", "spatial", "general"],
+
+  "intro": {
+    "path": "/Users/jonathanluquet/Downloads/gemini_generated_video_3360863C.mp4"
+  },
+
+  "outro": {
+    "duration": 2.8
+  },
+
+  "introOverlays": [
+    { "start": 0.4, "duration": 2.2, "text": { "fr": "Stop.",    "en": "Stop." },     "position": "center", "size": "xxl" },
+    { "start": 2.9, "duration": 2.2, "text": { "fr": "Respire.", "en": "Breathe." },  "position": "center", "size": "xxl" },
+    { "start": 5.4, "duration": 2.4, "text": { "fr": "Écoute.",  "en": "Listen." },   "position": "center", "size": "xxl" }
+  ],
+
+  "setup": [
+    { "at": 0.0, "type": "tap", "target": "home.bottom.shuffle",       "label": "Start playback + populate first mix" },
+    { "at": 0.7, "type": "tap", "target": "home.header.active-filter", "label": "Engage active-tracks filter (off-camera)" }
+  ],
+
+  "actions": [
+    { "at":  0.5, "type": "tap", "target": "home.bottom.shuffle" },
+    { "at":  3.0, "type": "tap", "target": "home.bottom.shuffle" },
+    { "at":  5.5, "type": "tap", "target": "home.bottom.shuffle" },
+    { "at":  8.0, "type": "tap", "target": "home.bottom.shuffle" },
+    { "at": 10.5, "type": "tap", "target": "home.bottom.shuffle" }
+  ],
+
+  "overlays": [
+    { "start":  0.3, "duration": 2.6, "text": { "fr": "Une ambiance différente, à chaque tap.",
+                                                "en": "A new soundscape, every tap." },     "position": "center", "backdrop": true },
+    { "start":  3.0, "duration": 2.8, "text": { "fr": "Pluie. Forêt. Orage. Vent.",
+                                                "en": "Rain. Forest. Thunder. Wind." },     "position": "center", "backdrop": true },
+    { "start":  5.9, "duration": 3.0, "text": { "fr": "Crée ton propre refuge.",
+                                                "en": "Find yours in a tap." },             "position": "center", "backdrop": true },
+    { "start":  9.1, "duration": 2.7, "text": { "fr": "Oasis, sons naturels immersifs",
+                                                "en": "Oasis — immersive nature sounds" }, "position": "center", "size": "lg", "backdrop": true }
+  ]
+}

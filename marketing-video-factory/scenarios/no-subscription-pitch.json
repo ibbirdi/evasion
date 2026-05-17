@@ -1,0 +1,49 @@
+{
+  "id": "no-subscription-pitch",
+  "mood": "premium",
+  "angle": "anti-subscription",
+  "lang": "fr",
+  "duration": 18,
+  "premium": "premium",
+  "audioMix": "ocean-calm",
+  "hookCategory": "antiSubscription",
+  "captionCategory": "premium",
+  "hashtagCategories": ["core", "premium", "general"],
+
+  "intro": {
+    "path": "/Users/jonathanluquet/Downloads/gemini_generated_video_3360863C.mp4"
+  },
+
+  "outro": { "duration": 2.8 },
+
+  "introOverlays": [
+    { "start": 0.4, "duration": 2.2, "text": { "fr": "Tu paies.",       "en": "You pay." },              "position": "center", "size": "xxl" },
+    { "start": 2.9, "duration": 2.2, "text": { "fr": "Tous les mois.",  "en": "Every month." },          "position": "center", "size": "xl"  },
+    { "start": 5.4, "duration": 2.4, "text": { "fr": "Pourquoi ?",      "en": "Why?" },                  "position": "center", "size": "xxl" }
+  ],
+
+  "setup": [
+    { "at": 0.0, "type": "tap", "target": "home.bottom.shuffle"       },
+    { "at": 0.7, "type": "tap", "target": "home.header.active-filter" }
+  ],
+
+  "actions": [
+    { "at":  0.5, "type": "setSlider", "target": "channel.slider.pluie", "value": 0.80 },
+    { "at":  2.0, "type": "setSlider", "target": "channel.slider.foret", "value": 0.60 },
+    { "at":  4.0, "type": "tap",       "target": "home.bottom.binaural"               },
+    { "at":  6.5, "type": "dismissPanel" },
+    { "at":  7.5, "type": "tap",       "target": "home.bottom.presets"                },
+    { "at":  9.8, "type": "dismissPanel" },
+    { "at": 10.8, "type": "scrollTo",  "target": "channel.row.savane", "maxSwipes": 6 },
+    { "at": 13.0, "type": "tap",       "target": "channel.spatial.savane"             },
+    { "at": 14.0, "type": "dragSpatial","to": { "x": 0.7, "y": -0.4 }, "duration": 1.2 },
+    { "at": 15.8, "type": "dismissPanel" }
+  ],
+
+  "overlays": [
+    { "start":  0.5, "duration": 4.0, "text": { "fr": "20 sons. 4 binauraux.",        "en": "20 sounds. 4 binaurals." }, "position": "center", "backdrop": true },
+    { "start":  4.5, "duration": 5.0, "text": { "fr": "Spatial 3D. Presets. Timer.",  "en": "3D spatial. Presets. Timer." }, "position": "center", "backdrop": true },
+    { "start": 10.0, "duration": 5.4, "text": { "fr": "Tout débloqué.\nSans abonnement.", "en": "All unlocked.\nNo subscription." }, "position": "center", "backdrop": true },
+    { "start": 15.6, "duration": 2.4, "text": { "fr": "Oasis — un achat. Pour toujours.", "en": "Oasis — one purchase. Forever." }, "position": "center", "size": "lg", "backdrop": true }
+  ]
+}

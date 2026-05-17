@@ -1,14 +1,16 @@
 ---
 title: Repo Structure
 status: stable
-last_updated: 2026-05-03
+last_updated: 2026-05-13
 tracks:
   - "ios-native/**"
   - "scripts/**"
   - "fastlane/**"
+  - "marketing-video-factory/**"
 related:
   - "conventions.md"
   - "build-and-test.md"
+  - "../marketing/video-factory.md"
 ---
 
 # Repo Structure
@@ -24,6 +26,7 @@ Map of where things live and what each directory is responsible for.
 ├── docs/ai/                         AI memory (you are here)
 ├── ios-native/                      The Xcode project — primary code
 ├── fastlane/                        Release automation, metadata, screenshots
+├── marketing-video-factory/         Scenario-driven social-video generator — see ../marketing/video-factory.md
 ├── scripts/                         Helper scripts (audio encoding, asset gen, etc.)
 │   └── ai-memory/                   Memory drift-check tooling
 ├── .githooks/                       Git pre-commit hook (opt-in via `git config core.hooksPath`)
@@ -47,9 +50,11 @@ ios-native/
 │   ├── Support/                     Configuration, L10n keys, Info.plist, shader, helpers
 │   ├── Resources/                   Audio (.m4a), Images, Localizable.xcstrings
 │   └── Assets.xcassets/             App icon
-├── OasisNativeUITests/              UI tests (screenshots + premium flow)
+├── OasisNativeUITests/              UI tests (screenshots + premium flow + marketing scenarios)
 └── scripts/                         iOS-specific scripts (probably empty/legacy)
 ```
+
+`OasisNativeUITests/` contains three Swift suites: `OasisNativeScreenshots` (App Store snapshots, see [../marketing/store-assets.md](../marketing/store-assets.md)), `OasisNativePremiumFlowTests` (paywall gating), and `MarketingScenarioRunner` (generic scenario player consumed by the marketing video factory — see [../marketing/video-factory.md](../marketing/video-factory.md)).
 
 ### `Models/`
 
@@ -152,4 +157,5 @@ Locales: `en-US`, `fr-FR`, `de-DE`, `es-ES`, `it`, `pt-BR`. See [../content/loca
 | A new service / integration | `ios-native/OasisNative/Services/` |
 | A new build helper | `scripts/` |
 | A new fastlane lane | `fastlane/Fastfile` |
+| A new social-video scenario | `marketing-video-factory/scenarios/<id>.json` — see [../marketing/video-factory.md](../marketing/video-factory.md) |
 | New AI memory | `docs/ai/<section>/` and update [../README.md](../README.md) |

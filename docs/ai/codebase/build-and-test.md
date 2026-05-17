@@ -1,7 +1,7 @@
 ---
 title: Build and Test
 status: stable
-last_updated: 2026-05-03
+last_updated: 2026-05-13
 tracks:
   - "ios-native/OasisNative.xcodeproj/**"
   - "ios-native/OasisNativeUITests/**"
@@ -11,6 +11,7 @@ tracks:
 related:
   - "../operations/release-process.md"
   - "../operations/secrets-and-keys.md"
+  - "../marketing/video-factory.md"
 ---
 
 # Build and Test
@@ -72,6 +73,12 @@ Flow tests that verify the upsell-then-paywall logic:
 
 Run from Xcode's Test navigator or `xcodebuild test`.
 
+### `MarketingScenarioRunner.swift` — generic scenario player
+
+One `testRunScenario` test that decodes a JSON scenario from `OASIS_SCENARIO_PATH` (or `/tmp/oasis-marketing/scenario.json`) and replays its action timeline against the live app. Consumed by the marketing video factory — see [../marketing/video-factory.md](../marketing/video-factory.md). Launches the app with `-ui_testing -OASISPremiumOverride <premium|free> -OASISResetState YES -AppleLanguages (<lang>) -AppleLocale <locale>`.
+
+Not part of CI / fastlane lanes. Invoked exclusively by `marketing-video-factory/`.
+
 ## Fastlane lanes
 
 From repo root, run `bundle exec fastlane <lane>`:
@@ -110,6 +117,19 @@ All under `scripts/`. Purpose-specific, not part of the build pipeline.
 | `add_channel_translations.py` | When adding a channel — pre-fills `channel.<id>.*` keys in `Localizable.xcstrings`. |
 | `createFastlaneCountriesFolders.js` | Bootstrap a new locale's metadata folder structure. |
 | `generateFastlaneTxtFiles.js` | Compile fastlane metadata text from a source spec. |
+
+## Marketing video factory
+
+Subproject at `marketing-video-factory/` generates TikTok/Reels/Shorts videos by scripting the live app inside a simulator. End-to-end flow, scenario format, and the `MarketingScenarioRunner` test integration are documented in [../marketing/video-factory.md](../marketing/video-factory.md).
+
+Run from inside the subproject:
+
+```bash
+cd marketing-video-factory
+npm install
+npm run sync                                    # symlink Oasis audio aliases
+npm run record -- --scenario sleep-rain-demo
+```
 
 ## Drift check
 
