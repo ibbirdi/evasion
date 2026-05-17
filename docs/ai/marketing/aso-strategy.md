@@ -102,14 +102,14 @@ Reorder the existing 10 captures to lead with multi-use moments before binaural 
 
 Reorder is done during `stage_appstore_assets` / `appstore_release`: source composites keep their slug names, while upload-ready staged files are renamed to numeric display order. No re-rendering is needed.
 
-## App Preview video — open
+## App Preview video — local asset ready
 
-There is **no App Preview video today**. Adding one is a +15 % to +30 % conversion lift in the segment. Spec:
+Local App Preview MP4s are generated in 6 locales from the composited screenshots and staged with the App Store upload assets.
 
 - 20 seconds.
-- No voice-over (single render works for 6 locales).
-- Storyline: open → mixer with growing ambient layers → spatial minimap drag → binaural panel reveal → sleep timer setting → paywall fade with "Pay once. Yours forever." card.
-- 1080×1920, MP4 H.264, ≤ 500 MB.
+- No voice-over.
+- Storyline: hero → full library → timer → sound placement → free start → paywall.
+- 886×1920, MP4 H.264, ≤ 500 MB.
 - Generation: `bundle exec fastlane app_previews` (Ruby pipeline at [`scripts/generate_app_previews.rb`](../../../scripts/generate_app_previews.rb)).
 
 ## Custom Product Pages
@@ -136,7 +136,7 @@ CPPs are free; spawn them as A/B vehicles without touching the main page.
 
 ### Month 1 (~2 days)
 
-1. Build the 20-sec App Preview video.
+1. Build the 20-sec App Preview video. **Done locally 2026-05-17.**
 2. Set up two CPPs (Sleep First, Focus).
 3. Reorder screenshots to Variant B.
 4. Wire ASC Analytics dashboard (impressions, page views, conversion rate, search vs browse split).

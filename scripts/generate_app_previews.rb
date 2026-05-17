@@ -21,16 +21,16 @@ LOCALES = %w[
 SLIDES = %w[
   01_hero
   02_library
-  03_detail_sheet
-  05_spatial
   07_timer
+  05_spatial
+  08_free_home
   10_paywall
 ].freeze
 
 WIDTH = 886
 HEIGHT = 1920
 FPS = 30
-SECONDS_PER_SLIDE = 4
+SECONDS_PER_SLIDE = 20.0 / SLIDES.length
 EXPECTED_DURATION = SLIDES.length * SECONDS_PER_SLIDE
 OUTPUT_NAME = "01_app_preview.mp4"
 

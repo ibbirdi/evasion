@@ -67,7 +67,7 @@ Captures all 10 scenarios in 6 locales on iPhone 17 Pro Max simulator. Output: `
 
 ### `app_previews`
 
-Builds App Preview videos via [`scripts/generate_app_previews.rb`](../../../scripts/generate_app_previews.rb). One render serves all locales (no voice-over).
+Builds localized App Preview videos via [`scripts/generate_app_previews.rb`](../../../scripts/generate_app_previews.rb). The videos are silent and generated from the localized screenshot composites.
 
 ### `stage_appstore_assets`
 
