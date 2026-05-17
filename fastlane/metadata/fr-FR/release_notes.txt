@@ -1,3 +1,7 @@
 Oasis 1.4.2
 
-• Corrections de bugs et améliorations de stabilité.
+• Deux nouvelles ambiances nature : Mer et Orage en montagne.
+• Audio réencodé et plus propre sur les 20 sons de nature.
+• Le compte à rebours du minuteur est visible depuis l'écran principal.
+• Le souffle harmonique démarre désactivé pour un mix plus naturel.
+• Toujours un seul achat, sans abonnement, hors ligne.

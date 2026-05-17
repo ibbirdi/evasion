@@ -1,7 +1,7 @@
 ---
 title: App Store Assets
 status: stable
-last_updated: 2026-05-13
+last_updated: 2026-05-17
 tracks:
   - "fastlane/screenshots/**"
   - "scripts/generate_store_screenshot_comps.swift"
@@ -27,7 +27,9 @@ Specs and copy for the 60 App Store screenshots (10 slides × 6 locales) and the
 - Dimensions: **1320 × 2868 px** (iPhone 17 Pro Max App Store size).
 - Color: sRGB, no alpha.
 - Format: JPEG, quality **0.92**, target ≤ 2 MB.
-- Target path: `fastlane/screenshots/<locale>/figma-pro/<slug>.jpg` (planned; the `figma-pro/` subdirectory does not exist in the repo yet — current screenshots live directly under `fastlane/screenshots/<locale>/` with legacy filenames like `EN-1.jpg`).
+- Raw capture path: `fastlane/screenshots/<locale>/iPhone 17 Pro Max-<slug>.png`.
+- Composite path: `fastlane/screenshots/<locale>/figma-pro/<slug>.jpg`.
+- Upload staging path: `fastlane/appstore-upload/<locale>/<slug>.jpg`, produced by `bundle exec fastlane stage_appstore_assets`.
 
 ## The 10 slugs
 
@@ -53,7 +55,7 @@ The slug is *what the slide depicts*. The position is *where it appears in the c
 | --- | --- |
 | Headline | **SF Pro Display Bold**, 128 pt base (step down 110 / 96 if overflow), line-height 0.96, letter-spacing −3 % (= −3.84 pt @ 128). Color `#FFFFFF` 100 %. Centered. Max 2 lines, ≤ 22 char/line, ≤ 44 char total. Width 1160 px. |
 | Subhead | SF Pro Text Regular 34 pt, LH 1.25, LS 0, `#FFFFFF` 72 %. Centered. Max 1 line, ≤ 78 char. Width 1080 px. |
-| Eyebrow | SF Pro Text Semibold 24 pt UPPERCASE, LS +12 %, accent color 100 %. Sparingly: only on slides **01, 07, 08, 10**. ≤ 34 char. |
+| Eyebrow | SF Pro Text Semibold 24 pt UPPERCASE, LS +12 %, accent color 100 %. Current screenshots use an eyebrow on every slide. ≤ 34 char. |
 
 > The font is **SF Pro Display Bold** (not Rounded — Rounded was the old Cowork v2 spec, which read consumer-playful; Bold reads confident-premium and matches Calm / Endel reference set).
 
@@ -101,24 +103,25 @@ Without eyebrow: shift headline up to y = 140. Without subhead: shift device up 
 
 | Slide | Eyebrow | Headline | Subhead |
 | --- | --- | --- | --- |
-| 01 Hero | `PAY ONCE. SLEEP FOREVER.` | `Fall asleep to real nature.` | — |
-| 02 Library | — | `20 real places, in your ears.` | `Every track is a field recording.` |
-| 03 Detail | — | `A place, an author, a licence.` | — |
-| 04 Binaural | — | `Deep sleep, deeper focus.` | `Four binaural modes.` |
-| 05 Spatial | — | `Place sound around you.` | `Wind left. Rain ahead. Birds behind.` |
-| 06 Presets | — | `Your perfect night, one tap.` | `Save unlimited mixes.` |
-| 07 Timer | `GENTLE SLEEP TIMER` | `Drift off. We handle the rest.` | — |
-| 08 Free home | `FREE IS ACTUALLY FREE` | `Start tonight with 3 real sounds.` | — |
-| 09 Library teaser | — | `Unlock the whole library.` | `17 more sounds, one tap.` |
-| 10 Paywall | `NO SUBSCRIPTION. EVER.` | `Pay once. Yours forever.` | — |
+| 01 Hero | `SLEEP · FOCUS · ESCAPE` | `Escape into real nature.` | `20 field recordings. Offline. No subscription.` |
+| 02 Library | `REAL PLACES` | `Build a place around you.` | `Rain, forest, sea, campfire and more.` |
+| 03 Detail | `FIELD RECORDINGS` | `Hear where it came from.` | `Locations, artists and licences stay visible.` |
+| 04 Binaural | `BINAURAL WAVES` | `Tune your state of mind.` | `Delta, Theta, Alpha and Beta modes.` |
+| 05 Spatial | `SOUND PLACEMENT` | `Place every sound around you.` | `Move each sound closer, farther, left or right.` |
+| 06 Presets | `SAVED MIXES` | `Return to your favourites.` | `Save ambience presets and reload in one tap.` |
+| 07 Timer | `SLEEP TIMER` | `Fade out on your time.` | `15 min, 30 min, 1 h or 2 h timers.` |
+| 08 Free home | `FREE START` | `Start free, no account.` | `3 ambiences, timer and sound placement included.` |
+| 09 Library teaser | `FULL LIBRARY` | `Unlock more sounds for life.` | `17 premium ambiences with one purchase.` |
+| 10 Paywall | `LIFETIME PREMIUM` | `One purchase. Yours for life.` | `No subscription. No account. 100% offline.` |
 
-The 6 localised versions (eyebrow + headline + subhead per locale) live in [`scripts/screenshot_content.json`](../../../scripts/screenshot_content.json) and in the Swift renderer's `COPY[lang]` dictionary. When changing copy, update both.
+The 6 localised versions (eyebrow + headline + subhead per locale) live in [`scripts/screenshot_content.json`](../../../scripts/screenshot_content.json). The Swift renderer decodes that JSON; there is no duplicate Swift copy table.
 
 ## Voice rules
 
 - **No exclamation marks.**
 - **No superlatives** ("Best", "#1", "Revolutionary") — Apple rejection bait.
 - **No "Free trial"** — Oasis is freemium, not trial. Misuse = rejection.
+- **No "3D audio" / "spatial audio" in user-facing copy** — use "sound placement" / "placement sonore" unless the rendering is upgraded and the wording is explicitly approved.
 - Every headline must be defensible against `fastlane/metadata/<lang>/description.txt` — no orphan claims.
 
 ## Deprecated v2 elements (do NOT add back)
@@ -141,9 +144,9 @@ Single Swift script: [`scripts/generate_store_screenshot_comps.swift`](../../../
 - `NSBitmapImageRep` at explicit pixel size (avoids the Retina lockFocus doubling trap).
 - JPEG factor `0.92`.
 - All 60 assets render in < 10 seconds.
-- Source data, render code, pipeline code in three top-down sections of the same file. No external config.
+- Source data lives in `scripts/screenshot_content.json`; render code and pipeline code live in the Swift script.
 
-When changing copy or palette: edit the script, re-run, commit the JPEGs alongside the script change. Don't edit JPEGs by hand.
+When changing copy, palette, layout, source capture mapping, or accent colors: edit `scripts/screenshot_content.json`, re-run the Swift compositor, and stage upload assets. Don't edit JPEGs by hand.
 
 ## Quiescence under XCUITest (raw captures)
 

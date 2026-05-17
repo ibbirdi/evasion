@@ -1,7 +1,7 @@
 ---
 title: Build and Test
 status: stable
-last_updated: 2026-05-13
+last_updated: 2026-05-17
 tracks:
   - "ios-native/OasisNative.xcodeproj/**"
   - "ios-native/OasisNativeUITests/**"
@@ -49,7 +49,7 @@ Ten scenarios driven by `setUpWithError` reading launch arguments. Each produces
 | `02_library` | Mixer scrolled to expose premium channel locks. |
 | `03_detail_sheet` | `SoundDetailSheet` open on Savanna. |
 | `04_binaural` | `BinauralPanel` with the four tracks. |
-| `05_spatial` | `SpatialAudioPanel` 3D minimap. |
+| `05_spatial` | `SpatialAudioPanel` sound-placement minimap. |
 | `06_presets` | `PresetsPanel` with default + signature presets. |
 | `07_timer` | Timer menu showing the 4 options. |
 | `08_free_home` | Free-tier home (3 channels, locks visible). |
@@ -71,6 +71,8 @@ Flow tests that verify the upsell-then-paywall logic:
 - `testFreeShortTimerDoesNotShowPaywall`
 - `testPremiumLongTimerShowsUnlockPanelBeforePaywall`
 
+Presets and binaural entry points live in the bottom bar, so the tests target `home.bottom.presets` and `home.bottom.binaural` (not the older header identifiers). Fastlane snapshot runs the whole UI test target, so these must stay green before screenshots can complete cleanly.
+
 Run from Xcode's Test navigator or `xcodebuild test`.
 
 ### `MarketingScenarioRunner.swift` — generic scenario player
@@ -90,7 +92,7 @@ From repo root, run `bundle exec fastlane <lane>`:
 | `app_previews` | Build App Preview videos (Ruby pipeline). |
 | `stage_appstore_assets` | Stage screenshots + previews into `fastlane/appstore-upload/<locale>/`. |
 | `appstore_metadata` | Push metadata only, no binary. Fast iteration on text. |
-| `appstore_release app_version:1.4.1` | Push screenshots + metadata for an existing binary version. |
+| `appstore_release app_version:1.4.2` | Push screenshots + metadata for an existing binary version. |
 
 The `Fastfile` autodetects the repo root by looking for `ios-native/OasisNative.xcodeproj` in 4 candidate paths.
 
@@ -114,9 +116,9 @@ All under `scripts/`. Purpose-specific, not part of the build pipeline.
 | `generate_store_screenshot_comps.swift` | When updating App Store screenshots — composites the 10 slides over their backgrounds and exports JPEGs at `1320×2868`. See [../marketing/store-assets.md](../marketing/store-assets.md). |
 | `generate_app_previews.rb` | When updating App Preview videos. |
 | `add_files_to_xcode.py` | When adding many files to the Xcode project at once (manual `.pbxproj` edits are error-prone). |
-| `add_channel_translations.py` | When adding a channel — pre-fills `channel.<id>.*` keys in `Localizable.xcstrings`. |
+| `add_channel_translations.py` | When adding/replacing a channel — pre-fills or refreshes `channel.<id>.*` keys in `Localizable.xcstrings` for the current 20-channel catalog. |
 | `createFastlaneCountriesFolders.js` | Bootstrap a new locale's metadata folder structure. |
-| `generateFastlaneTxtFiles.js` | Compile fastlane metadata text from a source spec. |
+| `generateFastlaneTxtFiles.js` | Mirror the canonical `fastlane/metadata/<locale>/*.txt` files into the script metadata output path. |
 
 ## Marketing video factory
 

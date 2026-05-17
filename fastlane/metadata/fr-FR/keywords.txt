@@ -1,1 +1,1 @@
-pluie,bruit,blanc,orage,ocean,binaural,meditation,acouphene,dormir,detente,bebe,insomnie,anti-stress
+pluie,bruit,blanc,orage,ocean,binaural,meditation,acouphene,dormir,detente,lecture,insomnie,stress

@@ -1,1 +1,1 @@
-lluvia,ruido,blanco,trueno,oceano,binaural,meditacion,insomnio,tinnitus,dormir,bebe,estres,descanso
+lluvia,ruido,blanco,trueno,oceano,binaural,meditacion,insomnio,tinnitus,dormir,leer,estres,descanso

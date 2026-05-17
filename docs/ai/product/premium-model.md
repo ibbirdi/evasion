@@ -1,7 +1,7 @@
 ---
 title: Premium Model
 status: stable
-last_updated: 2026-05-03
+last_updated: 2026-05-17
 tracks:
   - "ios-native/OasisNative/Services/PremiumCoordinator.swift"
   - "ios-native/OasisNative/Services/PremiumRevenueCatService.swift"
@@ -24,7 +24,7 @@ related:
 | Ambient channels | 3 (Birds / Wind / Beach) | All 20 |
 | Mixer (volume, mute, auto-variation) | On the 3 free channels | All channels |
 | Random mix | Yes, restricted to free channels | Yes, full library |
-| 3D spatial audio | Yes, on accessible channels | Yes, on accessible channels |
+| Sound placement | Yes, on accessible channels | Yes, on accessible channels |
 | Binaural tracks | Delta only | Delta / Theta / Alpha / Beta |
 | Sleep timer | 15 / 30 min | 15 / 30 / 60 / 120 min |
 | Presets panel | Hidden in UI | Create, load, delete, reorder |

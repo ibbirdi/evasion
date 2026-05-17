@@ -1,7 +1,7 @@
 ---
 title: Localization
 status: stable
-last_updated: 2026-05-03
+last_updated: 2026-05-17
 tracks:
   - "ios-native/OasisNative/Support/L10n.swift"
   - "ios-native/OasisNative/Resources/Localizable.xcstrings"
@@ -58,7 +58,7 @@ onboarding.<step>.<key>
 errors.<key>
 ```
 
-When adding a new channel, run [`scripts/add_channel_translations.py`](../../../scripts/add_channel_translations.py) to scaffold the three `channel.<id>.*` entries in all 6 locales.
+When adding a new channel, run [`scripts/add_channel_translations.py`](../../../scripts/add_channel_translations.py) to scaffold or refresh the three `channel.<id>.*` entries in all 6 locales. The helper reflects the current 20-channel catalog, including `sea` and `mountainStorm`; do not reintroduce retired `train` / `carRide` keys.
 
 ### Special characters
 
@@ -115,4 +115,7 @@ Each locale has its own ASC view: name, subtitle, description, keywords, promoti
 
 - The legacy `selectedLanguage` field in `PersistedMixerState` is unused (kept for backward compat). The app honours the system locale; there is no in-app language picker.
 - The "Souffle harmonique" rename (commit `583537e`) is the canonical French translation for "tonal bed" / "ambient pad". Don't substitute "musique" or "fond" — that's been deliberately rejected.
+- Premium sound-library and sound-paywall copy should list current nature channels only. The canonical exemplar set is rain / forest / thunder / river / sea, localized per locale.
+- ASO keyword fields intentionally avoid baby / parent targeting. Use adult moments instead: study, reading, work, travel, sleep, calm.
+- User-facing ASO and onboarding copy should not claim "3D audio" / "spatial audio". Use localized sound-placement language instead (`sound placement`, `placement sonore`, `Klangplatzierung`, `ubicación sonora`, `posizione dei suoni`, `posição dos sons`).
 - ASO copy and brand lines (e.g. "No subscription. Ever.", "Pay once, yours forever.") have approved translations in 6 locales — see `marketing/store-assets.md` for the full table. Don't paraphrase them in random surfaces.

@@ -10,7 +10,7 @@ final class OasisNativePremiumFlowTests: XCTestCase {
         let app = makeApp()
         app.launch()
 
-        let presetsButton = button(in: app, id: "home.header.presets")
+        let presetsButton = button(in: app, id: "home.bottom.presets")
         waitForHittable(presetsButton)
         presetsButton.tap()
 
@@ -36,7 +36,7 @@ final class OasisNativePremiumFlowTests: XCTestCase {
         let app = makeApp()
         app.launch()
 
-        let binauralButton = button(in: app, id: "home.header.binaural")
+        let binauralButton = button(in: app, id: "home.bottom.binaural")
         waitForHittable(binauralButton)
         binauralButton.tap()
 

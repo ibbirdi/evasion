@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Adds long-name and location i18n keys for the 14 existing ambient channels and
-full (short + long + location) keys for the 6 new channels.
+Adds and refreshes long-name, short-name and location i18n keys for the current
+20 ambient channels.
 
 Keeps the Xcode Strings Catalog format intact: sorted keys, per-language
 `stringUnit.state = "translated"` entries, 6 languages (en, fr, es, de, it, pt).
@@ -17,8 +17,6 @@ XCSTRINGS = Path(__file__).resolve().parents[1] / "ios-native/OasisNative/Resour
 LANGS = ["de", "en", "es", "fr", "it", "pt"]
 
 # Structured translations. Each channel has three optional kinds: short, long, location.
-# Existing channels only need long + location (short is already translated).
-# New channels need all three.
 
 NEW_CHANNELS_SHORT = {
     "channel.campfire": {
@@ -50,6 +48,16 @@ NEW_CHANNELS_SHORT = {
         "comment": "Ambient sound channel short name.",
         "en": "Asian jungle", "fr": "Jungle d’Asie", "es": "Selva asiática",
         "de": "Asiatischer Dschungel", "it": "Giungla asiatica", "pt": "Selva asiática",
+    },
+    "channel.sea": {
+        "comment": "Ambient sound channel short name.",
+        "en": "Sea", "fr": "Mer", "es": "Mar",
+        "de": "Meer", "it": "Mare", "pt": "Mar",
+    },
+    "channel.mountainStorm": {
+        "comment": "Ambient sound channel short name.",
+        "en": "Mountain storm", "fr": "Orage en montagne", "es": "Tormenta de montaña",
+        "de": "Berggewitter", "it": "Temporale di montagna", "pt": "Trovoada de montanha",
     },
 }
 
@@ -114,15 +122,15 @@ LONG_NAMES = {
         "es": "Calle peatonal china animada", "de": "Belebte chinesische Fußgängerstraße",
         "it": "Via pedonale cinese animata", "pt": "Rua pedonal chinesa movimentada",
     },
-    "channel.carRide.long": {
-        "en": "Highway cabin rumble", "fr": "Intérieur de voiture sur l’autoroute",
-        "es": "Interior de coche en autopista", "de": "Fahrzeuginnenraum auf der Autobahn",
-        "it": "Interno auto in autostrada", "pt": "Interior de carro na autoestrada",
+    "channel.sea.long": {
+        "en": "Mediterranean shore at Epitalio", "fr": "Côte méditerranéenne d’Epitalio",
+        "es": "Costa mediterránea de Epitalio", "de": "Mittelmeerküste bei Epitalio",
+        "it": "Costa mediterranea a Epitalio", "pt": "Costa mediterrânea de Epitalio",
     },
-    "channel.train.long": {
-        "en": "Intercity rail to Lisbon", "fr": "Intercidades jusqu’à Lisbonne",
-        "es": "Intercidades hasta Lisboa", "de": "Intercidades nach Lissabon",
-        "it": "Intercidades fino a Lisbona", "pt": "Intercidades até Lisboa",
+    "channel.mountainStorm.long": {
+        "en": "Distant thunder over Lake Garda", "fr": "Tonnerre lointain sur le lac de Garde",
+        "es": "Truenos lejanos sobre el lago de Garda", "de": "Fernes Donnergrollen über dem Gardasee",
+        "it": "Tuoni lontani sul lago di Garda", "pt": "Trovões distantes sobre o lago de Garda",
     },
     "channel.campfire.long": {
         "en": "Riverside campfire at dusk", "fr": "Feu de camp au crépuscule, au bord de la rivière",
@@ -217,15 +225,15 @@ LOCATIONS = {
         "es": "Liuzhou, Guangxi", "de": "Liuzhou, Guangxi",
         "it": "Liuzhou, Guangxi", "pt": "Liuzhou, Guangxi",
     },
-    "channel.carRide.location": {
-        "en": "Quebec highway", "fr": "Autoroute québécoise",
-        "es": "Autopista de Quebec", "de": "Autobahn in Québec",
-        "it": "Autostrada del Québec", "pt": "Autoestrada do Quebeque",
+    "channel.sea.location": {
+        "en": "Epitalio, Western Greece", "fr": "Epitalio, Grèce-Occidentale",
+        "es": "Epitalio, Grecia Occidental", "de": "Epitalio, Westgriechenland",
+        "it": "Epitalio, Grecia Occidentale", "pt": "Epitalio, Grécia Ocidental",
     },
-    "channel.train.location": {
-        "en": "Porto–Lisbon line", "fr": "Ligne Porto–Lisbonne",
-        "es": "Línea Oporto–Lisboa", "de": "Strecke Porto–Lissabon",
-        "it": "Linea Porto–Lisbona", "pt": "Linha Porto–Lisboa",
+    "channel.mountainStorm.location": {
+        "en": "Tremosine sul Garda, Brescia", "fr": "Tremosine sul Garda, Brescia",
+        "es": "Tremosine sul Garda, Brescia", "de": "Tremosine sul Garda, Brescia",
+        "it": "Tremosine sul Garda, Brescia", "pt": "Tremosine sul Garda, Brescia",
     },
     "channel.campfire.location": {
         "en": "St. Marys River, Michigan", "fr": "Rivière St. Marys, Michigan",

@@ -1,7 +1,7 @@
 ---
 title: Repo Structure
 status: stable
-last_updated: 2026-05-13
+last_updated: 2026-05-17
 tracks:
   - "ios-native/**"
   - "scripts/**"
@@ -141,7 +141,7 @@ Locales: `en-US`, `fr-FR`, `de-DE`, `es-ES`, `it`, `pt-BR`. See [../content/loca
 | `add_files_to_xcode.py` | Add files to the Xcode project programmatically. |
 | `add_channel_translations.py` | Add channel L10n keys when introducing a sound. |
 | `createFastlaneCountriesFolders.js` | Bootstrap fastlane metadata directory structure. |
-| `generateFastlaneTxtFiles.js` | Compile App Store metadata text files from sources. |
+| `generateFastlaneTxtFiles.js` | Mirror canonical App Store metadata text files from `fastlane/metadata/`. |
 | `screenshot_content.json` | Source data for screenshot copy / structure. |
 | `assets/` | Static assets used by the scripts above. |
 | `ai-memory/` | Memory drift detection tooling — see [../meta/drift-check.md](../meta/drift-check.md). |

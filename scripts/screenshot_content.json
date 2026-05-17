@@ -97,18 +97,18 @@
   "copy": {
     "en-US": {
       "01_hero": {
-        "eyebrow": "SLEEP · FOCUS · CALM",
-        "headline": "Craft your\nsoundscape.",
-        "subhead": "20 nature sounds. 3D audio. Offline."
+        "eyebrow": "SLEEP · FOCUS · ESCAPE",
+        "headline": "Escape into\nreal nature.",
+        "subhead": "20 field recordings. Offline. No subscription."
       },
       "02_library": {
-        "eyebrow": "SOUND LIBRARY",
-        "headline": "20 channels,\nready to mix.",
-        "subhead": "Rain, forest, café, campfire and more."
+        "eyebrow": "REAL PLACES",
+        "headline": "Build a place\naround you.",
+        "subhead": "Rain, forest, sea, campfire and more."
       },
       "03_detail_sheet": {
-        "eyebrow": "REAL RECORDINGS",
-        "headline": "Every sound,\nrecorded in place.",
+        "eyebrow": "FIELD RECORDINGS",
+        "headline": "Hear where\nit came from.",
         "subhead": "Locations, artists and licences stay visible."
       },
       "04_binaural": {
@@ -117,9 +117,9 @@
         "subhead": "Delta, Theta, Alpha and Beta modes."
       },
       "05_spatial": {
-        "eyebrow": "SPATIAL AUDIO",
+        "eyebrow": "SOUND PLACEMENT",
         "headline": "Place every\nsound around you.",
-        "subhead": "Move each channel in a 3D sound field."
+        "subhead": "Move each sound closer, farther, left or right."
       },
       "06_presets": {
         "eyebrow": "SAVED MIXES",
@@ -134,7 +134,7 @@
       "08_free_home": {
         "eyebrow": "FREE START",
         "headline": "Start free,\nno account.",
-        "subhead": "3 ambiences, spatial audio and timer included."
+        "subhead": "3 ambiences, timer and sound placement included."
       },
       "09_library_teaser": {
         "eyebrow": "FULL LIBRARY",
@@ -149,18 +149,18 @@
     },
     "fr-FR": {
       "01_hero": {
-        "eyebrow": "SOMMEIL · FOCUS · CALME",
-        "headline": "Composez votre\nambiance.",
-        "subhead": "20 sons nature. Audio 3D. Hors ligne."
+        "eyebrow": "SOMMEIL · FOCUS · ÉVASION",
+        "headline": "Évadez-vous\nen pleine nature.",
+        "subhead": "20 prises réelles. Hors ligne. Sans abonnement."
       },
       "02_library": {
-        "eyebrow": "BIBLIOTHÈQUE SONORE",
-        "headline": "20 canaux,\nà mixer.",
-        "subhead": "Pluie, forêt, café, feu de camp et plus."
+        "eyebrow": "LIEUX RÉELS",
+        "headline": "Composez un lieu\nautour de vous.",
+        "subhead": "Pluie, forêt, mer, feu de camp et plus."
       },
       "03_detail_sheet": {
         "eyebrow": "PRISES RÉELLES",
-        "headline": "Chaque son,\nenregistré sur place.",
+        "headline": "Chaque son\na son lieu.",
         "subhead": "Lieux, artistes et licences restent visibles."
       },
       "04_binaural": {
@@ -169,9 +169,9 @@
         "subhead": "Delta, Theta, Alpha et Beta."
       },
       "05_spatial": {
-        "eyebrow": "AUDIO SPATIAL",
-        "headline": "Placez chaque\nson autour de vous.",
-        "subhead": "Déplacez chaque canal dans un espace 3D."
+        "eyebrow": "PLACEMENT SONORE",
+        "headline": "Placez les sons\nautour de vous.",
+        "subhead": "Rapprochez, éloignez, décalez chaque son."
       },
       "06_presets": {
         "eyebrow": "MIX SAUVEGARDÉS",
@@ -186,7 +186,7 @@
       "08_free_home": {
         "eyebrow": "DÉPART GRATUIT",
         "headline": "Commencez sans\ncompte.",
-        "subhead": "3 ambiances, audio spatial et timer inclus."
+        "subhead": "3 ambiances, minuteur et placement sonore inclus."
       },
       "09_library_teaser": {
         "eyebrow": "BIBLIOTHÈQUE COMPLÈTE",
@@ -201,18 +201,18 @@
     },
     "de-DE": {
       "01_hero": {
-        "eyebrow": "SCHLAF · FOKUS · RUHE",
-        "headline": "Gestalte deine\nKlangwelt.",
-        "subhead": "20 Naturklänge. 3D-Audio. Offline."
+        "eyebrow": "SCHLAF · FOKUS · AUSZEIT",
+        "headline": "Tauche ein\nin echte Natur.",
+        "subhead": "20 Feldaufnahmen. Offline. Kein Abo."
       },
       "02_library": {
-        "eyebrow": "KLANGBIBLIOTHEK",
-        "headline": "20 Kanäle,\nbereit zum Mixen.",
-        "subhead": "Regen, Wald, Café, Lagerfeuer und mehr."
+        "eyebrow": "ECHTE ORTE",
+        "headline": "Baue einen Ort\num dich herum.",
+        "subhead": "Regen, Wald, Meer, Lagerfeuer und mehr."
       },
       "03_detail_sheet": {
-        "eyebrow": "ECHTE AUFNAHMEN",
-        "headline": "Jeder Klang,\nvor Ort aufgenommen.",
+        "eyebrow": "FELDAUFNAHMEN",
+        "headline": "Hör, woher\nder Klang kommt.",
         "subhead": "Orte, Künstler und Lizenzen bleiben sichtbar."
       },
       "04_binaural": {
@@ -221,9 +221,9 @@
         "subhead": "Delta, Theta, Alpha und Beta."
       },
       "05_spatial": {
-        "eyebrow": "3D-AUDIO",
+        "eyebrow": "KLANGPLATZIERUNG",
         "headline": "Platziere jeden\nKlang um dich.",
-        "subhead": "Bewege jeden Kanal im 3D-Klangfeld."
+        "subhead": "Bewege jeden Klang näher, weiter, links oder rechts."
       },
       "06_presets": {
         "eyebrow": "GESPEICHERTE MIXE",
@@ -238,7 +238,7 @@
       "08_free_home": {
         "eyebrow": "KOSTENLOS STARTEN",
         "headline": "Starte gratis,\nohne Konto.",
-        "subhead": "3 Atmosphären, 3D-Audio und Timer inklusive."
+        "subhead": "3 Atmosphären, Timer und Klangplatzierung inklusive."
       },
       "09_library_teaser": {
         "eyebrow": "VOLLE BIBLIOTHEK",
@@ -253,18 +253,18 @@
     },
     "es-ES": {
       "01_hero": {
-        "eyebrow": "SUEÑO · FOCO · CALMA",
-        "headline": "Crea tu\npaisaje sonoro.",
-        "subhead": "20 sonidos naturales. Audio 3D. Sin conexión."
+        "eyebrow": "SUEÑO · FOCO · EVASIÓN",
+        "headline": "Escapa a\nla naturaleza real.",
+        "subhead": "20 grabaciones reales. Sin conexión. Sin suscripción."
       },
       "02_library": {
-        "eyebrow": "BIBLIOTECA SONORA",
-        "headline": "20 canales,\nlistos para mezclar.",
-        "subhead": "Lluvia, bosque, café, fogata y más."
+        "eyebrow": "LUGARES REALES",
+        "headline": "Crea un lugar\na tu alrededor.",
+        "subhead": "Lluvia, bosque, mar, fogata y más."
       },
       "03_detail_sheet": {
         "eyebrow": "GRABACIONES REALES",
-        "headline": "Cada sonido,\ngrabado en lugar.",
+        "headline": "Cada sonido\ntiene su lugar.",
         "subhead": "Lugares, artistas y licencias siempre visibles."
       },
       "04_binaural": {
@@ -273,9 +273,9 @@
         "subhead": "Modos Delta, Theta, Alpha y Beta."
       },
       "05_spatial": {
-        "eyebrow": "AUDIO ESPACIAL",
+        "eyebrow": "POSICIÓN SONORA",
         "headline": "Coloca cada\nsonido alrededor.",
-        "subhead": "Mueve cada canal en un campo sonoro 3D."
+        "subhead": "Acerca, aleja o mueve cada sonido a los lados."
       },
       "06_presets": {
         "eyebrow": "MEZCLAS GUARDADAS",
@@ -290,7 +290,7 @@
       "08_free_home": {
         "eyebrow": "INICIO GRATIS",
         "headline": "Empieza gratis,\nsin cuenta.",
-        "subhead": "3 ambientes, audio espacial y timer incluidos."
+        "subhead": "3 ambientes, temporizador y ubicación sonora incluidos."
       },
       "09_library_teaser": {
         "eyebrow": "BIBLIOTECA COMPLETA",
@@ -305,18 +305,18 @@
     },
     "it": {
       "01_hero": {
-        "eyebrow": "SONNO · FOCUS · CALMA",
-        "headline": "Crea il tuo\npaesaggio sonoro.",
-        "subhead": "20 suoni naturali. Audio 3D. Offline."
+        "eyebrow": "SONNO · FOCUS · EVASIONE",
+        "headline": "Evadi nella\nnatura reale.",
+        "subhead": "20 registrazioni reali. Offline. Senza abbonamento."
       },
       "02_library": {
-        "eyebrow": "LIBRERIA SONORA",
-        "headline": "20 canali,\npronti da mixare.",
-        "subhead": "Pioggia, foresta, caffè, falò e altro."
+        "eyebrow": "LUOGHI REALI",
+        "headline": "Crea un luogo\nintorno a te.",
+        "subhead": "Pioggia, foresta, mare, falò e altro."
       },
       "03_detail_sheet": {
         "eyebrow": "REGISTRAZIONI REALI",
-        "headline": "Ogni suono,\nregistrato sul posto.",
+        "headline": "Ogni suono\nha un luogo.",
         "subhead": "Luoghi, artisti e licenze sempre visibili."
       },
       "04_binaural": {
@@ -325,9 +325,9 @@
         "subhead": "Modalità Delta, Theta, Alpha e Beta."
       },
       "05_spatial": {
-        "eyebrow": "AUDIO SPAZIALE",
+        "eyebrow": "POSIZIONE SUONI",
         "headline": "Posiziona ogni\nsuono intorno a te.",
-        "subhead": "Muovi ogni canale in uno spazio sonoro 3D."
+        "subhead": "Avvicina, allontana o sposta ogni suono."
       },
       "06_presets": {
         "eyebrow": "MIX SALVATI",
@@ -342,7 +342,7 @@
       "08_free_home": {
         "eyebrow": "INIZIO GRATIS",
         "headline": "Inizia gratis,\nsenza account.",
-        "subhead": "3 atmosfere, audio spaziale e timer inclusi."
+        "subhead": "3 atmosfere, timer e posizione dei suoni inclusi."
       },
       "09_library_teaser": {
         "eyebrow": "LIBRERIA COMPLETA",
@@ -357,18 +357,18 @@
     },
     "pt-BR": {
       "01_hero": {
-        "eyebrow": "SONO · FOCO · CALMA",
-        "headline": "Crie sua\npaisagem sonora.",
-        "subhead": "20 sons da natureza. Áudio 3D. Offline."
+        "eyebrow": "SONO · FOCO · ESCAPE",
+        "headline": "Escape para\na natureza real.",
+        "subhead": "20 gravações reais. Offline. Sem assinatura."
       },
       "02_library": {
-        "eyebrow": "BIBLIOTECA SONORA",
-        "headline": "20 canais,\nprontos para mixar.",
-        "subhead": "Chuva, floresta, café, fogueira e mais."
+        "eyebrow": "LUGARES REAIS",
+        "headline": "Crie um lugar\nao seu redor.",
+        "subhead": "Chuva, floresta, mar, fogueira e mais."
       },
       "03_detail_sheet": {
         "eyebrow": "GRAVAÇÕES REAIS",
-        "headline": "Cada som,\ngravado no local.",
+        "headline": "Cada som\ntem um lugar.",
         "subhead": "Locais, artistas e licenças sempre visíveis."
       },
       "04_binaural": {
@@ -377,9 +377,9 @@
         "subhead": "Modos Delta, Theta, Alpha e Beta."
       },
       "05_spatial": {
-        "eyebrow": "ÁUDIO ESPACIAL",
+        "eyebrow": "POSIÇÃO DOS SONS",
         "headline": "Coloque cada\nsom ao seu redor.",
-        "subhead": "Mova cada canal em um campo sonoro 3D."
+        "subhead": "Aproxime, afaste ou mova cada som para os lados."
       },
       "06_presets": {
         "eyebrow": "MIXES SALVOS",
@@ -394,7 +394,7 @@
       "08_free_home": {
         "eyebrow": "COMECE GRÁTIS",
         "headline": "Comece grátis,\nsem conta.",
-        "subhead": "3 ambiências, áudio espacial e timer incluídos."
+        "subhead": "3 ambiências, timer e posição dos sons incluídos."
       },
       "09_library_teaser": {
         "eyebrow": "BIBLIOTECA COMPLETA",

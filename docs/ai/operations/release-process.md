@@ -1,7 +1,7 @@
 ---
 title: Release Process
 status: stable
-last_updated: 2026-05-13
+last_updated: 2026-05-17
 tracks:
   - "fastlane/Fastfile"
   - "fastlane/Deliverfile"
@@ -23,7 +23,7 @@ How a new version of Oasis ships to the App Store.
 - **Bundle ID**: `com.jonathanluquet.drift` (set in `fastlane/Deliverfile`, `fastlane/Snapfile`, and `fastlane/Fastfile` lane args).
 - **App Store Connect username**: `jonathanluquet@me.com` (in `fastlane/Deliverfile` and `fastlane/Fastfile`).
 - **Display name**: Oasis.
-- **Current version**: `MARKETING_VERSION = 1.4.1`, `CURRENT_PROJECT_VERSION = 3` (build).
+- **Current version**: `MARKETING_VERSION = 1.4.2`, `CURRENT_PROJECT_VERSION = 4` (build).
 
 Version is set in `OasisNative.xcodeproj/project.pbxproj`. Edit it directly or via Xcode's General tab.
 
@@ -39,6 +39,7 @@ Recent history:
 - `1.3.0` (build 1) — baseline.
 - `1.4.0` (build 2) — redesigned interface + performance pass.
 - `1.4.1` (build 3) — re-encoded all 20 nature sounds; replaced Train and Car with Sea and Mountain Storm; home timer countdown; ambient pad off by default.
+- `1.4.2` (build 4) — ASO / release-note refresh for the current feature set; no-subscription and offline positioning brought forward.
 
 ## Pre-release checklist
 
@@ -87,7 +88,7 @@ Files that don't trigger Apple review: `keywords.txt`, `promotional_text.txt`, `
 Pushes screenshots + metadata for an existing binary version.
 
 ```bash
-bundle exec fastlane appstore_release app_version:1.4.1
+bundle exec fastlane appstore_release app_version:1.4.2
 ```
 
 This is the typical "metadata + visuals" release lane — does not upload an `.ipa`.

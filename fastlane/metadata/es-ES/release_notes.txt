@@ -1,3 +1,7 @@
 Oasis 1.4.2
 
-• Corrección de errores y mejoras de estabilidad.
+• Dos nuevos ambientes naturales: Mar y Tormenta de montaña.
+• Audio recodificado y más limpio en los 20 sonidos de naturaleza.
+• La cuenta atrás del temporizador ahora se ve en la pantalla principal.
+• El pad armónico empieza desactivado para una mezcla inicial más natural.
+• Sigue siendo compra única, sin suscripción y sin conexión.

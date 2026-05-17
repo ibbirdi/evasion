@@ -1,7 +1,7 @@
 ---
 title: Marketing Video Factory
 status: stable
-last_updated: 2026-05-13
+last_updated: 2026-05-17
 tracks:
   - "marketing-video-factory/**"
   - "ios-native/OasisNativeUITests/MarketingScenarioRunner.swift"
@@ -45,7 +45,7 @@ Accessibility identifiers used by scenarios (see [`architecture/ui.md`](../archi
 - `channel.{row,identity,mute,slider,spatial,auto}.<channelId>` — mixer rows
 - `home.bottom.{shuffle,playback,presets,binaural}`, `home.header.timer`, `home.scroll`
 - `panel.{spatial,presets,binaural,sound-detail}.container`, `panel.timer.unlock`
-- `spatial.stage` — drag target on the 3D placement widget
+- `spatial.stage` — drag target on the sound-placement widget
 - `presets.row.<id>`, `binaural.track.<id>`, `binaural.tonalBed.toggle`
 - Paywall surfaces — `premium.paywall.{container,primary,restore,close}`, `premium.library.teaser{,.primary}`
 

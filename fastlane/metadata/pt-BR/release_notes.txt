@@ -1,3 +1,7 @@
 Oasis 1.4.2
 
-• Correções de bugs e melhorias de estabilidade.
+• Duas novas ambiências naturais: Mar e Tempestade na montanha.
+• Áudio recodificado e mais limpo nos 20 sons da natureza.
+• A contagem regressiva do timer agora aparece na tela inicial.
+• O pad harmônico começa desativado para um primeiro mix mais natural.
+• Continua com compra única, sem assinatura e totalmente offline.

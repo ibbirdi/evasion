@@ -1,3 +1,7 @@
 Oasis 1.4.2
 
-• Bug fixes and stability improvements.
+• Two new nature ambiences: Sea and Mountain Storm.
+• Cleaner, re-encoded audio across all 20 nature sounds.
+• Timer countdown is now visible from the home screen.
+• The harmonic pad starts off by default for a more natural first mix.
+• Still one purchase, no subscription, fully offline.

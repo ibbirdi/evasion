@@ -1,1 +1,1 @@
-chuva,ruido,branco,trovao,oceano,binaural,meditacao,zumbido,dormir,insonia,bebe,ansiedade,descanso
+chuva,ruido,branco,trovao,oceano,binaural,meditacao,zumbido,dormir,insonia,leitura,ansiedade,calma

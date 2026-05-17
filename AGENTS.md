@@ -5,7 +5,7 @@
 
 ## Project snapshot
 
-- **Product**: Oasis — iOS native ambient mixer (20 nature sounds, 4 binaural tracks, 3D audio, harmonic pad).
+- **Product**: Oasis — iOS native ambient mixer (20 nature sounds, 4 binaural tracks, per-sound placement, harmonic pad).
 - **Bundle ID**: `com.jonathanluquet.drift` — current version **1.4.1** (build 3).
 - **Stack**: Swift / SwiftUI (`@Observable`), AVAudioEngine, RevenueCat (one-time lifetime purchase, **no subscription, ever**).
 - **Target**: iOS 16+, portrait-only, dark-mode-only, offline-first (~310 MB audio bundle).

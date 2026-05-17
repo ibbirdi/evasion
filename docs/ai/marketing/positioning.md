@@ -1,7 +1,7 @@
 ---
 title: Positioning
 status: stable
-last_updated: 2026-05-03
+last_updated: 2026-05-17
 tracks:
   - "fastlane/metadata/**/description.txt"
   - "fastlane/metadata/**/subtitle.txt"
@@ -21,7 +21,7 @@ The strategic frame derived from the 2026-05-02 ASO audit. This is the lens any 
 
 - **60–70 %** of search volume in the segment (Audio Wellness iOS, 2025-2026 Sensor Tower / Mobile Action data) is dominated by sleep-led queries.
 - Sleep-led positioning is also where competitors (Calm, Headspace, Portal, Sleep Cycle) are strongest.
-- Oasis can win sleep traffic without positioning *only* on sleep — and it has technical features (3D, mixer, binaural, presets) that work for non-sleep contexts.
+- Oasis can win sleep traffic without positioning *only* on sleep — and it has technical features (mixer, per-sound placement, binaural, presets) that work for non-sleep contexts.
 
 **Resolution.** Keep sleep-heavy keywords in the keyword field (capture traffic invisibly) but pivot the visible surfaces — title, subtitle, hero screenshot, first description line — to a multi-use frame.
 
@@ -40,7 +40,7 @@ Every visible copy moment should be readable from at least 2 of these four conte
 
 1. **No subscription. Ever.** One-time lifetime purchase. Every future premium sound included. → This is the **primary** moat. Copy in screenshot 10, paywall, description bullet, release notes. Protect verbatim.
 2. **Authentic field recordings.** 20 named places, named authors, real licences (CC0 / CC-BY-4.0). Every sound has a story. → Rendered in `SoundDetailSheet`. Backs claims of "real nature", "hand-recorded".
-3. **3D spatial audio.** Per-channel positioning. → Hard for subscription competitors to match because it requires real engine work, not playlists.
+3. **Per-sound placement.** Users can move each channel around the listener. → Market this as sound placement, not "3D audio" or "spatial audio"; the latter sounds cheap and overclaims the current experience.
 4. **Four binaural modes.** Sleep / meditation / relax / focus. → Pairs with the 4 use cases.
 5. **100 % offline.** No streaming, no account. → Plane, tent, off-grid. Underlines no-subscription stance ("you actually own it").
 
@@ -67,7 +67,7 @@ We don't target: parents (we don't do white-noise-for-baby positioning to avoid 
 | --- | --- | --- |
 | Calm | Subscription, big content library, celebrity narrators | No subscription; deeper sound engine |
 | Headspace | Subscription, meditation-led | We're not meditation; better for ambient long-listen |
-| Portal | Subscription, photo + ambient pairing | Mixer + 3D + binaural + offline |
+| Portal | Subscription, photo + ambient pairing | Mixer + sound placement + binaural + offline |
 | Rainy Mood | Free + ads / micro-IAP | Offline, real recordings, no ads |
 | Endel | Subscription, generative | We're curated + offline, not generative; cheaper long-term |
 | Sleep Cycle | Tracker + sounds | We don't track; we just sound right |

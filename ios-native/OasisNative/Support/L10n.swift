@@ -174,7 +174,7 @@ enum L10n {
 
         static let subtitleSounds = LocalizedStringResource(
             "paywall.subtitle.sounds",
-            defaultValue: "Add rain, forest, thunder, river, train and more sounds for sleep or focus.",
+            defaultValue: "Add rain, forest, thunder, river, sea and more sounds for sleep or focus.",
             bundle: .main,
             comment: "Paywall subtitle when the user wants more ambient sounds."
         )
@@ -344,7 +344,7 @@ enum L10n {
 
         static let librarySubtitle = LocalizedStringResource(
             "premium.library.subtitle",
-            defaultValue: "Rain, forest, thunder, river and train, all available offline.",
+            defaultValue: "Rain, forest, thunder, river and sea, all available offline.",
             bundle: .main,
             comment: "Body copy in the locked sound library teaser."
         )
@@ -581,7 +581,7 @@ enum L10n {
 
         static let page1Subtitle = LocalizedStringResource(
             "onboarding.page1.subtitle",
-            defaultValue: "Mix nature sounds, adjust each volume, and place them around you in 3D audio.",
+            defaultValue: "Mix nature sounds, adjust each volume, and place them around you.",
             bundle: .main,
             comment: "Onboarding page 1 subtitle."
         )
@@ -609,7 +609,7 @@ enum L10n {
 
         static let page3Subtitle = LocalizedStringResource(
             "onboarding.page3.subtitle",
-            defaultValue: "Start free with 3 sounds and 3D audio. Unlock 17 more sounds, longer timers and binaural modes — no subscription, ever.",
+            defaultValue: "Start free with 3 sounds and sound placement. Unlock 17 more sounds, longer timers and binaural modes — no subscription, ever.",
             bundle: .main,
             comment: "Onboarding page 3 subtitle."
         )

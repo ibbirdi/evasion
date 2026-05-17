@@ -1,7 +1,7 @@
 ---
 title: ASO Strategy
 status: stable
-last_updated: 2026-05-03
+last_updated: 2026-05-17
 tracks:
   - "fastlane/metadata/**"
   - "fastlane/screenshots/**"
@@ -16,6 +16,18 @@ related:
 Synthesised from the 2026-05-02 audit (v2 of the original audit doc, post sleep-led → multi-use pivot). Numbers below are based on app version 1.4.1 and `fastlane/metadata/` snapshot 2026-04-26.
 
 The big picture is in [positioning.md](positioning.md). This file is the operational layer: what to ship, in what order.
+
+## Current local state — 2026-05-17
+
+The latest low-risk ASO pass removed the misleading / cheap-feeling "3D audio" language from visible App Store surfaces, cleaned the invisible keyword fields, and updated the first screenshot hooks toward immersion / escape.
+
+- Removed `baby` / `bebe` targeting from all 6 keyword files, in line with [positioning.md](positioning.md)'s anti-persona guidance.
+- Replaced those slots with adult use cases such as study, reading, work, and calm; all locales remain ≤100 chars and have zero indexed-word overlap across `name + subtitle + keywords`.
+- Removed `3D` from all App Store names and replaced user-facing "3D audio" / "spatial audio" claims with sound-placement language.
+- Set `primary_first_sub_category.txt` to `MIND_AND_BODY` and `secondary_first_sub_category.txt` to `TRAVEL`.
+- Re-rendered and staged 60 composite screenshots from the current raw captures; slides 01-03 now foreground real-place escape, field recordings, offline use, and no-subscription ownership.
+- Rewrote `release_notes.txt` for version 1.4.2 in all 6 locales with concrete product changes instead of generic bug-fix wording.
+- Replaced the first line of each `description.txt` with the approved multi-use opening line.
 
 ## Two fields, one strategy
 
@@ -32,19 +44,19 @@ Source: 2026-05-02 audit. Approved direction. Push these via `bundle exec fastla
 
 | Locale | Name (≤30) | Subtitle (≤30) | Keywords (≤100) |
 | --- | --- | --- | --- |
-| en-US | `Oasis: Nature Sound Mixer 3D` | `Sleep, focus, work, nap, calm.` | `rain,white,noise,brown,pink,ambient,ocean,fan,thunder,music,meditation,timer,insomnia,reading,yoga` |
-| fr-FR | `Oasis : Mixeur de Sons Nature` | `Sommeil, focus, sieste, calme.` | `pluie,bruit,blanc,brun,ambiance,ocean,orage,musique,meditation,etude,acouphene,minuteur,lecture` |
-| de-DE | `Oasis: Naturklang-Mixer 3D` | `Schlaf, Fokus, Pause, Lesen.` | `regen,weiss,rauschen,braun,ambient,ozean,ventilator,donner,musik,meditation,timer,tinnitus,arbeit` |
-| es-ES | `Oasis: Mezclador de Sonidos 3D` | `Sueño, foco, siesta, lectura.` | `lluvia,ruido,blanco,marron,rosa,ambiente,oceano,ventilador,trueno,musica,meditacion,estudio,insomnio` |
-| it | `Oasis: Mixer Suoni Natura 3D` | `Sonno, focus, pausa, lettura.` | `pioggia,rumore,bianco,marrone,rosa,ambiente,oceano,musica,meditazione,acufene,timer,studio,lavoro` |
-| pt-BR | `Oasis: Mixer de Sons Natureza` | `Sono, foco, soneca, leitura.` | `chuva,ruido,branco,marrom,rosa,ambiente,oceano,ventilador,trovao,musica,meditacao,estudo,zumbido` |
+| en-US | `Oasis: Nature Sound Mixer` | `Sleep, focus. No subscription.` | `rain,white,noise,thunder,ocean,binaural,meditation,insomnia,tinnitus,calm,relax,study,anxiety,asmr` |
+| fr-FR | `Oasis : Mixeur Sons Nature` | `Sommeil, focus. Achat unique` | `pluie,bruit,blanc,orage,ocean,binaural,meditation,acouphene,dormir,detente,lecture,insomnie,stress` |
+| de-DE | `Oasis: Naturklang-Mixer` | `Schlaf, Fokus. Kein Abo.` | `regen,rauschen,weiss,gewitter,ozean,binaural,meditation,tinnitus,einschlafen,entspannung,arbeit,asmr` |
+| es-ES | `Oasis: Mezclador Sonidos` | `Sueño, foco. Sin suscripción.` | `lluvia,ruido,blanco,trueno,oceano,binaural,meditacion,insomnio,tinnitus,dormir,leer,estres,descanso` |
+| it | `Oasis: Mixer Suoni Natura` | `Sonno, focus. Senza abbon.` | `pioggia,rumore,bianco,temporale,oceano,binaurale,meditazione,acufene,dormire,insonnia,ansia,lettura` |
+| pt-BR | `Oasis: Mixer Sons Natureza` | `Sono, foco. Sem assinatura.` | `chuva,ruido,branco,trovao,oceano,binaural,meditacao,zumbido,dormir,insonia,leitura,ansiedade,calma` |
 
 Sub-categories (in `primary_first_sub_category.txt` / `secondary_first_sub_category.txt`):
 
 - Primary: `MIND_AND_BODY`
 - Secondary: `TRAVEL`
 
-(Currently both files are missing — adding them is a free slot.)
+These files are present locally as of 2026-05-17.
 
 ## Promotional Text — rotation
 
@@ -62,7 +74,7 @@ Stop shipping `"Performance optimizations and bug fixes."` Customers and ASO cra
 
 - "Smoother fades when you swap presets at night."
 - "All 20 nature sounds re-encoded for cleaner low-end."
-- "Replaced Train and Car with Sea (Greece) and Mountain Storm (Italy)."
+- "Two new nature ambiences: Sea and Mountain Storm."
 
 Each release-note entry is indexed by Apple for the *current* version only. Use them.
 
@@ -115,11 +127,11 @@ CPPs are free; spawn them as A/B vehicles without touching the main page.
 ### Week 1 (~7 h of work)
 
 1. Push Variant A names / subtitles / keywords for all 6 locales.
-2. Add `MIND_AND_BODY` + `TRAVEL` sub-categories.
-3. Rewrite `promotional_text.txt` for all 6 locales (template 1 — seasonal).
-4. Rewrite `release_notes.txt` for current version 1.4.1 — replace "performance + bugs" with the actual list.
-5. Render Slide 01 v2 (multi-use eyebrow + subhead) and re-stage.
-6. Push first description line per locale.
+2. Add `MIND_AND_BODY` + `TRAVEL` sub-categories. **Done locally 2026-05-17.**
+3. Rewrite `promotional_text.txt` for all 6 locales (template 1 — seasonal). **Done locally 2026-05-17.**
+4. Rewrite `release_notes.txt` for current version 1.4.2 — replace "performance + bugs" with the actual list. **Done locally 2026-05-17.**
+5. Render Slide 01 v2 (multi-use eyebrow + subhead) and re-stage. **Done locally 2026-05-17.**
+6. Push first description line per locale. **Done locally 2026-05-17.**
 7. `bundle exec fastlane appstore_metadata` to ship.
 
 ### Month 1 (~2 days)
