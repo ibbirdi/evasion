@@ -118,4 +118,5 @@ Each locale has its own ASC view: name, subtitle, description, keywords, promoti
 - Premium sound-library and sound-paywall copy should list current nature channels only. The canonical exemplar set is rain / forest / thunder / river / sea, localized per locale.
 - ASO keyword fields intentionally avoid baby / parent targeting. Use adult moments instead: study, reading, work, travel, sleep, calm.
 - User-facing ASO and onboarding copy should not claim "3D audio" / "spatial audio". Use localized sound-placement language instead (`sound placement`, `placement sonore`, `Klangplatzierung`, `ubicación sonora`, `posizione dei suoni`, `posição dos sons`).
+- Onboarding should lead with escape / real field recordings, then offline timer behavior, then the free-start / lifetime purchase model. Avoid sleep-only framing on page 1.
 - ASO copy and brand lines (e.g. "No subscription. Ever.", "Pay once, yours forever.") have approved translations in 6 locales — see `marketing/store-assets.md` for the full table. Don't paraphrase them in random surfaces.

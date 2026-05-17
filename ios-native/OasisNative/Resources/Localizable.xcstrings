@@ -3310,37 +3310,37 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mische Naturklänge, passe jede Lautstärke an und platziere sie um dich herum."
+            "value": "Baue einen Ort um dich herum mit Feldaufnahmen, die du von Hand mischst."
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mix nature sounds, adjust each volume, and place them around you."
+            "value": "Build a place around you with field recordings you can mix by hand."
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mezcla sonidos de la naturaleza, ajusta cada volumen y colócalos a tu alrededor."
+            "value": "Crea un lugar a tu alrededor con grabaciones reales que puedes mezclar a mano."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mixez des sons de la nature, ajustez chaque volume et placez-les autour de vous."
+            "value": "Composez un lieu autour de vous avec des prises réelles à mixer."
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mixa suoni della natura, regola ogni volume e posizionali intorno a te."
+            "value": "Crea un luogo intorno a te con registrazioni reali da mixare a mano."
           }
         },
         "pt": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mixe sons da natureza, ajuste cada volume e posicione tudo ao seu redor."
+            "value": "Crie um lugar ao seu redor com gravações reais para mixar à mão."
           }
         }
       }
@@ -3351,37 +3351,37 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Dein Klangteppich zum Einschlafen"
+            "value": "Tauche ein in echte Natur"
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Your sound bed for sleep"
+            "value": "Escape into real nature"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tu fondo sonoro para dormir"
+            "value": "Escapa a la naturaleza real"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Votre fond sonore pour dormir"
+            "value": "Évadez-vous en pleine nature"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Il tuo sottofondo per dormire"
+            "value": "Evadi nella natura reale"
           }
         },
         "pt": {
           "stringUnit": {
             "state": "translated",
-            "value": "Seu som de fundo para dormir"
+            "value": "Escape para a natureza real"
           }
         }
       }
@@ -3392,37 +3392,37 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Starte einen Schlaf-Timer, sperre dein Handy und lass Oasis im Hintergrund laufen. Alles funktioniert offline."
+            "value": "Starte einen Schlaf-Timer, sperre dein Handy und lass Oasis im Hintergrund ausblenden."
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Start a sleep timer, lock your phone, and let Oasis play in the background. Everything works offline."
+            "value": "Start a sleep timer, lock your phone, and let Oasis fade out in the background."
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Activa un temporizador, bloquea tu iPhone y deja que Oasis suene en segundo plano. Todo funciona sin conexión."
+            "value": "Activa un temporizador, bloquea tu iPhone y deja que Oasis se desvanezca en segundo plano."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Lancez un minuteur, verrouillez l'iPhone et laissez Oasis jouer en arrière-plan. Tout fonctionne hors ligne."
+            "value": "Lancez un minuteur, verrouillez l'iPhone et laissez Oasis s'effacer en arrière-plan."
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Avvia un timer, blocca il telefono e lascia Oasis in background. Tutto funziona offline."
+            "value": "Avvia un timer, blocca il telefono e lascia sfumare Oasis in background."
           }
         },
         "pt": {
           "stringUnit": {
             "state": "translated",
-            "value": "Inicie um timer, bloqueie o celular e deixe o Oasis tocar em segundo plano. Tudo funciona offline."
+            "value": "Inicie um timer, bloqueie o celular e deixe o Oasis sumir em segundo plano."
           }
         }
       }
@@ -3433,37 +3433,37 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Timer starten, einschlafen"
+            "value": "Offline, auch gesperrt"
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Set a timer, drift off"
+            "value": "Offline, even locked"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Pon un temporizador, descansa"
+            "value": "Sin conexión, incluso bloqueado"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Lancez un minuteur, endormez-vous"
+            "value": "Hors ligne, même verrouillé"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Avvia un timer, addormentati"
+            "value": "Offline, anche bloccato"
           }
         },
         "pt": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ative um timer, relaxe"
+            "value": "Offline, mesmo bloqueado"
           }
         }
       }
@@ -3474,37 +3474,37 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Starte kostenlos mit 3 Sounds und Klangplatzierung. Schalte 17 weitere Sounds, längere Timer und Binauralmodi frei — kein Abo, nie."
+            "value": "Teste 3 Sounds, Delta-Wellen und Timer. Schalte die volle Bibliothek einmal frei — kein Abo."
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Start free with 3 sounds and sound placement. Unlock 17 more sounds, longer timers and binaural modes — no subscription, ever."
+            "value": "Try 3 sounds, Delta waves and timers. Unlock the full library once — no subscription."
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Empieza gratis con 3 sonidos y ubicación sonora. Desbloquea 17 sonidos más, temporizadores largos y modos binaurales — sin suscripción."
+            "value": "Prueba 3 sonidos, ondas Delta y temporizadores. Desbloquea la biblioteca una vez — sin suscripción."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Commencez gratuitement avec 3 sons et le placement sonore. Débloquez 17 sons, des minuteurs plus longs et les modes binauraux — sans abonnement."
+            "value": "Essayez 3 sons, les ondes Delta et les minuteurs. Débloquez la bibliothèque une seule fois — sans abonnement."
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Inizia gratis con 3 suoni e posizione dei suoni. Sblocca 17 suoni, timer più lunghi e modalità binaurali — senza abbonamento, mai."
+            "value": "Prova 3 suoni, onde Delta e timer. Sblocca la libreria una volta sola — senza abbonamento."
           }
         },
         "pt": {
           "stringUnit": {
             "state": "translated",
-            "value": "Comece grátis com 3 sons e posição dos sons. Desbloqueie 17 sons, timers mais longos e modos binaurais — sem assinatura, nunca."
+            "value": "Teste 3 sons, ondas Delta e timers. Desbloqueie a biblioteca uma vez — sem assinatura."
           }
         }
       }
@@ -3515,37 +3515,37 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "20 Sounds, ein Kauf"
+            "value": "Gratis starten, für immer besitzen"
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "20 sounds, one purchase"
+            "value": "Start free, own it for life"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "20 sonidos, una sola compra"
+            "value": "Empieza gratis, tuya de por vida"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "20 sons, un seul achat"
+            "value": "Commencez gratuit, gardez à vie"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "20 suoni, un solo acquisto"
+            "value": "Inizia gratis, tua per sempre"
           }
         },
         "pt": {
           "stringUnit": {
             "state": "translated",
-            "value": "20 sons, uma única compra"
+            "value": "Comece grátis, seu para sempre"
           }
         }
       }

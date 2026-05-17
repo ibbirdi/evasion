@@ -574,42 +574,42 @@ enum L10n {
     enum Onboarding {
         static let page1Title = LocalizedStringResource(
             "onboarding.page1.title",
-            defaultValue: "Your sound bed for sleep",
+            defaultValue: "Escape into real nature",
             bundle: .main,
             comment: "Onboarding page 1 title."
         )
 
         static let page1Subtitle = LocalizedStringResource(
             "onboarding.page1.subtitle",
-            defaultValue: "Mix nature sounds, adjust each volume, and place them around you.",
+            defaultValue: "Build a place around you with field recordings you can mix by hand.",
             bundle: .main,
             comment: "Onboarding page 1 subtitle."
         )
 
         static let page2Title = LocalizedStringResource(
             "onboarding.page2.title",
-            defaultValue: "Set a timer, drift off",
+            defaultValue: "Offline, even locked",
             bundle: .main,
             comment: "Onboarding page 2 title."
         )
 
         static let page2Subtitle = LocalizedStringResource(
             "onboarding.page2.subtitle",
-            defaultValue: "Start a sleep timer, lock your phone, and let Oasis play in the background. Everything works offline.",
+            defaultValue: "Start a sleep timer, lock your phone, and let Oasis fade out in the background.",
             bundle: .main,
             comment: "Onboarding page 2 subtitle."
         )
 
         static let page3Title = LocalizedStringResource(
             "onboarding.page3.title",
-            defaultValue: "20 sounds, one purchase",
+            defaultValue: "Start free, own it for life",
             bundle: .main,
             comment: "Onboarding page 3 title."
         )
 
         static let page3Subtitle = LocalizedStringResource(
             "onboarding.page3.subtitle",
-            defaultValue: "Start free with 3 sounds and sound placement. Unlock 17 more sounds, longer timers and binaural modes — no subscription, ever.",
+            defaultValue: "Try 3 sounds, Delta waves and timers. Unlock the full library once — no subscription.",
             bundle: .main,
             comment: "Onboarding page 3 subtitle."
         )
