@@ -145,7 +145,7 @@ CPPs are free; spawn them as A/B vehicles without touching the main page.
 
 1. Trial-purchase post-onboarding on page 3 of `OnboardingView`.
 2. Refactor the other 9 screenshots to v3 spec — see [store-assets.md](store-assets.md).
-3. Drop signature preview frequency from 1×/day to 1×/week (`signaturePreviewLastPlayedAt`).
+3. Drop signature preview frequency from 1×/day to 1×/week (`signaturePreviewLastPlayedAt`). **Done locally 2026-05-17.**
 4. Investigate a 6th "Hotel / Travel" use case — if Travel sub-category drives meaningful traffic.
 5. A/B paywall CTA copy: "Pay once. Yours forever." vs "Less than one month of a subscription app. For life."
 

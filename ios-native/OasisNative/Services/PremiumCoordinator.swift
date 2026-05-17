@@ -4,7 +4,7 @@ import Foundation
 final class PremiumCoordinator {
     static let homeBannerDelay: Duration = .seconds(20)
     static let homeBannerCooldown: TimeInterval = 24 * 60 * 60
-    static let signaturePreviewCooldown: TimeInterval = 24 * 60 * 60
+    static let signaturePreviewCooldown: TimeInterval = 7 * 24 * 60 * 60
     static let signaturePreviewDuration: Duration = .seconds(45)
 
     private var inlineShownCategories = Set<PremiumEntryPoint.Category>()

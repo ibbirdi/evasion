@@ -61,7 +61,7 @@ The active context is exposed via `AppModel.activePaywallContext` (full paywall)
 Two engagement nudges, both throttled in `AppModel`:
 
 - **Premium home banner** — dismissable; reappears after a cooldown driven by `premiumBannerLastDismissedAt`.
-- **Signature preset preview** — 45-second taste of the signature mix. Throttled to 1 per day via `signaturePreviewLastPlayedAt`. (The 2026-05 ASO audit suggests dropping to 1 per week — see `marketing/aso-strategy.md`.)
+- **Signature preset preview** — 45-second taste of the signature mix. Throttled to 1 per week via `signaturePreviewLastPlayedAt` to keep the preview valuable without becoming a daily substitute for Premium.
 
 ## Override for development & screenshots
 

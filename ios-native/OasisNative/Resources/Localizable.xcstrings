@@ -5274,42 +5274,42 @@
       }
     },
     "premium.preview.limit": {
-      "comment": "Footnote shown when the daily ambience preview has already been used.",
+      "comment": "Footnote shown when the weekly ambience preview has already been used.",
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Morgen ist wieder eine neue Vorschau verfügbar."
+            "value": "Nächste Woche ist wieder eine neue Vorschau verfügbar."
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "A new preview will be available tomorrow."
+            "value": "A new preview will be available next week."
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Habrá una nueva vista previa mañana."
+            "value": "Habrá una nueva vista previa la próxima semana."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nouvel aperçu disponible demain."
+            "value": "Nouvel aperçu disponible la semaine prochaine."
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Domani sarà disponibile una nuova anteprima."
+            "value": "Una nuova anteprima sarà disponibile la prossima settimana."
           }
         },
         "pt": {
           "stringUnit": {
             "state": "translated",
-            "value": "Uma nova prévia estará disponível amanhã."
+            "value": "Uma nova prévia estará disponível na próxima semana."
           }
         }
       }

@@ -93,7 +93,6 @@ These came out of the audit and aren't yet shipped — track them:
 
 - A/B "Less than one month of a subscription app. For life." vs the coffee anchor.
 - Trial-purchase post-onboarding (page 3 of `OnboardingView`).
-- Drop signature preview frequency from 1×/day to 1×/week.
 - Add a 6th use case "hotel / travel" if data supports it.
 
 Closed asks (decisions taken, don't reopen without new evidence):
@@ -101,3 +100,4 @@ Closed asks (decisions taken, don't reopen without new evidence):
 - ❌ Subscription option — explicitly rejected by user.
 - ❌ Annual / monthly tiers — same.
 - ❌ Paid expansion packs after launch — undermines "every future Premium sound included".
+- ✅ Signature preview frequency dropped from 1×/day to 1×/week (2026-05-17).

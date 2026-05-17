@@ -42,7 +42,7 @@ Vocabulary used inside the codebase, the UI copy, and these memory files. Some t
 
 **Default presets.** Three shipped presets: `preset_default_starter`, `preset_default_calm`, `preset_default_storm`. Always present.
 
-**Signature preset** (`preset_signature_oasis`). Special preview-able preset showcasing the "best of premium". Free users can preview it for 45 s, throttled to once per day (see [premium-model.md](premium-model.md)).
+**Signature preset** (`preset_signature_oasis`). Special preview-able preset showcasing the "best of premium". Free users can preview it for 45 s, throttled to once per week (see [premium-model.md](premium-model.md)).
 
 **User preset.** `preset_user_<timestamp>`. Created by the user. Free tier caps at 1; premium has no cap.
 

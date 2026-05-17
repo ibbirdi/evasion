@@ -428,9 +428,9 @@ enum L10n {
 
         static let previewLimit = LocalizedStringResource(
             "premium.preview.limit",
-            defaultValue: "A new preview will be available tomorrow.",
+            defaultValue: "A new preview will be available next week.",
             bundle: .main,
-            comment: "Footnote shown when the daily ambience preview has already been used."
+            comment: "Footnote shown when the weekly ambience preview has already been used."
         )
 
         static let timerTitle = LocalizedStringResource(

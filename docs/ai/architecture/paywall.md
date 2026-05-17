@@ -89,7 +89,7 @@ The "Restore" button is exposed in the paywall and (typically) in an "About" vie
 | Binaural panel | `selectBinauralTrack(_:)` | Tapping Theta/Alpha/Beta as free user → inline upsell. |
 | Timer menu | `canUseTimer(_:)` | 60 / 120 min options route to paywall. |
 | Spatial panel | inherits channel lock | Premium channels remain greyed out in the minimap. |
-| Signature preview | `signaturePreviewLastPlayedAt` cooldown + `isPremium` | Free users get a 45 s preview, throttled. |
+| Signature preview | `signaturePreviewLastPlayedAt` cooldown + `isPremium` | Free users get a 45 s preview, throttled to once per week. |
 | Home banner | `showsPremiumHomeBanner` | Dismissable; cooldown via `premiumBannerLastDismissedAt`. |
 
 `enforcePremiumAccess()` (in [`AppModel`](../../../ios-native/OasisNative/Services/AppModel.swift)) is called on every premium state change. It mutes premium channels, resets the active binaural track to `.delta`, and clamps the timer if the user just lost premium (e.g. refund). See [state.md](state.md).
