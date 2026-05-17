@@ -1,7 +1,7 @@
 ---
 title: Secrets and Keys
 status: stable
-last_updated: 2026-05-03
+last_updated: 2026-05-17
 tracks:
   - "ios-native/OasisNative/Support/Info.plist"
   - "ios-native/OasisNative/Support/AppConfiguration.swift"
