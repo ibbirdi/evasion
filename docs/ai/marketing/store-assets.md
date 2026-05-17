@@ -49,6 +49,8 @@ Recommended ordering on the App Store (Variant B, multi-use lead — see [aso-st
 
 The slug is *what the slide depicts*. The position is *where it appears in the carousel*.
 
+`fastlane stage_appstore_assets` copies source composites into `fastlane/appstore-upload/<locale>/` and renames them to this display order, so App Store Connect receives alphabetically sorted files in the intended carousel sequence.
+
 ## Type system (v3)
 
 | Element | Specs |

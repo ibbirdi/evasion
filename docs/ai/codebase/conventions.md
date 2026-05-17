@@ -1,7 +1,7 @@
 ---
 title: Code Conventions
 status: stable
-last_updated: 2026-05-13
+last_updated: 2026-05-17
 tracks:
   - "ios-native/OasisNative/**/*.swift"
   - "ios-native/OasisNative/Support/L10n.swift"
@@ -20,6 +20,7 @@ Patterns this codebase has settled on. Follow these by default — diverge only 
 - **Code, identifiers, comments**: English only.
 - **UI strings**: never hardcoded. Always go through `L10n` (`Support/L10n.swift` keys, `Resources/Localizable.xcstrings` translations).
 - **User-facing copy in 6 locales**: `en-US, fr-FR, de-DE, es-ES, it, pt-BR`.
+- **Sound-placement wording**: user-facing copy says "sound placement" / localized equivalents, not "3D audio" or "spatial audio".
 
 ## Swift / SwiftUI
 

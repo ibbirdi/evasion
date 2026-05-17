@@ -1,7 +1,7 @@
 ---
 title: Glossary
 status: stable
-last_updated: 2026-05-03
+last_updated: 2026-05-17
 tracks:
   - "ios-native/OasisNative/Models/AppModels.swift"
   - "ios-native/OasisNative/Models/SoundChannelMetadata.swift"
@@ -24,7 +24,7 @@ Vocabulary used inside the codebase, the UI copy, and these memory files. Some t
 
 **Channel state** (`ChannelState`). `{ volume: Double, isMuted: Bool, autoVariationEnabled: Bool, spatialPosition: SpatialPoint }`.
 
-**Spatial position** (`SpatialPoint`). 2D point in `[-1, 1] × [-1, 1]`. Origin = listener. Mapped to `AVAudio3DPoint` for the `AVAudioEnvironmentNode`.
+**Sound placement / spatial position** (`SpatialPoint`). 2D point in `[-1, 1] × [-1, 1]`. Origin = listener. Mapped internally to `AVAudio3DPoint` for the `AVAudioEnvironmentNode`, but user-facing copy should call this sound placement, not "3D audio".
 
 **Auto-variation.** Slow automatic modulation of a channel's volume over time. Per-channel toggle. Used to keep mixes alive over multi-hour listening.
 

@@ -1,7 +1,7 @@
 ---
 title: UI System
 status: stable
-last_updated: 2026-05-13
+last_updated: 2026-05-17
 tracks:
   - "ios-native/OasisNative/Views/**"
   - "ios-native/OasisNative/Support/Info.plist"
@@ -69,7 +69,7 @@ Most overlays bind to an optional state on `AppModel` and present when non-nil:
 | `WaveformSignatureLine` | Audio-reactive signature line in the header. Paused under XCUITest. |
 | `MixerBoardSectionView` | One row of the mixer board. |
 | `HapticSlider` | Slider with `sensoryFeedback` haptics on tick. |
-| `SoundLocationMinimap` | 2D minimap for spatial positioning, `[-1, 1]` coordinate space. |
+| `SoundLocationMinimap` | 2D minimap for sound placement, `[-1, 1]` coordinate space. |
 | `PremiumSurfaces` | Reusable upsell card and inline teaser elements. |
 | `PressScaleButtonStyle` | Tactile scale-on-press button style applied app-wide. |
 

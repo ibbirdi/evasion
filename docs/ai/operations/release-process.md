@@ -71,7 +71,7 @@ Builds App Preview videos via [`scripts/generate_app_previews.rb`](../../../scri
 
 ### `stage_appstore_assets`
 
-Stages screenshots + previews into `fastlane/appstore-upload/<locale>/` so the upload lane has a clean source.
+Stages screenshots + previews into `fastlane/appstore-upload/<locale>/` so the upload lane has a clean source. Screenshot files are renamed to the Variant B display order documented in [../marketing/aso-strategy.md](../marketing/aso-strategy.md).
 
 ### `appstore_metadata`
 

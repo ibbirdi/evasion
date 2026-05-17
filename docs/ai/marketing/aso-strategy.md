@@ -100,7 +100,7 @@ Reorder the existing 10 captures to lead with multi-use moments before binaural 
 03_detail_sheet → 04_binaural → 06_presets → 09_library_teaser → 10_paywall
 ```
 
-Reorder is done via the `appstore_release` lane; no re-rendering needed.
+Reorder is done during `stage_appstore_assets` / `appstore_release`: source composites keep their slug names, while upload-ready staged files are renamed to numeric display order. No re-rendering is needed.
 
 ## App Preview video — open
 

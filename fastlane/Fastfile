@@ -3,6 +3,19 @@ require "fileutils"
 
 default_platform(:ios)
 
+APPSTORE_SCREENSHOT_DISPLAY_ORDER = {
+  "01_hero.jpg" => "01_hero.jpg",
+  "02_library.jpg" => "02_library.jpg",
+  "07_timer.jpg" => "03_timer.jpg",
+  "05_spatial.jpg" => "04_spatial.jpg",
+  "08_free_home.jpg" => "05_free_home.jpg",
+  "03_detail_sheet.jpg" => "06_detail_sheet.jpg",
+  "04_binaural.jpg" => "07_binaural.jpg",
+  "06_presets.jpg" => "08_presets.jpg",
+  "09_library_teaser.jpg" => "09_library_teaser.jpg",
+  "10_paywall.jpg" => "10_paywall.jpg"
+}.freeze
+
 def oasis_repo_root
   candidates = [
     File.expand_path(__dir__),
@@ -50,7 +63,8 @@ def oasis_stage_appstore_media(repo_root)
     next if locale == "preview" || locale == "test_output"
     dest_dir = File.join(staging_root, locale)
     FileUtils.mkdir_p(dest_dir)
-    FileUtils.cp(src, File.join(dest_dir, File.basename(src)))
+    upload_name = APPSTORE_SCREENSHOT_DISPLAY_ORDER.fetch(File.basename(src), File.basename(src))
+    FileUtils.cp(src, File.join(dest_dir, upload_name))
     staged_count += 1
   end
   UI.message("Staged #{staged_count} composite screenshots into #{staging_root}")
@@ -153,7 +167,7 @@ platform :ios do
   desc "Upload metadata to App Store Connect without screenshots"
   lane :appstore_metadata do |options|
     repo_root = oasis_repo_root
-    app_version = options[:app_version] || "1.4.1"
+    app_version = options[:app_version] || "1.4.2"
 
     upload_to_app_store(
       username: "jonathanluquet@me.com",
@@ -205,7 +219,7 @@ platform :ios do
   desc "Upload screenshots + metadata to App Store Connect (no binary)"
   lane :appstore_release do |options|
     repo_root = oasis_repo_root
-    app_version = options[:app_version] || "1.4.1"
+    app_version = options[:app_version] || "1.4.2"
     staging_result = oasis_stage_appstore_media(repo_root)
 
     upload_to_app_store(

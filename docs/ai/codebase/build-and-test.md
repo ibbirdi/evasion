@@ -90,7 +90,7 @@ From repo root, run `bundle exec fastlane <lane>`:
 | `screenshots` | Snapshot all 10 scenarios in 6 locales on iPhone 17 Pro Max. Output: `fastlane/screenshots/<locale>/iPhone 17 Pro Max-<slug>.png`. |
 | `screenshots_only` | Skips the build step — useful when iterating on snapshot scenarios with the same binary. |
 | `app_previews` | Build App Preview videos (Ruby pipeline). |
-| `stage_appstore_assets` | Stage screenshots + previews into `fastlane/appstore-upload/<locale>/`. |
+| `stage_appstore_assets` | Stage screenshots + previews into `fastlane/appstore-upload/<locale>/`; screenshots are renamed to the Variant B display order. |
 | `appstore_metadata` | Push metadata only, no binary. Fast iteration on text. |
 | `appstore_release app_version:1.4.2` | Push screenshots + metadata for an existing binary version. |
 
