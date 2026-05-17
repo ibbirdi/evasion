@@ -52,7 +52,7 @@ Vocabulary used inside the codebase, the UI copy, and these memory files. Some t
 
 **Entitlement.** RevenueCat term for "the user has paid". The `premium` entitlement unlocks the full app.
 
-**Premium entry point** (`PremiumEntryPoint`). Categorisation of *why* the paywall was triggered (channel locked, preset, binaural, timer, signature preview, home banner, …). Drives whether `PremiumCoordinator` shows an inline upsell first or the full paywall.
+**Premium entry point** (`PremiumEntryPoint`). Categorisation of *why* the paywall was triggered (channel locked, preset, binaural, timer, signature preview, onboarding, home banner, …). Drives whether `PremiumCoordinator` shows an inline upsell first or the full paywall.
 
 **Inline upsell.** Compact in-context teaser shown for `.preset` and `.binaural` entry points. If dismissed and the user re-attempts, falls through to the full paywall.
 

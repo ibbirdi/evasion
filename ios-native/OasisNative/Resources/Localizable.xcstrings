@@ -3264,42 +3264,83 @@
       }
     },
     "onboarding.cta.start": {
-      "comment": "Onboarding final page CTA.",
+      "comment": "Primary onboarding final page CTA that opens the lifetime purchase paywall.",
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Jetzt starten"
+            "value": "Lebenslang freischalten"
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Start listening"
+            "value": "Unlock for life"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Empezar"
+            "value": "Desbloquear de por vida"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Commencer"
+            "value": "Débloquer à vie"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Inizia ad ascoltare"
+            "value": "Sblocca a vita"
           }
         },
         "pt": {
           "stringUnit": {
             "state": "translated",
-            "value": "Começar a ouvir"
+            "value": "Desbloquear vitalício"
+          }
+        }
+      }
+    },
+    "onboarding.cta.startFree": {
+      "comment": "Secondary onboarding final page CTA that enters the free tier without opening the paywall.",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gratis starten"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Start free"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Empezar gratis"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Commencer gratuitement"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inizia gratis"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Começar grátis"
           }
         }
       }

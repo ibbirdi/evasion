@@ -1,7 +1,7 @@
 ---
 title: Architecture Overview
 status: stable
-last_updated: 2026-05-03
+last_updated: 2026-05-17
 tracks:
   - "ios-native/OasisNative/OasisNativeApp.swift"
   - "ios-native/OasisNative/Services/AppModel.swift"
@@ -73,7 +73,7 @@ Oasis is a single-target iOS native app. SwiftUI for everything visible, AVFound
 3. TelemetryDeck initialised if `isTelemetryDeckConfigured` (currently empty in `Info.plist` → no-op).
 4. `WindowGroup` instantiates `RootView` with a fresh `AppModel`.
 5. `AppModel.init` loads persisted state from `UserDefaults["evasion-mixer-storage"]`, hydrates `audioEngine.sync(with: self)`, and registers RevenueCat observers.
-6. `RootView` decides between onboarding (first launch) and `HomeView`.
+6. `RootView` decides between onboarding (first launch) and `HomeView`. Completing onboarding via the premium CTA writes the onboarding flag, switches to `HomeView`, then presents `PaywallOverlay`.
 
 ## Data flow on play
 
@@ -114,4 +114,4 @@ There is no backend, no iCloud sync, no Keychain (RevenueCat handles its own). U
 
 ## Configuration knobs
 
-See [../operations/secrets-and-keys.md](../operations/secrets-and-keys.md) for environment variables and Info.plist keys. The most consequential at runtime: `RevenueCatAPIKey`, `RevenueCatEntitlementID`, `OASIS_REVENUECAT_API_KEY` (env override), `-OASISPremiumOverride`, `-OASISResetState`.
+See [../operations/secrets-and-keys.md](../operations/secrets-and-keys.md) for environment variables and Info.plist keys. The most consequential at runtime: `RevenueCatAPIKey`, `RevenueCatEntitlementID`, `OASIS_REVENUECAT_API_KEY` (env override), `-OASISPremiumOverride`, `-OASISResetState`, `-OASISResetOnboarding`.

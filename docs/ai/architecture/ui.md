@@ -33,7 +33,7 @@ RootView                     — onboarding flag check, crossfades to HomeView
     └── .fullScreenCover PaywallOverlay
 ```
 
-Onboarding is a single overlay file: `Views/Overlays/OnboardingView.swift`.
+Onboarding is a single overlay file: `Views/Overlays/OnboardingView.swift`. Its final page offers two explicit exits: unlock lifetime access (opens the full paywall after completing onboarding) or start free.
 
 ## SwiftUI patterns used here
 

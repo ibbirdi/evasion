@@ -11,6 +11,7 @@ enum PremiumAccentToken: String, Sendable {
 
 enum PremiumEntryPoint: Hashable, Sendable {
     case manual
+    case onboarding
     case sound(SoundChannel)
     case timer
     case presetLoad
@@ -21,6 +22,7 @@ enum PremiumEntryPoint: Hashable, Sendable {
 
     enum Category: Hashable, Sendable {
         case manual
+        case onboarding
         case sound
         case timer
         case preset
@@ -33,6 +35,8 @@ enum PremiumEntryPoint: Hashable, Sendable {
         switch self {
         case .manual:
             return .manual
+        case .onboarding:
+            return .onboarding
         case .sound:
             return .sound
         case .timer:
@@ -52,6 +56,8 @@ enum PremiumEntryPoint: Hashable, Sendable {
         switch self {
         case .manual:
             return "manual"
+        case .onboarding:
+            return "onboarding"
         case let .sound(channel):
             return "sound_\(channel.id)"
         case .timer:
@@ -71,7 +77,7 @@ enum PremiumEntryPoint: Hashable, Sendable {
 
     var accentToken: PremiumAccentToken {
         switch category {
-        case .manual:
+        case .manual, .onboarding:
             return .neutral
         case .sound, .spatial:
             return .ambient
@@ -88,7 +94,7 @@ enum PremiumEntryPoint: Hashable, Sendable {
 
     var symbolName: String {
         switch category {
-        case .manual:
+        case .manual, .onboarding:
             return "sparkles"
         case .sound, .spatial:
             return "water.waves"

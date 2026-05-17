@@ -1,7 +1,7 @@
 ---
 title: Paywall and Premium Gating
 status: stable
-last_updated: 2026-05-03
+last_updated: 2026-05-17
 tracks:
   - "ios-native/OasisNative/Services/PremiumCoordinator.swift"
   - "ios-native/OasisNative/Services/PremiumRevenueCatService.swift"
@@ -90,6 +90,7 @@ The "Restore" button is exposed in the paywall and (typically) in an "About" vie
 | Timer menu | `canUseTimer(_:)` | 60 / 120 min options route to paywall. |
 | Spatial panel | inherits channel lock | Premium channels remain greyed out in the minimap. |
 | Signature preview | `signaturePreviewLastPlayedAt` cooldown + `isPremium` | Free users get a 45 s preview, throttled to once per week. |
+| Onboarding final page | `completeOnboarding(..., presentPaywall: true)` | Primary final CTA completes onboarding and opens the full paywall; secondary CTA enters the free tier. |
 | Home banner | `showsPremiumHomeBanner` | Dismissable; cooldown via `premiumBannerLastDismissedAt`. |
 
 `enforcePremiumAccess()` (in [`AppModel`](../../../ios-native/OasisNative/Services/AppModel.swift)) is called on every premium state change. It mutes premium channels, resets the active binaural track to `.delta`, and clamps the timer if the user just lost premium (e.g. refund). See [state.md](state.md).

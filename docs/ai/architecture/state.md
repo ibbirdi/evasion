@@ -1,7 +1,7 @@
 ---
 title: State Model and Persistence
 status: stable
-last_updated: 2026-05-03
+last_updated: 2026-05-17
 tracks:
   - "ios-native/OasisNative/Services/AppModel.swift"
   - "ios-native/OasisNative/Models/AppModels.swift"
@@ -126,6 +126,10 @@ Stored directly in `UserDefaults` (not inside `PersistedMixerState`) because the
 | `oasis.engagement.didTrackListened60s` | One-shot flag (60s milestone). |
 | `oasis.engagement.didRequestReview` | Once-per-version flag for SKStoreReviewController. |
 | `oasis.onboarding.completed` | First-launch onboarding flag. |
+
+Completing onboarding from the final page can also open the lifetime paywall when the premium CTA is tapped. The flag is still written first, so dismissing the paywall lands in `HomeView` instead of returning to onboarding.
+
+For simulator/dev verification, `-OASISResetOnboarding` clears only this onboarding flag on launch. `-OASISResetState` still resets mixer state but does not imply onboarding reset.
 
 ## Engine sync barrier
 

@@ -56,6 +56,8 @@ The paywall anchors the price as "less than the price of a coffee in Paris" / "m
 
 The active context is exposed via `AppModel.activePaywallContext` (full paywall) and `AppModel.activeInlineUpsell` (inline upsell). Views observe these and present accordingly.
 
+The onboarding final page has an explicit premium moment: the primary CTA completes onboarding and opens the lifetime paywall (`.onboarding` source), while the secondary CTA starts the free tier without opening the paywall. Keep this transparent; do not hide the paywall behind a generic "start listening" action.
+
 ## Banner & previews
 
 Two engagement nudges, both throttled in `AppModel`:

@@ -62,6 +62,8 @@ Launch arguments used by these tests:
 - `-OASISResetState YES` (force known mix)
 - `-OASISPremiumOverride premium` (or `free` for 08/09/10)
 
+Manual onboarding checks can add `-OASISResetOnboarding` to clear only the first-launch flag. Do not use it in screenshot lanes; those intentionally bypass onboarding via screenshot automation.
+
 ### `OasisNativePremiumFlowTests.swift` — premium gating
 
 Flow tests that verify the upsell-then-paywall logic:

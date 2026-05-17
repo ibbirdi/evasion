@@ -45,6 +45,7 @@ enum AppConfiguration {
     static let isRunningFastlaneSnapshot = ProcessInfo.processInfo.arguments.contains("-FASTLANE_SNAPSHOT")
     static let isRunningScreenshotAutomation = isRunningUITests || isRunningFastlaneSnapshot
     static let shouldResetStateOnLaunch = isRunningScreenshotAutomation || ProcessInfo.processInfo.arguments.contains("-OASISResetState")
+    static let shouldResetOnboardingOnLaunch = ProcessInfo.processInfo.arguments.contains("-OASISResetOnboarding")
     static let shouldPersistState = !isRunningScreenshotAutomation
     static let revenueCatAPIKey = (
         ProcessInfo.processInfo.environment["OASIS_REVENUECAT_API_KEY"] ??

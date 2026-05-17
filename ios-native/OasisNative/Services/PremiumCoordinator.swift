@@ -18,7 +18,7 @@ final class PremiumCoordinator {
             }
             return .paywall(PremiumPaywallContext(entryPoint: entryPoint))
 
-        case .manual, .sound, .timer, .spatial, .preview:
+        case .manual, .onboarding, .sound, .timer, .spatial, .preview:
             return .paywall(PremiumPaywallContext(entryPoint: entryPoint))
         }
     }

@@ -86,7 +86,7 @@ struct OnboardingView: View {
             Button {
                 if isLastPage {
                     withAnimation(.smooth(duration: 0.3)) {
-                        model.completeOnboarding(fromPage: currentPage, skipped: false)
+                        model.completeOnboarding(fromPage: currentPage, skipped: false, presentPaywall: true)
                     }
                 } else {
                     withAnimation(.smooth(duration: 0.3)) {
@@ -118,7 +118,18 @@ struct OnboardingView: View {
             }
             .buttonStyle(PressScaleButtonStyle())
 
-            if !isLastPage {
+            if isLastPage {
+                Button {
+                    withAnimation(.smooth(duration: 0.3)) {
+                        model.completeOnboarding(fromPage: currentPage, skipped: false)
+                    }
+                } label: {
+                    Text(L10n.string(L10n.Onboarding.ctaStartFree))
+                        .font(.system(size: 14, weight: .semibold, design: .rounded))
+                        .foregroundStyle(.white.opacity(0.60))
+                }
+                .buttonStyle(PressScaleButtonStyle())
+            } else {
                 Button {
                     withAnimation(.smooth(duration: 0.3)) {
                         model.completeOnboarding(fromPage: currentPage, skipped: true)

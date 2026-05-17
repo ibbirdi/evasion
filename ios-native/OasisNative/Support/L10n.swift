@@ -616,9 +616,16 @@ enum L10n {
 
         static let ctaStart = LocalizedStringResource(
             "onboarding.cta.start",
-            defaultValue: "Start listening",
+            defaultValue: "Unlock for life",
             bundle: .main,
-            comment: "Onboarding final page CTA."
+            comment: "Primary onboarding final page CTA that opens the lifetime purchase paywall."
+        )
+
+        static let ctaStartFree = LocalizedStringResource(
+            "onboarding.cta.startFree",
+            defaultValue: "Start free",
+            bundle: .main,
+            comment: "Secondary onboarding final page CTA that enters the free tier without opening the paywall."
         )
 
         static let ctaNext = LocalizedStringResource(

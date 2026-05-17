@@ -23,7 +23,7 @@ final class AppModel {
     var showsOnlyActiveChannels = false
     var showsPremiumHomeBanner = false
     var isSignaturePreviewActive = false
-    var hasCompletedOnboarding = UserDefaults.standard.bool(forKey: "oasis.onboarding.completed")
+    var hasCompletedOnboarding = UserDefaults.standard.bool(forKey: OnboardingDefaults.completedKey)
 
     var isBinauralActive = false
     var activeBinauralTrack: BinauralTrack = .delta
@@ -155,6 +155,7 @@ final class AppModel {
     }
 
     init() {
+        resetOnboardingIfRequested()
         let didLoadPersistedState = loadPersistedState()
 
         if !didLoadPersistedState && !AppConfiguration.shouldResetStateOnLaunch {
@@ -572,7 +573,7 @@ final class AppModel {
         let benefitRows: [String]
 
         switch entryPoint.category {
-        case .manual:
+        case .manual, .onboarding:
             title = L10n.string(L10n.Paywall.titleGeneric)
             subtitle = L10n.string(L10n.Paywall.subtitleGeneric)
             benefitRows = [
@@ -761,13 +762,17 @@ final class AppModel {
         }
     }
 
-    func completeOnboarding(fromPage page: Int = -1, skipped: Bool = false) {
+    func completeOnboarding(fromPage page: Int = -1, skipped: Bool = false, presentPaywall: Bool = false) {
         hasCompletedOnboarding = true
-        UserDefaults.standard.set(true, forKey: "oasis.onboarding.completed")
+        UserDefaults.standard.set(true, forKey: OnboardingDefaults.completedKey)
         if skipped {
             premiumAnalytics.track(.onboardingSkipped(page: page))
         } else {
             premiumAnalytics.track(.onboardingCompleted(page: page))
+        }
+
+        if presentPaywall {
+            self.presentPaywall(from: .onboarding)
         }
     }
 
@@ -1006,6 +1011,12 @@ final class AppModel {
             print("Failed to decode persisted mixer state: \(error)")
             return false
         }
+    }
+
+    private func resetOnboardingIfRequested() {
+        guard AppConfiguration.shouldResetOnboardingOnLaunch else { return }
+        UserDefaults.standard.removeObject(forKey: OnboardingDefaults.completedKey)
+        hasCompletedOnboarding = false
     }
 
     private func persistState() {
@@ -1356,6 +1367,10 @@ private enum EngagementDefaults {
     static let reviewSessionThreshold = 3
     static let reviewListenThreshold: TimeInterval = 5 * 60
     static let reviewPaywallCooldown: TimeInterval = 60 * 60
+}
+
+private enum OnboardingDefaults {
+    static let completedKey = "oasis.onboarding.completed"
 }
 
 private final class RevenueCatObserver: NSObject, PurchasesDelegate {

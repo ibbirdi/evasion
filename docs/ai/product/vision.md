@@ -52,6 +52,8 @@ Decisions taken explicitly:
 
 Free is intentionally usable, not crippled. See [premium-model.md](premium-model.md) for the full breakdown. Headline: 3 of 20 channels, 1 of 4 binaural tracks (Delta), 15/30 min timer, no presets panel. The free 3 are Birds, Wind, Beach — chosen for breadth of mood (forest-ish, weather, water).
 
+The final onboarding page states this model directly: users can unlock lifetime access immediately or start free. Keep both choices visible so the paywall feels like a clear purchase moment, not a surprise gate.
+
 ## Bundle weight
 
 The 310 MB audio bundle is a deliberate trade-off. We pay it once at install for an offline experience that competitors can't match without a download model. New channels add ~10–17 MB each — track it (`content/sounds-catalog.md`) and watch the IPA size before shipping new sounds.
