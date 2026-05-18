@@ -1,7 +1,7 @@
 ---
 title: Build and Test
 status: stable
-last_updated: 2026-05-17
+last_updated: 2026-05-18
 tracks:
   - "ios-native/OasisNative.xcodeproj/**"
   - "ios-native/OasisNativeUITests/**"
@@ -94,7 +94,7 @@ From repo root, run `bundle exec fastlane <lane>`:
 | `app_previews` | Build App Preview videos (Ruby pipeline). |
 | `stage_appstore_assets` | Stage screenshots + previews into `fastlane/appstore-upload/<locale>/`; screenshots are renamed to the Variant B display order. |
 | `appstore_metadata` | Push metadata only, no binary. Fast iteration on text. |
-| `appstore_release app_version:1.4.2` | Push screenshots + metadata for an existing binary version. |
+| `appstore_release app_version:1.4.3` | Push screenshots + metadata for an existing binary version. |
 
 The `Fastfile` autodetects the repo root by looking for `ios-native/OasisNative.xcodeproj` in 4 candidate paths.
 
@@ -115,7 +115,7 @@ All under `scripts/`. Purpose-specific, not part of the build pipeline.
 | --- | --- |
 | `convert_new_sounds.sh` | When adding/replacing an ambient channel — encodes raw `.wav` to `.m4a` via the 2-pass loudnorm pipeline. See [../content/sounds-catalog.md](../content/sounds-catalog.md). |
 | `generateBinauralSounds.py` | When changing the binaural design (rare). Produces the 4 m4a files. |
-| `generate_store_screenshot_comps.swift` | When updating App Store screenshots — composites the 10 slides over their backgrounds and exports JPEGs at `1320×2868`. See [../marketing/store-assets.md](../marketing/store-assets.md). |
+| `generate_store_screenshot_comps.swift` | When updating App Store screenshots — composites the 10 localized slides over adaptive blob-only backgrounds and exports JPEGs at `1320×2868`. See [../marketing/store-assets.md](../marketing/store-assets.md). |
 | `generate_app_previews.rb` | When updating App Preview videos. |
 | `add_files_to_xcode.py` | When adding many files to the Xcode project at once (manual `.pbxproj` edits are error-prone). |
 | `add_channel_translations.py` | When adding/replacing a channel — pre-fills or refreshes `channel.<id>.*` keys in `Localizable.xcstrings` for the current 20-channel catalog. |

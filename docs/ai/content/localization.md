@@ -1,7 +1,7 @@
 ---
 title: Localization
 status: stable
-last_updated: 2026-05-17
+last_updated: 2026-05-18
 tracks:
   - "ios-native/OasisNative/Support/L10n.swift"
   - "ios-native/OasisNative/Resources/Localizable.xcstrings"
@@ -54,6 +54,7 @@ presets.default.<id>                  default preset names (starter / calm / sto
 timer.option<minutes>                 timer.option15, timer.option30, …
 header.<key>
 spatial.<key>
+sound.detail.<key>
 onboarding.<step>.<key>
 errors.<key>
 ```

@@ -154,8 +154,8 @@ enum Tokens {
     // editorial label calm instead of making the slide feel like an ad banner.
     static let iconToHeadlineGap: CGFloat = 40
 
-    static let eyebrowSize: CGFloat = 32
-    static let eyebrowKerning: CGFloat = 2.4
+    static let eyebrowSize: CGFloat = 40
+    static let eyebrowKerning: CGFloat = 3.0
     static let eyebrowToHeadlineGap: CGFloat = 30
 
     // Tight leading for punchier display type. 0.82 packs the 2-line headlines
@@ -416,8 +416,6 @@ func drawRadialGlow(color: NSColor, center: CGPoint, radius: CGFloat, alpha: CGF
 func drawAcousticField(slide: Slide, in rect: CGRect) {
     guard let ctx = NSGraphicsContext.current?.cgContext else { return }
     ctx.saveGState()
-    ctx.setLineCap(.round)
-    ctx.setLineJoin(.round)
 
     switch slide.background {
     case .studioGradient:
@@ -427,26 +425,6 @@ func drawAcousticField(slide: Slide, in rect: CGRect) {
         drawSoundBand(in: rect, baseY: rect.minY + 360, height: 520,
                       amplitude: 96, wavelength: 540, phase: 130,
                       color: hex("#E4A45A"), alpha: 0.105)
-        drawTopographicContours(center: CGPoint(x: rect.maxX - 120, y: rect.maxY - 300),
-                                color: hex("#80DEC9"), count: 5,
-                                baseRadius: 118, gap: 62, alpha: 0.065,
-                                lineWidth: 2.4, angle: -0.28)
-        for i in 0..<7 {
-            drawWaveRibbon(
-                in: rect,
-                baseY: rect.minY + 520 + CGFloat(i) * 86,
-                amplitude: 34 + CGFloat(i % 3) * 10,
-                wavelength: 360 + CGFloat(i) * 34,
-                phase: CGFloat(i) * 62,
-                color: i % 2 == 0 ? slide.accent : hex("#5ED0BA"),
-                alpha: 0.13 - CGFloat(i) * 0.008,
-                lineWidth: 5 - CGFloat(i % 2)
-            )
-        }
-        drawOrbitalRings(center: CGPoint(x: rect.midX, y: rect.minY + 660),
-                         color: slide.accent, count: 4, baseRadius: 250,
-                         gap: 86, alpha: 0.12, lineWidth: 3.5,
-                         angle: -0.14, flattening: 0.42)
 
     case .spatialGradient, .duskGradient:
         drawSoundBand(in: rect, baseY: rect.minY + 620, height: 610,
@@ -455,26 +433,6 @@ func drawAcousticField(slide: Slide, in rect: CGRect) {
         drawSoundBand(in: rect, baseY: rect.maxY - 700, height: 360,
                       amplitude: 64, wavelength: 570, phase: 190,
                       color: slide.accent, alpha: 0.060)
-        drawOrbitalRings(center: CGPoint(x: rect.midX + 70, y: rect.midY + 40),
-                         color: slide.accent, count: 7, baseRadius: 220,
-                         gap: 92, alpha: 0.16, lineWidth: 4,
-                         angle: -0.22, flattening: 0.38)
-        drawOrbitalRings(center: CGPoint(x: rect.minX + 215, y: rect.minY + 530),
-                         color: hex("#65D8C3"), count: 4, baseRadius: 150,
-                         gap: 74, alpha: 0.10, lineWidth: 3,
-                         angle: 0.34, flattening: 0.58)
-        for i in 0..<4 {
-            drawWaveRibbon(
-                in: rect,
-                baseY: rect.maxY - 510 - CGFloat(i) * 110,
-                amplitude: 24,
-                wavelength: 430 + CGFloat(i) * 70,
-                phase: CGFloat(i) * 95,
-                color: hex("#FFFFFF"),
-                alpha: 0.045,
-                lineWidth: 3
-            )
-        }
 
     case .sageMist, .creamRadial:
         drawSoundBand(in: rect, baseY: rect.midY - 120, height: 520,
@@ -483,26 +441,6 @@ func drawAcousticField(slide: Slide, in rect: CGRect) {
         drawSoundBand(in: rect, baseY: rect.minY + 320, height: 420,
                       amplitude: 46, wavelength: 520, phase: 220,
                       color: hex("#85A884"), alpha: 0.052)
-        drawTopographicContours(center: CGPoint(x: rect.maxX - 210, y: rect.maxY - 510),
-                                color: slide.accent, count: 9,
-                                baseRadius: 105, gap: 58, alpha: 0.105,
-                                lineWidth: 2.6, angle: -0.20)
-        drawTopographicContours(center: CGPoint(x: rect.minX + 160, y: rect.minY + 600),
-                                color: hex("#7EA887"), count: 6,
-                                baseRadius: 92, gap: 54, alpha: 0.075,
-                                lineWidth: 2.2, angle: 0.28)
-        for i in 0..<4 {
-            drawWaveRibbon(
-                in: rect,
-                baseY: rect.minY + 780 + CGFloat(i) * 148,
-                amplitude: 18 + CGFloat(i) * 4,
-                wavelength: 520,
-                phase: CGFloat(i) * 110,
-                color: slide.accent,
-                alpha: 0.055,
-                lineWidth: 2.4
-            )
-        }
 
     case .midnightCopper, .warmGradient:
         drawSoundBand(in: rect, baseY: rect.minY + 390, height: 520,
@@ -511,22 +449,6 @@ func drawAcousticField(slide: Slide, in rect: CGRect) {
         drawSoundBand(in: rect, baseY: rect.maxY - 760, height: 380,
                       amplitude: 72, wavelength: 590, phase: 210,
                       color: hex("#9D6BFF"), alpha: 0.038)
-        drawOrbitalRings(center: CGPoint(x: rect.midX, y: rect.minY + 560),
-                         color: slide.accent, count: 5, baseRadius: 190,
-                         gap: 84, alpha: 0.13, lineWidth: 3.6,
-                         angle: 0.16, flattening: 0.46)
-        for i in 0..<6 {
-            drawWaveRibbon(
-                in: rect,
-                baseY: rect.minY + 430 + CGFloat(i) * 92,
-                amplitude: 28,
-                wavelength: 390 + CGFloat(i) * 38,
-                phase: CGFloat(i) * 80,
-                color: i % 2 == 0 ? slide.accent : hex("#FFFFFF"),
-                alpha: i % 2 == 0 ? 0.12 : 0.05,
-                lineWidth: 3.2
-            )
-        }
     }
 
     ctx.restoreGState()
@@ -573,73 +495,6 @@ func drawSoundBand(in rect: CGRect, baseY: CGFloat, height: CGFloat,
     ctx.setFillColor(color.withAlphaComponent(alpha).cgColor)
     ctx.fillPath()
     ctx.restoreGState()
-}
-
-func drawWaveRibbon(in rect: CGRect, baseY: CGFloat, amplitude: CGFloat,
-                    wavelength: CGFloat, phase: CGFloat, color: NSColor,
-                    alpha: CGFloat, lineWidth: CGFloat) {
-    guard let ctx = NSGraphicsContext.current?.cgContext else { return }
-    let path = CGMutablePath()
-    let left = rect.minX - 180
-    let right = rect.maxX + 180
-    let step: CGFloat = 28
-    var x = left
-    var isFirst = true
-    while x <= right {
-        let p = (x + phase) / wavelength
-        let y = baseY
-            + sin(p * .pi * 2) * amplitude
-            + sin(p * .pi * 5.3) * amplitude * 0.18
-        if isFirst {
-            path.move(to: CGPoint(x: x, y: y))
-            isFirst = false
-        } else {
-            path.addLine(to: CGPoint(x: x, y: y))
-        }
-        x += step
-    }
-    ctx.saveGState()
-    ctx.addPath(path)
-    ctx.setLineWidth(lineWidth)
-    ctx.setStrokeColor(color.withAlphaComponent(alpha).cgColor)
-    ctx.strokePath()
-    ctx.restoreGState()
-}
-
-func drawOrbitalRings(center: CGPoint, color: NSColor, count: Int,
-                      baseRadius: CGFloat, gap: CGFloat, alpha: CGFloat,
-                      lineWidth: CGFloat, angle: CGFloat, flattening: CGFloat) {
-    guard let ctx = NSGraphicsContext.current?.cgContext else { return }
-    for i in 0..<count {
-        let radius = baseRadius + CGFloat(i) * gap
-        ctx.saveGState()
-        ctx.translateBy(x: center.x, y: center.y)
-        ctx.rotate(by: angle)
-        ctx.scaleBy(x: 1, y: flattening)
-        ctx.setLineWidth(lineWidth)
-        ctx.setStrokeColor(color.withAlphaComponent(max(0.02, alpha - CGFloat(i) * 0.013)).cgColor)
-        ctx.strokeEllipse(in: CGRect(x: -radius, y: -radius,
-                                     width: radius * 2, height: radius * 2))
-        ctx.restoreGState()
-    }
-}
-
-func drawTopographicContours(center: CGPoint, color: NSColor, count: Int,
-                             baseRadius: CGFloat, gap: CGFloat, alpha: CGFloat,
-                             lineWidth: CGFloat, angle: CGFloat) {
-    guard let ctx = NSGraphicsContext.current?.cgContext else { return }
-    for i in 0..<count {
-        let radius = baseRadius + CGFloat(i) * gap
-        ctx.saveGState()
-        ctx.translateBy(x: center.x, y: center.y)
-        ctx.rotate(by: angle + CGFloat(i).truncatingRemainder(dividingBy: 2) * 0.045)
-        ctx.scaleBy(x: 1.08, y: 0.62)
-        ctx.setLineWidth(lineWidth)
-        ctx.setStrokeColor(color.withAlphaComponent(max(0.018, alpha - CGFloat(i) * 0.008)).cgColor)
-        ctx.strokeEllipse(in: CGRect(x: -radius, y: -radius,
-                                     width: radius * 2, height: radius * 2))
-        ctx.restoreGState()
-    }
 }
 
 /// Very fine film grain — adds tactile quality that stops the background
@@ -829,7 +684,7 @@ func eyebrowAttributes(slide: Slide) -> [NSAttributedString.Key: Any] {
     paragraph.alignment = .center
     paragraph.lineBreakMode = .byClipping
     return [
-        .font: displayFont(Tokens.eyebrowSize, weight: .medium),
+        .font: displayFont(Tokens.eyebrowSize, weight: .semibold),
         .foregroundColor: slide.darkText
             ? slide.accent.withAlphaComponent(0.92)
             : slide.accent.blended(withFraction: 0.26, of: .white)!.withAlphaComponent(0.94),

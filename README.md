@@ -2,7 +2,7 @@
 
 iOS native ambient mixer for sleep, focus, work, and rest. 20 hand-curated field recordings, 3D spatial audio, four binaural modes, and a procedural harmonic pad. One-time lifetime purchase via RevenueCat — **no subscription, ever**.
 
-- Bundle ID `com.jonathanluquet.drift` — version **1.4.1** (build 3)
+- Bundle ID `com.jonathanluquet.drift` — version **1.4.3** (build 5)
 - iOS 16+, portrait, dark, offline (~310 MB audio bundle)
 - Localised in 6 languages: en-US, fr-FR, de-DE, es-ES, it, pt-BR
 

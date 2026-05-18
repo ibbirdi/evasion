@@ -1,7 +1,7 @@
 ---
 title: Repo Structure
 status: stable
-last_updated: 2026-05-17
+last_updated: 2026-05-18
 tracks:
   - "ios-native/**"
   - "scripts/**"
@@ -123,7 +123,8 @@ fastlane/
 ├── Snapfile                         snapshot config
 ├── metadata/<locale>/               App Store metadata per locale (name, subtitle, keywords, description, …)
 ├── screenshots/<locale>/            Captured + finalised screenshots
-│   └── figma-pro/                   Final composited screenshots (1320x2868 JPEG)
+│   └── figma-pro/                   Final composited screenshots + preview JPEGs
+├── app-previews/<locale>/           Generated App Preview MP4s
 ├── appstore-upload/                 Staging dir for upload flow
 └── buildlogs/                       Build logs (ignored / cleaned regularly)
 ```

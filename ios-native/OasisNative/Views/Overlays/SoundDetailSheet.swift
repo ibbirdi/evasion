@@ -5,7 +5,6 @@ import SwiftUI
 /// of a `SoundRowView`.
 struct SoundDetailSheet: View {
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.openURL) private var openURL
 
     let channel: SoundChannel
 
@@ -25,7 +24,6 @@ struct SoundDetailSheet: View {
                 locationBlock
                 SoundLocationMinimap(channel: channel)
                 creditBlock
-                sourceButton
             }
             .padding(.horizontal, 22)
             .padding(.top, 20)
@@ -146,33 +144,6 @@ struct SoundDetailSheet: View {
         }
     }
 
-    private var sourceButton: some View {
-        Button {
-            openURL(credit.freesoundURL)
-        } label: {
-            Label {
-                Text(L10n.SoundDetail.viewSource)
-                    .font(.system(size: 15, weight: .semibold, design: .rounded))
-            } icon: {
-                Image(systemName: "arrow.up.right")
-                    .font(.system(size: 13, weight: .bold))
-            }
-            .foregroundStyle(.white.opacity(0.88))
-            .frame(maxWidth: .infinity)
-            .padding(.vertical, 14)
-            .background {
-                RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .fill(Color.white.opacity(0.05))
-            }
-            .overlay {
-                RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .strokeBorder(channel.tint.opacity(0.24), lineWidth: 1)
-            }
-        }
-        .buttonStyle(PressScaleButtonStyle())
-        .accessibilityIdentifier("panel.sound-detail.source")
-    }
-
 }
 
 /// Reports the measured height of the title/subtitle stack up the view tree so the
@@ -207,13 +178,6 @@ extension L10n {
             defaultValue: "Approximate location",
             bundle: .main,
             comment: "Small note shown below a location when it was inferred rather than documented by the author."
-        )
-
-        static let viewSource = LocalizedStringResource(
-            "sound.detail.viewSource",
-            defaultValue: "View on freesound.org",
-            bundle: .main,
-            comment: "Primary action in the sound detail sheet that opens the original freesound.org page."
         )
     }
 }

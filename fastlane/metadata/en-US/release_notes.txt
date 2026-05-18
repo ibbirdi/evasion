@@ -1,7 +1,5 @@
-Oasis 1.4.2
+Oasis 1.4.3
 
-• Two new nature ambiences: Sea and Mountain Storm.
-• Cleaner, re-encoded audio across all 20 nature sounds.
-• Timer countdown is now visible from the home screen.
-• The harmonic pad starts off by default for a more natural first mix.
-• Still one purchase, no subscription, fully offline.
+• Cleaner sound detail sheets: attribution stays visible without an external Freesound button.
+• Refreshed App Store screenshots and previews in all 6 languages.
+• Copy and layout polish to make the offline, no-subscription promise clearer.

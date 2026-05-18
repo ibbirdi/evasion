@@ -1,7 +1,7 @@
 ---
 title: App Store Assets
 status: stable
-last_updated: 2026-05-17
+last_updated: 2026-05-18
 tracks:
   - "fastlane/screenshots/**"
   - "scripts/generate_store_screenshot_comps.swift"
@@ -55,66 +55,49 @@ The slug is *what the slide depicts*. The position is *where it appears in the c
 
 | Element | Specs |
 | --- | --- |
-| Headline | **SF Pro Display Bold**, 128 pt base (step down 110 / 96 if overflow), line-height 0.96, letter-spacing −3 % (= −3.84 pt @ 128). Color `#FFFFFF` 100 %. Centered. Max 2 lines, ≤ 22 char/line, ≤ 44 char total. Width 1160 px. |
-| Subhead | SF Pro Text Regular 34 pt, LH 1.25, LS 0, `#FFFFFF` 72 %. Centered. Max 1 line, ≤ 78 char. Width 1080 px. |
-| Eyebrow | SF Pro Text Semibold 24 pt UPPERCASE, LS +12 %, accent color 100 %. Current screenshots use an eyebrow on every slide. ≤ 34 char. |
+| Headline | **SF Pro Display Heavy**, adaptive 136 → 80 pt, line-height 0.90, LS 0. Centered. The renderer measures each locale and steps down before overflow. |
+| Subhead | SF Pro Display Medium 54 pt, LH 1.16, LS 0, 80 % opacity. Centered. May wrap when needed; the renderer measures height before placing the device. |
+| Eyebrow | SF Pro Display Semibold 40 pt UPPERCASE, tracking +3.0 pt, accent color. Current screenshots use an eyebrow on every slide. |
 
-> The font is **SF Pro Display Bold** (not Rounded — Rounded was the old Cowork v2 spec, which read consumer-playful; Bold reads confident-premium and matches Calm / Endel reference set).
+> Eyebrows were increased on 2026-05-18 because the previous size was too hard to read on iPhone. The font is **SF Pro Display** (not Rounded — Rounded was the old Cowork v2 spec, which read consumer-playful).
 
 ## Color system (v3)
 
-Two-stop vertical gradient. Top stop = mood-saturated, bottom stop = same hue darkened 35 %. Per-slide accent color drives the eyebrow when present.
+Per-slide background style and accent color live in [`scripts/screenshot_content.json`](../../../scripts/screenshot_content.json), not in a duplicated Swift table. The active background styles are:
 
-| Slide | Top | Bottom | Accent |
-| --- | --- | --- | --- |
-| 01 Hero | `#3A1E12` | `#1A0A04` | `#F5A35E` |
-| 02 Library | `#1A3F2E` | `#0A1D14` | `#5CC08A` |
-| 03 Detail | `#2A2F14` | `#11140A` | `#C9A256` |
-| 04 Binaural | `#2A1945` | `#130929` | `#A07EE2` |
-| 05 Spatial | `#0E2E45` | `#051623` | `#5FC2E0` |
-| 06 Presets | `#2E1648` | `#170A27` | `#D27BC7` |
-| 07 Timer | `#1A2B45` | `#0B1424` | `#8EA5D4` |
-| 08 Free home | `#0E3755` | `#062038` | `#5BB0DF` |
-| 09 Library teaser | `#1E3416` | `#0F1C0A` | `#B6D463` |
-| 10 Paywall | `#3D1A0C` | `#1A0705` | `#F5995B` |
+- `studioGradient`, `sageMist`, `spatialGradient`, `midnightCopper` in the current screenshot set.
+- Legacy styles still supported by the renderer: `warmGradient`, `creamRadial`, `duskGradient`.
+
+Background texture uses gradients, radial glows, subtle grain, vignette, and filled organic `drawSoundBand` shapes only. Line-based background details were removed on 2026-05-18; do not reintroduce topographic contours, wave ribbons, orbital rings, or other stroked line art unless the visual direction changes.
 
 ## Device mockup
 
-- Width: 880 px (= 67 % canvas).
-- Aspect: 0.4603 → height 1912 px.
-- Corner radius: **37 px** (matches `UIScreen.displayCornerRadius` for the iPhone 17 Pro Max generation; *not* 76 px — that's iPad-class).
-- No bezel. Hairline 1 px `rgba(255,255,255,0.08)` allowed.
-- Single shadow: offset y +24, blur 60, opacity 40 %, color = the slide's *base background* (NOT pure black).
-- Top of device at y = 906; bottom 50 px above canvas bottom (intentional anti-poster bleed).
+- Uses the Apple-style bezel PNG from `bezelImage` in `screenshot_content.json`.
+- The compositor uses the bezel aspect ratio `3000 / 1470` for all layout math.
+- Device max widths are layout-specific: poster 1160, top 1080, bottom 1060, bleed 1150, peek-bottom 1220.
+- Device size can shrink when locale text needs more vertical room.
+- Shadows and subtle reflection are drawn by `drawDevice`; no manual frame edits in JPEG output.
 
 ## Layout grid
 
-Centred, top-down. With eyebrow:
+The renderer has five adaptive layouts: `poster`, `top`, `bottom`, `bleed`, and `peekBottom`. Each layout measures eyebrow, headline, and subhead first, then fits the device into the remaining canvas. This is intentional: translated copy should be natural, not forced into identical line breaks.
 
-```
-y=140   eyebrow  (height 32)
-y=200   headline (height 256, 2 lines × 128 × 0.96)
-y=560   subhead  (height 44)
-y=906   device   (height 1912)
-        50 px to bottom
-```
-
-Without eyebrow: shift headline up to y = 140. Without subhead: shift device up by 80 px.
+All current slides have an eyebrow. If a future slide has no eyebrow, the renderer falls back to the configured SF Symbol marker.
 
 ## Per-slide copy (en-US)
 
 | Slide | Eyebrow | Headline | Subhead |
 | --- | --- | --- | --- |
-| 01 Hero | `SLEEP · FOCUS · ESCAPE` | `Escape into real nature.` | `20 field recordings. Offline. No subscription.` |
-| 02 Library | `REAL PLACES` | `Build a place around you.` | `Rain, forest, sea, campfire and more.` |
-| 03 Detail | `FIELD RECORDINGS` | `Hear where it came from.` | `Locations, artists and licences stay visible.` |
-| 04 Binaural | `BINAURAL WAVES` | `Tune your state of mind.` | `Delta, Theta, Alpha and Beta modes.` |
-| 05 Spatial | `SOUND PLACEMENT` | `Place every sound around you.` | `Move each sound closer, farther, left or right.` |
-| 06 Presets | `SAVED MIXES` | `Return to your favourites.` | `Save ambience presets and reload in one tap.` |
-| 07 Timer | `SLEEP TIMER` | `Fade out on your time.` | `15 min, 30 min, 1 h or 2 h timers.` |
-| 08 Free home | `FREE START` | `Start free, no account.` | `3 ambiences, timer and sound placement included.` |
-| 09 Library teaser | `FULL LIBRARY` | `Unlock more sounds for life.` | `17 premium ambiences with one purchase.` |
-| 10 Paywall | `LIFETIME PREMIUM` | `One purchase. Yours for life.` | `No subscription. No account. 100% offline.` |
+| 01 Hero | `SLEEP · FOCUS · ESCAPE` | `Escape into / real nature.` | `20 real-world soundscapes. Offline. No subscription.` |
+| 02 Library | `IMMERSION` | `Build your / refuge.` | `Rain, forest, sea, campfire and much more.` |
+| 03 Detail | `REALISM` | `Real / recordings.` | `Every sound was carefully recorded around the world.` |
+| 04 Binaural | `BINAURAL WAVES` | `Calm your mind / with 4 brainwave modes.` | `Delta, Theta, Alpha and Beta.` |
+| 05 Spatial | `SOUND PLACEMENT` | `Place sounds / around you.` | `Spatial audio engine.` |
+| 06 Presets | `SAVED MIXES` | `Return to / your ambiences.` | `Save your mixes and reload them in one tap.` |
+| 07 Timer | `SLEEP TIMER` | `Fall asleep / at your pace.` | `15 min, 30 min, 1 h or 2 h.` |
+| 08 Free home | `START FREE` | `Start / right now.` | `3 ambiences, timer and sound placement included.` |
+| 09 Library teaser | `FULL LIBRARY` | `Unlock more / sounds for life.` | `20 premium ambiences with one purchase.` |
+| 10 Paywall | `LIFETIME PREMIUM` | `One purchase. / Yours for life.` | `No subscription. No account. 100% offline.` |
 
 The 6 localised versions (eyebrow + headline + subhead per locale) live in [`scripts/screenshot_content.json`](../../../scripts/screenshot_content.json). The Swift renderer decodes that JSON; there is no duplicate Swift copy table.
 
@@ -123,21 +106,20 @@ The 6 localised versions (eyebrow + headline + subhead per locale) live in [`scr
 - **No exclamation marks.**
 - **No superlatives** ("Best", "#1", "Revolutionary") — Apple rejection bait.
 - **No "Free trial"** — Oasis is freemium, not trial. Misuse = rejection.
-- **No "3D audio" / "spatial audio" in user-facing copy** — use "sound placement" / "placement sonore" unless the rendering is upgraded and the wording is explicitly approved.
+- **No "3D audio" in user-facing copy.** Prefer "sound placement" / "placement sonore" for headlines. The 2026-05-18 screenshot subhead `Spatial audio engine.` is an approved exception because the French source says `Moteur audio spatial.`
 - Every headline must be defensible against `fastlane/metadata/<lang>/description.txt` — no orphan claims.
 
-## Deprecated v2 elements (do NOT add back)
+## Deprecated elements (do NOT add back)
 
-These were in the old Cowork v2 brief. v3 explicitly removed them:
+These either came from the old Cowork v2 brief or were removed during the 2026-05-18 cleanup:
 
-- ❌ Radial glow / screen blends behind device
-- ❌ Grain / noise texture
 - ❌ Accent orbs floating around device
 - ❌ Blur backdrop on device
 - ❌ Halo behind device
 - ❌ "OASIS" wordmark / signature at the bottom (the App Store shows the icon already)
 - ❌ Kicker pill / capsule container around the eyebrow
 - ❌ Specular highlight on device (except the 1 px hairline allowed above)
+- ❌ Line-art backgrounds: topographic contours, wave ribbons, orbital rings, decorative strokes
 
 ## Render pipeline
 
@@ -147,6 +129,7 @@ Single Swift script: [`scripts/generate_store_screenshot_comps.swift`](../../../
 - JPEG factor `0.92`.
 - All 60 assets render in < 10 seconds.
 - Source data lives in `scripts/screenshot_content.json`; render code and pipeline code live in the Swift script.
+- The renderer also writes review-size JPEGs to `fastlane/screenshots/<locale>/figma-pro/preview/`; App Store staging uses only the 10 top-level `figma-pro/<slug>.jpg` files per locale.
 
 When changing copy, palette, layout, source capture mapping, or accent colors: edit `scripts/screenshot_content.json`, re-run the Swift compositor, and stage upload assets. Don't edit JPEGs by hand.
 
@@ -177,9 +160,10 @@ A finished screenshot set passes when:
 
 - 60 JPEGs at exactly `1320 × 2868`, sRGB, no alpha, ≤ 2 MB each.
 - Naming matches the 10 slugs above, in 6 locale folders.
-- Each headline ≤ 2 lines, ≤ 44 char, no widows.
+- Each headline and subhead fits its measured layout budget, with no clipping or awkward orphan word.
 - Devices vertical, no rotation.
-- Per-slide gradient and accent match the table above.
-- Eyebrow only on slides 01 / 07 / 08 / 10.
+- Per-slide background style and accent match `scripts/screenshot_content.json`.
+- Eyebrow present on every slide, readable on iPhone-sized previews.
+- Backgrounds use blobs / filled acoustic bands only, with no decorative line art.
 - Special characters render correctly across all 6 locales (`ä ö ü ß` / `é è ê ç` / `ñ ¡ ¿` / `à è ì` / `ã õ ç`).
 - Copy aligns with current `fastlane/metadata/<locale>/description.txt`.

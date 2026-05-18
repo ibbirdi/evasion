@@ -1,7 +1,7 @@
 ---
 title: Sounds Catalog
 status: stable
-last_updated: 2026-05-03
+last_updated: 2026-05-18
 tracks:
   - "ios-native/OasisNative/Models/SoundChannelMetadata.swift"
   - "ios-native/OasisNative/Models/AppModels.swift"
@@ -49,7 +49,7 @@ The 20 ambient channels and 4 binaural tracks. The single source of truth for ru
 
 ## Licences and attribution
 
-7 channels are **CC-BY-4.0** and require visible attribution: `plage`, `foret`, `pluie`, `riviere`, `campfire`, `jungleAmerique`, `jungleAsie`. Attribution is rendered by `SoundDetailSheet` from the `ChannelCredit` struct in `SoundChannelMetadata.swift`, including a source button that opens the original freesound.org page. Removing or breaking that surface = licence violation. Re-check before any UI refactor of the detail sheet.
+7 channels are **CC-BY-4.0** and require visible attribution: `plage`, `foret`, `pluie`, `riviere`, `campfire`, `jungleAmerique`, `jungleAsie`. Attribution is rendered by `SoundDetailSheet` from the `ChannelCredit` struct in `SoundChannelMetadata.swift`, showing the author, licence, and `freesound.org` source site inline. Removing or breaking that visible credit surface = licence violation. Re-check before any UI refactor of the detail sheet.
 
 The remaining 13 channels are CC0 (no attribution required); we still display the author as a courtesy.
 

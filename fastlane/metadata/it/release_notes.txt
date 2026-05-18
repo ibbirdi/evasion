@@ -1,7 +1,5 @@
-Oasis 1.4.2
+Oasis 1.4.3
 
-• Due nuove atmosfere naturali: Mare e Temporale in montagna.
-• Audio ricodificato e più pulito per tutti i 20 suoni naturali.
-• Il conto alla rovescia del timer è visibile dalla schermata principale.
-• Il pad armonico parte disattivato per un primo mix più naturale.
-• Sempre acquisto unico, senza abbonamento, completamente offline.
+• Schede suono più chiare: l'attribuzione resta visibile senza un pulsante esterno verso Freesound.
+• Screenshot e anteprime App Store aggiornati in tutte le 6 lingue.
+• Testi e layout rifiniti per comunicare meglio l'uso offline e senza abbonamento.

@@ -99,47 +99,47 @@
       "01_hero": {
         "eyebrow": "SLEEP · FOCUS · ESCAPE",
         "headline": "Escape into\nreal nature.",
-        "subhead": "20 field recordings. Offline. No subscription."
+        "subhead": "20 real-world soundscapes. Offline. No subscription."
       },
       "02_library": {
-        "eyebrow": "REAL PLACES",
-        "headline": "Build a place\naround you.",
-        "subhead": "Rain, forest, sea, campfire and more."
+        "eyebrow": "IMMERSION",
+        "headline": "Build your\nrefuge.",
+        "subhead": "Rain, forest, sea, campfire and much more."
       },
       "03_detail_sheet": {
-        "eyebrow": "FIELD RECORDINGS",
-        "headline": "Hear where\nit came from.",
-        "subhead": "Locations, artists and licences stay visible."
+        "eyebrow": "REALISM",
+        "headline": "Real\nrecordings.",
+        "subhead": "Every sound was carefully recorded around the world."
       },
       "04_binaural": {
         "eyebrow": "BINAURAL WAVES",
-        "headline": "Tune your\nstate of mind.",
-        "subhead": "Delta, Theta, Alpha and Beta modes."
+        "headline": "Calm your mind\nwith 4 brainwave modes.",
+        "subhead": "Delta, Theta, Alpha and Beta."
       },
       "05_spatial": {
         "eyebrow": "SOUND PLACEMENT",
-        "headline": "Place every\nsound around you.",
-        "subhead": "Move each sound closer, farther, left or right."
+        "headline": "Place sounds\naround you.",
+        "subhead": "Spatial audio engine."
       },
       "06_presets": {
         "eyebrow": "SAVED MIXES",
-        "headline": "Return to\nyour favourites.",
-        "subhead": "Save ambience presets and reload in one tap."
+        "headline": "Return to\nyour ambiences.",
+        "subhead": "Save your mixes and reload them in one tap."
       },
       "07_timer": {
         "eyebrow": "SLEEP TIMER",
-        "headline": "Fade out\non your time.",
-        "subhead": "15 min, 30 min, 1 h or 2 h timers."
+        "headline": "Fall asleep\nat your pace.",
+        "subhead": "15 min, 30 min, 1 h or 2 h."
       },
       "08_free_home": {
-        "eyebrow": "FREE START",
-        "headline": "Start free,\nno account.",
+        "eyebrow": "START FREE",
+        "headline": "Start\nright now.",
         "subhead": "3 ambiences, timer and sound placement included."
       },
       "09_library_teaser": {
         "eyebrow": "FULL LIBRARY",
         "headline": "Unlock more\nsounds for life.",
-        "subhead": "17 premium ambiences with one purchase."
+        "subhead": "20 premium ambiences with one purchase."
       },
       "10_paywall": {
         "eyebrow": "LIFETIME PREMIUM",
@@ -151,27 +151,27 @@
       "01_hero": {
         "eyebrow": "SOMMEIL · FOCUS · ÉVASION",
         "headline": "Évadez-vous\nen pleine nature.",
-        "subhead": "20 prises réelles. Hors ligne. Sans abonnement."
+        "subhead": "20 ambiances réelles. Hors ligne. Sans abonnement."
       },
       "02_library": {
-        "eyebrow": "LIEUX RÉELS",
-        "headline": "Composez un lieu\nautour de vous.",
-        "subhead": "Pluie, forêt, mer, feu de camp et plus."
+        "eyebrow": "IMMERSION",
+        "headline": "Créez votre\nrefuge.",
+        "subhead": "Pluie, forêt, mer, feu de camp et bien plus."
       },
       "03_detail_sheet": {
-        "eyebrow": "PRISES RÉELLES",
-        "headline": "Chaque son\na son lieu.",
-        "subhead": "Lieux, artistes et licences restent visibles."
+        "eyebrow": "RÉALISME",
+        "headline": "Enregistrements\nréels.",
+        "subhead": "Tous les sons ont été soigneusement enregistrés, aux 4 coins du monde."
       },
       "04_binaural": {
         "eyebrow": "ONDES BINAURALES",
-        "headline": "Choisissez\nvotre état.",
+        "headline": "Apaisez votre esprit\ngrâce aux 4 ondes\ncérébrales.",
         "subhead": "Delta, Theta, Alpha et Beta."
       },
       "05_spatial": {
         "eyebrow": "PLACEMENT SONORE",
         "headline": "Placez les sons\nautour de vous.",
-        "subhead": "Rapprochez, éloignez, décalez chaque son."
+        "subhead": "Moteur audio spatial."
       },
       "06_presets": {
         "eyebrow": "MIX SAUVEGARDÉS",
@@ -180,18 +180,18 @@
       },
       "07_timer": {
         "eyebrow": "TIMER SOMMEIL",
-        "headline": "Un fondu,\nà votre rythme.",
+        "headline": "Endormez-vous,\nà votre rythme.",
         "subhead": "15 min, 30 min, 1 h ou 2 h."
       },
       "08_free_home": {
-        "eyebrow": "DÉPART GRATUIT",
-        "headline": "Commencez sans\ncompte.",
+        "eyebrow": "ESSAI GRATUIT",
+        "headline": "Commencez dès\nmaintenant.",
         "subhead": "3 ambiances, minuteur et placement sonore inclus."
       },
       "09_library_teaser": {
         "eyebrow": "BIBLIOTHÈQUE COMPLÈTE",
         "headline": "Débloquez plus\nde sons à vie.",
-        "subhead": "17 ambiances premium avec un seul achat."
+        "subhead": "20 ambiances premium avec un seul achat."
       },
       "10_paywall": {
         "eyebrow": "PREMIUM À VIE",
@@ -203,47 +203,47 @@
       "01_hero": {
         "eyebrow": "SCHLAF · FOKUS · AUSZEIT",
         "headline": "Tauche ein\nin echte Natur.",
-        "subhead": "20 Feldaufnahmen. Offline. Kein Abo."
+        "subhead": "20 echte Klangwelten. Offline. Kein Abo."
       },
       "02_library": {
-        "eyebrow": "ECHTE ORTE",
-        "headline": "Baue einen Ort\num dich herum.",
-        "subhead": "Regen, Wald, Meer, Lagerfeuer und mehr."
+        "eyebrow": "IMMERSION",
+        "headline": "Schaffe deinen\nRückzugsort.",
+        "subhead": "Regen, Wald, Meer, Lagerfeuer und vieles mehr."
       },
       "03_detail_sheet": {
-        "eyebrow": "FELDAUFNAHMEN",
-        "headline": "Hör, woher\nder Klang kommt.",
-        "subhead": "Orte, Künstler und Lizenzen bleiben sichtbar."
+        "eyebrow": "REALISMUS",
+        "headline": "Echte\nAufnahmen.",
+        "subhead": "Alle Klänge wurden sorgfältig auf der ganzen Welt aufgenommen."
       },
       "04_binaural": {
         "eyebrow": "BINAURALE WELLEN",
-        "headline": "Stimme deinen\nZustand ab.",
+        "headline": "Beruhige den Geist\nmit 4 Hirnwellen-Modi.",
         "subhead": "Delta, Theta, Alpha und Beta."
       },
       "05_spatial": {
         "eyebrow": "KLANGPLATZIERUNG",
-        "headline": "Platziere jeden\nKlang um dich.",
-        "subhead": "Bewege jeden Klang näher, weiter, links oder rechts."
+        "headline": "Platziere Klänge\num dich herum.",
+        "subhead": "Audio-Engine für Raumklang."
       },
       "06_presets": {
         "eyebrow": "GESPEICHERTE MIXE",
-        "headline": "Zurück zu deinen\nFavoriten.",
-        "subhead": "Speichere Atmosphären und lade sie mit einem Tipp."
+        "headline": "Zurück zu deinen\nAtmosphären.",
+        "subhead": "Speichere Mixe und lade sie mit einem Tipp."
       },
       "07_timer": {
         "eyebrow": "SCHLAF-TIMER",
-        "headline": "Ausblenden,\nwenn du willst.",
-        "subhead": "15 Min, 30 Min, 1 Std oder 2 Std."
+        "headline": "Schlaf ein\nin deinem Tempo.",
+        "subhead": "15 Min, 30 Min, 1 h oder 2 h."
       },
       "08_free_home": {
-        "eyebrow": "KOSTENLOS STARTEN",
-        "headline": "Starte gratis,\nohne Konto.",
+        "eyebrow": "GRATIS STARTEN",
+        "headline": "Leg direkt\nlos.",
         "subhead": "3 Atmosphären, Timer und Klangplatzierung inklusive."
       },
       "09_library_teaser": {
         "eyebrow": "VOLLE BIBLIOTHEK",
-        "headline": "Mehr Klänge\nfür immer.",
-        "subhead": "17 Premium-Atmosphären mit einem Kauf."
+        "headline": "Mehr Klänge\nlebenslang.",
+        "subhead": "20 Premium-Atmosphären mit einem Kauf."
       },
       "10_paywall": {
         "eyebrow": "PREMIUM FÜR IMMER",
@@ -255,47 +255,47 @@
       "01_hero": {
         "eyebrow": "SUEÑO · FOCO · EVASIÓN",
         "headline": "Escapa a\nla naturaleza real.",
-        "subhead": "20 grabaciones reales. Sin conexión. Sin suscripción."
+        "subhead": "20 paisajes sonoros reales. Sin conexión. Sin suscripción."
       },
       "02_library": {
-        "eyebrow": "LUGARES REALES",
-        "headline": "Crea un lugar\na tu alrededor.",
-        "subhead": "Lluvia, bosque, mar, fogata y más."
+        "eyebrow": "INMERSIÓN",
+        "headline": "Crea tu\nrefugio.",
+        "subhead": "Lluvia, bosque, mar, hoguera y mucho más."
       },
       "03_detail_sheet": {
-        "eyebrow": "GRABACIONES REALES",
-        "headline": "Cada sonido\ntiene su lugar.",
-        "subhead": "Lugares, artistas y licencias siempre visibles."
+        "eyebrow": "REALISMO",
+        "headline": "Grabaciones\nreales.",
+        "subhead": "Todos los sonidos se grabaron con cuidado en todo el mundo."
       },
       "04_binaural": {
         "eyebrow": "ONDAS BINAURALES",
-        "headline": "Ajusta tu\nestado mental.",
-        "subhead": "Modos Delta, Theta, Alpha y Beta."
+        "headline": "Calma tu mente\ncon 4 ritmos cerebrales.",
+        "subhead": "Delta, Theta, Alpha y Beta."
       },
       "05_spatial": {
         "eyebrow": "POSICIÓN SONORA",
-        "headline": "Coloca cada\nsonido alrededor.",
-        "subhead": "Acerca, aleja o mueve cada sonido a los lados."
+        "headline": "Coloca sonidos\na tu alrededor.",
+        "subhead": "Motor de audio espacial."
       },
       "06_presets": {
         "eyebrow": "MEZCLAS GUARDADAS",
-        "headline": "Vuelve a tus\nfavoritas.",
-        "subhead": "Guarda ambientes y recupéralos al instante."
+        "headline": "Recupera tus\nambientes.",
+        "subhead": "Guarda tus mezclas y recárgalas con un toque."
       },
       "07_timer": {
-        "eyebrow": "TEMPORIZADOR",
-        "headline": "Se apaga\na tu ritmo.",
+        "eyebrow": "TEMPORIZADOR SUEÑO",
+        "headline": "Duérmete\na tu ritmo.",
         "subhead": "15 min, 30 min, 1 h o 2 h."
       },
       "08_free_home": {
         "eyebrow": "INICIO GRATIS",
-        "headline": "Empieza gratis,\nsin cuenta.",
+        "headline": "Empieza\nahora.",
         "subhead": "3 ambientes, temporizador y ubicación sonora incluidos."
       },
       "09_library_teaser": {
         "eyebrow": "BIBLIOTECA COMPLETA",
-        "headline": "Desbloquea más\nsonidos para siempre.",
-        "subhead": "17 ambientes premium con una sola compra."
+        "headline": "Desbloquea más\nsonidos de por vida.",
+        "subhead": "20 ambientes premium con una sola compra."
       },
       "10_paywall": {
         "eyebrow": "PREMIUM DE POR VIDA",
@@ -307,47 +307,47 @@
       "01_hero": {
         "eyebrow": "SONNO · FOCUS · EVASIONE",
         "headline": "Evadi nella\nnatura reale.",
-        "subhead": "20 registrazioni reali. Offline. Senza abbonamento."
+        "subhead": "20 atmosfere reali. Offline. Senza abbonamento."
       },
       "02_library": {
-        "eyebrow": "LUOGHI REALI",
-        "headline": "Crea un luogo\nintorno a te.",
-        "subhead": "Pioggia, foresta, mare, falò e altro."
+        "eyebrow": "IMMERSIONE",
+        "headline": "Crea il tuo\nrifugio.",
+        "subhead": "Pioggia, foresta, mare, falò e molto altro."
       },
       "03_detail_sheet": {
-        "eyebrow": "REGISTRAZIONI REALI",
-        "headline": "Ogni suono\nha un luogo.",
-        "subhead": "Luoghi, artisti e licenze sempre visibili."
+        "eyebrow": "REALISMO",
+        "headline": "Registrazioni\nreali.",
+        "subhead": "Tutti i suoni sono stati registrati con cura nel mondo."
       },
       "04_binaural": {
         "eyebrow": "ONDE BINAURALI",
-        "headline": "Scegli il tuo\nstato mentale.",
-        "subhead": "Modalità Delta, Theta, Alpha e Beta."
+        "headline": "Calma la mente\ncon 4 ritmi cerebrali.",
+        "subhead": "Delta, Theta, Alpha e Beta."
       },
       "05_spatial": {
         "eyebrow": "POSIZIONE SUONI",
-        "headline": "Posiziona ogni\nsuono intorno a te.",
-        "subhead": "Avvicina, allontana o sposta ogni suono."
+        "headline": "Posiziona i suoni\nintorno a te.",
+        "subhead": "Motore audio spaziale."
       },
       "06_presets": {
         "eyebrow": "MIX SALVATI",
         "headline": "Ritrova le tue\natmosfere.",
-        "subhead": "Salva i mix e riaprili con un tap."
+        "subhead": "Salva i tuoi mix e ricaricali con un gesto."
       },
       "07_timer": {
         "eyebrow": "TIMER SONNO",
-        "headline": "Sfuma l’audio\nquando vuoi.",
+        "headline": "Addormentati\nal tuo ritmo.",
         "subhead": "15 min, 30 min, 1 h o 2 h."
       },
       "08_free_home": {
         "eyebrow": "INIZIO GRATIS",
-        "headline": "Inizia gratis,\nsenza account.",
+        "headline": "Comincia\nsubito.",
         "subhead": "3 atmosfere, timer e posizione dei suoni inclusi."
       },
       "09_library_teaser": {
         "eyebrow": "LIBRERIA COMPLETA",
         "headline": "Sblocca più\nsuoni a vita.",
-        "subhead": "17 atmosfere premium con un solo acquisto."
+        "subhead": "20 atmosfere premium con un solo acquisto."
       },
       "10_paywall": {
         "eyebrow": "PREMIUM A VITA",
@@ -359,47 +359,47 @@
       "01_hero": {
         "eyebrow": "SONO · FOCO · ESCAPE",
         "headline": "Escape para\na natureza real.",
-        "subhead": "20 gravações reais. Offline. Sem assinatura."
+        "subhead": "20 ambiências reais. Offline. Sem assinatura."
       },
       "02_library": {
-        "eyebrow": "LUGARES REAIS",
-        "headline": "Crie um lugar\nao seu redor.",
-        "subhead": "Chuva, floresta, mar, fogueira e mais."
+        "eyebrow": "IMERSÃO",
+        "headline": "Crie seu\nrefúgio.",
+        "subhead": "Chuva, floresta, mar, fogueira e muito mais."
       },
       "03_detail_sheet": {
-        "eyebrow": "GRAVAÇÕES REAIS",
-        "headline": "Cada som\ntem um lugar.",
-        "subhead": "Locais, artistas e licenças sempre visíveis."
+        "eyebrow": "REALISMO",
+        "headline": "Gravações\nreais.",
+        "subhead": "Todos os sons foram gravados com cuidado ao redor do mundo."
       },
       "04_binaural": {
         "eyebrow": "ONDAS BINAURAIS",
-        "headline": "Ajuste seu\nestado mental.",
-        "subhead": "Modos Delta, Theta, Alpha e Beta."
+        "headline": "Acalme sua mente\ncom 4 ritmos cerebrais.",
+        "subhead": "Delta, Theta, Alpha e Beta."
       },
       "05_spatial": {
         "eyebrow": "POSIÇÃO DOS SONS",
-        "headline": "Coloque cada\nsom ao seu redor.",
-        "subhead": "Aproxime, afaste ou mova cada som para os lados."
+        "headline": "Posicione os sons\nao seu redor.",
+        "subhead": "Motor de áudio espacial."
       },
       "06_presets": {
         "eyebrow": "MIXES SALVOS",
-        "headline": "Volte às suas\nambiências.",
-        "subhead": "Salve seus mixes e reabra com um toque."
+        "headline": "Recupere suas\nambiências.",
+        "subhead": "Salve seus mixes e recarregue com um toque."
       },
       "07_timer": {
         "eyebrow": "TIMER DE SONO",
-        "headline": "Desaparece\nno seu tempo.",
+        "headline": "Durma\nno seu ritmo.",
         "subhead": "15 min, 30 min, 1 h ou 2 h."
       },
       "08_free_home": {
         "eyebrow": "COMECE GRÁTIS",
-        "headline": "Comece grátis,\nsem conta.",
+        "headline": "Comece\nagora.",
         "subhead": "3 ambiências, timer e posição dos sons incluídos."
       },
       "09_library_teaser": {
         "eyebrow": "BIBLIOTECA COMPLETA",
         "headline": "Desbloqueie mais\nsons para sempre.",
-        "subhead": "17 ambiências premium com uma compra."
+        "subhead": "20 ambiências premium com uma compra."
       },
       "10_paywall": {
         "eyebrow": "PREMIUM VITALÍCIO",

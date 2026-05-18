@@ -1,7 +1,7 @@
 ---
 title: ASO Strategy
 status: stable
-last_updated: 2026-05-17
+last_updated: 2026-05-18
 tracks:
   - "fastlane/metadata/**"
   - "fastlane/screenshots/**"
@@ -17,16 +17,18 @@ Synthesised from the 2026-05-02 audit (v2 of the original audit doc, post sleep-
 
 The big picture is in [positioning.md](positioning.md). This file is the operational layer: what to ship, in what order.
 
-## Current local state — 2026-05-17
+## Current local state — 2026-05-18
 
-The latest low-risk ASO pass removed the misleading / cheap-feeling "3D audio" language from visible App Store surfaces, cleaned the invisible keyword fields, and updated the first screenshot hooks toward immersion / escape.
+The latest low-risk ASO pass cleaned the invisible keyword fields, updated the screenshot hooks toward immersion / escape, and refreshed the visual treatment of the App Store screenshots.
 
 - Removed `baby` / `bebe` targeting from all 6 keyword files, in line with [positioning.md](positioning.md)'s anti-persona guidance.
 - Replaced those slots with adult use cases such as study, reading, work, and calm; all locales remain ≤100 chars and have zero indexed-word overlap across `name + subtitle + keywords`.
-- Removed `3D` from all App Store names and replaced user-facing "3D audio" / "spatial audio" claims with sound-placement language.
+- Removed `3D` from all App Store names. Screenshot headlines use sound-placement language; the slide 05 subhead keeps the approved French-source idea of a spatial audio engine.
 - Set `primary_first_sub_category.txt` to `MIND_AND_BODY` and `secondary_first_sub_category.txt` to `TRAVEL`.
-- Re-rendered and staged 60 composite screenshots from the current raw captures; slides 01-03 now foreground real-place escape, field recordings, offline use, and no-subscription ownership.
-- Rewrote `release_notes.txt` for version 1.4.2 in all 6 locales with concrete product changes instead of generic bug-fix wording.
+- Re-rendered and staged 60 composite screenshots from the current raw captures; slide 01 now leads with `20 real-world soundscapes. Offline. No subscription.` in English and natural equivalents in the other 5 locales.
+- Increased screenshot eyebrow size for readability and removed line-art background details, keeping only blob-like acoustic fields, gradients, glows, grain, and vignette.
+- Rebuilt and staged 6 App Preview videos from the refreshed localized screenshots.
+- Rewrote `release_notes.txt` for version 1.4.3 in all 6 locales with concrete product changes instead of generic bug-fix wording.
 - Replaced the first line of each `description.txt` with the approved multi-use opening line.
 
 ## Two fields, one strategy
@@ -129,7 +131,7 @@ CPPs are free; spawn them as A/B vehicles without touching the main page.
 1. Push Variant A names / subtitles / keywords for all 6 locales.
 2. Add `MIND_AND_BODY` + `TRAVEL` sub-categories. **Done locally 2026-05-17.**
 3. Rewrite `promotional_text.txt` for all 6 locales (template 1 — seasonal). **Done locally 2026-05-17.**
-4. Rewrite `release_notes.txt` for current version 1.4.2 — replace "performance + bugs" with the actual list. **Done locally 2026-05-17.**
+4. Rewrite `release_notes.txt` for current version 1.4.3 — replace "performance + bugs" with the actual list. **Done locally 2026-05-18.**
 5. Render Slide 01 v2 (multi-use eyebrow + subhead) and re-stage. **Done locally 2026-05-17.**
 6. Push first description line per locale. **Done locally 2026-05-17.**
 7. `bundle exec fastlane appstore_metadata` to ship.
