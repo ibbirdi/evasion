@@ -87,8 +87,8 @@ Per-locale text files in `fastlane/metadata/<locale>/`. Each locale has a fixed 
 | `support_url.txt` | URL | Required by ASC. |
 | `privacy_url.txt` | URL | Required when using RevenueCat / IAP. |
 | `marketing_url.txt` | URL | Optional. |
-| `primary_first_sub_category.txt` | enum | Set to `MIND_AND_BODY` (per 2026-05 audit). |
-| `secondary_first_sub_category.txt` | enum | Set to `TRAVEL` (per 2026-05 audit). |
+| `primary_first_sub_category.txt` | enum | Keep blank unless App Store Connect exposes valid subcategories for the chosen primary category. |
+| `secondary_first_sub_category.txt` | enum | Keep blank unless App Store Connect exposes valid subcategories for the chosen secondary category. |
 
 ### Apple's deduplication rule
 

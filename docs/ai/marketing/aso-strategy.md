@@ -24,7 +24,7 @@ The latest low-risk ASO pass cleaned the invisible keyword fields, updated the s
 - Removed `baby` / `bebe` targeting from all 6 keyword files, in line with [positioning.md](positioning.md)'s anti-persona guidance.
 - Replaced those slots with adult use cases such as study, reading, work, and calm; all locales remain ≤100 chars and have zero indexed-word overlap across `name + subtitle + keywords`.
 - Removed `3D` from all App Store names. Screenshot headlines use sound-placement language; the slide 05 subhead keeps the approved French-source idea of a spatial audio engine.
-- Set `primary_first_sub_category.txt` to `MIND_AND_BODY` and `secondary_first_sub_category.txt` to `TRAVEL`.
+- Keep sub-category files blank: App Store Connect currently reports no valid subcategories for `HEALTH_AND_FITNESS`, `LIFESTYLE`, or `TRAVEL`, and rejects invalid `primarySubcategoryOne` values.
 - Re-rendered and staged 60 composite screenshots from the current raw captures; slide 01 now leads with `20 real-world soundscapes. Offline. No subscription.` in English and natural equivalents in the other 5 locales.
 - Increased screenshot eyebrow size for readability and removed line-art background details, keeping only blob-like acoustic fields, gradients, glows, grain, and vignette.
 - Rebuilt and staged 6 App Preview videos from the refreshed localized screenshots.
@@ -55,10 +55,10 @@ Source: 2026-05-02 audit. Approved direction. Push these via `bundle exec fastla
 
 Sub-categories (in `primary_first_sub_category.txt` / `secondary_first_sub_category.txt`):
 
-- Primary: `MIND_AND_BODY`
-- Secondary: `TRAVEL`
+- Primary: blank
+- Secondary: blank
 
-These files are present locally as of 2026-05-17.
+These files are present locally as blank placeholders as of 2026-05-18.
 
 ## Promotional Text — rotation
 
@@ -129,7 +129,7 @@ CPPs are free; spawn them as A/B vehicles without touching the main page.
 ### Week 1 (~7 h of work)
 
 1. Push Variant A names / subtitles / keywords for all 6 locales.
-2. Add `MIND_AND_BODY` + `TRAVEL` sub-categories. **Done locally 2026-05-17.**
+2. Leave sub-category files blank unless App Store Connect exposes valid subcategories for these primary categories. **Verified locally 2026-05-18.**
 3. Rewrite `promotional_text.txt` for all 6 locales (template 1 — seasonal). **Done locally 2026-05-17.**
 4. Rewrite `release_notes.txt` for current version 1.4.3 — replace "performance + bugs" with the actual list. **Done locally 2026-05-18.**
 5. Render Slide 01 v2 (multi-use eyebrow + subhead) and re-stage. **Done locally 2026-05-17.**
