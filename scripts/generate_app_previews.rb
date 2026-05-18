@@ -2,6 +2,7 @@
 # frozen_string_literal: true
 
 require "fileutils"
+require "json"
 require "open3"
 require "shellwords"
 
@@ -73,18 +74,25 @@ def assert_video!(path)
   raw = run!(
     FFPROBE,
     "-v", "error",
-    "-select_streams", "v:0",
-    "-show_entries", "stream=width,height:format=duration",
-    "-of", "default=noprint_wrappers=1:nokey=1",
+    "-show_entries", "stream=codec_type,width,height,channels,sample_rate:format=duration",
+    "-of", "json",
     path
-  ).lines.map(&:strip)
+  )
 
-  width = raw[0].to_i
-  height = raw[1].to_i
-  duration = raw[2].to_f
+  probe = JSON.parse(raw)
+  video = probe.fetch("streams").find { |stream| stream["codec_type"] == "video" }
+  audio = probe.fetch("streams").find { |stream| stream["codec_type"] == "audio" }
+  duration = probe.fetch("format").fetch("duration").to_f
 
+  raise "Missing video stream for #{path}" unless video
+  raise "Missing audio stream for #{path}" unless audio
+
+  width = video["width"].to_i
+  height = video["height"].to_i
   raise "Unexpected size for #{path}: #{width}x#{height}" unless width == WIDTH && height == HEIGHT
   raise "Unexpected duration for #{path}: #{duration.round(2)}s" unless duration.between?(EXPECTED_DURATION - 0.1, EXPECTED_DURATION + 0.1)
+  raise "Unexpected audio channels for #{path}: #{audio["channels"]}" unless audio["channels"].to_i == 2
+  raise "Unexpected audio sample rate for #{path}: #{audio["sample_rate"]}" unless audio["sample_rate"].to_i == 44_100
 end
 
 ensure_tool!(FFMPEG)
@@ -102,15 +110,23 @@ LOCALES.each do |locale|
     FFMPEG,
     "-y",
     *ffmpeg_inputs(paths),
+    "-f", "lavfi",
+    "-t", EXPECTED_DURATION.to_s,
+    "-i", "anullsrc=channel_layout=stereo:sample_rate=44100",
     "-filter_complex", filter_complex(paths.length),
     "-map", "[v]",
-    "-an",
+    "-map", "#{paths.length}:a",
     "-c:v", "libx264",
     "-profile:v", "high",
     "-level", "4.0",
     "-pix_fmt", "yuv420p",
+    "-c:a", "aac",
+    "-b:a", "192k",
+    "-ac", "2",
+    "-ar", "44100",
     "-movflags", "+faststart",
     "-r", FPS.to_s,
+    "-shortest",
     output
   ]
 

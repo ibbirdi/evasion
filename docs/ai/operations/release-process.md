@@ -68,7 +68,7 @@ Captures all 10 scenarios in 6 locales on iPhone 17 Pro Max simulator. Output: `
 
 ### `app_previews`
 
-Builds localized App Preview videos via [`scripts/generate_app_previews.rb`](../../../scripts/generate_app_previews.rb). The videos are silent and generated from the localized screenshot composites.
+Builds localized App Preview videos via [`scripts/generate_app_previews.rb`](../../../scripts/generate_app_previews.rb). The videos are visually silent and generated from the localized screenshot composites, but still include a silent stereo AAC audio track because App Store Connect rejects no-audio MP4s.
 
 ### `stage_appstore_assets`
 
