@@ -43,6 +43,8 @@ Each player:
 
 This isolation is intentional: binaural tracks must not be processed by the spatial environment node or the master fade. They're a separate layer.
 
+The global immersive audio mode also leaves this path alone. Its distance/reverb/rendering profiles are applied only to ambient `AVAudioPlayerNode`s inside the `AVAudioEnvironmentNode`.
+
 ## State surface
 
 `AppModel` exposes:

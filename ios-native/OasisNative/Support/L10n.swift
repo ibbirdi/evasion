@@ -47,6 +47,34 @@ enum L10n {
             comment: "Short label for the timer control in the home header."
         )
 
+        static let immersive = LocalizedStringResource(
+            "header.immersive",
+            defaultValue: "Immersive",
+            bundle: .main,
+            comment: "Short label for the immersive audio toggle in the home header."
+        )
+
+        static let immersiveSound = LocalizedStringResource(
+            "header.immersive.sound",
+            defaultValue: "Immersive sound",
+            bundle: .main,
+            comment: "Visible label shown next to the immersive audio toggle when enabled."
+        )
+
+        static let immersiveEnabled = LocalizedStringResource(
+            "header.immersive.enabled",
+            defaultValue: "On",
+            bundle: .main,
+            comment: "Accessibility value when immersive audio is enabled."
+        )
+
+        static let immersiveDisabled = LocalizedStringResource(
+            "header.immersive.disabled",
+            defaultValue: "Off",
+            bundle: .main,
+            comment: "Accessibility value when immersive audio is disabled."
+        )
+
         static let off = LocalizedStringResource(
             "header.off",
             defaultValue: "Off",

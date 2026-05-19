@@ -26,6 +26,8 @@ Vocabulary used inside the codebase, the UI copy, and these memory files. Some t
 
 **Sound placement / spatial position** (`SpatialPoint`). 2D point in `[-1, 1] × [-1, 1]`. Origin = listener. Mapped internally to `AVAudio3DPoint` for the `AVAudioEnvironmentNode`, but user-facing copy should call this sound placement, not "3D audio".
 
+**Immersive audio mode.** Persisted global home toggle that makes ambient channels feel farther and wider by applying per-channel distance/diffusion/rendering profiles in `AudioMixerEngine`. It is intentionally ambient-only; binaural tracks keep their separate stereo path.
+
 **Auto-variation.** Slow automatic modulation of a channel's volume over time. Per-channel toggle plus a persisted lower/upper volume interval selected directly from the mixer slider. Used to keep mixes alive over multi-hour listening.
 
 **Tonal bed** / **souffle harmonique** (`TonalBedSynth`). Procedural harmonic pad layered on top of the ambient mix. Three voices (fundamental, fifth, octave) at ~15 dB below the ambient bus. The fundamental note is derived from the dominant active channel's *tonal group* (D3, B2, C3 minor, G3 sus4, A2 neutral, A2 major, C3 open). Off by default since v1.4.1. Localised "souffle harmonique" in French.

@@ -33,6 +33,9 @@ final class AppModel {
     /// users enable from the binaural panel when they want a quiet harmonic layer under
     /// the mix. The flag is persisted across launches.
     var isTonalBedEnabled = false
+    /// Global opt-in rendering mode that pushes ambient channels farther into the
+    /// AVAudioEnvironment scene without touching the separate binaural player path.
+    var immersiveAudioEnabled = false
 
     var channels: [SoundChannel: ChannelState] = .initialChannels
     var presets: [Preset] = .defaultPresets()
@@ -79,7 +82,8 @@ final class AppModel {
             binauralVolume: binauralVolume,
             previewUnlockedChannels: previewUnlockedChannels,
             previewUnlockedTracks: previewUnlockedTracks,
-            isTonalBedEnabled: isTonalBedEnabled
+            isTonalBedEnabled: isTonalBedEnabled,
+            immersiveAudioEnabled: immersiveAudioEnabled
         )
     }
 
@@ -517,6 +521,17 @@ final class AppModel {
     func setTonalBedEnabled(_ enabled: Bool) {
         guard isTonalBedEnabled != enabled else { return }
         isTonalBedEnabled = enabled
+        schedulePersistence()
+        synchronizeAudio()
+    }
+
+    func toggleImmersiveAudio() {
+        setImmersiveAudioEnabled(!immersiveAudioEnabled)
+    }
+
+    func setImmersiveAudioEnabled(_ enabled: Bool) {
+        guard immersiveAudioEnabled != enabled else { return }
+        immersiveAudioEnabled = enabled
         schedulePersistence()
         synchronizeAudio()
     }
@@ -1038,6 +1053,7 @@ final class AppModel {
             // Missing field in older builds → default to off so upgrading users land on
             // the same opt-in baseline as fresh installs.
             isTonalBedEnabled = persisted.isTonalBedEnabled ?? false
+            immersiveAudioEnabled = persisted.immersiveAudioEnabled ?? false
 
             enforcePremiumAccess()
             return true
@@ -1065,7 +1081,8 @@ final class AppModel {
             selectedLanguage: nil,
             premiumBannerLastDismissedAt: premiumBannerLastDismissedAt,
             signaturePreviewLastPlayedAt: signaturePreviewLastPlayedAt,
-            isTonalBedEnabled: isTonalBedEnabled
+            isTonalBedEnabled: isTonalBedEnabled,
+            immersiveAudioEnabled: immersiveAudioEnabled
         )
 
         do {

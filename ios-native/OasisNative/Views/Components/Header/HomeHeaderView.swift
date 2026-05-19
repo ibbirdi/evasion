@@ -252,6 +252,38 @@ private final class PhaseAccumulator {
 
 // MARK: - Native toolbar items
 
+struct HomeToolbarImmersiveAudioToggle: View {
+    @Environment(AppModel.self) private var model
+
+    private static let activeAccent = Color(red: 0.58, green: 0.78, blue: 1.0)
+
+    var body: some View {
+        Button {
+            withAnimation(.easeInOut(duration: 0.18)) {
+                model.toggleImmersiveAudio()
+            }
+        } label: {
+            HStack(spacing: 7) {
+                Image(systemName: "dot.radiowaves.left.and.right")
+                    .symbolRenderingMode(.hierarchical)
+
+                if model.immersiveAudioEnabled {
+                    Text(L10n.Header.immersiveSound)
+                        .font(.caption2.weight(.semibold))
+                        .lineLimit(1)
+                        .fixedSize(horizontal: true, vertical: false)
+                        .transition(.opacity)
+                }
+            }
+            .foregroundStyle(model.immersiveAudioEnabled ? Self.activeAccent : .white.opacity(0.86))
+        }
+        .accessibilityIdentifier("home.header.immersive")
+        .accessibilityLabel(Text(L10n.Header.immersive))
+        .accessibilityValue(Text(model.immersiveAudioEnabled ? L10n.Header.immersiveEnabled : L10n.Header.immersiveDisabled))
+        .accessibilityAddTraits(model.immersiveAudioEnabled ? .isSelected : [])
+    }
+}
+
 /// Sleep-timer picker, rendered as a native nav-bar Menu. Icon-only label; the live
 /// countdown is shown separately on the leading side of the nav bar
 /// (`HomeToolbarTimerCountdown`) because SwiftUI strips the title from `Menu` labels

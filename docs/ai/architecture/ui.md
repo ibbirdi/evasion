@@ -33,6 +33,8 @@ RootView                     — onboarding flag check, crossfades to HomeView
     └── .fullScreenCover PaywallOverlay
 ```
 
+`HomeView` owns the navigation toolbar. The leading item is `HomeToolbarImmersiveAudioToggle`, a compact native button for the global immersive audio mode. When enabled, it reveals a small subtitle-style "Immersive sound" label next to the icon. Trailing items remain the timer and active-channel filter controls.
+
 Onboarding is a single overlay file: `Views/Overlays/OnboardingView.swift`. Its final page offers two explicit exits: unlock lifetime access (opens the full paywall after completing onboarding) or start free.
 
 ## SwiftUI patterns used here
@@ -67,6 +69,7 @@ Most overlays bind to an optional state on `AppModel` and present when non-nil:
 | `AnimatedLiquidAura` | Liquid blob aura around the play button when audio is active. Paused under XCUITest. |
 | `AnimatedBackdrop` | Full-screen animated gradient/shape backdrop. |
 | `WaveformSignatureLine` | Audio-reactive signature line in the header. Paused under XCUITest. |
+| `HomeToolbarImmersiveAudioToggle` | Top-left native toolbar button for the persisted global immersive audio mode. |
 | `MixerBoardSectionView` | One row of the mixer board. |
 | `HapticSlider` | Slider with `sensoryFeedback` haptics on tick. Also hosts `AutoVariationRangeSlider`, the two-handle volume interval control used when a channel is in auto-variation mode. |
 | `SoundLocationMinimap` | 2D minimap for sound placement, `[-1, 1]` coordinate space. |
@@ -109,7 +112,7 @@ Use `Text(L10n.someKey)` (where `L10n.someKey` returns a `LocalizedStringResourc
 The same identifiers serve VoiceOver and UI tests (screenshots, premium-flow tests, marketing video scenarios). Add new identifiers here when introducing a new control, not in the test files.
 
 - **Mixer rows** (per channel; `<id>` = `pluie`, `vent`, `foret`, `tonnerre`, `mer`, `plage`, `oiseaux`, etc.): `channel.row.<id>`, `channel.identity.<id>`, `channel.mute.<id>`, `channel.slider.<id>` (single volume slider normally, two-handle auto-variation range slider when AUTO is enabled), `channel.spatial.<id>`, `channel.auto.<id>`.
-- **Header + bottom bar**: `home.scroll`, `home.header.timer`, `home.bottom.{shuffle,playback,routepicker,presets,binaural}`.
+- **Header + bottom bar**: `home.scroll`, `home.header.immersive`, `home.header.timer`, `home.bottom.{shuffle,playback,routepicker,presets,binaural}`.
 - **Panels** (sheets): `panel.spatial.container`, `panel.presets.container`, `panel.binaural.container`, `panel.sound-detail.container`, `panel.timer.unlock`.
 - **Spatial drag target**: `spatial.stage` — the drag stage inside `SpatialAudioPanel`. Carries `.accessibilityElement(children: .ignore)` plus a label so XCUITest can target it for synthetic drag gestures (the underlying ZStack would otherwise not register as an accessibility leaf).
 - **Presets / binaural / timer rows**: `presets.row.<id>`, `presets.name`, `presets.save`, `binaural.track.<id>`, `binaural.tonalBed.toggle`, `timer.unlock.option.<duration>`.

@@ -238,8 +238,11 @@ struct PersistedMixerState: Codable {
     var premiumBannerLastDismissedAt: Date?
     var signaturePreviewLastPlayedAt: Date?
     /// Ambient tonal pad toggle. Optional so state persisted by older builds decodes cleanly
-    /// and falls back to the default (on) below.
+    /// and falls back to the default (off) below.
     var isTonalBedEnabled: Bool?
+    /// Global immersive rendering toggle. Optional so older persisted states keep the classic
+    /// rendering unless users explicitly enable the new mode.
+    var immersiveAudioEnabled: Bool?
 }
 
 struct MixerSnapshot {
@@ -251,7 +254,8 @@ struct MixerSnapshot {
     var binauralVolume: Double
     var previewUnlockedChannels: Set<SoundChannel>
     var previewUnlockedTracks: Set<BinauralTrack>
-    var isTonalBedEnabled: Bool = true
+    var isTonalBedEnabled: Bool = false
+    var immersiveAudioEnabled: Bool = false
 
     func hasAmbientAccess(to channel: SoundChannel) -> Bool {
         isPremium || SoundChannel.freeChannels.contains(channel) || previewUnlockedChannels.contains(channel)

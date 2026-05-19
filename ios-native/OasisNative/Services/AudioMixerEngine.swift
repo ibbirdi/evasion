@@ -22,6 +22,120 @@ private final class AmbientChannelPlayback: @unchecked Sendable {
     }
 }
 
+private enum AmbientImmersiveProfile {
+    case closeCozy
+    case naturalOutdoor
+    case farWeather
+    case wideAtmosphere
+    case smallPointSource
+
+    var configuration: AmbientImmersiveProfileConfiguration {
+        switch self {
+        case .closeCozy:
+            return AmbientImmersiveProfileConfiguration(
+                baseDistance: 2.4,
+                depthSpread: 2.1,
+                lateralSpread: 3.4,
+                elevation: 0.15,
+                reverbBlend: 0.035,
+                backReverbBoost: 0.025,
+                obstruction: -0.8,
+                occlusion: -1.2,
+                backOcclusionBoost: 1.6,
+                sourceMode: .pointSource,
+                renderingAlgorithm: .HRTFHQ
+            )
+        case .naturalOutdoor:
+            return AmbientImmersiveProfileConfiguration(
+                baseDistance: 5.2,
+                depthSpread: 4.4,
+                lateralSpread: 5.7,
+                elevation: 0.35,
+                reverbBlend: 0.075,
+                backReverbBoost: 0.045,
+                obstruction: -1.8,
+                occlusion: -2.8,
+                backOcclusionBoost: 2.4,
+                sourceMode: .pointSource,
+                renderingAlgorithm: .HRTFHQ
+            )
+        case .farWeather:
+            return AmbientImmersiveProfileConfiguration(
+                baseDistance: 8.8,
+                depthSpread: 7.6,
+                lateralSpread: 7.4,
+                elevation: 0.65,
+                reverbBlend: 0.155,
+                backReverbBoost: 0.075,
+                obstruction: -4.2,
+                occlusion: -6.2,
+                backOcclusionBoost: 3.2,
+                sourceMode: .pointSource,
+                renderingAlgorithm: .HRTFHQ
+            )
+        case .wideAtmosphere:
+            return AmbientImmersiveProfileConfiguration(
+                baseDistance: 6.6,
+                depthSpread: 5.2,
+                lateralSpread: 8.0,
+                elevation: 0.45,
+                reverbBlend: 0.13,
+                backReverbBoost: 0.06,
+                obstruction: -2.8,
+                occlusion: -4.0,
+                backOcclusionBoost: 2.6,
+                sourceMode: .ambienceBed,
+                renderingAlgorithm: .auto
+            )
+        case .smallPointSource:
+            return AmbientImmersiveProfileConfiguration(
+                baseDistance: 6.8,
+                depthSpread: 5.0,
+                lateralSpread: 6.4,
+                elevation: 1.85,
+                reverbBlend: 0.055,
+                backReverbBoost: 0.035,
+                obstruction: -1.2,
+                occlusion: -2.0,
+                backOcclusionBoost: 2.0,
+                sourceMode: .pointSource,
+                renderingAlgorithm: .HRTFHQ
+            )
+        }
+    }
+}
+
+private struct AmbientImmersiveProfileConfiguration {
+    let baseDistance: Float
+    let depthSpread: Float
+    let lateralSpread: Float
+    let elevation: Float
+    let reverbBlend: Float
+    let backReverbBoost: Float
+    let obstruction: Float
+    let occlusion: Float
+    let backOcclusionBoost: Float
+    let sourceMode: AVAudio3DMixingSourceMode
+    let renderingAlgorithm: AVAudio3DMixingRenderingAlgorithm
+}
+
+private extension SoundChannel {
+    var immersiveProfile: AmbientImmersiveProfile {
+        switch self {
+        case .campfire, .tente, .pluieFenetre, .pluieCabane, .cafe:
+            return .closeCozy
+        case .plage, .riviere, .village, .lac, .savane, .crueMontagne, .cascade:
+            return .naturalOutdoor
+        case .vent, .tonnerre, .orageMontagne, .fortePluie, .ventNuit:
+            return .farWeather
+        case .foret, .pluie, .mer, .jungleAmerique, .jungleAsie, .pluieForet, .foretNuit, .neigeVille, .foretChiloe, .aubeJungle, .port:
+            return .wideAtmosphere
+        case .oiseaux, .goelands, .cigales, .grillons, .chevres, .carillons, .cloches:
+            return .smallPointSource
+        }
+    }
+}
+
 final class AudioMixerEngine: @unchecked Sendable {
     var onVariationChanged: (@MainActor @Sendable (SoundChannel, Double?) -> Void)?
     var onRemotePlaybackChange: (@MainActor @Sendable (Bool) -> Void)?
@@ -35,9 +149,12 @@ final class AudioMixerEngine: @unchecked Sendable {
     private var binauralPlayers: [BinauralTrack: AVAudioPlayer] = [:]
     private var variationTasks: [SoundChannel: Task<Void, Never>] = [:]
     private var fadeTask: Task<Void, Never>?
+    private var immersiveTransitionTask: Task<Void, Never>?
     private var masterFade: Double = 0
+    private var immersiveBlend: Double = 0
     private var nextPauseFadeDuration: TimeInterval?
     private var previousPlayingState = false
+    private var previousImmersiveAudioEnabled = false
 
     /// Procedural harmonic pad — nil when initialization fails, in which case the graph
     /// keeps working as if the synth didn't exist.
@@ -54,7 +171,8 @@ final class AudioMixerEngine: @unchecked Sendable {
         activeBinauralTrack: .delta,
         binauralVolume: 0.5,
         previewUnlockedChannels: [],
-        previewUnlockedTracks: []
+        previewUnlockedTracks: [],
+        immersiveAudioEnabled: false
     )
     private var liveVariationVolumes: [SoundChannel: Double] = [:]
     private var remoteCommandsConfigured = false
@@ -81,6 +199,7 @@ final class AudioMixerEngine: @unchecked Sendable {
 
     deinit {
         fadeTask?.cancel()
+        immersiveTransitionTask?.cancel()
         variationTasks.values.forEach { $0.cancel() }
         if let routeObserver {
             NotificationCenter.default.removeObserver(routeObserver)
@@ -92,6 +211,7 @@ final class AudioMixerEngine: @unchecked Sendable {
             guard let self else { return }
 
             self.latestSnapshot = snapshot
+            self.transitionImmersiveAudioIfNeeded(to: snapshot.immersiveAudioEnabled)
             self.synchronizeVariationTasks(for: snapshot)
 
             if snapshot.isPlaying != self.previousPlayingState {
@@ -219,14 +339,8 @@ final class AudioMixerEngine: @unchecked Sendable {
 
         ambientEngine.attach(environmentNode)
         ambientEngine.connect(environmentNode, to: ambientEngine.mainMixerNode, format: nil)
-        environmentNode.distanceAttenuationParameters.distanceAttenuationModel = .linear
-        environmentNode.distanceAttenuationParameters.referenceDistance = 10
-        environmentNode.distanceAttenuationParameters.maximumDistance = 10
-        environmentNode.distanceAttenuationParameters.rolloffFactor = 0
-        environmentNode.reverbParameters.enable = true
-        environmentNode.reverbParameters.level = -18
-        environmentNode.outputVolume = 1
         environmentNode.listenerPosition = AVAudio3DPoint(x: 0, y: 0, z: 0)
+        applyEnvironmentConfiguration()
         updateEnvironmentOutputType()
 
         attachTonalBedIfPossible()
@@ -607,6 +721,41 @@ final class AudioMixerEngine: @unchecked Sendable {
         }
     }
 
+    private func transitionImmersiveAudioIfNeeded(to enabled: Bool) {
+        guard enabled != previousImmersiveAudioEnabled else {
+            applyEnvironmentConfiguration()
+            return
+        }
+
+        previousImmersiveAudioEnabled = enabled
+        immersiveTransitionTask?.cancel()
+
+        let start = immersiveBlend
+        let target = enabled ? 1.0 : 0.0
+        let stepDurationMilliseconds = 80
+        let steps = 10
+
+        immersiveTransitionTask = Task(priority: .utility) { [weak self] in
+            guard let self else { return }
+
+            for step in 1...steps {
+                try? await Task.sleep(for: .milliseconds(stepDurationMilliseconds))
+                guard !Task.isCancelled else { return }
+
+                let progress = Double(step) / Double(steps)
+                let easedProgress = progress * progress * (3 - 2 * progress)
+                let value = start + (target - start) * easedProgress
+
+                self.queue.async { [weak self] in
+                    guard let self else { return }
+                    self.immersiveBlend = value
+                    self.applyEnvironmentConfiguration()
+                    self.refreshSpatialMixingConfigurations()
+                }
+            }
+        }
+    }
+
     private func startVariationTask(for channel: SoundChannel, initialValue: Double) -> Task<Void, Never> {
         Task(priority: .utility) { [weak self] in
             guard let self else { return }
@@ -671,11 +820,53 @@ final class AudioMixerEngine: @unchecked Sendable {
         }
     }
 
+    private func refreshSpatialMixingConfigurations() {
+        for playback in ambientPlayers.values {
+            applySpatialMixingConfiguration(for: playback.channel, playback: playback)
+        }
+    }
+
+    private func applyEnvironmentConfiguration() {
+        let blend = Float(min(max(immersiveBlend, 0), 1))
+        environmentNode.distanceAttenuationParameters.distanceAttenuationModel = .linear
+        environmentNode.distanceAttenuationParameters.referenceDistance = 10
+        environmentNode.distanceAttenuationParameters.maximumDistance = 18
+        environmentNode.distanceAttenuationParameters.rolloffFactor = 0
+        environmentNode.reverbParameters.enable = true
+        environmentNode.reverbParameters.level = -18 + (5 * blend)
+        environmentNode.outputVolume = 1
+    }
+
     private func applySpatialMixingConfiguration(for channel: SoundChannel, playback: AmbientChannelPlayback) {
         let point = latestSnapshot.channels[channel]?.spatialPosition ?? .center
         let clamped = point.clamped()
-        let backAmount = max(clamped.y, 0)
+        let blend = min(max(immersiveBlend, 0), 1)
+        let backAmount = Float(max(clamped.y, 0))
 
+        let classicPoint = mappedClassicSpatialPoint(for: clamped)
+        let classicReverbBlend = Float(0.01 + (Double(backAmount) * 0.08))
+        let classicObstruction = -(backAmount * 6.0)
+        let classicOcclusion = -(backAmount * 12.0)
+
+        if blend > 0.5 {
+            applyImmersiveRenderingMode(for: channel, playback: playback)
+        } else {
+            applyClassicRenderingMode(for: playback)
+        }
+
+        let profile = channel.immersiveProfile.configuration
+        let immersivePoint = mappedImmersiveSpatialPoint(for: clamped, profile: profile)
+        let immersiveReverbBlend = min(profile.reverbBlend + (backAmount * profile.backReverbBoost), 0.28)
+        let immersiveObstruction = profile.obstruction - (backAmount * 1.2)
+        let immersiveOcclusion = profile.occlusion - (backAmount * profile.backOcclusionBoost)
+
+        playback.node.position = interpolate(from: classicPoint, to: immersivePoint, progress: Float(blend))
+        playback.node.reverbBlend = interpolate(from: classicReverbBlend, to: immersiveReverbBlend, progress: Float(blend))
+        playback.node.obstruction = interpolate(from: classicObstruction, to: immersiveObstruction, progress: Float(blend))
+        playback.node.occlusion = interpolate(from: classicOcclusion, to: immersiveOcclusion, progress: Float(blend))
+    }
+
+    private func applyClassicRenderingMode(for playback: AmbientChannelPlayback) {
         if playback.format.channelCount > 1 {
             playback.node.sourceMode = .ambienceBed
             playback.node.renderingAlgorithm = .auto
@@ -684,19 +875,52 @@ final class AudioMixerEngine: @unchecked Sendable {
             playback.node.pointSourceInHeadMode = .bypass
             playback.node.renderingAlgorithm = .HRTFHQ
         }
-
-        playback.node.position = mappedSpatialPoint(for: clamped)
-        playback.node.reverbBlend = Float(0.01 + (backAmount * 0.08))
-        playback.node.obstruction = Float(-(backAmount * 6.0))
-        playback.node.occlusion = Float(-(backAmount * 12.0))
     }
 
-    private func mappedSpatialPoint(for point: SpatialPoint) -> AVAudio3DPoint {
+    private func applyImmersiveRenderingMode(for channel: SoundChannel, playback: AmbientChannelPlayback) {
+        let profile = channel.immersiveProfile.configuration
+        playback.node.sourceMode = profile.sourceMode
+        playback.node.pointSourceInHeadMode = .bypass
+        playback.node.renderingAlgorithm = profile.renderingAlgorithm
+    }
+
+    private func mappedClassicSpatialPoint(for point: SpatialPoint) -> AVAudio3DPoint {
         let clamped = point.clamped()
         return AVAudio3DPoint(
             x: Float(clamped.x * 4.5),
             y: 0,
             z: Float(clamped.y * 5.5)
+        )
+    }
+
+    private func mappedImmersiveSpatialPoint(
+        for point: SpatialPoint,
+        profile: AmbientImmersiveProfileConfiguration
+    ) -> AVAudio3DPoint {
+        let clamped = point.clamped()
+        let horizontal = Float(clamped.x) * profile.lateralSpread
+        let vertical = profile.elevation
+        let y = Float(clamped.y)
+        let depth = profile.baseDistance + (abs(y) * profile.depthSpread)
+        let isBehind = y > 0.12
+        let z = isBehind ? depth : -depth
+
+        return AVAudio3DPoint(x: horizontal, y: vertical, z: z)
+    }
+
+    private func interpolate(from start: Float, to end: Float, progress: Float) -> Float {
+        start + ((end - start) * progress)
+    }
+
+    private func interpolate(
+        from start: AVAudio3DPoint,
+        to end: AVAudio3DPoint,
+        progress: Float
+    ) -> AVAudio3DPoint {
+        AVAudio3DPoint(
+            x: interpolate(from: start.x, to: end.x, progress: progress),
+            y: interpolate(from: start.y, to: end.y, progress: progress),
+            z: interpolate(from: start.z, to: end.z, progress: progress)
         )
     }
 

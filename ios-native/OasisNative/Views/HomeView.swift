@@ -240,6 +240,9 @@ struct HomeView: View {
             }
             .toolbarBackground(.hidden, for: .navigationBar)
             .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    HomeToolbarImmersiveAudioToggle()
+                }
                 ToolbarItem(placement: .topBarTrailing) {
                     HomeToolbarTimerMenu(onRequestPremiumTimer: openTimerUnlock)
                 }

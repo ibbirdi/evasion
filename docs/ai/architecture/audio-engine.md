@@ -32,8 +32,8 @@ AVAudioEngine (ambientEngine)
 
 `environmentNode` parameters (set in `AudioMixerEngine`):
 - `distanceAttenuationParameters.distanceAttenuationModel = .linear`
-- `referenceDistance = 10`, `maximumDistance = 10`, `rolloffFactor = 0` — channels stay audible at any in-app distance.
-- `reverbParameters.enable = true`, `level = -18 dB` — subtle ambient blur.
+- `referenceDistance = 10`, `maximumDistance = 18`, `rolloffFactor = 0` — channels stay audible at any in-app distance.
+- `reverbParameters.enable = true`, `level = -18 dB` classic to about `-13 dB` immersive — subtle ambient blur.
 - `listenerPosition = (0, 0, 0)` — origin.
 
 ## Channel playback (`AmbientChannelPlayback`)
@@ -73,9 +73,29 @@ A single master multiplier `masterFade ∈ [0, 1]` is animated to mute the entir
 
 ## Spatial audio
 
-Per-channel `SpatialPoint(x, y) ∈ [-1, 1] × [-1, 1]` is mapped to the player's `position: AVAudio3DPoint`. The `AVAudioEnvironmentNode` resolves stereo bus output. Z is fixed at 0.
+Per-channel `SpatialPoint(x, y) ∈ [-1, 1] × [-1, 1]` is mapped to the player's `position: AVAudio3DPoint`. The `AVAudioEnvironmentNode` resolves stereo bus output.
 
 `applySpatialMixingConfiguration()` is called from `sync(with:)` and whenever `AppModel` mutates a channel's spatial position via the `SpatialAudioPanel`.
+
+### Immersive audio mode
+
+`AppModel.immersiveAudioEnabled` is a persisted global toggle. It affects ambient channels only; binaural tracks remain on their dedicated `AVAudioPlayer` path.
+
+When disabled, player rendering stays close to the legacy behavior:
+- stereo ambience beds keep `.ambienceBed`
+- mono/point sounds use `.pointSource` + `.HRTFHQ`
+- the classic mapping keeps depth almost flat
+
+When enabled, the engine crossfades an internal `immersiveBlend` over ~0.8 s and reapplies each active player's spatial config. The transition is intentionally parameter-level rather than a graph rebuild, so it can run during playback.
+
+Profiles live in `AudioMixerEngine` as `AmbientImmersiveProfile`:
+- `closeCozy` — fire, tent, window/cabin rain, cafe; closer and drier.
+- `naturalOutdoor` — river, lake, beach, village, savanna, waterfall; medium distance.
+- `farWeather` — thunder, mountain storm, heavy rain, wind; deeper, darker, more diffuse.
+- `wideAtmosphere` — forest, rain, sea, jungle, snow; broad ambience-bed rendering.
+- `smallPointSource` — birds, gulls, bells, insects, goats; precise, slightly elevated point sources.
+
+Each profile controls distance, lateral spread, height, reverb blend, obstruction/occlusion, source mode, and rendering algorithm. This gives a maintainable place to tune the illusion of distance per sound later without changing UI state.
 
 ## Auto-variation
 
@@ -128,4 +148,4 @@ Full pipeline rationale and per-file measurements: [../content/sounds-catalog.md
 
 ## Sync barrier (`sync(with:)`)
 
-`AudioMixerEngine.sync(with: AppModel)` is the single coupling point. Whenever `AppModel` mutates anything the engine cares about, `AppModel` calls `sync` so the engine reconciles its players, fades, and spatial positioning to match. This is intentionally one-directional: the engine does not push state back into `AppModel` except via the two callbacks `onRemotePlaybackChange` and `onVariationChanged`.
+`AudioMixerEngine.sync(with: AppModel)` is the single coupling point. Whenever `AppModel` mutates anything the engine cares about, `AppModel` calls `sync` so the engine reconciles its players, fades, immersive mode, and spatial positioning to match. This is intentionally one-directional: the engine does not push state back into `AppModel` except via the two callbacks `onRemotePlaybackChange` and `onVariationChanged`.
