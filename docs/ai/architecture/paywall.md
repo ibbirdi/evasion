@@ -1,7 +1,7 @@
 ---
 title: Paywall and Premium Gating
 status: stable
-last_updated: 2026-05-17
+last_updated: 2026-05-19
 tracks:
   - "ios-native/OasisNative/Services/PremiumCoordinator.swift"
   - "ios-native/OasisNative/Services/PremiumRevenueCatService.swift"

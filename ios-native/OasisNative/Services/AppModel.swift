@@ -387,8 +387,35 @@ final class AppModel {
             return
         }
 
-        state.volume = value
+        let clampedValue = min(max(value, 0), 1)
+        state.volume = clampedValue
+        if !state.autoVariationEnabled {
+            state.autoVariationRange = .defaultRange(around: clampedValue)
+        }
         channels[channel] = state
+        currentPresetID = nil
+        schedulePersistence()
+        synchronizeAudio()
+    }
+
+    func setChannelAutoVariationRange(_ channel: SoundChannel, range: AutoVariationRange) {
+        guard var state = channels[channel], !isChannelLocked(channel) else {
+            requestPremiumAccess(from: .sound(channel))
+            return
+        }
+
+        let clampedRange = range.clamped()
+        let liveVolume = variationDisplayVolumes[channel] ?? state.volume
+        let clampedLiveVolume = clampedRange.clampedValue(liveVolume)
+
+        state.autoVariationRange = clampedRange
+        state.volume = clampedRange.clampedValue(state.volume)
+        channels[channel] = state
+
+        if state.autoVariationEnabled, !state.isMuted {
+            variationDisplayVolumes[channel] = clampedLiveVolume
+        }
+
         currentPresetID = nil
         schedulePersistence()
         synchronizeAudio()
@@ -404,6 +431,8 @@ final class AppModel {
         channels[channel] = state
         if state.isMuted {
             variationDisplayVolumes.removeValue(forKey: channel)
+        } else if state.autoVariationEnabled {
+            variationDisplayVolumes[channel] = state.autoVariationRange.clampedValue(state.volume)
         }
         currentPresetID = nil
 
@@ -422,6 +451,11 @@ final class AppModel {
         }
 
         state.autoVariationEnabled.toggle()
+        if state.autoVariationEnabled {
+            state.volume = state.autoVariationRange.clampedValue(state.volume)
+        } else if let liveValue = variationDisplayVolumes[channel] {
+            state.volume = min(max(liveValue, 0), 1)
+        }
         channels[channel] = state
         if state.autoVariationEnabled {
             variationDisplayVolumes[channel] = state.volume
@@ -1243,7 +1277,7 @@ final class AppModel {
         channels = newChannels
         variationDisplayVolumes = newChannels.reduce(into: [:]) { partialResult, entry in
             if entry.value.autoVariationEnabled, !entry.value.isMuted {
-                partialResult[entry.key] = entry.value.volume
+                partialResult[entry.key] = entry.value.autoVariationRange.clampedValue(entry.value.volume)
             }
         }
         currentPresetID = nil

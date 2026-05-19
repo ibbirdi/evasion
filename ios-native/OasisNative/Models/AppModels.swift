@@ -91,12 +91,14 @@ struct ChannelState: Codable, Equatable {
     var volume: Double = 0.5
     var isMuted = true
     var autoVariationEnabled = false
+    var autoVariationRange = AutoVariationRange.defaultRange(around: 0.5)
     var spatialPosition = SpatialPoint.center
 
     private enum CodingKeys: String, CodingKey {
         case volume
         case isMuted
         case autoVariationEnabled
+        case autoVariationRange
         case spatialPosition
     }
 
@@ -104,20 +106,81 @@ struct ChannelState: Codable, Equatable {
         volume: Double = 0.5,
         isMuted: Bool = true,
         autoVariationEnabled: Bool = false,
+        autoVariationRange: AutoVariationRange? = nil,
         spatialPosition: SpatialPoint = .center
     ) {
-        self.volume = volume
+        self.volume = min(max(volume, 0), 1)
         self.isMuted = isMuted
         self.autoVariationEnabled = autoVariationEnabled
+        self.autoVariationRange = (autoVariationRange ?? AutoVariationRange.defaultRange(around: self.volume)).clamped()
         self.spatialPosition = spatialPosition
     }
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        volume = try container.decodeIfPresent(Double.self, forKey: .volume) ?? 0.5
+        volume = min(max(try container.decodeIfPresent(Double.self, forKey: .volume) ?? 0.5, 0), 1)
         isMuted = try container.decodeIfPresent(Bool.self, forKey: .isMuted) ?? true
         autoVariationEnabled = try container.decodeIfPresent(Bool.self, forKey: .autoVariationEnabled) ?? false
+        autoVariationRange = (try container.decodeIfPresent(AutoVariationRange.self, forKey: .autoVariationRange) ?? AutoVariationRange.defaultRange(around: volume)).clamped()
         spatialPosition = try container.decodeIfPresent(SpatialPoint.self, forKey: .spatialPosition) ?? .center
+    }
+}
+
+struct AutoVariationRange: Codable, Equatable, Sendable {
+    static let minimumWidth = 0.08
+    private static let defaultWidth = 0.44
+
+    var lowerBound: Double
+    var upperBound: Double
+
+    static func defaultRange(around volume: Double) -> AutoVariationRange {
+        let center = min(max(volume, 0), 1)
+        let halfWidth = defaultWidth / 2
+        var lower = center - halfWidth
+        var upper = center + halfWidth
+
+        if lower < 0 {
+            upper -= lower
+            lower = 0
+        }
+        if upper > 1 {
+            lower -= upper - 1
+            upper = 1
+        }
+
+        return AutoVariationRange(lowerBound: lower, upperBound: upper).clamped()
+    }
+
+    func clamped() -> AutoVariationRange {
+        let lower = min(max(lowerBound, 0), 1)
+        let upper = min(max(upperBound, 0), 1)
+
+        if upper - lower >= Self.minimumWidth {
+            return AutoVariationRange(lowerBound: lower, upperBound: upper)
+        }
+
+        let midpoint = (lower + upper) / 2
+        let halfWidth = Self.minimumWidth / 2
+        var adjustedLower = midpoint - halfWidth
+        var adjustedUpper = midpoint + halfWidth
+
+        if adjustedLower < 0 {
+            adjustedUpper -= adjustedLower
+            adjustedLower = 0
+        }
+        if adjustedUpper > 1 {
+            adjustedLower -= adjustedUpper - 1
+            adjustedUpper = 1
+        }
+
+        return AutoVariationRange(
+            lowerBound: min(max(adjustedLower, 0), 1),
+            upperBound: min(max(adjustedUpper, 0), 1)
+        )
+    }
+
+    func clampedValue(_ value: Double) -> Double {
+        min(max(value, lowerBound), upperBound)
     }
 }
 

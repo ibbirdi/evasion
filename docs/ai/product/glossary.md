@@ -18,15 +18,15 @@ Vocabulary used inside the codebase, the UI copy, and these memory files. Some t
 
 ## Audio terms
 
-**Channel** (`SoundChannel`). One of the 35 ambient sounds. Persistent identifier (e.g. `oiseaux`, `vent`, `tonnerre`). Each has a volume, mute state, auto-variation flag, and 2D spatial position. See [content/sounds-catalog.md](../content/sounds-catalog.md).
+**Channel** (`SoundChannel`). One of the 35 ambient sounds. Persistent identifier (e.g. `oiseaux`, `vent`, `tonnerre`). Each has a volume, mute state, auto-variation flag/range, and 2D spatial position. See [content/sounds-catalog.md](../content/sounds-catalog.md).
 
 **Free channel.** One of the 3 channels accessible without premium: Birds (`oiseaux`), Wind (`vent`), Beach (`plage`). Defined as `freeChannels` in code. The other 32 are premium.
 
-**Channel state** (`ChannelState`). `{ volume: Double, isMuted: Bool, autoVariationEnabled: Bool, spatialPosition: SpatialPoint }`.
+**Channel state** (`ChannelState`). `{ volume: Double, isMuted: Bool, autoVariationEnabled: Bool, autoVariationRange: AutoVariationRange, spatialPosition: SpatialPoint }`.
 
 **Sound placement / spatial position** (`SpatialPoint`). 2D point in `[-1, 1] × [-1, 1]`. Origin = listener. Mapped internally to `AVAudio3DPoint` for the `AVAudioEnvironmentNode`, but user-facing copy should call this sound placement, not "3D audio".
 
-**Auto-variation.** Slow automatic modulation of a channel's volume over time. Per-channel toggle. Used to keep mixes alive over multi-hour listening.
+**Auto-variation.** Slow automatic modulation of a channel's volume over time. Per-channel toggle plus a persisted lower/upper volume interval selected directly from the mixer slider. Used to keep mixes alive over multi-hour listening.
 
 **Tonal bed** / **souffle harmonique** (`TonalBedSynth`). Procedural harmonic pad layered on top of the ambient mix. Three voices (fundamental, fifth, octave) at ~15 dB below the ambient bus. The fundamental note is derived from the dominant active channel's *tonal group* (D3, B2, C3 minor, G3 sus4, A2 neutral, A2 major, C3 open). Off by default since v1.4.1. Localised "souffle harmonique" in French.
 

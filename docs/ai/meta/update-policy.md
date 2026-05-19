@@ -1,7 +1,7 @@
 ---
 title: Memory Update Policy
 status: stable
-last_updated: 2026-05-18
+last_updated: 2026-05-19
 tracks:
   - "AGENTS.md"
   - "docs/ai/**"

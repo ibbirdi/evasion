@@ -67,9 +67,12 @@ struct ChannelState: Codable, Equatable {
   var volume: Double          // [0, 1]
   var isMuted: Bool
   var autoVariationEnabled: Bool
+  var autoVariationRange: AutoVariationRange // persisted [lower, upper] interval for auto-volume
   var spatialPosition: SpatialPoint   // [-1, 1] x [-1, 1]
 }
 ```
+
+`AutoVariationRange` stores the user-selected lower/upper volume bounds for automatic variation. Older persisted `ChannelState` payloads decode with a default range centred around `volume`, so no top-level `PersistedMixerState` migration is needed.
 
 ## `Preset`
 

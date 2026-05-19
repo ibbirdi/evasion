@@ -1,7 +1,7 @@
 ---
 title: Code Conventions
 status: stable
-last_updated: 2026-05-17
+last_updated: 2026-05-19
 tracks:
   - "ios-native/OasisNative/**/*.swift"
   - "ios-native/OasisNative/Support/L10n.swift"
@@ -114,6 +114,7 @@ Add new keys in this scheme. The full list lives in `Localizable.xcstrings`; hel
 - Always extend `PersistedMixerState` with **optional** fields for backward compat.
 - Provide a sensible default in `loadPersistedState()` for old payloads.
 - Never delete a stored field without a migration plan.
+- For nested persisted structs such as `ChannelState`, decode new fields with `decodeIfPresent` and derive a default from existing fields when possible.
 
 ## Premium gating
 

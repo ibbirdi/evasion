@@ -69,7 +69,7 @@ A single master multiplier `masterFade ∈ [0, 1]` is animated to mute the entir
 
 `animateFade(start, target, duration)` steps the value at ≥ 120 ms intervals, calling `refreshPlayerVolumes()` each tick. On fade-out completion, `pauseAllPlayers()` is called.
 
-`refreshPlayerVolumes()` computes effective per-channel volume = `channelState.volume * masterFade * (channelState.isMuted ? 0 : 1) * autoVariationFactor`.
+`refreshPlayerVolumes()` computes effective per-channel volume = `sourceVolume * masterFade * (channelState.isMuted ? 0 : 1)`, where `sourceVolume` is either `channelState.volume` or the live auto-variation value.
 
 ## Spatial audio
 
@@ -79,7 +79,9 @@ Per-channel `SpatialPoint(x, y) ∈ [-1, 1] × [-1, 1]` is mapped to the player'
 
 ## Auto-variation
 
-Per channel, an opt-in slow LFO modulates volume over time. Implemented in `AudioMixerEngine` (search for `autoVariation` / `variation`). Visible in UI as a small toggle on each channel card.
+Per channel, an opt-in slow LFO modulates volume over time. Implemented in `AudioMixerEngine` (search for `autoVariation` / `variation`). Each channel stores an `AutoVariationRange` lower/upper bound, and the engine chooses slow random targets inside that interval.
+
+The mixer row shows this as an editable two-handle slider when auto-variation is enabled. The same control also displays the live variation value, so the user sees the current audio level moving inside the chosen interval.
 
 When a channel's auto-variation generates a notable change, the engine fires `onVariationChanged` so `AppModel` can persist or surface it.
 

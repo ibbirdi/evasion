@@ -1,7 +1,7 @@
 ---
 title: UI System
 status: stable
-last_updated: 2026-05-18
+last_updated: 2026-05-19
 tracks:
   - "ios-native/OasisNative/Views/**"
   - "ios-native/OasisNative/Support/Info.plist"
@@ -68,7 +68,7 @@ Most overlays bind to an optional state on `AppModel` and present when non-nil:
 | `AnimatedBackdrop` | Full-screen animated gradient/shape backdrop. |
 | `WaveformSignatureLine` | Audio-reactive signature line in the header. Paused under XCUITest. |
 | `MixerBoardSectionView` | One row of the mixer board. |
-| `HapticSlider` | Slider with `sensoryFeedback` haptics on tick. |
+| `HapticSlider` | Slider with `sensoryFeedback` haptics on tick. Also hosts `AutoVariationRangeSlider`, the two-handle volume interval control used when a channel is in auto-variation mode. |
 | `SoundLocationMinimap` | 2D minimap for sound placement, `[-1, 1]` coordinate space. |
 | `PremiumSurfaces` | Reusable upsell card and inline teaser elements. |
 | `PressScaleButtonStyle` | Tactile scale-on-press button style applied app-wide. |
@@ -108,7 +108,7 @@ Use `Text(L10n.someKey)` (where `L10n.someKey` returns a `LocalizedStringResourc
 
 The same identifiers serve VoiceOver and UI tests (screenshots, premium-flow tests, marketing video scenarios). Add new identifiers here when introducing a new control, not in the test files.
 
-- **Mixer rows** (per channel; `<id>` = `pluie`, `vent`, `foret`, `tonnerre`, `mer`, `plage`, `oiseaux`, etc.): `channel.row.<id>`, `channel.identity.<id>`, `channel.mute.<id>`, `channel.slider.<id>`, `channel.spatial.<id>`, `channel.auto.<id>`.
+- **Mixer rows** (per channel; `<id>` = `pluie`, `vent`, `foret`, `tonnerre`, `mer`, `plage`, `oiseaux`, etc.): `channel.row.<id>`, `channel.identity.<id>`, `channel.mute.<id>`, `channel.slider.<id>` (single volume slider normally, two-handle auto-variation range slider when AUTO is enabled), `channel.spatial.<id>`, `channel.auto.<id>`.
 - **Header + bottom bar**: `home.scroll`, `home.header.timer`, `home.bottom.{shuffle,playback,routepicker,presets,binaural}`.
 - **Panels** (sheets): `panel.spatial.container`, `panel.presets.container`, `panel.binaural.container`, `panel.sound-detail.container`, `panel.timer.unlock`.
 - **Spatial drag target**: `spatial.stage` — the drag stage inside `SpatialAudioPanel`. Carries `.accessibilityElement(children: .ignore)` plus a label so XCUITest can target it for synthetic drag gestures (the underlying ZStack would otherwise not register as an accessibility leaf).

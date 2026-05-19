@@ -194,10 +194,16 @@ struct SoundRowView: View {
 
             Group {
                 if isAutoAnimating {
-                    AutoVariationLevelBar(
-                        value: model.displayVolume(for: channel),
+                    AutoVariationRangeSlider(
+                        range: Binding(
+                            get: { state.autoVariationRange },
+                            set: { model.setChannelAutoVariationRange(channel, range: $0) }
+                        ),
+                        liveValue: model.displayVolume(for: channel),
                         tint: channel.tint
                     )
+                    .disabled(isLocked || state.isMuted)
+                    .accessibilityIdentifier("channel.slider.\(channel.id)")
                 } else {
                     HapticSlider(
                         value: Binding(
@@ -489,37 +495,5 @@ private struct MarqueeWidthKey: PreferenceKey {
     static let defaultValue: CGFloat = 0
     static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
         value = nextValue()
-    }
-}
-
-private struct AutoVariationLevelBar: View {
-    let value: Double
-    let tint: Color
-
-    var body: some View {
-        GeometryReader { proxy in
-            let clamped = min(max(value, 0), 1)
-            let width = max(proxy.size.width * clamped, 12)
-
-            ZStack(alignment: .leading) {
-                Capsule()
-                    .fill(Color.white.opacity(0.10))
-
-                Capsule()
-                    .fill(
-                        LinearGradient(
-                            colors: [
-                                tint.opacity(0.96),
-                                tint.opacity(0.58)
-                            ],
-                            startPoint: .leading,
-                            endPoint: .trailing
-                        )
-                    )
-                    .frame(width: width)
-            }
-        }
-        .frame(height: 12)
-        .animation(.linear(duration: 0.14), value: value)
     }
 }

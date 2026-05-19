@@ -62,7 +62,7 @@ Plain Codable types. No business logic, no AVFoundation imports.
 
 | File | Contains |
 | --- | --- |
-| `AppModels.swift` | `SoundChannel` (35 cases), `BinauralTrack` (4 cases), `ChannelState`, `Preset`, `SpatialPoint`, `PersistedMixerState`. |
+| `AppModels.swift` | `SoundChannel` (35 cases), `BinauralTrack` (4 cases), `ChannelState`, `AutoVariationRange`, `Preset`, `SpatialPoint`, `PersistedMixerState`. |
 | `SoundChannelMetadata.swift` | Per-channel metadata: file name, category, location, author, licence, SF Symbol, RGB tint, tonal group. The single source of truth for the catalog. |
 | `PremiumModels.swift` | `PremiumEntryPoint`, `PremiumPaywallContext`, `PremiumInlineUpsellContext`. |
 

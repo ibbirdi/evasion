@@ -589,8 +589,14 @@ final class AudioMixerEngine: @unchecked Sendable {
                 && snapshot.hasAmbientAccess(to: channel)
 
             if shouldVary {
+                let clampedLiveValue = state.autoVariationRange.clampedValue(liveVariationVolumes[channel] ?? state.volume)
+                if liveVariationVolumes[channel] != clampedLiveValue {
+                    liveVariationVolumes[channel] = clampedLiveValue
+                    dispatchVariationChange(for: channel, value: clampedLiveValue)
+                }
+
                 if variationTasks[channel] == nil {
-                    variationTasks[channel] = startVariationTask(for: channel, initialValue: state.volume)
+                    variationTasks[channel] = startVariationTask(for: channel, initialValue: clampedLiveValue)
                 }
             } else {
                 variationTasks[channel]?.cancel()
@@ -604,7 +610,7 @@ final class AudioMixerEngine: @unchecked Sendable {
     private func startVariationTask(for channel: SoundChannel, initialValue: Double) -> Task<Void, Never> {
         Task(priority: .utility) { [weak self] in
             guard let self else { return }
-            var currentValue = initialValue
+            var currentValue = self.autoVariationRange(for: channel).clampedValue(initialValue)
             let startingValue = currentValue
 
             self.queue.async { [weak self] in
@@ -615,8 +621,9 @@ final class AudioMixerEngine: @unchecked Sendable {
             self.dispatchVariationChange(for: channel, value: startingValue)
 
             while !Task.isCancelled {
-                let delta = Double.random(in: -0.22...0.22)
-                let target = min(max(currentValue + delta, 0), 1)
+                let range = self.autoVariationRange(for: channel)
+                currentValue = range.clampedValue(currentValue)
+                let target = Double.random(in: range.lowerBound...range.upperBound)
                 let distance = abs(target - currentValue)
                 let stepDurationMilliseconds = 180
                 let rampDurationMilliseconds = Int.random(in: 14_000...24_000) + Int(distance * 12_000)
@@ -645,6 +652,15 @@ final class AudioMixerEngine: @unchecked Sendable {
                 let pauseMilliseconds = Int.random(in: 8_000...16_000)
                 try? await Task.sleep(for: .milliseconds(pauseMilliseconds))
             }
+        }
+    }
+
+    private func autoVariationRange(for channel: SoundChannel) -> AutoVariationRange {
+        queue.sync {
+            guard let state = latestSnapshot.channels[channel] else {
+                return .defaultRange(around: 0.5)
+            }
+            return state.autoVariationRange.clamped()
         }
     }
 
