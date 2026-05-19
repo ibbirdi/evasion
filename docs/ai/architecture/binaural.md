@@ -77,9 +77,6 @@ When `isBinauralActive` flips off, the active player is paused but kept allocate
 
 1. The four track cards (Delta, Theta, Alpha, Beta) with their L10n names (`binaural.track.delta`, …) and lock badges on the premium ones.
 2. A volume slider bound to `binauralVolume`.
-3. The tonal-bed toggle at the bottom (controls `AppModel.isTonalBedEnabled` — see [audio-engine.md](audio-engine.md)).
-
-Localised in 6 languages. The French copy uses "Souffle harmonique" for the tonal bed (commit `583537e`).
 
 ## Why not blend with ambient
 

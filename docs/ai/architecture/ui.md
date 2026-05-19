@@ -26,7 +26,7 @@ SwiftUI throughout. iOS 16+ baseline; some surfaces opt into iOS 26+ refinements
 ```
 RootView                     — onboarding flag check, crossfades to HomeView
 └── HomeView                 — mixer board, header, playback button
-    ├── .sheet  PresetsPanel
+    ├── .fullScreenCover PresetsPanel
     ├── .sheet  BinauralPanel
     ├── .sheet  SpatialAudioPanel
     ├── .sheet  SoundDetailSheet (per-channel)
@@ -57,9 +57,9 @@ Most overlays bind to an optional state on `AppModel` and present when non-nil:
 }
 ```
 
-### `.fullScreenCover` for paywall
+### `.fullScreenCover` for focused flows
 
-`PaywallOverlay` always presents as full-screen — no half-modal — to keep focus on the conversion moment.
+`PaywallOverlay` always presents as full-screen — no half-modal — to keep focus on the conversion moment. `PresetsPanel` also presents full-screen because it is now a management surface: save the current mix, inspect saved mixes, reorder, delete, and load. Its row actions and primary controls use the shared glass surface language for visual consistency with the mixer.
 
 ## Component library (`Views/Components/`)
 
@@ -115,7 +115,7 @@ The same identifiers serve VoiceOver and UI tests (screenshots, premium-flow tes
 - **Header + bottom bar**: `home.scroll`, `home.header.immersive`, `home.header.timer`, `home.bottom.{shuffle,playback,routepicker,presets,binaural}`.
 - **Panels** (sheets): `panel.spatial.container`, `panel.presets.container`, `panel.binaural.container`, `panel.sound-detail.container`, `panel.timer.unlock`.
 - **Spatial drag target**: `spatial.stage` — the drag stage inside `SpatialAudioPanel`. Carries `.accessibilityElement(children: .ignore)` plus a label so XCUITest can target it for synthetic drag gestures (the underlying ZStack would otherwise not register as an accessibility leaf).
-- **Presets / binaural / timer rows**: `presets.row.<id>`, `presets.name`, `presets.save`, `binaural.track.<id>`, `binaural.tonalBed.toggle`, `timer.unlock.option.<duration>`.
+- **Presets / binaural / timer rows**: `presets.row.<id>`, `presets.name`, `presets.save`, `binaural.track.<id>`, `timer.unlock.option.<duration>`.
 - **Paywall + teaser**: `premium.paywall.{container,primary,restore,close,retry,help,loading}`, `premium.library.teaser`, `premium.library.teaser.primary`, `premium.library.teaser.toggle`, `premium.banner{,.primary,.dismiss}`, `premium.inline.{primary,secondary,dismiss}`.
 
 Convention: `<surface>.<role>[.<entity>]`. Lowercase, dot-separated, no spaces. The marketing video factory's scenario JSON references these strings verbatim — see [../marketing/video-factory.md](../marketing/video-factory.md).

@@ -20,43 +20,43 @@ The 35 ambient channels and 4 binaural tracks. The single source of truth for ru
 
 ## 35 ambient channels
 
-| # | ID | Display | File | Category | Location | Author | Licence | Tonal group | SF Symbol |
-|---|---|---|---|---|---|---|---|---|---|
-| 1 | `oiseaux` | Birds | `oiseaux1.m4a` | wildlife | Nivillac, Morbihan, FR | bruno.auzet | CC0 | D3 (146.83 Hz) | `bird.fill` |
-| 2 | `vent` | Wind | `vent1.m4a` | weather | Perpignan, Occitanie, FR | Sadiquecat | CC0 | D3 | `wind` |
-| 3 | `plage` | Shore | `plage1.m4a` | water | Shetland Islands, GB | straget | **CC-BY-4.0** | B2 (123.47 Hz) | `water.waves` |
-| 4 | `goelands` | Seagulls | `goelants1.m4a` *(file mismatch — see known-issues)* | wildlife | Brittany harbour, FR | Further_Roman | CC0 | B2 | `bird` |
-| 5 | `foret` | Forest | `foret1.m4a` | forest | Kampina, North Brabant, NL | klankbeeld | **CC-BY-4.0** | D3 | `tree.fill` |
-| 6 | `pluie` | Rain | `pluie1.m4a` | weather | Voghera, Pavia, IT | Stagno | **CC-BY-4.0** | C3 minor (130.81 Hz) | `cloud.rain.fill` |
-| 7 | `tonnerre` | Storm over the plain | `orage1.m4a` *(file mismatch)* | weather | Azillanet, Hérault, FR | felix.blume | CC0 | C3 minor | `cloud.bolt.fill` |
-| 8 | `cigales` | Cicadas | `cigales1.m4a` | wildlife | Lampedusa, Sicily, IT | pablodavilla | CC0 | G3 sus4 (196 Hz) | `ladybug.fill` |
-| 9 | `grillons` | Crickets | `grillons1.m4a` | wildlife | Theneuille, Allier, FR | keng-wai-chane-chick-te | CC0 | G3 sus4 | `moon.stars` |
-| 10 | `tente` | Rain under the tent | `tente1.m4a` | shelter | Bornholm island, DK | Petrosilia | CC0 | A2 neutral (110 Hz) | `tent.fill` |
-| 11 | `riviere` | River | `riviere1.m4a` | water | Fuxing, Taoyuan, TW | calebjay | **CC-BY-4.0** | C3 open | `drop.fill` |
-| 12 | `village` | Village | `ville1.m4a` *(file mismatch)* | human | Liuzhou, Guangxi, CN | lastraindrop | CC0 | A2 neutral | `house.fill` |
-| 13 | `mer` | Sea | `mer1.m4a` | water | Epitalio, Western Greece, GR | yiorgis | CC0 | B2 | `water.waves` |
-| 14 | `orageMontagne` | Mountain storm | `orageMontagne1.m4a` | weather | Tremosine sul Garda, Brescia, IT | bruno.auzet | CC0 | C3 minor | `cloud.bolt.fill` |
-| 15 | `campfire` | Campfire | `campfire1.m4a` | fire | St. Marys River, Michigan, US | Ambient-X | **CC-BY-4.0** | A2 major | `flame.fill` |
-| 16 | `cafe` | Café | `cafe1.m4a` | human | São Paulo, BR | felix.blume | CC0 | A2 neutral | `cup.and.saucer.fill` |
-| 17 | `lac` | Lake | `lac1.m4a` | water | Fritton Lake, Norfolk, GB | Yarmonics (Martin Scaiff) | CC0 | C3 open | `sailboat.fill` |
-| 18 | `savane` | Savanna | `savane1.m4a` | wildlife | KwaZulu-Natal, ZA | eardeer | CC0 | D3 | `sun.max.fill` |
-| 19 | `jungleAmerique` | Tropical jungle | `jungleamerique1.m4a` | forest | Los Tuxtlas, Veracruz, MX | Globofonia | **CC-BY-4.0** | D3 | `leaf.fill` |
-| 20 | `jungleAsie` | Asian jungle | `jungleasie1.m4a` | forest | Chiang Mai, TH | Anantich | **CC-BY-4.0** | D3 | `cloud.fog.fill` |
-| 21 | `pluieFenetre` | Rain against the window | `pluieFenetre1.m4a` | shelter | Chiswick, London, GB | deleted_user_2104797 | CC0 | C3 minor | `window.vertical.closed` |
-| 22 | `pluieForet` | Forest rain | `pluieForet1.m4a` | forest | Leipzig area, Saxony, DE *(approx.)* | Garuda1982 | CC0 | C3 minor | `cloud.rain.fill` |
-| 23 | `fortePluie` | Heavy rain | `fortePluie1.m4a` | weather | Rural Brazil, BR | jmbphilmes | CC0 | C3 minor | `cloud.heavyrain.fill` |
-| 24 | `ventNuit` | Night wind | `ventNuit1.m4a` | weather | Cabo Raso, PT | fran_marenco | CC0 | C3 minor | `wind` |
-| 25 | `foretNuit` | Night forest | `foretNuit1.m4a` | forest | Tallgrass Prairie, Oklahoma, US | felix.blume | CC0 | D3 | `moon.stars.fill` |
-| 26 | `crueMontagne` | Mountain river | `crueMontagne1.m4a` | water | Guilin, Guangxi, CN | lastraindrop | CC0 | C3 open | `water.waves` |
-| 27 | `cascade` | Waterfall | `cascade1.m4a` | water | Graz, Styria, AT | JakobGille | CC0 | C3 open | `drop.fill` |
-| 28 | `neigeVille` | Snowflakes | `neigeVille1.m4a` | weather | Warren, Michigan, US | Ambient-X | **CC-BY-4.0** | C3 minor | `snowflake` |
-| 29 | `pluieCabane` | Rain under the cabin roof | `pluieCabane1.m4a` | shelter | Axelfors forest, SE | forestfjord | CC0 | C3 minor | `house.fill` |
-| 30 | `foretChiloe` | Chiloé forest | `foretChiloe1.m4a` | forest | Cucao, Chiloé, CL | nicola_ariutti | CC0 | D3 | `leaf.fill` |
-| 31 | `aubeJungle` | Jungle dawn | `aubeJungle1.m4a` | forest | Sian Ka'an Biosphere Reserve, MX | felix.blume | CC0 | D3 | `sunrise.fill` |
-| 32 | `port` | Harbor | `port1.m4a` | water | Pazar, Rize, TR | micmussfilm | **CC-BY-4.0** | B2 | `sailboat.fill` |
-| 33 | `chevres` | Goats with bells | `chevres1.m4a` | wildlife | Montargil, PT | Refrain | **CC-BY-4.0** | G3 sus4 | `pawprint.fill` |
-| 34 | `carillons` | Wind chimes | `carillons1.m4a` | human | Santa Fe, New Mexico, US *(approx.)* | mc2method | **CC-BY-3.0** | G3 sus4 | `music.note` |
-| 35 | `cloches` | Church bells | `cloches1.m4a` | human | Hanover, DE | inchadney | **CC-BY-4.0** | G3 sus4 | `bell.fill` |
+| # | ID | Display | File | Category | Location | Author | Licence | SF Symbol |
+|---|---|---|---|---|---|---|---|---|
+| 1 | `oiseaux` | Birds | `oiseaux1.m4a` | wildlife | Nivillac, Morbihan, FR | bruno.auzet | CC0 | `bird.fill` |
+| 2 | `vent` | Wind | `vent1.m4a` | weather | Perpignan, Occitanie, FR | Sadiquecat | CC0 | `wind` |
+| 3 | `plage` | Shore | `plage1.m4a` | water | Shetland Islands, GB | straget | **CC-BY-4.0** | `water.waves` |
+| 4 | `goelands` | Seagulls | `goelants1.m4a` *(file mismatch — see known-issues)* | wildlife | Brittany harbour, FR | Further_Roman | CC0 | `bird` |
+| 5 | `foret` | Forest | `foret1.m4a` | forest | Kampina, North Brabant, NL | klankbeeld | **CC-BY-4.0** | `tree.fill` |
+| 6 | `pluie` | Rain | `pluie1.m4a` | weather | Voghera, Pavia, IT | Stagno | **CC-BY-4.0** | `cloud.rain.fill` |
+| 7 | `tonnerre` | Storm over the plain | `orage1.m4a` *(file mismatch)* | weather | Azillanet, Hérault, FR | felix.blume | CC0 | `cloud.bolt.fill` |
+| 8 | `cigales` | Cicadas | `cigales1.m4a` | wildlife | Lampedusa, Sicily, IT | pablodavilla | CC0 | `ladybug.fill` |
+| 9 | `grillons` | Crickets | `grillons1.m4a` | wildlife | Theneuille, Allier, FR | keng-wai-chane-chick-te | CC0 | `moon.stars` |
+| 10 | `tente` | Rain under the tent | `tente1.m4a` | shelter | Bornholm island, DK | Petrosilia | CC0 | `tent.fill` |
+| 11 | `riviere` | River | `riviere1.m4a` | water | Fuxing, Taoyuan, TW | calebjay | **CC-BY-4.0** | `drop.fill` |
+| 12 | `village` | Village | `ville1.m4a` *(file mismatch)* | human | Liuzhou, Guangxi, CN | lastraindrop | CC0 | `house.fill` |
+| 13 | `mer` | Sea | `mer1.m4a` | water | Epitalio, Western Greece, GR | yiorgis | CC0 | `water.waves` |
+| 14 | `orageMontagne` | Mountain storm | `orageMontagne1.m4a` | weather | Tremosine sul Garda, Brescia, IT | bruno.auzet | CC0 | `cloud.bolt.fill` |
+| 15 | `campfire` | Campfire | `campfire1.m4a` | fire | St. Marys River, Michigan, US | Ambient-X | **CC-BY-4.0** | `flame.fill` |
+| 16 | `cafe` | Café | `cafe1.m4a` | human | São Paulo, BR | felix.blume | CC0 | `cup.and.saucer.fill` |
+| 17 | `lac` | Lake | `lac1.m4a` | water | Fritton Lake, Norfolk, GB | Yarmonics (Martin Scaiff) | CC0 | `sailboat.fill` |
+| 18 | `savane` | Savanna | `savane1.m4a` | wildlife | KwaZulu-Natal, ZA | eardeer | CC0 | `sun.max.fill` |
+| 19 | `jungleAmerique` | Tropical jungle | `jungleamerique1.m4a` | forest | Los Tuxtlas, Veracruz, MX | Globofonia | **CC-BY-4.0** | `leaf.fill` |
+| 20 | `jungleAsie` | Asian jungle | `jungleasie1.m4a` | forest | Chiang Mai, TH | Anantich | **CC-BY-4.0** | `cloud.fog.fill` |
+| 21 | `pluieFenetre` | Rain against the window | `pluieFenetre1.m4a` | shelter | Chiswick, London, GB | deleted_user_2104797 | CC0 | `window.vertical.closed` |
+| 22 | `pluieForet` | Forest rain | `pluieForet1.m4a` | forest | Leipzig area, Saxony, DE *(approx.)* | Garuda1982 | CC0 | `cloud.rain.fill` |
+| 23 | `fortePluie` | Heavy rain | `fortePluie1.m4a` | weather | Rural Brazil, BR | jmbphilmes | CC0 | `cloud.heavyrain.fill` |
+| 24 | `ventNuit` | Night wind | `ventNuit1.m4a` | weather | Cabo Raso, PT | fran_marenco | CC0 | `wind` |
+| 25 | `foretNuit` | Night forest | `foretNuit1.m4a` | forest | Tallgrass Prairie, Oklahoma, US | felix.blume | CC0 | `moon.stars.fill` |
+| 26 | `crueMontagne` | Mountain river | `crueMontagne1.m4a` | water | Guilin, Guangxi, CN | lastraindrop | CC0 | `water.waves` |
+| 27 | `cascade` | Waterfall | `cascade1.m4a` | water | Graz, Styria, AT | JakobGille | CC0 | `drop.fill` |
+| 28 | `neigeVille` | Snowflakes | `neigeVille1.m4a` | weather | Warren, Michigan, US | Ambient-X | **CC-BY-4.0** | `snowflake` |
+| 29 | `pluieCabane` | Rain under the cabin roof | `pluieCabane1.m4a` | shelter | Axelfors forest, SE | forestfjord | CC0 | `house.fill` |
+| 30 | `foretChiloe` | Chiloé forest | `foretChiloe1.m4a` | forest | Cucao, Chiloé, CL | nicola_ariutti | CC0 | `leaf.fill` |
+| 31 | `aubeJungle` | Jungle dawn | `aubeJungle1.m4a` | forest | Sian Ka'an Biosphere Reserve, MX | felix.blume | CC0 | `sunrise.fill` |
+| 32 | `port` | Harbor | `port1.m4a` | water | Pazar, Rize, TR | micmussfilm | **CC-BY-4.0** | `sailboat.fill` |
+| 33 | `chevres` | Goats with bells | `chevres1.m4a` | wildlife | Montargil, PT | Refrain | **CC-BY-4.0** | `pawprint.fill` |
+| 34 | `carillons` | Wind chimes | `carillons1.m4a` | human | Santa Fe, New Mexico, US *(approx.)* | mc2method | **CC-BY-3.0** | `music.note` |
+| 35 | `cloches` | Church bells | `cloches1.m4a` | human | Hanover, DE | inchadney | **CC-BY-4.0** | `bell.fill` |
 
 **Free tier**: `oiseaux`, `vent`, `plage` (channels 1–3). Everything else is premium.
 
@@ -114,7 +114,7 @@ Generated by [`scripts/generateBinauralSounds.py`](../../../scripts/generateBina
 1. Encode the file via `convert_new_sounds.sh` (don't shortcut the pipeline).
 2. Place the `.m4a` in the bundle path used by `SoundChannelMetadata.swift`.
 3. Add a `SoundChannel` enum case in `Models/AppModels.swift` (lowercase French ID).
-4. Add the metadata entry in `SoundChannelMetadata.swift`: file, location, author, licence, freesound URL, tonal group, SF symbol, RGB tint.
+4. Add the metadata entry in `SoundChannelMetadata.swift`: file, location, author, licence, freesound URL, SF symbol, RGB tint.
 5. Add `channel.<id>`, `channel.<id>.long`, `channel.<id>.location` keys in `Localizable.xcstrings` for all 6 locales (use `scripts/add_channel_translations.py`).
 6. Bump the "35 sounds" claim — this number appears in fastlane metadata for 6 locales (subheads, descriptions) and in screenshots `01_hero`, `09_library_teaser`. Update [marketing/aso-strategy.md](../marketing/aso-strategy.md) and re-render screenshots.
 7. Update this file (`content/sounds-catalog.md`) with the new row and bump `last_updated`.

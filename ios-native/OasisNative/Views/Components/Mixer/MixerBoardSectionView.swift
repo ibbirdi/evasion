@@ -103,20 +103,19 @@ struct SoundRowView: View {
         .accessibilityIdentifier("channel.row.\(channel.id)")
         .background {
             // Active rows: frosted material + a soft channel-tint wash. Inactive rows:
-            // lighter material, almost no tint. The signal of activity comes from the tint
-            // and the border — no glow shadow (was main scroll-jank source) and no scale
-            // change (forced layout invalidation on state mutation).
+            // lighter material, almost no tint. Keep activity readable through the wash
+            // and controls, without a colored outline around active rows.
             ZStack {
-                RoundedRectangle(cornerRadius: 18, style: .continuous)
+                Rectangle()
                     .fill(isActive ? AnyShapeStyle(.ultraThinMaterial) : AnyShapeStyle(.thinMaterial))
                     .opacity(isActive ? 1 : 0.45)
-                RoundedRectangle(cornerRadius: 18, style: .continuous)
-                    .fill(channelTint)
+                Rectangle()
+                    .fill(channelBackgroundGradient)
             }
         }
         .overlay {
-            RoundedRectangle(cornerRadius: 18, style: .continuous)
-                .strokeBorder(borderStyle, lineWidth: isActive ? 1.0 : 0.8)
+            Rectangle()
+                .strokeBorder(borderStyle, lineWidth: 0.8)
         }
         .opacity(isLocked ? 0.84 : (isActive ? 1 : 0.82))
         .animation(.easeInOut(duration: 0.18), value: state.isMuted)
@@ -124,10 +123,7 @@ struct SoundRowView: View {
     }
 
     private var borderStyle: AnyShapeStyle {
-        if isActive {
-            return AnyShapeStyle(channel.tint.opacity(0.42))
-        }
-        return AnyShapeStyle(Color.white.opacity(0.05))
+        AnyShapeStyle(Color.white.opacity(isActive ? 0.07 : 0.05))
     }
 
     // MARK: - Identity row (tap to open detail sheet)
@@ -367,13 +363,30 @@ struct SoundRowView: View {
         return 1
     }
 
-    private var channelTint: Color {
+    private var channelBackgroundGradient: LinearGradient {
         if isActive {
             // Subtle coloured wash. Just enough to signal "this track is part of the mix"
             // without reading as a glow.
-            return channel.tint.opacity(state.autoVariationEnabled ? 0.13 : 0.10)
+            let leadingOpacity = state.autoVariationEnabled ? 0.17 : 0.14
+            return LinearGradient(
+                colors: [
+                    channel.tint.opacity(leadingOpacity),
+                    channel.tint.opacity(leadingOpacity * 0.56),
+                    Color.white.opacity(0.025)
+                ],
+                startPoint: .leading,
+                endPoint: .trailing
+            )
         }
-        return Color.white.opacity(state.isMuted && !isLocked ? 0.02 : 0.03)
+
+        return LinearGradient(
+            colors: [
+                Color.white.opacity(state.isMuted && !isLocked ? 0.026 : 0.036),
+                Color.white.opacity(0.014)
+            ],
+            startPoint: .leading,
+            endPoint: .trailing
+        )
     }
 
     private var buttonForeground: Color {

@@ -2,6 +2,7 @@ import SwiftUI
 
 struct PresetsPanel: View {
     @Environment(AppModel.self) private var model
+    @Environment(\.dismiss) private var dismiss
     @FocusState private var isNamingPreset: Bool
     @State private var newPresetName = ""
     @State private var activeDragPresetID: String?
@@ -13,62 +14,50 @@ struct PresetsPanel: View {
     }
 
     var body: some View {
-        VStack(spacing: 16) {
-            VStack(spacing: 6) {
-                Image(systemName: model.currentPresetID == nil ? "bookmark" : "bookmark.fill")
-                    .font(.system(size: 18, weight: .semibold))
-                    .foregroundStyle(LiquidActivityPalette.preset[0])
+        ZStack {
+            PresetsPanelBackground()
 
-                Text(L10n.Presets.panelTitle)
-                    .font(.system(size: 24, weight: .semibold, design: .rounded))
-                    .foregroundStyle(.white)
+            VStack(spacing: 0) {
+                header
 
-                Text(L10n.Presets.panelSubtitle)
-                    .font(.system(size: 13, weight: .medium, design: .rounded))
-                    .foregroundStyle(.white.opacity(0.58))
-                    .multilineTextAlignment(.center)
+                ScrollView(showsIndicators: false) {
+                    VStack(spacing: 18) {
+                        if let presentation = model.presetsUpsellPresentation {
+                            PremiumInlineUpsellCard(
+                                presentation: presentation,
+                                onPrimaryAction: {
+                                    if let entryPoint = model.activeInlineUpsell?.entryPoint {
+                                        model.presentPaywall(from: entryPoint)
+                                    }
+                                },
+                                onSecondaryAction: {
+                                    if model.isSignaturePreviewAvailable {
+                                        model.startSignaturePreview()
+                                    } else {
+                                        model.dismissInlineUpsell()
+                                    }
+                                },
+                                onDismiss: {
+                                    model.dismissInlineUpsell()
+                                }
+                            )
+                        }
 
-                if model.isSignaturePreviewActive {
-                    Text(L10n.Premium.previewPlaying)
-                        .font(.system(size: 11, weight: .semibold, design: .rounded))
-                        .foregroundStyle(LiquidActivityPalette.preset[0].opacity(0.90))
-                        .padding(.top, 2)
+                        saveSection
+                        presetsSection
+                    }
+                    .padding(.horizontal, 20)
+                    .padding(.top, 12)
+                    .padding(.bottom, 34)
+                }
+                .coordinateSpace(name: "presetPanel")
+                .scrollDismissesKeyboard(.interactively)
+                .onPreferenceChange(PresetRowMidpointKey.self) { value in
+                    rowMidpoints = value
                 }
             }
-            .frame(maxWidth: .infinity)
-            .padding(.top, 18)
-
-            if let presentation = model.presetsUpsellPresentation {
-                PremiumInlineUpsellCard(
-                    presentation: presentation,
-                    onPrimaryAction: {
-                        if let entryPoint = model.activeInlineUpsell?.entryPoint {
-                            model.presentPaywall(from: entryPoint)
-                        }
-                    },
-                    onSecondaryAction: {
-                        if model.isSignaturePreviewAvailable {
-                            model.startSignaturePreview()
-                        } else {
-                            model.dismissInlineUpsell()
-                        }
-                    },
-                    onDismiss: {
-                        model.dismissInlineUpsell()
-                    }
-                )
-                .padding(.horizontal, 20)
-            }
-
-            presetsList
-                .padding(.horizontal, 20)
-
-            saveComposer
-                .padding(.horizontal, 20)
-                .padding(.bottom, 16)
         }
         .frame(maxWidth: .infinity, alignment: .top)
-        .background(.clear)
         .accessibilityElement(children: .contain)
         .accessibilityIdentifier("panel.presets.container")
         .onDisappear {
@@ -76,29 +65,51 @@ struct PresetsPanel: View {
         }
     }
 
-    @ViewBuilder
-    private var presetsList: some View {
-        if model.presets.count <= 4 {
-            VStack(spacing: 8) {
-                presetRows
+    private var header: some View {
+        HStack(spacing: 14) {
+            ZStack {
+                Circle()
+                    .fill(LiquidActivityPalette.preset[0].opacity(0.18))
+
+                Image(systemName: model.currentPresetID == nil ? "bookmark" : "bookmark.fill")
+                    .font(.system(size: 17, weight: .semibold))
+                    .foregroundStyle(LiquidActivityPalette.preset[0])
+                    .symbolRenderingMode(.hierarchical)
             }
-            .coordinateSpace(name: "presetPanel")
-            .onPreferenceChange(PresetRowMidpointKey.self) { value in
-                rowMidpoints = value
+            .frame(width: 44, height: 44)
+
+            VStack(alignment: .leading, spacing: 4) {
+                Text(L10n.Presets.panelTitle)
+                    .font(.system(size: 28, weight: .semibold, design: .rounded))
+                    .foregroundStyle(.white)
+
+                Text(L10n.Presets.panelSubtitle)
+                    .font(.system(size: 13, weight: .medium, design: .rounded))
+                    .foregroundStyle(.white.opacity(0.58))
+                    .lineLimit(2)
             }
-        } else {
-            ScrollView(showsIndicators: false) {
-                LazyVStack(spacing: 8) {
-                    presetRows
-                }
+
+            Spacer(minLength: 8)
+
+            Button {
+                dismiss()
+            } label: {
+                Image(systemName: "xmark")
+                    .font(.system(size: 13, weight: .bold))
+                    .foregroundStyle(.white.opacity(0.84))
+                    .frame(width: 36, height: 36)
+                    .presetGlassButtonBackground(
+                        in: Circle(),
+                        tint: Color.white.opacity(0.025),
+                        border: Color.white.opacity(0.10)
+                    )
             }
-            .coordinateSpace(name: "presetPanel")
-            .scrollDismissesKeyboard(.never)
-            .onPreferenceChange(PresetRowMidpointKey.self) { value in
-                rowMidpoints = value
-            }
-            .frame(maxHeight: 320)
+            .accessibilityLabel(Text(L10n.Presets.close))
+            .buttonStyle(PresetButtonScaleStyle())
         }
+        .padding(.horizontal, 20)
+        .padding(.top, 18)
+        .padding(.bottom, 8)
     }
 
     @ViewBuilder
@@ -144,49 +155,102 @@ struct PresetsPanel: View {
         }
     }
 
-    private var saveComposer: some View {
-        HStack(spacing: 8) {
-            TextField("", text: $newPresetName, prompt: Text(L10n.Presets.namePrompt))
-                .textInputAutocapitalization(.words)
-                .disableAutocorrection(true)
-                .textContentType(nil)
-                .focused($isNamingPreset)
-                .submitLabel(.done)
-                .onSubmit(savePreset)
-                .accessibilityIdentifier("presets.name")
-                .padding(.horizontal, 14)
-                .frame(height: 42)
-                .background {
-                    RoundedRectangle(cornerRadius: 18, style: .continuous)
-                        .fill(.regularMaterial)
-                        .overlay {
-                            RoundedRectangle(cornerRadius: 18, style: .continuous)
-                                .fill(Color.white.opacity(0.02))
-                        }
-                }
-                .overlay {
-                    RoundedRectangle(cornerRadius: 18, style: .continuous)
-                        .strokeBorder(Color.white.opacity(0.08), lineWidth: 1)
+    private var saveSection: some View {
+        GlassSurface(
+            tint: LiquidActivityPalette.preset[0].opacity(0.08),
+            cornerRadius: 26,
+            padding: EdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16)
+        ) {
+            VStack(alignment: .leading, spacing: 14) {
+                HStack(alignment: .top, spacing: 12) {
+                    Image(systemName: "plus.circle.fill")
+                        .font(.system(size: 23, weight: .semibold))
+                        .foregroundStyle(LiquidActivityPalette.preset[0])
+                        .symbolRenderingMode(.hierarchical)
+
+                    VStack(alignment: .leading, spacing: 3) {
+                        Text(L10n.Presets.saveSectionTitle)
+                            .font(.system(size: 17, weight: .semibold, design: .rounded))
+                            .foregroundStyle(.white)
+
+                        Text(L10n.Presets.saveSectionSubtitle)
+                            .font(.system(size: 12, weight: .medium, design: .rounded))
+                            .foregroundStyle(.white.opacity(0.52))
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+
+                    Spacer(minLength: 0)
                 }
 
-            Button(action: savePreset) {
-                Image(systemName: "plus")
-                    .font(.system(size: 16, weight: .bold))
+                HStack(spacing: 10) {
+                    TextField("", text: $newPresetName, prompt: Text(L10n.Presets.namePrompt))
+                        .textInputAutocapitalization(.words)
+                        .disableAutocorrection(true)
+                        .textContentType(nil)
+                        .focused($isNamingPreset)
+                        .submitLabel(.done)
+                        .onSubmit(savePreset)
+                        .accessibilityIdentifier("presets.name")
+                        .padding(.horizontal, 14)
+                        .frame(height: 46)
+                        .background {
+                            RoundedRectangle(cornerRadius: 17, style: .continuous)
+                                .fill(Color.black.opacity(0.18))
+                        }
+                        .overlay {
+                            RoundedRectangle(cornerRadius: 17, style: .continuous)
+                                .strokeBorder(Color.white.opacity(isNamingPreset ? 0.18 : 0.08), lineWidth: 1)
+                        }
+
+                    Button(action: savePreset) {
+                        Label {
+                            Text(L10n.Presets.saveAction)
+                        } icon: {
+                            Image(systemName: "plus")
+                        }
+                        .font(.system(size: 13, weight: .semibold, design: .rounded))
+                        .foregroundStyle(.white)
+                        .padding(.horizontal, 14)
+                        .frame(height: 46)
+                        .presetGlassButtonBackground(
+                            in: Capsule(),
+                            tint: LiquidActivityPalette.preset[0].opacity(0.22),
+                            border: LiquidActivityPalette.preset[0].opacity(0.34),
+                            shadowOpacity: 0.12
+                        )
+                    }
+                    .accessibilityIdentifier("presets.save")
+                    .buttonStyle(PresetButtonScaleStyle())
+                    .disabled(newPresetName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                    .opacity(newPresetName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? 0.48 : 1)
+                }
+            }
+        }
+    }
+
+    private var presetsSection: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            HStack(alignment: .firstTextBaseline) {
+                Text(L10n.Presets.listSectionTitle)
+                    .font(.system(size: 18, weight: .semibold, design: .rounded))
                     .foregroundStyle(.white)
-                    .frame(width: 42, height: 42)
+
+                Spacer(minLength: 0)
+
+                Text("\(model.presets.count)")
+                    .font(.system(size: 12, weight: .bold, design: .rounded))
+                    .foregroundStyle(LiquidActivityPalette.preset[0])
+                    .padding(.horizontal, 9)
+                    .padding(.vertical, 5)
                     .background {
-                        Circle()
-                            .fill(.regularMaterial)
-                            .overlay {
-                                Circle()
-                                    .fill(Color.white.opacity(0.02))
-                            }
+                        Capsule()
+                            .fill(LiquidActivityPalette.preset[0].opacity(0.14))
                     }
             }
-            .accessibilityIdentifier("presets.save")
-            .buttonStyle(PresetButtonScaleStyle())
-            .disabled(newPresetName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
-            .opacity(newPresetName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? 0.55 : 1)
+
+            LazyVStack(spacing: 10) {
+                presetRows
+            }
         }
     }
 
@@ -269,7 +333,7 @@ private struct PresetRow: View {
     }
 
     var body: some View {
-        HStack(spacing: 8) {
+        HStack(spacing: 10) {
             Button(action: onSelect) {
                 rowContent
                     .accessibilityElement(children: .combine)
@@ -277,6 +341,7 @@ private struct PresetRow: View {
             }
             .accessibilityIdentifier("presets.row.\(preset.id)")
             .buttonStyle(PresetButtonScaleStyle())
+            .frame(maxWidth: .infinity, alignment: .leading)
 
             if showsReorderControl {
                 reorderHandle
@@ -286,61 +351,97 @@ private struct PresetRow: View {
                 deleteButton
             }
         }
+        .padding(.horizontal, 11)
+        .padding(.vertical, 10)
+        .presetGlassButtonBackground(
+            in: RoundedRectangle(cornerRadius: 22, style: .continuous),
+            tint: isActive ? rowTint.opacity(0.13) : Color.white.opacity(0.018),
+            border: isActive ? rowTint.opacity(0.36) : Color.white.opacity(0.07),
+            shadowOpacity: isActive ? 0.18 : 0.08,
+            shadowRadius: isActive ? 18 : 10
+        )
         .opacity(isDragging ? 0.92 : 1)
+        .opacity(isLocked ? 0.90 : 1)
     }
 
     private var rowContent: some View {
-        HStack(spacing: 10) {
-            VStack(alignment: .leading, spacing: 0) {
+        HStack(spacing: 12) {
+            iconWell
+
+            VStack(alignment: .leading, spacing: 5) {
                 Text(model.presetDisplayName(preset))
-                    .font(.system(size: 15, weight: .semibold, design: .rounded))
+                    .font(.system(size: 16, weight: .semibold, design: .rounded))
                     .foregroundStyle(isLocked ? .white.opacity(0.62) : .white)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .lineLimit(1)
 
-                if isLocked {
-                    Text(L10n.Mixer.statusPremium)
-                        .font(.system(size: 9, weight: .semibold, design: .rounded))
-                        .foregroundStyle(.white.opacity(0.42))
-                        .tracking(1.0)
-                }
+                Text(statusLabel)
+                    .font(.system(size: 10, weight: .semibold, design: .rounded))
+                    .foregroundStyle(statusTint)
+                    .tracking(0.9)
+                    .textCase(.uppercase)
+                    .lineLimit(1)
             }
 
-            if isLocked {
-                Image(systemName: "lock.fill")
-                    .font(.system(size: 12, weight: .bold))
-                    .foregroundStyle(.white.opacity(0.44))
-            } else if isActive {
-                Image(systemName: "checkmark.circle.fill")
-                    .font(.system(size: 15, weight: .semibold))
-                    .foregroundStyle(rowTint)
-            }
+            Spacer(minLength: 0)
         }
-        .padding(.horizontal, 12)
-        .padding(.vertical, 11)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background {
-            RoundedRectangle(cornerRadius: 18, style: .continuous)
-                .fill(.thinMaterial)
-                .overlay {
-                    RoundedRectangle(cornerRadius: 18, style: .continuous)
-                        .fill(isActive ? rowTint.opacity(0.14) : Color.white.opacity(0.018))
-                }
+        .contentShape(Rectangle())
+    }
+
+    private var iconWell: some View {
+        ZStack {
+            Circle()
+                .fill(iconTint.opacity(isLocked ? 0.10 : 0.18))
+
+            Image(systemName: iconName)
+                .font(.system(size: 14, weight: .bold))
+                .foregroundStyle(iconTint)
+                .symbolRenderingMode(.hierarchical)
         }
-        .overlay {
-            RoundedRectangle(cornerRadius: 18, style: .continuous)
-                .strokeBorder(isActive ? rowTint.opacity(0.30) : Color.white.opacity(0.06), lineWidth: 1)
-        }
-        .opacity(isLocked ? 0.88 : 1)
+        .frame(width: 38, height: 38)
+    }
+
+    private var iconName: String {
+        if isLocked { return "lock.fill" }
+        if isActive { return "checkmark" }
+        return preset.isUser ? "bookmark.fill" : "sparkles"
+    }
+
+    private var iconTint: Color {
+        if isLocked { return .white.opacity(0.42) }
+        if isActive { return rowTint }
+        return .white.opacity(0.72)
+    }
+
+    private var statusLabel: LocalizedStringResource {
+        if isLocked { return L10n.Mixer.statusPremium }
+        if isActive { return L10n.Presets.statusActive }
+        if preset.isUser { return L10n.Presets.statusSaved }
+        return L10n.Presets.statusOasis
+    }
+
+    private var statusTint: Color {
+        if isLocked { return .white.opacity(0.42) }
+        if isActive { return rowTint.opacity(0.92) }
+        return .white.opacity(0.42)
     }
 
     private var reorderHandle: some View {
         Image(systemName: "line.3.horizontal")
             .font(.system(size: 14, weight: .semibold))
             .foregroundStyle(.white.opacity(isReorderEnabled ? 0.72 : 0.32))
-            .frame(width: 30, height: 30)
-            .contentShape(Rectangle())
+            .frame(width: 34, height: 34)
+            .presetGlassButtonBackground(
+                in: Circle(),
+                tint: Color.white.opacity(isReorderEnabled ? 0.045 : 0.018),
+                border: Color.white.opacity(isReorderEnabled ? 0.10 : 0.045),
+                shadowOpacity: 0.06,
+                shadowRadius: 8
+            )
+            .contentShape(Circle())
             .allowsHitTesting(isReorderEnabled)
+            .accessibilityLabel(Text(L10n.Presets.reorderAction))
             .gesture(
                 DragGesture(minimumDistance: 2, coordinateSpace: .named("presetPanel"))
                     .onChanged { value in
@@ -360,16 +461,16 @@ private struct PresetRow: View {
                 .font(.system(size: 12, weight: .bold))
                 .foregroundStyle(.white.opacity(0.84))
                 .frame(width: 34, height: 34)
-                .background {
-                    Circle()
-                        .fill(.regularMaterial)
-                        .overlay {
-                            Circle()
-                                .fill(Color.white.opacity(0.02))
-                        }
-                }
+                .presetGlassButtonBackground(
+                    in: Circle(),
+                    tint: Color.white.opacity(0.035),
+                    border: Color.white.opacity(0.10),
+                    shadowOpacity: 0.08,
+                    shadowRadius: 8
+                )
         }
         .buttonStyle(PresetButtonScaleStyle())
+        .accessibilityLabel(Text(L10n.Presets.deleteAction))
         .disabled(!isDeleteEnabled)
         .opacity(isDeleteEnabled ? 1 : 0.36)
     }
@@ -378,6 +479,31 @@ private struct PresetRow: View {
         let palette = SoundChannel.allCases.map(\.tint)
         let index = max(model.presets.firstIndex(where: { $0.id == preset.id }) ?? 0, 0)
         return palette[index % palette.count]
+    }
+}
+
+private extension View {
+    func presetGlassButtonBackground<S: InsettableShape>(
+        in shape: S,
+        tint: Color,
+        border: Color,
+        shadowOpacity: Double = 0.10,
+        shadowRadius: CGFloat = 12
+    ) -> some View {
+        background {
+            shape
+                .fill(Color.white.opacity(0.001))
+                .oasisGlassEffect(in: shape)
+                .overlay {
+                    shape
+                        .fill(tint)
+                }
+        }
+        .overlay {
+            shape
+                .strokeBorder(border, lineWidth: 1)
+        }
+        .shadow(color: Color.black.opacity(shadowOpacity), radius: shadowRadius, y: 6)
     }
 }
 
@@ -395,6 +521,35 @@ private struct PresetButtonScaleStyle: ButtonStyle {
                 .scaleEffect(configuration.isPressed ? 0.97 : 1)
                 .animation(.easeInOut(duration: 0.14), value: configuration.isPressed)
         }
+    }
+}
+
+private struct PresetsPanelBackground: View {
+    var body: some View {
+        ZStack {
+            Color(red: 0.035, green: 0.034, blue: 0.032)
+
+            LinearGradient(
+                colors: [
+                    LiquidActivityPalette.preset[0].opacity(0.18),
+                    LiquidActivityPalette.preset[1].opacity(0.08),
+                    Color.black.opacity(0.40)
+                ],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+
+            LinearGradient(
+                colors: [
+                    Color.clear,
+                    Color.black.opacity(0.30),
+                    Color.black.opacity(0.62)
+                ],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+        }
+        .ignoresSafeArea()
     }
 }
 

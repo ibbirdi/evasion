@@ -61,7 +61,7 @@ product/         — what Oasis is, why it exists, who it serves
 
 architecture/    — how the app works internally
   overview.md         Modules, data flow, key dependencies
-  audio-engine.md     AVAudioEngine graph, loops, fades, spatial, tonal bed
+  audio-engine.md     AVAudioEngine graph, loops, fades, spatial
   binaural.md         Delta/Theta/Alpha/Beta — separate AVAudioPlayer per track
   state.md            AppModel, persistence, presets, observability
   paywall.md          RevenueCat integration, entitlement, gating points

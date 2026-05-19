@@ -15,7 +15,7 @@ related:
 
 ## What Oasis is
 
-A native iOS ambient mixer. The user combines up to 35 hand-curated field recordings, optional per-sound placement, optional binaural brainwave tracks, and an optional procedural harmonic pad ("souffle harmonique" / tonal bed). They save mixes as presets and run them with a sleep timer.
+A native iOS ambient mixer. The user combines up to 35 hand-curated field recordings, optional per-sound placement, and optional binaural brainwave tracks. They save mixes as presets and run them with a sleep timer.
 
 ## Who it serves
 
@@ -35,7 +35,7 @@ Sleep / wellness audio apps are dominated by subscription products (Calm, Headsp
 - **One-time lifetime purchase.** No subscription, ever. Every future premium sound included.
 - **Offline-first.** ~426 MB bundled audio. Works on a plane, in a tent, off-grid.
 - **Authenticity.** Each ambient channel is a real field recording from a real place, with the author and licence shown in-app.
-- **Craft.** Per-sound placement, binaural tracks, harmonic pad — features that long-running listeners notice over days.
+- **Craft.** Per-sound placement, binaural tracks, auto-variation, and presets — features that long-running listeners notice over days.
 
 ## What Oasis is NOT
 

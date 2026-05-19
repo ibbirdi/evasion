@@ -45,7 +45,6 @@ Every visible copy moment should be readable from at least 2 of these four conte
 5. **100 % offline.** No streaming, no account. → Plane, tent, off-grid. Underlines no-subscription stance ("you actually own it").
 
 Secondary moats (not headline material but supporting evidence):
-- Tonal bed / harmonic pad
 - Auto-variation
 - Presets (premium)
 - Sleep timer

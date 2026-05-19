@@ -29,7 +29,6 @@
 		3837C075503216E0A23EE915 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540A77013151E8A35B54323 /* OnboardingView.swift */; };
 		39B26BF030040D0E5D4B293C /* BottomBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033C60A95051A14ED6A399DE /* BottomBarView.swift */; };
 		42CD6E196A8CD9F42B6CC430 /* SoundDetailSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D17A6F91CF3BF540581858 /* SoundDetailSheet.swift */; };
-		460C883686531EB16CCE2A7F /* TonalBedSynth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0467DCB186391252C9BF9B80 /* TonalBedSynth.swift */; };
 		466243EC61105BEFFBA513C9 /* goelants1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 81F529689D0796BA36597F71 /* goelants1.m4a */; };
 		4968538AB1ADEA5C13478CEA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD0AE75B18E507CE49604115 /* Foundation.framework */; };
 		4AB9635DBD532E4986DC108D /* SoundChannelMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB2B954A30853038E3CBAD7 /* SoundChannelMetadata.swift */; };
@@ -108,7 +107,6 @@
 /* Begin PBXFileReference section */
 		0327811F88C3A11432F23565 /* Assets.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		033C60A95051A14ED6A399DE /* BottomBarView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BottomBarView.swift; sourceTree = "<group>"; };
-		0467DCB186391252C9BF9B80 /* TonalBedSynth.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TonalBedSynth.swift; sourceTree = "<group>"; };
 		0583A9E3C0C53BFC58D08FA7 /* PremiumModels.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PremiumModels.swift; sourceTree = "<group>"; };
 		09041B5C9411241968F523F7 /* HomeHeaderView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HomeHeaderView.swift; sourceTree = "<group>"; };
 		1023573411684D26E39A438F /* mer1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = mer1.m4a; sourceTree = "<group>"; };
@@ -380,7 +378,6 @@
 				FF7FE75507E1A7EEAF34EBDE /* PremiumCoordinator.swift */,
 				86B527B16C9A4033095F6805 /* PremiumRevenueCatService.swift */,
 				715A425FF5BECA00D6A045F2 /* TelemetryDeckAnalyticsSink.swift */,
-				0467DCB186391252C9BF9B80 /* TonalBedSynth.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -649,7 +646,6 @@
 				AA2F86FE2F4E287AB6E6F7B6 /* PremiumCoordinator.swift in Sources */,
 				1F7B7F858307814D6D9DD1A6 /* PremiumRevenueCatService.swift in Sources */,
 				965F34A0DDD51047CE8E5796 /* TelemetryDeckAnalyticsSink.swift in Sources */,
-				460C883686531EB16CCE2A7F /* TonalBedSynth.swift in Sources */,
 				19771A3E3BB2E997A3016D17 /* AppConfiguration.swift in Sources */,
 				5E2C4EB5DD534F5853F3334F /* L10n.swift in Sources */,
 				C9C70BEEC6B1B82C7C406072 /* LiquidAuraShaders.metal in Sources */,

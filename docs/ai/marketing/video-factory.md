@@ -1,7 +1,7 @@
 ---
 title: Marketing Video Factory
 status: stable
-last_updated: 2026-05-17
+last_updated: 2026-05-19
 tracks:
   - "marketing-video-factory/**"
   - "ios-native/OasisNativeUITests/MarketingScenarioRunner.swift"
@@ -46,7 +46,7 @@ Accessibility identifiers used by scenarios (see [`architecture/ui.md`](../archi
 - `home.bottom.{shuffle,playback,presets,binaural}`, `home.header.timer`, `home.scroll`
 - `panel.{spatial,presets,binaural,sound-detail}.container`, `panel.timer.unlock`
 - `spatial.stage` — drag target on the sound-placement widget
-- `presets.row.<id>`, `binaural.track.<id>`, `binaural.tonalBed.toggle`
+- `presets.row.<id>`, `binaural.track.<id>`
 - Paywall surfaces — `premium.paywall.{container,primary,restore,close}`, `premium.library.teaser{,.primary}`
 
 If a scenario needs a UI element that isn't yet identified, the rule is: add `.accessibilityIdentifier("…")` (plus `.accessibilityElement(children: .ignore)` and a label if the view is gesture-only) on the SwiftUI view. Never modify app logic for the marketing factory.

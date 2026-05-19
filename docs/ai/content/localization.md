@@ -61,6 +61,8 @@ errors.<key>
 
 `header.immersive`, `header.immersive.sound`, `header.immersive.enabled`, and `header.immersive.disabled` localize the home toolbar toggle, its active visible label, and its accessibility value.
 
+The full-screen presets panel uses `presets.save.*`, `presets.list.*`, and `presets.status.*` keys for its save card, list section, and row badges.
+
 When adding a new channel, run [`scripts/add_channel_translations.py`](../../../scripts/add_channel_translations.py) to scaffold or refresh the three `channel.<id>.*` entries in all 6 locales. The helper reflects the current 35-channel catalog, including the 2026-05 rain/forest/water/wildlife/human additions; do not reintroduce retired `train` / `carRide` keys.
 
 ### Special characters
@@ -117,7 +119,6 @@ Each locale has its own ASC view: name, subtitle, description, keywords, promoti
 ## Feature notes
 
 - The legacy `selectedLanguage` field in `PersistedMixerState` is unused (kept for backward compat). The app honours the system locale; there is no in-app language picker.
-- The "Souffle harmonique" rename (commit `583537e`) is the canonical French translation for "tonal bed" / "ambient pad". Don't substitute "musique" or "fond" — that's been deliberately rejected.
 - Premium sound-library and sound-paywall copy should list current nature channels only. The canonical exemplar set is rain / forest / thunder / river / sea, localized per locale.
 - ASO keyword fields intentionally avoid baby / parent targeting. Use adult moments instead: study, reading, work, travel, sleep, calm.
 - User-facing ASO and onboarding copy should not claim "3D audio" / "spatial audio". Use localized sound-placement language instead (`sound placement`, `placement sonore`, `Klangplatzierung`, `ubicación sonora`, `posizione dei suoni`, `posição dos sons`).

@@ -35,9 +35,7 @@ Oasis is a single-target iOS native app. SwiftUI for everything visible, AVFound
    ┌──────────────┐ ┌──────────────┐ ┌──────────────────────────┐
    │ AudioMixer   │ │ Premium      │ │ RevenueCatObserver       │
    │ Engine       │ │ Coordinator  │ │ + PremiumRevenueCatSvc   │
-   │ + TonalBed   │ └──────────────┘ └──────────────────────────┘
-   │   Synth      │
-   └──────────────┘
+   └──────────────┘ └──────────────┘ └──────────────────────────┘
 
               ┌────────────────────────┐
               │   RootView             │  ← onboarding, root navigation
@@ -60,8 +58,7 @@ Oasis is a single-target iOS native app. SwiftUI for everything visible, AVFound
 | --- | --- | --- |
 | `OasisNativeApp` | [OasisNativeApp.swift](../../../ios-native/OasisNative/OasisNativeApp.swift) | Entry point. Configures `Purchases` (RevenueCat) and TelemetryDeck. Instantiates `AppModel`. |
 | `AppModel` | [Services/AppModel.swift](../../../ios-native/OasisNative/Services/AppModel.swift) | Hub. `@Observable @MainActor`. Owns mix state, per-channel auto-variation ranges, immersive audio toggle, presets, premium state, timer, engagement metrics. Bridges UI ↔ engine ↔ RevenueCat. See [state.md](state.md). |
-| `AudioMixerEngine` | [Services/AudioMixerEngine.swift](../../../ios-native/OasisNative/Services/AudioMixerEngine.swift) | The audio graph. `AVAudioEngine` + `AVAudioEnvironmentNode` + 35 `AVAudioPlayerNode` + `TonalBedSynth`. Handles loops, fades, spatial/immersive profiles, remote commands. See [audio-engine.md](audio-engine.md). |
-| `TonalBedSynth` | [Services/TonalBedSynth.swift](../../../ios-native/OasisNative/Services/TonalBedSynth.swift) | Procedural 3-voice harmonic pad. `AVAudioSourceNode`. Locked to the dominant channel's tonal group. |
+| `AudioMixerEngine` | [Services/AudioMixerEngine.swift](../../../ios-native/OasisNative/Services/AudioMixerEngine.swift) | The audio graph. `AVAudioEngine` + `AVAudioEnvironmentNode` + 35 `AVAudioPlayerNode`. Handles loops, fades, spatial/immersive profiles, remote commands. See [audio-engine.md](audio-engine.md). |
 | `PremiumCoordinator` | [Services/PremiumCoordinator.swift](../../../ios-native/OasisNative/Services/PremiumCoordinator.swift) | Routes premium requests to inline-upsell or full-paywall. See [paywall.md](paywall.md). |
 | `PremiumRevenueCatService` | [Services/PremiumRevenueCatService.swift](../../../ios-native/OasisNative/Services/PremiumRevenueCatService.swift) | Thin wrapper around `Purchases.shared` (purchase, restore, fetch offerings). |
 | `RevenueCatObserver` | [Services/](../../../ios-native/OasisNative/Services/) | Subscribes to RevenueCat customer-info updates and broadcasts via `onCustomerInfoChange`. |
@@ -84,7 +81,6 @@ User taps play (HomeView)
   → audioEngine.animateFade(0 → 1, 1.6s) updates master fade
   → refreshPlayerVolumes() rolls per-channel volumes including mute
   → updateNowPlayingInfo() updates lock-screen UI
-  → TonalBedSynth picks up `applySignature()` if a tonal channel is loud enough
 ```
 
 ## Data flow on premium request

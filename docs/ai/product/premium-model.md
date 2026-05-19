@@ -29,7 +29,6 @@ related:
 | Sleep timer | 15 / 30 min | 15 / 30 / 60 / 120 min |
 | Presets panel | Hidden in UI | Create, load, delete, reorder |
 | Saved presets cap | 1 | Unlimited |
-| Tonal bed (harmonic pad) | On free channels | On all accessible channels |
 | Restoration | N/A | Yes |
 
 ## Purchase model

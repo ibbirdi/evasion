@@ -30,10 +30,6 @@ Vocabulary used inside the codebase, the UI copy, and these memory files. Some t
 
 **Auto-variation.** Slow automatic modulation of a channel's volume over time. Per-channel toggle plus a persisted lower/upper volume interval selected directly from the mixer slider. Used to keep mixes alive over multi-hour listening.
 
-**Tonal bed** / **souffle harmonique** (`TonalBedSynth`). Procedural harmonic pad layered on top of the ambient mix. Three voices (fundamental, fifth, octave) at ~15 dB below the ambient bus. The fundamental note is derived from the dominant active channel's *tonal group* (D3, B2, C3 minor, G3 sus4, A2 neutral, A2 major, C3 open). Off by default since v1.4.1. Localised "souffle harmonique" in French.
-
-**Tonal group.** Per-channel harmonic anchor (e.g. Birds → D3). Documented in [content/sounds-catalog.md](../content/sounds-catalog.md). Drives `TonalBedSynth.applySignature()`.
-
 **Master fade.** Multiplier applied to all ambient players during play/pause transitions. Animated 0 → 1 over 1.6 s on play, 1 → 0 over 0.9 s on pause (customizable per call via `setNextPauseFadeDuration`).
 
 **Binaural track** (`BinauralTrack`). One of `.delta`, `.theta`, `.alpha`, `.beta`. Played by a dedicated `AVAudioPlayer`, looped infinitely. Delta is free; the other three are premium. See [architecture/binaural.md](../architecture/binaural.md).

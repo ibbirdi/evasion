@@ -36,7 +36,6 @@ final class AppModel {
   var isBinauralActive: Bool = false
   var activeBinauralTrack: BinauralTrack = .delta
   var binauralVolume: Double = 0.5
-  var isTonalBedEnabled: Bool = false      // off by default since v1.4.1
   var immersiveAudioEnabled: Bool = false  // global ambient spatial-depth mode
 
   // Premium (derived from RevenueCat or override)
@@ -100,7 +99,6 @@ struct PersistedMixerState: Codable {
   var selectedLanguage: String?              // legacy, unused — keep for backward compat
   var premiumBannerLastDismissedAt: Date?
   var signaturePreviewLastPlayedAt: Date?
-  var isTonalBedEnabled: Bool?               // optional for backward compat (added v1.4.1)
   var immersiveAudioEnabled: Bool?           // optional for backward compat
 }
 ```
@@ -138,7 +136,7 @@ For simulator/dev verification, `-OASISResetOnboarding` clears only this onboard
 
 ## Engine sync barrier
 
-Whenever the model mutates anything the audio engine cares about (channel state, binaural state, playback flag, tonal bed flag, immersive audio flag), `AppModel` calls `audioEngine.sync(with: self)`. The engine is responsible for reconciling its internal players. See [audio-engine.md](audio-engine.md).
+Whenever the model mutates anything the audio engine cares about (channel state, binaural state, playback flag, immersive audio flag), `AppModel` calls `audioEngine.sync(with: self)`. The engine is responsible for reconciling its internal players. See [audio-engine.md](audio-engine.md).
 
 ## Premium reconciliation (`enforcePremiumAccess`)
 

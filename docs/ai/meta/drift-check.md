@@ -1,7 +1,7 @@
 ---
 title: Memory Drift Check
 status: stable
-last_updated: 2026-05-03
+last_updated: 2026-05-19
 tracks:
   - "scripts/ai-memory/**"
   - ".githooks/pre-commit"
@@ -54,7 +54,6 @@ Good:
 ```yaml
 tracks:
   - "ios-native/OasisNative/Services/AudioMixerEngine.swift"
-  - "ios-native/OasisNative/Services/TonalBedSynth.swift"
 ```
 
 Acceptable:

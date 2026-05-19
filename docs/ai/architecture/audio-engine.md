@@ -4,7 +4,6 @@ status: stable
 last_updated: 2026-05-19
 tracks:
   - "ios-native/OasisNative/Services/AudioMixerEngine.swift"
-  - "ios-native/OasisNative/Services/TonalBedSynth.swift"
   - "ios-native/OasisNative/Models/AppModels.swift"
 related:
   - "binaural.md"
@@ -20,14 +19,11 @@ The ambient mixer. Implemented in [`AudioMixerEngine`](../../../ios-native/Oasis
 
 ```
 AVAudioEngine (ambientEngine)
-├── AVAudioEnvironmentNode (environmentNode)   ← spatial + reverb
-│   ├── AVAudioPlayerNode  (channel oiseaux)
-│   ├── AVAudioPlayerNode  (channel vent)
-│   ├── ...
-│   └── AVAudioPlayerNode  (channel cloches)      — 35 nodes, one per channel
-│
-└── AVAudioMixerNode (tonalMixerNode)
-    └── AVAudioSourceNode  (TonalBedSynth — procedural pad)
+└── AVAudioEnvironmentNode (environmentNode)   ← spatial + reverb
+    ├── AVAudioPlayerNode  (channel oiseaux)
+    ├── AVAudioPlayerNode  (channel vent)
+    ├── ...
+    └── AVAudioPlayerNode  (channel cloches)      — 35 nodes, one per channel
 ```
 
 `environmentNode` parameters (set in `AudioMixerEngine`):
@@ -128,14 +124,6 @@ Background audio is enabled in `Info.plist` (`UIBackgroundModes = audio`).
 `AppModel` consumes the callback and toggles via the same path the UI uses, so lock-screen / AirPlay / BT controls behave identically to the in-app button.
 
 `updateNowPlayingInfo()` updates `MPNowPlayingInfoCenter` (title, elapsed time, artwork). Called on play / pause and at intervals during playback for the elapsed-time field.
-
-## Tonal bed (procedural pad)
-
-[`TonalBedSynth`](../../../ios-native/OasisNative/Services/TonalBedSynth.swift) renders an `AVAudioSourceNode` with three voices (fundamental + perfect fifth at 1.5× + octave at 2×). Base amplitude `0.18` (~15 dB below ambient bus). Frequencies and amplitude are linearly ramped to avoid clicks.
-
-`applySignature(_:)` accepts a "signature" derived from the dominant active channel's tonal group (D3, B2, C3 minor, G3 sus4, A2 neutral, A2 major, C3 open — see [content/sounds-catalog.md](../content/sounds-catalog.md)). The fundamental locks to that group's anchor note.
-
-The pad is **off by default since v1.4.1**. Toggled via `AppModel.isTonalBedEnabled`. UI: `BinauralPanel` (bottom of the panel).
 
 ## Audio assets
 

@@ -18,7 +18,7 @@ The contract every AI agent must honour when working on Oasis. The high-level su
 
 | You modified… | You must update… |
 | --- | --- |
-| `Services/AudioMixerEngine.swift` or `Services/TonalBedSynth.swift` | `architecture/audio-engine.md` |
+| `Services/AudioMixerEngine.swift` | `architecture/audio-engine.md` |
 | `Services/AppModel.swift` | `architecture/state.md` (and feature file if behaviour changed) |
 | `Services/PremiumCoordinator.swift` or `Services/PremiumRevenueCatService.swift` | `architecture/paywall.md` |
 | `Views/Overlays/PaywallOverlay.swift` | `architecture/paywall.md`, `marketing/positioning.md` (if pitch changed) |

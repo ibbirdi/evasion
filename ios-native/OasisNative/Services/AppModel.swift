@@ -29,10 +29,6 @@ final class AppModel {
     var activeBinauralTrack: BinauralTrack = .delta
     var binauralVolume = 0.5
 
-    /// Atmospheric tonal bed toggle. Defaults to off — the pad is an opt-in flavour that
-    /// users enable from the binaural panel when they want a quiet harmonic layer under
-    /// the mix. The flag is persisted across launches.
-    var isTonalBedEnabled = false
     /// Global opt-in rendering mode that pushes ambient channels farther into the
     /// AVAudioEnvironment scene without touching the separate binaural player path.
     var immersiveAudioEnabled = false
@@ -82,7 +78,6 @@ final class AppModel {
             binauralVolume: binauralVolume,
             previewUnlockedChannels: previewUnlockedChannels,
             previewUnlockedTracks: previewUnlockedTracks,
-            isTonalBedEnabled: isTonalBedEnabled,
             immersiveAudioEnabled: immersiveAudioEnabled
         )
     }
@@ -514,13 +509,6 @@ final class AppModel {
 
     func setBinauralVolume(_ value: Double) {
         binauralVolume = value
-        schedulePersistence()
-        synchronizeAudio()
-    }
-
-    func setTonalBedEnabled(_ enabled: Bool) {
-        guard isTonalBedEnabled != enabled else { return }
-        isTonalBedEnabled = enabled
         schedulePersistence()
         synchronizeAudio()
     }
@@ -1050,9 +1038,6 @@ final class AppModel {
             binauralVolume = persisted.binauralVolume
             premiumBannerLastDismissedAt = persisted.premiumBannerLastDismissedAt
             signaturePreviewLastPlayedAt = persisted.signaturePreviewLastPlayedAt
-            // Missing field in older builds → default to off so upgrading users land on
-            // the same opt-in baseline as fresh installs.
-            isTonalBedEnabled = persisted.isTonalBedEnabled ?? false
             immersiveAudioEnabled = persisted.immersiveAudioEnabled ?? false
 
             enforcePremiumAccess()
@@ -1081,7 +1066,6 @@ final class AppModel {
             selectedLanguage: nil,
             premiumBannerLastDismissedAt: premiumBannerLastDismissedAt,
             signaturePreviewLastPlayedAt: signaturePreviewLastPlayedAt,
-            isTonalBedEnabled: isTonalBedEnabled,
             immersiveAudioEnabled: immersiveAudioEnabled
         )
 

@@ -158,7 +158,7 @@ Panels (sheets):
 
 - `panel.spatial.container`, `spatial.stage` (drag target)
 - `panel.presets.container`, `presets.row.<id>`, `presets.name`, `presets.save`
-- `panel.binaural.container`, `binaural.track.<delta|theta|alpha|beta>`, `binaural.tonalBed.toggle`
+- `panel.binaural.container`, `binaural.track.<delta|theta|alpha|beta>`
 - `panel.sound-detail.container`
 - `panel.timer.unlock`, `timer.unlock.option.<duration>`
 

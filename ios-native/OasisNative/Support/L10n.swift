@@ -132,21 +132,75 @@ enum L10n {
             bundle: .main,
             comment: "Placeholder in the text field used to save a new mix."
         )
-    }
 
-    enum TonalBed {
-        static let rowTitle = LocalizedStringResource(
-            "tonalBed.row.title",
-            defaultValue: "Ambient pad",
+        static let close = LocalizedStringResource(
+            "presets.close",
+            defaultValue: "Close",
             bundle: .main,
-            comment: "Title of the ambient-pad row in the binaural panel — controls the procedural harmonic drone that sits under the mix."
+            comment: "Accessibility label for the presets full-screen panel close button."
         )
 
-        static let rowSubtitle = LocalizedStringResource(
-            "tonalBed.row.subtitle",
-            defaultValue: "A quiet harmonic layer under the mix.",
+        static let saveSectionTitle = LocalizedStringResource(
+            "presets.save.section.title",
+            defaultValue: "Save this mix",
             bundle: .main,
-            comment: "One-line explanation of what the ambient-pad toggle does, shown beneath the row title."
+            comment: "Title above the controls used to save the current ambient mix as a preset."
+        )
+
+        static let saveSectionSubtitle = LocalizedStringResource(
+            "presets.save.section.subtitle",
+            defaultValue: "Name the ambience you're shaping now.",
+            bundle: .main,
+            comment: "Short helper text above the controls used to save the current ambient mix as a preset."
+        )
+
+        static let saveAction = LocalizedStringResource(
+            "presets.save.action",
+            defaultValue: "Save",
+            bundle: .main,
+            comment: "Button label that saves the current ambient mix as a preset."
+        )
+
+        static let listSectionTitle = LocalizedStringResource(
+            "presets.list.section.title",
+            defaultValue: "Saved mixes",
+            bundle: .main,
+            comment: "Section title above the list of available presets."
+        )
+
+        static let statusActive = LocalizedStringResource(
+            "presets.status.active",
+            defaultValue: "Active",
+            bundle: .main,
+            comment: "Small status badge for the preset currently loaded in the mixer."
+        )
+
+        static let statusSaved = LocalizedStringResource(
+            "presets.status.saved",
+            defaultValue: "Saved",
+            bundle: .main,
+            comment: "Small status badge for user-created presets."
+        )
+
+        static let statusOasis = LocalizedStringResource(
+            "presets.status.oasis",
+            defaultValue: "Oasis",
+            bundle: .main,
+            comment: "Small status badge for built-in Oasis presets."
+        )
+
+        static let deleteAction = LocalizedStringResource(
+            "presets.delete.action",
+            defaultValue: "Delete",
+            bundle: .main,
+            comment: "Accessibility label for the preset delete button."
+        )
+
+        static let reorderAction = LocalizedStringResource(
+            "presets.reorder.action",
+            defaultValue: "Reorder",
+            bundle: .main,
+            comment: "Accessibility label for the preset reorder handle."
         )
     }
 

@@ -22,7 +22,6 @@ enum PanelTransitionSource: String, Hashable, Sendable {
 }
 
 private enum ActiveHomePanel: String, Identifiable {
-    case presets
     case binaural
 
     var id: String { rawValue }
@@ -33,29 +32,35 @@ struct HomeView: View {
     @State private var headerCompactProgress: CGFloat = 0
     @State private var activePanel: ActiveHomePanel?
     @State private var activePanelSource: PanelTransitionSource?
+    @State private var showsPresetsFullScreen = false
     @State private var activeSpatialChannel: SoundChannel?
     @State private var activeDetailChannel: SoundChannel?
     @State private var showsTimerUnlockPanel = false
-    @State private var presetsPanelHeight: CGFloat = 360
     @State private var binauralPanelHeight: CGFloat = 360
     @Namespace private var panelTransitionNamespace
 
     fileprivate static let headerCollapseDistance: CGFloat = 140
     fileprivate static let headerProgressSteps: CGFloat = 48
     private func openPresets(from source: PanelTransitionSource) {
-        presetsPanelHeight = measurePanelHeight(for: PresetsPanel().environment(model))
-        activePanelSource = source.usesZoomTransition ? source : nil
-        activePanel = .presets
+        activePanel = nil
+        activePanelSource = nil
+        activeSpatialChannel = nil
+        activeDetailChannel = nil
+        showsTimerUnlockPanel = false
+        model.showsPresetsPanel = true
+        showsPresetsFullScreen = true
     }
 
     private func openBinaural(from source: PanelTransitionSource) {
         model.prepareBinauralPanel()
+        showsPresetsFullScreen = false
         binauralPanelHeight = measurePanelHeight(for: BinauralPanel().environment(model))
         activePanelSource = source.usesZoomTransition ? source : nil
         activePanel = .binaural
     }
 
     private func openSpatial(for channel: SoundChannel) {
+        showsPresetsFullScreen = false
         activePanel = nil
         activePanelSource = nil
         activeDetailChannel = nil
@@ -63,6 +68,7 @@ struct HomeView: View {
     }
 
     private func openDetail(for channel: SoundChannel) {
+        showsPresetsFullScreen = false
         activePanel = nil
         activePanelSource = nil
         activeSpatialChannel = nil
@@ -70,28 +76,11 @@ struct HomeView: View {
     }
 
     private func openTimerUnlock() {
+        showsPresetsFullScreen = false
         activePanel = nil
         activePanelSource = nil
         activeSpatialChannel = nil
         showsTimerUnlockPanel = true
-    }
-
-    @ViewBuilder
-    private func presetsPanelView(source: PanelTransitionSource?) -> some View {
-        if let source, #available(iOS 26.0, *) {
-            PresetsPanel()
-                .navigationTransition(.zoom(sourceID: source.transitionID, in: panelTransitionNamespace))
-                .adaptiveSheetDetent($presetsPanelHeight)
-                .presentationDetents([.height(presetsPanelHeight)])
-                .presentationContentInteraction(.scrolls)
-                .presentationDragIndicator(.visible)
-        } else {
-            PresetsPanel()
-                .adaptiveSheetDetent($presetsPanelHeight)
-                .presentationDetents([.height(presetsPanelHeight)])
-                .presentationContentInteraction(.scrolls)
-                .presentationDragIndicator(.visible)
-        }
     }
 
     @ViewBuilder
@@ -165,7 +154,7 @@ struct HomeView: View {
                                 onOpenDetail: openDetail
                             )
                         }
-                        .padding(.horizontal, 16)
+                        .padding(.horizontal, 0)
                         // Header is now ~58pt tall (brand lockup only — Timer/Filter
                         // moved to the native nav-bar toolbar). Top inset reduced from
                         // 120 → 78 so the first card sits ~16pt below the waveform
@@ -255,11 +244,14 @@ struct HomeView: View {
             activePanelSource = nil
         }) { panel in
             switch panel {
-            case .presets:
-                presetsPanelView(source: activePanelSource)
             case .binaural:
                 binauralPanelView(source: activePanelSource)
             }
+        }
+        .fullScreenCover(isPresented: $showsPresetsFullScreen, onDismiss: {
+            model.showsPresetsPanel = false
+        }) {
+            PresetsPanel()
         }
         .sheet(item: $activeSpatialChannel, onDismiss: {
             model.showsSpatialPanel = false
@@ -291,7 +283,6 @@ struct HomeView: View {
             PaywallOverlay(context: context)
         }
         .onChange(of: activePanel) { _, panel in
-            model.showsPresetsPanel = panel == .presets
             model.showsBinauralPanel = panel == .binaural
         }
         .onChange(of: activeSpatialChannel) { _, channel in
@@ -302,6 +293,7 @@ struct HomeView: View {
 
             activePanel = nil
             activePanelSource = nil
+            showsPresetsFullScreen = false
             activeSpatialChannel = nil
             activeDetailChannel = nil
             showsTimerUnlockPanel = false
