@@ -4,6 +4,7 @@ status: stable
 last_updated: 2026-05-19
 tracks:
   - "ios-native/OasisNative/Services/AppModel.swift"
+  - "ios-native/OasisNative/Services/GentleReminderScheduler.swift"
   - "ios-native/OasisNative/Models/AppModels.swift"
   - "ios-native/OasisNative/Support/AppConfiguration.swift"
 related:
@@ -52,6 +53,7 @@ final class AppModel {
 
   // Internals (not observed)
   @ObservationIgnored private let audioEngine: AudioMixerEngine
+  @ObservationIgnored private let gentleReminderScheduler: GentleReminderScheduler
   @ObservationIgnored private let revenueCatObserver: RevenueCatObserver
   @ObservationIgnored private let premiumCoordinator: PremiumCoordinator
   @ObservationIgnored private let premiumRevenueCatService: PremiumRevenueCatService
@@ -130,6 +132,8 @@ Stored directly in `UserDefaults` (not inside `PersistedMixerState`) because the
 | `oasis.engagement.didRequestReview` | Once-per-version flag for SKStoreReviewController. |
 | `oasis.onboarding.completed` | First-launch onboarding flag. |
 
+`GentleReminderScheduler` does not add a user setting or persisted app-level preference. After onboarding, it requests provisional system alert authorization automatically for a quieter default notification path; on backgrounding it schedules one local reminder for several inactive days later, and on reopening it cancels that pending reminder.
+
 Completing onboarding from the final page can also open the lifetime paywall when the premium CTA is tapped. The flag is still written first, so dismissing the paywall lands in `HomeView` instead of returning to onboarding.
 
 For simulator/dev verification, `-OASISResetOnboarding` clears only this onboarding flag on launch. `-OASISResetState` still resets mixer state but does not imply onboarding reset.
@@ -137,6 +141,8 @@ For simulator/dev verification, `-OASISResetOnboarding` clears only this onboard
 ## Engine sync barrier
 
 Whenever the model mutates anything the audio engine cares about (channel state, binaural state, playback flag, immersive audio flag), `AppModel` calls `audioEngine.sync(with: self)`. The engine is responsible for reconciling its internal players. See [audio-engine.md](audio-engine.md).
+
+`OasisNativeApp` forwards `scenePhase` changes into `AppModel.handleScenePhase(_:)`, which keeps the local re-open reminder aligned with foreground/background transitions.
 
 ## Premium reconciliation (`enforcePremiumAccess`)
 

@@ -8,6 +8,7 @@ import TelemetryDeck
 @main
 struct OasisNativeApp: App {
     @State private var model = AppModel()
+    @Environment(\.scenePhase) private var scenePhase
 
     init() {
         #if DEBUG
@@ -29,6 +30,12 @@ struct OasisNativeApp: App {
         WindowGroup {
             RootView()
                 .environment(model)
+                .onAppear {
+                    model.handleScenePhase(scenePhase)
+                }
+                .onChange(of: scenePhase) { _, newPhase in
+                    model.handleScenePhase(newPhase)
+                }
         }
     }
 }

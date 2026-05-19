@@ -725,6 +725,22 @@ enum L10n {
         )
     }
 
+    enum GentleReminder {
+        static let title = LocalizedStringResource(
+            "notifications.gentleReminder.title",
+            defaultValue: "Oasis",
+            bundle: .main,
+            comment: "Title of the gentle local notification that invites inactive users back to the app."
+        )
+
+        static let body = LocalizedStringResource(
+            "notifications.gentleReminder.body",
+            defaultValue: "Escape for a few minutes. You need it.",
+            bundle: .main,
+            comment: "Body of the gentle local notification scheduled after several days without reopening the app."
+        )
+    }
+
     enum Mixer {
         static let statusPremium = LocalizedStringResource(
             "mixer.status.premium",

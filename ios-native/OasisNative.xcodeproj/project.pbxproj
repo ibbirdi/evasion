@@ -20,6 +20,7 @@
 		1C0A93937D52303F26D08610 /* GlassSurfaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94B4BD6404CA74749CC5CA1 /* GlassSurfaces.swift */; };
 		1CE1CA65B82CCCDA487121A0 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD876DAD1A5EE1BF7B69DED /* HomeView.swift */; };
 		1F7B7F858307814D6D9DD1A6 /* PremiumRevenueCatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B527B16C9A4033095F6805 /* PremiumRevenueCatService.swift */; };
+		20EADBC31D4F4F41BDB1F101 /* GentleReminderScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EADBC31D4F4F41BDB1F100 /* GentleReminderScheduler.swift */; };
 		213EC66F0BA31A0E275075A1 /* PremiumModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0583A9E3C0C53BFC58D08FA7 /* PremiumModels.swift */; };
 		21C3A3DCCC573A019B22F40B /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 33709C7C96F6BEAB5CEAA908 /* AppIcon.icon */; };
 		223BC8FD0685AD111EDFF2C4 /* HomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09041B5C9411241968F523F7 /* HomeHeaderView.swift */; };
@@ -115,6 +116,7 @@
 		19D17A6F91CF3BF540581858 /* SoundDetailSheet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SoundDetailSheet.swift; sourceTree = "<group>"; };
 		1D241DFEA231E925B222AC51 /* 3_binaural_relax_alpha.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = 3_binaural_relax_alpha.m4a; sourceTree = "<group>"; };
 		1E49CEAB7ED0CC9B3E8AF91A /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		20EADBC31D4F4F41BDB1F100 /* GentleReminderScheduler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GentleReminderScheduler.swift; sourceTree = "<group>"; };
 		2003B418811B476329A9A284 /* foret1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = foret1.m4a; sourceTree = "<group>"; };
 		231B474700628B0D4E3CB541 /* LiquidAuraShaders.metal */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.metal; path = LiquidAuraShaders.metal; sourceTree = "<group>"; };
 		2C9CF5CB0296B8F31B7A9229 /* AppModels.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AppModels.swift; sourceTree = "<group>"; };
@@ -374,6 +376,7 @@
 			children = (
 				45F2B47F9DE8AE9D87AB8CE5 /* AppModel.swift */,
 				B32541DAD45035BE48CA19E6 /* AudioMixerEngine.swift */,
+				20EADBC31D4F4F41BDB1F100 /* GentleReminderScheduler.swift */,
 				B557568A6A98D4FCBC1CE62D /* PremiumAnalytics.swift */,
 				FF7FE75507E1A7EEAF34EBDE /* PremiumCoordinator.swift */,
 				86B527B16C9A4033095F6805 /* PremiumRevenueCatService.swift */,
@@ -642,6 +645,7 @@
 				85A7B62A79773A0C3A9E86E1 /* OasisNativeApp.swift in Sources */,
 				14D1C3B3DDD8CFC7EAFFDB07 /* AppModel.swift in Sources */,
 				165FFEA996C5534F61F7B9E8 /* AudioMixerEngine.swift in Sources */,
+				20EADBC31D4F4F41BDB1F101 /* GentleReminderScheduler.swift in Sources */,
 				0DAA238BA43ACF042D11C550 /* PremiumAnalytics.swift in Sources */,
 				AA2F86FE2F4E287AB6E6F7B6 /* PremiumCoordinator.swift in Sources */,
 				1F7B7F858307814D6D9DD1A6 /* PremiumRevenueCatService.swift in Sources */,

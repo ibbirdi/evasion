@@ -5206,6 +5206,88 @@
         }
       }
     },
+    "notifications.gentleReminder.body" : {
+      "comment" : "Body of the gentle local notification scheduled after several days without reopening the app.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gönnen Sie sich ein paar Minuten Auszeit. Sie brauchen sie."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Escape for a few minutes. You need it."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Escápate unos minutos. Lo necesitas."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Evadez-vous quelques minutes, vous en avez besoin"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Evadi per qualche minuto. Ne hai bisogno."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fuja por alguns minutos. Você precisa disso."
+          }
+        }
+      }
+    },
+    "notifications.gentleReminder.title" : {
+      "comment" : "Title of the gentle local notification that invites inactive users back to the app.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oasis"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oasis"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oasis"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oasis"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oasis"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oasis"
+          }
+        }
+      }
+    },
     "onboarding.cta.next" : {
       "comment" : "Onboarding next page button.",
       "localizations" : {

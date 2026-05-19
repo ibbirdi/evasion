@@ -74,6 +74,7 @@ Business logic, engines, integrations.
 | --- | --- |
 | `AppModel.swift` | The hub. See [../architecture/state.md](../architecture/state.md). |
 | `AudioMixerEngine.swift` | Ambient audio engine. See [../architecture/audio-engine.md](../architecture/audio-engine.md). |
+| `GentleReminderScheduler.swift` | Local notification scheduler for the gentle re-open reminder after several inactive days. |
 | `PremiumCoordinator.swift` | Routes premium requests (inline vs paywall). |
 | `PremiumRevenueCatService.swift` | RevenueCat purchase / restore wrapper. |
 | `RevenueCatObserver.swift` | Listens to RevenueCat customer info changes. |

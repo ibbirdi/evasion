@@ -42,6 +42,7 @@ final class AppModel {
     private(set) var variationDisplayVolumes: [SoundChannel: Double] = [:]
 
     @ObservationIgnored private let audioEngine = AudioMixerEngine()
+    @ObservationIgnored private let gentleReminderScheduler = GentleReminderScheduler()
     @ObservationIgnored private let revenueCatObserver = RevenueCatObserver()
     @ObservationIgnored private let premiumCoordinator = PremiumCoordinator()
     @ObservationIgnored private let premiumRevenueCatService = PremiumRevenueCatService()
@@ -183,6 +184,19 @@ final class AppModel {
         bootstrapTask = Task { [weak self] in
             guard let self else { return }
             await self.refreshPremiumStatus()
+        }
+    }
+
+    func handleScenePhase(_ phase: ScenePhase) {
+        switch phase {
+        case .active:
+            gentleReminderScheduler.appBecameActive(onboardingCompleted: hasCompletedOnboarding)
+        case .background:
+            gentleReminderScheduler.appEnteredBackground(onboardingCompleted: hasCompletedOnboarding)
+        case .inactive:
+            break
+        @unknown default:
+            break
         }
     }
 
@@ -802,6 +816,7 @@ final class AppModel {
     func completeOnboarding(fromPage page: Int = -1, skipped: Bool = false, presentPaywall: Bool = false) {
         hasCompletedOnboarding = true
         UserDefaults.standard.set(true, forKey: OnboardingDefaults.completedKey)
+        gentleReminderScheduler.requestAuthorizationAfterOnboarding()
         if skipped {
             premiumAnalytics.track(.onboardingSkipped(page: page))
         } else {
