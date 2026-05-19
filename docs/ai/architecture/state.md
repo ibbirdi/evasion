@@ -119,7 +119,7 @@ struct PersistedMixerState: Codable {
 
 ### Persistence is disabled when
 
-`AppConfiguration.shouldPersistState = !isRunningScreenshotAutomation`. UI tests and fastlane snapshots run with persistence off so each scenario starts from a known mix injected via `-OASISResetState YES`.
+`AppConfiguration.shouldPersistState = !isRunningScreenshotAutomation`. UI tests and fastlane snapshots run with persistence off so each scenario starts from a known mix injected via `-OASISResetState YES`. App Store screenshot runs can also force `immersiveAudioEnabled` with `-OASISImmersiveAudioEnabled YES`, applied after persisted-state loading and before the first audio sync.
 
 ## Engagement metrics (separate keys)
 
@@ -138,7 +138,7 @@ Stored directly in `UserDefaults` (not inside `PersistedMixerState`) because the
 
 Completing onboarding from the final page can also open the lifetime paywall when the premium CTA is tapped. The flag is still written first, so dismissing the paywall lands in `HomeView` instead of returning to onboarding.
 
-For simulator/dev verification, `-OASISResetOnboarding` clears only this onboarding flag on launch. `-OASISResetState` still resets mixer state but does not imply onboarding reset.
+For simulator/dev verification, `-OASISResetOnboarding` clears only this onboarding flag on launch. `-OASISResetState` still resets mixer state but does not imply onboarding reset. `-OASISImmersiveAudioEnabled YES|NO` is a launch-only override for deterministic screenshots and development checks.
 
 ## Engine sync barrier
 

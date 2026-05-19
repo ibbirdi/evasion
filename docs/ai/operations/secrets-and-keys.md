@@ -1,7 +1,7 @@
 ---
 title: Secrets and Keys
 status: stable
-last_updated: 2026-05-17
+last_updated: 2026-05-19
 tracks:
   - "ios-native/OasisNative/Support/Info.plist"
   - "ios-native/OasisNative/Support/AppConfiguration.swift"
@@ -68,10 +68,11 @@ These bypass production settings during development, UI tests, and fastlane snap
 | `-OASISPremiumOverride premium` | Force `isPremium = true`, skip RevenueCat. |
 | `-OASISPremiumOverride revenueCat` | Default — use real RevenueCat. |
 | `-OASISResetState YES` | Wipe `UserDefaults["evasion-mixer-storage"]` on launch. |
+| `-OASISImmersiveAudioEnabled YES|NO` | Force the global immersive audio toggle for deterministic screenshot/dev launches. |
 | `-FASTLANE_SNAPSHOT YES` | Set automatically by fastlane; combines with the above. |
 | `-ui_testing` | Set by XCUITest target; freezes auras / waveform. |
 
-Defined in [`AppConfiguration.swift`](../../../ios-native/OasisNative/Support/AppConfiguration.swift) under `DevelopmentPremiumOverride`.
+Defined in [`AppConfiguration.swift`](../../../ios-native/OasisNative/Support/AppConfiguration.swift). Premium override parsing lives under `DevelopmentPremiumOverride`; general launch-argument parsing lives in the `ProcessInfo` helpers at the bottom of the file.
 
 ## Secret hygiene
 

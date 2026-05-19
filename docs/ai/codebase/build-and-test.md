@@ -56,11 +56,14 @@ Ten scenarios driven by `setUpWithError` reading launch arguments. Each produces
 | `09_library_teaser` | Free-tier library showing locked premium card. |
 | `10_paywall` | Full paywall. |
 
+The screenshot lane is filtered to `OasisNativeUITests/OasisNativeScreenshots/testAppStoreScreenshots` so it does not run premium-flow tests or the social-video `MarketingScenarioRunner`.
+
 Launch arguments used by these tests:
 
 - `-FASTLANE_SNAPSHOT YES` (set by fastlane)
 - `-OASISResetState YES` (force known mix)
 - `-OASISPremiumOverride premium` (or `free` for 08/09/10)
+- `-OASISImmersiveAudioEnabled YES` (force the global immersive sound toggle on for every App Store screenshot)
 
 Manual onboarding checks can add `-OASISResetOnboarding` to clear only the first-launch flag. Do not use it in screenshot lanes; those intentionally bypass onboarding via screenshot automation.
 
@@ -73,7 +76,7 @@ Flow tests that verify the upsell-then-paywall logic:
 - `testFreeShortTimerDoesNotShowPaywall`
 - `testPremiumLongTimerShowsUnlockPanelBeforePaywall`
 
-Presets and binaural entry points live in the bottom bar, so the tests target `home.bottom.presets` and `home.bottom.binaural` (not the older header identifiers). Fastlane snapshot runs the whole UI test target, so these must stay green before screenshots can complete cleanly.
+Presets and binaural entry points live in the bottom bar, so the tests target `home.bottom.presets` and `home.bottom.binaural` (not the older header identifiers). Run these manually or in Xcode when touching premium gating; the App Store screenshot lane intentionally filters them out.
 
 Run from Xcode's Test navigator or `xcodebuild test`.
 
@@ -91,10 +94,10 @@ From repo root, run `bundle exec fastlane <lane>`:
 | --- | --- |
 | `screenshots` | Snapshot all 10 scenarios in 6 locales on iPhone 17 Pro Max. Output: `fastlane/screenshots/<locale>/iPhone 17 Pro Max-<slug>.png`. |
 | `screenshots_only` | Skips the build step — useful when iterating on snapshot scenarios with the same binary. |
-| `app_previews` | Build App Preview videos (Ruby pipeline). |
-| `stage_appstore_assets` | Stage screenshots + previews into `fastlane/appstore-upload/<locale>/`; screenshots are renamed to the Variant B display order. |
+| `app_previews` | Build local App Preview videos (Ruby pipeline); currently not staged for App Store upload. |
+| `stage_appstore_assets` | Stage screenshots into `fastlane/appstore-upload/<locale>/`; screenshots are renamed to the Variant B display order and App Preview videos are intentionally excluded. |
 | `appstore_metadata` | Push metadata only, no binary. Fast iteration on text. |
-| `appstore_release app_version:1.4.3` | Push screenshots + metadata for an existing binary version. |
+| `appstore_release app_version:1.5.0` | Push screenshots + metadata for an existing binary version. |
 
 The `Fastfile` autodetects the repo root by looking for `ios-native/OasisNative.xcodeproj` in 4 candidate paths.
 

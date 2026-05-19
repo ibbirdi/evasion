@@ -67,7 +67,7 @@ Most overlays bind to an optional state on `AppModel` and present when non-nil:
 | --- | --- |
 | `GlassSurfaces` | Backdrop-blur frosted glass containers (cards, panels). Wraps `iOS 26+ glassEffect` when available. |
 | `AnimatedLiquidAura` | Liquid blob aura around the play button when audio is active. Paused under XCUITest. |
-| `AnimatedBackdrop` | Full-screen animated gradient/shape backdrop. |
+| `AnimatedBackdrop` | Static full-screen deep blue/grey backdrop. It intentionally does not adapt to selected or playing channel tints. |
 | `WaveformSignatureLine` | Audio-reactive signature line in the header. Paused under XCUITest. |
 | `HomeToolbarImmersiveAudioToggle` | Top-left native toolbar button for the persisted global immersive audio mode. |
 | `MixerBoardSectionView` | One row of the mixer board. |
@@ -82,12 +82,14 @@ Most overlays bind to an optional state on `AppModel` and present when non-nil:
 
 ## Design tokens
 
-Per-channel **tint** is the dominant token: each `SoundChannel` carries an `RGB` tuple in `SoundChannelMetadata.swift`, and that tint flows into:
+Per-channel **tint** is the dominant token: each `SoundChannel` carries an `RGB` tuple in `SoundChannelMetadata.swift`. `ChannelMetadata.tint` applies a central HSB saturation/brightness boost for a more vibrant runtime colour, and that tint flows into:
 
 - The channel card background gradient.
 - The minimap pin.
 - The active-channel ribbon in the play button.
 - The `LiquidActivityPalette.playback()` ordering — see below.
+
+The global app backdrop stays static in a deep blue/grey range for visual sobriety; do not reintroduce active-channel colour adaptation there unless the product direction changes again.
 
 `LiquidActivityPalette.playback()` returns the tints of currently-active channels, ordered by volume. The aura cycles through them.
 
@@ -112,7 +114,7 @@ Use `Text(L10n.someKey)` (where `L10n.someKey` returns a `LocalizedStringResourc
 
 `HapticSlider` exposes its bound value as an accessibility value. `AutoVariationRangeSlider` exposes the current lower/upper interval and custom VoiceOver actions for increasing/decreasing each bound, because the two-handle gesture is too fine to be the only control path. Channel cards expose their channel name, location, mute/locked/auto state, and hints for detail / placement actions. The paywall, presets, spatial, sound detail, timer unlock, and binaural panels have explicit labels and decorative icons hidden from VoiceOver.
 
-`SpatialAudioPanel` keeps the draggable stage but also offers one-tap placement presets: left, front, center, back, right. This preserves the original gesture while making sound placement more discoverable and accessible.
+`SpatialAudioPanel` keeps the draggable stage but also offers one-tap placement presets: left, front, center, back, right. This preserves the original gesture while making sound placement more discoverable and accessible. The `center` preset is the reset action; don't add a separate "recenter sound" button.
 
 ### Identifier inventory (XCUITest)
 

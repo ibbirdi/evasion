@@ -32,34 +32,6 @@ struct SpatialAudioPanel: View {
                 .frame(height: 252)
 
             spatialPresetControls
-
-            Button {
-                withAnimation(.smooth(duration: 0.24)) {
-                    model.resetChannelSpatialPosition(channel)
-                }
-            } label: {
-                Text(L10n.Spatial.reset)
-                    .oasisFont(size: 13, weight: .semibold, relativeTo: .subheadline)
-                    .foregroundStyle(.white)
-                    .padding(.horizontal, 18)
-                    .frame(height: 42)
-                    .background {
-                        Capsule()
-                            .fill(.regularMaterial)
-                            .overlay {
-                                Capsule()
-                                    .fill(Color.white.opacity(0.02))
-                            }
-                    }
-                    .overlay {
-                        Capsule()
-                            .strokeBorder(Color.white.opacity(0.08), lineWidth: 1)
-                    }
-            }
-            .buttonStyle(PressScaleButtonStyle())
-            .oasisMinimumHitTarget()
-            .opacity(state.spatialPosition.isCentered ? 0.56 : 1)
-            .disabled(state.spatialPosition.isCentered)
         }
         .padding(.horizontal, 20)
         .padding(.bottom, 20)

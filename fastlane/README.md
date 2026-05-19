@@ -45,7 +45,7 @@ Generate localized App Preview videos from the App Store composites
 [bundle exec] fastlane ios stage_appstore_assets
 ```
 
-Stage upload-ready screenshots and App Preview videos without uploading
+Stage upload-ready screenshots without uploading App Preview videos
 
 ### ios appstore_metadata
 

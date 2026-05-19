@@ -125,4 +125,4 @@ These flow through TelemetryDeck (when `TelemetryDeckAppID` is configured) and i
 - `premium` → `isPremium = true`, no RevenueCat calls. Used by every screenshot scenario except `08_free_home`, `09_library_teaser`, `10_paywall`.
 - `revenueCat` (default) → normal flow.
 
-Defined in [`DevelopmentPremiumOverride`](../../../ios-native/OasisNative/Support/AppConfiguration.swift).
+Defined in [`DevelopmentPremiumOverride`](../../../ios-native/OasisNative/Support/AppConfiguration.swift). Non-premium launch arguments, such as the App Store screenshot immersive-audio override, live beside it in `AppConfiguration`.

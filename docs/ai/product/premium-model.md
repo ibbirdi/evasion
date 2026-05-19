@@ -66,7 +66,7 @@ Two engagement nudges, both throttled in `AppModel`:
 
 ## Override for development & screenshots
 
-`-OASISPremiumOverride free|premium|revenueCat` launch argument forces a state (defaults to RevenueCat). Used heavily by UI tests and fastlane snapshots. See [`AppConfiguration.swift`](../../../ios-native/OasisNative/Support/AppConfiguration.swift) `DevelopmentPremiumOverride`.
+`-OASISPremiumOverride free|premium|revenueCat` launch argument forces a state (defaults to RevenueCat). Used heavily by UI tests and fastlane snapshots. Other screenshot-only launch arguments, such as `-OASISImmersiveAudioEnabled`, live beside it in [`AppConfiguration.swift`](../../../ios-native/OasisNative/Support/AppConfiguration.swift).
 
 ## Restore
 

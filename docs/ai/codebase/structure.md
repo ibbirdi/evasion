@@ -63,7 +63,7 @@ Plain Codable types. No business logic, no AVFoundation imports.
 | File | Contains |
 | --- | --- |
 | `AppModels.swift` | `SoundChannel` (35 cases), `BinauralTrack` (4 cases), `ChannelState`, `AutoVariationRange`, `Preset`, `SpatialPoint`, `PersistedMixerState`. |
-| `SoundChannelMetadata.swift` | Per-channel metadata: file name, category, location, author, licence, SF Symbol, RGB tint. The single source of truth for the catalog. |
+| `SoundChannelMetadata.swift` | Per-channel metadata: file name, category, location, author, licence, SF Symbol, RGB tint plus central vibrant-tint rendering. The single source of truth for the catalog. |
 | `PremiumModels.swift` | `PremiumEntryPoint`, `PremiumPaywallContext`, `PremiumInlineUpsellContext`. |
 
 ### `Services/`
@@ -96,7 +96,7 @@ Views/
 
 | File | Contains |
 | --- | --- |
-| `AppConfiguration.swift` | Build flags, env / Info.plist readers, dev overrides. |
+| `AppConfiguration.swift` | Build flags, env / Info.plist readers, dev and screenshot launch-argument overrides. |
 | `Info.plist` | App identity, RevenueCat keys, background modes, UI style. |
 | `L10n.swift` | `LocalizedStringResource` keys for all UI strings. |
 | `LiquidAuraShaders.metal` | Metal shader for the animated liquid aura. |

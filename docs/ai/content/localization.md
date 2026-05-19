@@ -66,6 +66,8 @@ errors.<key>
 
 `home.controls.*`, `mixer.accessibility.*`, `binaural.volume/enabled/disabled`, and `spatial.stage.*` cover VoiceOver-only labels, hints, values, and custom actions. Keep these translated as natural UI phrases, not literal descriptions of SF Symbols.
 
+`spatial.center` is the only user-facing center/reset action in the sound-placement panel. There is no separate `spatial.reset` key because the old "Recenter sound" button duplicated the center preset.
+
 The full-screen presets panel uses `presets.save.*`, `presets.delete.confirm.*`, `presets.list.*`, and `presets.status.*` keys for its save button + name-entry alert, delete confirmation, list section, and row badges.
 
 `notifications.gentleReminder.title` and `notifications.gentleReminder.body` localize the single local notification that invites inactive users back to Oasis after several days.
@@ -121,7 +123,9 @@ Apple indexes each unique word **once** across `name + subtitle + keywords`. Rep
 
 ## App Store Connect surface (per locale)
 
-Each locale has its own ASC view: name, subtitle, description, keywords, promotional text, release notes, screenshots, App Preview videos, optional URLs. fastlane lanes push all of them. See [../operations/release-process.md](../operations/release-process.md).
+Each locale has its own ASC view: name, subtitle, description, keywords, promotional text, release notes, screenshots, optional App Preview videos, optional URLs. fastlane lanes push metadata and screenshots; App Preview videos are currently excluded from staging/upload for `1.5.0`. See [../operations/release-process.md](../operations/release-process.md).
+
+As of 2026-05-19, visible ASO copy and screenshot overlays in all 6 locales use the current catalogue promise: `35` total nature sounds to mix, with `32` extra sounds unlocked by the lifetime purchase. The `1.5.0` release notes are also localized from the approved French source about immersive sound, 35 nature sounds, automatic volume-variation ranges, and redesigned presets. Keep those numbers aligned with [sounds-catalog.md](sounds-catalog.md) and [marketing/store-assets.md](../marketing/store-assets.md).
 
 ## Feature notes
 

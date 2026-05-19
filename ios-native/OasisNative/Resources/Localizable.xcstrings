@@ -10117,47 +10117,6 @@
         }
       }
     },
-    "spatial.reset" : {
-      "comment" : "Button title that recenters a sound in the spatial positioning panel.",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Klang zentrieren"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Center sound"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Centrar sonido"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Recentrer le son"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Centra il suono"
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Centralizar som"
-          }
-        }
-      }
-    },
     "spatial.right" : {
       "comment" : "Right label in the spatial positioning panel.",
       "localizations" : {

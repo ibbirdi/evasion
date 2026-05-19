@@ -18,7 +18,7 @@ Vocabulary used inside the codebase, the UI copy, and these memory files. Some t
 
 ## Audio terms
 
-**Channel** (`SoundChannel`). One of the 35 ambient sounds. Persistent identifier (e.g. `oiseaux`, `vent`, `tonnerre`). Each has a volume, mute state, auto-variation flag/range, and 2D spatial position. See [content/sounds-catalog.md](../content/sounds-catalog.md).
+**Channel** (`SoundChannel`). One of the 35 ambient sounds. Persistent identifier (e.g. `oiseaux`, `vent`, `tonnerre`). Each has a volume, mute state, auto-variation flag/range, 2D spatial position, and visual tint. See [content/sounds-catalog.md](../content/sounds-catalog.md).
 
 **Free channel.** One of the 3 channels accessible without premium: Birds (`oiseaux`), Wind (`vent`), Beach (`plage`). Defined as `freeChannels` in code. The other 32 are premium.
 

@@ -1,7 +1,7 @@
 ---
 title: ASO Strategy
 status: stable
-last_updated: 2026-05-18
+last_updated: 2026-05-19
 tracks:
   - "fastlane/metadata/**"
   - "fastlane/screenshots/**"
@@ -17,7 +17,7 @@ Synthesised from the 2026-05-02 audit (v2 of the original audit doc, post sleep-
 
 The big picture is in [positioning.md](positioning.md). This file is the operational layer: what to ship, in what order.
 
-## Current local state — 2026-05-18
+## Current local state — 2026-05-19
 
 The latest low-risk ASO pass cleaned the invisible keyword fields, updated the screenshot hooks toward immersion / escape, and refreshed the visual treatment of the App Store screenshots.
 
@@ -25,10 +25,10 @@ The latest low-risk ASO pass cleaned the invisible keyword fields, updated the s
 - Replaced those slots with adult use cases such as study, reading, work, and calm; all locales remain ≤100 chars and have zero indexed-word overlap across `name + subtitle + keywords`.
 - Removed `3D` from all App Store names. Screenshot headlines use sound-placement language; the slide 05 subhead keeps the approved French-source idea of a spatial audio engine.
 - Keep sub-category files blank: App Store Connect currently reports no valid subcategories for `HEALTH_AND_FITNESS`, `LIFESTYLE`, or `TRAVEL`, and rejects invalid `primarySubcategoryOne` values.
-- Re-rendered and staged 60 composite screenshots from the current raw captures; slide 01 now leads with `20 real-world soundscapes. Offline. No subscription.` in English and natural equivalents in the other 5 locales.
+- Re-rendered and staged 60 composite screenshots from the current raw captures; slide 01 now leads with `35 real-world sounds to mix. Offline. No subscription.`, and slide 09 now states `32 extra sounds with one purchase.` in English and natural equivalents in the other 5 locales.
 - Increased screenshot eyebrow size for readability and removed line-art background details, keeping only blob-like acoustic fields, gradients, glows, grain, and vignette.
-- Rebuilt and staged 6 App Preview videos from the refreshed localized screenshots.
-- Rewrote `release_notes.txt` for version 1.4.3 in all 6 locales with concrete product changes instead of generic bug-fix wording.
+- App Preview videos are disabled for the `1.5.0` App Store upload: the existing remote previews were deleted on 2026-05-19, and `stage_appstore_assets` now stages screenshots only until new videos are regenerated.
+- Bumped the app to version `1.5.0`; localized `release_notes.txt` now use the approved French source about immersive sound, 35 nature sounds, automatic volume-variation ranges, and redesigned presets.
 - Replaced the first line of each `description.txt` with the approved multi-use opening line.
 
 ## Two fields, one strategy
@@ -65,7 +65,7 @@ These files are present locally as blank placeholders as of 2026-05-18.
 Rotate `promotional_text.txt` (≤170, no review) ~monthly. Three template angles:
 
 1. **Seasonal** — "Late autumn rain mixes are now in 5 default presets." / "Long winter nights need a longer timer."
-2. **Feature highlight** — "New: Mountain Storm and Sea, replacing Train and Car. Re-encode of all 20 sounds for cleaner low-end."
+2. **Feature highlight** — "35 field recordings to mix, with sound placement and offline playback."
 3. **Social proof** — when reviews / ratings hit a milestone.
 
 Don't promise features that aren't in the current binary — Apple flags promo-text deception.
@@ -75,7 +75,7 @@ Don't promise features that aren't in the current binary — Apple flags promo-t
 Stop shipping `"Performance optimizations and bug fixes."` Customers and ASO crawlers both read this field. Replace with one product-flavored sentence per change:
 
 - "Smoother fades when you swap presets at night."
-- "All 20 nature sounds re-encoded for cleaner low-end."
+- "35 nature sounds to mix, with sound placement and offline playback."
 - "Two new nature ambiences: Sea and Mountain Storm."
 
 Each release-note entry is indexed by Apple for the *current* version only. Use them.
@@ -104,9 +104,9 @@ Reorder the existing 10 captures to lead with multi-use moments before binaural 
 
 Reorder is done during `stage_appstore_assets` / `appstore_release`: source composites keep their slug names, while upload-ready staged files are renamed to numeric display order. No re-rendering is needed.
 
-## App Preview video — local asset ready
+## App Preview video — disabled for current upload
 
-Local App Preview MP4s are generated in 6 locales from the composited screenshots and staged with the App Store upload assets.
+Local App Preview MP4s can still be generated in 6 locales from the composited screenshots, but they are **not staged or uploaded** by `stage_appstore_assets` / `appstore_release` as of 2026-05-19. Re-enable staging only after the videos are regenerated and reviewed.
 
 - 20 seconds.
 - No voice-over.
@@ -131,7 +131,7 @@ CPPs are free; spawn them as A/B vehicles without touching the main page.
 1. Push Variant A names / subtitles / keywords for all 6 locales.
 2. Leave sub-category files blank unless App Store Connect exposes valid subcategories for these primary categories. **Verified locally 2026-05-18.**
 3. Rewrite `promotional_text.txt` for all 6 locales (template 1 — seasonal). **Done locally 2026-05-17.**
-4. Rewrite `release_notes.txt` for current version 1.4.3 — replace "performance + bugs" with the actual list. **Done locally 2026-05-18.**
+4. Rewrite `release_notes.txt` for current version 1.5.0 — replace "performance + bugs" with the actual list. **Done locally 2026-05-19.**
 5. Render Slide 01 v2 (multi-use eyebrow + subhead) and re-stage. **Done locally 2026-05-17.**
 6. Push first description line per locale. **Done locally 2026-05-17.**
 7. `bundle exec fastlane appstore_metadata` to ship.

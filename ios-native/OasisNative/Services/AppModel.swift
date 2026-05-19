@@ -163,6 +163,7 @@ final class AppModel {
             persistState()
         }
 
+        applyLaunchArgumentOverrides()
         configureCallbacks()
         trackAppSession()
         handleNoActiveChannelsIfNeeded()
@@ -491,10 +492,6 @@ final class AppModel {
         currentPresetID = nil
         schedulePersistence()
         synchronizeAudio()
-    }
-
-    func resetChannelSpatialPosition(_ channel: SoundChannel) {
-        setChannelSpatialPosition(channel, value: .center)
     }
 
     func setBinauralEnabled(_ enabled: Bool) {
@@ -1067,6 +1064,12 @@ final class AppModel {
         guard AppConfiguration.shouldResetOnboardingOnLaunch else { return }
         UserDefaults.standard.removeObject(forKey: OnboardingDefaults.completedKey)
         hasCompletedOnboarding = false
+    }
+
+    private func applyLaunchArgumentOverrides() {
+        if let forcedImmersiveAudioEnabled = AppConfiguration.forcedImmersiveAudioEnabled {
+            immersiveAudioEnabled = forcedImmersiveAudioEnabled
+        }
     }
 
     private func persistState() {

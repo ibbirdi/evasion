@@ -64,6 +64,8 @@ The 35 ambient channels and 4 binaural tracks. The single source of truth for ru
 
 **File-mismatch entries** (channel IDs differ from file names): `goelands`/`goelants1.m4a`, `tonnerre`/`orage1.m4a`, `village`/`ville1.m4a`. These are historical and **not** to be "fixed" — see [../operations/known-issues.md](../operations/known-issues.md).
 
+**Visual tints**: each channel stores a stable RGB tint in `SoundChannelMetadata.swift`. Runtime UI rendering boosts that tint's HSB saturation/brightness centrally in `ChannelMetadata.tint`, so mixer rows, sliders, minimaps, spatial controls, and premium teasers read more vibrant without editing every channel value. Tints should still match the channel mood: bird ambience reads morning-gold, wind/harbour sounds lean airy/coastal blue, thunder is muted storm-violet, night sounds are darker blue/indigo, and shelter sounds use warmer wood/cabin tones.
+
 ## Licences and attribution
 
 12 channels require visible attribution: **CC-BY-4.0** for `plage`, `foret`, `pluie`, `riviere`, `campfire`, `jungleAmerique`, `jungleAsie`, `neigeVille`, `port`, `chevres`, `cloches`; and **CC-BY-3.0** for `carillons`. Attribution is rendered by `SoundDetailSheet` from the `ChannelCredit` struct in `SoundChannelMetadata.swift`, showing the author, licence, and `freesound.org` source site inline. Removing or breaking that visible credit surface = licence violation. Re-check before any UI refactor of the detail sheet.

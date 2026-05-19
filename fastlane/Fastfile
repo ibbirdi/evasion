@@ -69,21 +69,12 @@ def oasis_stage_appstore_media(repo_root)
   end
   UI.message("Staged #{staged_count} composite screenshots into #{staging_root}")
 
-  app_preview_glob = File.join(repo_root, "fastlane", "app-previews", "*", "*.mp4")
-  staged_preview_count = 0
-  Dir.glob(app_preview_glob).each do |src|
-    locale = File.basename(File.dirname(src))
-    dest_dir = File.join(staging_root, locale)
-    FileUtils.mkdir_p(dest_dir)
-    FileUtils.cp(src, File.join(dest_dir, File.basename(src)))
-    staged_preview_count += 1
-  end
-  UI.message("Staged #{staged_preview_count} App Preview videos into #{staging_root}")
+  UI.message("App Preview videos are intentionally not staged for App Store upload.")
 
   {
     staging_root: staging_root,
     screenshots: staged_count,
-    app_previews: staged_preview_count
+    app_previews: 0
   }
 end
 
@@ -134,13 +125,15 @@ platform :ios do
       clean: false,
       result_bundle: true,
       namespace_log_files: true,
+      only_testing: ["OasisNativeUITests/OasisNativeScreenshots/testAppStoreScreenshots"],
       # Retries used to mask UI quiescence issues (animating backdrop + waveform).
       # Now that those views pause under screenshot automation we expect the first
       # run to succeed. Fail fast if it doesn't — a retry would silently double
       # the run time and hide regressions.
       number_of_retries: 0,
       launch_arguments: [
-        "-OASISResetState YES"
+        "-OASISResetState YES",
+        "-OASISImmersiveAudioEnabled YES"
       ],
       buildlog_path: buildlog_directory,
       derived_data_path: derived_data_directory
@@ -158,7 +151,7 @@ platform :ios do
     sh("ruby", File.join(repo_root, "scripts", "generate_app_previews.rb"))
   end
 
-  desc "Stage upload-ready screenshots and App Preview videos without uploading"
+  desc "Stage upload-ready screenshots without uploading App Preview videos"
   lane :stage_appstore_assets do
     repo_root = oasis_repo_root
     oasis_stage_appstore_media(repo_root)
@@ -167,7 +160,7 @@ platform :ios do
   desc "Upload metadata to App Store Connect without screenshots"
   lane :appstore_metadata do |options|
     repo_root = oasis_repo_root
-    app_version = options[:app_version] || "1.4.3"
+    app_version = options[:app_version] || "1.5.0"
 
     upload_to_app_store(
       username: "jonathanluquet@me.com",
@@ -219,7 +212,7 @@ platform :ios do
   desc "Upload screenshots + metadata to App Store Connect (no binary)"
   lane :appstore_release do |options|
     repo_root = oasis_repo_root
-    app_version = options[:app_version] || "1.4.3"
+    app_version = options[:app_version] || "1.5.0"
     staging_result = oasis_stage_appstore_media(repo_root)
 
     upload_to_app_store(

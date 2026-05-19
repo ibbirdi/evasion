@@ -23,7 +23,7 @@ How a new version of Oasis ships to the App Store.
 - **Bundle ID**: `com.jonathanluquet.drift` (set in `fastlane/Deliverfile`, `fastlane/Snapfile`, and `fastlane/Fastfile` lane args).
 - **App Store Connect username**: `jonathanluquet@me.com` (in `fastlane/Deliverfile` and `fastlane/Fastfile`).
 - **Display name**: Oasis.
-- **Current version**: `MARKETING_VERSION = 1.4.3`, `CURRENT_PROJECT_VERSION = 5` (build).
+- **Current version**: `MARKETING_VERSION = 1.5.0`, `CURRENT_PROJECT_VERSION = 6` (build).
 
 Version is set in `OasisNative.xcodeproj/project.pbxproj`. Edit it directly or via Xcode's General tab.
 
@@ -41,6 +41,7 @@ Recent history:
 - `1.4.1` (build 3) — re-encoded all 20 nature sounds; replaced Train and Car with Sea and Mountain Storm; home timer countdown; ambient pad off by default.
 - `1.4.2` (build 4) — ASO / release-note refresh for the current feature set; no-subscription and offline positioning brought forward.
 - `1.4.3` (build 5) — sound-detail attribution simplification plus refreshed localized App Store screenshots and previews.
+- `1.5.0` (build 6) — immersive audio mode, richer 35-sound catalogue positioning, refined presets flow, updated App Store visuals, and UI polish.
 
 ## Pre-release checklist
 
@@ -49,7 +50,7 @@ Run from a clean working tree on `main`.
 - [ ] Bump `MARKETING_VERSION` and `CURRENT_PROJECT_VERSION` in the Xcode project.
 - [ ] Run the build CLI (see [../codebase/build-and-test.md](../codebase/build-and-test.md)) — must pass.
 - [ ] Run `OasisNativePremiumFlowTests` — must pass.
-- [ ] Re-render screenshots if any UI/copy changed: `bundle exec fastlane screenshots`. Then re-composite via `scripts/generate_store_screenshot_comps.swift`.
+- [ ] Re-render screenshots if any UI/copy changed: `bundle exec fastlane screenshots` (filtered to the App Store screenshot test), then `swift scripts/generate_store_screenshot_comps.swift` and `bundle exec fastlane stage_appstore_assets`. App Preview videos are currently excluded from staging/upload for `1.5.0`.
 - [ ] Update `fastlane/metadata/<locale>/release_notes.txt` per locale — actual product changes, not "performance + bugs".
 - [ ] Update memory: bump `last_updated` on any file affected by the release.
 - [ ] Commit version bump + release notes + memory updates as one commit.
@@ -68,11 +69,11 @@ Captures all 10 scenarios in 6 locales on iPhone 17 Pro Max simulator. Output: `
 
 ### `app_previews`
 
-Builds localized App Preview videos via [`scripts/generate_app_previews.rb`](../../../scripts/generate_app_previews.rb). The videos are visually silent and generated from the localized screenshot composites, but still include a silent stereo AAC audio track because App Store Connect rejects no-audio MP4s.
+Builds local App Preview videos via [`scripts/generate_app_previews.rb`](../../../scripts/generate_app_previews.rb). The videos are visually silent and generated from the localized screenshot composites, but still include a silent stereo AAC audio track because App Store Connect rejects no-audio MP4s. As of 2026-05-19, these videos are not staged/uploaded because the current App Store previews were stale and removed.
 
 ### `stage_appstore_assets`
 
-Stages screenshots + previews into `fastlane/appstore-upload/<locale>/` so the upload lane has a clean source. Screenshot files are renamed to the Variant B display order documented in [../marketing/aso-strategy.md](../marketing/aso-strategy.md).
+Stages screenshots into `fastlane/appstore-upload/<locale>/` so the upload lane has a clean source. Screenshot files are renamed to the Variant B display order documented in [../marketing/aso-strategy.md](../marketing/aso-strategy.md). App Preview MP4s are intentionally excluded.
 
 ### `appstore_metadata`
 
@@ -86,10 +87,10 @@ Files that don't trigger Apple review: `keywords.txt`, `promotional_text.txt`, `
 
 ### `appstore_release`
 
-Pushes screenshots + metadata for an existing binary version.
+Pushes screenshots + metadata for an existing binary version. It does not upload App Preview videos unless staging is explicitly re-enabled.
 
 ```bash
-bundle exec fastlane appstore_release app_version:1.4.3
+bundle exec fastlane appstore_release app_version:1.5.0
 ```
 
 This is the typical "metadata + visuals" release lane — does not upload an `.ipa`.

@@ -206,9 +206,17 @@ final class OasisNativeScreenshots: XCTestCase {
         setupSnapshot(app)
         app.launchArguments += [
             "-OASISPremiumOverride", premiumOverride,
-            "-OASISResetState", "YES"
+            "-OASISResetState", "YES",
+            "-OASISImmersiveAudioEnabled", "YES"
         ]
         app.launch()
+        assertImmersiveAudioEnabled(in: app)
+    }
+
+    private func assertImmersiveAudioEnabled(in app: XCUIApplication) {
+        let immersiveToggle = button(in: app, id: "home.header.immersive")
+        _ = immersiveToggle.waitForExistence(timeout: 5)
+        XCTAssertTrue(immersiveToggle.isSelected, "App Store screenshots must launch with immersive sound enabled.")
     }
 
     // MARK: - Element lookup

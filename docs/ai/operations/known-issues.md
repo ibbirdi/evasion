@@ -38,7 +38,7 @@ The number `35` (and its derivatives `32 more`, `3 free`) appears in:
 - Paywall copy
 - `SoundChannel` enum cases in code
 
-Adding or removing a channel is a multi-surface update. The checklist is in [content/sounds-catalog.md](../content/sounds-catalog.md). Don't ship a partial update — a "Mixer of 35 sounds" subtitle while screenshots still say "20 real places" is exactly the kind of inconsistency Apple reviewers (and customers) notice. As of 2026-05-19, App Store copy/screenshot updates are intentionally deferred while the app-side catalogue work continues.
+Adding or removing a channel is a multi-surface update. The checklist is in [content/sounds-catalog.md](../content/sounds-catalog.md). Don't ship a partial update — a "Mixer of 35 sounds" subtitle while screenshots still say "20 real places" is exactly the kind of inconsistency Apple reviewers (and customers) notice. As of 2026-05-19, App Store metadata, screenshot overlay copy, composite screenshots, and staged upload screenshots have been refreshed around the `35` total / `32` premium-extra claim; stale App Preview videos were removed from App Store Connect and are no longer staged.
 
 ## "Four binaural modes" — repeated
 

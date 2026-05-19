@@ -18,10 +18,40 @@ struct ChannelMetadata: Sendable {
         let red: Double
         let green: Double
         let blue: Double
+
+        var vibrantColor: Color {
+            let hsb = hsbComponents
+            let saturation = min(max((hsb.saturation * 1.32) + 0.08, hsb.saturation), 0.92)
+            let brightness = min(max(hsb.brightness * 1.04, hsb.brightness), 1)
+            return Color(hue: hsb.hue, saturation: saturation, brightness: brightness)
+        }
+
+        private var hsbComponents: (hue: Double, saturation: Double, brightness: Double) {
+            let maxComponent = max(red, green, blue)
+            let minComponent = min(red, green, blue)
+            let delta = maxComponent - minComponent
+
+            guard delta > 0 else {
+                return (0, 0, maxComponent)
+            }
+
+            let hue: Double
+            if maxComponent == red {
+                hue = ((green - blue) / delta).truncatingRemainder(dividingBy: 6) / 6
+            } else if maxComponent == green {
+                hue = (((blue - red) / delta) + 2) / 6
+            } else {
+                hue = (((red - green) / delta) + 4) / 6
+            }
+
+            let normalizedHue = hue < 0 ? hue + 1 : hue
+            let saturation = maxComponent == 0 ? 0 : delta / maxComponent
+            return (normalizedHue, saturation, maxComponent)
+        }
     }
 
     var tint: Color {
-        Color(red: tintRGB.red, green: tintRGB.green, blue: tintRGB.blue)
+        tintRGB.vibrantColor
     }
 }
 
@@ -161,7 +191,7 @@ extension SoundChannel {
             filename: "oiseaux1.m4a",
             category: .wildlife,
             systemImage: "bird.fill",
-            tintRGB: .init(red: 0.96, green: 0.74, blue: 0.53),
+            tintRGB: .init(red: 0.94, green: 0.78, blue: 0.44),
             shortName: LocalizedStringResource("channel.birds", defaultValue: "Birds", bundle: .main, comment: "Ambient sound channel short name."),
             longName: LocalizedStringResource("channel.birds.long", defaultValue: "Birds in the Breton countryside", bundle: .main, comment: "Ambient sound channel long descriptive name shown in the detail sheet."),
             location: ChannelLocation(
@@ -180,7 +210,7 @@ extension SoundChannel {
             filename: "vent1.m4a",
             category: .weather,
             systemImage: "wind",
-            tintRGB: .init(red: 0.96, green: 0.97, blue: 0.92),
+            tintRGB: .init(red: 0.78, green: 0.86, blue: 0.91),
             shortName: LocalizedStringResource("channel.wind", defaultValue: "Wind", bundle: .main, comment: "Ambient sound channel short name."),
             longName: LocalizedStringResource("channel.wind.long", defaultValue: "Outdoor wind at Perpignan", bundle: .main, comment: "Ambient sound channel long descriptive name."),
             location: ChannelLocation(
@@ -218,7 +248,7 @@ extension SoundChannel {
             filename: "goelants1.m4a",
             category: .wildlife,
             systemImage: "bird",
-            tintRGB: .init(red: 0.71, green: 0.86, blue: 0.66),
+            tintRGB: .init(red: 0.56, green: 0.78, blue: 0.84),
             shortName: LocalizedStringResource("channel.seagulls", defaultValue: "Seagulls", bundle: .main, comment: "Ambient sound channel short name."),
             longName: LocalizedStringResource("channel.seagulls.long", defaultValue: "Seagulls over a Breton harbour", bundle: .main, comment: "Ambient sound channel long descriptive name."),
             location: ChannelLocation(
@@ -275,7 +305,7 @@ extension SoundChannel {
             filename: "orage1.m4a",
             category: .weather,
             systemImage: "cloud.bolt.fill",
-            tintRGB: .init(red: 0.69, green: 0.57, blue: 0.92),
+            tintRGB: .init(red: 0.55, green: 0.48, blue: 0.72),
             shortName: LocalizedStringResource("channel.thunder", defaultValue: "Storm over the plain", bundle: .main, comment: "Ambient sound channel short name."),
             longName: LocalizedStringResource("channel.thunder.long", defaultValue: "Plain storm near Azillanet", bundle: .main, comment: "Ambient sound channel long descriptive name."),
             location: ChannelLocation(
@@ -314,7 +344,7 @@ extension SoundChannel {
             filename: "grillons1.m4a",
             category: .wildlife,
             systemImage: "moon.stars",
-            tintRGB: .init(red: 0.65, green: 0.80, blue: 0.97),
+            tintRGB: .init(red: 0.48, green: 0.50, blue: 0.76),
             shortName: LocalizedStringResource("channel.crickets", defaultValue: "Crickets", bundle: .main, comment: "Ambient sound channel short name."),
             longName: LocalizedStringResource("channel.crickets.long", defaultValue: "Countryside night crickets", bundle: .main, comment: "Ambient sound channel long descriptive name."),
             location: ChannelLocation(
@@ -602,7 +632,7 @@ extension SoundChannel {
             filename: "ventNuit1.m4a",
             category: .weather,
             systemImage: "wind",
-            tintRGB: .init(red: 0.58, green: 0.70, blue: 0.82),
+            tintRGB: .init(red: 0.37, green: 0.44, blue: 0.56),
             shortName: LocalizedStringResource("channel.nightWind", defaultValue: "Night wind", bundle: .main, comment: "Ambient sound channel short name."),
             longName: LocalizedStringResource("channel.nightWind.long", defaultValue: "Night wind through dry branches", bundle: .main, comment: "Ambient sound channel long descriptive name."),
             location: ChannelLocation(
@@ -699,7 +729,7 @@ extension SoundChannel {
             filename: "pluieCabane1.m4a",
             category: .shelter,
             systemImage: "house.fill",
-            tintRGB: .init(red: 0.64, green: 0.74, blue: 0.61),
+            tintRGB: .init(red: 0.58, green: 0.50, blue: 0.38),
             shortName: LocalizedStringResource("channel.cabinRain", defaultValue: "Rain under the cabin roof", bundle: .main, comment: "Ambient sound channel short name."),
             longName: LocalizedStringResource("channel.cabinRain.long", defaultValue: "Autumn rain under a log cabin roof", bundle: .main, comment: "Ambient sound channel long descriptive name."),
             location: ChannelLocation(

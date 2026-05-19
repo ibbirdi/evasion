@@ -738,13 +738,6 @@ enum L10n {
             comment: "Subtitle in the spatial positioning panel."
         )
 
-        static let reset = LocalizedStringResource(
-            "spatial.reset",
-            defaultValue: "Center sound",
-            bundle: .main,
-            comment: "Button title that recenters a sound in the spatial positioning panel."
-        )
-
         static let front = LocalizedStringResource(
             "spatial.front",
             defaultValue: "Front",

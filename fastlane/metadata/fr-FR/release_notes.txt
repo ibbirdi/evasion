@@ -1,5 +1,3 @@
-Oasis 1.4.3
+Oasis devient plus immersif et plus simple à utiliser.
 
-• Fiches son plus lisibles : l'attribution reste visible, sans bouton externe vers Freesound.
-• Captures et aperçus App Store rafraîchis dans les 6 langues.
-• Textes et mise en page affinés pour clarifier le mode hors ligne et l'absence d'abonnement.
+Activez Son immersif pour une scène sonore plus profonde, mixez désormais 35 sons naturels, choisissez la plage de variation du volume automatique et sauvegardez vos ambiances plus rapidement grâce aux presets repensés.

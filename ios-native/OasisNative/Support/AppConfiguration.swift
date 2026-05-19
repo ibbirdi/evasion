@@ -47,6 +47,7 @@ enum AppConfiguration {
     static let shouldResetStateOnLaunch = isRunningScreenshotAutomation || ProcessInfo.processInfo.arguments.contains("-OASISResetState")
     static let shouldResetOnboardingOnLaunch = ProcessInfo.processInfo.arguments.contains("-OASISResetOnboarding")
     static let shouldPersistState = !isRunningScreenshotAutomation
+    static let forcedImmersiveAudioEnabled = ProcessInfo.processInfo.launchArgumentBool(after: "-OASISImmersiveAudioEnabled")
     static let revenueCatAPIKey = (
         ProcessInfo.processInfo.environment["OASIS_REVENUECAT_API_KEY"] ??
         (Bundle.main.object(forInfoDictionaryKey: "RevenueCatAPIKey") as? String)
@@ -81,5 +82,22 @@ private extension ProcessInfo {
         let nextIndex = arguments.index(after: index)
         guard arguments.indices.contains(nextIndex) else { return nil }
         return arguments[nextIndex]
+    }
+
+    func launchArgumentBool(after flag: String) -> Bool? {
+        guard let value = launchArgumentValue(after: flag)?
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .lowercased() else {
+            return nil
+        }
+
+        switch value {
+        case "1", "true", "yes", "on":
+            return true
+        case "0", "false", "no", "off":
+            return false
+        default:
+            return nil
+        }
     }
 }

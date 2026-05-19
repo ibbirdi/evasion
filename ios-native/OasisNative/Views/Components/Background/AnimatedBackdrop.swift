@@ -1,30 +1,6 @@
 import SwiftUI
 
 struct AnimatedBackdrop: View {
-    @Environment(AppModel.self) private var model
-
-    private var activePalette: [Color] {
-        var colors = SoundChannel.allCases
-            .filter(model.isAmbientChannelActive(_:))
-            .map(\.tint)
-
-        if model.isBinauralActive {
-            colors.append(model.activeBinauralTrack.tint)
-        }
-
-        if colors.isEmpty {
-            colors = [SoundChannel.oiseaux.tint, SoundChannel.vent.tint, SoundChannel.plage.tint]
-        }
-
-        return Array(colors.prefix(6))
-    }
-
-    private var primaryColor: Color { color(at: 0) }
-    private var secondaryColor: Color { color(at: 1) }
-    private var tertiaryColor: Color { color(at: 2) }
-    private var quaternaryColor: Color { color(at: 3) }
-    private var accentColor: Color { color(at: 4) }
-
     var body: some View {
         GeometryReader { proxy in
             ZStack {
@@ -34,8 +10,8 @@ struct AnimatedBackdrop: View {
                     .fill(
                         LinearGradient(
                             colors: [
-                                primaryColor.opacity(0.44),
-                                secondaryColor.opacity(0.30),
+                                Color(red: 0.18, green: 0.23, blue: 0.29).opacity(0.34),
+                                Color(red: 0.11, green: 0.16, blue: 0.22).opacity(0.24),
                                 .clear
                             ],
                             startPoint: .topLeading,
@@ -51,8 +27,8 @@ struct AnimatedBackdrop: View {
                     .fill(
                         LinearGradient(
                             colors: [
-                                tertiaryColor.opacity(0.36),
-                                quaternaryColor.opacity(0.24),
+                                Color(red: 0.14, green: 0.19, blue: 0.26).opacity(0.28),
+                                Color(red: 0.09, green: 0.13, blue: 0.19).opacity(0.18),
                                 .clear
                             ],
                             startPoint: .top,
@@ -68,8 +44,8 @@ struct AnimatedBackdrop: View {
                     .fill(
                         LinearGradient(
                             colors: [
-                                accentColor.opacity(0.28),
-                                secondaryColor.opacity(0.18),
+                                Color(red: 0.17, green: 0.22, blue: 0.28).opacity(0.20),
+                                Color(red: 0.10, green: 0.15, blue: 0.21).opacity(0.14),
                                 .clear
                             ],
                             startPoint: .leading,
@@ -85,9 +61,9 @@ struct AnimatedBackdrop: View {
                     .fill(
                         LinearGradient(
                             colors: [
+                                Color.black.opacity(0.06),
                                 Color.black.opacity(0.14),
-                                Color.black.opacity(0.24),
-                                Color.black.opacity(0.42)
+                                Color.black.opacity(0.26)
                             ],
                             startPoint: .top,
                             endPoint: .bottom
@@ -99,8 +75,8 @@ struct AnimatedBackdrop: View {
                         RadialGradient(
                             colors: [
                                 Color.clear,
-                                Color.black.opacity(0.12),
-                                Color.black.opacity(0.34)
+                                Color.black.opacity(0.04),
+                                Color.black.opacity(0.18)
                             ],
                             center: .center,
                             startRadius: 24,
@@ -117,41 +93,13 @@ struct AnimatedBackdrop: View {
     private var baseGradient: some View {
         LinearGradient(
             colors: [
-                Color(red: 0.02, green: 0.03, blue: 0.06),
-                mix(primaryColor, with: secondaryColor, opacity: 0.18),
-                mix(tertiaryColor, with: quaternaryColor, opacity: 0.16),
-                Color(red: 0.02, green: 0.03, blue: 0.05)
+                Color(red: 0.028, green: 0.042, blue: 0.065),
+                Color(red: 0.075, green: 0.100, blue: 0.130),
+                Color(red: 0.052, green: 0.076, blue: 0.105),
+                Color(red: 0.024, green: 0.036, blue: 0.060)
             ],
             startPoint: .topLeading,
             endPoint: .bottomTrailing
         )
-    }
-
-    private func color(at index: Int) -> Color {
-        activePalette[index % activePalette.count]
-    }
-
-    private func mix(_ first: Color, with second: Color, opacity: Double) -> Color {
-        let uiFirst = UIColor(first)
-        let uiSecond = UIColor(second)
-
-        var firstRed: CGFloat = 0
-        var firstGreen: CGFloat = 0
-        var firstBlue: CGFloat = 0
-        var firstAlpha: CGFloat = 0
-        uiFirst.getRed(&firstRed, green: &firstGreen, blue: &firstBlue, alpha: &firstAlpha)
-
-        var secondRed: CGFloat = 0
-        var secondGreen: CGFloat = 0
-        var secondBlue: CGFloat = 0
-        var secondAlpha: CGFloat = 0
-        uiSecond.getRed(&secondRed, green: &secondGreen, blue: &secondBlue, alpha: &secondAlpha)
-
-        return Color(
-            red: (firstRed + secondRed) / 2,
-            green: (firstGreen + secondGreen) / 2,
-            blue: (firstBlue + secondBlue) / 2
-        )
-        .opacity(opacity)
     }
 }

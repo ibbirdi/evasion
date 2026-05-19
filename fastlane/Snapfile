@@ -98,7 +98,9 @@ concurrent_simulators(false)
 clean(true)
 result_bundle(true)
 namespace_log_files(true)
+only_testing(["OasisNativeUITests/OasisNativeScreenshots/testAppStoreScreenshots"])
 number_of_retries(0)
 launch_arguments([
-  "-OASISResetState YES"
+  "-OASISResetState YES",
+  "-OASISImmersiveAudioEnabled YES"
 ])

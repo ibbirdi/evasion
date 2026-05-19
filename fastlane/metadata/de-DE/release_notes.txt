@@ -1,5 +1,3 @@
-Oasis 1.4.3
+Oasis ist jetzt immersiver und einfacher zu bedienen.
 
-• Übersichtlichere Klangdetails: Die Quellenangabe bleibt sichtbar, ohne externen Freesound-Button.
-• Aktualisierte App Store Screenshots und Vorschauen in allen 6 Sprachen.
-• Text- und Layout-Feinschliff für die klare Offline- und Kein-Abo-Botschaft.
+Aktiviere Immersiver Klang für eine tiefere Klangbühne, mische 35 Naturklänge, wähle den Bereich für die automatische Lautstärkevariation und speichere deine Atmosphären schneller mit überarbeiteten Presets.
