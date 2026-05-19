@@ -132,7 +132,7 @@ enum L10n {
 
         static let titleSounds = LocalizedStringResource(
             "paywall.title.sounds",
-            defaultValue: "Unlock 17 more sounds",
+            defaultValue: "Unlock 32 more sounds",
             bundle: .main,
             comment: "Paywall title when triggered from a locked sound or spatial control."
         )
@@ -167,7 +167,7 @@ enum L10n {
 
         static let subtitleGeneric = LocalizedStringResource(
             "paywall.subtitle.generic",
-            defaultValue: "Unlock 17 more sounds, 1 hr/2 hr timers and unlimited saved mixes. One purchase, no subscription.",
+            defaultValue: "Unlock 32 more sounds, 1 hr/2 hr timers and unlimited saved mixes. One purchase, no subscription.",
             bundle: .main,
             comment: "Generic paywall subtitle summarizing the full premium offer."
         )
@@ -316,7 +316,7 @@ enum L10n {
 
         static let bannerSubtitle = LocalizedStringResource(
             "premium.banner.subtitle",
-            defaultValue: "Unlock 17 more sounds, 1 hr/2 hr timers and unlimited saved mixes.",
+            defaultValue: "Unlock 32 more sounds, 1 hr/2 hr timers and unlimited saved mixes.",
             bundle: .main,
             comment: "Short explanatory line in the premium home banner."
         )
@@ -330,7 +330,7 @@ enum L10n {
 
         static let libraryTitle = LocalizedStringResource(
             "premium.library.title",
-            defaultValue: "17 more sounds",
+            defaultValue: "32 more sounds",
             bundle: .main,
             comment: "Title of the home teaser card for the locked sound library."
         )

@@ -1,7 +1,7 @@
 ---
 title: State Model and Persistence
 status: stable
-last_updated: 2026-05-17
+last_updated: 2026-05-19
 tracks:
   - "ios-native/OasisNative/Services/AppModel.swift"
   - "ios-native/OasisNative/Models/AppModels.swift"
@@ -28,7 +28,7 @@ final class AppModel {
   var timerEndDate: Date?                  // wall-clock target; computed when timer set
 
   // Mix (persisted)
-  var channels: [SoundChannel: ChannelState]
+  var channels: [SoundChannel: ChannelState]   // 35 ambient channels
   var presets: [Preset]
   var currentPresetID: String?
 

@@ -45,7 +45,7 @@ struct PlaybackToolbarLabel: View {
 
     var body: some View {
         // Compute the palette once per body pass instead of three times
-        // (aura input, animationKey, border gradient) — each pass iterates all 20 channels.
+        // (aura input, animationKey, border gradient) — each pass iterates all channels.
         let palette = model.activePlaybackPalette
 
         Image(systemName: model.isPlaying ? "pause.fill" : "play.fill")

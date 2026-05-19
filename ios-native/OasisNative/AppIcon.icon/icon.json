@@ -19,10 +19,10 @@
     {
       "layers" : [
         {
-          "image-name" : "oasis logo 3.png",
-          "name" : "oasis logo 3",
+          "image-name" : "image.png",
+          "name" : "image",
           "position" : {
-            "scale" : 0.6,
+            "scale" : 0.9,
             "translation-in-points" : [
               0,
               0

@@ -1,7 +1,7 @@
 ---
 title: Release Process
 status: stable
-last_updated: 2026-05-18
+last_updated: 2026-05-19
 tracks:
   - "fastlane/Fastfile"
   - "fastlane/Deliverfile"
@@ -118,7 +118,7 @@ Plan ASO experiments around this: a Variant A push that includes a name change i
 ## What ships in the IPA
 
 - Compiled binary.
-- All 24 `.m4a` files (20 ambient + 4 binaural) — ~310 MB.
+- All 39 `.m4a` files (35 ambient + 4 binaural) — ~426 MB.
 - App icon, in-app images.
 - `Localizable.xcstrings` (compiled into `.strings` per locale at build).
 - `Info.plist` with `RevenueCatAPIKey`.

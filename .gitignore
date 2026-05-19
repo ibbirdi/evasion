@@ -19,6 +19,20 @@ expo-env.d.ts
 *.mobileprovision
 *.ipa
 
+# Xcode / SwiftPM local build products
+DerivedData/
+.build/
+build/
+*.xcarchive
+*.xcresult
+*.dSYM
+*.dSYM.zip
+
+# Xcode user state
+xcuserdata/
+*.xcuserstate
+*.xcscmblueprint
+
 # Metro
 .metro-health-check*
 

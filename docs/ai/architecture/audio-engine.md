@@ -1,7 +1,7 @@
 ---
 title: Audio Engine
 status: stable
-last_updated: 2026-05-03
+last_updated: 2026-05-19
 tracks:
   - "ios-native/OasisNative/Services/AudioMixerEngine.swift"
   - "ios-native/OasisNative/Services/TonalBedSynth.swift"
@@ -24,7 +24,7 @@ AVAudioEngine (ambientEngine)
 │   ├── AVAudioPlayerNode  (channel oiseaux)
 │   ├── AVAudioPlayerNode  (channel vent)
 │   ├── ...
-│   └── AVAudioPlayerNode  (channel jungleAsie)   — 20 nodes, one per channel
+│   └── AVAudioPlayerNode  (channel cloches)      — 35 nodes, one per channel
 │
 └── AVAudioMixerNode (tonalMixerNode)
     └── AVAudioSourceNode  (TonalBedSynth — procedural pad)
@@ -118,9 +118,9 @@ The pad is **off by default since v1.4.1**. Toggled via `AppModel.isTonalBedEnab
 ## Audio assets
 
 - Format: `.m4a`, AAC-LC, 96 kbps, stereo, 44.1 kHz.
-- Encoded via 2-pass `loudnorm` to `I=-20 LUFS, TP=-1.5 dBTP, LRA=11 LU`, with `linear=true` (no dynamic compression).
+- Encoded via 2-pass `loudnorm` to `I=-20 LUFS, TP=-1.5 dBTP, LRA=11 LU`, with `linear=true` (no dynamic compression). Transient-heavy additions can use stricter per-file true-peak/limiter settings after validation; see [../content/sounds-catalog.md](../content/sounds-catalog.md).
 - Brick-wall limiter `alimiter=limit=0.71:level=false` (~ -3 dBFS).
-- ~310 MB total bundle weight.
+- ~426 MB total bundle weight.
 
 Full pipeline rationale and per-file measurements: [../content/sounds-catalog.md](../content/sounds-catalog.md).
 

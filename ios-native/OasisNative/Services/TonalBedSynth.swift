@@ -220,17 +220,17 @@ extension SoundChannel {
     /// — nothing exotic — so the pad sits under the recording without asserting a genre.
     var tonalSignature: TonalSignature {
         switch self {
-        case .pluie, .tonnerre, .orageMontagne:
+        case .pluie, .tonnerre, .orageMontagne, .pluieFenetre, .pluieForet, .fortePluie, .ventNuit, .neigeVille, .pluieCabane:
             return TonalSignature(rootHz: 130.81, voicing: .minorDrone) // C3 minor
         case .campfire:
             return TonalSignature(rootHz: 110.0, voicing: .majorTriad) // A2 major
-        case .grillons, .cigales:
+        case .grillons, .cigales, .chevres, .carillons, .cloches:
             return TonalSignature(rootHz: 196.0, voicing: .suspendedFourth) // G3 sus4
-        case .foret, .savane, .jungleAmerique, .jungleAsie:
+        case .foret, .savane, .jungleAmerique, .jungleAsie, .foretNuit, .foretChiloe, .aubeJungle:
             return TonalSignature(rootHz: 146.83, voicing: .openFifth) // D3 open
-        case .riviere, .lac:
+        case .riviere, .lac, .cascade, .crueMontagne:
             return TonalSignature(rootHz: 130.81, voicing: .openFifth) // C3 open
-        case .plage, .goelands, .mer:
+        case .plage, .goelands, .mer, .port:
             return TonalSignature(rootHz: 123.47, voicing: .openFifth) // B2 open
         case .oiseaux, .vent:
             return TonalSignature(rootHz: 146.83, voicing: .openFifth) // D3 open

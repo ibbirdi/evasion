@@ -1,7 +1,7 @@
 ---
 title: Localization
 status: stable
-last_updated: 2026-05-18
+last_updated: 2026-05-19
 tracks:
   - "ios-native/OasisNative/Support/L10n.swift"
   - "ios-native/OasisNative/Resources/Localizable.xcstrings"
@@ -59,7 +59,7 @@ onboarding.<step>.<key>
 errors.<key>
 ```
 
-When adding a new channel, run [`scripts/add_channel_translations.py`](../../../scripts/add_channel_translations.py) to scaffold or refresh the three `channel.<id>.*` entries in all 6 locales. The helper reflects the current 20-channel catalog, including `sea` and `mountainStorm`; do not reintroduce retired `train` / `carRide` keys.
+When adding a new channel, run [`scripts/add_channel_translations.py`](../../../scripts/add_channel_translations.py) to scaffold or refresh the three `channel.<id>.*` entries in all 6 locales. The helper reflects the current 35-channel catalog, including the 2026-05 rain/forest/water/wildlife/human additions; do not reintroduce retired `train` / `carRide` keys.
 
 ### Special characters
 

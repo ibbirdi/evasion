@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """
-Adds the new SoundChannelMetadata.swift and SoundDetailSheet.swift Swift files
-and the 6 new ambient m4a audio files to the OasisNative Xcode target.
+Adds catalog helper files and ambient m4a audio files to the OasisNative Xcode target.
 
 Idempotent: already-registered files are skipped.
 """
@@ -17,7 +16,7 @@ PBXPROJ = Path(__file__).resolve().parents[1] / "ios-native/OasisNative.xcodepro
 # Group UUIDs:
 #   Models:   9F931F38A9610F04344AB17F
 #   Overlays: 61C1233ED79C77E89155DFE0  (discovered below)
-#   Audio:    D93EF40917181671FE83DA9B
+#   Audio:    D391268D4223F716F963BE0A
 
 FILES_SPEC = [
     {
@@ -37,12 +36,27 @@ FILES_SPEC = [
         # Overlays group UUID is looked up at runtime.
         "group_path": "Overlays",
     },
-    {"name": "campfire1.m4a",        "file_uuid": "A20000000000000000000020", "build_uuid": "A10000000000000000000020", "kind": "file", "phase": "Resources", "group_uuid": "D93EF40917181671FE83DA9B"},
-    {"name": "cafe1.m4a",            "file_uuid": "A20000000000000000000021", "build_uuid": "A10000000000000000000021", "kind": "file", "phase": "Resources", "group_uuid": "D93EF40917181671FE83DA9B"},
-    {"name": "lac1.m4a",             "file_uuid": "A20000000000000000000022", "build_uuid": "A10000000000000000000022", "kind": "file", "phase": "Resources", "group_uuid": "D93EF40917181671FE83DA9B"},
-    {"name": "savane1.m4a",          "file_uuid": "A20000000000000000000023", "build_uuid": "A10000000000000000000023", "kind": "file", "phase": "Resources", "group_uuid": "D93EF40917181671FE83DA9B"},
-    {"name": "jungleamerique1.m4a",  "file_uuid": "A20000000000000000000024", "build_uuid": "A10000000000000000000024", "kind": "file", "phase": "Resources", "group_uuid": "D93EF40917181671FE83DA9B"},
-    {"name": "jungleasie1.m4a",      "file_uuid": "A20000000000000000000025", "build_uuid": "A10000000000000000000025", "kind": "file", "phase": "Resources", "group_uuid": "D93EF40917181671FE83DA9B"},
+    {"name": "campfire1.m4a",        "file_uuid": "A20000000000000000000020", "build_uuid": "A10000000000000000000020", "kind": "file", "phase": "Resources", "group_uuid": "D391268D4223F716F963BE0A"},
+    {"name": "cafe1.m4a",            "file_uuid": "A20000000000000000000021", "build_uuid": "A10000000000000000000021", "kind": "file", "phase": "Resources", "group_uuid": "D391268D4223F716F963BE0A"},
+    {"name": "lac1.m4a",             "file_uuid": "A20000000000000000000022", "build_uuid": "A10000000000000000000022", "kind": "file", "phase": "Resources", "group_uuid": "D391268D4223F716F963BE0A"},
+    {"name": "savane1.m4a",          "file_uuid": "A20000000000000000000023", "build_uuid": "A10000000000000000000023", "kind": "file", "phase": "Resources", "group_uuid": "D391268D4223F716F963BE0A"},
+    {"name": "jungleamerique1.m4a",  "file_uuid": "A20000000000000000000024", "build_uuid": "A10000000000000000000024", "kind": "file", "phase": "Resources", "group_uuid": "D391268D4223F716F963BE0A"},
+    {"name": "jungleasie1.m4a",      "file_uuid": "A20000000000000000000025", "build_uuid": "A10000000000000000000025", "kind": "file", "phase": "Resources", "group_uuid": "D391268D4223F716F963BE0A"},
+    {"name": "pluieFenetre1.m4a",    "file_uuid": "A20000000000000000000030", "build_uuid": "A10000000000000000000030", "kind": "file", "phase": "Resources", "group_uuid": "D391268D4223F716F963BE0A"},
+    {"name": "pluieForet1.m4a",      "file_uuid": "A20000000000000000000031", "build_uuid": "A10000000000000000000031", "kind": "file", "phase": "Resources", "group_uuid": "D391268D4223F716F963BE0A"},
+    {"name": "fortePluie1.m4a",      "file_uuid": "A20000000000000000000032", "build_uuid": "A10000000000000000000032", "kind": "file", "phase": "Resources", "group_uuid": "D391268D4223F716F963BE0A"},
+    {"name": "ventNuit1.m4a",        "file_uuid": "A20000000000000000000033", "build_uuid": "A10000000000000000000033", "kind": "file", "phase": "Resources", "group_uuid": "D391268D4223F716F963BE0A"},
+    {"name": "foretNuit1.m4a",       "file_uuid": "A20000000000000000000034", "build_uuid": "A10000000000000000000034", "kind": "file", "phase": "Resources", "group_uuid": "D391268D4223F716F963BE0A"},
+    {"name": "crueMontagne1.m4a",    "file_uuid": "A20000000000000000000035", "build_uuid": "A10000000000000000000035", "kind": "file", "phase": "Resources", "group_uuid": "D391268D4223F716F963BE0A"},
+    {"name": "cascade1.m4a",         "file_uuid": "A20000000000000000000036", "build_uuid": "A10000000000000000000036", "kind": "file", "phase": "Resources", "group_uuid": "D391268D4223F716F963BE0A"},
+    {"name": "neigeVille1.m4a",      "file_uuid": "A20000000000000000000037", "build_uuid": "A10000000000000000000037", "kind": "file", "phase": "Resources", "group_uuid": "D391268D4223F716F963BE0A"},
+    {"name": "pluieCabane1.m4a",     "file_uuid": "A20000000000000000000038", "build_uuid": "A10000000000000000000038", "kind": "file", "phase": "Resources", "group_uuid": "D391268D4223F716F963BE0A"},
+    {"name": "foretChiloe1.m4a",     "file_uuid": "A20000000000000000000039", "build_uuid": "A10000000000000000000039", "kind": "file", "phase": "Resources", "group_uuid": "D391268D4223F716F963BE0A"},
+    {"name": "aubeJungle1.m4a",      "file_uuid": "A20000000000000000000040", "build_uuid": "A10000000000000000000040", "kind": "file", "phase": "Resources", "group_uuid": "D391268D4223F716F963BE0A"},
+    {"name": "port1.m4a",            "file_uuid": "A20000000000000000000041", "build_uuid": "A10000000000000000000041", "kind": "file", "phase": "Resources", "group_uuid": "D391268D4223F716F963BE0A"},
+    {"name": "chevres1.m4a",         "file_uuid": "A20000000000000000000042", "build_uuid": "A10000000000000000000042", "kind": "file", "phase": "Resources", "group_uuid": "D391268D4223F716F963BE0A"},
+    {"name": "carillons1.m4a",       "file_uuid": "A20000000000000000000043", "build_uuid": "A10000000000000000000043", "kind": "file", "phase": "Resources", "group_uuid": "D391268D4223F716F963BE0A"},
+    {"name": "cloches1.m4a",         "file_uuid": "A20000000000000000000044", "build_uuid": "A10000000000000000000044", "kind": "file", "phase": "Resources", "group_uuid": "D391268D4223F716F963BE0A"},
 ]
 
 
@@ -134,7 +148,10 @@ def main() -> int:
             raise RuntimeError(f"Could not resolve group for {name}")
 
         # Skip if already present.
-        if file_uuid in text and build_uuid in text:
+        if (
+            f"/* {name} */" in text
+            and (phase != "Resources" or f"/* {name} in Resources */" in text)
+        ) or (file_uuid in text and build_uuid in text):
             print(f"[skip] {name} already registered.")
             continue
 

@@ -1,7 +1,7 @@
 ---
 title: Positioning
 status: stable
-last_updated: 2026-05-17
+last_updated: 2026-05-19
 tracks:
   - "fastlane/metadata/**/description.txt"
   - "fastlane/metadata/**/subtitle.txt"
@@ -39,7 +39,7 @@ Every visible copy moment should be readable from at least 2 of these four conte
 ## The moats — in priority order
 
 1. **No subscription. Ever.** One-time lifetime purchase. Every future premium sound included. → This is the **primary** moat. Copy in screenshot 10, paywall, description bullet, release notes. Protect verbatim.
-2. **Authentic field recordings.** 20 named places, named authors, real licences (CC0 / CC-BY-4.0). Every sound has a story. → Rendered in `SoundDetailSheet`. Backs claims of "real nature", "hand-recorded".
+2. **Authentic field recordings.** 35 named recordings, named authors, real licences (CC0 / CC-BY-3.0 / CC-BY-4.0). Every sound has a story. → Rendered in `SoundDetailSheet`. Backs claims of "real nature", "hand-recorded".
 3. **Per-sound placement.** Users can move each channel around the listener. → Market this as sound placement, not "3D audio" or "spatial audio"; the latter sounds cheap and overclaims the current experience.
 4. **Four binaural modes.** Sleep / meditation / relax / focus. → Pairs with the 4 use cases.
 5. **100 % offline.** No streaming, no account. → Plane, tent, off-grid. Underlines no-subscription stance ("you actually own it").

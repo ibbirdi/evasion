@@ -32,6 +32,21 @@ enum SoundChannel: String, CaseIterable, Codable, Identifiable, Sendable {
     case savane
     case jungleAmerique
     case jungleAsie
+    case pluieFenetre
+    case pluieForet
+    case fortePluie
+    case ventNuit
+    case foretNuit
+    case crueMontagne
+    case cascade
+    case neigeVille
+    case pluieCabane
+    case foretChiloe
+    case aubeJungle
+    case port
+    case chevres
+    case carillons
+    case cloches
 
     var id: String { rawValue }
 

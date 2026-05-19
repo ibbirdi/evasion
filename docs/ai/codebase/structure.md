@@ -1,7 +1,7 @@
 ---
 title: Repo Structure
 status: stable
-last_updated: 2026-05-18
+last_updated: 2026-05-19
 tracks:
   - "ios-native/**"
   - "scripts/**"
@@ -62,8 +62,8 @@ Plain Codable types. No business logic, no AVFoundation imports.
 
 | File | Contains |
 | --- | --- |
-| `AppModels.swift` | `SoundChannel` (20 cases), `BinauralTrack` (4 cases), `ChannelState`, `Preset`, `SpatialPoint`, `PersistedMixerState`. |
-| `SoundChannelMetadata.swift` | Per-channel metadata: file name, location, author, licence, SF Symbol, RGB tint, tonal group. The single source of truth for the catalog. |
+| `AppModels.swift` | `SoundChannel` (35 cases), `BinauralTrack` (4 cases), `ChannelState`, `Preset`, `SpatialPoint`, `PersistedMixerState`. |
+| `SoundChannelMetadata.swift` | Per-channel metadata: file name, category, location, author, licence, SF Symbol, RGB tint, tonal group. The single source of truth for the catalog. |
 | `PremiumModels.swift` | `PremiumEntryPoint`, `PremiumPaywallContext`, `PremiumInlineUpsellContext`. |
 
 ### `Services/`

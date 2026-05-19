@@ -1,7 +1,7 @@
 ---
 title: Premium Model
 status: stable
-last_updated: 2026-05-17
+last_updated: 2026-05-19
 tracks:
   - "ios-native/OasisNative/Services/PremiumCoordinator.swift"
   - "ios-native/OasisNative/Services/PremiumRevenueCatService.swift"
@@ -21,7 +21,7 @@ related:
 
 | Feature | Free | Premium |
 | --- | --- | --- |
-| Ambient channels | 3 (Birds / Wind / Beach) | All 20 |
+| Ambient channels | 3 (Birds / Wind / Beach) | All 35 |
 | Mixer (volume, mute, auto-variation) | On the 3 free channels | All channels |
 | Random mix | Yes, restricted to free channels | Yes, full library |
 | Sound placement | Yes, on accessible channels | Yes, on accessible channels |

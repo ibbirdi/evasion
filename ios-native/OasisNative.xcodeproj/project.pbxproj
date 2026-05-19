@@ -78,6 +78,21 @@
 		E77BA1074A3536C0C910479F /* OasisNativePremiumFlowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4AB0D210A8BE30CCB5E62F /* OasisNativePremiumFlowTests.swift */; };
 		E78B262FBE2076F77F029592 /* foret1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 2003B418811B476329A9A284 /* foret1.m4a */; };
 		F8170D01A76E2CC70D0ED31B /* PremiumSurfaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA11B1A5713D90D5E1FD7BF /* PremiumSurfaces.swift */; };
+		45B93A4027DE71292ACC52F5 /* pluieFenetre1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = F618AE32CD86A4EF7F4C619D /* pluieFenetre1.m4a */; };
+		281122DE8A788F8CAFC82CC8 /* pluieForet1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 146DA74BCCCA469A28AE19AC /* pluieForet1.m4a */; };
+		84546C7D9ED1777FF184C325 /* fortePluie1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = A137F46F743AEE635FC3E0D9 /* fortePluie1.m4a */; };
+		8C98505BA1E231060EA1E1A7 /* ventNuit1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 79A88C064D209A697F657E4C /* ventNuit1.m4a */; };
+		D5465C602C4A85B2EA96C0CA /* foretNuit1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 32E343B4B2A59368053BF9D4 /* foretNuit1.m4a */; };
+		2C8F3BB740281F6447C2FE41 /* crueMontagne1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 8884536F0AA450F2F083F2DF /* crueMontagne1.m4a */; };
+		FDBBF595F82D5EECC664D8EF /* cascade1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = E3EA6564A1C971CA74B2C904 /* cascade1.m4a */; };
+		DB353A9A10A1D4580CE2E649 /* neigeVille1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 11656CA4DEE5FBFADE36A64E /* neigeVille1.m4a */; };
+		15410934E139E48500A1082F /* pluieCabane1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = FA19673118684A0CC17A0F63 /* pluieCabane1.m4a */; };
+		2214FD9E7703AB4AC686528A /* foretChiloe1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = DF0E5DC0EF0546381FCAF6AD /* foretChiloe1.m4a */; };
+		B53E1A59584FDA8FDD1B5E76 /* aubeJungle1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = CA3F48A884343264A1A40780 /* aubeJungle1.m4a */; };
+		D68DF8D75FE48A62760BED60 /* port1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 940DF3C069C8F75B9EF59EF5 /* port1.m4a */; };
+		FA6FDE0A8AB73410085A91CB /* chevres1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 7E09FC734D354448C85A136F /* chevres1.m4a */; };
+		EB55EDD6BA9ADD2691D52375 /* carillons1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 1FA98C70EE763F8F964A1863 /* carillons1.m4a */; };
+		F24D7D0A03E700D5E584E8FB /* cloches1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 5B579DB66D072A2C2F148E57 /* cloches1.m4a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -162,6 +177,21 @@
 		FD0AE75B18E507CE49604115 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		FE4AB0D210A8BE30CCB5E62F /* OasisNativePremiumFlowTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OasisNativePremiumFlowTests.swift; sourceTree = "<group>"; };
 		FF7FE75507E1A7EEAF34EBDE /* PremiumCoordinator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PremiumCoordinator.swift; sourceTree = "<group>"; };
+		F618AE32CD86A4EF7F4C619D /* pluieFenetre1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = pluieFenetre1.m4a; sourceTree = "<group>"; };
+		146DA74BCCCA469A28AE19AC /* pluieForet1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = pluieForet1.m4a; sourceTree = "<group>"; };
+		A137F46F743AEE635FC3E0D9 /* fortePluie1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = fortePluie1.m4a; sourceTree = "<group>"; };
+		79A88C064D209A697F657E4C /* ventNuit1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = ventNuit1.m4a; sourceTree = "<group>"; };
+		32E343B4B2A59368053BF9D4 /* foretNuit1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = foretNuit1.m4a; sourceTree = "<group>"; };
+		8884536F0AA450F2F083F2DF /* crueMontagne1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = crueMontagne1.m4a; sourceTree = "<group>"; };
+		E3EA6564A1C971CA74B2C904 /* cascade1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = cascade1.m4a; sourceTree = "<group>"; };
+		11656CA4DEE5FBFADE36A64E /* neigeVille1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = neigeVille1.m4a; sourceTree = "<group>"; };
+		FA19673118684A0CC17A0F63 /* pluieCabane1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = pluieCabane1.m4a; sourceTree = "<group>"; };
+		DF0E5DC0EF0546381FCAF6AD /* foretChiloe1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = foretChiloe1.m4a; sourceTree = "<group>"; };
+		CA3F48A884343264A1A40780 /* aubeJungle1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = aubeJungle1.m4a; sourceTree = "<group>"; };
+		940DF3C069C8F75B9EF59EF5 /* port1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = port1.m4a; sourceTree = "<group>"; };
+		7E09FC734D354448C85A136F /* chevres1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = chevres1.m4a; sourceTree = "<group>"; };
+		1FA98C70EE763F8F964A1863 /* carillons1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = carillons1.m4a; sourceTree = "<group>"; };
+		5B579DB66D072A2C2F148E57 /* cloches1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = cloches1.m4a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -419,6 +449,21 @@
 				681FB4460E600338293AA620 /* vent1.m4a */,
 				4C749707D9F4BAA717AF532E /* ville1.m4a */,
 				F36E432785BB3BFAB68A6785 /* orageMontagne1.m4a */,
+				F618AE32CD86A4EF7F4C619D /* pluieFenetre1.m4a */,
+				146DA74BCCCA469A28AE19AC /* pluieForet1.m4a */,
+				A137F46F743AEE635FC3E0D9 /* fortePluie1.m4a */,
+				79A88C064D209A697F657E4C /* ventNuit1.m4a */,
+				32E343B4B2A59368053BF9D4 /* foretNuit1.m4a */,
+				8884536F0AA450F2F083F2DF /* crueMontagne1.m4a */,
+				E3EA6564A1C971CA74B2C904 /* cascade1.m4a */,
+				11656CA4DEE5FBFADE36A64E /* neigeVille1.m4a */,
+				FA19673118684A0CC17A0F63 /* pluieCabane1.m4a */,
+				DF0E5DC0EF0546381FCAF6AD /* foretChiloe1.m4a */,
+				CA3F48A884343264A1A40780 /* aubeJungle1.m4a */,
+				940DF3C069C8F75B9EF59EF5 /* port1.m4a */,
+				7E09FC734D354448C85A136F /* chevres1.m4a */,
+				1FA98C70EE763F8F964A1863 /* carillons1.m4a */,
+				5B579DB66D072A2C2F148E57 /* cloches1.m4a */,
 			);
 			path = Audio;
 			sourceTree = "<group>";
@@ -562,6 +607,21 @@
 				5037B7B9EE7A6A5760913360 /* orageMontagne1.m4a in Resources */,
 				6102A02BB669EFBC1B358965 /* oasisLogo.png in Resources */,
 				5E143DC2B09A12D843F4557B /* Localizable.xcstrings in Resources */,
+				45B93A4027DE71292ACC52F5 /* pluieFenetre1.m4a in Resources */,
+				281122DE8A788F8CAFC82CC8 /* pluieForet1.m4a in Resources */,
+				84546C7D9ED1777FF184C325 /* fortePluie1.m4a in Resources */,
+				8C98505BA1E231060EA1E1A7 /* ventNuit1.m4a in Resources */,
+				D5465C602C4A85B2EA96C0CA /* foretNuit1.m4a in Resources */,
+				2C8F3BB740281F6447C2FE41 /* crueMontagne1.m4a in Resources */,
+				FDBBF595F82D5EECC664D8EF /* cascade1.m4a in Resources */,
+				DB353A9A10A1D4580CE2E649 /* neigeVille1.m4a in Resources */,
+				15410934E139E48500A1082F /* pluieCabane1.m4a in Resources */,
+				2214FD9E7703AB4AC686528A /* foretChiloe1.m4a in Resources */,
+				B53E1A59584FDA8FDD1B5E76 /* aubeJungle1.m4a in Resources */,
+				D68DF8D75FE48A62760BED60 /* port1.m4a in Resources */,
+				FA6FDE0A8AB73410085A91CB /* chevres1.m4a in Resources */,
+				EB55EDD6BA9ADD2691D52375 /* carillons1.m4a in Resources */,
+				F24D7D0A03E700D5E584E8FB /* cloches1.m4a in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

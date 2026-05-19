@@ -1,7 +1,7 @@
 ---
 title: Known Issues and Watch-Outs
 status: stable
-last_updated: 2026-05-03
+last_updated: 2026-05-19
 tracks: []
 related:
   - "../codebase/conventions.md"
@@ -29,16 +29,16 @@ If you absolutely must align them: write a `PersistedMixerState` decode-time mig
 
 Until then: treat the drift as load-bearing.
 
-## "20 sounds" claim — repeated everywhere
+## "35 sounds" claim — repeated everywhere
 
-The number `20` (and its derivatives `17 more`, `3 free`) appears in:
+The number `35` (and its derivatives `32 more`, `3 free`) appears in:
 
 - 6 locales × `subtitle.txt`, `description.txt`, `promotional_text.txt`, `release_notes.txt`
 - Screenshots `02_library`, `08_free_home`, `09_library_teaser` (rasterised JPEGs)
 - Paywall copy
 - `SoundChannel` enum cases in code
 
-Adding or removing a channel is a multi-surface update. The checklist is in [content/sounds-catalog.md](../content/sounds-catalog.md). Don't ship a partial update — a "Mixer of 21 sounds" subtitle while screenshots still say "20 real places" is exactly the kind of inconsistency Apple reviewers (and customers) notice.
+Adding or removing a channel is a multi-surface update. The checklist is in [content/sounds-catalog.md](../content/sounds-catalog.md). Don't ship a partial update — a "Mixer of 35 sounds" subtitle while screenshots still say "20 real places" is exactly the kind of inconsistency Apple reviewers (and customers) notice. As of 2026-05-19, App Store copy/screenshot updates are intentionally deferred while the app-side catalogue work continues.
 
 ## "Four binaural modes" — repeated
 
@@ -55,15 +55,15 @@ Both briefs were absorbed into [marketing/store-assets.md](../marketing/store-as
 
 ## `lac1.m4a` over true-peak target
 
-Of all 20 ambient channels, `lac1.m4a` is the only file with a measured `+0.3 dBTP` (i.e., 0.3 dB over the `-1.5 dBTP` target). This is within the limiter's tolerance and audibly fine, but there is **no margin** to layer further processing.
+Of the pre-2026-05 ambient channels, `lac1.m4a` is the only file with a measured `+0.3 dBTP` (i.e., 0.3 dB over the `-1.5 dBTP` target). This is within the limiter's tolerance and audibly fine, but there is **no margin** to layer further processing.
 
 Why: the source recording is exceptionally quiet (`-52 LUFS` integrated), and reaching `-20 LUFS` required `+32 dB` gain. The intersample peaks pushed past the target despite the alimiter.
 
 If you re-encode lac with stricter limiting, audible artifacts appear in the high-frequency content. Best fix would be to re-source a louder original — that's a known but unbooked task.
 
-## Bundle size — 310 MB ceiling-anxious
+## Bundle size — 426 MB ceiling-anxious
 
-The IPA is ~310 MB today. Every new ambient channel adds 10–17 MB. App Store cellular install limit is 4 GB so we're nowhere near it, but:
+The audio bundle is ~426 MB today. New ambient channels add ~4–32 MB. App Store cellular install limit is 4 GB so we're nowhere near it, but:
 
 - TestFlight downloads on cellular get throttled around 200 MB (anecdotally).
 - App Store search results display "X.Y GB" once a release crosses 1 GB — perceptual cliff.

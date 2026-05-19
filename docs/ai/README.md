@@ -39,7 +39,7 @@ Touch in this order:
 2. [architecture/audio-engine.md](architecture/audio-engine.md) — loading, looping
 3. [architecture/state.md](architecture/state.md) — `PersistedMixerState` backward-compat
 4. [content/localization.md](content/localization.md) — `channel.{id}` keys ×6 locales
-5. [marketing/store-assets.md](marketing/store-assets.md) — "20 sounds" claim updates
+5. [marketing/store-assets.md](marketing/store-assets.md) — "35 sounds" claim updates
 
 ### "I'm working on the UI / SwiftUI views"
 1. [architecture/ui.md](architecture/ui.md)
@@ -73,7 +73,7 @@ codebase/        — where things live, how to read the repo
   build-and-test.md   xcodebuild, fastlane lanes, scripts/, UI tests
 
 content/         — material the app ships
-  sounds-catalog.md   20 channels + 4 binaurals, sources, licences, encoding
+  sounds-catalog.md   35 channels + 4 binaurals, sources, licences, encoding
   localization.md     6 locales, AppCopy, fastlane metadata, key conventions
 
 marketing/       — how Oasis is sold

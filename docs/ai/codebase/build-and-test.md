@@ -1,7 +1,7 @@
 ---
 title: Build and Test
 status: stable
-last_updated: 2026-05-18
+last_updated: 2026-05-19
 tracks:
   - "ios-native/OasisNative.xcodeproj/**"
   - "ios-native/OasisNativeUITests/**"
@@ -118,7 +118,7 @@ All under `scripts/`. Purpose-specific, not part of the build pipeline.
 | `generate_store_screenshot_comps.swift` | When updating App Store screenshots — composites the 10 localized slides over adaptive blob-only backgrounds and exports JPEGs at `1320×2868`. See [../marketing/store-assets.md](../marketing/store-assets.md). |
 | `generate_app_previews.rb` | When updating App Preview videos; outputs silent videos with a required stereo AAC track for App Store Connect. |
 | `add_files_to_xcode.py` | When adding many files to the Xcode project at once (manual `.pbxproj` edits are error-prone). |
-| `add_channel_translations.py` | When adding/replacing a channel — pre-fills or refreshes `channel.<id>.*` keys in `Localizable.xcstrings` for the current 20-channel catalog. |
+| `add_channel_translations.py` | When adding/replacing a channel — pre-fills or refreshes `channel.<id>.*` keys in `Localizable.xcstrings` for the current 35-channel catalog. |
 | `createFastlaneCountriesFolders.js` | Bootstrap a new locale's metadata folder structure. |
 | `generateFastlaneTxtFiles.js` | Mirror the canonical `fastlane/metadata/<locale>/*.txt` files into the script metadata output path. |
 

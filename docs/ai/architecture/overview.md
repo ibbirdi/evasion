@@ -1,7 +1,7 @@
 ---
 title: Architecture Overview
 status: stable
-last_updated: 2026-05-17
+last_updated: 2026-05-19
 tracks:
   - "ios-native/OasisNative/OasisNativeApp.swift"
   - "ios-native/OasisNative/Services/AppModel.swift"
@@ -60,7 +60,7 @@ Oasis is a single-target iOS native app. SwiftUI for everything visible, AVFound
 | --- | --- | --- |
 | `OasisNativeApp` | [OasisNativeApp.swift](../../../ios-native/OasisNative/OasisNativeApp.swift) | Entry point. Configures `Purchases` (RevenueCat) and TelemetryDeck. Instantiates `AppModel`. |
 | `AppModel` | [Services/AppModel.swift](../../../ios-native/OasisNative/Services/AppModel.swift) | Hub. `@Observable @MainActor`. Owns mix state, presets, premium state, timer, engagement metrics. Bridges UI ↔ engine ↔ RevenueCat. See [state.md](state.md). |
-| `AudioMixerEngine` | [Services/AudioMixerEngine.swift](../../../ios-native/OasisNative/Services/AudioMixerEngine.swift) | The audio graph. `AVAudioEngine` + `AVAudioEnvironmentNode` + 20 `AVAudioPlayerNode` + `TonalBedSynth`. Handles loops, fades, spatial, remote commands. See [audio-engine.md](audio-engine.md). |
+| `AudioMixerEngine` | [Services/AudioMixerEngine.swift](../../../ios-native/OasisNative/Services/AudioMixerEngine.swift) | The audio graph. `AVAudioEngine` + `AVAudioEnvironmentNode` + 35 `AVAudioPlayerNode` + `TonalBedSynth`. Handles loops, fades, spatial, remote commands. See [audio-engine.md](audio-engine.md). |
 | `TonalBedSynth` | [Services/TonalBedSynth.swift](../../../ios-native/OasisNative/Services/TonalBedSynth.swift) | Procedural 3-voice harmonic pad. `AVAudioSourceNode`. Locked to the dominant channel's tonal group. |
 | `PremiumCoordinator` | [Services/PremiumCoordinator.swift](../../../ios-native/OasisNative/Services/PremiumCoordinator.swift) | Routes premium requests to inline-upsell or full-paywall. See [paywall.md](paywall.md). |
 | `PremiumRevenueCatService` | [Services/PremiumRevenueCatService.swift](../../../ios-native/OasisNative/Services/PremiumRevenueCatService.swift) | Thin wrapper around `Purchases.shared` (purchase, restore, fetch offerings). |
