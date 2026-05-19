@@ -81,6 +81,71 @@ enum L10n {
             bundle: .main,
             comment: "Menu action that disables the timer."
         )
+
+        static let activeFilter = LocalizedStringResource(
+            "header.activeFilter",
+            defaultValue: "Show only active sounds",
+            bundle: .main,
+            comment: "Accessibility label for the toolbar button that filters the mixer to active sounds."
+        )
+
+        static let activeFilterOn = LocalizedStringResource(
+            "header.activeFilter.on",
+            defaultValue: "Filtering active sounds",
+            bundle: .main,
+            comment: "Accessibility value when the active-sounds filter is enabled."
+        )
+
+        static let activeFilterOff = LocalizedStringResource(
+            "header.activeFilter.off",
+            defaultValue: "Showing all sounds",
+            bundle: .main,
+            comment: "Accessibility value when the active-sounds filter is disabled."
+        )
+    }
+
+    enum HomeControls {
+        static let shuffle = LocalizedStringResource(
+            "home.controls.shuffle",
+            defaultValue: "Random mix",
+            bundle: .main,
+            comment: "Accessibility label for the home bottom shuffle button."
+        )
+
+        static let presets = LocalizedStringResource(
+            "home.controls.presets",
+            defaultValue: "Saved mixes",
+            bundle: .main,
+            comment: "Accessibility label for the home bottom presets button."
+        )
+
+        static let play = LocalizedStringResource(
+            "home.controls.play",
+            defaultValue: "Play",
+            bundle: .main,
+            comment: "Accessibility label for the home bottom playback button when playback is stopped."
+        )
+
+        static let pause = LocalizedStringResource(
+            "home.controls.pause",
+            defaultValue: "Pause",
+            bundle: .main,
+            comment: "Accessibility label for the home bottom playback button when playback is active."
+        )
+
+        static let binaural = LocalizedStringResource(
+            "home.controls.binaural",
+            defaultValue: "Binaural modes",
+            bundle: .main,
+            comment: "Accessibility label for the home bottom binaural modes button."
+        )
+
+        static let routePicker = LocalizedStringResource(
+            "home.controls.routePicker",
+            defaultValue: "Audio output",
+            bundle: .main,
+            comment: "Accessibility label for the home bottom audio route picker."
+        )
     }
 
     enum Presets {
@@ -142,9 +207,9 @@ enum L10n {
 
         static let saveSectionTitle = LocalizedStringResource(
             "presets.save.section.title",
-            defaultValue: "Save this mix",
+            defaultValue: "Save this ambience",
             bundle: .main,
-            comment: "Title above the controls used to save the current ambient mix as a preset."
+            comment: "Title of the popup used to save the current ambient scene as a preset."
         )
 
         static let saveSectionSubtitle = LocalizedStringResource(
@@ -201,6 +266,41 @@ enum L10n {
             defaultValue: "Reorder",
             bundle: .main,
             comment: "Accessibility label for the preset reorder handle."
+        )
+
+        static let showSave = LocalizedStringResource(
+            "presets.save.show",
+            defaultValue: "Save this ambience",
+            bundle: .main,
+            comment: "Button title that opens the preset save popup."
+        )
+
+        static let nameFieldAccessibility = LocalizedStringResource(
+            "presets.name.accessibility",
+            defaultValue: "Mix name",
+            bundle: .main,
+            comment: "Accessibility label for the text field used to name a saved mix."
+        )
+
+        static let confirmDeleteTitle = LocalizedStringResource(
+            "presets.delete.confirm.title",
+            defaultValue: "Delete this mix?",
+            bundle: .main,
+            comment: "Confirmation dialog title shown before deleting a saved mix."
+        )
+
+        static let confirmDeleteMessage = LocalizedStringResource(
+            "presets.delete.confirm.message",
+            defaultValue: "This saved mix will be removed from Oasis.",
+            bundle: .main,
+            comment: "Confirmation dialog message shown before deleting a saved mix."
+        )
+
+        static let cancel = LocalizedStringResource(
+            "presets.cancel",
+            defaultValue: "Cancel",
+            bundle: .main,
+            comment: "Generic cancel action used in the presets panel."
         )
     }
 
@@ -607,6 +707,27 @@ enum L10n {
             bundle: .main,
             comment: "Short descriptive label for the beta binaural mode."
         )
+
+        static let volume = LocalizedStringResource(
+            "binaural.volume",
+            defaultValue: "Binaural volume",
+            bundle: .main,
+            comment: "Accessibility label for the binaural volume slider."
+        )
+
+        static let enabled = LocalizedStringResource(
+            "binaural.enabled",
+            defaultValue: "Binaural sound on",
+            bundle: .main,
+            comment: "Accessibility value when binaural playback is enabled."
+        )
+
+        static let disabled = LocalizedStringResource(
+            "binaural.disabled",
+            defaultValue: "Binaural sound off",
+            bundle: .main,
+            comment: "Accessibility value when binaural playback is disabled."
+        )
     }
 
     enum Spatial {
@@ -650,6 +771,34 @@ enum L10n {
             defaultValue: "Right",
             bundle: .main,
             comment: "Right label in the spatial positioning panel."
+        )
+
+        static let center = LocalizedStringResource(
+            "spatial.center",
+            defaultValue: "Center",
+            bundle: .main,
+            comment: "Center preset button in the spatial positioning panel."
+        )
+
+        static let stageAccessibility = LocalizedStringResource(
+            "spatial.stage.accessibility",
+            defaultValue: "Sound placement area",
+            bundle: .main,
+            comment: "Accessibility label for the draggable spatial placement area."
+        )
+
+        static let stageHint = LocalizedStringResource(
+            "spatial.stage.hint",
+            defaultValue: "Drag in the area or use the placement buttons below.",
+            bundle: .main,
+            comment: "Accessibility hint for the spatial placement area."
+        )
+
+        static let positionCentered = LocalizedStringResource(
+            "spatial.position.centered",
+            defaultValue: "Centered",
+            bundle: .main,
+            comment: "Accessibility value when a sound is centered in the spatial panel."
         )
     }
 
@@ -761,6 +910,125 @@ enum L10n {
             defaultValue: "AUTO",
             bundle: .main,
             comment: "Small uppercase status label shown when automatic variation is enabled."
+        )
+
+        static let soundOn = LocalizedStringResource(
+            "mixer.accessibility.soundOn",
+            defaultValue: "Sound on",
+            bundle: .main,
+            comment: "Accessibility value for an active sound row control."
+        )
+
+        static let soundOff = LocalizedStringResource(
+            "mixer.accessibility.soundOff",
+            defaultValue: "Sound off",
+            bundle: .main,
+            comment: "Accessibility value for a muted sound row control."
+        )
+
+        static let locked = LocalizedStringResource(
+            "mixer.accessibility.locked",
+            defaultValue: "Locked",
+            bundle: .main,
+            comment: "Accessibility value for a locked premium sound."
+        )
+
+        static let toggleSoundHint = LocalizedStringResource(
+            "mixer.accessibility.toggleSoundHint",
+            defaultValue: "Turns this sound on or off.",
+            bundle: .main,
+            comment: "Accessibility hint for the per-sound mute/play button."
+        )
+
+        static let soundDetailsHint = LocalizedStringResource(
+            "mixer.accessibility.soundDetailsHint",
+            defaultValue: "Opens details about this sound.",
+            bundle: .main,
+            comment: "Accessibility hint for opening the sound detail sheet from a mixer row."
+        )
+
+        static let volume = LocalizedStringResource(
+            "mixer.accessibility.volume",
+            defaultValue: "Volume",
+            bundle: .main,
+            comment: "Accessibility label for a per-sound volume slider."
+        )
+
+        static let autoRange = LocalizedStringResource(
+            "mixer.accessibility.autoRange",
+            defaultValue: "Automatic volume range",
+            bundle: .main,
+            comment: "Accessibility label for a per-sound automatic volume range slider."
+        )
+
+        static let autoRangeHint = LocalizedStringResource(
+            "mixer.accessibility.autoRangeHint",
+            defaultValue: "Use the available actions to adjust the automatic volume interval.",
+            bundle: .main,
+            comment: "Accessibility hint for the automatic volume range slider."
+        )
+
+        static let increaseMinimum = LocalizedStringResource(
+            "mixer.accessibility.increaseMinimum",
+            defaultValue: "Increase minimum volume",
+            bundle: .main,
+            comment: "Accessibility custom action for increasing the lower bound of the automatic volume range."
+        )
+
+        static let decreaseMinimum = LocalizedStringResource(
+            "mixer.accessibility.decreaseMinimum",
+            defaultValue: "Decrease minimum volume",
+            bundle: .main,
+            comment: "Accessibility custom action for decreasing the lower bound of the automatic volume range."
+        )
+
+        static let increaseMaximum = LocalizedStringResource(
+            "mixer.accessibility.increaseMaximum",
+            defaultValue: "Increase maximum volume",
+            bundle: .main,
+            comment: "Accessibility custom action for increasing the upper bound of the automatic volume range."
+        )
+
+        static let decreaseMaximum = LocalizedStringResource(
+            "mixer.accessibility.decreaseMaximum",
+            defaultValue: "Decrease maximum volume",
+            bundle: .main,
+            comment: "Accessibility custom action for decreasing the upper bound of the automatic volume range."
+        )
+
+        static let soundPlacement = LocalizedStringResource(
+            "mixer.accessibility.soundPlacement",
+            defaultValue: "Sound placement",
+            bundle: .main,
+            comment: "Accessibility label for the per-sound spatial placement button."
+        )
+
+        static let soundPlacementHint = LocalizedStringResource(
+            "mixer.accessibility.soundPlacementHint",
+            defaultValue: "Opens placement controls for this sound.",
+            bundle: .main,
+            comment: "Accessibility hint for the per-sound spatial placement button."
+        )
+
+        static let autoVariation = LocalizedStringResource(
+            "mixer.accessibility.autoVariation",
+            defaultValue: "Automatic variation",
+            bundle: .main,
+            comment: "Accessibility label for the per-sound automatic variation button."
+        )
+
+        static let enabled = LocalizedStringResource(
+            "mixer.accessibility.enabled",
+            defaultValue: "On",
+            bundle: .main,
+            comment: "Generic accessibility value for enabled controls."
+        )
+
+        static let disabled = LocalizedStringResource(
+            "mixer.accessibility.disabled",
+            defaultValue: "Off",
+            bundle: .main,
+            comment: "Generic accessibility value for disabled controls."
         )
     }
 

@@ -59,7 +59,7 @@ Most overlays bind to an optional state on `AppModel` and present when non-nil:
 
 ### `.fullScreenCover` for focused flows
 
-`PaywallOverlay` always presents as full-screen — no half-modal — to keep focus on the conversion moment. `PresetsPanel` also presents full-screen because it is now a management surface: save the current mix, inspect saved mixes, reorder, delete, and load. Its row actions and primary controls use the shared glass surface language for visual consistency with the mixer.
+`PaywallOverlay` always presents as full-screen — no half-modal — to keep focus on the conversion moment. `PresetsPanel` also presents full-screen because it is now a management surface: save the current mix, inspect saved mixes, reorder, delete, and load. Saving is a single "Save this ambience" button that opens a native name-entry alert; destructive delete asks for confirmation, and row actions / primary controls use the shared glass surface language for visual consistency with the mixer.
 
 ## Component library (`Views/Components/`)
 
@@ -75,6 +75,10 @@ Most overlays bind to an optional state on `AppModel` and present when non-nil:
 | `SoundLocationMinimap` | 2D minimap for sound placement, `[-1, 1]` coordinate space. |
 | `PremiumSurfaces` | Reusable upsell card and inline teaser elements. |
 | `PressScaleButtonStyle` | Tactile scale-on-press button style applied app-wide. |
+
+`PressScaleButtonStyle.swift` also hosts the shared UI helpers:
+- `.oasisFont(...)` for Dynamic Type-aware rounded/system typography while preserving the app's compact visual scale.
+- `.oasisMinimumHitTarget(...)` for 44 pt minimum interaction zones around visually smaller controls.
 
 ## Design tokens
 
@@ -94,6 +98,7 @@ There is no centralised colour file beyond `SoundChannelMetadata.swift` for chan
 - Use `.animation(.smooth, value: …)` as default. Avoid `.spring` unless tuning is intentional.
 - Crossfades for state transitions; no horizontal slides between top-level views.
 - Animation durations: short (≤ 250 ms) for UI feedback, long (~ 1.6 s) for audio play fade-in synchronisation.
+- Continuous decorative motion must also respect `accessibilityReduceMotion`, not only XCUITest freeze flags.
 
 ## XCUITest quiescence
 
@@ -105,7 +110,9 @@ Use `Text(L10n.someKey)` (where `L10n.someKey` returns a `LocalizedStringResourc
 
 ## Accessibility
 
-`HapticSlider` exposes its bound value as an accessibility value. Channel cards expose their channel name + locked state. The paywall and binaural panel have full VoiceOver labels.
+`HapticSlider` exposes its bound value as an accessibility value. `AutoVariationRangeSlider` exposes the current lower/upper interval and custom VoiceOver actions for increasing/decreasing each bound, because the two-handle gesture is too fine to be the only control path. Channel cards expose their channel name, location, mute/locked/auto state, and hints for detail / placement actions. The paywall, presets, spatial, sound detail, timer unlock, and binaural panels have explicit labels and decorative icons hidden from VoiceOver.
+
+`SpatialAudioPanel` keeps the draggable stage but also offers one-tap placement presets: left, front, center, back, right. This preserves the original gesture while making sound placement more discoverable and accessible.
 
 ### Identifier inventory (XCUITest)
 

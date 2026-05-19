@@ -70,8 +70,9 @@ struct SoundLocationMinimap: View {
                     .shadow(color: channel.tint.opacity(0.45), radius: 8, y: 2)
 
                 Image(systemName: channel.systemImage)
-                    .font(.system(size: 13, weight: .semibold))
+                    .oasisFont(size: 13, weight: .semibold, design: .default, relativeTo: .caption)
                     .foregroundStyle(.black.opacity(0.86))
+                    .accessibilityHidden(true)
             }
             .frame(width: 30, height: 30)
 
@@ -97,10 +98,11 @@ struct SoundLocationMinimap: View {
             )
             VStack(spacing: 6) {
                 Image(systemName: "mappin.slash")
-                    .font(.system(size: 18, weight: .semibold))
+                    .oasisFont(size: 18, weight: .semibold, design: .default, relativeTo: .headline)
                     .foregroundStyle(.white.opacity(0.58))
+                    .accessibilityHidden(true)
                 Text(channel.location.rowLabel)
-                    .font(.system(size: 13, weight: .medium, design: .rounded))
+                    .oasisFont(size: 13, weight: .medium, relativeTo: .subheadline)
                     .foregroundStyle(.white.opacity(0.72))
             }
         }
@@ -108,9 +110,9 @@ struct SoundLocationMinimap: View {
 
     private var accessibilityLabel: String {
         if channel.location.isApproximate {
-            return "Approximate location: \(channel.location.fullLabel)"
+            return "\(L10n.string(L10n.SoundDetail.approximateLocation)): \(channel.location.fullLabel)"
         }
-        return "Location: \(channel.location.fullLabel)"
+        return "\(L10n.string(L10n.SoundDetail.location)): \(channel.location.fullLabel)"
     }
 }
 

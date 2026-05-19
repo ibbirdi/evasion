@@ -2,6 +2,7 @@ import SwiftUI
 
 struct AnimatedLiquidAura<ShapeType: Shape>: View {
     @Environment(\.scenePhase) private var scenePhase
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     let palette: [Color]
     let shape: ShapeType
@@ -73,7 +74,7 @@ struct AnimatedLiquidAura<ShapeType: Shape>: View {
         // prevents `XCUIApplication` from ever reaching quiescence. Every subsequent
         // tap then spends up to 60s in the quiescence wait loop — tests become
         // painfully slow and flaky. The static frame still looks great in captures.
-        if isAnimated, scenePhase == .active, !AppConfiguration.isRunningScreenshotAutomation {
+        if isAnimated, scenePhase == .active, !reduceMotion, !AppConfiguration.isRunningScreenshotAutomation {
             TimelineView(.periodic(from: .now, by: 1.0 / max(frameRate, 1))) { context in
                 auraLayer(size: size, time: relativeTime(at: context.date))
             }

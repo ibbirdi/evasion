@@ -53,8 +53,10 @@ presets.<scope>.<key>
 presets.default.<id>                  default preset names (starter / calm / storm)
 timer.option<minutes>                 timer.option15, timer.option30, …
 header.<key>
+home.controls.<key>
 spatial.<key>
 sound.detail.<key>
+mixer.accessibility.<key>
 notifications.<scope>.<key>
 onboarding.<step>.<key>
 errors.<key>
@@ -62,7 +64,9 @@ errors.<key>
 
 `header.immersive`, `header.immersive.sound`, `header.immersive.enabled`, and `header.immersive.disabled` localize the home toolbar toggle, its active visible label, and its accessibility value.
 
-The full-screen presets panel uses `presets.save.*`, `presets.list.*`, and `presets.status.*` keys for its save card, list section, and row badges.
+`home.controls.*`, `mixer.accessibility.*`, `binaural.volume/enabled/disabled`, and `spatial.stage.*` cover VoiceOver-only labels, hints, values, and custom actions. Keep these translated as natural UI phrases, not literal descriptions of SF Symbols.
+
+The full-screen presets panel uses `presets.save.*`, `presets.delete.confirm.*`, `presets.list.*`, and `presets.status.*` keys for its save button + name-entry alert, delete confirmation, list section, and row badges.
 
 `notifications.gentleReminder.title` and `notifications.gentleReminder.body` localize the single local notification that invites inactive users back to Oasis after several days.
 

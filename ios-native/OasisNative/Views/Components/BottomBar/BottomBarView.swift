@@ -8,7 +8,7 @@ struct BottomToolbarItemLabel: View {
 
     var body: some View {
         Image(systemName: systemImage)
-            .font(.system(size: 20, weight: .semibold))
+            .oasisFont(size: 20, weight: .semibold, design: .default, relativeTo: .body)
             .foregroundStyle(.white)
             .symbolRenderingMode(.hierarchical)
             .frame(width: 48, height: 48)
@@ -49,7 +49,7 @@ struct PlaybackToolbarLabel: View {
         let palette = model.activePlaybackPalette
 
         Image(systemName: model.isPlaying ? "pause.fill" : "play.fill")
-            .font(.system(size: 24, weight: .bold))
+            .oasisFont(size: 24, weight: .bold, design: .default, relativeTo: .title3)
             .foregroundStyle(.white)
             .symbolRenderingMode(.hierarchical)
             .shadow(
@@ -133,6 +133,7 @@ struct BottomBarView: View {
                 )
             }
             .accessibilityIdentifier("home.bottom.shuffle")
+            .accessibilityLabel(Text(L10n.HomeControls.shuffle))
             .buttonStyle(PressScaleButtonStyle())
 
             presetsButton
@@ -143,6 +144,7 @@ struct BottomBarView: View {
                 PlaybackToolbarLabel()
             }
             .accessibilityIdentifier("home.bottom.playback")
+            .accessibilityLabel(Text(model.isPlaying ? L10n.HomeControls.pause : L10n.HomeControls.play))
             .buttonStyle(PressScaleButtonStyle())
 
             binauralButton
@@ -152,6 +154,7 @@ struct BottomBarView: View {
                 .foregroundStyle(.white)
                 .padding(13)
                 .accessibilityIdentifier("home.bottom.routepicker")
+                .accessibilityLabel(Text(L10n.HomeControls.routePicker))
                 .background {
                     Circle()
                         .fill(Color.white.opacity(0.001))
@@ -184,6 +187,7 @@ struct BottomBarView: View {
             )
         }
         .accessibilityIdentifier("home.bottom.presets")
+        .accessibilityLabel(Text(L10n.HomeControls.presets))
         .buttonStyle(PressScaleButtonStyle())
         // Active preset name surfaces directly below the button — replaces the preset chip
         // that used to live in the header. Rendered via overlay so it floats outside the
@@ -191,7 +195,7 @@ struct BottomBarView: View {
         .overlay(alignment: .bottom) {
             if let preset = model.activePreset {
                 Text(model.presetDisplayName(preset))
-                    .font(.system(size: 10, weight: .semibold, design: .rounded))
+                    .oasisFont(size: 10, weight: .semibold, relativeTo: .caption2)
                     .foregroundStyle(LiquidActivityPalette.preset[0].opacity(0.92))
                     .lineLimit(1)
                     .fixedSize()
@@ -231,6 +235,7 @@ struct BottomBarView: View {
             )
         }
         .accessibilityIdentifier("home.bottom.binaural")
+        .accessibilityLabel(Text(L10n.HomeControls.binaural))
         .buttonStyle(PressScaleButtonStyle())
 
         if #available(iOS 26.0, *) {

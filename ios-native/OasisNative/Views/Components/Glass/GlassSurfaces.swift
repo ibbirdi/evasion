@@ -34,8 +34,7 @@ struct GlassSurface<Content: View>: View {
             .padding(padding)
             .background {
                 RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                    .fill(Color.white.opacity(0.001))
-                    .oasisGlassEffect(in: RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
+                    .fill(.ultraThinMaterial)
                     .overlay {
                         RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
                             .fill(tint)

@@ -76,6 +76,8 @@ struct ChannelState: Codable, Equatable {
 
 `AutoVariationRange` stores the user-selected lower/upper volume bounds for automatic variation. Older persisted `ChannelState` payloads decode with a default range centred around `volume`, so no top-level `PersistedMixerState` migration is needed.
 
+`AutoVariationRange` also normalises non-finite values back into `[0, 1]`. This keeps older or corrupted simulator/user defaults from leaking `NaN` into the UI, the audio engine, or VoiceOver values.
+
 ## `Preset`
 
 ```swift

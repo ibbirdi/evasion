@@ -1,5 +1,50 @@
 import SwiftUI
 
+struct OasisScaledFontModifier: ViewModifier {
+    let weight: Font.Weight
+    let design: Font.Design
+
+    @ScaledMetric private var scaledSize: CGFloat
+
+    init(
+        size: CGFloat,
+        weight: Font.Weight,
+        design: Font.Design,
+        relativeTo textStyle: Font.TextStyle
+    ) {
+        self.weight = weight
+        self.design = design
+        _scaledSize = ScaledMetric(wrappedValue: size, relativeTo: textStyle)
+    }
+
+    func body(content: Content) -> some View {
+        content.font(.system(size: scaledSize, weight: weight, design: design))
+    }
+}
+
+extension View {
+    func oasisFont(
+        size: CGFloat,
+        weight: Font.Weight = .regular,
+        design: Font.Design = .rounded,
+        relativeTo textStyle: Font.TextStyle = .body
+    ) -> some View {
+        modifier(
+            OasisScaledFontModifier(
+                size: size,
+                weight: weight,
+                design: design,
+                relativeTo: textStyle
+            )
+        )
+    }
+
+    func oasisMinimumHitTarget(_ size: CGFloat = 44) -> some View {
+        frame(minWidth: size, minHeight: size)
+            .contentShape(Rectangle())
+    }
+}
+
 struct PressScaleButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         if AppConfiguration.supportsSensoryFeedback {

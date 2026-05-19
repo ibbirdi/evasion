@@ -109,7 +109,7 @@ struct ChannelState: Codable, Equatable {
         autoVariationRange: AutoVariationRange? = nil,
         spatialPosition: SpatialPoint = .center
     ) {
-        self.volume = min(max(volume, 0), 1)
+        self.volume = AutoVariationRange.unitValue(volume, fallback: 0.5)
         self.isMuted = isMuted
         self.autoVariationEnabled = autoVariationEnabled
         self.autoVariationRange = (autoVariationRange ?? AutoVariationRange.defaultRange(around: self.volume)).clamped()
@@ -118,7 +118,10 @@ struct ChannelState: Codable, Equatable {
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        volume = min(max(try container.decodeIfPresent(Double.self, forKey: .volume) ?? 0.5, 0), 1)
+        volume = AutoVariationRange.unitValue(
+            try container.decodeIfPresent(Double.self, forKey: .volume) ?? 0.5,
+            fallback: 0.5
+        )
         isMuted = try container.decodeIfPresent(Bool.self, forKey: .isMuted) ?? true
         autoVariationEnabled = try container.decodeIfPresent(Bool.self, forKey: .autoVariationEnabled) ?? false
         autoVariationRange = (try container.decodeIfPresent(AutoVariationRange.self, forKey: .autoVariationRange) ?? AutoVariationRange.defaultRange(around: volume)).clamped()
@@ -134,7 +137,7 @@ struct AutoVariationRange: Codable, Equatable, Sendable {
     var upperBound: Double
 
     static func defaultRange(around volume: Double) -> AutoVariationRange {
-        let center = min(max(volume, 0), 1)
+        let center = unitValue(volume, fallback: 0.5)
         let halfWidth = defaultWidth / 2
         var lower = center - halfWidth
         var upper = center + halfWidth
@@ -152,8 +155,8 @@ struct AutoVariationRange: Codable, Equatable, Sendable {
     }
 
     func clamped() -> AutoVariationRange {
-        let lower = min(max(lowerBound, 0), 1)
-        let upper = min(max(upperBound, 0), 1)
+        let lower = Self.unitValue(lowerBound, fallback: 0)
+        let upper = Self.unitValue(upperBound, fallback: 1)
 
         if upper - lower >= Self.minimumWidth {
             return AutoVariationRange(lowerBound: lower, upperBound: upper)
@@ -180,7 +183,15 @@ struct AutoVariationRange: Codable, Equatable, Sendable {
     }
 
     func clampedValue(_ value: Double) -> Double {
-        min(max(value, lowerBound), upperBound)
+        let normalized = clamped()
+        let fallback = (normalized.lowerBound + normalized.upperBound) / 2
+        let finiteValue = value.isFinite ? value : fallback
+        return min(max(finiteValue, normalized.lowerBound), normalized.upperBound)
+    }
+
+    static func unitValue(_ value: Double, fallback: Double) -> Double {
+        guard value.isFinite else { return min(max(fallback, 0), 1) }
+        return min(max(value, 0), 1)
     }
 }
 

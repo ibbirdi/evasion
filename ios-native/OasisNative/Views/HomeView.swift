@@ -257,7 +257,7 @@ struct HomeView: View {
             model.showsSpatialPanel = false
         }) { channel in
             SpatialAudioPanel(channel: channel)
-                .presentationDetents([.height(460)])
+                .presentationDetents([.height(520)])
                 .presentationContentInteraction(.resizes)
                 .presentationDragIndicator(.visible)
         }

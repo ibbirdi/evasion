@@ -34,9 +34,10 @@ struct PremiumInlineUpsellCard: View {
             VStack(alignment: .leading, spacing: 14) {
                 HStack(alignment: .top, spacing: 12) {
                     Image(systemName: presentation.symbolName)
-                        .font(.system(size: 16, weight: .semibold))
+                        .oasisFont(size: 16, weight: .semibold, design: .default, relativeTo: .headline)
                         .foregroundStyle(presentation.accentToken.tint)
                         .frame(width: 34, height: 34)
+                        .accessibilityHidden(true)
                         .background {
                             Circle()
                                 .fill(presentation.accentToken.tint.opacity(0.16))
@@ -44,11 +45,11 @@ struct PremiumInlineUpsellCard: View {
 
                     VStack(alignment: .leading, spacing: 4) {
                         Text(presentation.title)
-                            .font(.system(size: 16, weight: .semibold, design: .rounded))
+                            .oasisFont(size: 16, weight: .semibold, relativeTo: .headline)
                             .foregroundStyle(.white)
 
                         Text(presentation.message)
-                            .font(.system(size: 13, weight: .medium, design: .rounded))
+                            .oasisFont(size: 13, weight: .medium, relativeTo: .subheadline)
                             .foregroundStyle(.white.opacity(0.72))
                             .fixedSize(horizontal: false, vertical: true)
                     }
@@ -57,7 +58,7 @@ struct PremiumInlineUpsellCard: View {
 
                     Button(action: onDismiss) {
                         Image(systemName: "xmark")
-                            .font(.system(size: 12, weight: .bold))
+                            .oasisFont(size: 12, weight: .bold, design: .default, relativeTo: .caption)
                             .foregroundStyle(.white.opacity(0.70))
                             .frame(width: 28, height: 28)
                             .background {
@@ -66,13 +67,14 @@ struct PremiumInlineUpsellCard: View {
                             }
                     }
                     .buttonStyle(PressScaleButtonStyle())
+                    .accessibilityLabel(Text(L10n.Presets.close))
                     .accessibilityIdentifier("premium.inline.dismiss")
                 }
 
                 HStack(spacing: 10) {
                     Button(action: onPrimaryAction) {
                         Text(presentation.primaryActionTitle)
-                            .font(.system(size: 14, weight: .bold, design: .rounded))
+                            .oasisFont(size: 14, weight: .bold, relativeTo: .subheadline)
                             .foregroundStyle(Color(red: 0.05, green: 0.07, blue: 0.11))
                             .frame(maxWidth: .infinity)
                             .padding(.vertical, 13)
@@ -97,7 +99,7 @@ struct PremiumInlineUpsellCard: View {
                        let onSecondaryAction {
                         Button(action: onSecondaryAction) {
                             Text(secondaryTitle)
-                                .font(.system(size: 13, weight: .semibold, design: .rounded))
+                                .oasisFont(size: 13, weight: .semibold, relativeTo: .subheadline)
                                 .foregroundStyle(.white.opacity(0.86))
                                 .multilineTextAlignment(.center)
                                 .frame(maxWidth: .infinity)
@@ -114,7 +116,7 @@ struct PremiumInlineUpsellCard: View {
 
                 if let footnote = presentation.footnote {
                     Text(footnote)
-                        .font(.system(size: 11, weight: .medium, design: .rounded))
+                        .oasisFont(size: 11, weight: .medium, relativeTo: .caption)
                         .foregroundStyle(.white.opacity(0.56))
                         .fixedSize(horizontal: false, vertical: true)
                 }
@@ -139,17 +141,17 @@ struct PremiumHomeBannerCard: View {
             HStack(alignment: .top, spacing: 14) {
                 VStack(alignment: .leading, spacing: 6) {
                     Text(presentation.title)
-                        .font(.system(size: 17, weight: .semibold, design: .rounded))
+                        .oasisFont(size: 17, weight: .semibold, relativeTo: .headline)
                         .foregroundStyle(.white)
 
                     Text(presentation.message)
-                        .font(.system(size: 13, weight: .medium, design: .rounded))
+                        .oasisFont(size: 13, weight: .medium, relativeTo: .subheadline)
                         .foregroundStyle(.white.opacity(0.72))
                         .fixedSize(horizontal: false, vertical: true)
 
                     Button(action: onPrimaryAction) {
                         Text(presentation.ctaTitle)
-                            .font(.system(size: 13, weight: .bold, design: .rounded))
+                            .oasisFont(size: 13, weight: .bold, relativeTo: .subheadline)
                             .foregroundStyle(Color(red: 0.06, green: 0.08, blue: 0.12))
                             .padding(.horizontal, 16)
                             .padding(.vertical, 11)
@@ -175,7 +177,7 @@ struct PremiumHomeBannerCard: View {
 
                 Button(action: onDismiss) {
                     Image(systemName: "xmark")
-                        .font(.system(size: 12, weight: .bold))
+                        .oasisFont(size: 12, weight: .bold, design: .default, relativeTo: .caption)
                         .foregroundStyle(.white.opacity(0.68))
                         .frame(width: 28, height: 28)
                         .background {
@@ -184,6 +186,7 @@ struct PremiumHomeBannerCard: View {
                         }
                 }
                 .buttonStyle(PressScaleButtonStyle())
+                .accessibilityLabel(Text(L10n.Presets.close))
                 .accessibilityIdentifier("premium.banner.dismiss")
             }
         }
@@ -207,9 +210,10 @@ struct PremiumLibraryTeaserCard: View {
             VStack(alignment: .leading, spacing: 14) {
                 HStack(alignment: .center, spacing: 12) {
                     Image(systemName: "sparkles")
-                        .font(.system(size: 16, weight: .semibold))
+                        .oasisFont(size: 16, weight: .semibold, design: .default, relativeTo: .headline)
                         .foregroundStyle(SoundChannel.pluie.tint)
                         .frame(width: 34, height: 34)
+                        .accessibilityHidden(true)
                         .background {
                             Circle()
                                 .fill(SoundChannel.pluie.tint.opacity(0.16))
@@ -217,11 +221,11 @@ struct PremiumLibraryTeaserCard: View {
 
                     VStack(alignment: .leading, spacing: 2) {
                         Text(presentation.title)
-                            .font(.system(size: 16, weight: .semibold, design: .rounded))
+                            .oasisFont(size: 16, weight: .semibold, relativeTo: .headline)
                             .foregroundStyle(.white)
 
                         Text(presentation.badgeTitle)
-                            .font(.system(size: 11, weight: .bold, design: .rounded))
+                            .oasisFont(size: 11, weight: .bold, relativeTo: .caption)
                             .foregroundStyle(SoundChannel.pluie.tint.opacity(0.92))
                     }
 
@@ -229,14 +233,14 @@ struct PremiumLibraryTeaserCard: View {
                 }
 
                 Text(presentation.message)
-                    .font(.system(size: 13, weight: .medium, design: .rounded))
+                    .oasisFont(size: 13, weight: .medium, relativeTo: .subheadline)
                     .foregroundStyle(.white.opacity(0.72))
                     .fixedSize(horizontal: false, vertical: true)
 
                 HStack(spacing: 10) {
                     Button(action: onPrimaryAction) {
                         Text(presentation.ctaTitle)
-                            .font(.system(size: 13, weight: .bold, design: .rounded))
+                            .oasisFont(size: 13, weight: .bold, relativeTo: .subheadline)
                             .foregroundStyle(Color(red: 0.06, green: 0.08, blue: 0.12))
                             .frame(maxWidth: .infinity)
                             .padding(.vertical, 12)
@@ -259,7 +263,7 @@ struct PremiumLibraryTeaserCard: View {
 
                     Button(action: onToggleExpanded) {
                         Text(isExpanded ? presentation.collapseTitle : presentation.expandTitle)
-                            .font(.system(size: 12, weight: .semibold, design: .rounded))
+                            .oasisFont(size: 12, weight: .semibold, relativeTo: .caption)
                             .foregroundStyle(.white.opacity(0.82))
                             .padding(.horizontal, 14)
                             .padding(.vertical, 12)

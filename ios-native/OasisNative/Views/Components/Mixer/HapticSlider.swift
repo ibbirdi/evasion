@@ -147,7 +147,19 @@ struct AutoVariationRangeSlider: View {
         .frame(height: 36)
         .animation(.linear(duration: 0.14), value: liveValue)
         .accessibilityElement(children: .ignore)
-        .accessibilityValue(Text("\(Int(range.lowerBound * 100))% - \(Int(range.upperBound * 100))%"))
+        .accessibilityAction(named: Text(L10n.Mixer.increaseMinimum)) {
+            adjust(.lower, by: stepValue)
+        }
+        .accessibilityAction(named: Text(L10n.Mixer.decreaseMinimum)) {
+            adjust(.lower, by: -stepValue)
+        }
+        .accessibilityAction(named: Text(L10n.Mixer.increaseMaximum)) {
+            adjust(.upper, by: stepValue)
+        }
+        .accessibilityAction(named: Text(L10n.Mixer.decreaseMaximum)) {
+            adjust(.upper, by: -stepValue)
+        }
+        .accessibilityValue(Text(verbatim: accessibilityRangeValue))
     }
 
     private func rangeHandle(isActive: Bool) -> some View {
@@ -209,6 +221,33 @@ struct AutoVariationRangeSlider: View {
 
     private func quantizedStep(for value: Double) -> Int {
         Int((min(max(value, 0), 1) * Double(stepCount)).rounded())
+    }
+
+    private var stepValue: Double {
+        1 / Double(max(stepCount, 1))
+    }
+
+    private var accessibilityRangeValue: String {
+        let normalized = range.clamped()
+        let lower = Int((normalized.lowerBound * 100).rounded())
+        let upper = Int((normalized.upperBound * 100).rounded())
+        return "\(lower)% - \(upper)%"
+    }
+
+    private func adjust(_ handle: RangeSliderHandle, by delta: Double) {
+        activeHandle = handle
+        switch handle {
+        case .lower:
+            range = AutoVariationRange(
+                lowerBound: range.lowerBound + delta,
+                upperBound: range.upperBound
+            ).clamped()
+        case .upper:
+            range = AutoVariationRange(
+                lowerBound: range.lowerBound,
+                upperBound: range.upperBound + delta
+            ).clamped()
+        }
     }
 }
 

@@ -400,7 +400,7 @@ final class AppModel {
             return
         }
 
-        let clampedValue = min(max(value, 0), 1)
+        let clampedValue = AutoVariationRange.unitValue(value, fallback: state.volume)
         state.volume = clampedValue
         if !state.autoVariationEnabled {
             state.autoVariationRange = .defaultRange(around: clampedValue)

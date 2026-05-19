@@ -45,7 +45,7 @@ private struct BrandLockupView: View {
         // 25pt bottom padding hosts the 24pt-tall wave with 1pt of clear space
         // between the baseline of the wordmark and the top of the wave.
         Text(verbatim: "OASIS")
-            .font(.system(size: 22, weight: .semibold))
+            .oasisFont(size: 22, weight: .semibold, design: .default, relativeTo: .title3)
             .kerning(4)
             .foregroundStyle(.white.opacity(0.96))
             .padding(.bottom, 25)
@@ -83,6 +83,7 @@ private struct BrandLockupView: View {
 /// `speed` only change the *derivative* of phase, never its instantaneous value.
 private struct WaveformSignatureLine: View {
     @Environment(AppModel.self) private var model
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     @State private var transitionFrom: Double = 0
     @State private var transitionTo: Double = 0
@@ -93,7 +94,7 @@ private struct WaveformSignatureLine: View {
     private static let transitionDuration: Double = 0.40
 
     var body: some View {
-        let shouldPause = AppConfiguration.isRunningScreenshotAutomation
+        let shouldPause = AppConfiguration.isRunningScreenshotAutomation || reduceMotion
         TimelineView(.animation(minimumInterval: 1.0 / 24.0, paused: shouldPause)) { context in
             let now = AppConfiguration.isRunningScreenshotAutomation
                 ? 3.4
@@ -269,7 +270,7 @@ struct HomeToolbarImmersiveAudioToggle: View {
 
                 if model.immersiveAudioEnabled {
                     Text(L10n.Header.immersiveSound)
-                        .font(.caption2.weight(.semibold))
+                        .oasisFont(size: 11, weight: .semibold, relativeTo: .caption)
                         .lineLimit(1)
                         .fixedSize(horizontal: true, vertical: false)
                         .transition(.opacity)
@@ -312,6 +313,7 @@ struct HomeToolbarTimerMenu: View {
         }
         .menuIndicator(.hidden)
         .accessibilityIdentifier("home.header.timer")
+        .accessibilityLabel(Text(L10n.Header.timer))
     }
 
     private func timerAction(_ title: String, minutes: Int?) -> some View {
@@ -336,7 +338,7 @@ struct TimerCountdownIndicator: View {
     var body: some View {
         if model.timerDurationMinutes != nil {
             Text(model.timerToolbarTitle)
-                .font(.system(size: 11, weight: .medium, design: .rounded))
+                .oasisFont(size: 11, weight: .medium, relativeTo: .caption)
                 .monospacedDigit()
                 .foregroundStyle(.white.opacity(0.78))
                 .contentTransition(.numericText(countsDown: true))
@@ -387,7 +389,8 @@ struct HomeToolbarActiveFilter: View {
                 .padding(.top, 2)
         }
         .accessibilityIdentifier("home.header.active-filter")
-        .accessibilityLabel(accessibilityLabel)
+        .accessibilityLabel(Text(L10n.Header.activeFilter))
+        .accessibilityValue(Text(isActivated ? L10n.Header.activeFilterOn : L10n.Header.activeFilterOff))
     }
 
     /// Pill-shaped numeric badge. Picks up the active-state mint accent when the filter
@@ -396,7 +399,7 @@ struct HomeToolbarActiveFilter: View {
     /// is engaged.
     private var badge: some View {
         Text("\(count)")
-            .font(.system(size: 10, weight: .bold, design: .rounded))
+            .oasisFont(size: 10, weight: .bold, relativeTo: .caption2)
             .foregroundStyle(.black.opacity(0.86))
             .monospacedDigit()
             .padding(.horizontal, 4)
@@ -415,10 +418,4 @@ struct HomeToolbarActiveFilter: View {
             .accessibilityHidden(true)
     }
 
-    private var accessibilityLabel: String {
-        if count > 0 {
-            return "Show only active channels. \(count) active."
-        }
-        return "Show only active channels"
-    }
 }

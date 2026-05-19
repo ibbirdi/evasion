@@ -3,11 +3,12 @@ import SwiftUI
 struct PresetsPanel: View {
     @Environment(AppModel.self) private var model
     @Environment(\.dismiss) private var dismiss
-    @FocusState private var isNamingPreset: Bool
     @State private var newPresetName = ""
     @State private var activeDragPresetID: String?
     @State private var lastReorderTargetID: String?
     @State private var rowMidpoints: [String: CGFloat] = [:]
+    @State private var isShowingSavePresetPrompt = false
+    @State private var presetPendingDeletion: Preset?
 
     private var canReorderPresets: Bool {
         model.isPremium
@@ -61,7 +62,58 @@ struct PresetsPanel: View {
         .accessibilityElement(children: .contain)
         .accessibilityIdentifier("panel.presets.container")
         .onDisappear {
-            isNamingPreset = false
+            isShowingSavePresetPrompt = false
+        }
+        .confirmationDialog(
+            Text(L10n.Presets.confirmDeleteTitle),
+            isPresented: Binding(
+                get: { presetPendingDeletion != nil },
+                set: { isPresented in
+                    if !isPresented {
+                        presetPendingDeletion = nil
+                    }
+                }
+            ),
+            titleVisibility: .visible,
+            presenting: presetPendingDeletion
+        ) { preset in
+            Button(role: .destructive) {
+                confirmDelete(preset)
+            } label: {
+                Text(L10n.Presets.deleteAction)
+            }
+
+            Button(role: .cancel) {
+                presetPendingDeletion = nil
+            } label: {
+                Text(L10n.Presets.cancel)
+            }
+        } message: { _ in
+            Text(L10n.Presets.confirmDeleteMessage)
+        }
+        .alert(
+            Text(L10n.Presets.saveSectionTitle),
+            isPresented: $isShowingSavePresetPrompt
+        ) {
+            TextField(L10n.string(L10n.Presets.namePrompt), text: $newPresetName)
+                .textInputAutocapitalization(.words)
+                .disableAutocorrection(true)
+                .accessibilityLabel(Text(L10n.Presets.nameFieldAccessibility))
+
+            Button(role: .cancel) {
+                newPresetName = ""
+            } label: {
+                Text(L10n.Presets.cancel)
+            }
+
+            Button {
+                savePreset()
+            } label: {
+                Text(L10n.Presets.saveAction)
+            }
+            .disabled(trimmedPresetName.isEmpty)
+        } message: {
+            Text(L10n.Presets.saveSectionSubtitle)
         }
     }
 
@@ -72,19 +124,20 @@ struct PresetsPanel: View {
                     .fill(LiquidActivityPalette.preset[0].opacity(0.18))
 
                 Image(systemName: model.currentPresetID == nil ? "bookmark" : "bookmark.fill")
-                    .font(.system(size: 17, weight: .semibold))
+                    .oasisFont(size: 17, weight: .semibold, design: .default, relativeTo: .headline)
                     .foregroundStyle(LiquidActivityPalette.preset[0])
                     .symbolRenderingMode(.hierarchical)
+                    .accessibilityHidden(true)
             }
             .frame(width: 44, height: 44)
 
             VStack(alignment: .leading, spacing: 4) {
                 Text(L10n.Presets.panelTitle)
-                    .font(.system(size: 28, weight: .semibold, design: .rounded))
+                    .oasisFont(size: 28, weight: .semibold, relativeTo: .title)
                     .foregroundStyle(.white)
 
                 Text(L10n.Presets.panelSubtitle)
-                    .font(.system(size: 13, weight: .medium, design: .rounded))
+                    .oasisFont(size: 13, weight: .medium, relativeTo: .subheadline)
                     .foregroundStyle(.white.opacity(0.58))
                     .lineLimit(2)
             }
@@ -95,7 +148,7 @@ struct PresetsPanel: View {
                 dismiss()
             } label: {
                 Image(systemName: "xmark")
-                    .font(.system(size: 13, weight: .bold))
+                    .oasisFont(size: 13, weight: .bold, design: .default, relativeTo: .body)
                     .foregroundStyle(.white.opacity(0.84))
                     .frame(width: 36, height: 36)
                     .presetGlassButtonBackground(
@@ -105,6 +158,7 @@ struct PresetsPanel: View {
                     )
             }
             .accessibilityLabel(Text(L10n.Presets.close))
+            .oasisMinimumHitTarget()
             .buttonStyle(PresetButtonScaleStyle())
         }
         .padding(.horizontal, 20)
@@ -120,8 +174,8 @@ struct PresetsPanel: View {
                 isLocked: model.isPresetLocked(preset),
                 isDragging: activeDragPresetID == preset.id,
                 showsReorderControl: canReorderPresets,
-                isReorderEnabled: canReorderPresets && !isNamingPreset,
-                isDeleteEnabled: canDelete(preset) && !isNamingPreset,
+                isReorderEnabled: canReorderPresets && !isShowingSavePresetPrompt,
+                isDeleteEnabled: canDelete(preset) && !isShowingSavePresetPrompt,
                 onSelect: {
                     guard !model.isPresetLocked(preset) else {
                         model.requestPremiumAccess(from: .presetLoad)
@@ -132,7 +186,7 @@ struct PresetsPanel: View {
                         model.loadPreset(preset)
                     }
                 },
-                onDelete: { delete(preset) },
+                onDelete: { requestDelete(preset) },
                 onReorderChanged: { locationY in
                     handleReorderDrag(for: preset, locationY: locationY)
                 },
@@ -142,7 +196,7 @@ struct PresetsPanel: View {
                 }
             )
             .background {
-                if activeDragPresetID != nil && !isNamingPreset {
+                if activeDragPresetID != nil && !isShowingSavePresetPrompt {
                     GeometryReader { proxy in
                         Color.clear
                             .preference(
@@ -156,89 +210,56 @@ struct PresetsPanel: View {
     }
 
     private var saveSection: some View {
-        GlassSurface(
-            tint: LiquidActivityPalette.preset[0].opacity(0.08),
-            cornerRadius: 26,
-            padding: EdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16)
-        ) {
-            VStack(alignment: .leading, spacing: 14) {
-                HStack(alignment: .top, spacing: 12) {
-                    Image(systemName: "plus.circle.fill")
-                        .font(.system(size: 23, weight: .semibold))
-                        .foregroundStyle(LiquidActivityPalette.preset[0])
-                        .symbolRenderingMode(.hierarchical)
-
-                    VStack(alignment: .leading, spacing: 3) {
-                        Text(L10n.Presets.saveSectionTitle)
-                            .font(.system(size: 17, weight: .semibold, design: .rounded))
-                            .foregroundStyle(.white)
-
-                        Text(L10n.Presets.saveSectionSubtitle)
-                            .font(.system(size: 12, weight: .medium, design: .rounded))
-                            .foregroundStyle(.white.opacity(0.52))
-                            .fixedSize(horizontal: false, vertical: true)
-                    }
-
-                    Spacer(minLength: 0)
-                }
-
-                HStack(spacing: 10) {
-                    TextField("", text: $newPresetName, prompt: Text(L10n.Presets.namePrompt))
-                        .textInputAutocapitalization(.words)
-                        .disableAutocorrection(true)
-                        .textContentType(nil)
-                        .focused($isNamingPreset)
-                        .submitLabel(.done)
-                        .onSubmit(savePreset)
-                        .accessibilityIdentifier("presets.name")
-                        .padding(.horizontal, 14)
-                        .frame(height: 46)
-                        .background {
-                            RoundedRectangle(cornerRadius: 17, style: .continuous)
-                                .fill(Color.black.opacity(0.18))
-                        }
-                        .overlay {
-                            RoundedRectangle(cornerRadius: 17, style: .continuous)
-                                .strokeBorder(Color.white.opacity(isNamingPreset ? 0.18 : 0.08), lineWidth: 1)
-                        }
-
-                    Button(action: savePreset) {
-                        Label {
-                            Text(L10n.Presets.saveAction)
-                        } icon: {
-                            Image(systemName: "plus")
-                        }
-                        .font(.system(size: 13, weight: .semibold, design: .rounded))
-                        .foregroundStyle(.white)
-                        .padding(.horizontal, 14)
-                        .frame(height: 46)
-                        .presetGlassButtonBackground(
-                            in: Capsule(),
-                            tint: LiquidActivityPalette.preset[0].opacity(0.22),
-                            border: LiquidActivityPalette.preset[0].opacity(0.34),
-                            shadowOpacity: 0.12
-                        )
-                    }
-                    .accessibilityIdentifier("presets.save")
-                    .buttonStyle(PresetButtonScaleStyle())
-                    .disabled(newPresetName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
-                    .opacity(newPresetName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? 0.48 : 1)
-                }
+        Button {
+            withAnimation(.smooth(duration: 0.22)) {
+                newPresetName = ""
+                isShowingSavePresetPrompt = true
             }
+        } label: {
+            HStack(spacing: 12) {
+                Image(systemName: "plus.circle.fill")
+                    .oasisFont(size: 18, weight: .semibold, design: .default, relativeTo: .headline)
+                    .foregroundStyle(LiquidActivityPalette.preset[0])
+                    .symbolRenderingMode(.hierarchical)
+                    .accessibilityHidden(true)
+
+                Text(L10n.Presets.showSave)
+                    .oasisFont(size: 16, weight: .semibold, relativeTo: .headline)
+                    .foregroundStyle(.white)
+
+                Spacer(minLength: 0)
+
+                Image(systemName: "chevron.right")
+                    .oasisFont(size: 12, weight: .bold, design: .default, relativeTo: .caption)
+                    .foregroundStyle(.white.opacity(0.54))
+                    .accessibilityHidden(true)
+            }
+            .padding(.horizontal, 16)
+            .frame(height: 58)
+            .presetGlassButtonBackground(
+                in: RoundedRectangle(cornerRadius: 22, style: .continuous),
+                tint: LiquidActivityPalette.preset[0].opacity(0.06),
+                border: Color.white.opacity(0.09),
+                shadowOpacity: 0.08,
+                shadowRadius: 10
+            )
         }
+        .buttonStyle(PresetButtonScaleStyle())
+        .accessibilityIdentifier("presets.save")
+        .accessibilityLabel(Text(L10n.Presets.showSave))
     }
 
     private var presetsSection: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack(alignment: .firstTextBaseline) {
                 Text(L10n.Presets.listSectionTitle)
-                    .font(.system(size: 18, weight: .semibold, design: .rounded))
+                    .oasisFont(size: 18, weight: .semibold, relativeTo: .headline)
                     .foregroundStyle(.white)
 
                 Spacer(minLength: 0)
 
                 Text("\(model.presets.count)")
-                    .font(.system(size: 12, weight: .bold, design: .rounded))
+                    .oasisFont(size: 12, weight: .bold, relativeTo: .caption)
                     .foregroundStyle(LiquidActivityPalette.preset[0])
                     .padding(.horizontal, 9)
                     .padding(.vertical, 5)
@@ -255,7 +276,7 @@ struct PresetsPanel: View {
     }
 
     private func savePreset() {
-        let trimmed = newPresetName.trimmingCharacters(in: .whitespacesAndNewlines)
+        let trimmed = trimmedPresetName
         guard !trimmed.isEmpty else { return }
 
         let didSave = withAnimation(.smooth(duration: 0.22)) {
@@ -263,11 +284,17 @@ struct PresetsPanel: View {
         }
         guard didSave else { return }
         newPresetName = ""
-        isNamingPreset = false
+        isShowingSavePresetPrompt = false
     }
 
-    private func delete(_ preset: Preset) {
+    private func requestDelete(_ preset: Preset) {
         guard canDelete(preset) else { return }
+        presetPendingDeletion = preset
+    }
+
+    private func confirmDelete(_ preset: Preset) {
+        guard canDelete(preset) else { return }
+        presetPendingDeletion = nil
 
         withAnimation(.smooth(duration: 0.22)) {
             model.deletePreset(preset)
@@ -313,6 +340,10 @@ struct PresetsPanel: View {
         model.isPremium || preset.isUser
     }
 
+    private var trimmedPresetName: String {
+        newPresetName.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+
 }
 
 private struct PresetRow: View {
@@ -340,6 +371,7 @@ private struct PresetRow: View {
                     .accessibilityIdentifier("presets.row.\(preset.id)")
             }
             .accessibilityIdentifier("presets.row.\(preset.id)")
+            .accessibilityAddTraits(isActive ? .isSelected : [])
             .buttonStyle(PresetButtonScaleStyle())
             .frame(maxWidth: .infinity, alignment: .leading)
 
@@ -370,13 +402,13 @@ private struct PresetRow: View {
 
             VStack(alignment: .leading, spacing: 5) {
                 Text(model.presetDisplayName(preset))
-                    .font(.system(size: 16, weight: .semibold, design: .rounded))
+                    .oasisFont(size: 16, weight: .semibold, relativeTo: .headline)
                     .foregroundStyle(isLocked ? .white.opacity(0.62) : .white)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .lineLimit(1)
 
                 Text(statusLabel)
-                    .font(.system(size: 10, weight: .semibold, design: .rounded))
+                    .oasisFont(size: 10, weight: .semibold, relativeTo: .caption2)
                     .foregroundStyle(statusTint)
                     .tracking(0.9)
                     .textCase(.uppercase)
@@ -395,9 +427,10 @@ private struct PresetRow: View {
                 .fill(iconTint.opacity(isLocked ? 0.10 : 0.18))
 
             Image(systemName: iconName)
-                .font(.system(size: 14, weight: .bold))
+                .oasisFont(size: 14, weight: .bold, design: .default, relativeTo: .caption)
                 .foregroundStyle(iconTint)
                 .symbolRenderingMode(.hierarchical)
+                .accessibilityHidden(true)
         }
         .frame(width: 38, height: 38)
     }
@@ -429,7 +462,7 @@ private struct PresetRow: View {
 
     private var reorderHandle: some View {
         Image(systemName: "line.3.horizontal")
-            .font(.system(size: 14, weight: .semibold))
+            .oasisFont(size: 14, weight: .semibold, design: .default, relativeTo: .caption)
             .foregroundStyle(.white.opacity(isReorderEnabled ? 0.72 : 0.32))
             .frame(width: 34, height: 34)
             .presetGlassButtonBackground(
@@ -440,6 +473,7 @@ private struct PresetRow: View {
                 shadowRadius: 8
             )
             .contentShape(Circle())
+            .oasisMinimumHitTarget()
             .allowsHitTesting(isReorderEnabled)
             .accessibilityLabel(Text(L10n.Presets.reorderAction))
             .gesture(
@@ -458,7 +492,7 @@ private struct PresetRow: View {
     private var deleteButton: some View {
         Button(action: onDelete) {
             Image(systemName: "trash")
-                .font(.system(size: 12, weight: .bold))
+                .oasisFont(size: 12, weight: .bold, design: .default, relativeTo: .caption)
                 .foregroundStyle(.white.opacity(0.84))
                 .frame(width: 34, height: 34)
                 .presetGlassButtonBackground(
@@ -471,6 +505,7 @@ private struct PresetRow: View {
         }
         .buttonStyle(PresetButtonScaleStyle())
         .accessibilityLabel(Text(L10n.Presets.deleteAction))
+        .oasisMinimumHitTarget()
         .disabled(!isDeleteEnabled)
         .opacity(isDeleteEnabled ? 1 : 0.36)
     }

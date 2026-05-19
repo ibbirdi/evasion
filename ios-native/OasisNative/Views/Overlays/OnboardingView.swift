@@ -98,7 +98,7 @@ struct OnboardingView: View {
                     ? L10n.string(L10n.Onboarding.ctaStart)
                     : L10n.string(L10n.Onboarding.ctaNext)
                 )
-                .font(.system(size: 17, weight: .bold, design: .rounded))
+                .oasisFont(size: 17, weight: .bold, relativeTo: .headline)
                 .foregroundStyle(Color(red: 0.06, green: 0.08, blue: 0.12))
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 18)
@@ -125,7 +125,7 @@ struct OnboardingView: View {
                     }
                 } label: {
                     Text(L10n.string(L10n.Onboarding.ctaStartFree))
-                        .font(.system(size: 14, weight: .semibold, design: .rounded))
+                        .oasisFont(size: 14, weight: .semibold, relativeTo: .subheadline)
                         .foregroundStyle(.white.opacity(0.60))
                 }
                 .buttonStyle(PressScaleButtonStyle())
@@ -136,7 +136,7 @@ struct OnboardingView: View {
                     }
                 } label: {
                     Text(L10n.string(L10n.Onboarding.ctaSkip))
-                        .font(.system(size: 14, weight: .semibold, design: .rounded))
+                        .oasisFont(size: 14, weight: .semibold, relativeTo: .subheadline)
                         .foregroundStyle(.white.opacity(0.60))
                 }
                 .buttonStyle(PressScaleButtonStyle())
@@ -168,20 +168,21 @@ private struct OnboardingPageView: View {
                     .frame(width: 88, height: 88)
 
                 Image(systemName: page.symbol)
-                    .font(.system(size: 34, weight: .semibold))
+                    .oasisFont(size: 34, weight: .semibold, design: .default, relativeTo: .largeTitle)
                     .foregroundStyle(page.tint)
                     .symbolRenderingMode(.hierarchical)
+                    .accessibilityHidden(true)
             }
 
             VStack(spacing: 12) {
                 Text(page.title)
-                    .font(.system(size: 30, weight: .bold, design: .rounded))
+                    .oasisFont(size: 30, weight: .bold, relativeTo: .largeTitle)
                     .foregroundStyle(.white)
                     .multilineTextAlignment(.center)
                     .minimumScaleFactor(0.80)
 
                 Text(page.subtitle)
-                    .font(.system(size: 16, weight: .medium, design: .rounded))
+                    .oasisFont(size: 16, weight: .medium, relativeTo: .body)
                     .foregroundStyle(.white.opacity(0.68))
                     .multilineTextAlignment(.center)
                     .lineSpacing(4)

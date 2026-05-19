@@ -134,14 +134,14 @@ struct SoundRowView: View {
         } label: {
             HStack(alignment: .center, spacing: 6) {
                 Text(channel.localizedName)
-                    .font(.system(size: 13, weight: .semibold, design: .rounded))
+                    .oasisFont(size: 13, weight: .semibold, relativeTo: .subheadline)
                     .foregroundStyle(identityForeground)
                     .lineLimit(1)
                     .fixedSize(horizontal: true, vertical: false)
 
                 if !channel.location.fullLabel.isEmpty {
-                    Text("·")
-                        .font(.system(size: 11))
+                        Text("·")
+                        .oasisFont(size: 11, design: .default, relativeTo: .caption)
                         .foregroundStyle(.white.opacity(0.30))
 
                     // Location reads "Region, Country". Falls back to a smooth horizontal
@@ -157,7 +157,7 @@ struct SoundRowView: View {
 
                 if let statusText {
                     Text(statusText)
-                        .font(.system(size: 8, weight: .semibold, design: .rounded))
+                        .oasisFont(size: 8, weight: .semibold, relativeTo: .caption2)
                         .tracking(1.2)
                         .foregroundStyle(secondaryTint)
                         .padding(.horizontal, 6)
@@ -170,16 +170,17 @@ struct SoundRowView: View {
                 }
 
                 Image(systemName: "info.circle")
-                    .font(.system(size: 11, weight: .semibold))
+                    .oasisFont(size: 11, weight: .semibold, design: .default, relativeTo: .caption)
                     .foregroundStyle(.white.opacity(0.30))
                     .fixedSize(horizontal: true, vertical: false)
+                    .accessibilityHidden(true)
             }
             .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
         .accessibilityIdentifier("channel.identity.\(channel.id)")
         .accessibilityLabel(accessibilityIdentityLabel)
-        .accessibilityHint(Text("Opens sound details"))
+        .accessibilityHint(Text(L10n.Mixer.soundDetailsHint))
     }
 
     // MARK: - Controls row (mute, slider, spatial, auto)
@@ -200,6 +201,8 @@ struct SoundRowView: View {
                     )
                     .disabled(isLocked || state.isMuted)
                     .accessibilityIdentifier("channel.slider.\(channel.id)")
+                    .accessibilityLabel(Text(L10n.Mixer.autoRange))
+                    .accessibilityHint(Text(L10n.Mixer.autoRangeHint))
                 } else {
                     HapticSlider(
                         value: Binding(
@@ -210,6 +213,7 @@ struct SoundRowView: View {
                     )
                     .disabled(isLocked || state.isMuted || state.autoVariationEnabled)
                     .accessibilityIdentifier("channel.slider.\(channel.id)")
+                    .accessibilityLabel(Text(L10n.Mixer.volume))
                 }
             }
             .frame(maxWidth: .infinity)
@@ -250,14 +254,19 @@ struct SoundRowView: View {
                     }
 
                 Image(systemName: channel.systemImage)
-                    .font(.system(size: 16, weight: .semibold))
+                    .oasisFont(size: 16, weight: .semibold, design: .default, relativeTo: .body)
                     .foregroundStyle(.white.opacity(state.isMuted && !isLocked ? 0.54 : 1))
                     .symbolRenderingMode(.hierarchical)
+                    .accessibilityHidden(true)
             }
             .frame(width: 38, height: 38)
         }
+        .oasisMinimumHitTarget()
         .buttonStyle(PressScaleButtonStyle())
         .accessibilityIdentifier("channel.mute.\(channel.id)")
+        .accessibilityLabel(Text(channel.localizedName))
+        .accessibilityValue(muteAccessibilityValue)
+        .accessibilityHint(Text(L10n.Mixer.toggleSoundHint))
     }
 
     private var spatialButton: some View {
@@ -285,13 +294,17 @@ struct SoundRowView: View {
                     }
 
                 Image(systemName: "scope")
-                    .font(.system(size: 12, weight: .semibold))
+                    .oasisFont(size: 12, weight: .semibold, design: .default, relativeTo: .caption)
                     .foregroundStyle(.white)
+                    .accessibilityHidden(true)
             }
             .frame(width: 36, height: 36)
         }
+        .oasisMinimumHitTarget()
         .buttonStyle(PressScaleButtonStyle())
         .accessibilityIdentifier("channel.spatial.\(channel.id)")
+        .accessibilityLabel(Text(L10n.Mixer.soundPlacement))
+        .accessibilityHint(Text(L10n.Mixer.soundPlacementHint))
     }
 
     private var autoButton: some View {
@@ -307,10 +320,10 @@ struct SoundRowView: View {
             HStack(spacing: 0) {
                 if isLocked {
                     Image(systemName: "lock.fill")
-                        .font(.system(size: 10, weight: .semibold))
+                        .oasisFont(size: 10, weight: .semibold, design: .default, relativeTo: .caption)
                 } else {
                     Text(L10n.Mixer.statusAuto)
-                        .font(.system(size: 10, weight: .bold, design: .rounded))
+                        .oasisFont(size: 10, weight: .bold, relativeTo: .caption)
                 }
             }
             .foregroundStyle(buttonForeground)
@@ -328,8 +341,11 @@ struct SoundRowView: View {
                     )
             }
         }
+        .oasisMinimumHitTarget()
         .buttonStyle(PressScaleButtonStyle())
         .accessibilityIdentifier("channel.auto.\(channel.id)")
+        .accessibilityLabel(Text(L10n.Mixer.autoVariation))
+        .accessibilityValue(Text(state.autoVariationEnabled ? L10n.Mixer.enabled : L10n.Mixer.disabled))
     }
 
     // MARK: - Derived styling
@@ -394,6 +410,13 @@ struct SoundRowView: View {
         return state.autoVariationEnabled ? .white : .white.opacity(0.82)
     }
 
+    private var muteAccessibilityValue: Text {
+        if isLocked {
+            return Text(L10n.Mixer.locked)
+        }
+        return Text(state.isMuted ? L10n.Mixer.soundOff : L10n.Mixer.soundOn)
+    }
+
     private var accessibilityIdentityLabel: Text {
         let name = channel.localizedName
         let location = channel.location.fullLabel
@@ -409,6 +432,8 @@ struct SoundRowView: View {
 /// user can read the whole label without tapping. Position is driven by `TimelineView`
 /// so the animation is deterministic and pauses when the view is off-screen.
 private struct MarqueeText: View {
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
     let text: String
     let font: Font
     let foregroundStyle: Color
@@ -426,8 +451,8 @@ private struct MarqueeText: View {
 
     var body: some View {
         GeometryReader { proxy in
-            TimelineView(.animation(minimumInterval: 1.0 / 30.0, paused: !needsScroll)) { context in
-                let currentOffset = offset(atTime: context.date.timeIntervalSinceReferenceDate)
+            TimelineView(.animation(minimumInterval: 1.0 / 30.0, paused: !needsScroll || reduceMotion)) { context in
+                let currentOffset = reduceMotion ? 0 : offset(atTime: context.date.timeIntervalSinceReferenceDate)
 
                 Text(text)
                     .font(font)

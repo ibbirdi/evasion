@@ -30,16 +30,17 @@ struct BinauralPanel: View {
         VStack(spacing: 14) {
             VStack(spacing: 6) {
                 Image(systemName: "waveform.path")
-                    .font(.system(size: 18, weight: .semibold))
+                    .oasisFont(size: 18, weight: .semibold, design: .default, relativeTo: .headline)
                     .foregroundStyle(model.activeBinauralTrack.tint.opacity(0.92))
+                    .accessibilityHidden(true)
 
                 Text(L10n.Binaural.title)
-                    .font(.system(size: 24, weight: .semibold, design: .rounded))
+                    .oasisFont(size: 24, weight: .semibold, relativeTo: .title2)
                     .foregroundStyle(.white)
                     .multilineTextAlignment(.center)
 
                 Text(L10n.Binaural.headphonesHint)
-                    .font(.system(size: 13, weight: .medium, design: .rounded))
+                    .oasisFont(size: 13, weight: .medium, relativeTo: .subheadline)
                     .foregroundStyle(.white.opacity(0.58))
                     .multilineTextAlignment(.center)
             }
@@ -86,16 +87,21 @@ struct BinauralPanel: View {
             )
             .opacity(model.isBinauralActive ? 1 : 0.54)
             .frame(maxWidth: .infinity)
+            .accessibilityLabel(Text(L10n.Binaural.volume))
 
             if AppConfiguration.supportsSensoryFeedback {
                 Toggle("", isOn: binauralEnabledBinding)
                     .labelsHidden()
                     .tint(model.activeBinauralTrack.tint)
                     .sensoryFeedback(.impact(weight: .heavy, intensity: 0.92), trigger: model.isBinauralActive)
+                    .accessibilityLabel(Text(L10n.Binaural.title))
+                    .accessibilityValue(Text(model.isBinauralActive ? L10n.Binaural.enabled : L10n.Binaural.disabled))
             } else {
                 Toggle("", isOn: binauralEnabledBinding)
                     .labelsHidden()
                     .tint(model.activeBinauralTrack.tint)
+                    .accessibilityLabel(Text(L10n.Binaural.title))
+                    .accessibilityValue(Text(model.isBinauralActive ? L10n.Binaural.enabled : L10n.Binaural.disabled))
             }
         }
     }
@@ -122,31 +128,34 @@ private struct BinauralTrackCard: View {
             VStack(alignment: .leading, spacing: 8) {
                 HStack(spacing: 8) {
                     Image(systemName: "waveform.path")
-                        .font(.system(size: 13, weight: .semibold))
+                        .oasisFont(size: 13, weight: .semibold, design: .default, relativeTo: .caption)
                         .foregroundStyle(isActive ? track.tint : .white.opacity(0.82))
                         .symbolRenderingMode(.hierarchical)
+                        .accessibilityHidden(true)
 
                     Spacer(minLength: 0)
 
                     if isLocked {
                         Image(systemName: "lock.fill")
-                            .font(.system(size: 10, weight: .semibold))
+                            .oasisFont(size: 10, weight: .semibold, design: .default, relativeTo: .caption2)
                             .foregroundStyle(.white.opacity(0.44))
+                            .accessibilityHidden(true)
                     } else if isActive {
                         Image(systemName: "checkmark.circle.fill")
-                            .font(.system(size: 14, weight: .semibold))
+                            .oasisFont(size: 14, weight: .semibold, design: .default, relativeTo: .caption)
                             .foregroundStyle(track.tint)
+                            .accessibilityHidden(true)
                     }
                 }
 
                 VStack(alignment: .leading, spacing: 2) {
                     Text(track.localizedTitle)
-                        .font(.system(size: 14, weight: .semibold, design: .rounded))
+                        .oasisFont(size: 14, weight: .semibold, relativeTo: .subheadline)
                         .foregroundStyle(isLocked ? .white.opacity(0.46) : .white)
                         .lineLimit(1)
 
                     Text(track.localizedFrequencyLabel)
-                        .font(.system(size: 10, weight: .medium, design: .rounded))
+                        .oasisFont(size: 10, weight: .medium, relativeTo: .caption2)
                         .foregroundStyle(isActive ? track.tint.opacity(0.84) : .white.opacity(0.42))
                         .lineLimit(1)
                 }
@@ -171,7 +180,19 @@ private struct BinauralTrackCard: View {
         }
         }
         .accessibilityIdentifier("binaural.track.\(track.id)")
+        .accessibilityValue(accessibilityValue)
+        .accessibilityAddTraits(isActive ? .isSelected : [])
         .buttonStyle(BinauralButtonScaleStyle())
+    }
+
+    private var accessibilityValue: Text {
+        if isLocked {
+            return Text(L10n.Mixer.locked)
+        }
+        if isActive {
+            return Text(L10n.Presets.statusActive)
+        }
+        return Text("")
     }
 }
 

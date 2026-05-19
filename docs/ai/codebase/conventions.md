@@ -47,6 +47,14 @@ Patterns this codebase has settled on. Follow these by default — diverge only 
 
 - Default: `.animation(.smooth, value: …)`. Use `.spring` only when the result is intentional.
 - Continuous animations (auras, waveform) **must** check `AppConfiguration.isRunningUITests` and freeze when true. Otherwise XCUITest hangs.
+- Continuous decorative animations must also respect `accessibilityReduceMotion`.
+
+### Accessibility and sizing
+
+- Use `.oasisFont(...)` for app UI text so typography participates in Dynamic Type while keeping Oasis' compact rounded style.
+- Use `.oasisMinimumHitTarget()` around icon-only or visually compact controls; the visible chrome may stay smaller, but the tappable area should be at least 44 pt.
+- Hide decorative SF Symbols from VoiceOver when the surrounding button/row already provides the semantic label.
+- If a custom gesture is required, provide a button or custom accessibility action path too.
 
 ### Sheets and covers
 

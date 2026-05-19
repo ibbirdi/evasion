@@ -7,6 +7,7 @@ struct PaywallOverlay: View {
     @Environment(AppModel.self) private var model
     @Environment(\.dismiss) private var dismiss
     @Environment(\.openURL) private var openURL
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     @State private var currentPackage: Package?
     @State private var isPurchasing = false
@@ -67,7 +68,7 @@ struct PaywallOverlay: View {
                             dismiss()
                         } label: {
                             Image(systemName: "xmark")
-                                .font(.system(size: 18, weight: .semibold))
+                                .oasisFont(size: 18, weight: .semibold, design: .default, relativeTo: .body)
                                 .foregroundStyle(.white.opacity(0.86))
                                 .frame(width: 44, height: 44)
                                 .background {
@@ -86,6 +87,7 @@ struct PaywallOverlay: View {
                         }
                         .buttonStyle(PressScaleButtonStyle())
                         .accessibilityIdentifier("premium.paywall.close")
+                        .accessibilityLabel(Text(L10n.Presets.close))
                     }
                     .padding(.horizontal, 20)
                     .padding(.top, topInset + 8)
@@ -106,17 +108,18 @@ struct PaywallOverlay: View {
                             VStack(spacing: 0) {
                                 VStack(spacing: 10) {
                                     Image(systemName: presentation.symbolName)
-                                        .font(.system(size: 22, weight: .semibold))
+                                        .oasisFont(size: 22, weight: .semibold, design: .default, relativeTo: .title3)
                                         .foregroundStyle(presentation.accentToken.tint)
+                                        .accessibilityHidden(true)
 
                                     Text(presentation.title)
-                                        .font(.system(size: isCompactHeight ? 29 : 33, weight: .semibold, design: .rounded))
+                                        .oasisFont(size: isCompactHeight ? 29 : 33, weight: .semibold, relativeTo: .largeTitle)
                                         .foregroundStyle(.white)
                                         .multilineTextAlignment(.center)
                                         .minimumScaleFactor(0.85)
 
                                     Text(presentation.subtitle)
-                                        .font(.system(size: isCompactHeight ? 14 : 15, weight: .medium, design: .rounded))
+                                        .oasisFont(size: isCompactHeight ? 14 : 15, weight: .medium, relativeTo: .body)
                                         .foregroundStyle(.white.opacity(0.64))
                                         .multilineTextAlignment(.center)
                                         .fixedSize(horizontal: false, vertical: true)
@@ -135,7 +138,7 @@ struct PaywallOverlay: View {
                                 .padding(.bottom, isCompactHeight ? 18 : 24)
 
                                 Text(L10n.Paywall.noSubscription)
-                                    .font(.system(size: isCompactHeight ? 13 : 14, weight: .medium, design: .rounded))
+                                    .oasisFont(size: isCompactHeight ? 13 : 14, weight: .medium, relativeTo: .subheadline)
                                     .foregroundStyle(.white.opacity(0.58))
                                     .multilineTextAlignment(.center)
                                     .padding(.bottom, isCompactHeight ? 18 : 22)
@@ -144,7 +147,7 @@ struct PaywallOverlay: View {
 
                                 if currentPackage?.localizedPriceString != nil {
                                     Text(L10n.Paywall.dailyPrice)
-                                        .font(.system(size: isCompactHeight ? 11 : 12, weight: .medium, design: .rounded))
+                                        .oasisFont(size: isCompactHeight ? 11 : 12, weight: .medium, relativeTo: .caption)
                                         .foregroundStyle(.white.opacity(0.50))
                                         .multilineTextAlignment(.center)
                                         .padding(.top, 4)
@@ -183,7 +186,7 @@ struct PaywallOverlay: View {
                     .tint(Color(red: 0.06, green: 0.08, blue: 0.12))
 
                 Text(L10n.Paywall.loading)
-                    .font(.system(size: 16, weight: .bold, design: .rounded))
+                    .oasisFont(size: 16, weight: .bold, relativeTo: .headline)
                     .foregroundStyle(Color(red: 0.06, green: 0.08, blue: 0.12))
             }
             .frame(maxWidth: .infinity)
@@ -207,12 +210,12 @@ struct PaywallOverlay: View {
                     } else {
                         VStack(spacing: 2) {
                             Text(L10n.Paywall.primaryTitle)
-                                .font(.system(size: 17, weight: .bold, design: .rounded))
+                                .oasisFont(size: 17, weight: .bold, relativeTo: .headline)
                                 .multilineTextAlignment(.center)
 
                             if let price = currentPackage?.localizedPriceString, !price.isEmpty {
                                 Text(price)
-                                    .font(.system(size: 13, weight: .semibold, design: .rounded))
+                                    .oasisFont(size: 13, weight: .semibold, relativeTo: .subheadline)
                                     .foregroundStyle(Color(red: 0.06, green: 0.08, blue: 0.12).opacity(0.72))
                             }
                         }
@@ -227,6 +230,7 @@ struct PaywallOverlay: View {
                         .shadow(color: Color(red: 0.97, green: 0.74, blue: 0.32).opacity(ctaPulse ? 0.32 : 0.14), radius: ctaPulse ? 20 : 12, y: 8)
                 }
                 .onAppear {
+                    guard !reduceMotion else { return }
                     withAnimation(.easeInOut(duration: 1.8).repeatForever(autoreverses: true)) {
                         ctaPulse = true
                     }
@@ -244,7 +248,7 @@ struct PaywallOverlay: View {
                     }
                 } label: {
                     Text(L10n.Paywall.retry)
-                        .font(.system(size: 17, weight: .bold, design: .rounded))
+                        .oasisFont(size: 17, weight: .bold, relativeTo: .headline)
                         .foregroundStyle(Color(red: 0.06, green: 0.08, blue: 0.12))
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, isCompactHeight ? 16 : 18)
@@ -257,7 +261,7 @@ struct PaywallOverlay: View {
                 .accessibilityIdentifier("premium.paywall.retry")
 
                 Text(L10n.Paywall.unavailable)
-                    .font(.system(size: 12, weight: .medium, design: .rounded))
+                    .oasisFont(size: 12, weight: .medium, relativeTo: .caption)
                     .foregroundStyle(.white.opacity(0.58))
                     .multilineTextAlignment(.center)
             }
@@ -273,7 +277,7 @@ struct PaywallOverlay: View {
                 }
             } label: {
                 Text(isRestoring ? L10n.Paywall.restoring : L10n.Paywall.restore)
-                    .font(.system(size: isCompactHeight ? 12 : 13, weight: .semibold, design: .rounded))
+                    .oasisFont(size: isCompactHeight ? 12 : 13, weight: .semibold, relativeTo: .subheadline)
                     .foregroundStyle(.white.opacity(0.78))
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, isCompactHeight ? 13 : 14)
@@ -298,7 +302,7 @@ struct PaywallOverlay: View {
                 openURL(AppConfiguration.supportURL)
             } label: {
                 Text(L10n.Paywall.support)
-                    .font(.system(size: isCompactHeight ? 12 : 13, weight: .semibold, design: .rounded))
+                    .oasisFont(size: isCompactHeight ? 12 : 13, weight: .semibold, relativeTo: .subheadline)
                     .foregroundStyle(.white.opacity(0.78))
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, isCompactHeight ? 13 : 14)
@@ -422,12 +426,13 @@ private struct BenefitRow: View {
     var body: some View {
         HStack(alignment: .center, spacing: isCompact ? 12 : 14) {
             Image(systemName: "checkmark.circle.fill")
-                .font(.system(size: isCompact ? 18 : 20, weight: .bold))
+                .oasisFont(size: isCompact ? 18 : 20, weight: .bold, design: .default, relativeTo: .headline)
                 .foregroundStyle(tint)
                 .frame(width: isCompact ? 22 : 24, height: isCompact ? 22 : 24)
+                .accessibilityHidden(true)
 
             Text(text)
-                .font(.system(size: isCompact ? 15 : 17, weight: .medium, design: .rounded))
+                .oasisFont(size: isCompact ? 15 : 17, weight: .medium, relativeTo: .body)
                 .foregroundStyle(.white.opacity(0.90))
                 .lineSpacing(isCompact ? 2 : 3)
                 .fixedSize(horizontal: false, vertical: true)

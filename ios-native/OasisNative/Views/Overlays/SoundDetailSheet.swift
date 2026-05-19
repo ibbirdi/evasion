@@ -54,13 +54,13 @@ struct SoundDetailSheet: View {
 
             VStack(alignment: .leading, spacing: 4) {
                 Text(channel.localizedName)
-                    .font(.system(size: 13, weight: .semibold, design: .rounded))
+                    .oasisFont(size: 13, weight: .semibold, relativeTo: .subheadline)
                     .tracking(1.4)
                     .textCase(.uppercase)
                     .foregroundStyle(channel.tint.opacity(0.85))
 
                 Text(channel.localizedLongName)
-                    .font(.system(size: 24, weight: .semibold, design: .rounded))
+                    .oasisFont(size: 24, weight: .semibold, relativeTo: .title2)
                     .foregroundStyle(.white.opacity(0.98))
                     .fixedSize(horizontal: false, vertical: true)
             }
@@ -96,6 +96,7 @@ struct SoundDetailSheet: View {
                 .font(.system(size: max(18, titleStackHeight * 0.42), weight: .semibold))
                 .foregroundStyle(.white)
                 .symbolRenderingMode(.hierarchical)
+                .accessibilityHidden(true)
         }
         .frame(width: titleStackHeight, height: titleStackHeight)
     }
@@ -103,13 +104,13 @@ struct SoundDetailSheet: View {
     private var locationBlock: some View {
         VStack(alignment: .leading, spacing: 4) {
             Text(location.fullLabel)
-                .font(.system(size: 16, weight: .medium, design: .rounded))
+                .oasisFont(size: 16, weight: .medium, relativeTo: .body)
                 .foregroundStyle(.white.opacity(0.92))
                 .fixedSize(horizontal: false, vertical: true)
 
             if location.isApproximate {
                 Text(L10n.SoundDetail.approximateLocation)
-                    .font(.system(size: 11, weight: .regular, design: .rounded))
+                    .oasisFont(size: 11, relativeTo: .caption)
                     .foregroundStyle(.white.opacity(0.50))
             }
         }
@@ -129,17 +130,17 @@ struct SoundDetailSheet: View {
     private var creditBlock: some View {
         VStack(alignment: .leading, spacing: 6) {
             Text(L10n.SoundDetail.recordedBy)
-                .font(.system(size: 11, weight: .semibold, design: .rounded))
+                .oasisFont(size: 11, weight: .semibold, relativeTo: .caption)
                 .tracking(1.2)
                 .textCase(.uppercase)
                 .foregroundStyle(.white.opacity(0.44))
 
             Text(credit.author)
-                .font(.system(size: 17, weight: .semibold, design: .rounded))
+                .oasisFont(size: 17, weight: .semibold, relativeTo: .headline)
                 .foregroundStyle(.white.opacity(0.96))
 
             Text("\(L10n.SoundDetail.licensedUnder) \(credit.license.shortLabel) · freesound.org")
-                .font(.system(size: 12, weight: .regular, design: .rounded))
+                .oasisFont(size: 12, relativeTo: .caption)
                 .foregroundStyle(.white.opacity(0.52))
         }
     }
@@ -178,6 +179,13 @@ extension L10n {
             defaultValue: "Approximate location",
             bundle: .main,
             comment: "Small note shown below a location when it was inferred rather than documented by the author."
+        )
+
+        static let location = LocalizedStringResource(
+            "sound.detail.location",
+            defaultValue: "Location",
+            bundle: .main,
+            comment: "Accessibility prefix for the map shown in the sound detail sheet."
         )
     }
 }

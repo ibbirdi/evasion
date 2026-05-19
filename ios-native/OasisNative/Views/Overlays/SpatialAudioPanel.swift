@@ -12,15 +12,16 @@ struct SpatialAudioPanel: View {
         VStack(spacing: 18) {
             VStack(spacing: 6) {
                 Image(systemName: "scope")
-                    .font(.system(size: 18, weight: .semibold))
+                    .oasisFont(size: 18, weight: .semibold, design: .default, relativeTo: .headline)
                     .foregroundStyle(channel.tint.opacity(0.92))
+                    .accessibilityHidden(true)
 
                 Text(model.channelName(channel))
-                    .font(.system(size: 24, weight: .semibold, design: .rounded))
+                    .oasisFont(size: 24, weight: .semibold, relativeTo: .title2)
                     .foregroundStyle(.white)
 
                 Text(L10n.Spatial.subtitle)
-                    .font(.system(size: 13, weight: .medium, design: .rounded))
+                    .oasisFont(size: 13, weight: .medium, relativeTo: .subheadline)
                     .foregroundStyle(.white.opacity(0.58))
                     .multilineTextAlignment(.center)
             }
@@ -30,16 +31,18 @@ struct SpatialAudioPanel: View {
             SpatialPlacementStage(channel: channel)
                 .frame(height: 252)
 
+            spatialPresetControls
+
             Button {
                 withAnimation(.smooth(duration: 0.24)) {
                     model.resetChannelSpatialPosition(channel)
                 }
             } label: {
                 Text(L10n.Spatial.reset)
-                    .font(.system(size: 13, weight: .semibold, design: .rounded))
+                    .oasisFont(size: 13, weight: .semibold, relativeTo: .subheadline)
                     .foregroundStyle(.white)
                     .padding(.horizontal, 18)
-                    .frame(height: 38)
+                    .frame(height: 42)
                     .background {
                         Capsule()
                             .fill(.regularMaterial)
@@ -54,6 +57,7 @@ struct SpatialAudioPanel: View {
                     }
             }
             .buttonStyle(PressScaleButtonStyle())
+            .oasisMinimumHitTarget()
             .opacity(state.spatialPosition.isCentered ? 0.56 : 1)
             .disabled(state.spatialPosition.isCentered)
         }
@@ -62,6 +66,107 @@ struct SpatialAudioPanel: View {
         .background(.clear)
         .accessibilityElement(children: .contain)
         .accessibilityIdentifier("panel.spatial.container")
+    }
+
+    private var spatialPresetControls: some View {
+        HStack(spacing: 7) {
+            ForEach(SpatialPreset.allCases) { preset in
+                Button {
+                    withAnimation(.smooth(duration: 0.22)) {
+                        model.setChannelSpatialPosition(channel, value: preset.point)
+                    }
+                } label: {
+                    VStack(spacing: 5) {
+                        Image(systemName: preset.systemImage)
+                            .oasisFont(size: 13, weight: .semibold, design: .default, relativeTo: .caption)
+                            .accessibilityHidden(true)
+
+                        Text(preset.title)
+                            .oasisFont(size: 10, weight: .semibold, relativeTo: .caption2)
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.78)
+                    }
+                    .foregroundStyle(isPresetSelected(preset) ? channel.tint : .white.opacity(0.72))
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 48)
+                    .background {
+                        Capsule()
+                            .fill(isPresetSelected(preset) ? channel.tint.opacity(0.17) : Color.white.opacity(0.045))
+                    }
+                    .overlay {
+                        Capsule()
+                            .strokeBorder(
+                                isPresetSelected(preset) ? channel.tint.opacity(0.36) : Color.white.opacity(0.07),
+                                lineWidth: 1
+                            )
+                    }
+                }
+                .buttonStyle(PressScaleButtonStyle())
+                .accessibilityLabel(Text(preset.title))
+                .accessibilityAddTraits(isPresetSelected(preset) ? .isSelected : [])
+            }
+        }
+    }
+
+    private func isPresetSelected(_ preset: SpatialPreset) -> Bool {
+        let current = state.spatialPosition.clamped()
+        let target = preset.point.clamped()
+        return abs(current.x - target.x) < 0.02 && abs(current.y - target.y) < 0.02
+    }
+}
+
+private enum SpatialPreset: CaseIterable, Identifiable {
+    case left
+    case front
+    case center
+    case back
+    case right
+
+    var id: Self { self }
+
+    var title: LocalizedStringResource {
+        switch self {
+        case .left:
+            return L10n.Spatial.left
+        case .front:
+            return L10n.Spatial.front
+        case .center:
+            return L10n.Spatial.center
+        case .back:
+            return L10n.Spatial.back
+        case .right:
+            return L10n.Spatial.right
+        }
+    }
+
+    var systemImage: String {
+        switch self {
+        case .left:
+            return "arrow.left"
+        case .front:
+            return "arrow.up"
+        case .center:
+            return "scope"
+        case .back:
+            return "arrow.down"
+        case .right:
+            return "arrow.right"
+        }
+    }
+
+    var point: SpatialPoint {
+        switch self {
+        case .left:
+            return SpatialPoint(x: -1, y: 0)
+        case .front:
+            return SpatialPoint(x: 0, y: -1)
+        case .center:
+            return .center
+        case .back:
+            return SpatialPoint(x: 0, y: 1)
+        case .right:
+            return SpatialPoint(x: 1, y: 0)
+        }
     }
 }
 
@@ -106,7 +211,9 @@ private struct SpatialPlacementStage: View {
             // so XCUITest can target it for synthetic drag gestures used by
             // the marketing video factory.
             .accessibilityElement(children: .ignore)
-            .accessibilityLabel("Spatial placement stage")
+            .accessibilityLabel(Text(L10n.Spatial.stageAccessibility))
+            .accessibilityHint(Text(L10n.Spatial.stageHint))
+            .accessibilityValue(accessibilityValue(for: position))
             .accessibilityIdentifier("spatial.stage")
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
         }
@@ -166,8 +273,9 @@ private struct SpatialPlacementStage: View {
                 .frame(width: 46, height: 46)
 
             Image(systemName: channel.systemImage)
-                .font(.system(size: 15, weight: .semibold))
+                .oasisFont(size: 15, weight: .semibold, design: .default, relativeTo: .body)
                 .foregroundStyle(.white)
+                .accessibilityHidden(true)
         }
         .shadow(color: .black.opacity(0.18), radius: 14, y: 8)
         .position(point)
@@ -189,7 +297,7 @@ private struct SpatialPlacementStage: View {
 
     private func label(_ text: String) -> some View {
         Text(text)
-            .font(.system(size: 10, weight: .semibold, design: .rounded))
+            .oasisFont(size: 10, weight: .semibold, relativeTo: .caption2)
             .foregroundStyle(.white.opacity(0.42))
     }
 
@@ -215,5 +323,27 @@ private struct SpatialPlacementStage: View {
         let x = inset + ((CGFloat(clamped.x) + 1) * 0.5 * (size.width - (inset * 2)))
         let y = inset + ((CGFloat(clamped.y) + 1) * 0.5 * (size.height - (inset * 2)))
         return CGPoint(x: x, y: y)
+    }
+
+    private func accessibilityValue(for position: SpatialPoint) -> Text {
+        if position.isCentered {
+            return Text(L10n.Spatial.positionCentered)
+        }
+
+        let horizontal: LocalizedStringResource? = {
+            if position.x < -0.25 { return L10n.Spatial.left }
+            if position.x > 0.25 { return L10n.Spatial.right }
+            return nil
+        }()
+
+        let vertical: LocalizedStringResource? = {
+            if position.y < -0.25 { return L10n.Spatial.front }
+            if position.y > 0.25 { return L10n.Spatial.back }
+            return nil
+        }()
+
+        let parts = [vertical, horizontal].compactMap { $0 }.map(L10n.string)
+        guard !parts.isEmpty else { return Text(L10n.Spatial.positionCentered) }
+        return Text(parts.joined(separator: ", "))
     }
 }
