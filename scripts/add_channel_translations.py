@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Adds and refreshes long-name, short-name and location i18n keys for the current
-20 ambient channels.
+35 ambient channels.
 
 Keeps the Xcode Strings Catalog format intact: sorted keys, per-language
 `stringUnit.state = "translated"` entries, 6 languages (en, fr, es, de, it, pt).
@@ -59,6 +59,81 @@ NEW_CHANNELS_SHORT = {
         "en": "Mountain storm", "fr": "Orage en montagne", "es": "Tormenta de montaña",
         "de": "Berggewitter", "it": "Temporale di montagna", "pt": "Trovoada de montanha",
     },
+    "channel.rainWindow": {
+        "comment": "Ambient sound channel short name.",
+        "en": "Rain against the window", "fr": "Pluie contre la fenêtre", "es": "Lluvia contra la ventana",
+        "de": "Regen am Fenster", "it": "Pioggia contro la finestra", "pt": "Chuva contra a janela",
+    },
+    "channel.rainForest": {
+        "comment": "Ambient sound channel short name.",
+        "en": "Forest rain", "fr": "Pluie en forêt", "es": "Lluvia en el bosque",
+        "de": "Waldregen", "it": "Pioggia nel bosco", "pt": "Chuva na floresta",
+    },
+    "channel.heavyRain": {
+        "comment": "Ambient sound channel short name.",
+        "en": "Heavy rain", "fr": "Forte pluie", "es": "Lluvia intensa",
+        "de": "Starkregen", "it": "Pioggia intensa", "pt": "Chuva forte",
+    },
+    "channel.nightWind": {
+        "comment": "Ambient sound channel short name.",
+        "en": "Night wind", "fr": "Vent nocturne", "es": "Viento nocturno",
+        "de": "Nachtwind", "it": "Vento notturno", "pt": "Vento noturno",
+    },
+    "channel.nightForest": {
+        "comment": "Ambient sound channel short name.",
+        "en": "Night forest", "fr": "Forêt nocturne", "es": "Bosque nocturno",
+        "de": "Nachtwald", "it": "Foresta notturna", "pt": "Floresta noturna",
+    },
+    "channel.mountainFlood": {
+        "comment": "Ambient sound channel short name.",
+        "en": "Mountain river", "fr": "Rivière de montagne", "es": "Río de montaña",
+        "de": "Bergfluss", "it": "Fiume di montagna", "pt": "Rio de montanha",
+    },
+    "channel.waterfall": {
+        "comment": "Ambient sound channel short name.",
+        "en": "Waterfall", "fr": "Cascade", "es": "Cascada",
+        "de": "Wasserfall", "it": "Cascata", "pt": "Cachoeira",
+    },
+    "channel.citySnow": {
+        "comment": "Ambient sound channel short name.",
+        "en": "Snowflakes", "fr": "Flocons de neige", "es": "Copos de nieve",
+        "de": "Schneeflocken", "it": "Fiocchi di neve", "pt": "Flocos de neve",
+    },
+    "channel.cabinRain": {
+        "comment": "Ambient sound channel short name.",
+        "en": "Rain under the cabin roof", "fr": "Pluie sous la cabane", "es": "Lluvia bajo el techo de la cabaña",
+        "de": "Regen unter dem Hüttendach", "it": "Pioggia sotto il tetto della baita", "pt": "Chuva sob o telhado da cabana",
+    },
+    "channel.chiloeForest": {
+        "comment": "Ambient sound channel short name.",
+        "en": "Chiloé forest", "fr": "Forêt de Chiloé", "es": "Bosque de Chiloé",
+        "de": "Chiloé-Wald", "it": "Foresta di Chiloé", "pt": "Floresta de Chiloé",
+    },
+    "channel.jungleDawn": {
+        "comment": "Ambient sound channel short name.",
+        "en": "Jungle dawn", "fr": "Aube tropicale", "es": "Amanecer selvático",
+        "de": "Dschungeldämmerung", "it": "Alba nella giungla", "pt": "Amanhecer na selva",
+    },
+    "channel.harbor": {
+        "comment": "Ambient sound channel short name.",
+        "en": "Harbor", "fr": "Port", "es": "Puerto",
+        "de": "Hafen", "it": "Porto", "pt": "Porto",
+    },
+    "channel.goats": {
+        "comment": "Ambient sound channel short name.",
+        "en": "Goats with bells", "fr": "Chèvres et leurs clochettes", "es": "Cabras con cencerros",
+        "de": "Ziegen mit Glocken", "it": "Capre con campanelli", "pt": "Cabras com sinos",
+    },
+    "channel.windChimes": {
+        "comment": "Ambient sound channel short name.",
+        "en": "Wind chimes", "fr": "Carillons", "es": "Campanas de viento",
+        "de": "Windspiele", "it": "Campanelli al vento", "pt": "Sinos de vento",
+    },
+    "channel.churchBells": {
+        "comment": "Ambient sound channel short name.",
+        "en": "Church bells", "fr": "Cloches", "es": "Campanas de iglesia",
+        "de": "Kirchenglocken", "it": "Campane", "pt": "Sinos de igreja",
+    },
 }
 
 LONG_NAMES = {
@@ -93,9 +168,9 @@ LONG_NAMES = {
         "it": "Pioggia su una tenda da campeggio", "pt": "Chuva sobre uma tenda",
     },
     "channel.thunder.long": {
-        "en": "Summer storm in Southern France", "fr": "Orage d’été dans le sud de la France",
-        "es": "Tormenta de verano en el sur de Francia", "de": "Sommergewitter in Südfrankreich",
-        "it": "Temporale estivo nel sud della Francia", "pt": "Tempestade de verão no sul da França",
+        "en": "Plain storm near Azillanet", "fr": "Orage dans la plaine près d’Azillanet",
+        "es": "Tormenta en la llanura cerca de Azillanet", "de": "Gewitter über der Ebene bei Azillanet",
+        "it": "Temporale sulla pianura vicino ad Azillanet", "pt": "Tempestade na planície perto de Azillanet",
     },
     "channel.cicadas.long": {
         "en": "Sicilian summer cicadas", "fr": "Cigales d’été en Sicile",
@@ -108,9 +183,9 @@ LONG_NAMES = {
         "it": "Grilli di campagna notturni", "pt": "Grilos noturnos do campo",
     },
     "channel.tent.long": {
-        "en": "Heavy rain on the canvas", "fr": "Forte pluie sur la toile",
-        "es": "Lluvia fuerte sobre la lona", "de": "Starker Regen auf der Zeltplane",
-        "it": "Pioggia battente sulla tela", "pt": "Chuva forte sobre a lona",
+        "en": "Heavy rain under the tent canvas", "fr": "Forte pluie sous la toile de tente",
+        "es": "Lluvia intensa bajo la lona", "de": "Starker Regen unter der Zeltplane",
+        "it": "Pioggia battente sotto il telo", "pt": "Chuva forte dentro da barraca",
     },
     "channel.river.long": {
         "en": "Taiwan mountain stream", "fr": "Ruisseau de montagne taïwanais",
@@ -161,6 +236,81 @@ LONG_NAMES = {
         "en": "Chiang Mai jungle at night", "fr": "Jungle de Chiang Mai la nuit",
         "es": "Selva de Chiang Mai de noche", "de": "Chiang-Mai-Dschungel bei Nacht",
         "it": "Giungla di Chiang Mai di notte", "pt": "Selva de Chiang Mai à noite",
+    },
+    "channel.rainWindow.long": {
+        "en": "Rain against a Chiswick window", "fr": "Pluie contre une vitre à Chiswick",
+        "es": "Lluvia contra una ventana en Chiswick", "de": "Regen an einem Fenster in Chiswick",
+        "it": "Pioggia su una finestra a Chiswick", "pt": "Chuva contra uma janela em Chiswick",
+    },
+    "channel.rainForest.long": {
+        "en": "Rain under the forest canopy", "fr": "Pluie sous la canopée",
+        "es": "Lluvia bajo el dosel del bosque", "de": "Regen unter dem Blätterdach",
+        "it": "Pioggia sotto la volta del bosco", "pt": "Chuva sob a copa da floresta",
+    },
+    "channel.heavyRain.long": {
+        "en": "Heavy rain on rural land", "fr": "Forte pluie en pleine campagne",
+        "es": "Lluvia intensa en zona rural", "de": "Starkregen auf dem Land",
+        "it": "Pioggia intensa in campagna", "pt": "Chuva forte no campo",
+    },
+    "channel.nightWind.long": {
+        "en": "Night wind through dry branches", "fr": "Vent nocturne dans les branches sèches",
+        "es": "Viento nocturno entre ramas secas", "de": "Nachtwind in trockenen Ästen",
+        "it": "Vento notturno tra rami secchi", "pt": "Vento noturno entre galhos secos",
+    },
+    "channel.nightForest.long": {
+        "en": "Tallgrass prairie forest edge", "fr": "Lisière nocturne dans la prairie tallgrass",
+        "es": "Borde de bosque en la pradera tallgrass", "de": "Waldrand in der Tallgrass-Prärie",
+        "it": "Margine del bosco nella prateria tallgrass", "pt": "Borda da floresta na pradaria tallgrass",
+    },
+    "channel.mountainFlood.long": {
+        "en": "Mountain river after heavy rain", "fr": "Rivière de montagne après la pluie",
+        "es": "Río de montaña después de la lluvia", "de": "Bergfluss nach starkem Regen",
+        "it": "Fiume di montagna dopo la pioggia", "pt": "Rio de montanha depois da chuva",
+    },
+    "channel.waterfall.long": {
+        "en": "Small waterfall near Graz", "fr": "Petite cascade près de Graz",
+        "es": "Pequeña cascada cerca de Graz", "de": "Kleiner Wasserfall bei Graz",
+        "it": "Piccola cascata vicino a Graz", "pt": "Pequena cachoeira perto de Graz",
+    },
+    "channel.citySnow.long": {
+        "en": "Snowflakes in Warren", "fr": "Flocons de neige à Warren",
+        "es": "Copos de nieve en Warren", "de": "Schneeflocken in Warren",
+        "it": "Fiocchi di neve a Warren", "pt": "Flocos de neve em Warren",
+    },
+    "channel.cabinRain.long": {
+        "en": "Autumn rain under a log cabin roof", "fr": "Pluie d’automne sous le toit d’une cabane",
+        "es": "Lluvia otoñal bajo el techo de una cabaña", "de": "Herbstregen unter dem Blockhüttendach",
+        "it": "Pioggia d’autunno sotto il tetto di una baita", "pt": "Chuva de outono sob o telhado de uma cabana",
+    },
+    "channel.chiloeForest.long": {
+        "en": "Cucao park overlook", "fr": "Belvédère du parc de Cucao",
+        "es": "Mirador del parque de Cucao", "de": "Aussichtspunkt im Cucao-Park",
+        "it": "Belvedere del parco di Cucao", "pt": "Mirante do parque de Cucao",
+    },
+    "channel.jungleDawn.long": {
+        "en": "Dawn in Sian Ka'an", "fr": "Aube dans la réserve de Sian Ka'an",
+        "es": "Amanecer en Sian Ka'an", "de": "Morgendämmerung in Sian Ka'an",
+        "it": "Alba a Sian Ka'an", "pt": "Amanhecer em Sian Ka'an",
+    },
+    "channel.harbor.long": {
+        "en": "Small harbor with gulls and boats", "fr": "Petit port avec goélands et bateaux",
+        "es": "Pequeño puerto con gaviotas y barcos", "de": "Kleiner Hafen mit Möwen und Booten",
+        "it": "Piccolo porto con gabbiani e barche", "pt": "Pequeno porto com gaivotas e barcos",
+    },
+    "channel.goats.long": {
+        "en": "Goats with bells in Montargil", "fr": "Chèvres à clochettes à Montargil",
+        "es": "Cabras con cencerros en Montargil", "de": "Ziegen mit Glocken in Montargil",
+        "it": "Capre con campanelli a Montargil", "pt": "Cabras com sinos em Montargil",
+    },
+    "channel.windChimes.long": {
+        "en": "Wind chimes in a Santa Fe breeze", "fr": "Carillons dans une brise de Santa Fe",
+        "es": "Campanas de viento con la brisa de Santa Fe", "de": "Windspiele in einer Brise aus Santa Fe",
+        "it": "Campanelli al vento nella brezza di Santa Fe", "pt": "Sinos de vento na brisa de Santa Fe",
+    },
+    "channel.churchBells.long": {
+        "en": "Sunday church bells in Hanover", "fr": "Cloches du dimanche à Hanovre",
+        "es": "Campanas dominicales en Hannover", "de": "Sonntagsglocken in Hannover",
+        "it": "Campane della domenica ad Hannover", "pt": "Sinos de domingo em Hanover",
     },
 }
 
@@ -265,6 +415,81 @@ LOCATIONS = {
         "es": "Chiang Mai", "de": "Chiang Mai",
         "it": "Chiang Mai", "pt": "Chiang Mai",
     },
+    "channel.rainWindow.location": {
+        "en": "Chiswick, London", "fr": "Chiswick, Londres",
+        "es": "Chiswick, Londres", "de": "Chiswick, London",
+        "it": "Chiswick, Londra", "pt": "Chiswick, Londres",
+    },
+    "channel.rainForest.location": {
+        "en": "Leipzig area, Saxony", "fr": "Région de Leipzig, Saxe",
+        "es": "Zona de Leipzig, Sajonia", "de": "Raum Leipzig, Sachsen",
+        "it": "Area di Lipsia, Sassonia", "pt": "Região de Leipzig, Saxônia",
+    },
+    "channel.heavyRain.location": {
+        "en": "Rural Brazil", "fr": "Campagne brésilienne",
+        "es": "Brasil rural", "de": "Ländliches Brasilien",
+        "it": "Brasile rurale", "pt": "Brasil rural",
+    },
+    "channel.nightWind.location": {
+        "en": "Cabo Raso", "fr": "Cabo Raso",
+        "es": "Cabo Raso", "de": "Cabo Raso",
+        "it": "Cabo Raso", "pt": "Cabo Raso",
+    },
+    "channel.nightForest.location": {
+        "en": "Tallgrass Prairie, Oklahoma", "fr": "Prairie tallgrass, Oklahoma",
+        "es": "Pradera tallgrass, Oklahoma", "de": "Tallgrass-Prärie, Oklahoma",
+        "it": "Prateria tallgrass, Oklahoma", "pt": "Pradaria tallgrass, Oklahoma",
+    },
+    "channel.mountainFlood.location": {
+        "en": "Guilin, Guangxi", "fr": "Guilin, Guangxi",
+        "es": "Guilin, Guangxi", "de": "Guilin, Guangxi",
+        "it": "Guilin, Guangxi", "pt": "Guilin, Guangxi",
+    },
+    "channel.waterfall.location": {
+        "en": "Graz, Styria", "fr": "Graz, Styrie",
+        "es": "Graz, Estiria", "de": "Graz, Steiermark",
+        "it": "Graz, Stiria", "pt": "Graz, Estíria",
+    },
+    "channel.citySnow.location": {
+        "en": "Warren, Michigan", "fr": "Warren, Michigan",
+        "es": "Warren, Michigan", "de": "Warren, Michigan",
+        "it": "Warren, Michigan", "pt": "Warren, Michigan",
+    },
+    "channel.cabinRain.location": {
+        "en": "Axelfors forest", "fr": "Forêt d’Axelfors",
+        "es": "Bosque de Axelfors", "de": "Axelfors-Wald",
+        "it": "Foresta di Axelfors", "pt": "Floresta de Axelfors",
+    },
+    "channel.chiloeForest.location": {
+        "en": "Cucao, Chiloé", "fr": "Cucao, Chiloé",
+        "es": "Cucao, Chiloé", "de": "Cucao, Chiloé",
+        "it": "Cucao, Chiloé", "pt": "Cucao, Chiloé",
+    },
+    "channel.jungleDawn.location": {
+        "en": "Sian Ka'an Biosphere Reserve", "fr": "Réserve de biosphère de Sian Ka'an",
+        "es": "Reserva de la Biosfera Sian Ka'an", "de": "Biosphärenreservat Sian Ka'an",
+        "it": "Riserva della biosfera di Sian Ka'an", "pt": "Reserva da Biosfera Sian Ka'an",
+    },
+    "channel.harbor.location": {
+        "en": "Pazar, Rize", "fr": "Pazar, Rize",
+        "es": "Pazar, Rize", "de": "Pazar, Rize",
+        "it": "Pazar, Rize", "pt": "Pazar, Rize",
+    },
+    "channel.goats.location": {
+        "en": "Montargil", "fr": "Montargil",
+        "es": "Montargil", "de": "Montargil",
+        "it": "Montargil", "pt": "Montargil",
+    },
+    "channel.windChimes.location": {
+        "en": "Santa Fe, New Mexico", "fr": "Santa Fe, Nouveau-Mexique",
+        "es": "Santa Fe, Nuevo México", "de": "Santa Fe, New Mexico",
+        "it": "Santa Fe, Nuovo Messico", "pt": "Santa Fe, Novo México",
+    },
+    "channel.churchBells.location": {
+        "en": "Hanover", "fr": "Hanovre",
+        "es": "Hannover", "de": "Hannover",
+        "it": "Hannover", "pt": "Hanover",
+    },
 }
 
 LONG_COMMENT = "Ambient sound channel long descriptive name shown in the detail sheet."
@@ -322,7 +547,7 @@ def main() -> int:
             added += 1
         strings[key] = entry
 
-    # Long names (all 20 channels).
+    # Long names (all channels).
     for key, translations in LONG_NAMES.items():
         entry = build_entry(translations, LONG_COMMENT)
         if key in strings:
@@ -331,7 +556,7 @@ def main() -> int:
             added += 1
         strings[key] = entry
 
-    # Locations (all 20 channels).
+    # Locations (all channels).
     for key, translations in LOCATIONS.items():
         entry = build_entry(translations, LOCATION_COMMENT)
         if key in strings:

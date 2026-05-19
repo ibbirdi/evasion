@@ -408,6 +408,8 @@ private struct MarqueeText: View {
     var body: some View {
         GeometryReader { proxy in
             TimelineView(.animation(minimumInterval: 1.0 / 30.0, paused: !needsScroll)) { context in
+                let currentOffset = offset(atTime: context.date.timeIntervalSinceReferenceDate)
+
                 Text(text)
                     .font(font)
                     .foregroundStyle(foregroundStyle)
@@ -419,7 +421,14 @@ private struct MarqueeText: View {
                                 .preference(key: MarqueeWidthKey.self, value: textGeo.size.width)
                         }
                     )
-                    .offset(x: offset(atTime: context.date.timeIntervalSinceReferenceDate))
+                    .offset(x: currentOffset)
+                    .frame(width: proxy.size.width, height: proxy.size.height, alignment: .leading)
+                    .mask {
+                        edgeFadeMask(
+                            showLeadingFade: needsScroll && currentOffset < -1,
+                            showTrailingFade: needsScroll && currentOffset > -overflow + 1
+                        )
+                    }
             }
             // GeometryReader positions its content at the top-leading corner by default,
             // which left the location text anchored at the top of the row while the
@@ -431,25 +440,20 @@ private struct MarqueeText: View {
             .onPreferenceChange(MarqueeWidthKey.self) { textWidth = $0 }
         }
         .clipped()
-        // Only apply the edge-fade mask while the marquee is actually scrolling; when
-        // the text fits, the mask would otherwise fade the leading characters (text
-        // left-aligned at x=0 sits directly under the left stop of the gradient).
-        .mask {
-            if needsScroll {
-                LinearGradient(
-                    stops: [
-                        .init(color: .black.opacity(0), location: 0),
-                        .init(color: .black, location: 0.03),
-                        .init(color: .black, location: 0.97),
-                        .init(color: .black.opacity(0), location: 1)
-                    ],
-                    startPoint: .leading,
-                    endPoint: .trailing
-                )
-            } else {
-                Rectangle()
-            }
-        }
+    }
+
+    @ViewBuilder
+    private func edgeFadeMask(showLeadingFade: Bool, showTrailingFade: Bool) -> some View {
+        LinearGradient(
+            stops: [
+                .init(color: .black.opacity(showLeadingFade ? 0 : 1), location: 0),
+                .init(color: .black, location: 0.03),
+                .init(color: .black, location: 0.97),
+                .init(color: .black.opacity(showTrailingFade ? 0 : 1), location: 1)
+            ],
+            startPoint: .leading,
+            endPoint: .trailing
+        )
     }
 
     /// Piecewise constant/linear offset computed from a monotonic time source.
