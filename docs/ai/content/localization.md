@@ -128,6 +128,8 @@ Apple indexes each unique word **once** across `name + subtitle + keywords`. Rep
 
 Each locale has its own ASC view: name, subtitle, description, keywords, promotional text, release notes, screenshots, optional App Preview videos, optional URLs. fastlane lanes push metadata and screenshots; App Preview videos are currently excluded from staging/upload for `1.5.0`. See [../operations/release-process.md](../operations/release-process.md).
 
+Non-localized review information lives in `fastlane/metadata/review_information/`. The macOS `1.0.0` review note explains that the Mac build is the native menu bar adaptation of the existing iOS app, shares the same bundle ID and lifetime Premium entitlement, and must be opened from the macOS menu bar icon.
+
 As of 2026-05-19, visible ASO copy and screenshot overlays in all 6 locales use the current catalogue promise: `35` total nature sounds to mix, with `32` extra sounds unlocked by the lifetime purchase. The `1.5.0` release notes are also localized from the approved French source about immersive sound, 35 nature sounds, automatic volume-variation ranges, and redesigned presets. Keep those numbers aligned with [sounds-catalog.md](sounds-catalog.md) and [marketing/store-assets.md](../marketing/store-assets.md).
 
 ## Feature notes

@@ -1,0 +1,19 @@
+Review notes for Oasis macOS 1.0.0
+
+This submission is the macOS adaptation of the existing Oasis iOS app. It uses the same bundle ID, sound catalogue, audio engine, localization, RevenueCat entitlement, and one-time lifetime Premium purchase model as the iOS version.
+
+Oasis for macOS is intentionally designed as a native menu bar app. After launch, please click the Oasis icon in the macOS menu bar to open the mixer panel. There is no separate main app window.
+
+The macOS version keeps the same core experience as iOS:
+- 35 bundled real-world nature sounds for sleep, focus, relaxation, and ambience.
+- Per-sound volume mixing and sound placement.
+- Binaural modes, timers, shuffle, saved mixes, and sound details.
+- Offline-first use after installation.
+- No account or login required.
+
+To review the in-app purchase:
+- Open Oasis from the macOS menu bar icon.
+- Click any locked Premium feature, such as a premium sound, advanced binaural mode, longer timer, or additional saved mix.
+- The custom Premium panel will appear.
+- The purchase is a one-time lifetime unlock shared with the existing Oasis iOS app entitlement.
+- Restore Purchases is available from the Premium panel.

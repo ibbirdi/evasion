@@ -62,6 +62,8 @@ The macOS compositor uses a very large text scale for App Store thumbnail legibi
 
 Run the full macOS visual pipeline with `bundle exec fastlane mac_appstore_screenshots`, or split it into `mac_screenshots` and `mac_appstore_assets` while iterating. The Ruby capture script builds `OasisMac`, launches it once per locale/scenario with `-OASISMacScreenshot`, asks the app to render its own visible panel PNG via `-OASISMacScreenshotOutput`, and terminates the app between captures. This avoids relying on macOS Screen Recording permission while still using the real SwiftUI menu bar panel.
 
+Upload the prepared macOS screenshots and shared metadata to App Store Connect with `bundle exec fastlane mac_appstore_release app_version:1.0.0`. This lane targets App Store Connect platform `osx`, validates that all 30 staged Mac screenshots exist, and skips binary upload because the macOS `.pkg` is uploaded separately.
+
 ## The 10 slugs
 
 Exact file names (do not rename — they're indexed by `Fastfile` and the rendering script):

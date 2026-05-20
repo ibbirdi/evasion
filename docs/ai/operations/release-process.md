@@ -25,7 +25,8 @@ How a new version of Oasis ships to the App Store.
 - **App Store Connect username**: `jonathanluquet@me.com` (in `fastlane/Deliverfile` and `fastlane/Fastfile`).
 - **Display name**: Oasis.
 - **Mac App Store category**: `public.app-category.healthcare-fitness` (`LSApplicationCategoryType` in `Mac/Info.plist`), matching the committed fastlane primary category.
-- **Current version**: `MARKETING_VERSION = 1.5.0`, `CURRENT_PROJECT_VERSION = 6` (build).
+- **Current iOS version**: `MARKETING_VERSION = 1.5.0`, `CURRENT_PROJECT_VERSION = 6` (build).
+- **Current macOS version**: `MARKETING_VERSION = 1.0.0`, `CURRENT_PROJECT_VERSION = 1` (build).
 
 Version is set in `OasisNative.xcodeproj/project.pbxproj`. Edit it directly or via Xcode's General tab.
 
@@ -80,6 +81,14 @@ Builds local App Preview videos via [`scripts/generate_app_previews.rb`](../../.
 ### `mac_appstore_screenshots`
 
 Builds `OasisMac`, captures 5 real menu bar panel scenarios in 6 locales, composites them into `2880 × 1800` JPEG masters, and stages upload-ready files under `fastlane/appstore-upload-macos/<locale>/`. Use `mac_screenshots` and `mac_appstore_assets` separately when iterating on capture state versus composition.
+
+### `mac_appstore_release`
+
+Pushes macOS screenshots + metadata for an existing macOS binary version. It uses `platform: "osx"`, reads upload-ready screenshots from `fastlane/appstore-upload-macos/<locale>/`, validates all 30 staged screenshots exist, and does not upload a binary.
+
+```bash
+bundle exec fastlane mac_appstore_release app_version:1.0.0
+```
 
 ### `stage_appstore_assets`
 

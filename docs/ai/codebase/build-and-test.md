@@ -123,6 +123,7 @@ From repo root, run `bundle exec fastlane <lane>`:
 | `mac_screenshots` | Build `OasisMac` and capture 5 localized menu bar panel scenarios into `fastlane/screenshots-macos/<locale>/`. |
 | `mac_appstore_assets` | Render upload-ready `2880×1800` macOS App Store screenshots from the raw panel captures into `fastlane/appstore-upload-macos/<locale>/`. |
 | `mac_appstore_screenshots` | Full macOS visual pipeline: capture raw panel screenshots, then render upload-ready App Store assets. |
+| `mac_appstore_release app_version:1.0.0` | Upload macOS screenshots + metadata for an existing macOS binary version. Uses `platform: "osx"` and does not upload a binary. |
 | `stage_appstore_assets` | Stage screenshots into `fastlane/appstore-upload/<locale>/`; screenshots are renamed to the Variant B display order and App Preview videos are intentionally excluded. |
 | `appstore_metadata` | Push metadata only, no binary. Fast iteration on text. |
 | `appstore_release app_version:1.5.0` | Push screenshots + metadata for an existing binary version. |

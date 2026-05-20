@@ -78,6 +78,25 @@ def oasis_stage_appstore_media(repo_root)
   }
 end
 
+def oasis_assert_mac_appstore_media(repo_root)
+  staging_root = File.join(repo_root, "fastlane", "appstore-upload-macos")
+  locales = ["en-US", "fr-FR", "de-DE", "es-ES", "it", "pt-BR"]
+  expected_per_locale = 5
+
+  missing = locales.flat_map do |locale|
+    locale_dir = File.join(staging_root, locale)
+    screenshots = Dir.glob(File.join(locale_dir, "*.jpg"))
+    screenshots.size == expected_per_locale ? [] : ["#{locale}: #{screenshots.size}/#{expected_per_locale} screenshots"]
+  end
+
+  UI.user_error!("Missing macOS App Store screenshots in #{staging_root}: #{missing.join(', ')}") unless missing.empty?
+
+  {
+    staging_root: staging_root,
+    screenshots: locales.size * expected_per_locale
+  }
+end
+
 platform :ios do
   desc "Generate App Store screenshots for the native iOS app with XCTest + snapshot"
   lane :screenshots do
@@ -167,6 +186,32 @@ platform :ios do
   lane :mac_appstore_screenshots do
     mac_screenshots
     mac_appstore_assets
+  end
+
+  desc "Upload macOS screenshots + metadata to App Store Connect (no binary)"
+  lane :mac_appstore_release do |options|
+    repo_root = oasis_repo_root
+    app_version = options[:app_version] || "1.0.0"
+    staging_result = oasis_assert_mac_appstore_media(repo_root)
+
+    upload_to_app_store(
+      username: "jonathanluquet@me.com",
+      app_identifier: "com.jonathanluquet.drift",
+      app_version: app_version,
+      platform: "osx",
+      metadata_path: File.join(repo_root, "fastlane", "metadata"),
+      screenshots_path: staging_result[:staging_root],
+      skip_binary_upload: true,
+      skip_metadata: false,
+      skip_screenshots: false,
+      skip_app_version_update: false,
+      overwrite_screenshots: true,
+      submit_for_review: false,
+      force: true,
+      precheck_include_in_app_purchases: false,
+      run_precheck_before_submit: false,
+      version_check_wait_retry_limit: 15
+    )
   end
 
   desc "Stage upload-ready screenshots without uploading App Preview videos"

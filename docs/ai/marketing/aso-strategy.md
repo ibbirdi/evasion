@@ -1,7 +1,7 @@
 ---
 title: ASO Strategy
 status: stable
-last_updated: 2026-05-19
+last_updated: 2026-05-20
 tracks:
   - "fastlane/metadata/**"
   - "fastlane/screenshots/**"
@@ -30,6 +30,10 @@ The latest low-risk ASO pass cleaned the invisible keyword fields, updated the s
 - App Preview videos are disabled for the `1.5.0` App Store upload: the existing remote previews were deleted on 2026-05-19, and `stage_appstore_assets` now stages screenshots only until new videos are regenerated.
 - Bumped the app to version `1.5.0`; localized `release_notes.txt` now use the approved French source about immersive sound, 35 nature sounds, automatic volume-variation ranges, and redesigned presets.
 - Replaced the first line of each `description.txt` with the approved multi-use opening line.
+
+## macOS review notes — 2026-05-20
+
+`fastlane/metadata/review_information/notes.txt` explains that Oasis macOS `1.0.0` is the Mac adaptation of the existing iOS app under the same bundle ID. It tells reviewers to open Oasis from the macOS menu bar icon, states that there is no separate main window, and clarifies that the sound catalogue, localizations, RevenueCat entitlement, and one-time lifetime Premium purchase model are shared with iOS.
 
 ## Two fields, one strategy
 

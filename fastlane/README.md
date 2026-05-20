@@ -63,6 +63,14 @@ Generate upload-ready macOS App Store screenshots from panel captures
 
 Capture and compose all localized macOS App Store screenshots
 
+### ios mac_appstore_release
+
+```sh
+[bundle exec] fastlane ios mac_appstore_release
+```
+
+Upload macOS screenshots + metadata to App Store Connect (no binary)
+
 ### ios stage_appstore_assets
 
 ```sh
