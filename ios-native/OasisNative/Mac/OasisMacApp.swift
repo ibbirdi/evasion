@@ -51,9 +51,12 @@ private final class MacAppDelegate: NSObject, NSApplicationDelegate {
     }
 
     @objc private func togglePanel(_ sender: Any?) {
-        guard let button = statusItem?.button else { return }
-        panelController?.toggle(relativeTo: button)
-        updateStatusItem()
+        Task { @MainActor in
+            await Task.yield()
+            guard let button = statusItem?.button else { return }
+            panelController?.toggle(relativeTo: button)
+            updateStatusItem()
+        }
     }
 
     private func configureStatusItem() {
@@ -68,7 +71,8 @@ private final class MacAppDelegate: NSObject, NSApplicationDelegate {
         button.symbolConfiguration = NSImage.SymbolConfiguration(pointSize: 18, weight: .semibold)
         button.contentTintColor = nil
         button.toolTip = L10n.string(L10n.App.title)
-        _ = button.sendAction(on: [.leftMouseUp, .rightMouseUp])
+        // Mouse-up actions can be swallowed on the first click that activates a fresh LSUIElement app.
+        _ = button.sendAction(on: [.leftMouseDown, .rightMouseDown])
     }
 
     private func updateStatusItem() {
@@ -160,7 +164,8 @@ private final class MacMenuBarPanelController {
         model.handleScenePhase(.active)
         positionPanel(relativeTo: button)
         NSApp.activate(ignoringOtherApps: true)
-        panel.makeKeyAndOrderFront(nil)
+        panel.orderFrontRegardless()
+        panel.makeKey()
     }
 
     func writeSnapshot(to path: String) throws {
