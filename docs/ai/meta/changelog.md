@@ -2,6 +2,11 @@
 
 Material changes to the memory itself (not to the code it documents). Append entries — newest on top.
 
+## 2026-05-20 — Community Radar documented
+
+- Added [`marketing/community-radar.md`](../marketing/community-radar.md) for Reddit / Hacker News / forum acquisition strategy, guardrails, and measurement.
+- Updated [`docs/ai/README.md`](../README.md), [`codebase/structure.md`](../codebase/structure.md), and [`codebase/build-and-test.md`](../codebase/build-and-test.md) to include the new `scripts/community-radar/` tooling.
+
 ## 2026-05-03 — Memory bootstrapped
 
 - Created [`AGENTS.md`](../../../AGENTS.md) universal entrypoint at repo root.

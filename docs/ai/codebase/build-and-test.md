@@ -1,7 +1,7 @@
 ---
 title: Build and Test
 status: stable
-last_updated: 2026-05-19
+last_updated: 2026-05-20
 tracks:
   - "ios-native/OasisNative.xcodeproj/**"
   - "ios-native/OasisNativeUITests/**"
@@ -12,6 +12,7 @@ related:
   - "../operations/release-process.md"
   - "../operations/secrets-and-keys.md"
   - "../marketing/video-factory.md"
+  - "../marketing/community-radar.md"
 ---
 
 # Build and Test
@@ -124,6 +125,23 @@ All under `scripts/`. Purpose-specific, not part of the build pipeline.
 | `add_channel_translations.py` | When adding/replacing a channel — pre-fills or refreshes `channel.<id>.*` keys in `Localizable.xcstrings` for the current 35-channel catalog. |
 | `createFastlaneCountriesFolders.js` | Bootstrap a new locale's metadata folder structure. |
 | `generateFastlaneTxtFiles.js` | Mirror the canonical `fastlane/metadata/<locale>/*.txt` files into the script metadata output path. |
+| `community-radar/community-radar.mjs` | Daily Reddit / HN / forum acquisition radar. Outputs a manual-review digest only; it never posts. |
+
+## Community radar
+
+Organic acquisition helper at `scripts/community-radar/`:
+
+```bash
+node scripts/community-radar/community-radar.mjs --out /tmp/oasis-community-radar.md
+```
+
+Use `--sources reddit`, `--sources hn`, or `--sources manual` to isolate a channel. The script has no package dependencies and can be syntax-checked with:
+
+```bash
+node --check scripts/community-radar/community-radar.mjs
+```
+
+Strategy, guardrails, and measurement are documented in [../marketing/community-radar.md](../marketing/community-radar.md).
 
 ## Marketing video factory
 

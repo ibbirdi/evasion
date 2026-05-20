@@ -1,7 +1,7 @@
 ---
 title: Repo Structure
 status: stable
-last_updated: 2026-05-19
+last_updated: 2026-05-20
 tracks:
   - "ios-native/**"
   - "scripts/**"
@@ -28,7 +28,8 @@ Map of where things live and what each directory is responsible for.
 ├── fastlane/                        Release automation, metadata, screenshots
 ├── marketing-video-factory/         Scenario-driven social-video generator — see ../marketing/video-factory.md
 ├── scripts/                         Helper scripts (audio encoding, asset gen, etc.)
-│   └── ai-memory/                   Memory drift-check tooling
+│   ├── ai-memory/                   Memory drift-check tooling
+│   └── community-radar/             Organic Reddit / forum acquisition radar
 ├── .githooks/                       Git pre-commit hook (opt-in via `git config core.hooksPath`)
 ├── .claude/                         Claude Code settings (committed: hooks; user-local: permissions)
 ├── .gitignore
@@ -146,6 +147,7 @@ Locales: `en-US`, `fr-FR`, `de-DE`, `es-ES`, `it`, `pt-BR`. See [../content/loca
 | `screenshot_content.json` | Source data for screenshot copy / structure. |
 | `assets/` | Static assets used by the scripts above. |
 | `ai-memory/` | Memory drift detection tooling — see [../meta/drift-check.md](../meta/drift-check.md). |
+| `community-radar/` | Reddit / Hacker News / forum acquisition digest — see [../marketing/community-radar.md](../marketing/community-radar.md). |
 
 ## Where to put new files
 

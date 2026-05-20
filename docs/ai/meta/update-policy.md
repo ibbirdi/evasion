@@ -1,7 +1,7 @@
 ---
 title: Memory Update Policy
 status: stable
-last_updated: 2026-05-19
+last_updated: 2026-05-20
 tracks:
   - "AGENTS.md"
   - "docs/ai/**"
@@ -32,6 +32,7 @@ The contract every AI agent must honour when working on Oasis. The high-level su
 | `fastlane/screenshots/...` or `figma-pro/` | `marketing/store-assets.md` |
 | `Fastfile`, anything in `fastlane/` | `operations/release-process.md` |
 | `scripts/**` | `codebase/build-and-test.md` |
+| `scripts/community-radar/**` | `marketing/community-radar.md`, `codebase/build-and-test.md` |
 | File renames, moves, deletions | `codebase/structure.md` |
 | New convention or pattern adopted | `codebase/conventions.md` |
 

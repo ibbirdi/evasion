@@ -1,0 +1,113 @@
+{
+  "app": {
+    "name": "Oasis",
+    "appStoreBaseUrl": "https://apps.apple.com/app/apple-store/id6759493932",
+    "campaignProviderToken": "",
+    "defaultLocale": "en-US"
+  },
+  "run": {
+    "daysBack": 14,
+    "minScore": 65,
+    "maxItems": 12,
+    "delayMs": 1100,
+    "redditMaxQueries": 18,
+    "hnMaxQueries": 8
+  },
+  "guardrails": {
+    "dailyReplyCap": 5,
+    "dailyLinkCap": 1,
+    "alwaysDiscloseDeveloperConnection": true,
+    "neverAutoPost": true,
+    "neverSendUnsolicitedDMs": true
+  },
+  "reddit": {
+    "enabled": true,
+    "userAgent": "OasisCommunityRadar/0.1 by jonathanluquet",
+    "queries": [
+      {
+        "id": "reddit_sleep_nosub",
+        "enabled": true,
+        "segment": "subscription",
+        "campaign": "reddit_sleep_nosub",
+        "terms": "\"sleep app\" \"no subscription\" OR \"white noise app\" \"no subscription\"",
+        "subreddits": ["sleep", "iosapps", "iOS"],
+        "intent": "Find people actively avoiding subscriptions in sleep or white-noise apps."
+      },
+      {
+        "id": "reddit_bettersleep_alt",
+        "enabled": true,
+        "segment": "subscription",
+        "campaign": "reddit_bettersleep_alt",
+        "terms": "\"BetterSleep\" \"subscription\" OR \"BetterSleep\" \"paywall\" OR \"Calm\" \"subscription\"",
+        "subreddits": ["sleep", "insomnia", "iosapps"],
+        "intent": "Find people complaining about subscription-heavy sleep apps."
+      },
+      {
+        "id": "reddit_white_noise_reco",
+        "enabled": true,
+        "segment": "sleep",
+        "campaign": "reddit_sleep_reco",
+        "terms": "\"white noise app\" OR \"rain sounds app\" OR \"sleep sound app\"",
+        "subreddits": ["sleep", "insomnia", "iosapps"],
+        "intent": "Find recommendation threads for sleep sounds, white noise, rain, or brown noise."
+      },
+      {
+        "id": "reddit_focus_ambient",
+        "enabled": true,
+        "segment": "focus",
+        "campaign": "reddit_focus_ambient",
+        "terms": "\"focus app\" \"background noise\" OR \"ambient sounds\" \"studying\"",
+        "subreddits": ["productivity", "GetStudying", "iosapps"],
+        "intent": "Find people using ambience for deep work, reading, study, or focus."
+      },
+      {
+        "id": "reddit_travel_offline",
+        "enabled": true,
+        "segment": "travel",
+        "campaign": "reddit_travel_offline",
+        "terms": "\"offline\" \"sleep app\" OR \"hotel noise\" \"sleep\" OR \"travel\" \"white noise\"",
+        "subreddits": ["travel", "onebag", "sleep", "iosapps"],
+        "intent": "Find travelers who need offline background sound for hotels, flights, or noisy rooms."
+      },
+      {
+        "id": "reddit_indie_feedback",
+        "enabled": false,
+        "segment": "maker",
+        "campaign": "reddit_indie_feedback",
+        "terms": "\"iOS app\" \"no subscription\" OR \"App Store\" \"one time purchase\"",
+        "subreddits": ["SideProject", "ShowMeYourApps", "iosdev", "indiehackers"],
+        "intent": "Find founder-friendly threads where a transparent maker story can get feedback."
+      }
+    ]
+  },
+  "hackerNews": {
+    "enabled": true,
+    "queries": [
+      {
+        "id": "hn_no_subscription_apps",
+        "enabled": true,
+        "segment": "maker",
+        "campaign": "hn_maker_no_subscription",
+        "terms": "\"no subscription\" \"iOS app\""
+      },
+      {
+        "id": "hn_offline_audio_app",
+        "enabled": true,
+        "segment": "maker",
+        "campaign": "hn_maker_offline_audio",
+        "terms": "\"offline\" \"audio\" \"iOS\""
+      },
+      {
+        "id": "hn_sleep_app",
+        "enabled": true,
+        "segment": "maker",
+        "campaign": "hn_maker_sleep_app",
+        "terms": "\"sleep app\""
+      }
+    ]
+  },
+  "manual": {
+    "enabled": false,
+    "file": "scripts/community-radar/manual-items.example.json"
+  }
+}
