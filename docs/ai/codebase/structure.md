@@ -45,7 +45,7 @@ ios-native/
 ├── OasisNative.xcodeproj/           Xcode project (schemes: OasisNative, OasisMac)
 ├── OasisNative/                     App source
 │   ├── OasisNativeApp.swift         @main entry
-│   ├── Mac/                         macOS status-item app entry, panel controller + macOS Info.plist
+│   ├── Mac/                         macOS status-item app entry, panel controller, Info.plist, entitlements
 │   ├── Models/                      Plain data types
 │   ├── Services/                    State, audio engine, premium logic
 │   ├── Views/                       SwiftUI screens, components, overlays

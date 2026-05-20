@@ -37,11 +37,11 @@ related:
 ## Purchase model
 
 - **Type**: one-time lifetime purchase. No subscription. No trial.
-- **Provider**: RevenueCat iOS SDK.
+- **Provider**: RevenueCat Apple-platform SDK.
 - **Entitlement ID**: `premium` (read from `Info.plist` `RevenueCatEntitlementID`, defaults to `"premium"` if missing).
 - **Offering**: the *current* offering (configurable in RevenueCat dashboard). At time of writing, named `RCpremium`. The code does not depend on the offering name, only on the offering being marked current.
 - **Package**: `$rc_lifetime`.
-- **App Store product**: `premium`.
+- **App Store product**: `premium`. Keep it available to the macOS platform in the same App Store Connect app record so the lifetime unlock behaves as a Universal Purchase across iOS and macOS.
 
 The "no subscription, ever" stance is the **primary moat** and is repeated in screenshot 10 (paywall), the paywall copy, the multi-locale store description, and release notes. Don't introduce subscription mechanics without the user explicitly authorizing it (see user feedback `feedback_no_subscription`).
 

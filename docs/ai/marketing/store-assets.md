@@ -1,7 +1,7 @@
 ---
 title: App Store Assets
 status: stable
-last_updated: 2026-05-19
+last_updated: 2026-05-20
 tracks:
   - "fastlane/Fastfile"
   - "fastlane/Snapfile"
@@ -9,6 +9,8 @@ tracks:
   - "scripts/generate_store_screenshot_comps.swift"
   - "scripts/screenshot_content.json"
   - "ios-native/OasisNativeUITests/OasisNativeScreenshots.swift"
+  - "ios-native/OasisNative/Mac/**"
+  - "ios-native/OasisNative/Views/Mac/**"
 related:
   - "aso-strategy.md"
   - "positioning.md"
@@ -16,7 +18,7 @@ related:
   - "../codebase/build-and-test.md"
 ---
 
-> **Scope.** This page covers the **10 static App Store screenshots** captured by `OasisNativeScreenshots.swift` and composited via `scripts/generate_store_screenshot_comps.swift`. For **social-marketing videos** (TikTok / Reels / Shorts) driven by a sibling XCUITest (`MarketingScenarioRunner.swift`), see [video-factory.md](video-factory.md).
+> **Scope.** This page covers the **10 static iOS App Store screenshots** captured by `OasisNativeScreenshots.swift` and composited via `scripts/generate_store_screenshot_comps.swift`, plus the planned macOS App Store asset track for `OasisMac`. For **social-marketing videos** (TikTok / Reels / Shorts) driven by a sibling XCUITest (`MarketingScenarioRunner.swift`), see [video-factory.md](video-factory.md).
 
 # App Store Assets
 
@@ -32,6 +34,19 @@ Specs and copy for the 60 App Store screenshots (10 slides × 6 locales). App Pr
 - Raw capture path: `fastlane/screenshots/<locale>/iPhone 17 Pro Max-<slug>.png`.
 - Composite path: `fastlane/screenshots/<locale>/figma-pro/<slug>.jpg`.
 - Upload staging path: `fastlane/appstore-upload/<locale>/<slug>.jpg`, produced by `bundle exec fastlane stage_appstore_assets`.
+
+## macOS asset track (planned)
+
+Apple requires Mac screenshots for the macOS platform. Accepted Mac sizes are 16:10: `1280 × 800`, `1440 × 900`, `2560 × 1600`, or `2880 × 1800`; produce `2880 × 1800` masters unless a future App Store Connect constraint says otherwise. App Store Connect accepts 1–10 screenshots per locale, and Mac app previews are optional but landscape-only.
+
+Mac screenshots should sell the native menu bar experience, not reuse iPhone mockups. Proposed first set:
+
+```
+01_menu_bar_mixer     02_spatial_detail      03_auto_range
+04_saved_ambiences    05_binaural_timer
+```
+
+Capture the actual `OasisMac` panel in a deterministic screenshot mode: open the status-item panel automatically, seed premium/active sounds, force immersive audio on, pause continuous mesh/wave animations, and set a fixed panel size. Composite those raw captures into `fastlane/screenshots-macos/<locale>/` via a dedicated Swift renderer and stage them separately from iOS assets.
 
 ## The 10 slugs
 

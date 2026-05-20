@@ -21,9 +21,10 @@ How a new version of Oasis ships to the App Store.
 ## App identity
 
 - **Bundle ID**: `com.jonathanluquet.drift` (set in `fastlane/Deliverfile`, `fastlane/Snapfile`, and `fastlane/Fastfile` lane args).
-- **Targets**: `OasisNative` (iOS App Store binary) and `OasisMac` (local macOS menu bar target sharing the same bundle ID during development).
+- **Targets**: `OasisNative` (iOS App Store binary) and `OasisMac` (macOS menu bar binary in the same App Store Connect app record via Add Platform / Universal Purchase).
 - **App Store Connect username**: `jonathanluquet@me.com` (in `fastlane/Deliverfile` and `fastlane/Fastfile`).
 - **Display name**: Oasis.
+- **Mac App Store category**: `public.app-category.healthcare-fitness` (`LSApplicationCategoryType` in `Mac/Info.plist`), matching the committed fastlane primary category.
 - **Current version**: `MARKETING_VERSION = 1.5.0`, `CURRENT_PROJECT_VERSION = 6` (build).
 
 Version is set in `OasisNative.xcodeproj/project.pbxproj`. Edit it directly or via Xcode's General tab.
@@ -50,7 +51,9 @@ Run from a clean working tree on `main`.
 
 - [ ] Bump `MARKETING_VERSION` and `CURRENT_PROJECT_VERSION` in the Xcode project.
 - [ ] Run the iOS build CLI (see [../codebase/build-and-test.md](../codebase/build-and-test.md)) — must pass.
-- [ ] If touching shared code used by the menu bar app, also run the `OasisMac` build.
+- [ ] If touching shared code used by the menu bar app, also run the `OasisMac` Debug build.
+- [ ] Before uploading macOS, run the `OasisMac` Release build and confirm `CODE_SIGN_ENTITLEMENTS = OasisNative/Mac/OasisMac.entitlements`.
+- [ ] For the first macOS release, add the macOS platform to the existing Oasis app record in App Store Connect; do not create a separate app record.
 - [ ] Run `OasisNativePremiumFlowTests` — must pass.
 - [ ] Re-render screenshots if any UI/copy changed: `bundle exec fastlane screenshots` (filtered to the App Store screenshot test), then `swift scripts/generate_store_screenshot_comps.swift` and `bundle exec fastlane stage_appstore_assets`. App Preview videos are currently excluded from staging/upload for `1.5.0`.
 - [ ] Update `fastlane/metadata/<locale>/release_notes.txt` per locale — actual product changes, not "performance + bugs".
@@ -102,6 +105,12 @@ This is the typical "metadata + visuals" release lane — does not upload an `.i
 The `Fastfile` does not currently include a build-and-upload lane. Binary upload is done via Xcode → Archive → Distribute App → App Store Connect, signed with the team certificate.
 
 If you need a CLI lane, add `gym` (or `xcodebuild archive` + `xcrun altool`) and document it here.
+
+### macOS platform upload
+
+Use the existing App Store Connect app record for Oasis and add the macOS platform there. `OasisMac` intentionally shares `PRODUCT_BUNDLE_IDENTIFIER = com.jonathanluquet.drift` with iOS so the Mac binary is attached to the same Universal Purchase rather than a separate app.
+
+Archive with the `OasisMac` scheme and a macOS destination, then upload through Xcode Organizer. The target uses `Mac/OasisMac.entitlements`: App Sandbox is required for Mac App Store distribution, and outbound network client access is enabled for RevenueCat / StoreKit-related requests. Test purchase and restore on macOS before review because the lifetime premium entitlement must unlock both iOS and macOS from the same App Store product.
 
 ## Apple review timing
 

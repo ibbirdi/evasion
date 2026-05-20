@@ -38,6 +38,14 @@ xcodebuild -scheme OasisMac -project "ios-native/OasisNative.xcodeproj" \
   build CODE_SIGNING_ALLOWED=NO
 ```
 
+For a release-shaped compile check:
+
+```bash
+xcodebuild -scheme OasisMac -project "ios-native/OasisNative.xcodeproj" \
+  -configuration Release -destination "generic/platform=macOS" \
+  build CODE_SIGNING_ALLOWED=NO
+```
+
 `CODE_SIGNING_ALLOWED=NO` lets the build pass without provisioning profiles.
 
 ## Schemes and configurations
@@ -46,6 +54,8 @@ xcodebuild -scheme OasisMac -project "ios-native/OasisNative.xcodeproj" \
 - Configurations: `Debug` and `Release`. Debug keeps RevenueCat at `.error` by default so dashboard health warnings do not look like app failures in Xcode; add `-OASISRevenueCatDebugLogs` (or env `OASIS_REVENUECAT_DEBUG_LOGS=1`) when actively debugging purchases.
 - Target iOS: 16+ baseline; certain effects require iOS 26+ (the codebase guards them with `if #available`).
 - Target macOS: 15+ baseline, accessory menu bar app (`LSUIElement`) with an `NSStatusItem` opening a custom borderless mixer `NSPanel`. The target includes shared UI helpers such as `HapticSlider`, `SoundDetailSheet`, and `SoundLocationMinimap` so the menu bar mixer can reuse the iOS auto-volume range slider, detail sheet, and Apple Maps minimap.
+- macOS signing: `OasisMac` uses `Mac/OasisMac.entitlements` with App Sandbox enabled and outbound network access for RevenueCat / StoreKit-backed purchase flows. Keep the entitlement set minimal; add new permissions only for features that genuinely require them.
+- macOS metadata: `Mac/Info.plist` sets `LSApplicationCategoryType = public.app-category.healthcare-fitness` to match the App Store category and keep archives warning-free.
 
 In Xcode, build the macOS app with the `OasisMac` scheme and `My Mac` destination. The `OasisNative` scheme is iOS-only; it must not list `macosx` in `SUPPORTED_PLATFORMS`, otherwise Xcode can try to compile UIKit views with the macOS SDK.
 

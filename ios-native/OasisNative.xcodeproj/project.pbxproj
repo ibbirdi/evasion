@@ -225,6 +225,7 @@
 		6B2C89E7AA08A8CB01BE07D4 /* 1_binaural_sleep_delta.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = 1_binaural_sleep_delta.m4a; sourceTree = "<group>"; };
 		715A425FF5BECA00D6A045F2 /* TelemetryDeckAnalyticsSink.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TelemetryDeckAnalyticsSink.swift; sourceTree = "<group>"; };
 		777112ABF284A80EAA852EB5 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		77B2479DE86943D0827518FB /* OasisMac.entitlements */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.entitlements; path = OasisMac.entitlements; sourceTree = "<group>"; };
 		79A88C064D209A697F657E4C /* ventNuit1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = ventNuit1.m4a; sourceTree = "<group>"; };
 		7ABC5B795CD8FA5895DE9F07 /* Localizable.xcstrings */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		7B26AC91D7E5A40FFFAA0001 /* MarketingScenarioRunner.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MarketingScenarioRunner.swift; sourceTree = "<group>"; };
@@ -477,6 +478,7 @@
 			children = (
 				AC2C669EE1F0B1D01E83F9CE /* OasisMacApp.swift */,
 				777112ABF284A80EAA852EB5 /* Info.plist */,
+				77B2479DE86943D0827518FB /* OasisMac.entitlements */,
 			);
 			path = Mac;
 			sourceTree = "<group>";
@@ -959,6 +961,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = OasisNative/Mac/OasisMac.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 6;
@@ -1003,6 +1006,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = OasisNative/Mac/OasisMac.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 6;

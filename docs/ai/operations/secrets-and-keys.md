@@ -5,6 +5,7 @@ last_updated: 2026-05-20
 tracks:
   - "ios-native/OasisNative/Support/Info.plist"
   - "ios-native/OasisNative/Mac/Info.plist"
+  - "ios-native/OasisNative/Mac/OasisMac.entitlements"
   - "ios-native/OasisNative/Support/AppConfiguration.swift"
   - "fastlane/Deliverfile"
   - "fastlane/Fastfile"
@@ -50,6 +51,7 @@ These are not committed.
 
 - Team ID and certificates: managed via Xcode (Signing & Capabilities → Automatically manage signing).
 - Provisioning profiles: auto-managed locally.
+- macOS App Store sandboxing: `OasisMac` uses `Mac/OasisMac.entitlements` with `com.apple.security.app-sandbox = true` and `com.apple.security.network.client = true`. The network entitlement is needed for RevenueCat / StoreKit-related HTTP access; avoid broader entitlements unless a feature needs them.
 - For CI: `match` (fastlane's signing helper) is **not** wired. Builds happen on Jonathan's local Mac.
 
 ## Local environment
