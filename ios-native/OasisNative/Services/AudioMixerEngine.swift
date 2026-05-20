@@ -1,6 +1,9 @@
 import AVFoundation
 import Foundation
+
+#if os(iOS)
 import MediaPlayer
+#endif
 
 private final class AmbientChannelPlayback: @unchecked Sendable {
     let channel: SoundChannel
@@ -179,6 +182,8 @@ final class AudioMixerEngine: @unchecked Sendable {
             self?.configureAudioSession()
             self?.configureAmbientEngineIfNeeded()
         }
+
+        #if os(iOS)
         routeObserver = NotificationCenter.default.addObserver(
             forName: AVAudioSession.routeChangeNotification,
             object: nil,
@@ -188,6 +193,7 @@ final class AudioMixerEngine: @unchecked Sendable {
                 self?.updateEnvironmentOutputType()
             }
         }
+        #endif
     }
 
     deinit {
@@ -302,6 +308,7 @@ final class AudioMixerEngine: @unchecked Sendable {
     }
 
     private func configureAudioSession() {
+        #if os(iOS)
         do {
             let session = AVAudioSession.sharedInstance()
             try session.setCategory(.playback, mode: .default, options: [.allowAirPlay, .allowBluetoothA2DP])
@@ -316,6 +323,7 @@ final class AudioMixerEngine: @unchecked Sendable {
         } catch {
             print("Failed to configure audio session: \(error)")
         }
+        #endif
     }
 
     private func configureAmbientEngineIfNeeded() {
@@ -342,6 +350,7 @@ final class AudioMixerEngine: @unchecked Sendable {
     }
 
     private func configureRemoteCommands() {
+        #if os(iOS)
         guard !remoteCommandsConfigured else { return }
         remoteCommandsConfigured = true
 
@@ -373,6 +382,9 @@ final class AudioMixerEngine: @unchecked Sendable {
             }
             return .success
         }
+        #else
+        remoteCommandsConfigured = true
+        #endif
     }
 
     private func transitionPlayback(to isPlaying: Bool) {
@@ -851,6 +863,7 @@ final class AudioMixerEngine: @unchecked Sendable {
     }
 
     private func updateEnvironmentOutputType() {
+        #if os(iOS)
         let outputs = AVAudioSession.sharedInstance().currentRoute.outputs
         if outputs.contains(where: { output in
             output.portType == .headphones
@@ -865,9 +878,13 @@ final class AudioMixerEngine: @unchecked Sendable {
         } else {
             environmentNode.outputType = .auto
         }
+        #else
+        environmentNode.outputType = .auto
+        #endif
     }
 
     private func updateNowPlayingInfo() {
+        #if os(iOS)
         let playbackRate = latestSnapshot.isPlaying ? 1.0 : 0.0
         guard previousNowPlayingRate != playbackRate else { return }
         previousNowPlayingRate = playbackRate
@@ -879,5 +896,6 @@ final class AudioMixerEngine: @unchecked Sendable {
                 MPNowPlayingInfoPropertyPlaybackRate: playbackRate
             ]
         }
+        #endif
     }
 }

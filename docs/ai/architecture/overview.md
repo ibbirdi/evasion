@@ -1,9 +1,11 @@
 ---
 title: Architecture Overview
 status: stable
-last_updated: 2026-05-19
+last_updated: 2026-05-20
 tracks:
   - "ios-native/OasisNative/OasisNativeApp.swift"
+  - "ios-native/OasisNative/Mac/OasisMacApp.swift"
+  - "ios-native/OasisNative/Support/AppBootstrap.swift"
   - "ios-native/OasisNative/Services/AppModel.swift"
   - "ios-native/OasisNative/Services/GentleReminderScheduler.swift"
   - "ios-native/OasisNative/Views/RootView.swift"
@@ -17,15 +19,16 @@ related:
 
 # Architecture Overview
 
-Oasis is a single-target iOS native app. SwiftUI for everything visible, AVFoundation under the hood, RevenueCat for entitlement, UserDefaults for persistence. No backend.
+Oasis is a native Apple-platform app with two app targets in the same Xcode project: `OasisNative` for iOS and `OasisMac` for macOS. SwiftUI for everything visible, AVFoundation under the hood, RevenueCat for entitlement, UserDefaults for persistence. No backend.
 
 ## Module map
 
 ```
               ┌────────────────────────┐
-              │   OasisNativeApp       │  ← @main, configures Purchases + TelemetryDeck
+              │   OasisNativeApp       │  ← iOS @main
+              │   OasisMacApp          │  ← macOS status-item @main
               └────────────┬───────────┘
-                           │ holds
+                           │ configure via AppBootstrap, hold
                            ▼
               ┌────────────────────────┐
               │   AppModel             │  ← @Observable, @MainActor, source of truth
@@ -45,7 +48,7 @@ Oasis is a single-target iOS native app. SwiftUI for everything visible, AVFound
               └────────────────────────┘
 
               ┌────────────────────────┐
-              │   RootView             │  ← onboarding, root navigation
+              │   RootView             │  ← iOS onboarding, root navigation
               └────────────┬───────────┘
                            │
                            ▼
@@ -57,13 +60,19 @@ Oasis is a single-target iOS native app. SwiftUI for everything visible, AVFound
                   │     │     │     │
         PresetsPanel  Binaural  Spatial  Paywall
                       Panel    Panel   Overlay
+
+              ┌────────────────────────┐
+              │   MacMixerPanel        │  ← macOS borderless menu bar panel
+              └────────────────────────┘
 ```
 
 ## Key actors
 
 | Actor | File | Role |
 | --- | --- | --- |
-| `OasisNativeApp` | [OasisNativeApp.swift](../../../ios-native/OasisNative/OasisNativeApp.swift) | Entry point. Configures `Purchases` (RevenueCat) and TelemetryDeck. Instantiates `AppModel`. |
+| `OasisNativeApp` | [OasisNativeApp.swift](../../../ios-native/OasisNative/OasisNativeApp.swift) | iOS entry point. Calls `AppBootstrap.configure()`, instantiates `AppModel`, and presents `RootView`. |
+| `OasisMacApp` | [Mac/OasisMacApp.swift](../../../ios-native/OasisNative/Mac/OasisMacApp.swift) | macOS entry point. Calls `AppBootstrap.configure()`, owns the status item app delegate, keeps one `AppModel`, and presents `MacMixerPanel` inside a custom borderless `NSPanel`. |
+| `AppBootstrap` | [Support/AppBootstrap.swift](../../../ios-native/OasisNative/Support/AppBootstrap.swift) | Shared startup for RevenueCat + TelemetryDeck so iOS and macOS do not drift. |
 | `AppModel` | [Services/AppModel.swift](../../../ios-native/OasisNative/Services/AppModel.swift) | Hub. `@Observable @MainActor`. Owns mix state, per-channel auto-variation ranges, immersive audio toggle, presets, premium state, timer, engagement metrics. Bridges UI ↔ engine ↔ RevenueCat. See [state.md](state.md). |
 | `AudioMixerEngine` | [Services/AudioMixerEngine.swift](../../../ios-native/OasisNative/Services/AudioMixerEngine.swift) | The audio graph. `AVAudioEngine` + `AVAudioEnvironmentNode` + 35 `AVAudioPlayerNode`. Handles loops, fades, spatial/immersive profiles, remote commands. See [audio-engine.md](audio-engine.md). |
 | `GentleReminderScheduler` | [Services/GentleReminderScheduler.swift](../../../ios-native/OasisNative/Services/GentleReminderScheduler.swift) | Local notification scheduler. Requests provisional alert permission after onboarding, cancels pending reminders on app open, and schedules one gentle re-open reminder after several inactive days. |
@@ -73,12 +82,12 @@ Oasis is a single-target iOS native app. SwiftUI for everything visible, AVFound
 
 ## Init flow
 
-1. iOS launches → `OasisNativeApp.init()`.
-2. If `AppConfiguration.shouldUseRevenueCatAccess && AppConfiguration.isRevenueCatConfigured` → `Purchases.configure(withAPIKey:)`. Debug builds set `Purchases.logLevel = .debug`.
-3. TelemetryDeck initialised if `isTelemetryDeckConfigured` (currently empty in `Info.plist` → no-op).
-4. `WindowGroup` instantiates `RootView` with a fresh `AppModel` and forwards `scenePhase` changes to it.
+1. iOS launches → `OasisNativeApp.init()`; macOS launches → `OasisMacApp.init()`.
+2. Both call `AppBootstrap.configure()`. If `AppConfiguration.shouldUseRevenueCatAccess && AppConfiguration.isRevenueCatConfigured` → `Purchases.configure(withAPIKey:)`. Debug builds keep RevenueCat at `.error` unless `-OASISRevenueCatDebugLogs` or `OASIS_REVENUECAT_DEBUG_LOGS=1` is set.
+3. TelemetryDeck initialised if `isTelemetryDeckConfigured` (currently empty in `Info.plist` / `Mac/Info.plist` → no-op).
+4. iOS `WindowGroup` instantiates `RootView`; macOS `MacAppDelegate` creates an `NSStatusItem` and a custom borderless `NSPanel` that hosts `MacMixerPanel`. Both inject the same `AppModel` type and forward foreground/background lifecycle changes into the model.
 5. `AppModel.init` loads persisted state from `UserDefaults["evasion-mixer-storage"]`, hydrates `audioEngine.sync(with: self)`, and registers RevenueCat observers.
-6. `RootView` decides between onboarding (first launch) and `HomeView`. Completing onboarding via the premium CTA writes the onboarding flag, requests local-notification permission for the gentle re-open reminder, switches to `HomeView`, then presents `PaywallOverlay`.
+6. iOS `RootView` decides between onboarding (first launch) and `HomeView`. macOS opens directly to the mixer panel because it is an accessory app surface, not an onboarding-first phone flow.
 
 ## Data flow on play
 

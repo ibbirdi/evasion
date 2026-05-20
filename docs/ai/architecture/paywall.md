@@ -1,12 +1,14 @@
 ---
 title: Paywall and Premium Gating
 status: stable
-last_updated: 2026-05-19
+last_updated: 2026-05-20
 tracks:
   - "ios-native/OasisNative/Services/PremiumCoordinator.swift"
   - "ios-native/OasisNative/Services/PremiumRevenueCatService.swift"
   - "ios-native/OasisNative/Services/AppModel.swift"
   - "ios-native/OasisNative/Views/Overlays/PaywallOverlay.swift"
+  - "ios-native/OasisNative/Views/Mac/MacPaywallSheet.swift"
+  - "ios-native/OasisNative/Views/Mac/MacInlineUpsellSheet.swift"
   - "ios-native/OasisNative/Models/PremiumModels.swift"
 related:
   - "../product/premium-model.md"
@@ -51,7 +53,7 @@ var activePaywallContext: PremiumPaywallContext?      // full paywall presentati
 var activeInlineUpsell: PremiumInlineUpsellContext?   // inline upsell presentation
 ```
 
-Setting either to non-nil triggers the corresponding SwiftUI presentation (a `.fullScreenCover` for paywall, a `.sheet` or in-flow card for inline).
+Setting either to non-nil triggers the corresponding SwiftUI presentation. iOS uses `PaywallOverlay` / `InlinePremiumUpsell`, while macOS uses [`MacPaywallSheet`](../../../ios-native/OasisNative/Views/Mac/MacPaywallSheet.swift) and [`MacInlineUpsellSheet`](../../../ios-native/OasisNative/Views/Mac/MacInlineUpsellSheet.swift) from the same model state.
 
 `requestPremiumAccess(from:)` is the single entry to ask for premium. Don't call `Purchases` directly from views — go through the coordinator.
 
@@ -77,7 +79,7 @@ View → AppModel.restorePurchases()
      → AppModel.applyCustomerInfo(...)
 ```
 
-The "Restore" button is exposed in the paywall and (typically) in an "About" view.
+The "Restore" button is exposed in both the iOS paywall and the macOS paywall sheet.
 
 ## Gating points (where the lock fires)
 

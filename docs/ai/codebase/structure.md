@@ -42,9 +42,10 @@ Map of where things live and what each directory is responsible for.
 
 ```
 ios-native/
-├── OasisNative.xcodeproj/           Xcode project (single scheme: OasisNative)
+├── OasisNative.xcodeproj/           Xcode project (schemes: OasisNative, OasisMac)
 ├── OasisNative/                     App source
 │   ├── OasisNativeApp.swift         @main entry
+│   ├── Mac/                         macOS status-item app entry, panel controller + macOS Info.plist
 │   ├── Models/                      Plain data types
 │   ├── Services/                    State, audio engine, premium logic
 │   ├── Views/                       SwiftUI screens, components, overlays
@@ -88,6 +89,7 @@ Business logic, engines, integrations.
 Views/
 ├── HomeView.swift                   Main mixer board screen
 ├── RootView.swift                   Root: onboarding gate, paywall presentation
+├── Mac/                             macOS borderless menu bar mixer panel, sections, paywall sheets
 ├── Components/                      Reusable building blocks (see ../architecture/ui.md)
 ├── Overlays/                        Modal panels: Presets, Binaural, Spatial, Paywall, SoundDetailSheet
 └── Onboarding/                      First-launch flow
@@ -98,9 +100,11 @@ Views/
 | File | Contains |
 | --- | --- |
 | `AppConfiguration.swift` | Build flags, env / Info.plist readers, dev and screenshot launch-argument overrides. |
+| `AppBootstrap.swift` | Shared RevenueCat / TelemetryDeck startup used by both app targets. |
 | `Info.plist` | App identity, RevenueCat keys, background modes, UI style. |
 | `L10n.swift` | `LocalizedStringResource` keys for all UI strings. |
 | `LiquidAuraShaders.metal` | Metal shader for the animated liquid aura. |
+| `Platform/AppReviewRequester.swift` | Platform adapter for iOS review prompts; no-op on macOS. |
 | `RoutePickerView.swift` | UIKit bridge for AirPlay / Bluetooth route picker. |
 
 ### `Resources/`

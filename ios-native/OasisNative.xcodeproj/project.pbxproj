@@ -9,90 +9,166 @@
 /* Begin PBXBuildFile section */
 		0373DC32FCB0C17432A88476 /* tente1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = D3C929E1471C537D81D126AC /* tente1.m4a */; };
 		066257264E2050FEFAC0AEA8 /* SpatialAudioPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA77671E1FA3336D62915614 /* SpatialAudioPanel.swift */; };
+		08CB8DDA3252DFA81119A4A5 /* aubeJungle1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = CA3F48A884343264A1A40780 /* aubeJungle1.m4a */; };
+		09FD179D6405E4FD390C0EFD /* crueMontagne1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 8884536F0AA450F2F083F2DF /* crueMontagne1.m4a */; };
 		0AAD68259A1142A61D51FC93 /* PresetsPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E768D16CAD66C04EBF83D5 /* PresetsPanel.swift */; };
+		0C76D0B3BF86F39E462BD58A /* cloches1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 5B579DB66D072A2C2F148E57 /* cloches1.m4a */; };
 		0DAA238BA43ACF042D11C550 /* PremiumAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = B557568A6A98D4FCBC1CE62D /* PremiumAnalytics.swift */; };
+		0E79C3019AB5DF91B14D274C /* PressScaleButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923E9E1A67A87DB4D00413D5 /* PressScaleButtonStyle.swift */; };
+		0F3A74B781487579B3939374 /* HapticSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0C34D7733F86F5A5BB6362 /* HapticSlider.swift */; };
 		106A9555BCB84C379796C83F /* cigales1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = F1981A919DDF28B8E127431D /* cigales1.m4a */; };
 		1186AC59022670F1E0368DF0 /* jungleamerique1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = D5E4AA1C7C7C7771C0672609 /* jungleamerique1.m4a */; };
 		12DA1E864A510904F7C407EA /* LiquidActivityPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = D098E7943DCCC43154C6CF43 /* LiquidActivityPalette.swift */; };
 		14D1C3B3DDD8CFC7EAFFDB07 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F2B47F9DE8AE9D87AB8CE5 /* AppModel.swift */; };
+		15410934E139E48500A1082F /* pluieCabane1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = FA19673118684A0CC17A0F63 /* pluieCabane1.m4a */; };
 		165FFEA996C5534F61F7B9E8 /* AudioMixerEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32541DAD45035BE48CA19E6 /* AudioMixerEngine.swift */; };
+		1810355BC90DE4244F433CFE /* 1_binaural_sleep_delta.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 6B2C89E7AA08A8CB01BE07D4 /* 1_binaural_sleep_delta.m4a */; };
 		19771A3E3BB2E997A3016D17 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4784A01B738584AE350A7998 /* AppConfiguration.swift */; };
+		1A05B533E542748593C68A62 /* oiseaux1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 388A5798D548ADC244F47019 /* oiseaux1.m4a */; };
 		1C0A93937D52303F26D08610 /* GlassSurfaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94B4BD6404CA74749CC5CA1 /* GlassSurfaces.swift */; };
+		1CD3AA09F5ABD40B4309179A /* AppReviewRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5D8D4903B7C52B548F020F /* AppReviewRequester.swift */; };
 		1CE1CA65B82CCCDA487121A0 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD876DAD1A5EE1BF7B69DED /* HomeView.swift */; };
 		1F7B7F858307814D6D9DD1A6 /* PremiumRevenueCatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B527B16C9A4033095F6805 /* PremiumRevenueCatService.swift */; };
 		20EADBC31D4F4F41BDB1F101 /* GentleReminderScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EADBC31D4F4F41BDB1F100 /* GentleReminderScheduler.swift */; };
 		213EC66F0BA31A0E275075A1 /* PremiumModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0583A9E3C0C53BFC58D08FA7 /* PremiumModels.swift */; };
 		21C3A3DCCC573A019B22F40B /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 33709C7C96F6BEAB5CEAA908 /* AppIcon.icon */; };
+		2214FD9E7703AB4AC686528A /* foretChiloe1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = DF0E5DC0EF0546381FCAF6AD /* foretChiloe1.m4a */; };
 		223BC8FD0685AD111EDFF2C4 /* HomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09041B5C9411241968F523F7 /* HomeHeaderView.swift */; };
+		254AF017271BA03583A31972 /* OasisMacApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2C669EE1F0B1D01E83F9CE /* OasisMacApp.swift */; };
 		269AE6176C46FEAC6B681251 /* ville1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 4C749707D9F4BAA717AF532E /* ville1.m4a */; };
+		281122DE8A788F8CAFC82CC8 /* pluieForet1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 146DA74BCCCA469A28AE19AC /* pluieForet1.m4a */; };
+		2C8F3BB740281F6447C2FE41 /* crueMontagne1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 8884536F0AA450F2F083F2DF /* crueMontagne1.m4a */; };
 		2C98A8AC9895FC6A0B8A0016 /* riviere1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = BB4EF47214DF65E6FE9A30F4 /* riviere1.m4a */; };
 		2F3007D1B7BA4BD37926A2BF /* SoundLocationMinimap.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C4DA6135A3304763B3BC6F /* SoundLocationMinimap.swift */; };
+		35765F8250D3859E3962B571 /* oasisLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = A5299F4278BA80ABEF80C7BD /* oasisLogo.png */; };
+		377141766E6F651D088F0886 /* MacMixerSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EF23F4D90BEC2A1E58185E /* MacMixerSection.swift */; };
 		3837C075503216E0A23EE915 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540A77013151E8A35B54323 /* OnboardingView.swift */; };
 		39B26BF030040D0E5D4B293C /* BottomBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033C60A95051A14ED6A399DE /* BottomBarView.swift */; };
+		3BE890C536B893CEC35D5A70 /* tente1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = D3C929E1471C537D81D126AC /* tente1.m4a */; };
+		4064F676C47CEBE22F23DC86 /* plage1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = E61F12B9CE1CEFAC62352FAD /* plage1.m4a */; };
 		42CD6E196A8CD9F42B6CC430 /* SoundDetailSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D17A6F91CF3BF540581858 /* SoundDetailSheet.swift */; };
+		4434F7F179CE440C97D74BE3 /* LiquidAuraShaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 231B474700628B0D4E3CB541 /* LiquidAuraShaders.metal */; };
+		4516761F8D633EF91F07C8B3 /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC96BF7AE88C9BA018C858CB /* L10n.swift */; };
+		45B93A4027DE71292ACC52F5 /* pluieFenetre1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = F618AE32CD86A4EF7F4C619D /* pluieFenetre1.m4a */; };
 		466243EC61105BEFFBA513C9 /* goelants1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 81F529689D0796BA36597F71 /* goelants1.m4a */; };
+		474F0828BF39B215BF563D4A /* vent1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 681FB4460E600338293AA620 /* vent1.m4a */; };
+		4871870FA13EA0EF17966738 /* PremiumRevenueCatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B527B16C9A4033095F6805 /* PremiumRevenueCatService.swift */; };
 		4968538AB1ADEA5C13478CEA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD0AE75B18E507CE49604115 /* Foundation.framework */; };
+		49D695DEC356E4B02C1D5201 /* ventNuit1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 79A88C064D209A697F657E4C /* ventNuit1.m4a */; };
 		4AB9635DBD532E4986DC108D /* SoundChannelMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB2B954A30853038E3CBAD7 /* SoundChannelMetadata.swift */; };
 		4EBC1260C0F7E129D23B0085 /* cafe1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 3F5080DF2E12D6261119B454 /* cafe1.m4a */; };
 		500ACDACC6781AC630C3EC25 /* 1_binaural_sleep_delta.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 6B2C89E7AA08A8CB01BE07D4 /* 1_binaural_sleep_delta.m4a */; };
 		5037B7B9EE7A6A5760913360 /* orageMontagne1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = F36E432785BB3BFAB68A6785 /* orageMontagne1.m4a */; };
+		50802FCA9EF019F191AB97D6 /* LiquidActivityPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = D098E7943DCCC43154C6CF43 /* LiquidActivityPalette.swift */; };
+		53297B5B51901D5A65025BDC /* goelants1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 81F529689D0796BA36597F71 /* goelants1.m4a */; };
+		533820985164AE9E0AA65BF6 /* AppModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CF5CB0296B8F31B7A9229 /* AppModels.swift */; };
 		54694DB83301993B06CC9F90 /* AppModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CF5CB0296B8F31B7A9229 /* AppModels.swift */; };
 		54F11775C1F03E0C8C355200 /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = AD364B5FD120E94192B834FC /* RevenueCat */; };
+		568CB2A292BFFB7BAE3B031F /* pluie1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 9625355B170D9668E14AF5E6 /* pluie1.m4a */; };
 		5A6F8613F84831B59A8D8422 /* jungleasie1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 66D0032B92564FA15A021A0F /* jungleasie1.m4a */; };
+		5D61600A1BAA2DE23E708A3D /* orageMontagne1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = F36E432785BB3BFAB68A6785 /* orageMontagne1.m4a */; };
+		5DF6C4A05D4E47A641FC7C76 /* carillons1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 1FA98C70EE763F8F964A1863 /* carillons1.m4a */; };
 		5E143DC2B09A12D843F4557B /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 7ABC5B795CD8FA5895DE9F07 /* Localizable.xcstrings */; };
 		5E2C4EB5DD534F5853F3334F /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC96BF7AE88C9BA018C858CB /* L10n.swift */; };
+		5FBC478C302AF1D0F2995192 /* AudioMixerEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32541DAD45035BE48CA19E6 /* AudioMixerEngine.swift */; };
 		60CD3CC155D14AC53763D859 /* savane1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = A23571059B1A5B8569D1C897 /* savane1.m4a */; };
 		6102A02BB669EFBC1B358965 /* oasisLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = A5299F4278BA80ABEF80C7BD /* oasisLogo.png */; };
 		617EFB3438CC66EEFEA8A42E /* mer1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 1023573411684D26E39A438F /* mer1.m4a */; };
 		620B223D084B63F0AADB8022 /* PressScaleButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923E9E1A67A87DB4D00413D5 /* PressScaleButtonStyle.swift */; };
+		636A02629C6F3450169D8AA2 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 33709C7C96F6BEAB5CEAA908 /* AppIcon.icon */; };
+		645A1E29E2C860A597019D74 /* MacPresetsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A19A6A0B073FBFEAE6F323 /* MacPresetsSection.swift */; };
+		67BD71F0936C9D94B859E126 /* neigeVille1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 11656CA4DEE5FBFADE36A64E /* neigeVille1.m4a */; };
+		683FAFE4F2CBC526B4BA4179 /* MacPaywallSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D39C0299D2EEED166CC90D /* MacPaywallSheet.swift */; };
+		68F68581191F71B083B039D7 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F2B47F9DE8AE9D87AB8CE5 /* AppModel.swift */; };
+		6A009F4FC77738DF908EA0A7 /* campfire1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 1904BBD6C3EB50B5FE0187EE /* campfire1.m4a */; };
 		6B620B2317070CB4ADBC5DBF /* TimerUnlockPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1BADD1D03F328E401F8DF3F /* TimerUnlockPanel.swift */; };
+		6FD6AA332AA8B75B65EF7F5B /* 3_binaural_relax_alpha.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 1D241DFEA231E925B222AC51 /* 3_binaural_relax_alpha.m4a */; };
 		708B7CA1263FBB25785DC4F2 /* RoutePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC750FD7773139229B5C635F /* RoutePickerView.swift */; };
+		746A801A03FC69AF374C1BEF /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15255CFB38BC793F8B47656B /* Cocoa.framework */; };
 		7AB3BE7CF17962333237F73D /* lac1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 38B0A0EF4A9487CC39F4ED86 /* lac1.m4a */; };
 		7AF23420519A35F5714EFA80 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E2502D1FADFEF5A1C24AD2 /* RootView.swift */; };
+		7B26AC91D7E5A40FFFAA0002 /* MarketingScenarioRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B26AC91D7E5A40FFFAA0001 /* MarketingScenarioRunner.swift */; };
+		7F72292D7BF4AEE021CF963D /* riviere1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = BB4EF47214DF65E6FE9A30F4 /* riviere1.m4a */; };
 		81D4A39FD48B378DC54DBAAA /* PaywallOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E299F814AD1B323ED7C0FF /* PaywallOverlay.swift */; };
+		820EABD375CD38F343DFFD51 /* MacSupportViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97CF15054D4BD25DDC8FB810 /* MacSupportViews.swift */; };
 		82400A7DBE0AC0060ED99ECC /* 3_binaural_relax_alpha.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 1D241DFEA231E925B222AC51 /* 3_binaural_relax_alpha.m4a */; };
 		83FAF5FDF1F6057330D83A01 /* plage1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = E61F12B9CE1CEFAC62352FAD /* plage1.m4a */; };
+		84546C7D9ED1777FF184C325 /* fortePluie1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = A137F46F743AEE635FC3E0D9 /* fortePluie1.m4a */; };
 		85A7B62A79773A0C3A9E86E1 /* OasisNativeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09B4613FF02EFDD4026701A /* OasisNativeApp.swift */; };
+		87B9F1033C8776CD3B185C64 /* 2_binaural_meditation_theta.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 5E37EEC6232E01697AF70334 /* 2_binaural_meditation_theta.m4a */; };
+		88E0B488F1D1C125168936C8 /* MacInlineUpsellSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86641698B037F0EC05099609 /* MacInlineUpsellSheet.swift */; };
+		8A652F3B4AC2EAA980C106C9 /* foret1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 2003B418811B476329A9A284 /* foret1.m4a */; };
+		8C98505BA1E231060EA1E1A7 /* ventNuit1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 79A88C064D209A697F657E4C /* ventNuit1.m4a */; };
+		91FBFCC0C42397470515086C /* PremiumCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7FE75507E1A7EEAF34EBDE /* PremiumCoordinator.swift */; };
+		933B92921E3348D4DA2967DF /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 7ABC5B795CD8FA5895DE9F07 /* Localizable.xcstrings */; };
 		95F251F12A30287B435B8CD7 /* pluie1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 9625355B170D9668E14AF5E6 /* pluie1.m4a */; };
 		965F34A0DDD51047CE8E5796 /* TelemetryDeckAnalyticsSink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715A425FF5BECA00D6A045F2 /* TelemetryDeckAnalyticsSink.swift */; };
 		96CE7B502E185929F94DCF42 /* orage1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = D4F7946679A7F525E6B505DC /* orage1.m4a */; };
 		978895D6E95A08EC8C5046AD /* HapticSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0C34D7733F86F5A5BB6362 /* HapticSlider.swift */; };
+		99E6177F3914BBA4C6DA3418 /* GentleReminderScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EADBC31D4F4F41BDB1F100 /* GentleReminderScheduler.swift */; };
 		9A28D3CFCD70F1FB31CA69F4 /* oiseaux1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 388A5798D548ADC244F47019 /* oiseaux1.m4a */; };
 		9A2C15F80538B1A3B50BFEB4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0327811F88C3A11432F23565 /* Assets.xcassets */; };
 		9A787393726AB62561E31956 /* 2_binaural_meditation_theta.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 5E37EEC6232E01697AF70334 /* 2_binaural_meditation_theta.m4a */; };
 		9AE089DD1FDF595FE39BCAC2 /* OasisNativeScreenshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394AB49792B4601680577175 /* OasisNativeScreenshots.swift */; };
-		7B26AC91D7E5A40FFFAA0002 /* MarketingScenarioRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B26AC91D7E5A40FFFAA0001 /* MarketingScenarioRunner.swift */; };
+		9D0ED80B1E11F7D15F74029D /* pluieForet1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 146DA74BCCCA469A28AE19AC /* pluieForet1.m4a */; };
+		9E95DECBBF2B6DCBDA1AE7EC /* jungleamerique1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = D5E4AA1C7C7C7771C0672609 /* jungleamerique1.m4a */; };
+		A3483CC04575B8145125C661 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0327811F88C3A11432F23565 /* Assets.xcassets */; };
 		A43C66F655CDBACC50F7E37F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD0AE75B18E507CE49604115 /* Foundation.framework */; };
+		A4E0291420184594B0FD3C7D /* pluieFenetre1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = F618AE32CD86A4EF7F4C619D /* pluieFenetre1.m4a */; };
+		A537C7D07334C8FE11E73272 /* PremiumModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0583A9E3C0C53BFC58D08FA7 /* PremiumModels.swift */; };
 		A6DBEBFB3731514AAA76BDB2 /* AnimatedLiquidAura.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3C5845DF95F93C71101EEB /* AnimatedLiquidAura.swift */; };
+		A7A0CA25760D089D6CEA0E25 /* AppReviewRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5D8D4903B7C52B548F020F /* AppReviewRequester.swift */; };
 		AA2F86FE2F4E287AB6E6F7B6 /* PremiumCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7FE75507E1A7EEAF34EBDE /* PremiumCoordinator.swift */; };
 		AA843A391E5A26B7D42BD0EE /* MixerBoardSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35267DE3C2476D6CD1886171 /* MixerBoardSectionView.swift */; };
 		AC3706FAF6A32B72992DC970 /* campfire1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 1904BBD6C3EB50B5FE0187EE /* campfire1.m4a */; };
+		AC4D1523EBD40855460DBF7A /* cafe1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 3F5080DF2E12D6261119B454 /* cafe1.m4a */; };
+		AD163A0D197715ABA3F7F373 /* SoundChannelMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB2B954A30853038E3CBAD7 /* SoundChannelMetadata.swift */; };
 		ADC12008F7F374B7CBA0CAE6 /* grillons1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 337C9CC25032842700DD5228 /* grillons1.m4a */; };
+		B28ADB9DBCD29061D9B43733 /* savane1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = A23571059B1A5B8569D1C897 /* savane1.m4a */; };
+		B53E1A59584FDA8FDD1B5E76 /* aubeJungle1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = CA3F48A884343264A1A40780 /* aubeJungle1.m4a */; };
+		B6D50AB776935EDE61148435 /* fortePluie1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = A137F46F743AEE635FC3E0D9 /* fortePluie1.m4a */; };
+		BA7C24627C8D6BF2ACEC0349 /* chevres1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 7E09FC734D354448C85A136F /* chevres1.m4a */; };
+		BAC0698093D8E1203F28E6B6 /* pluieCabane1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = FA19673118684A0CC17A0F63 /* pluieCabane1.m4a */; };
+		BAD05561809F7FFA9406BD06 /* grillons1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 337C9CC25032842700DD5228 /* grillons1.m4a */; };
+		BB301F085CC9AE23E2672591 /* mer1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 1023573411684D26E39A438F /* mer1.m4a */; };
 		BC103BB8681B1C983AD9EB87 /* RevenueCatUI in Frameworks */ = {isa = PBXBuildFile; productRef = CBBB28EC31D206E79E26ED86 /* RevenueCatUI */; };
+		BD2D5C1E7732141A1462CBA1 /* foretNuit1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 32E343B4B2A59368053BF9D4 /* foretNuit1.m4a */; };
+		C2096DFD4F0021378DF0CCD8 /* 4_binaural_focus_beta.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 588FAD751DB4DE27F88F69DB /* 4_binaural_focus_beta.m4a */; };
+		C468C525A68E4DA69A9CEC04 /* SoundDetailSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D17A6F91CF3BF540581858 /* SoundDetailSheet.swift */; };
+		C6DAA9C6642C731BF6D38E27 /* PremiumAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = B557568A6A98D4FCBC1CE62D /* PremiumAnalytics.swift */; };
+		C78B53B1D9EFA9CF4FCAAEDD /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4784A01B738584AE350A7998 /* AppConfiguration.swift */; };
 		C805647807761797523E8447 /* vent1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 681FB4460E600338293AA620 /* vent1.m4a */; };
 		C9C70BEEC6B1B82C7C406072 /* LiquidAuraShaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 231B474700628B0D4E3CB541 /* LiquidAuraShaders.metal */; };
+		CD868B9471A90360606D873F /* cascade1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = E3EA6564A1C971CA74B2C904 /* cascade1.m4a */; };
+		CF521C5C4C9ED65F5DBF003B /* AppBootstrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A878788D93072BF26711CC /* AppBootstrap.swift */; };
+		CF6DF012977685046D838E5D /* AppBootstrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A878788D93072BF26711CC /* AppBootstrap.swift */; };
 		D0A2A823F1C7439FDF83F0A9 /* 4_binaural_focus_beta.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 588FAD751DB4DE27F88F69DB /* 4_binaural_focus_beta.m4a */; };
+		D191331AE2832ADD743665B9 /* cigales1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = F1981A919DDF28B8E127431D /* cigales1.m4a */; };
+		D27E5D76755FE1A0BB800831 /* foretChiloe1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = DF0E5DC0EF0546381FCAF6AD /* foretChiloe1.m4a */; };
+		D29EF5C79D5C426147D9C172 /* lac1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 38B0A0EF4A9487CC39F4ED86 /* lac1.m4a */; };
+		D48B4AA100421BB3573493BF /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = 913DE18A808E024598CA9C40 /* RevenueCat */; };
 		D4A26CD9C018C231AC182851 /* AnimatedBackdrop.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47BC3411853DB1FFC8F30BE /* AnimatedBackdrop.swift */; };
 		D538E7A060E1FFE7D0E6CF01 /* BinauralPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2B7C896E8B028C8B5A8DAD /* BinauralPanel.swift */; };
+		D5465C602C4A85B2EA96C0CA /* foretNuit1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 32E343B4B2A59368053BF9D4 /* foretNuit1.m4a */; };
+		D601767DBD65FD65275A38A7 /* MacMixerPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C655333EE0716D782A22867E /* MacMixerPanel.swift */; };
+		D65DD12F4A3D033E2BD30034 /* TelemetryDeckAnalyticsSink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715A425FF5BECA00D6A045F2 /* TelemetryDeckAnalyticsSink.swift */; };
+		D68DF8D75FE48A62760BED60 /* port1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 940DF3C069C8F75B9EF59EF5 /* port1.m4a */; };
+		D84397D5F77C8BBCEFD5EB18 /* port1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 940DF3C069C8F75B9EF59EF5 /* port1.m4a */; };
+		DB353A9A10A1D4580CE2E649 /* neigeVille1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 11656CA4DEE5FBFADE36A64E /* neigeVille1.m4a */; };
+		DC81D2C77E5BB544BE4A1DB9 /* orage1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = D4F7946679A7F525E6B505DC /* orage1.m4a */; };
+		E22C7ED6DA8D27D64C7907BD /* jungleasie1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 66D0032B92564FA15A021A0F /* jungleasie1.m4a */; };
 		E7129B07B40A180FA27AD34C /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19185DC1C6DFDF8474F81B55 /* SnapshotHelper.swift */; };
 		E77BA1074A3536C0C910479F /* OasisNativePremiumFlowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4AB0D210A8BE30CCB5E62F /* OasisNativePremiumFlowTests.swift */; };
 		E78B262FBE2076F77F029592 /* foret1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 2003B418811B476329A9A284 /* foret1.m4a */; };
-		F8170D01A76E2CC70D0ED31B /* PremiumSurfaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA11B1A5713D90D5E1FD7BF /* PremiumSurfaces.swift */; };
-		45B93A4027DE71292ACC52F5 /* pluieFenetre1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = F618AE32CD86A4EF7F4C619D /* pluieFenetre1.m4a */; };
-		281122DE8A788F8CAFC82CC8 /* pluieForet1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 146DA74BCCCA469A28AE19AC /* pluieForet1.m4a */; };
-		84546C7D9ED1777FF184C325 /* fortePluie1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = A137F46F743AEE635FC3E0D9 /* fortePluie1.m4a */; };
-		8C98505BA1E231060EA1E1A7 /* ventNuit1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 79A88C064D209A697F657E4C /* ventNuit1.m4a */; };
-		D5465C602C4A85B2EA96C0CA /* foretNuit1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 32E343B4B2A59368053BF9D4 /* foretNuit1.m4a */; };
-		2C8F3BB740281F6447C2FE41 /* crueMontagne1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 8884536F0AA450F2F083F2DF /* crueMontagne1.m4a */; };
-		FDBBF595F82D5EECC664D8EF /* cascade1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = E3EA6564A1C971CA74B2C904 /* cascade1.m4a */; };
-		DB353A9A10A1D4580CE2E649 /* neigeVille1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 11656CA4DEE5FBFADE36A64E /* neigeVille1.m4a */; };
-		15410934E139E48500A1082F /* pluieCabane1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = FA19673118684A0CC17A0F63 /* pluieCabane1.m4a */; };
-		2214FD9E7703AB4AC686528A /* foretChiloe1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = DF0E5DC0EF0546381FCAF6AD /* foretChiloe1.m4a */; };
-		B53E1A59584FDA8FDD1B5E76 /* aubeJungle1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = CA3F48A884343264A1A40780 /* aubeJungle1.m4a */; };
-		D68DF8D75FE48A62760BED60 /* port1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 940DF3C069C8F75B9EF59EF5 /* port1.m4a */; };
-		FA6FDE0A8AB73410085A91CB /* chevres1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 7E09FC734D354448C85A136F /* chevres1.m4a */; };
+		E6A96293FDBB4630AC896536 /* AnimatedLiquidAura.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3C5845DF95F93C71101EEB /* AnimatedLiquidAura.swift */; };
+		EAE5466ADF5AD46AE9AF910B /* MacBinauralSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E458503D393988B26D534852 /* MacBinauralSection.swift */; };
 		EB55EDD6BA9ADD2691D52375 /* carillons1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 1FA98C70EE763F8F964A1863 /* carillons1.m4a */; };
 		F24D7D0A03E700D5E584E8FB /* cloches1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 5B579DB66D072A2C2F148E57 /* cloches1.m4a */; };
+		F2AB84CBC583E707426E9762 /* ville1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 4C749707D9F4BAA717AF532E /* ville1.m4a */; };
+		F8170D01A76E2CC70D0ED31B /* PremiumSurfaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA11B1A5713D90D5E1FD7BF /* PremiumSurfaces.swift */; };
+		FA6FDE0A8AB73410085A91CB /* chevres1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 7E09FC734D354448C85A136F /* chevres1.m4a */; };
+		7FA7CBC7C07F465592C813CC /* SoundLocationMinimap.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C4DA6135A3304763B3BC6F /* SoundLocationMinimap.swift */; };
+		FDBBF595F82D5EECC664D8EF /* cascade1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = E3EA6564A1C971CA74B2C904 /* cascade1.m4a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -108,25 +184,32 @@
 /* Begin PBXFileReference section */
 		0327811F88C3A11432F23565 /* Assets.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		033C60A95051A14ED6A399DE /* BottomBarView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BottomBarView.swift; sourceTree = "<group>"; };
+		03D39C0299D2EEED166CC90D /* MacPaywallSheet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MacPaywallSheet.swift; sourceTree = "<group>"; };
 		0583A9E3C0C53BFC58D08FA7 /* PremiumModels.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PremiumModels.swift; sourceTree = "<group>"; };
+		06EF23F4D90BEC2A1E58185E /* MacMixerSection.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MacMixerSection.swift; sourceTree = "<group>"; };
 		09041B5C9411241968F523F7 /* HomeHeaderView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HomeHeaderView.swift; sourceTree = "<group>"; };
 		1023573411684D26E39A438F /* mer1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = mer1.m4a; sourceTree = "<group>"; };
+		11656CA4DEE5FBFADE36A64E /* neigeVille1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = neigeVille1.m4a; sourceTree = "<group>"; };
+		146DA74BCCCA469A28AE19AC /* pluieForet1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = pluieForet1.m4a; sourceTree = "<group>"; };
+		15255CFB38BC793F8B47656B /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
 		1904BBD6C3EB50B5FE0187EE /* campfire1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = campfire1.m4a; sourceTree = "<group>"; };
 		19185DC1C6DFDF8474F81B55 /* SnapshotHelper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SnapshotHelper.swift; sourceTree = "<group>"; };
 		19D17A6F91CF3BF540581858 /* SoundDetailSheet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SoundDetailSheet.swift; sourceTree = "<group>"; };
 		1D241DFEA231E925B222AC51 /* 3_binaural_relax_alpha.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = 3_binaural_relax_alpha.m4a; sourceTree = "<group>"; };
 		1E49CEAB7ED0CC9B3E8AF91A /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		20EADBC31D4F4F41BDB1F100 /* GentleReminderScheduler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GentleReminderScheduler.swift; sourceTree = "<group>"; };
+		1FA98C70EE763F8F964A1863 /* carillons1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = carillons1.m4a; sourceTree = "<group>"; };
 		2003B418811B476329A9A284 /* foret1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = foret1.m4a; sourceTree = "<group>"; };
+		20EADBC31D4F4F41BDB1F100 /* GentleReminderScheduler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GentleReminderScheduler.swift; sourceTree = "<group>"; };
 		231B474700628B0D4E3CB541 /* LiquidAuraShaders.metal */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.metal; path = LiquidAuraShaders.metal; sourceTree = "<group>"; };
 		2C9CF5CB0296B8F31B7A9229 /* AppModels.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AppModels.swift; sourceTree = "<group>"; };
+		30A878788D93072BF26711CC /* AppBootstrap.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AppBootstrap.swift; sourceTree = "<group>"; };
+		32E343B4B2A59368053BF9D4 /* foretNuit1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = foretNuit1.m4a; sourceTree = "<group>"; };
 		33709C7C96F6BEAB5CEAA908 /* AppIcon.icon */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		337C9CC25032842700DD5228 /* grillons1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = grillons1.m4a; sourceTree = "<group>"; };
 		35267DE3C2476D6CD1886171 /* MixerBoardSectionView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MixerBoardSectionView.swift; sourceTree = "<group>"; };
 		388A5798D548ADC244F47019 /* oiseaux1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = oiseaux1.m4a; sourceTree = "<group>"; };
 		38B0A0EF4A9487CC39F4ED86 /* lac1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = lac1.m4a; sourceTree = "<group>"; };
 		394AB49792B4601680577175 /* OasisNativeScreenshots.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OasisNativeScreenshots.swift; sourceTree = "<group>"; };
-		7B26AC91D7E5A40FFFAA0001 /* MarketingScenarioRunner.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MarketingScenarioRunner.swift; sourceTree = "<group>"; };
 		3F5080DF2E12D6261119B454 /* cafe1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = cafe1.m4a; sourceTree = "<group>"; };
 		4540A77013151E8A35B54323 /* OnboardingView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		45F2B47F9DE8AE9D87AB8CE5 /* AppModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
@@ -134,36 +217,55 @@
 		4C749707D9F4BAA717AF532E /* ville1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = ville1.m4a; sourceTree = "<group>"; };
 		4CB2B954A30853038E3CBAD7 /* SoundChannelMetadata.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SoundChannelMetadata.swift; sourceTree = "<group>"; };
 		588FAD751DB4DE27F88F69DB /* 4_binaural_focus_beta.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = 4_binaural_focus_beta.m4a; sourceTree = "<group>"; };
+		5B579DB66D072A2C2F148E57 /* cloches1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = cloches1.m4a; sourceTree = "<group>"; };
 		5E37EEC6232E01697AF70334 /* 2_binaural_meditation_theta.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = 2_binaural_meditation_theta.m4a; sourceTree = "<group>"; };
 		641DBC3369E030826D4614B3 /* Oasis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Oasis.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		66D0032B92564FA15A021A0F /* jungleasie1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = jungleasie1.m4a; sourceTree = "<group>"; };
 		681FB4460E600338293AA620 /* vent1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = vent1.m4a; sourceTree = "<group>"; };
 		6B2C89E7AA08A8CB01BE07D4 /* 1_binaural_sleep_delta.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = 1_binaural_sleep_delta.m4a; sourceTree = "<group>"; };
 		715A425FF5BECA00D6A045F2 /* TelemetryDeckAnalyticsSink.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TelemetryDeckAnalyticsSink.swift; sourceTree = "<group>"; };
+		777112ABF284A80EAA852EB5 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		79A88C064D209A697F657E4C /* ventNuit1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = ventNuit1.m4a; sourceTree = "<group>"; };
 		7ABC5B795CD8FA5895DE9F07 /* Localizable.xcstrings */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		7B26AC91D7E5A40FFFAA0001 /* MarketingScenarioRunner.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MarketingScenarioRunner.swift; sourceTree = "<group>"; };
+		7E09FC734D354448C85A136F /* chevres1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = chevres1.m4a; sourceTree = "<group>"; };
 		81F529689D0796BA36597F71 /* goelants1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = goelants1.m4a; sourceTree = "<group>"; };
+		86641698B037F0EC05099609 /* MacInlineUpsellSheet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MacInlineUpsellSheet.swift; sourceTree = "<group>"; };
 		86B527B16C9A4033095F6805 /* PremiumRevenueCatService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PremiumRevenueCatService.swift; sourceTree = "<group>"; };
+		8884536F0AA450F2F083F2DF /* crueMontagne1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = crueMontagne1.m4a; sourceTree = "<group>"; };
+		8B5D8D4903B7C52B548F020F /* AppReviewRequester.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AppReviewRequester.swift; sourceTree = "<group>"; };
 		8E3C5845DF95F93C71101EEB /* AnimatedLiquidAura.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AnimatedLiquidAura.swift; sourceTree = "<group>"; };
 		923E9E1A67A87DB4D00413D5 /* PressScaleButtonStyle.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PressScaleButtonStyle.swift; sourceTree = "<group>"; };
+		940DF3C069C8F75B9EF59EF5 /* port1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = port1.m4a; sourceTree = "<group>"; };
 		9625355B170D9668E14AF5E6 /* pluie1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = pluie1.m4a; sourceTree = "<group>"; };
+		97CF15054D4BD25DDC8FB810 /* MacSupportViews.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MacSupportViews.swift; sourceTree = "<group>"; };
 		9C2B7C896E8B028C8B5A8DAD /* BinauralPanel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BinauralPanel.swift; sourceTree = "<group>"; };
+		A137F46F743AEE635FC3E0D9 /* fortePluie1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = fortePluie1.m4a; sourceTree = "<group>"; };
 		A23571059B1A5B8569D1C897 /* savane1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = savane1.m4a; sourceTree = "<group>"; };
 		A5299F4278BA80ABEF80C7BD /* oasisLogo.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = oasisLogo.png; sourceTree = "<group>"; };
+		AC2C669EE1F0B1D01E83F9CE /* OasisMacApp.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OasisMacApp.swift; sourceTree = "<group>"; };
 		B32541DAD45035BE48CA19E6 /* AudioMixerEngine.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AudioMixerEngine.swift; sourceTree = "<group>"; };
 		B557568A6A98D4FCBC1CE62D /* PremiumAnalytics.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PremiumAnalytics.swift; sourceTree = "<group>"; };
 		B9E2502D1FADFEF5A1C24AD2 /* RootView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		BB4EF47214DF65E6FE9A30F4 /* riviere1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = riviere1.m4a; sourceTree = "<group>"; };
 		BD3F80FF81A6AA1036A1F6AB /* OasisNativeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OasisNativeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE0C34D7733F86F5A5BB6362 /* HapticSlider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HapticSlider.swift; sourceTree = "<group>"; };
+		C49E25EFDBA5D7F4453A929C /* OasisMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = OasisMac.app; path = Oasis.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C655333EE0716D782A22867E /* MacMixerPanel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MacMixerPanel.swift; sourceTree = "<group>"; };
+		CA3F48A884343264A1A40780 /* aubeJungle1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = aubeJungle1.m4a; sourceTree = "<group>"; };
 		D098E7943DCCC43154C6CF43 /* LiquidActivityPalette.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LiquidActivityPalette.swift; sourceTree = "<group>"; };
 		D1BADD1D03F328E401F8DF3F /* TimerUnlockPanel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TimerUnlockPanel.swift; sourceTree = "<group>"; };
 		D3C929E1471C537D81D126AC /* tente1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = tente1.m4a; sourceTree = "<group>"; };
 		D4F7946679A7F525E6B505DC /* orage1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = orage1.m4a; sourceTree = "<group>"; };
 		D5E4AA1C7C7C7771C0672609 /* jungleamerique1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = jungleamerique1.m4a; sourceTree = "<group>"; };
+		D6A19A6A0B073FBFEAE6F323 /* MacPresetsSection.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MacPresetsSection.swift; sourceTree = "<group>"; };
 		D94B4BD6404CA74749CC5CA1 /* GlassSurfaces.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GlassSurfaces.swift; sourceTree = "<group>"; };
 		DA77671E1FA3336D62915614 /* SpatialAudioPanel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SpatialAudioPanel.swift; sourceTree = "<group>"; };
 		DBA11B1A5713D90D5E1FD7BF /* PremiumSurfaces.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PremiumSurfaces.swift; sourceTree = "<group>"; };
 		DDD876DAD1A5EE1BF7B69DED /* HomeView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		DF0E5DC0EF0546381FCAF6AD /* foretChiloe1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = foretChiloe1.m4a; sourceTree = "<group>"; };
+		E3EA6564A1C971CA74B2C904 /* cascade1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = cascade1.m4a; sourceTree = "<group>"; };
+		E458503D393988B26D534852 /* MacBinauralSection.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MacBinauralSection.swift; sourceTree = "<group>"; };
 		E61F12B9CE1CEFAC62352FAD /* plage1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = plage1.m4a; sourceTree = "<group>"; };
 		E6E299F814AD1B323ED7C0FF /* PaywallOverlay.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PaywallOverlay.swift; sourceTree = "<group>"; };
 		E6E768D16CAD66C04EBF83D5 /* PresetsPanel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PresetsPanel.swift; sourceTree = "<group>"; };
@@ -171,27 +273,14 @@
 		F1981A919DDF28B8E127431D /* cigales1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = cigales1.m4a; sourceTree = "<group>"; };
 		F36E432785BB3BFAB68A6785 /* orageMontagne1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = orageMontagne1.m4a; sourceTree = "<group>"; };
 		F47BC3411853DB1FFC8F30BE /* AnimatedBackdrop.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AnimatedBackdrop.swift; sourceTree = "<group>"; };
+		F618AE32CD86A4EF7F4C619D /* pluieFenetre1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = pluieFenetre1.m4a; sourceTree = "<group>"; };
 		F7C4DA6135A3304763B3BC6F /* SoundLocationMinimap.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SoundLocationMinimap.swift; sourceTree = "<group>"; };
+		FA19673118684A0CC17A0F63 /* pluieCabane1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = pluieCabane1.m4a; sourceTree = "<group>"; };
 		FC750FD7773139229B5C635F /* RoutePickerView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RoutePickerView.swift; sourceTree = "<group>"; };
 		FC96BF7AE88C9BA018C858CB /* L10n.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = L10n.swift; sourceTree = "<group>"; };
 		FD0AE75B18E507CE49604115 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		FE4AB0D210A8BE30CCB5E62F /* OasisNativePremiumFlowTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OasisNativePremiumFlowTests.swift; sourceTree = "<group>"; };
 		FF7FE75507E1A7EEAF34EBDE /* PremiumCoordinator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PremiumCoordinator.swift; sourceTree = "<group>"; };
-		F618AE32CD86A4EF7F4C619D /* pluieFenetre1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = pluieFenetre1.m4a; sourceTree = "<group>"; };
-		146DA74BCCCA469A28AE19AC /* pluieForet1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = pluieForet1.m4a; sourceTree = "<group>"; };
-		A137F46F743AEE635FC3E0D9 /* fortePluie1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = fortePluie1.m4a; sourceTree = "<group>"; };
-		79A88C064D209A697F657E4C /* ventNuit1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = ventNuit1.m4a; sourceTree = "<group>"; };
-		32E343B4B2A59368053BF9D4 /* foretNuit1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = foretNuit1.m4a; sourceTree = "<group>"; };
-		8884536F0AA450F2F083F2DF /* crueMontagne1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = crueMontagne1.m4a; sourceTree = "<group>"; };
-		E3EA6564A1C971CA74B2C904 /* cascade1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = cascade1.m4a; sourceTree = "<group>"; };
-		11656CA4DEE5FBFADE36A64E /* neigeVille1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = neigeVille1.m4a; sourceTree = "<group>"; };
-		FA19673118684A0CC17A0F63 /* pluieCabane1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = pluieCabane1.m4a; sourceTree = "<group>"; };
-		DF0E5DC0EF0546381FCAF6AD /* foretChiloe1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = foretChiloe1.m4a; sourceTree = "<group>"; };
-		CA3F48A884343264A1A40780 /* aubeJungle1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = aubeJungle1.m4a; sourceTree = "<group>"; };
-		940DF3C069C8F75B9EF59EF5 /* port1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = port1.m4a; sourceTree = "<group>"; };
-		7E09FC734D354448C85A136F /* chevres1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = chevres1.m4a; sourceTree = "<group>"; };
-		1FA98C70EE763F8F964A1863 /* carillons1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = carillons1.m4a; sourceTree = "<group>"; };
-		5B579DB66D072A2C2F148E57 /* cloches1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = cloches1.m4a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -202,6 +291,15 @@
 				A43C66F655CDBACC50F7E37F /* Foundation.framework in Frameworks */,
 				54F11775C1F03E0C8C355200 /* RevenueCat in Frameworks */,
 				BC103BB8681B1C983AD9EB87 /* RevenueCatUI in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		297EEB2F35430417AF45846C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				746A801A03FC69AF374C1BEF /* Cocoa.framework in Frameworks */,
+				D48B4AA100421BB3573493BF /* RevenueCat in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -311,6 +409,8 @@
 				FC96BF7AE88C9BA018C858CB /* L10n.swift */,
 				231B474700628B0D4E3CB541 /* LiquidAuraShaders.metal */,
 				FC750FD7773139229B5C635F /* RoutePickerView.swift */,
+				30A878788D93072BF26711CC /* AppBootstrap.swift */,
+				841E69C78BA8560917068C59 /* Platform */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -319,6 +419,7 @@
 			isa = PBXGroup;
 			children = (
 				1A2E95ADDD54A7E455577F8C /* iOS */,
+				50DE3A9D3441A3F604B8EDE4 /* OS X */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -334,6 +435,7 @@
 				7379DAA1094F77FFD99DE4F8 /* Services */,
 				39938E71B53E5B2314C7E962 /* Support */,
 				8F7A76BD10017DCB0538AE59 /* Views */,
+				5BC5767A769234158998B63B /* Mac */,
 			);
 			path = OasisNative;
 			sourceTree = "<group>";
@@ -362,11 +464,29 @@
 			path = BottomBar;
 			sourceTree = "<group>";
 		};
+		50DE3A9D3441A3F604B8EDE4 /* OS X */ = {
+			isa = PBXGroup;
+			children = (
+				15255CFB38BC793F8B47656B /* Cocoa.framework */,
+			);
+			name = "OS X";
+			sourceTree = "<group>";
+		};
+		5BC5767A769234158998B63B /* Mac */ = {
+			isa = PBXGroup;
+			children = (
+				AC2C669EE1F0B1D01E83F9CE /* OasisMacApp.swift */,
+				777112ABF284A80EAA852EB5 /* Info.plist */,
+			);
+			path = Mac;
+			sourceTree = "<group>";
+		};
 		61CDD8EE67CE4DFDBFD0C311 /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				641DBC3369E030826D4614B3 /* Oasis.app */,
 				BD3F80FF81A6AA1036A1F6AB /* OasisNativeUITests.xctest */,
+				C49E25EFDBA5D7F4453A929C /* OasisMac.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -385,6 +505,14 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		841E69C78BA8560917068C59 /* Platform */ = {
+			isa = PBXGroup;
+			children = (
+				8B5D8D4903B7C52B548F020F /* AppReviewRequester.swift */,
+			);
+			path = Platform;
+			sourceTree = "<group>";
+		};
 		8F7A76BD10017DCB0538AE59 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -392,8 +520,23 @@
 				DDD876DAD1A5EE1BF7B69DED /* HomeView.swift */,
 				FC34FCEBB3E335B5F63C84D3 /* Overlays */,
 				B9E2502D1FADFEF5A1C24AD2 /* RootView.swift */,
+				99B8E3999DEEB7ECE6174A7C /* Mac */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		99B8E3999DEEB7ECE6174A7C /* Mac */ = {
+			isa = PBXGroup;
+			children = (
+				97CF15054D4BD25DDC8FB810 /* MacSupportViews.swift */,
+				C655333EE0716D782A22867E /* MacMixerPanel.swift */,
+				06EF23F4D90BEC2A1E58185E /* MacMixerSection.swift */,
+				D6A19A6A0B073FBFEAE6F323 /* MacPresetsSection.swift */,
+				E458503D393988B26D534852 /* MacBinauralSection.swift */,
+				03D39C0299D2EEED166CC90D /* MacPaywallSheet.swift */,
+				86641698B037F0EC05099609 /* MacInlineUpsellSheet.swift */,
+			);
+			path = Mac;
 			sourceTree = "<group>";
 		};
 		A24FD0A1CA5EABD12C095CB4 /* Mixer */ = {
@@ -513,6 +656,26 @@
 			productReference = BD3F80FF81A6AA1036A1F6AB /* OasisNativeUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		8E4C31538BDA09728A8DDC29 /* OasisMac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 15CA1071E0D41C757BD0651B /* Build configuration list for PBXNativeTarget "OasisMac" */;
+			buildPhases = (
+				2F5B86E6683C3D5B1A0A0A6F /* Sources */,
+				297EEB2F35430417AF45846C /* Frameworks */,
+				8989CBA0618B31931999D7F9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OasisMac;
+			packageProductDependencies = (
+				913DE18A808E024598CA9C40 /* RevenueCat */,
+			);
+			productName = Oasis;
+			productReference = C49E25EFDBA5D7F4453A929C /* OasisMac.app */;
+			productType = "com.apple.product-type.application";
+		};
 		BCC9BAA4055B158E424FE2DF /* OasisNative */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2B4969B55AF8EB98E61D74D5 /* Build configuration list for PBXNativeTarget "OasisNative" */;
@@ -547,6 +710,9 @@
 						CreatedOnToolsVersion = 26.2;
 						TestTargetID = BCC9BAA4055B158E424FE2DF;
 					};
+					8E4C31538BDA09728A8DDC29 = {
+						CreatedOnToolsVersion = 26.2;
+					};
 					BCC9BAA4055B158E424FE2DF = {
 						CreatedOnToolsVersion = 26.2;
 					};
@@ -570,6 +736,7 @@
 			targets = (
 				BCC9BAA4055B158E424FE2DF /* OasisNative */,
 				5CC4CF4C7F0E21B96A27FAA0 /* OasisNativeUITests */,
+				8E4C31538BDA09728A8DDC29 /* OasisMac */,
 			);
 		};
 /* End PBXProject section */
@@ -625,6 +792,56 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8989CBA0618B31931999D7F9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A4E0291420184594B0FD3C7D /* pluieFenetre1.m4a in Resources */,
+				08CB8DDA3252DFA81119A4A5 /* aubeJungle1.m4a in Resources */,
+				BD2D5C1E7732141A1462CBA1 /* foretNuit1.m4a in Resources */,
+				09FD179D6405E4FD390C0EFD /* crueMontagne1.m4a in Resources */,
+				49D695DEC356E4B02C1D5201 /* ventNuit1.m4a in Resources */,
+				3BE890C536B893CEC35D5A70 /* tente1.m4a in Resources */,
+				474F0828BF39B215BF563D4A /* vent1.m4a in Resources */,
+				D29EF5C79D5C426147D9C172 /* lac1.m4a in Resources */,
+				BAD05561809F7FFA9406BD06 /* grillons1.m4a in Resources */,
+				CD868B9471A90360606D873F /* cascade1.m4a in Resources */,
+				AC4D1523EBD40855460DBF7A /* cafe1.m4a in Resources */,
+				BB301F085CC9AE23E2672591 /* mer1.m4a in Resources */,
+				6A009F4FC77738DF908EA0A7 /* campfire1.m4a in Resources */,
+				8A652F3B4AC2EAA980C106C9 /* foret1.m4a in Resources */,
+				F2AB84CBC583E707426E9762 /* ville1.m4a in Resources */,
+				87B9F1033C8776CD3B185C64 /* 2_binaural_meditation_theta.m4a in Resources */,
+				5DF6C4A05D4E47A641FC7C76 /* carillons1.m4a in Resources */,
+				9D0ED80B1E11F7D15F74029D /* pluieForet1.m4a in Resources */,
+				568CB2A292BFFB7BAE3B031F /* pluie1.m4a in Resources */,
+				BAC0698093D8E1203F28E6B6 /* pluieCabane1.m4a in Resources */,
+				C2096DFD4F0021378DF0CCD8 /* 4_binaural_focus_beta.m4a in Resources */,
+				BA7C24627C8D6BF2ACEC0349 /* chevres1.m4a in Resources */,
+				9E95DECBBF2B6DCBDA1AE7EC /* jungleamerique1.m4a in Resources */,
+				1810355BC90DE4244F433CFE /* 1_binaural_sleep_delta.m4a in Resources */,
+				D27E5D76755FE1A0BB800831 /* foretChiloe1.m4a in Resources */,
+				1A05B533E542748593C68A62 /* oiseaux1.m4a in Resources */,
+				D84397D5F77C8BBCEFD5EB18 /* port1.m4a in Resources */,
+				5D61600A1BAA2DE23E708A3D /* orageMontagne1.m4a in Resources */,
+				D191331AE2832ADD743665B9 /* cigales1.m4a in Resources */,
+				6FD6AA332AA8B75B65EF7F5B /* 3_binaural_relax_alpha.m4a in Resources */,
+				4064F676C47CEBE22F23DC86 /* plage1.m4a in Resources */,
+				53297B5B51901D5A65025BDC /* goelants1.m4a in Resources */,
+				7F72292D7BF4AEE021CF963D /* riviere1.m4a in Resources */,
+				B6D50AB776935EDE61148435 /* fortePluie1.m4a in Resources */,
+				0C76D0B3BF86F39E462BD58A /* cloches1.m4a in Resources */,
+				DC81D2C77E5BB544BE4A1DB9 /* orage1.m4a in Resources */,
+				E22C7ED6DA8D27D64C7907BD /* jungleasie1.m4a in Resources */,
+				B28ADB9DBCD29061D9B43733 /* savane1.m4a in Resources */,
+				67BD71F0936C9D94B859E126 /* neigeVille1.m4a in Resources */,
+				933B92921E3348D4DA2967DF /* Localizable.xcstrings in Resources */,
+				35765F8250D3859E3962B571 /* oasisLogo.png in Resources */,
+				A3483CC04575B8145125C661 /* Assets.xcassets in Resources */,
+				636A02629C6F3450169D8AA2 /* AppIcon.icon in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C4976BE894686073F34B0083 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -635,6 +852,42 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		2F5B86E6683C3D5B1A0A0A6F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				533820985164AE9E0AA65BF6 /* AppModels.swift in Sources */,
+				A537C7D07334C8FE11E73272 /* PremiumModels.swift in Sources */,
+				AD163A0D197715ABA3F7F373 /* SoundChannelMetadata.swift in Sources */,
+				68F68581191F71B083B039D7 /* AppModel.swift in Sources */,
+				5FBC478C302AF1D0F2995192 /* AudioMixerEngine.swift in Sources */,
+				99E6177F3914BBA4C6DA3418 /* GentleReminderScheduler.swift in Sources */,
+				C6DAA9C6642C731BF6D38E27 /* PremiumAnalytics.swift in Sources */,
+				91FBFCC0C42397470515086C /* PremiumCoordinator.swift in Sources */,
+				4871870FA13EA0EF17966738 /* PremiumRevenueCatService.swift in Sources */,
+				D65DD12F4A3D033E2BD30034 /* TelemetryDeckAnalyticsSink.swift in Sources */,
+				CF6DF012977685046D838E5D /* AppBootstrap.swift in Sources */,
+				C78B53B1D9EFA9CF4FCAAEDD /* AppConfiguration.swift in Sources */,
+				4516761F8D633EF91F07C8B3 /* L10n.swift in Sources */,
+				A7A0CA25760D089D6CEA0E25 /* AppReviewRequester.swift in Sources */,
+				50802FCA9EF019F191AB97D6 /* LiquidActivityPalette.swift in Sources */,
+				4434F7F179CE440C97D74BE3 /* LiquidAuraShaders.metal in Sources */,
+				E6A96293FDBB4630AC896536 /* AnimatedLiquidAura.swift in Sources */,
+				7FA7CBC7C07F465592C813CC /* SoundLocationMinimap.swift in Sources */,
+				C468C525A68E4DA69A9CEC04 /* SoundDetailSheet.swift in Sources */,
+				0F3A74B781487579B3939374 /* HapticSlider.swift in Sources */,
+				0E79C3019AB5DF91B14D274C /* PressScaleButtonStyle.swift in Sources */,
+				254AF017271BA03583A31972 /* OasisMacApp.swift in Sources */,
+				820EABD375CD38F343DFFD51 /* MacSupportViews.swift in Sources */,
+				D601767DBD65FD65275A38A7 /* MacMixerPanel.swift in Sources */,
+				377141766E6F651D088F0886 /* MacMixerSection.swift in Sources */,
+				645A1E29E2C860A597019D74 /* MacPresetsSection.swift in Sources */,
+				EAE5466ADF5AD46AE9AF910B /* MacBinauralSection.swift in Sources */,
+				683FAFE4F2CBC526B4BA4179 /* MacPaywallSheet.swift in Sources */,
+				88E0B488F1D1C125168936C8 /* MacInlineUpsellSheet.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		47F642D7857C455C0ED1C714 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -674,6 +927,8 @@
 				066257264E2050FEFAC0AEA8 /* SpatialAudioPanel.swift in Sources */,
 				6B620B2317070CB4ADBC5DBF /* TimerUnlockPanel.swift in Sources */,
 				7AF23420519A35F5714EFA80 /* RootView.swift in Sources */,
+				CF521C5C4C9ED65F5DBF003B /* AppBootstrap.swift in Sources */,
+				1CD3AA09F5ABD40B4309179A /* AppReviewRequester.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -700,6 +955,33 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		240085919C4ADF797A5019E6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 6;
+				DEVELOPMENT_TEAM = 346GF2QVCC;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = OasisNative/Mac/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.5.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jonathanluquet.drift;
+				PRODUCT_NAME = Oasis;
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
 		2BA5D844FDD73818F9C6CE82 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -714,6 +996,33 @@
 				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				TEST_TARGET_NAME = OasisNative;
+			};
+			name = Debug;
+		};
+		605135230160DD4B7225E1AA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 6;
+				DEVELOPMENT_TEAM = 346GF2QVCC;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = OasisNative/Mac/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.5.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jonathanluquet.drift;
+				PRODUCT_NAME = Oasis;
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 6.0;
 			};
 			name = Debug;
 		};
@@ -806,6 +1115,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.jonathanluquet.drift;
 				PRODUCT_NAME = Oasis;
 				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -895,6 +1206,9 @@
 				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"\"";
 				DEVELOPMENT_TEAM = 346GF2QVCC;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = OasisNative/Support/Info.plist;
@@ -912,7 +1226,10 @@
 				MARKETING_VERSION = 1.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jonathanluquet.drift;
 				PRODUCT_NAME = Oasis;
+				REGISTER_APP_GROUPS = YES;
 				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -927,6 +1244,15 @@
 			buildConfigurations = (
 				C1B46B421FCF06EE42AAE33D /* Release */,
 				2BA5D844FDD73818F9C6CE82 /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		15CA1071E0D41C757BD0651B /* Build configuration list for PBXNativeTarget "OasisMac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				240085919C4ADF797A5019E6 /* Release */,
+				605135230160DD4B7225E1AA /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -963,6 +1289,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		913DE18A808E024598CA9C40 /* RevenueCat */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9FEA89B7139DB4A3B80BDE23 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */;
+			productName = RevenueCat;
+		};
 		AD364B5FD120E94192B834FC /* RevenueCat */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 9FEA89B7139DB4A3B80BDE23 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */;

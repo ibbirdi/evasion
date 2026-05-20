@@ -1,9 +1,10 @@
 ---
 title: Secrets and Keys
 status: stable
-last_updated: 2026-05-19
+last_updated: 2026-05-20
 tracks:
   - "ios-native/OasisNative/Support/Info.plist"
+  - "ios-native/OasisNative/Mac/Info.plist"
   - "ios-native/OasisNative/Support/AppConfiguration.swift"
   - "fastlane/Deliverfile"
   - "fastlane/Fastfile"
@@ -20,10 +21,10 @@ Where every key lives, what it controls, and what to do if it's missing. **Value
 
 | Setting | Read from | Default | Required? |
 | --- | --- | --- | --- |
-| API key | env `OASIS_REVENUECAT_API_KEY` → `Info.plist[RevenueCatAPIKey]` | (none — empty string) | Yes for purchase / restore |
-| Entitlement ID | `Info.plist[RevenueCatEntitlementID]` | `"premium"` | Yes |
+| API key | env `OASIS_REVENUECAT_API_KEY` → target `Info.plist[RevenueCatAPIKey]` | (none — empty string) | Yes for purchase / restore |
+| Entitlement ID | target `Info.plist[RevenueCatEntitlementID]` | `"premium"` | Yes |
 
-Resolution order: env var first (lets local dev override), then `Info.plist`. Both are read in [`AppConfiguration.swift`](../../../ios-native/OasisNative/Support/AppConfiguration.swift).
+Resolution order: env var first (lets local dev override), then the active target's `Info.plist`. iOS uses `Support/Info.plist`; macOS uses `Mac/Info.plist`. Both are read in [`AppConfiguration.swift`](../../../ios-native/OasisNative/Support/AppConfiguration.swift).
 
 The RevenueCat client API key (the `appl_...` value) is **publishable** by design — RevenueCat's threat model expects it embedded in the binary. Don't conflate with the *secret* server API key, which never appears in the app.
 
@@ -33,9 +34,9 @@ The RevenueCat client API key (the `appl_...` value) is **publishable** by desig
 
 | Setting | Read from | Default | Required? |
 | --- | --- | --- | --- |
-| App ID | env `OASIS_TELEMETRYDECK_APP_ID` → `Info.plist[TelemetryDeckAppID]` | empty | No — when empty, analytics no-op |
+| App ID | env `OASIS_TELEMETRYDECK_APP_ID` → target `Info.plist[TelemetryDeckAppID]` | empty | No — when empty, analytics no-op |
 
-Currently empty in `Info.plist` — TelemetryDeck is wired but not active. To enable: set the App ID either in env or `Info.plist`.
+Currently empty in the app plists — TelemetryDeck is wired but not active. To enable: set the App ID either in env or the active target's `Info.plist`.
 
 ## App Store Connect
 
@@ -68,6 +69,7 @@ These bypass production settings during development, UI tests, and fastlane snap
 | `-OASISPremiumOverride premium` | Force `isPremium = true`, skip RevenueCat. |
 | `-OASISPremiumOverride revenueCat` | Default — use real RevenueCat. |
 | `-OASISResetState YES` | Wipe `UserDefaults["evasion-mixer-storage"]` on launch. |
+| `-OASISRevenueCatDebugLogs` | Enable verbose RevenueCat SDK logs in Debug builds. |
 | `-OASISImmersiveAudioEnabled YES|NO` | Force the global immersive audio toggle for deterministic screenshot/dev launches. |
 | `-FASTLANE_SNAPSHOT YES` | Set automatically by fastlane; combines with the above. |
 | `-ui_testing` | Set by XCUITest target; freezes auras / waveform. |
@@ -86,7 +88,7 @@ Defined in [`AppConfiguration.swift`](../../../ios-native/OasisNative/Support/Ap
 | Symptom | Cause | Fix |
 | --- | --- | --- |
 | App launches but paywall is empty | `RevenueCatAPIKey` is empty or invalid | Set in `Info.plist` or `OASIS_REVENUECAT_API_KEY` env |
-| Purchase tap does nothing | RevenueCat configure failed silently | Check `Purchases.logLevel = .debug` Xcode console |
+| Purchase tap does nothing | RevenueCat configure failed silently | Relaunch with `-OASISRevenueCatDebugLogs` and check the Xcode console |
 | `appstore_metadata` lane fails with auth | ASC session expired | Re-run, fastlane will prompt |
 | TelemetryDeck events don't appear | App ID empty | Set `TelemetryDeckAppID` |
 | Premium override sticky after testing | Launch args persist in scheme | Clear from Xcode Scheme → Run → Arguments |

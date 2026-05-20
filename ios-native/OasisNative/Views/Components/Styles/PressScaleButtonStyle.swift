@@ -47,6 +47,7 @@ extension View {
 
 struct PressScaleButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
+        #if os(iOS)
         if AppConfiguration.supportsSensoryFeedback {
             configuration.label
                 .scaleEffect(configuration.isPressed ? 0.955 : 1)
@@ -61,5 +62,11 @@ struct PressScaleButtonStyle: ButtonStyle {
                 .brightness(configuration.isPressed ? 0.03 : 0)
                 .animation(.snappy(duration: 0.09, extraBounce: 0.12), value: configuration.isPressed)
         }
+        #else
+        configuration.label
+            .scaleEffect(configuration.isPressed ? 0.975 : 1)
+            .brightness(configuration.isPressed ? 0.04 : 0)
+            .animation(.snappy(duration: 0.09, extraBounce: 0.08), value: configuration.isPressed)
+        #endif
     }
 }

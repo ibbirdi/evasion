@@ -1,7 +1,7 @@
 ---
 title: Code Conventions
 status: stable
-last_updated: 2026-05-19
+last_updated: 2026-05-20
 tracks:
   - "ios-native/OasisNative/**/*.swift"
   - "ios-native/OasisNative/Support/L10n.swift"
@@ -24,6 +24,13 @@ Patterns this codebase has settled on. Follow these by default — diverge only 
 
 ## Swift / SwiftUI
 
+### Platform split
+
+- Keep product logic in shared models/services whenever it can serve both targets (`AppModel`, `AudioMixerEngine`, premium services, `L10n`).
+- Put platform entry points and platform-only UI in dedicated folders (`Mac/`, `Views/Mac/`, `Support/Platform/`) and wire them into only the relevant Xcode target.
+- Hide Apple-framework differences behind small adapters or `#if os(...)` branches at the edge. Do not leak UIKit/AppKit into shared model code.
+- `OasisNativeApp` and `OasisMacApp` both call `AppBootstrap.configure()`; do not duplicate RevenueCat / TelemetryDeck startup.
+
 ### State
 
 - One root `@Observable` model: `AppModel`. Inject via `@Environment(AppModel.self)`.
@@ -39,15 +46,19 @@ Patterns this codebase has settled on. Follow these by default — diverge only 
 ### View structure
 
 - Top-level screens at `Views/<Name>.swift`.
+- macOS-only panel surfaces at `Views/Mac/<Name>.swift`.
 - Modal sheets and overlays at `Views/Overlays/<Name>.swift`.
 - Reusable components at `Views/Components/<Name>.swift`.
 - One view per file (with helper subviews allowed in the same file if private).
+- For macOS panel glass, use `macLiquidGlass(in:interactive:)` from `Views/Mac/MacSupportViews.swift`; it gates native macOS 26 `glassEffect` behind a material fallback for the macOS 15 target.
+- Keep native macOS controls visually native: use local `.tint(MacDesign.accent)` for switches and segmented pickers instead of the legacy `AccentColor` asset, and keep stronger channel/premium colours inside custom Oasis controls such as rows, badges, and the playback aura.
 
 ### Animation
 
 - Default: `.animation(.smooth, value: …)`. Use `.spring` only when the result is intentional.
 - Continuous animations (auras, waveform) **must** check `AppConfiguration.isRunningUITests` and freeze when true. Otherwise XCUITest hangs.
 - Continuous decorative animations must also respect `accessibilityReduceMotion`.
+- macOS continuous meshes such as the menu bar play button must also pause for screenshot automation and inactive scene phase, because the menu bar panel is often validated through scripted builds/screenshots.
 
 ### Accessibility and sizing
 

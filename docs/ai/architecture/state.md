@@ -1,12 +1,13 @@
 ---
 title: State Model and Persistence
 status: stable
-last_updated: 2026-05-19
+last_updated: 2026-05-20
 tracks:
   - "ios-native/OasisNative/Services/AppModel.swift"
   - "ios-native/OasisNative/Services/GentleReminderScheduler.swift"
   - "ios-native/OasisNative/Models/AppModels.swift"
   - "ios-native/OasisNative/Support/AppConfiguration.swift"
+  - "ios-native/OasisNative/Support/Platform/AppReviewRequester.swift"
 related:
   - "overview.md"
   - "audio-engine.md"
@@ -16,7 +17,7 @@ related:
 
 # State Model and Persistence
 
-`AppModel` is the source of truth. Everything else (engine, views, RevenueCat observer) reconciles around it.
+`AppModel` is the source of truth. Everything else (engine, iOS views, macOS views, RevenueCat observer) reconciles around it.
 
 ## Class shape
 
@@ -145,6 +146,12 @@ For simulator/dev verification, `-OASISResetOnboarding` clears only this onboard
 Whenever the model mutates anything the audio engine cares about (channel state, binaural state, playback flag, immersive audio flag), `AppModel` calls `audioEngine.sync(with: self)`. The engine is responsible for reconciling its internal players. See [audio-engine.md](audio-engine.md).
 
 `OasisNativeApp` forwards `scenePhase` changes into `AppModel.handleScenePhase(_:)`, which keeps the local re-open reminder aligned with foreground/background transitions.
+
+`OasisMacApp` does the same from its AppKit app delegate. The macOS status item opens a borderless panel that uses the same persisted state and premium reconciliation as iOS; it only swaps the presentation layer.
+
+## Platform adapters
+
+Keep platform APIs out of `AppModel` where possible. The current shared adapter is [`AppReviewRequester`](../../../ios-native/OasisNative/Support/Platform/AppReviewRequester.swift): it calls `AppStore.requestReview(in:)` with a foreground `UIWindowScene` on iOS and returns `false` on macOS.
 
 ## Premium reconciliation (`enforcePremiumAccess`)
 

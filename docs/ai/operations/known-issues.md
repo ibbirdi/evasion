@@ -1,7 +1,7 @@
 ---
 title: Known Issues and Watch-Outs
 status: stable
-last_updated: 2026-05-19
+last_updated: 2026-05-20
 tracks: []
 related:
   - "../codebase/conventions.md"
@@ -94,6 +94,8 @@ This is by design — UI test scenarios assume onboarding is past, so wiping it 
 The `RCpremium` offering name is currently configured as the *current offering* in the RevenueCat dashboard. The code reads `Purchases.shared.offerings().current` — it does not check the name.
 
 If the current offering is unset in the dashboard (or if a renamed offering loses the "current" flag), the paywall shows nothing on launch and there's no in-app way to debug it. Always check the dashboard "current" toggle when paywall packages mysteriously disappear.
+
+RevenueCat's dashboard also currently has an empty `default` offering. In Debug builds, the SDK health check can report this as a red Xcode warning even though the app uses `RCpremium` as the current offering. Normal Debug launches keep RevenueCat logs at `.error`; add `-OASISRevenueCatDebugLogs` only when purchase debugging needs the full SDK output.
 
 ## Memory drift itself
 

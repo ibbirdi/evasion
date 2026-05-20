@@ -1,7 +1,7 @@
 ---
 title: Localization
 status: stable
-last_updated: 2026-05-19
+last_updated: 2026-05-20
 tracks:
   - "ios-native/OasisNative/Support/L10n.swift"
   - "ios-native/OasisNative/Resources/Localizable.xcstrings"
@@ -55,6 +55,7 @@ timer.option<minutes>                 timer.option15, timer.option30, …
 header.<key>
 home.controls.<key>
 spatial.<key>
+mac.<surface>.<key>
 sound.detail.<key>
 mixer.accessibility.<key>
 notifications.<scope>.<key>
@@ -71,6 +72,8 @@ errors.<key>
 The full-screen presets panel uses `presets.save.*`, `presets.delete.confirm.*`, `presets.list.*`, and `presets.status.*` keys for its save button + name-entry alert, delete confirmation, list section, and row badges.
 
 `notifications.gentleReminder.title` and `notifications.gentleReminder.body` localize the single local notification that invites inactive users back to Oasis after several days.
+
+macOS panel copy uses the `mac.*` namespace (`mac.section.*`, `mac.mixer.*`, `mac.presets.*`, `mac.premium.*`, `mac.command.*`). Keep it short and desktop-native: segmented-control labels, menu bar panel labels, placeholders, and status badges should fit compactly in a 560 pt menu bar panel.
 
 When adding a new channel, run [`scripts/add_channel_translations.py`](../../../scripts/add_channel_translations.py) to scaffold or refresh the three `channel.<id>.*` entries in all 6 locales. The helper reflects the current 35-channel catalog, including the 2026-05 rain/forest/water/wildlife/human additions; do not reintroduce retired `train` / `carRide` keys.
 

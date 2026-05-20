@@ -1,7 +1,7 @@
 ---
 title: Release Process
 status: stable
-last_updated: 2026-05-19
+last_updated: 2026-05-20
 tracks:
   - "fastlane/Fastfile"
   - "fastlane/Deliverfile"
@@ -21,6 +21,7 @@ How a new version of Oasis ships to the App Store.
 ## App identity
 
 - **Bundle ID**: `com.jonathanluquet.drift` (set in `fastlane/Deliverfile`, `fastlane/Snapfile`, and `fastlane/Fastfile` lane args).
+- **Targets**: `OasisNative` (iOS App Store binary) and `OasisMac` (local macOS menu bar target sharing the same bundle ID during development).
 - **App Store Connect username**: `jonathanluquet@me.com` (in `fastlane/Deliverfile` and `fastlane/Fastfile`).
 - **Display name**: Oasis.
 - **Current version**: `MARKETING_VERSION = 1.5.0`, `CURRENT_PROJECT_VERSION = 6` (build).
@@ -48,7 +49,8 @@ Recent history:
 Run from a clean working tree on `main`.
 
 - [ ] Bump `MARKETING_VERSION` and `CURRENT_PROJECT_VERSION` in the Xcode project.
-- [ ] Run the build CLI (see [../codebase/build-and-test.md](../codebase/build-and-test.md)) — must pass.
+- [ ] Run the iOS build CLI (see [../codebase/build-and-test.md](../codebase/build-and-test.md)) — must pass.
+- [ ] If touching shared code used by the menu bar app, also run the `OasisMac` build.
 - [ ] Run `OasisNativePremiumFlowTests` — must pass.
 - [ ] Re-render screenshots if any UI/copy changed: `bundle exec fastlane screenshots` (filtered to the App Store screenshot test), then `swift scripts/generate_store_screenshot_comps.swift` and `bundle exec fastlane stage_appstore_assets`. App Preview videos are currently excluded from staging/upload for `1.5.0`.
 - [ ] Update `fastlane/metadata/<locale>/release_notes.txt` per locale — actual product changes, not "performance + bugs".

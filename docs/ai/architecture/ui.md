@@ -1,7 +1,7 @@
 ---
 title: UI System
 status: stable
-last_updated: 2026-05-19
+last_updated: 2026-05-20
 tracks:
   - "ios-native/OasisNative/Views/**"
   - "ios-native/OasisNative/Support/Info.plist"
@@ -13,15 +13,15 @@ related:
 
 # UI System
 
-SwiftUI throughout. iOS 16+ baseline; some surfaces opt into iOS 26+ refinements (zoom transitions, glass effects).
+SwiftUI throughout. iOS 16+ baseline for `OasisNative`, macOS 15+ for `OasisMac`; some iOS surfaces opt into iOS 26+ refinements (zoom transitions, glass effects).
 
 ## Global constraints
 
 - **Dark mode only.** `Info.plist` sets `UIUserInterfaceStyle = Dark`. Don't introduce light-mode variants.
 - **Portrait only.** `UISupportedInterfaceOrientations` is portrait. The mixer board and minimap assume vertical layout.
-- **No accent color override.** The app uses per-channel tints; the global `accentColor` is left default.
+- **Avoid asset-wide accent overrides.** The UI uses per-channel tints. The macOS target applies a local pastel Oasis accent through `MacDesign.accent` / `.tint(...)` for native controls, instead of the legacy neon-green `AccentColor` asset. iOS still carries the legacy asset setting until it is normalised.
 
-## Top-level structure
+## iOS top-level structure
 
 ```
 RootView                     — onboarding flag check, crossfades to HomeView
@@ -36,6 +36,25 @@ RootView                     — onboarding flag check, crossfades to HomeView
 `HomeView` owns the navigation toolbar. The leading item is `HomeToolbarImmersiveAudioToggle`, a compact native button for the global immersive audio mode. When enabled, it reveals a small subtitle-style "Immersive sound" label next to the icon. Trailing items remain the timer and active-channel filter controls.
 
 Onboarding is a single overlay file: `Views/Overlays/OnboardingView.swift`. Its final page offers two explicit exits: unlock lifetime access (opens the full paywall after completing onboarding) or start free.
+
+## macOS top-level structure
+
+`OasisMacApp` is an accessory app (`LSUIElement`) exposed through an AppKit `NSStatusItem`. Clicking the menu bar icon opens a custom borderless `NSPanel` anchored under the status item. The panel's ideal size is `560 × 780` and it presents [`MacMixerPanel`](../../../ios-native/OasisNative/Views/Mac/MacMixerPanel.swift), which reuses the same `AppModel` as iOS.
+
+```
+NSStatusItem
+└── Borderless NSPanel
+    └── MacMixerPanel
+        ├── MacMixerHeader            — OASIS wordmark + waveform, native MeshGradient play button, timer, random mix, immersive toggle
+        ├── segmented section picker  — mixer / presets / binaural
+        ├── MacMixerSection           — search, active/all filter, iOS-order sound rows, volume/range sliders, info sheets, placement popovers
+        ├── MacPresetsSection         — save, load, delete mixes
+        ├── MacBinauralSection        — enable, volume, track selection
+        ├── .sheet MacPaywallSheet
+        └── .sheet MacInlineUpsellSheet
+```
+
+macOS intentionally uses native desktop controls where they fit: segmented pickers, `Menu`, switch toggles, popovers, hover help, compact icon buttons, scrollable lists, and a panel-like density. The mixer keeps sounds in `SoundChannel.allCases` order to match iOS. Each sound row has a small info button that opens the shared `SoundDetailSheet` with its Apple Maps minimap, and sound placement is edited from each row's dedicated placement button rather than a separate tab. AUTO volume reuses the shared `AutoVariationRangeSlider` so min/max bounds stay editable on both platforms. The main mixer list hides the default macOS scroller, overlays a thin custom indicator, and fades its top/bottom edges with an alpha mask driven by native `ScrollGeometry`. The menu bar panel background is a translucent Liquid Glass/material surface, and the header stays minimal: OASIS lockup, waveform signature, play button, immersive toggle, timer, shuffle, and quit only.
 
 ## SwiftUI patterns used here
 
@@ -80,6 +99,14 @@ Most overlays bind to an optional state on `AppModel` and present when non-nil:
 - `.oasisFont(...)` for Dynamic Type-aware rounded/system typography while preserving the app's compact visual scale.
 - `.oasisMinimumHitTarget(...)` for 44 pt minimum interaction zones around visually smaller controls.
 
+## macOS views (`Views/Mac/`)
+
+macOS-specific views live in `Views/Mac/` and are not compiled into the iOS target. They may reuse shared models, services, tokens, `L10n`, and lightweight shared components, but presentation stays desktop-specific.
+
+`macLiquidGlass(in:interactive:)` is the macOS-only glass helper. It uses native `glassEffect` on macOS 26+ and falls back to material backgrounds on earlier macOS versions, so the panel background, buttons, chips, search fields, and row surfaces can share one treatment without raising the deployment target. `MacPanelBackground` stays slightly transparent so the borderless menu bar panel reads as Liquid Glass rather than a flat window.
+
+The macOS target deliberately does not set `ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME`; otherwise the legacy neon-green `AccentColor` asset tints native segmented pickers. Use `MacDesign.accent` for the local macOS tint so switches and segmented controls stay pastel and aligned with the Oasis palette. iOS can keep its existing asset setting until the accent asset is normalised.
+
 ## Design tokens
 
 Per-channel **tint** is the dominant token: each `SoundChannel` carries an `RGB` tuple in `SoundChannelMetadata.swift`. `ChannelMetadata.tint` applies a central HSB saturation/brightness boost for a more vibrant runtime colour, and that tint flows into:
@@ -91,7 +118,7 @@ Per-channel **tint** is the dominant token: each `SoundChannel` carries an `RGB`
 
 The global app backdrop stays static in a deep blue/grey range for visual sobriety; do not reintroduce active-channel colour adaptation there unless the product direction changes again.
 
-`LiquidActivityPalette.playback()` returns the tints of currently-active channels, ordered by volume. The aura cycles through them.
+`LiquidActivityPalette.playback()` returns the tints of currently-active channels, ordered by volume. iOS uses those colours in `AnimatedLiquidAura`; macOS uses them in the native `MacAnimatedPlaybackMesh` play button, avoiding black mesh stops so active mixes stay luminous.
 
 There is no centralised colour file beyond `SoundChannelMetadata.swift` for channel tints. Other UI colours (background, glass, text) are defined inline in their components — keep them local unless we adopt a tokens system.
 
@@ -104,7 +131,7 @@ There is no centralised colour file beyond `SoundChannelMetadata.swift` for chan
 
 ## XCUITest quiescence
 
-`AnimatedLiquidAura` and `WaveformSignatureLine` check for `AppConfiguration.isRunningUITests` and freeze their animation state. Without this, `XCUIApplication` waits indefinitely for "no animations in progress" and screenshot UI tests run for hours. Don't add new continuous animations without applying the same pattern.
+`AnimatedLiquidAura`, `MacAnimatedPlaybackMesh`, and `WaveformSignatureLine` check screenshot automation / UI-test flags and freeze their animation state. Without this, `XCUIApplication` waits indefinitely for "no animations in progress" and screenshot UI tests run for hours. Don't add new continuous animations without applying the same pattern.
 
 ## Localisation in views
 
@@ -135,6 +162,7 @@ Convention: `<surface>.<role>[.<entity>]`. Lowercase, dot-separated, no spaces. 
 Views/
 ├── HomeView.swift
 ├── RootView.swift
+├── Mac/                        — macOS borderless menu bar mixer panel + sheets
 ├── Components/                — reusable building blocks (above)
 └── Overlays/                  — modal sheets (Presets, Binaural, Spatial, Paywall, SoundDetail, Onboarding)
 ```

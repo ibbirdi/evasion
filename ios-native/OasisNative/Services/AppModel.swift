@@ -3,7 +3,6 @@ import Observation
 import RevenueCat
 import StoreKit
 import SwiftUI
-import UIKit
 
 @MainActor
 @Observable
@@ -989,14 +988,10 @@ final class AppModel {
         let defaults = UserDefaults.standard
         guard !defaults.bool(forKey: EngagementDefaults.didRequestReviewKey) else { return }
         guard !recentlyInteractedWithPaywall else { return }
-        guard let scene = UIApplication.shared.connectedScenes
-            .compactMap({ $0 as? UIWindowScene })
-            .first(where: { $0.activationState == .foregroundActive })
-        else { return }
+        guard AppReviewRequester.requestReviewIfPossible() else { return }
 
         defaults.set(true, forKey: EngagementDefaults.didRequestReviewKey)
         premiumAnalytics.track(.reviewPromptRequested(reason: reason))
-        AppStore.requestReview(in: scene)
     }
 
     private var recentlyInteractedWithPaywall: Bool {

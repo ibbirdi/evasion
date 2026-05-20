@@ -1,7 +1,7 @@
 ---
 title: Audio Engine
 status: stable
-last_updated: 2026-05-19
+last_updated: 2026-05-20
 tracks:
   - "ios-native/OasisNative/Services/AudioMixerEngine.swift"
   - "ios-native/OasisNative/Models/AppModels.swift"
@@ -13,7 +13,7 @@ related:
 
 # Audio Engine
 
-The ambient mixer. Implemented in [`AudioMixerEngine`](../../../ios-native/OasisNative/Services/AudioMixerEngine.swift). Binaural is a separate path (see [binaural.md](binaural.md)).
+The ambient mixer. Implemented in [`AudioMixerEngine`](../../../ios-native/OasisNative/Services/AudioMixerEngine.swift) and shared by both iOS and macOS targets. Binaural is a separate path (see [binaural.md](binaural.md)).
 
 ## Graph
 
@@ -101,7 +101,11 @@ The mixer row shows this as an editable two-handle slider when auto-variation is
 
 When a channel's auto-variation generates a notable change, the engine fires `onVariationChanged` so `AppModel` can persist or surface it.
 
-## `AVAudioSession`
+## Platform audio session
+
+The engine is shared, but session surfaces are platform-specific.
+
+### iOS `AVAudioSession`
 
 Configured at engine start:
 
@@ -113,7 +117,13 @@ Configured at engine start:
 
 Background audio is enabled in `Info.plist` (`UIBackgroundModes = audio`).
 
+### macOS
+
+macOS does not configure `AVAudioSession`, observe route-change notifications, or publish Now Playing state from this engine. `AudioMixerEngine` keeps those branches behind `#if os(iOS)` and defaults the `AVAudioEnvironmentNode` output type to `.auto` on macOS.
+
 ## Remote commands
+
+Remote command integration is iOS-only.
 
 `configureRemoteCommands()` registers handlers on `MPRemoteCommandCenter.shared()`:
 

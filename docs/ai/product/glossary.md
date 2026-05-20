@@ -1,7 +1,7 @@
 ---
 title: Glossary
 status: stable
-last_updated: 2026-05-19
+last_updated: 2026-05-20
 tracks:
   - "ios-native/OasisNative/Models/AppModels.swift"
   - "ios-native/OasisNative/Models/SoundChannelMetadata.swift"
@@ -73,3 +73,5 @@ Vocabulary used inside the codebase, the UI copy, and these memory files. Some t
 **Reset state.** `-OASISResetState YES` clears persisted state on launch. Used by screenshot automation to start from a known mix.
 
 **Quiescence animations.** `WaveformSignatureLine` and `AnimatedLiquidAura` are paused under XCUITest so the snapshot frame is deterministic.
+
+**Menu bar app** (`OasisMac`). macOS accessory target that lives in the system menu bar and opens `MacMixerPanel` in a custom borderless panel. It shares `AppModel`, the audio engine, premium services, localization, and resources with iOS.

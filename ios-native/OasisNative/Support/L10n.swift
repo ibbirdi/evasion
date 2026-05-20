@@ -104,6 +104,85 @@ enum L10n {
         )
     }
 
+    enum Mac {
+        static let mixer = LocalizedStringResource(
+            "mac.section.mixer",
+            defaultValue: "Mixer",
+            bundle: .main,
+            comment: "macOS panel section title for the ambient sound mixer."
+        )
+
+        static let spatial = LocalizedStringResource(
+            "mac.section.spatial",
+            defaultValue: "Placement",
+            bundle: .main,
+            comment: "macOS panel section title for spatial placement controls."
+        )
+
+        static let activeSoundsCount = LocalizedStringResource(
+            "mac.header.activeSounds",
+            defaultValue: "active sounds",
+            bundle: .main,
+            comment: "Lowercase suffix after the number of active sounds in the macOS header."
+        )
+
+        static let searchSounds = LocalizedStringResource(
+            "mac.mixer.search",
+            defaultValue: "Search sounds",
+            bundle: .main,
+            comment: "Placeholder for the macOS mixer sound search field."
+        )
+
+        static let allSounds = LocalizedStringResource(
+            "mac.mixer.allSounds",
+            defaultValue: "All sounds",
+            bundle: .main,
+            comment: "Toggle label that shows every sound in the macOS mixer."
+        )
+
+        static let activeOnly = LocalizedStringResource(
+            "mac.mixer.activeOnly",
+            defaultValue: "Active only",
+            bundle: .main,
+            comment: "Toggle label that filters the macOS mixer to active sounds."
+        )
+
+        static let quit = LocalizedStringResource(
+            "mac.command.quit",
+            defaultValue: "Quit Oasis",
+            bundle: .main,
+            comment: "macOS panel command that quits the app."
+        )
+
+        static let savePresetPlaceholder = LocalizedStringResource(
+            "mac.presets.savePlaceholder",
+            defaultValue: "New mix name",
+            bundle: .main,
+            comment: "Placeholder in the macOS preset save text field."
+        )
+
+        static let emptySearch = LocalizedStringResource(
+            "mac.mixer.emptySearch",
+            defaultValue: "No sounds match this search.",
+            bundle: .main,
+            comment: "Empty state when the macOS sound search has no results."
+        )
+
+        static let selectSound = LocalizedStringResource(
+            "mac.spatial.selectSound",
+            defaultValue: "Select a sound",
+            bundle: .main,
+            comment: "Label for the macOS spatial sound picker."
+        )
+
+        static let premiumUnlocked = LocalizedStringResource(
+            "mac.premium.unlocked",
+            defaultValue: "Premium unlocked",
+            bundle: .main,
+            comment: "Status label in the macOS panel when premium is active."
+        )
+    }
+
     enum HomeControls {
         static let shuffle = LocalizedStringResource(
             "home.controls.shuffle",

@@ -1,14 +1,17 @@
 ---
 title: Premium Model
 status: stable
-last_updated: 2026-05-19
+last_updated: 2026-05-20
 tracks:
   - "ios-native/OasisNative/Services/PremiumCoordinator.swift"
   - "ios-native/OasisNative/Services/PremiumRevenueCatService.swift"
   - "ios-native/OasisNative/Services/AppModel.swift"
   - "ios-native/OasisNative/Views/Overlays/PaywallOverlay.swift"
+  - "ios-native/OasisNative/Views/Mac/MacPaywallSheet.swift"
+  - "ios-native/OasisNative/Views/Mac/MacInlineUpsellSheet.swift"
   - "ios-native/OasisNative/Support/AppConfiguration.swift"
   - "ios-native/OasisNative/Support/Info.plist"
+  - "ios-native/OasisNative/Mac/Info.plist"
 related:
   - "vision.md"
   - "../architecture/paywall.md"
@@ -27,7 +30,7 @@ related:
 | Sound placement | Yes, on accessible channels | Yes, on accessible channels |
 | Binaural tracks | Delta only | Delta / Theta / Alpha / Beta |
 | Sleep timer | 15 / 30 min | 15 / 30 / 60 / 120 min |
-| Presets panel | Hidden in UI | Create, load, delete, reorder |
+| Presets | 1 saved user mix | Create, load, delete, reorder |
 | Saved presets cap | 1 | Unlimited |
 | Restoration | N/A | Yes |
 
@@ -53,7 +56,7 @@ The paywall anchors the price as "less than the price of a coffee in Paris" / "m
 - `.preset`, `.binaural` entry points → inline upsell first; if dismissed and re-triggered, full paywall.
 - All other entry points (`.channel`, `.timer`, `.spatial`, `.signature_preview`, `.home_banner`, …) → full paywall directly.
 
-The active context is exposed via `AppModel.activePaywallContext` (full paywall) and `AppModel.activeInlineUpsell` (inline upsell). Views observe these and present accordingly.
+The active context is exposed via `AppModel.activePaywallContext` (full paywall) and `AppModel.activeInlineUpsell` (inline upsell). iOS and macOS observe the same state and present platform-specific paywall surfaces.
 
 The onboarding final page has an explicit premium moment: the primary CTA completes onboarding and opens the lifetime paywall (`.onboarding` source), while the secondary CTA starts the free tier without opening the paywall. Keep this transparent; do not hide the paywall behind a generic "start listening" action.
 
@@ -66,11 +69,11 @@ Two engagement nudges, both throttled in `AppModel`:
 
 ## Override for development & screenshots
 
-`-OASISPremiumOverride free|premium|revenueCat` launch argument forces a state (defaults to RevenueCat). Used heavily by UI tests and fastlane snapshots. Other screenshot-only launch arguments, such as `-OASISImmersiveAudioEnabled`, live beside it in [`AppConfiguration.swift`](../../../ios-native/OasisNative/Support/AppConfiguration.swift).
+`-OASISPremiumOverride free|premium|revenueCat` launch argument forces a state (defaults to RevenueCat). Used heavily by UI tests and fastlane snapshots. `-OASISRevenueCatDebugLogs` opt-ins to verbose RevenueCat logs for purchase debugging; normal Debug launches keep SDK warnings quiet. Other screenshot-only launch arguments, such as `-OASISImmersiveAudioEnabled`, live beside these in [`AppConfiguration.swift`](../../../ios-native/OasisNative/Support/AppConfiguration.swift).
 
 ## Restore
 
-`AppModel.restorePurchases()` calls `PremiumRevenueCatService.restorePurchases()` → broadcasts via `RevenueCatObserver.onCustomerInfoChange` → `applyCustomerInfo()`. Available from the paywall and presumably an "About" screen.
+`AppModel.restorePurchases()` calls `PremiumRevenueCatService.restorePurchases()` → broadcasts via `RevenueCatObserver.onCustomerInfoChange` → `applyCustomerInfo()`. Available from the iOS paywall and the macOS menu bar paywall sheet.
 
 ## Reactive entitlement
 

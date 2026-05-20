@@ -1,5 +1,10 @@
 import SwiftUI
+
+#if os(iOS)
 import UIKit
+#elseif os(macOS)
+import AppKit
+#endif
 
 enum LiquidActivityPalette {
     static let preset = [
@@ -50,40 +55,47 @@ enum LiquidActivityPalette {
 
 private extension Color {
     func withFixedOpacity(_ opacity: CGFloat) -> Color {
-        let uiColor = UIColor(self)
-        var hue: CGFloat = 0
-        var saturation: CGFloat = 0
-        var bright: CGFloat = 0
-        var alpha: CGFloat = 0
-
-        guard uiColor.getHue(&hue, saturation: &saturation, brightness: &bright, alpha: &alpha) else {
+        guard let components = hsbComponents else {
             return self.opacity(opacity)
         }
 
         return Color(
-            hue: Double(hue),
-            saturation: Double(saturation),
-            brightness: Double(bright),
+            hue: Double(components.hue),
+            saturation: Double(components.saturation),
+            brightness: Double(components.brightness),
             opacity: Double(opacity)
         )
     }
 
     func boostedSaturation(by factor: CGFloat, brightness: CGFloat) -> Color {
-        let uiColor = UIColor(self)
+        guard let components = hsbComponents else {
+            return self
+        }
+
+        return Color(
+            hue: Double(components.hue),
+            saturation: Double(min(1, components.saturation * factor)),
+            brightness: Double(min(1, components.brightness * brightness)),
+            opacity: Double(components.alpha)
+        )
+    }
+
+    private var hsbComponents: (hue: CGFloat, saturation: CGFloat, brightness: CGFloat, alpha: CGFloat)? {
         var hue: CGFloat = 0
         var saturation: CGFloat = 0
         var bright: CGFloat = 0
         var alpha: CGFloat = 0
 
-        guard uiColor.getHue(&hue, saturation: &saturation, brightness: &bright, alpha: &alpha) else {
-            return self
-        }
+        #if os(iOS)
+        let color = UIColor(self)
+        guard color.getHue(&hue, saturation: &saturation, brightness: &bright, alpha: &alpha) else { return nil }
+        #elseif os(macOS)
+        guard let color = NSColor(self).usingColorSpace(.deviceRGB) else { return nil }
+        color.getHue(&hue, saturation: &saturation, brightness: &bright, alpha: &alpha)
+        #else
+        return nil
+        #endif
 
-        return Color(
-            hue: Double(hue),
-            saturation: Double(min(1, saturation * factor)),
-            brightness: Double(min(1, bright * brightness)),
-            opacity: Double(alpha)
-        )
+        return (hue, saturation, bright, alpha)
     }
 }

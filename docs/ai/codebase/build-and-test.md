@@ -21,6 +21,8 @@ related:
 
 From repo root:
 
+### iOS simulator
+
 ```bash
 xcodebuild -scheme OasisNative -project "ios-native/OasisNative.xcodeproj" \
   -configuration Debug -sdk iphonesimulator \
@@ -28,13 +30,24 @@ xcodebuild -scheme OasisNative -project "ios-native/OasisNative.xcodeproj" \
   build CODE_SIGNING_ALLOWED=NO
 ```
 
+### macOS
+
+```bash
+xcodebuild -scheme OasisMac -project "ios-native/OasisNative.xcodeproj" \
+  -configuration Debug -destination "platform=macOS" \
+  build CODE_SIGNING_ALLOWED=NO
+```
+
 `CODE_SIGNING_ALLOWED=NO` lets the build pass without provisioning profiles.
 
 ## Schemes and configurations
 
-- Scheme: `OasisNative` (single).
-- Configurations: `Debug` (sets `Purchases.logLevel = .debug` in `OasisNativeApp`), `Release`.
+- Schemes: `OasisNative` (iOS) and `OasisMac` (macOS menu bar app).
+- Configurations: `Debug` and `Release`. Debug keeps RevenueCat at `.error` by default so dashboard health warnings do not look like app failures in Xcode; add `-OASISRevenueCatDebugLogs` (or env `OASIS_REVENUECAT_DEBUG_LOGS=1`) when actively debugging purchases.
 - Target iOS: 16+ baseline; certain effects require iOS 26+ (the codebase guards them with `if #available`).
+- Target macOS: 15+ baseline, accessory menu bar app (`LSUIElement`) with an `NSStatusItem` opening a custom borderless mixer `NSPanel`. The target includes shared UI helpers such as `HapticSlider`, `SoundDetailSheet`, and `SoundLocationMinimap` so the menu bar mixer can reuse the iOS auto-volume range slider, detail sheet, and Apple Maps minimap.
+
+In Xcode, build the macOS app with the `OasisMac` scheme and `My Mac` destination. The `OasisNative` scheme is iOS-only; it must not list `macosx` in `SUPPORTED_PLATFORMS`, otherwise Xcode can try to compile UIKit views with the macOS SDK.
 
 ## UI tests
 

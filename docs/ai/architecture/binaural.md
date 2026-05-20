@@ -1,11 +1,12 @@
 ---
 title: Binaural Engine
 status: stable
-last_updated: 2026-05-19
+last_updated: 2026-05-20
 tracks:
   - "ios-native/OasisNative/Services/AudioMixerEngine.swift"
   - "ios-native/OasisNative/Models/AppModels.swift"
   - "ios-native/OasisNative/Views/Overlays/BinauralPanel.swift"
+  - "ios-native/OasisNative/Views/Mac/MacBinauralSection.swift"
 related:
   - "audio-engine.md"
   - "../product/premium-model.md"
@@ -13,7 +14,7 @@ related:
 
 # Binaural Engine
 
-Brainwave entrainment tracks. Independent of the ambient mixer (different player class, separate volume control).
+Brainwave entrainment tracks. Independent of the ambient mixer (different player class, separate volume control) and shared by the iOS panel and the macOS menu bar panel.
 
 ## Tracks
 
@@ -73,10 +74,12 @@ When `isBinauralActive` flips off, the active player is paused but kept allocate
 
 ## UI
 
-[`BinauralPanel`](../../../ios-native/OasisNative/Views/Overlays/BinauralPanel.swift) presents:
+[`BinauralPanel`](../../../ios-native/OasisNative/Views/Overlays/BinauralPanel.swift) presents the iOS flow:
 
 1. The four track cards (Delta, Theta, Alpha, Beta) with their L10n names (`binaural.track.delta`, …) and lock badges on the premium ones.
 2. A volume slider bound to `binauralVolume`.
+
+[`MacBinauralSection`](../../../ios-native/OasisNative/Views/Mac/MacBinauralSection.swift) exposes the same state inside the macOS mixer panel: one enable toggle, the shared volume slider, and track rows routed through `AppModel.selectBinauralTrack(_:)`.
 
 ## Why not blend with ambient
 
