@@ -3,7 +3,8 @@ import SwiftUI
 struct MacMixerSection: View {
     @Environment(AppModel.self) private var model
     @State private var searchText = ""
-    @State private var detailChannel: SoundChannel?
+
+    let onOpenDetail: (SoundChannel) -> Void
 
     private var visibleChannels: [SoundChannel] {
         SoundChannel.allCases.filter { channel in
@@ -32,18 +33,13 @@ struct MacMixerSection: View {
                     } else {
                         ForEach(visibleChannels) { channel in
                             MacChannelRow(channel: channel) {
-                                detailChannel = channel
+                                onOpenDetail(channel)
                             }
                         }
                     }
                 }
                 .padding(.bottom, 8)
             }
-        }
-        .sheet(item: $detailChannel) { channel in
-            SoundDetailSheet(channel: channel)
-                .frame(width: 430)
-                .frame(minHeight: 560)
         }
     }
 

@@ -151,6 +151,24 @@ platform :ios do
     sh("ruby", File.join(repo_root, "scripts", "generate_app_previews.rb"))
   end
 
+  desc "Capture localized macOS menu bar panel screenshots"
+  lane :mac_screenshots do
+    repo_root = oasis_repo_root
+    sh("ruby", File.join(repo_root, "scripts", "capture_macos_screenshots.rb"))
+  end
+
+  desc "Generate upload-ready macOS App Store screenshots from panel captures"
+  lane :mac_appstore_assets do
+    repo_root = oasis_repo_root
+    sh("swift", File.join(repo_root, "scripts", "generate_mac_store_screenshot_comps.swift"))
+  end
+
+  desc "Capture and compose all localized macOS App Store screenshots"
+  lane :mac_appstore_screenshots do
+    mac_screenshots
+    mac_appstore_assets
+  end
+
   desc "Stage upload-ready screenshots without uploading App Preview videos"
   lane :stage_appstore_assets do
     repo_root = oasis_repo_root

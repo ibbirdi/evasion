@@ -71,7 +71,7 @@ Oasis is a native Apple-platform app with two app targets in the same Xcode proj
 | Actor | File | Role |
 | --- | --- | --- |
 | `OasisNativeApp` | [OasisNativeApp.swift](../../../ios-native/OasisNative/OasisNativeApp.swift) | iOS entry point. Calls `AppBootstrap.configure()`, instantiates `AppModel`, and presents `RootView`. |
-| `OasisMacApp` | [Mac/OasisMacApp.swift](../../../ios-native/OasisNative/Mac/OasisMacApp.swift) | macOS entry point. Calls `AppBootstrap.configure()`, owns the status item app delegate, keeps one `AppModel`, and presents `MacMixerPanel` inside a custom borderless `NSPanel`. |
+| `OasisMacApp` | [Mac/OasisMacApp.swift](../../../ios-native/OasisNative/Mac/OasisMacApp.swift) | macOS entry point. Calls `AppBootstrap.configure()`, owns the status item app delegate using a fixed template wind icon, keeps one `AppModel`, and presents `MacMixerPanel` inside a custom borderless `NSPanel`. |
 | `AppBootstrap` | [Support/AppBootstrap.swift](../../../ios-native/OasisNative/Support/AppBootstrap.swift) | Shared startup for RevenueCat + TelemetryDeck so iOS and macOS do not drift. |
 | `AppModel` | [Services/AppModel.swift](../../../ios-native/OasisNative/Services/AppModel.swift) | Hub. `@Observable @MainActor`. Owns mix state, per-channel auto-variation ranges, immersive audio toggle, presets, premium state, timer, engagement metrics. Bridges UI ↔ engine ↔ RevenueCat. See [state.md](state.md). |
 | `AudioMixerEngine` | [Services/AudioMixerEngine.swift](../../../ios-native/OasisNative/Services/AudioMixerEngine.swift) | The audio graph. `AVAudioEngine` + `AVAudioEnvironmentNode` + 35 `AVAudioPlayerNode`. Handles loops, fades, spatial/immersive profiles, remote commands. See [audio-engine.md](audio-engine.md). |
@@ -85,7 +85,7 @@ Oasis is a native Apple-platform app with two app targets in the same Xcode proj
 1. iOS launches → `OasisNativeApp.init()`; macOS launches → `OasisMacApp.init()`.
 2. Both call `AppBootstrap.configure()`. If `AppConfiguration.shouldUseRevenueCatAccess && AppConfiguration.isRevenueCatConfigured` → `Purchases.configure(withAPIKey:)`. Debug builds keep RevenueCat at `.error` unless `-OASISRevenueCatDebugLogs` or `OASIS_REVENUECAT_DEBUG_LOGS=1` is set.
 3. TelemetryDeck initialised if `isTelemetryDeckConfigured` (currently empty in `Info.plist` / `Mac/Info.plist` → no-op).
-4. iOS `WindowGroup` instantiates `RootView`; macOS `MacAppDelegate` creates an `NSStatusItem` and a custom borderless `NSPanel` that hosts `MacMixerPanel`. Both inject the same `AppModel` type and forward foreground/background lifecycle changes into the model.
+4. iOS `WindowGroup` instantiates `RootView`; macOS `MacAppDelegate` creates an `NSStatusItem` and a custom borderless `NSPanel` that hosts `MacMixerPanel`. Both inject the same `AppModel` type and forward foreground/background lifecycle changes into the model. Under `-OASISMacScreenshot`, the app delegate opens the status-item panel automatically for deterministic Mac App Store captures.
 5. `AppModel.init` loads persisted state from `UserDefaults["evasion-mixer-storage"]`, hydrates `audioEngine.sync(with: self)`, and registers RevenueCat observers.
 6. iOS `RootView` decides between onboarding (first launch) and `HomeView`. macOS opens directly to the mixer panel because it is an accessory app surface, not an onboarding-first phone flow.
 
@@ -128,4 +128,4 @@ There is no backend, no iCloud sync, no Keychain (RevenueCat handles its own). U
 
 ## Configuration knobs
 
-See [../operations/secrets-and-keys.md](../operations/secrets-and-keys.md) for environment variables and Info.plist keys. The most consequential at runtime: `RevenueCatAPIKey`, `RevenueCatEntitlementID`, `OASIS_REVENUECAT_API_KEY` (env override), `-OASISPremiumOverride`, `-OASISResetState`, `-OASISResetOnboarding`, `-OASISImmersiveAudioEnabled`.
+See [../operations/secrets-and-keys.md](../operations/secrets-and-keys.md) for environment variables and Info.plist keys. The most consequential at runtime: `RevenueCatAPIKey`, `RevenueCatEntitlementID`, `OASIS_REVENUECAT_API_KEY` (env override), `-OASISPremiumOverride`, `-OASISResetState`, `-OASISResetOnboarding`, `-OASISImmersiveAudioEnabled`, `-OASISMacScreenshot`, `-OASISMacScreenshotScenario`, and `-OASISMacScreenshotOutput`.

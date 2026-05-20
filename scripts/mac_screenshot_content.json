@@ -1,0 +1,201 @@
+{
+  "capturesDir": "fastlane/screenshots-macos",
+  "outputDir": "fastlane/screenshots-macos",
+  "stagingDir": "fastlane/appstore-upload-macos",
+  "slides": [
+    {
+      "slug": "01_menu_bar_mixer",
+      "source": "01_menu_bar_mixer.png",
+      "accent": "#A3DBD1",
+      "panelSide": "right"
+    },
+    {
+      "slug": "02_sound_detail",
+      "source": "02_sound_detail.png",
+      "accent": "#EFB846",
+      "panelSide": "right"
+    },
+    {
+      "slug": "03_auto_range",
+      "source": "03_auto_range.png",
+      "accent": "#8FC7DF",
+      "panelSide": "right"
+    },
+    {
+      "slug": "04_saved_ambiences",
+      "source": "04_saved_ambiences.png",
+      "accent": "#DCA0D9",
+      "panelSide": "right"
+    },
+    {
+      "slug": "05_binaural_timer",
+      "source": "05_binaural_timer.png",
+      "accent": "#B9A8FF",
+      "panelSide": "right"
+    }
+  ],
+  "copy": {
+    "en-US": {
+      "01_menu_bar_mixer": {
+        "eyebrow": "SLEEP · FOCUS · ESCAPE",
+        "headline": "Escape into\nreal nature.",
+        "subhead": "35 real-world sounds to mix from the Mac menu bar."
+      },
+      "02_sound_detail": {
+        "eyebrow": "REAL RECORDINGS",
+        "headline": "Explore sounds\nfrom around the world.",
+        "subhead": "Every track keeps its place, credits and map."
+      },
+      "03_auto_range": {
+        "eyebrow": "NATURE MIXER",
+        "headline": "Shape your refuge\nsound by sound.",
+        "subhead": "Mix rain, wind, birds and sea with manual or auto volume."
+      },
+      "04_saved_ambiences": {
+        "eyebrow": "SAVED MIXES",
+        "headline": "Return to your\nfavorite escapes.",
+        "subhead": "Save work, rest and sleep mixes, then reopen them instantly."
+      },
+      "05_binaural_timer": {
+        "eyebrow": "BINAURAL WAVES",
+        "headline": "Add focus or calm\nto your mix.",
+        "subhead": "Blend 4 binaural modes with nature and end with a timer."
+      }
+    },
+    "fr-FR": {
+      "01_menu_bar_mixer": {
+        "eyebrow": "SOMMEIL · FOCUS · ÉVASION",
+        "headline": "Évadez-vous\nen pleine nature.",
+        "subhead": "35 sons réels à mixer depuis la barre de menu du Mac."
+      },
+      "02_sound_detail": {
+        "eyebrow": "ENREGISTREMENTS RÉELS",
+        "headline": "Parcourez des sons\nvenus du monde entier.",
+        "subhead": "Chaque piste garde son lieu, ses crédits et sa carte."
+      },
+      "03_auto_range": {
+        "eyebrow": "MIXEUR NATURE",
+        "headline": "Composez votre refuge\nson par son.",
+        "subhead": "Mixez pluie, vent, oiseaux et mer en volume manuel ou automatique."
+      },
+      "04_saved_ambiences": {
+        "eyebrow": "MIX SAUVEGARDÉS",
+        "headline": "Retrouvez vos\névasions préférées.",
+        "subhead": "Gardez vos mix de travail, de repos ou de sommeil sous la main."
+      },
+      "05_binaural_timer": {
+        "eyebrow": "ONDES BINAURALES",
+        "headline": "Ajoutez focus ou calme\nà votre mix.",
+        "subhead": "Mêlez 4 modes binauraux à la nature, avec minuteur."
+      }
+    },
+    "de-DE": {
+      "01_menu_bar_mixer": {
+        "eyebrow": "SCHLAF · FOKUS · AUSZEIT",
+        "headline": "Tauche ein\nin echte Natur.",
+        "subhead": "35 echte Naturklänge zum Mischen direkt in der Mac-Menüleiste."
+      },
+      "02_sound_detail": {
+        "eyebrow": "ECHTE AUFNAHMEN",
+        "headline": "Entdecke Klänge\naus der ganzen Welt.",
+        "subhead": "Jede Spur zeigt Ort, Credits und Karte."
+      },
+      "03_auto_range": {
+        "eyebrow": "NATUR-MIXER",
+        "headline": "Forme deinen Rückzugsort\nKlang für Klang.",
+        "subhead": "Mische Regen, Wind, Vögel und Meer manuell oder automatisch."
+      },
+      "04_saved_ambiences": {
+        "eyebrow": "GESPEICHERTE MIXE",
+        "headline": "Zurück zu deinen\nliebsten Auszeiten.",
+        "subhead": "Speichere Mixe für Arbeit, Ruhe oder Schlaf und öffne sie sofort."
+      },
+      "05_binaural_timer": {
+        "eyebrow": "BINAURALE WELLEN",
+        "headline": "Gib deinem Mix\nFokus oder Ruhe.",
+        "subhead": "Kombiniere 4 binaurale Modi mit Natur und Timer."
+      }
+    },
+    "es-ES": {
+      "01_menu_bar_mixer": {
+        "eyebrow": "SUEÑO · FOCO · EVASIÓN",
+        "headline": "Escapa a\nla naturaleza real.",
+        "subhead": "35 sonidos reales para mezclar desde la barra de menús del Mac."
+      },
+      "02_sound_detail": {
+        "eyebrow": "GRABACIONES REALES",
+        "headline": "Explora sonidos\nde todo el mundo.",
+        "subhead": "Cada pista conserva su lugar, créditos y mapa."
+      },
+      "03_auto_range": {
+        "eyebrow": "MEZCLADOR NATURAL",
+        "headline": "Crea tu refugio\nsonido a sonido.",
+        "subhead": "Mezcla lluvia, viento, pájaros y mar en volumen manual o automático."
+      },
+      "04_saved_ambiences": {
+        "eyebrow": "MEZCLAS GUARDADAS",
+        "headline": "Vuelve a tus\nevasiones favoritas.",
+        "subhead": "Guarda mezclas para trabajar, descansar o dormir y ábrelas al instante."
+      },
+      "05_binaural_timer": {
+        "eyebrow": "ONDAS BINAURALES",
+        "headline": "Añade foco o calma\na tu mezcla.",
+        "subhead": "Combina 4 modos binaurales con naturaleza y temporizador."
+      }
+    },
+    "it": {
+      "01_menu_bar_mixer": {
+        "eyebrow": "SONNO · FOCUS · EVASIONE",
+        "headline": "Evadi nella\nnatura reale.",
+        "subhead": "35 suoni reali da mixare dalla barra dei menu del Mac."
+      },
+      "02_sound_detail": {
+        "eyebrow": "REGISTRAZIONI REALI",
+        "headline": "Esplora suoni\nda tutto il mondo.",
+        "subhead": "Ogni traccia conserva luogo, crediti e mappa."
+      },
+      "03_auto_range": {
+        "eyebrow": "MIXER NATURA",
+        "headline": "Crea il tuo rifugio\nsuono dopo suono.",
+        "subhead": "Mixa pioggia, vento, uccelli e mare in volume manuale o automatico."
+      },
+      "04_saved_ambiences": {
+        "eyebrow": "MIX SALVATI",
+        "headline": "Torna alle tue\nevasioni preferite.",
+        "subhead": "Salva mix per lavoro, riposo o sonno e riaprili subito."
+      },
+      "05_binaural_timer": {
+        "eyebrow": "ONDE BINAURALI",
+        "headline": "Aggiungi focus o calma\nal tuo mix.",
+        "subhead": "Unisci 4 modi binaurali alla natura, con timer."
+      }
+    },
+    "pt-BR": {
+      "01_menu_bar_mixer": {
+        "eyebrow": "SONO · FOCO · ESCAPE",
+        "headline": "Escape para\na natureza real.",
+        "subhead": "35 sons reais para mixar direto da barra de menus do Mac."
+      },
+      "02_sound_detail": {
+        "eyebrow": "GRAVAÇÕES REAIS",
+        "headline": "Explore sons\ndo mundo todo.",
+        "subhead": "Cada faixa mantém lugar, créditos e mapa."
+      },
+      "03_auto_range": {
+        "eyebrow": "MIXER DE NATUREZA",
+        "headline": "Crie seu refúgio\nsom por som.",
+        "subhead": "Misture chuva, vento, pássaros e mar com volume manual ou automático."
+      },
+      "04_saved_ambiences": {
+        "eyebrow": "MIXES SALVOS",
+        "headline": "Volte aos seus\nescapes favoritos.",
+        "subhead": "Salve mixes para trabalho, descanso ou sono e reabra tudo rápido."
+      },
+      "05_binaural_timer": {
+        "eyebrow": "ONDAS BINAURAIS",
+        "headline": "Adicione foco ou calma\nao seu mix.",
+        "subhead": "Combine 4 modos binaurais com natureza e timer."
+      }
+    }
+  }
+}

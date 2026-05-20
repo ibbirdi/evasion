@@ -39,6 +39,30 @@ Alias for screenshot generation
 
 Generate localized App Preview videos from the App Store composites
 
+### ios mac_screenshots
+
+```sh
+[bundle exec] fastlane ios mac_screenshots
+```
+
+Capture localized macOS menu bar panel screenshots
+
+### ios mac_appstore_assets
+
+```sh
+[bundle exec] fastlane ios mac_appstore_assets
+```
+
+Generate upload-ready macOS App Store screenshots from panel captures
+
+### ios mac_appstore_screenshots
+
+```sh
+[bundle exec] fastlane ios mac_appstore_screenshots
+```
+
+Capture and compose all localized macOS App Store screenshots
+
 ### ios stage_appstore_assets
 
 ```sh

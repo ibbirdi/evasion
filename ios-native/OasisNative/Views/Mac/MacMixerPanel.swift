@@ -3,6 +3,8 @@ import SwiftUI
 struct MacMixerPanel: View {
     @Environment(AppModel.self) private var model
     @State private var selectedSection: MacPanelSection = .mixer
+    @State private var detailChannel: SoundChannel?
+    @State private var didConfigureScreenshotScenario = false
 
     var body: some View {
         @Bindable var model = model
@@ -31,7 +33,11 @@ struct MacMixerPanel: View {
                 Group {
                     switch selectedSection {
                     case .mixer:
-                        MacMixerSection()
+                        MacMixerSection { channel in
+                            withAnimation(.smooth(duration: 0.18)) {
+                                detailChannel = channel
+                            }
+                        }
                     case .presets:
                         MacPresetsSection()
                     case .binaural:
@@ -41,12 +47,25 @@ struct MacMixerPanel: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
             .padding(20)
+
+            if let detailChannel {
+                MacSoundDetailOverlay(channel: detailChannel) {
+                    withAnimation(.smooth(duration: 0.16)) {
+                        self.detailChannel = nil
+                    }
+                }
+                .transition(.opacity.combined(with: .scale(scale: 0.985)))
+                .zIndex(10)
+            }
         }
         .frame(minWidth: MacPanelLayout.idealSize.width, minHeight: MacPanelLayout.idealSize.height)
         .clipShape(RoundedRectangle(cornerRadius: MacPanelLayout.cornerRadius, style: .continuous))
         .contentShape(RoundedRectangle(cornerRadius: MacPanelLayout.cornerRadius, style: .continuous))
         .tint(MacDesign.accent)
         .preferredColorScheme(.dark)
+        .task {
+            await configureMacScreenshotScenarioIfNeeded()
+        }
         .sheet(item: $model.activePaywallContext) { context in
             MacPaywallSheet(context: context)
                 .environment(model)
@@ -57,6 +76,69 @@ struct MacMixerPanel: View {
                 .environment(model)
                 .frame(width: 420)
         }
+    }
+
+    @MainActor
+    private func configureMacScreenshotScenarioIfNeeded() async {
+        guard !didConfigureScreenshotScenario else { return }
+        guard AppConfiguration.isRunningMacScreenshotAutomation else { return }
+        didConfigureScreenshotScenario = true
+
+        model.setImmersiveAudioEnabled(true)
+        model.randomizeMix()
+        model.setChannelSpatialPosition(.oiseaux, value: SpatialPoint(x: -0.55, y: -0.18))
+        model.setChannelAutoVariationRange(.vent, range: AutoVariationRange(lowerBound: 0.18, upperBound: 0.62))
+
+        switch AppConfiguration.macScreenshotScenario {
+        case "02_sound_detail":
+            selectedSection = .mixer
+            try? await Task.sleep(for: .milliseconds(180))
+            detailChannel = .oiseaux
+        case "03_auto_range":
+            selectedSection = .mixer
+        case "04_saved_ambiences":
+            if let preset = model.presets.first(where: \.isSignature) {
+                model.loadPreset(preset)
+            }
+            selectedSection = .presets
+        case "05_binaural_timer":
+            _ = model.selectBinauralTrack(.alpha)
+            model.setBinauralEnabled(true)
+            model.setBinauralVolume(0.64)
+            model.setTimer(30)
+            selectedSection = .binaural
+        default:
+            selectedSection = .mixer
+        }
+    }
+}
+
+private struct MacSoundDetailOverlay: View {
+    let channel: SoundChannel
+    let onClose: () -> Void
+
+    private var shape: RoundedRectangle {
+        RoundedRectangle(cornerRadius: 22, style: .continuous)
+    }
+
+    var body: some View {
+        ZStack {
+            Color.black.opacity(0.42)
+                .contentShape(Rectangle())
+                .onTapGesture(perform: onClose)
+
+            SoundDetailSheet(channel: channel, showsCloseButton: true, onClose: onClose)
+                .frame(width: 430, height: 560)
+                .background(.regularMaterial, in: shape)
+                .clipShape(shape)
+                .overlay {
+                    shape
+                        .strokeBorder(Color.white.opacity(0.12), lineWidth: 1)
+                }
+                .shadow(color: Color.black.opacity(0.32), radius: 34, y: 18)
+                .padding(.horizontal, 28)
+        }
+        .accessibilityAddTraits(.isModal)
     }
 }
 

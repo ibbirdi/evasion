@@ -39,7 +39,7 @@ Onboarding is a single overlay file: `Views/Overlays/OnboardingView.swift`. Its 
 
 ## macOS top-level structure
 
-`OasisMacApp` is an accessory app (`LSUIElement`) exposed through an AppKit `NSStatusItem`. Clicking the menu bar icon opens a custom borderless `NSPanel` anchored under the status item. The panel's ideal size is `560 × 780` and it presents [`MacMixerPanel`](../../../ios-native/OasisNative/Views/Mac/MacMixerPanel.swift), which reuses the same `AppModel` as iOS.
+`OasisMacApp` is an accessory app (`LSUIElement`) exposed through an AppKit `NSStatusItem`. The status item uses a fixed `wind` SF Symbol as a template image and leaves `contentTintColor` nil, so AppKit renders the normal menu bar colour for the current appearance and the icon does not change between play and pause states. Clicking it opens a custom borderless `NSPanel` anchored under the status item. The panel's ideal size is `560 × 780` and it presents [`MacMixerPanel`](../../../ios-native/OasisNative/Views/Mac/MacMixerPanel.swift), which reuses the same `AppModel` as iOS.
 
 ```
 NSStatusItem
@@ -54,7 +54,7 @@ NSStatusItem
         └── .sheet MacInlineUpsellSheet
 ```
 
-macOS intentionally uses native desktop controls where they fit: segmented pickers, `Menu`, switch toggles, popovers, hover help, compact icon buttons, scrollable lists, and a panel-like density. The mixer keeps sounds in `SoundChannel.allCases` order to match iOS. Each sound row has a small info button that opens the shared `SoundDetailSheet` with its Apple Maps minimap, and sound placement is edited from each row's dedicated placement button rather than a separate tab. AUTO volume reuses the shared `AutoVariationRangeSlider` so min/max bounds stay editable on both platforms. The main mixer list hides the default macOS scroller, overlays a thin custom indicator, and fades its top/bottom edges with an alpha mask driven by native `ScrollGeometry`. The menu bar panel background is a translucent Liquid Glass/material surface, and the header stays minimal: OASIS lockup, waveform signature, play button, immersive toggle, timer, shuffle, and quit only.
+macOS intentionally uses native desktop controls where they fit: segmented pickers, `Menu`, switch toggles, popovers, hover help, compact icon buttons, scrollable lists, and a panel-like density. The mixer keeps sounds in `SoundChannel.allCases` order to match iOS. Each sound row has a small info button that opens the shared `SoundDetailSheet` as an in-panel overlay with its Apple Maps minimap and explicit close button, avoiding AppKit's separate square sheet window over the rounded menu bar panel. Sound placement is edited from each row's dedicated placement button rather than a separate tab. AUTO volume reuses the shared `AutoVariationRangeSlider` so min/max bounds stay editable on both platforms. The main mixer list hides the default macOS scroller, overlays a thin custom indicator, and fades its top/bottom edges with an alpha mask driven by native `ScrollGeometry`. The menu bar panel background is a translucent Liquid Glass/material surface, and the header stays minimal: OASIS lockup, waveform signature, play button, immersive toggle, timer, shuffle, and quit only.
 
 ## SwiftUI patterns used here
 
@@ -131,7 +131,7 @@ There is no centralised colour file beyond `SoundChannelMetadata.swift` for chan
 
 ## XCUITest quiescence
 
-`AnimatedLiquidAura`, `MacAnimatedPlaybackMesh`, and `WaveformSignatureLine` check screenshot automation / UI-test flags and freeze their animation state. Without this, `XCUIApplication` waits indefinitely for "no animations in progress" and screenshot UI tests run for hours. Don't add new continuous animations without applying the same pattern.
+`AnimatedLiquidAura`, `MacAnimatedPlaybackMesh`, and `WaveformSignatureLine` check screenshot automation / UI-test flags and freeze their animation state. `MacMixerPanel` also reads `-OASISMacScreenshotScenario` to seed the visible section, detail overlay, timer, binaural state, and auto-volume range for Mac App Store captures. Without these guards, automated screenshot runs can wait indefinitely for "no animations in progress" or produce nondeterministic panels. Don't add new continuous animations or screenshot scenarios without applying the same pattern.
 
 ## Localisation in views
 

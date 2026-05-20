@@ -52,6 +52,7 @@ Patterns this codebase has settled on. Follow these by default — diverge only 
 - One view per file (with helper subviews allowed in the same file if private).
 - For macOS panel glass, use `macLiquidGlass(in:interactive:)` from `Views/Mac/MacSupportViews.swift`; it gates native macOS 26 `glassEffect` behind a material fallback for the macOS 15 target.
 - Keep native macOS controls visually native: use local `.tint(MacDesign.accent)` for switches and segmented pickers instead of the legacy `AccentColor` asset, and keep stronger channel/premium colours inside custom Oasis controls such as rows, badges, and the playback aura.
+- Keep the menu bar status item icon local to AppKit. It currently uses a fixed template `wind` SF Symbol and leaves `contentTintColor` nil so AppKit renders the standard menu bar colour for the active appearance and selection state. Do not vary this icon by playback state.
 
 ### Animation
 

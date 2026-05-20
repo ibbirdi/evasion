@@ -54,6 +54,7 @@ xcodebuild -scheme OasisMac -project "ios-native/OasisNative.xcodeproj" \
 - Configurations: `Debug` and `Release`. Debug keeps RevenueCat at `.error` by default so dashboard health warnings do not look like app failures in Xcode; add `-OASISRevenueCatDebugLogs` (or env `OASIS_REVENUECAT_DEBUG_LOGS=1`) when actively debugging purchases.
 - Target iOS: 16+ baseline; certain effects require iOS 26+ (the codebase guards them with `if #available`).
 - Target macOS: 15+ baseline, accessory menu bar app (`LSUIElement`) with an `NSStatusItem` opening a custom borderless mixer `NSPanel`. The target includes shared UI helpers such as `HapticSlider`, `SoundDetailSheet`, and `SoundLocationMinimap` so the menu bar mixer can reuse the iOS auto-volume range slider, detail sheet, and Apple Maps minimap.
+- macOS local Run scheme: `OasisMac.xcscheme` passes `-OASISPremiumOverride premium` in Debug so normal Xcode launches do not start RevenueCat without a Mac App Store receipt. Switch that launch argument to `revenueCat` only when actively testing StoreKit / RevenueCat purchase flows.
 - macOS signing: `OasisMac` uses `Mac/OasisMac.entitlements` with App Sandbox enabled and outbound network access for RevenueCat / StoreKit-backed purchase flows. Keep the entitlement set minimal; add new permissions only for features that genuinely require them.
 - macOS metadata: `Mac/Info.plist` sets `LSApplicationCategoryType = public.app-category.healthcare-fitness` to match the App Store category and keep archives warning-free.
 
@@ -119,6 +120,9 @@ From repo root, run `bundle exec fastlane <lane>`:
 | `screenshots` | Snapshot all 10 scenarios in 6 locales on iPhone 17 Pro Max. Output: `fastlane/screenshots/<locale>/iPhone 17 Pro Max-<slug>.png`. |
 | `screenshots_only` | Skips the build step — useful when iterating on snapshot scenarios with the same binary. |
 | `app_previews` | Build local App Preview videos (Ruby pipeline); currently not staged for App Store upload. |
+| `mac_screenshots` | Build `OasisMac` and capture 5 localized menu bar panel scenarios into `fastlane/screenshots-macos/<locale>/`. |
+| `mac_appstore_assets` | Render upload-ready `2880×1800` macOS App Store screenshots from the raw panel captures into `fastlane/appstore-upload-macos/<locale>/`. |
+| `mac_appstore_screenshots` | Full macOS visual pipeline: capture raw panel screenshots, then render upload-ready App Store assets. |
 | `stage_appstore_assets` | Stage screenshots into `fastlane/appstore-upload/<locale>/`; screenshots are renamed to the Variant B display order and App Preview videos are intentionally excluded. |
 | `appstore_metadata` | Push metadata only, no binary. Fast iteration on text. |
 | `appstore_release app_version:1.5.0` | Push screenshots + metadata for an existing binary version. |
@@ -143,6 +147,9 @@ All under `scripts/`. Purpose-specific, not part of the build pipeline.
 | `convert_new_sounds.sh` | When adding/replacing an ambient channel — encodes raw `.wav` to `.m4a` via the 2-pass loudnorm pipeline. See [../content/sounds-catalog.md](../content/sounds-catalog.md). |
 | `generateBinauralSounds.py` | When changing the binaural design (rare). Produces the 4 m4a files. |
 | `generate_store_screenshot_comps.swift` | When updating App Store screenshots — composites the 10 localized slides over adaptive blob-only backgrounds and exports JPEGs at `1320×2868`. See [../marketing/store-assets.md](../marketing/store-assets.md). |
+| `capture_macos_screenshots.rb` | When updating macOS App Store screenshots — builds `OasisMac`, opens the menu bar panel in deterministic screenshot mode, and captures 5 scenarios × 6 locales. |
+| `generate_mac_store_screenshot_comps.swift` | Composites real macOS panel captures into `2880×1800` Mac App Store screenshots and stages them separately from iOS assets. |
+| `mac_screenshot_content.json` | Source data for macOS screenshot copy, slide ordering, source capture mapping, and accent colours. |
 | `generate_app_previews.rb` | When updating App Preview videos; outputs silent videos with a required stereo AAC track for App Store Connect. |
 | `add_files_to_xcode.py` | When adding many files to the Xcode project at once (manual `.pbxproj` edits are error-prone). |
 | `add_channel_translations.py` | When adding/replacing a channel — pre-fills or refreshes `channel.<id>.*` keys in `Localizable.xcstrings` for the current 35-channel catalog. |

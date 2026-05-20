@@ -129,8 +129,10 @@ fastlane/
 ├── metadata/<locale>/               App Store metadata per locale (name, subtitle, keywords, description, …)
 ├── screenshots/<locale>/            Captured + finalised screenshots
 │   └── figma-pro/                   Final composited screenshots + preview JPEGs
+├── screenshots-macos/<locale>/      macOS panel captures + final Mac App Store screenshots
 ├── app-previews/<locale>/           Generated App Preview MP4s
 ├── appstore-upload/                 Staging dir for upload flow
+├── appstore-upload-macos/           Staging dir for macOS screenshot upload
 └── buildlogs/                       Build logs (ignored / cleaned regularly)
 ```
 
@@ -144,11 +146,14 @@ Locales: `en-US`, `fr-FR`, `de-DE`, `es-ES`, `it`, `pt-BR`. See [../content/loca
 | `generateBinauralSounds.py` | Pre-render the 4 binaural tracks. |
 | `generate_app_previews.rb` | Build App Preview videos from screenshots. |
 | `generate_store_screenshot_comps.swift` | Composite the 60 final App Store screenshots. |
+| `capture_macos_screenshots.rb` | Build `OasisMac` and capture the real menu bar panel in all App Store locales. |
+| `generate_mac_store_screenshot_comps.swift` | Composite real macOS panel captures into 2880×1800 Mac App Store screenshots. |
 | `add_files_to_xcode.py` | Add files to the Xcode project programmatically. |
 | `add_channel_translations.py` | Add channel L10n keys when introducing a sound. |
 | `createFastlaneCountriesFolders.js` | Bootstrap fastlane metadata directory structure. |
 | `generateFastlaneTxtFiles.js` | Mirror canonical App Store metadata text files from `fastlane/metadata/`. |
 | `screenshot_content.json` | Source data for screenshot copy / structure. |
+| `mac_screenshot_content.json` | Source data for macOS screenshot copy / structure. |
 | `assets/` | Static assets used by the scripts above. |
 | `ai-memory/` | Memory drift detection tooling — see [../meta/drift-check.md](../meta/drift-check.md). |
 | `community-radar/` | Reddit / Hacker News / forum acquisition digest — see [../marketing/community-radar.md](../marketing/community-radar.md). |

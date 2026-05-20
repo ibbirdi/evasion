@@ -7,7 +7,10 @@ tracks:
   - "fastlane/Snapfile"
   - "fastlane/screenshots/**"
   - "scripts/generate_store_screenshot_comps.swift"
+  - "scripts/generate_mac_store_screenshot_comps.swift"
+  - "scripts/capture_macos_screenshots.rb"
   - "scripts/screenshot_content.json"
+  - "scripts/mac_screenshot_content.json"
   - "ios-native/OasisNativeUITests/OasisNativeScreenshots.swift"
   - "ios-native/OasisNative/Mac/**"
   - "ios-native/OasisNative/Views/Mac/**"
@@ -18,7 +21,7 @@ related:
   - "../codebase/build-and-test.md"
 ---
 
-> **Scope.** This page covers the **10 static iOS App Store screenshots** captured by `OasisNativeScreenshots.swift` and composited via `scripts/generate_store_screenshot_comps.swift`, plus the planned macOS App Store asset track for `OasisMac`. For **social-marketing videos** (TikTok / Reels / Shorts) driven by a sibling XCUITest (`MarketingScenarioRunner.swift`), see [video-factory.md](video-factory.md).
+> **Scope.** This page covers the **10 static iOS App Store screenshots** captured by `OasisNativeScreenshots.swift` and composited via `scripts/generate_store_screenshot_comps.swift`, plus the **5 static macOS App Store screenshots** captured from the real `OasisMac` menu bar panel and composited via `scripts/generate_mac_store_screenshot_comps.swift`. For **social-marketing videos** (TikTok / Reels / Shorts) driven by a sibling XCUITest (`MarketingScenarioRunner.swift`), see [video-factory.md](video-factory.md).
 
 # App Store Assets
 
@@ -35,18 +38,29 @@ Specs and copy for the 60 App Store screenshots (10 slides × 6 locales). App Pr
 - Composite path: `fastlane/screenshots/<locale>/figma-pro/<slug>.jpg`.
 - Upload staging path: `fastlane/appstore-upload/<locale>/<slug>.jpg`, produced by `bundle exec fastlane stage_appstore_assets`.
 
-## macOS asset track (planned)
+## macOS asset track
 
-Apple requires Mac screenshots for the macOS platform. Accepted Mac sizes are 16:10: `1280 × 800`, `1440 × 900`, `2560 × 1600`, or `2880 × 1800`; produce `2880 × 1800` masters unless a future App Store Connect constraint says otherwise. App Store Connect accepts 1–10 screenshots per locale, and Mac app previews are optional but landscape-only.
+Apple requires Mac screenshots for the macOS platform. Accepted Mac sizes are 16:10: `1280 × 800`, `1440 × 900`, `2560 × 1600`, or `2880 × 1800`; Oasis uses `2880 × 1800` masters. App Store Connect accepts 1–10 screenshots per locale, and Mac app previews are optional but landscape-only.
 
-Mac screenshots should sell the native menu bar experience, not reuse iPhone mockups. Proposed first set:
+Mac screenshots sell the native menu bar experience and never reuse iPhone mockups. The current set is:
 
 ```
-01_menu_bar_mixer     02_spatial_detail      03_auto_range
+01_menu_bar_mixer     02_sound_detail        03_auto_range
 04_saved_ambiences    05_binaural_timer
 ```
 
-Capture the actual `OasisMac` panel in a deterministic screenshot mode: open the status-item panel automatically, seed premium/active sounds, force immersive audio on, pause continuous mesh/wave animations, and set a fixed panel size. Composite those raw captures into `fastlane/screenshots-macos/<locale>/` via a dedicated Swift renderer and stage them separately from iOS assets.
+Raw captures come from the actual `OasisMac` panel in deterministic screenshot mode: the app opens the system-rendered template status item panel automatically, seeds premium/active sounds, forces immersive audio on, pauses continuous mesh/wave animations, and applies a fixed scenario. Detail screenshots use the in-panel macOS `SoundDetailSheet` overlay, not an AppKit sheet window.
+
+The macOS copy mirrors the iOS App Store screenshots while selling the native menu bar panel: lead with `35 sounds`, `mixing`, and `escape into real nature`; use detail, saved mixes, and binaural/timer slides as proof points rather than mechanical feature explanations. The bottom-left copy block is text-only: no icon or capsule before the eyebrow.
+
+- Raw capture path: `fastlane/screenshots-macos/<locale>/<slug>.png`.
+- Composite path: `fastlane/screenshots-macos/<locale>/appstore/<index>_<slug>.jpg`.
+- Upload staging path: `fastlane/appstore-upload-macos/<locale>/<index>_<slug>.jpg`.
+- Preview path for review: `fastlane/screenshots-macos/<locale>/appstore/preview/<index>_<slug>.jpg` at `1440 × 900`.
+
+The macOS compositor uses a very large text scale for App Store thumbnail legibility: eyebrow `50 pt`, adaptive subhead `66 → 48 pt`, and oversized adaptive heavy headlines. Keep this larger than the in-app panel typography.
+
+Run the full macOS visual pipeline with `bundle exec fastlane mac_appstore_screenshots`, or split it into `mac_screenshots` and `mac_appstore_assets` while iterating. The Ruby capture script builds `OasisMac`, launches it once per locale/scenario with `-OASISMacScreenshot`, asks the app to render its own visible panel PNG via `-OASISMacScreenshotOutput`, and terminates the app between captures. This avoids relying on macOS Screen Recording permission while still using the real SwiftUI menu bar panel.
 
 ## The 10 slugs
 

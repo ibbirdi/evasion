@@ -32,6 +32,10 @@ private final class MacAppDelegate: NSObject, NSApplicationDelegate {
         configureStatusItem()
         updateStatusItem()
         observeStatusItemState()
+
+        if AppConfiguration.isRunningMacScreenshotAutomation {
+            openPanelForScreenshot(outputPath: AppConfiguration.macScreenshotOutputPath)
+        }
     }
 
     func applicationDidBecomeActive(_ notification: Notification) {
@@ -60,19 +64,47 @@ private final class MacAppDelegate: NSObject, NSApplicationDelegate {
         button.target = self
         button.action = #selector(togglePanel(_:))
         button.imagePosition = .imageOnly
+        button.imageScaling = .scaleProportionallyUpOrDown
+        button.symbolConfiguration = NSImage.SymbolConfiguration(pointSize: 18, weight: .semibold)
+        button.contentTintColor = nil
         button.toolTip = L10n.string(L10n.App.title)
         _ = button.sendAction(on: [.leftMouseUp, .rightMouseUp])
     }
 
     private func updateStatusItem() {
         guard let button = statusItem?.button else { return }
-
-        let symbolName = model.isPlaying ? "waveform.circle.fill" : "water.waves"
-        let image = NSImage(systemSymbolName: symbolName, accessibilityDescription: L10n.string(L10n.App.title))
+        let image = NSImage(systemSymbolName: "wind", accessibilityDescription: L10n.string(L10n.App.title))
         image?.isTemplate = true
-
         button.image = image
-        button.contentTintColor = model.isPlaying ? NSColor.controlAccentColor : NSColor.labelColor
+        button.contentTintColor = nil
+    }
+
+    private func openPanelForScreenshot(outputPath: String? = nil) {
+        Task { @MainActor in
+            try? await Task.sleep(for: .milliseconds(250))
+            guard let button = statusItem?.button else { return }
+            panelController?.show(relativeTo: button)
+
+            if let outputPath {
+                try? await Task.sleep(for: .milliseconds(1_100))
+
+                do {
+                    guard let panelController else {
+                        throw NSError(
+                            domain: "oasis.mac_screenshot",
+                            code: 1,
+                            userInfo: [NSLocalizedDescriptionKey: "Panel controller is unavailable"]
+                        )
+                    }
+                    try panelController.writeSnapshot(to: outputPath)
+                    NSApp.terminate(nil)
+                } catch {
+                    let message = "Failed to write macOS screenshot: \(error.localizedDescription)\n"
+                    FileHandle.standardError.write(Data(message.utf8))
+                    exit(4)
+                }
+            }
+        }
     }
 
     private func observeStatusItemState() {
@@ -123,12 +155,51 @@ private final class MacMenuBarPanelController {
         }
     }
 
-    private func show(relativeTo button: NSStatusBarButton) {
+    func show(relativeTo button: NSStatusBarButton) {
         model.bootstrapIfNeeded()
         model.handleScenePhase(.active)
         positionPanel(relativeTo: button)
         NSApp.activate(ignoringOtherApps: true)
         panel.makeKeyAndOrderFront(nil)
+    }
+
+    func writeSnapshot(to path: String) throws {
+        guard let contentView = panel.contentView else {
+            throw NSError(
+                domain: "oasis.mac_screenshot",
+                code: 2,
+                userInfo: [NSLocalizedDescriptionKey: "Panel content view is unavailable"]
+            )
+        }
+
+        panel.displayIfNeeded()
+        contentView.layoutSubtreeIfNeeded()
+
+        let bounds = contentView.bounds
+        guard let representation = contentView.bitmapImageRepForCachingDisplay(in: bounds) else {
+            throw NSError(
+                domain: "oasis.mac_screenshot",
+                code: 3,
+                userInfo: [NSLocalizedDescriptionKey: "Unable to create a bitmap representation"]
+            )
+        }
+
+        contentView.cacheDisplay(in: bounds, to: representation)
+
+        guard let data = representation.representation(using: .png, properties: [:]) else {
+            throw NSError(
+                domain: "oasis.mac_screenshot",
+                code: 4,
+                userInfo: [NSLocalizedDescriptionKey: "Unable to encode panel snapshot as PNG"]
+            )
+        }
+
+        let outputURL = URL(fileURLWithPath: path)
+        try FileManager.default.createDirectory(
+            at: outputURL.deletingLastPathComponent(),
+            withIntermediateDirectories: true
+        )
+        try data.write(to: outputURL)
     }
 
     private func positionPanel(relativeTo button: NSStatusBarButton) {

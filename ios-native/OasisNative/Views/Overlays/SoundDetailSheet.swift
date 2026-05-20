@@ -7,6 +7,8 @@ struct SoundDetailSheet: View {
     @Environment(\.dismiss) private var dismiss
 
     let channel: SoundChannel
+    var showsCloseButton = false
+    var onClose: (() -> Void)?
 
     /// Measured height of the title/subtitle stack. Drives the circular icon's
     /// width and height so the glyph well stays exactly as tall as its sibling
@@ -18,16 +20,25 @@ struct SoundDetailSheet: View {
     private var credit: ChannelCredit { channel.credit }
 
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 24) {
-                heroHeader
-                locationBlock
-                SoundLocationMinimap(channel: channel)
-                creditBlock
+        ZStack(alignment: .topTrailing) {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 24) {
+                    heroHeader
+                        .padding(.trailing, showsCloseButton ? 48 : 0)
+                    locationBlock
+                    SoundLocationMinimap(channel: channel)
+                    creditBlock
+                }
+                .padding(.horizontal, 22)
+                .padding(.top, 20)
+                .padding(.bottom, 32)
             }
-            .padding(.horizontal, 22)
-            .padding(.top, 20)
-            .padding(.bottom, 32)
+
+            if showsCloseButton {
+                closeButton
+                    .padding(.top, 14)
+                    .padding(.trailing, 14)
+            }
         }
         .background(
             LinearGradient(
@@ -42,6 +53,36 @@ struct SoundDetailSheet: View {
         )
         .accessibilityElement(children: .contain)
         .accessibilityIdentifier("panel.sound-detail.container")
+    }
+
+    private var closeButton: some View {
+        Button {
+            if let onClose {
+                onClose()
+            } else {
+                dismiss()
+            }
+        } label: {
+            Image(systemName: "xmark")
+                .oasisFont(size: 12, weight: .bold, design: .default, relativeTo: .body)
+                .foregroundStyle(.white.opacity(0.78))
+                .frame(width: 30, height: 30)
+                .background {
+                    Circle()
+                        .fill(.regularMaterial)
+                        .overlay {
+                            Circle()
+                                .fill(Color.white.opacity(0.030))
+                        }
+                }
+                .overlay {
+                    Circle()
+                        .strokeBorder(Color.white.opacity(0.10), lineWidth: 1)
+                }
+        }
+        .buttonStyle(PressScaleButtonStyle())
+        .accessibilityLabel(Text(L10n.Presets.close))
+        .oasisMinimumHitTarget()
     }
 
     /// Icon + title + subtitle laid out horizontally and centered on the row's

@@ -55,7 +55,8 @@ Run from a clean working tree on `main`.
 - [ ] Before uploading macOS, run the `OasisMac` Release build and confirm `CODE_SIGN_ENTITLEMENTS = OasisNative/Mac/OasisMac.entitlements`.
 - [ ] For the first macOS release, add the macOS platform to the existing Oasis app record in App Store Connect; do not create a separate app record.
 - [ ] Run `OasisNativePremiumFlowTests` — must pass.
-- [ ] Re-render screenshots if any UI/copy changed: `bundle exec fastlane screenshots` (filtered to the App Store screenshot test), then `swift scripts/generate_store_screenshot_comps.swift` and `bundle exec fastlane stage_appstore_assets`. App Preview videos are currently excluded from staging/upload for `1.5.0`.
+- [ ] Re-render iOS screenshots if any iOS UI/copy changed: `bundle exec fastlane screenshots` (filtered to the App Store screenshot test), then `swift scripts/generate_store_screenshot_comps.swift` and `bundle exec fastlane stage_appstore_assets`. App Preview videos are currently excluded from staging/upload for `1.5.0`.
+- [ ] Re-render macOS screenshots if the menu bar app, macOS copy, or Mac App Store visuals changed: `bundle exec fastlane mac_appstore_screenshots`. Upload-ready files land in `fastlane/appstore-upload-macos/<locale>/`.
 - [ ] Update `fastlane/metadata/<locale>/release_notes.txt` per locale — actual product changes, not "performance + bugs".
 - [ ] Update memory: bump `last_updated` on any file affected by the release.
 - [ ] Commit version bump + release notes + memory updates as one commit.
@@ -75,6 +76,10 @@ Captures all 10 scenarios in 6 locales on iPhone 17 Pro Max simulator. Output: `
 ### `app_previews`
 
 Builds local App Preview videos via [`scripts/generate_app_previews.rb`](../../../scripts/generate_app_previews.rb). The videos are visually silent and generated from the localized screenshot composites, but still include a silent stereo AAC audio track because App Store Connect rejects no-audio MP4s. As of 2026-05-19, these videos are not staged/uploaded because the current App Store previews were stale and removed.
+
+### `mac_appstore_screenshots`
+
+Builds `OasisMac`, captures 5 real menu bar panel scenarios in 6 locales, composites them into `2880 × 1800` JPEG masters, and stages upload-ready files under `fastlane/appstore-upload-macos/<locale>/`. Use `mac_screenshots` and `mac_appstore_assets` separately when iterating on capture state versus composition.
 
 ### `stage_appstore_assets`
 

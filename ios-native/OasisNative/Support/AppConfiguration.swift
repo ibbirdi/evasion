@@ -43,7 +43,10 @@ enum AppConfiguration {
     static let supportURL = URL(string: "https://bow-elephant-191.notion.site/ASSISTANCE-31084ba33afa801d872fc2aecc576f56?source=copy_link")!
     static let isRunningUITests = ProcessInfo.processInfo.arguments.contains("-ui_testing")
     static let isRunningFastlaneSnapshot = ProcessInfo.processInfo.arguments.contains("-FASTLANE_SNAPSHOT")
-    static let isRunningScreenshotAutomation = isRunningUITests || isRunningFastlaneSnapshot
+    static let isRunningMacScreenshotAutomation = ProcessInfo.processInfo.arguments.contains("-OASISMacScreenshot")
+    static let isRunningScreenshotAutomation = isRunningUITests || isRunningFastlaneSnapshot || isRunningMacScreenshotAutomation
+    static let macScreenshotScenario = ProcessInfo.processInfo.launchArgumentValue(after: "-OASISMacScreenshotScenario")
+    static let macScreenshotOutputPath = ProcessInfo.processInfo.launchArgumentValue(after: "-OASISMacScreenshotOutput")
     static let shouldResetStateOnLaunch = isRunningScreenshotAutomation || ProcessInfo.processInfo.arguments.contains("-OASISResetState")
     static let shouldResetOnboardingOnLaunch = ProcessInfo.processInfo.arguments.contains("-OASISResetOnboarding")
     static let shouldPersistState = !isRunningScreenshotAutomation
