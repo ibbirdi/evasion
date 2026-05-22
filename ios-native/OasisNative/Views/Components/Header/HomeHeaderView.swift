@@ -23,10 +23,12 @@ private struct BrandLockupView: View {
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     let visibility: CGFloat
 
-    private static let lockupSize: CGFloat = 158
-    private static let visualCanvasSize: CGFloat = 208
-    private static let ringSize: CGFloat = 118
-    private static let expandedHeightCap: CGFloat = 165
+    private static let logoScale: CGFloat = 1.2
+    private static let lockupSize: CGFloat = 158 * logoScale
+    private static let visualCanvasSize: CGFloat = 208 * logoScale
+    private static let ringSize: CGFloat = 118 * logoScale
+    private static let verticalOffset: CGFloat = -30 * logoScale
+    private static let expandedHeightCap: CGFloat = 165 * logoScale
 
     var body: some View {
         ZStack {
@@ -63,7 +65,7 @@ private struct BrandLockupView: View {
             OasisHeaderWordmark()
         }
         .frame(width: Self.visualCanvasSize, height: Self.visualCanvasSize)
-        .offset(y: -30)
+        .offset(y: Self.verticalOffset)
         .frame(width: Self.lockupSize, height: Self.lockupSize, alignment: .top)
         // `maxHeight` (not a fixed `height`) lets the full lockup render at
         // rest while the cap still collapses to 0 when the user scrolls.
@@ -84,14 +86,15 @@ private struct OasisHeaderWordmark: View {
         (3, "I"),
         (4, "S")
     ]
+    private static let logoScale: CGFloat = 1.2
 
     var body: some View {
-        HStack(spacing: 3) {
+        HStack(spacing: 3 * Self.logoScale) {
             ForEach(Self.letters, id: \.id) { letter in
                 Text(verbatim: letter.value)
             }
         }
-        .oasisFont(size: 18, weight: .semibold, design: .default, relativeTo: .title3)
+        .oasisFont(size: 18 * Self.logoScale, weight: .semibold, design: .default, relativeTo: .title3)
         .foregroundStyle(.white.opacity(0.98))
         .shadow(color: .black.opacity(0.45), radius: 7, x: 0, y: 2)
     }

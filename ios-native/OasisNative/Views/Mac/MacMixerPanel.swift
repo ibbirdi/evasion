@@ -2,6 +2,7 @@ import SwiftUI
 
 struct MacMixerPanel: View {
     @Environment(AppModel.self) private var model
+    @Environment(MacPanelChromeState.self) private var chromeState
     @State private var selectedSection: MacPanelSection = .mixer
     @State private var detailChannel: SoundChannel?
     @State private var didConfigureScreenshotScenario = false
@@ -10,7 +11,7 @@ struct MacMixerPanel: View {
         @Bindable var model = model
 
         ZStack {
-            MacPanelBackground()
+            MacPanelBackground(arrowX: chromeState.arrowX)
 
             VStack(spacing: 16) {
                 MacMixerHeader()
@@ -46,7 +47,9 @@ struct MacMixerPanel: View {
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
-            .padding(20)
+            .padding(.top, 20 + MacPanelLayout.popoverArrowHeight)
+            .padding(.horizontal, 20)
+            .padding(.bottom, 20)
 
             if let detailChannel {
                 MacSoundDetailOverlay(channel: detailChannel) {
@@ -59,8 +62,8 @@ struct MacMixerPanel: View {
             }
         }
         .frame(minWidth: MacPanelLayout.idealSize.width, minHeight: MacPanelLayout.idealSize.height)
-        .clipShape(RoundedRectangle(cornerRadius: MacPanelLayout.cornerRadius, style: .continuous))
-        .contentShape(RoundedRectangle(cornerRadius: MacPanelLayout.cornerRadius, style: .continuous))
+        .clipShape(MacPanelPopoverShape(arrowX: chromeState.arrowX))
+        .contentShape(MacPanelPopoverShape(arrowX: chromeState.arrowX))
         .tint(MacDesign.accent)
         .preferredColorScheme(.dark)
         .task {
@@ -206,6 +209,8 @@ private struct MacBrandLockup: View {
     @Environment(AppModel.self) private var model
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
+    private static let logoScale: CGFloat = 1.2
+
     var body: some View {
         ZStack {
             ZStack {
@@ -234,7 +239,7 @@ private struct MacBrandLockup: View {
 
             MacOasisWordmark()
         }
-        .frame(width: 66, height: 66)
+        .frame(width: 66 * Self.logoScale, height: 66 * Self.logoScale)
         .accessibilityElement(children: .combine)
         .accessibilityLabel(L10n.App.title)
     }
@@ -248,14 +253,15 @@ private struct MacOasisWordmark: View {
         (3, "I"),
         (4, "S")
     ]
+    private static let logoScale: CGFloat = 1.2
 
     var body: some View {
-        HStack(spacing: 1.7) {
+        HStack(spacing: 1.7 * Self.logoScale) {
             ForEach(Self.letters, id: \.id) { letter in
                 Text(verbatim: letter.value)
             }
         }
-        .oasisFont(size: 10.5, weight: .semibold, design: .default, relativeTo: .caption)
+        .oasisFont(size: 10.5 * Self.logoScale, weight: .semibold, design: .default, relativeTo: .caption)
         .foregroundStyle(.white.opacity(0.97))
         .shadow(color: .black.opacity(0.42), radius: 4, x: 0, y: 1)
     }
@@ -269,6 +275,9 @@ private struct MacRotatingOasisLogoRing: View {
 
     @State private var rotationAccumulator = MacRingRotationAccumulator()
 
+    private static let logoScale: CGFloat = 1.2
+    private static let ringSize: CGFloat = 66 * logoScale
+    private static let glowCanvasSize: CGFloat = 106 * logoScale
     private static let idleDegreesPerSecond: Double = 4.2
     private static let playbackDegreesPerSecond: Double = 13.0
 
@@ -283,9 +292,13 @@ private struct MacRotatingOasisLogoRing: View {
                 paused: shouldPause
             )
 
-            MacOasisLogoRingArtwork()
-                .rotationEffect(.degrees(rotation + initialRotationDegrees))
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            ZStack {
+                MacOasisLogoRingArtwork()
+                    .frame(width: Self.ringSize, height: Self.ringSize)
+                    .rotationEffect(.degrees(rotation + initialRotationDegrees))
+            }
+            .frame(width: Self.glowCanvasSize, height: Self.glowCanvasSize)
+            .drawingGroup(opaque: false)
         }
     }
 }
@@ -294,6 +307,8 @@ private struct MacOasisLogoRingArtwork: View {
     var body: some View {
         Image("OasisRingLogo")
             .resizable()
+            .interpolation(.high)
+            .antialiased(true)
             .scaledToFit()
             .saturation(1.08)
             .contrast(1.04)

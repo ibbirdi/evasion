@@ -385,6 +385,8 @@ private struct MacThinScrollView<Content: View>: View {
     @State private var viewportHeight: CGFloat = 0
     @State private var contentHeight: CGFloat = 0
     @State private var contentOffset: CGFloat = 0
+    @State private var isScrollbarVisible = false
+    @State private var scrollbarHideTask: Task<Void, Never>?
 
     @ViewBuilder let content: Content
 
@@ -402,15 +404,23 @@ private struct MacThinScrollView<Content: View>: View {
                 viewportHeight: geometry.containerSize.height,
                 contentOffset: max(0, geometry.contentOffset.y + geometry.contentInsets.top)
             )
-        } action: { _, metrics in
+        } action: { previousMetrics, metrics in
             contentHeight = metrics.contentHeight
             viewportHeight = metrics.viewportHeight
             contentOffset = min(metrics.contentOffset, max(metrics.contentHeight - metrics.viewportHeight, 0))
+
+            if abs(metrics.contentOffset - previousMetrics.contentOffset) > 0.5 {
+                revealScrollbar()
+            }
         }
         .compositingGroup()
         .mask(scrollEdgeMask)
         .overlay(alignment: .trailing) {
             thinScrollbar
+        }
+        .onDisappear {
+            scrollbarHideTask?.cancel()
+            scrollbarHideTask = nil
         }
     }
 
@@ -456,9 +466,28 @@ private struct MacThinScrollView<Content: View>: View {
             .offset(y: yOffset)
             .frame(width: 8, height: viewportHeight, alignment: .top)
             .padding(.trailing, 2)
-            .opacity(canScroll ? 1 : 0)
+            .opacity(canScroll && isScrollbarVisible ? 1 : 0)
             .allowsHitTesting(false)
             .animation(.easeInOut(duration: 0.16), value: canScroll)
+            .animation(.easeInOut(duration: 0.18), value: isScrollbarVisible)
+    }
+
+    private func revealScrollbar() {
+        guard contentHeight > viewportHeight + 1 else { return }
+        scrollbarHideTask?.cancel()
+
+        withAnimation(.easeOut(duration: 0.08)) {
+            isScrollbarVisible = true
+        }
+
+        scrollbarHideTask = Task { @MainActor in
+            try? await Task.sleep(for: .milliseconds(850))
+            guard !Task.isCancelled else { return }
+
+            withAnimation(.easeInOut(duration: 0.22)) {
+                isScrollbarVisible = false
+            }
+        }
     }
 
     private var edgeFadeHeight: CGFloat {

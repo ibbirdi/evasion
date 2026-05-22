@@ -128,6 +128,7 @@ private final class MacAppDelegate: NSObject, NSApplicationDelegate {
 @MainActor
 private final class MacMenuBarPanelController {
     private let model: AppModel
+    private let chromeState = MacPanelChromeState()
     private let panel: BorderlessMacPanel
 
     init(model: AppModel) {
@@ -136,6 +137,7 @@ private final class MacMenuBarPanelController {
 
         let rootView = MacMixerPanel()
             .environment(model)
+            .environment(chromeState)
             .frame(
                 minWidth: MacPanelLayout.idealSize.width,
                 idealWidth: MacPanelLayout.idealSize.width,
@@ -147,8 +149,8 @@ private final class MacMenuBarPanelController {
 
         panel.contentViewController = NSHostingController(rootView: rootView)
         panel.contentView?.wantsLayer = true
-        panel.contentView?.layer?.cornerRadius = MacPanelLayout.cornerRadius
-        panel.contentView?.layer?.masksToBounds = true
+        panel.contentView?.layer?.backgroundColor = NSColor.clear.cgColor
+        panel.contentView?.layer?.masksToBounds = false
     }
 
     func toggle(relativeTo button: NSStatusBarButton) {
@@ -220,11 +222,19 @@ private final class MacMenuBarPanelController {
         let buttonFrameInWindow = button.convert(button.bounds, to: nil)
         let buttonFrame = buttonWindow.convertToScreen(buttonFrameInWindow)
 
-        let preferredX = buttonFrame.maxX - width
+        let arrowMargin = MacPanelLayout.cornerRadius + (MacPanelLayout.popoverArrowWidth / 2)
+        let preferredArrowX = min(
+            max(MacPanelLayout.defaultArrowX, arrowMargin),
+            width - arrowMargin
+        )
+        let preferredX = buttonFrame.midX - preferredArrowX
         let x = min(
             max(preferredX, visibleFrame.minX + MacPanelLayout.screenMargin),
             visibleFrame.maxX - width - MacPanelLayout.screenMargin
         )
+        let arrowX = buttonFrame.midX - x
+        chromeState.arrowX = min(max(arrowX, arrowMargin), width - arrowMargin)
+
         let preferredY = buttonFrame.minY - height - MacPanelLayout.statusItemGap
         let y = max(preferredY, visibleFrame.minY + MacPanelLayout.screenMargin)
 

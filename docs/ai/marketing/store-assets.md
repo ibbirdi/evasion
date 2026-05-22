@@ -49,7 +49,7 @@ Mac screenshots sell the native menu bar experience and never reuse iPhone mocku
 04_saved_ambiences    05_binaural_timer
 ```
 
-Raw captures come from the actual `OasisMac` panel in deterministic screenshot mode: the app opens the system-rendered template status item panel automatically, seeds premium/active sounds, forces immersive audio on, pauses continuous mesh/logo animations, and applies a fixed scenario. The visible header includes the compact counter-rotating OASIS ring logo, playback, timer, shuffle, AirPlay route picker, and quit controls. Detail screenshots use the in-panel macOS `SoundDetailSheet` overlay, not an AppKit sheet window.
+Raw captures come from the actual `OasisMac` panel in deterministic screenshot mode: the app opens the system-rendered template status item panel automatically, seeds premium/active sounds, forces immersive audio on, pauses continuous mesh/logo animations, and applies a fixed scenario. The visible panel uses the same popover-style top arrow as native system route panels and points it at the status item. The visible header includes the compact antialiased counter-rotating OASIS ring logo at the shared 1.2 lockup scale, playback, timer, shuffle, AirPlay route picker, and quit controls. Detail screenshots use the in-panel macOS `SoundDetailSheet` overlay, not an AppKit sheet window.
 
 The macOS copy mirrors the iOS App Store screenshots while selling the native menu bar panel: lead with `35 sounds`, `mixing`, and `escape into real nature`; use detail, saved mixes, and binaural/timer slides as proof points rather than mechanical feature explanations. The bottom-left copy block is text-only: no icon or capsule before the eyebrow.
 

@@ -1,3 +1,4 @@
+import Observation
 import SwiftUI
 
 #if os(macOS)
@@ -6,14 +7,26 @@ import AVKit
 #endif
 
 enum MacPanelLayout {
-    static let idealSize = CGSize(width: 560, height: 780)
+    static let contentSize = CGSize(width: 560, height: 780)
+    static let popoverArrowHeight: CGFloat = 12
+    static let popoverArrowWidth: CGFloat = 24
+    static let idealSize = CGSize(
+        width: contentSize.width,
+        height: contentSize.height + popoverArrowHeight
+    )
     static let cornerRadius: CGFloat = 22
     static let screenMargin: CGFloat = 12
-    static let statusItemGap: CGFloat = 10
+    static let statusItemGap: CGFloat = 4
+    static let defaultArrowX: CGFloat = contentSize.width - 38
 }
 
 enum MacDesign {
     static let accent = Color(red: 0.64, green: 0.86, blue: 0.82)
+}
+
+@Observable
+final class MacPanelChromeState {
+    var arrowX: CGFloat = MacPanelLayout.defaultArrowX
 }
 
 enum MacPanelSection: String, CaseIterable, Identifiable {
@@ -46,6 +59,59 @@ enum MacPanelSection: String, CaseIterable, Identifiable {
     }
 }
 
+struct MacPanelPopoverShape: Shape {
+    var arrowX: CGFloat
+
+    var animatableData: CGFloat {
+        get { arrowX }
+        set { arrowX = newValue }
+    }
+
+    func path(in rect: CGRect) -> Path {
+        let arrowHeight = min(MacPanelLayout.popoverArrowHeight, rect.height * 0.20)
+        let arrowHalfWidth = MacPanelLayout.popoverArrowWidth / 2
+        let body = CGRect(
+            x: rect.minX,
+            y: rect.minY + arrowHeight,
+            width: rect.width,
+            height: rect.height - arrowHeight
+        )
+        let radius = min(MacPanelLayout.cornerRadius, body.width / 2, body.height / 2)
+        let clampedArrowX = min(
+            max(arrowX, body.minX + radius + arrowHalfWidth),
+            body.maxX - radius - arrowHalfWidth
+        )
+
+        var path = Path()
+        path.move(to: CGPoint(x: body.minX + radius, y: body.minY))
+        path.addLine(to: CGPoint(x: clampedArrowX - arrowHalfWidth, y: body.minY))
+        path.addLine(to: CGPoint(x: clampedArrowX, y: rect.minY))
+        path.addLine(to: CGPoint(x: clampedArrowX + arrowHalfWidth, y: body.minY))
+        path.addLine(to: CGPoint(x: body.maxX - radius, y: body.minY))
+        path.addQuadCurve(
+            to: CGPoint(x: body.maxX, y: body.minY + radius),
+            control: CGPoint(x: body.maxX, y: body.minY)
+        )
+        path.addLine(to: CGPoint(x: body.maxX, y: body.maxY - radius))
+        path.addQuadCurve(
+            to: CGPoint(x: body.maxX - radius, y: body.maxY),
+            control: CGPoint(x: body.maxX, y: body.maxY)
+        )
+        path.addLine(to: CGPoint(x: body.minX + radius, y: body.maxY))
+        path.addQuadCurve(
+            to: CGPoint(x: body.minX, y: body.maxY - radius),
+            control: CGPoint(x: body.minX, y: body.maxY)
+        )
+        path.addLine(to: CGPoint(x: body.minX, y: body.minY + radius))
+        path.addQuadCurve(
+            to: CGPoint(x: body.minX + radius, y: body.minY),
+            control: CGPoint(x: body.minX, y: body.minY)
+        )
+        path.closeSubpath()
+        return path
+    }
+}
+
 extension View {
     @ViewBuilder
     func macLiquidGlass<S: Shape>(in shape: S, interactive: Bool = false) -> some View {
@@ -62,36 +128,46 @@ extension View {
 }
 
 struct MacPanelBackground: View {
-    var body: some View {
-        let shape = RoundedRectangle(cornerRadius: MacPanelLayout.cornerRadius, style: .continuous)
+    var arrowX: CGFloat?
 
+    var body: some View {
+        if let arrowX {
+            background(shape: MacPanelPopoverShape(arrowX: arrowX))
+        } else {
+            background(shape: RoundedRectangle(cornerRadius: MacPanelLayout.cornerRadius, style: .continuous))
+        }
+    }
+
+    private func background<S: Shape>(shape: S) -> some View {
         shape
-            .fill(Color.white.opacity(0.001))
-            .macLiquidGlass(in: shape)
+            .fill(Color(red: 0.020, green: 0.024, blue: 0.032).opacity(0.30))
+            .background(.ultraThinMaterial, in: shape)
             .overlay {
                 LinearGradient(
                     colors: [
-                        Color(red: 0.052, green: 0.061, blue: 0.075).opacity(0.52),
-                        Color(red: 0.020, green: 0.024, blue: 0.034).opacity(0.64)
+                        Color(red: 0.052, green: 0.061, blue: 0.075).opacity(0.24),
+                        Color(red: 0.020, green: 0.024, blue: 0.034).opacity(0.36)
                     ],
                     startPoint: .topLeading,
                     endPoint: .bottomTrailing
                 )
+                .clipShape(shape)
             }
             .overlay(alignment: .top) {
                 LinearGradient(
                     colors: [
-                        Color.white.opacity(0.08),
+                        Color.white.opacity(0.06),
                         Color.clear
                     ],
                     startPoint: .top,
                     endPoint: .bottom
                 )
                 .frame(height: 180)
+                .clipShape(shape)
             }
             .overlay {
                 shape
-                    .strokeBorder(Color.white.opacity(0.10), lineWidth: 1)
+                    .stroke(Color.white.opacity(0.12), lineWidth: 1)
             }
             .ignoresSafeArea()
     }
