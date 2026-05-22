@@ -2,6 +2,11 @@
 
 Material changes to the memory itself (not to the code it documents). Append entries — newest on top.
 
+## 2026-05-22 — Sound backgrounds documented
+
+- Added [`content/sound-backgrounds.md`](../content/sound-backgrounds.md) for Pexels photo source IDs, asset names, and per-track visual rationale.
+- Updated [`docs/ai/README.md`](../README.md), [`content/sounds-catalog.md`](../content/sounds-catalog.md), [`architecture/ui.md`](../architecture/ui.md), [`codebase/conventions.md`](../codebase/conventions.md), and [`codebase/structure.md`](../codebase/structure.md) to route future sound-background changes.
+
 ## 2026-05-20 — Community Radar documented
 
 - Added [`marketing/community-radar.md`](../marketing/community-radar.md) for Reddit / Hacker News / forum acquisition strategy, guardrails, and measurement.

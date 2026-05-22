@@ -1,7 +1,7 @@
 ---
 title: Code Conventions
 status: stable
-last_updated: 2026-05-20
+last_updated: 2026-05-22
 tracks:
   - "ios-native/OasisNative/**/*.swift"
   - "ios-native/OasisNative/Support/L10n.swift"
@@ -88,6 +88,8 @@ savane, jungleAmerique, jungleAsie
 ```
 
 These IDs are persisted in user `UserDefaults` payloads. **Renaming a case requires a migration** in `PersistedMixerState` decoding. Don't rename casually.
+
+Per-sound background assets use stable asset names derived from these IDs, e.g. `sound_oiseaux_background` and `sound_orage_montagne_background`. Keep the asset name stable when swapping the image, and update `SoundChannel.backdrop` plus [../content/sound-backgrounds.md](../content/sound-backgrounds.md) when a source photo changes.
 
 There are three known mismatches between channel IDs and underlying file names — see [../operations/known-issues.md](../operations/known-issues.md):
 

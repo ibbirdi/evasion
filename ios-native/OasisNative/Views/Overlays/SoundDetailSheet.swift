@@ -41,14 +41,18 @@ struct SoundDetailSheet: View {
             }
         }
         .background(
-            LinearGradient(
-                colors: [
-                    channel.tint.opacity(0.14),
-                    .black.opacity(0.0)
-                ],
-                startPoint: .top,
-                endPoint: .center
-            )
+            ZStack {
+                SoundBackdropImage(backdrop: channel.backdrop, opacity: 0.20)
+                LinearGradient(
+                    colors: [
+                        channel.tint.opacity(0.16),
+                        Color.black.opacity(0.28),
+                        Color.black.opacity(0.64)
+                    ],
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+            }
             .ignoresSafeArea()
         )
         .accessibilityElement(children: .contain)

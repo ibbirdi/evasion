@@ -164,6 +164,37 @@ struct ChannelCredit: Sendable {
     }
 }
 
+struct SoundBackdrop: Sendable {
+    let assetName: String
+    let focus: SoundBackdropFocus
+}
+
+enum SoundBackdropFocus: String, Sendable {
+    case center
+    case top
+    case bottom
+    case leading
+    case trailing
+    case topLeading
+    case topTrailing
+    case bottomLeading
+    case bottomTrailing
+
+    var alignment: Alignment {
+        switch self {
+        case .center: return .center
+        case .top: return .top
+        case .bottom: return .bottom
+        case .leading: return .leading
+        case .trailing: return .trailing
+        case .topLeading: return .topLeading
+        case .topTrailing: return .topTrailing
+        case .bottomLeading: return .bottomLeading
+        case .bottomTrailing: return .bottomTrailing
+        }
+    }
+}
+
 extension SoundChannel {
     var metadata: ChannelMetadata {
         guard let value = Self.metadataTable[self] else {
@@ -180,11 +211,55 @@ extension SoundChannel {
     var credit: ChannelCredit { metadata.credit }
     var shortNameResource: LocalizedStringResource { metadata.shortName }
     var longNameResource: LocalizedStringResource { metadata.longName }
+    var backdrop: SoundBackdrop {
+        guard let value = Self.backdropTable[self] else {
+            preconditionFailure("Missing backdrop for channel \(rawValue). Add an entry in SoundChannel.backdropTable.")
+        }
+        return value
+    }
 
     var localizedName: String { String(localized: shortNameResource) }
     var localizedLongName: String { String(localized: longNameResource) }
 
     // MARK: - Single source of truth
+
+    private static let backdropTable: [SoundChannel: SoundBackdrop] = [
+        .oiseaux: .init(assetName: "sound_oiseaux_background", focus: .center),
+        .vent: .init(assetName: "sound_vent_background", focus: .center),
+        .plage: .init(assetName: "sound_plage_background", focus: .center),
+        .goelands: .init(assetName: "sound_goelands_background", focus: .center),
+        .foret: .init(assetName: "sound_foret_background", focus: .center),
+        .pluie: .init(assetName: "sound_pluie_background", focus: .center),
+        .tonnerre: .init(assetName: "sound_tonnerre_background", focus: .center),
+        .cigales: .init(assetName: "sound_cigales_background", focus: .center),
+        .grillons: .init(assetName: "sound_grillons_background", focus: .top),
+        .tente: .init(assetName: "sound_tente_background", focus: .center),
+        .riviere: .init(assetName: "sound_riviere_background", focus: .center),
+        .village: .init(assetName: "sound_village_background", focus: .center),
+        .mer: .init(assetName: "sound_mer_background", focus: .center),
+        .orageMontagne: .init(assetName: "sound_orage_montagne_background", focus: .center),
+        .campfire: .init(assetName: "sound_campfire_background", focus: .center),
+        .cafe: .init(assetName: "sound_cafe_background", focus: .center),
+        .lac: .init(assetName: "sound_lac_background", focus: .center),
+        .savane: .init(assetName: "sound_savane_background", focus: .center),
+        .jungleAmerique: .init(assetName: "sound_jungle_amerique_background", focus: .center),
+        .jungleAsie: .init(assetName: "sound_jungle_asie_background", focus: .center),
+        .pluieFenetre: .init(assetName: "sound_pluie_fenetre_background", focus: .center),
+        .pluieForet: .init(assetName: "sound_pluie_foret_background", focus: .center),
+        .fortePluie: .init(assetName: "sound_forte_pluie_background", focus: .center),
+        .ventNuit: .init(assetName: "sound_vent_nuit_background", focus: .center),
+        .foretNuit: .init(assetName: "sound_foret_nuit_background", focus: .top),
+        .crueMontagne: .init(assetName: "sound_crue_montagne_background", focus: .center),
+        .cascade: .init(assetName: "sound_cascade_background", focus: .center),
+        .neigeVille: .init(assetName: "sound_neige_ville_background", focus: .center),
+        .pluieCabane: .init(assetName: "sound_pluie_cabane_background", focus: .center),
+        .foretChiloe: .init(assetName: "sound_foret_chiloe_background", focus: .center),
+        .aubeJungle: .init(assetName: "sound_aube_jungle_background", focus: .center),
+        .port: .init(assetName: "sound_port_background", focus: .center),
+        .chevres: .init(assetName: "sound_chevres_background", focus: .center),
+        .carillons: .init(assetName: "sound_carillons_background", focus: .center),
+        .cloches: .init(assetName: "sound_cloches_background", focus: .center)
+    ]
 
     private static let metadataTable: [SoundChannel: ChannelMetadata] = [
         .oiseaux: ChannelMetadata(
@@ -863,4 +938,19 @@ extension SoundChannel {
             )
         )
     ]
+}
+
+extension BinauralTrack {
+    var backdrop: SoundBackdrop {
+        switch self {
+        case .delta:
+            return SoundBackdrop(assetName: "binaural_delta_background", focus: .top)
+        case .theta:
+            return SoundBackdrop(assetName: "binaural_theta_background", focus: .center)
+        case .alpha:
+            return SoundBackdrop(assetName: "binaural_alpha_background", focus: .center)
+        case .beta:
+            return SoundBackdrop(assetName: "binaural_beta_background", focus: .center)
+        }
+    }
 }

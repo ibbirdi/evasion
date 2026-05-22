@@ -1,7 +1,7 @@
 ---
 title: Repo Structure
 status: stable
-last_updated: 2026-05-20
+last_updated: 2026-05-22
 tracks:
   - "ios-native/**"
   - "scripts/**"
@@ -51,7 +51,7 @@ ios-native/
 │   ├── Views/                       SwiftUI screens, components, overlays
 │   ├── Support/                     Configuration, L10n keys, Info.plist, shader, helpers
 │   ├── Resources/                   Audio (.m4a), Images, Localizable.xcstrings
-│   └── Assets.xcassets/             App icon
+│   └── Assets.xcassets/             App icon, accent color, sound background images
 ├── OasisNativeUITests/              UI tests (screenshots + premium flow + marketing scenarios)
 └── scripts/                         iOS-specific scripts (probably empty/legacy)
 ```
@@ -117,7 +117,10 @@ Views/
 
 ### `Assets.xcassets/`
 
-App icon. In-bundle UI images live under `Resources/Images/`.
+| Path | Contains |
+| --- | --- |
+| `AccentColor.colorset/` | Legacy iOS accent colour. |
+| `SoundBackgrounds/*.imageset` | Pexels-derived 1200×800 JPEG watermarks for ambient and binaural track cards. Source choices are documented in [../content/sound-backgrounds.md](../content/sound-backgrounds.md). |
 
 ## `fastlane/`
 

@@ -136,6 +136,10 @@ private struct MacChannelRow: View {
                 .fill(Color.white.opacity(0.001))
                 .macLiquidGlass(in: rowShape)
                 .overlay {
+                    SoundBackdropImage(backdrop: channel.backdrop, opacity: backdropOpacity)
+                        .clipShape(rowShape)
+                }
+                .overlay {
                     rowShape
                         .fill(channelBackgroundGradient)
                 }
@@ -364,6 +368,12 @@ private struct MacChannelRow: View {
         if state.isMuted { return 0.24 }
         if state.autoVariationEnabled { return 0.88 }
         return 1
+    }
+
+    private var backdropOpacity: Double {
+        if isLocked { return 0.05 }
+        if isActive { return state.autoVariationEnabled ? 0.18 : 0.15 }
+        return 0.08
     }
 
     private var spatialAccessibilityValue: LocalizedStringResource {

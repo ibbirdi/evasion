@@ -109,6 +109,7 @@ struct SoundRowView: View {
                 Rectangle()
                     .fill(isActive ? AnyShapeStyle(.ultraThinMaterial) : AnyShapeStyle(.thinMaterial))
                     .opacity(isActive ? 1 : 0.45)
+                SoundBackdropImage(backdrop: channel.backdrop, opacity: backdropOpacity)
                 Rectangle()
                     .fill(channelBackgroundGradient)
             }
@@ -377,6 +378,12 @@ struct SoundRowView: View {
         if isAutoAnimating { return 1 }
         if state.autoVariationEnabled { return 0.80 }
         return 1
+    }
+
+    private var backdropOpacity: Double {
+        if isLocked { return 0.055 }
+        if isActive { return state.autoVariationEnabled ? 0.18 : 0.15 }
+        return 0.085
     }
 
     private var channelBackgroundGradient: LinearGradient {

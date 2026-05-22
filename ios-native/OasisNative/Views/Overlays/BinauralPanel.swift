@@ -170,19 +170,28 @@ private struct BinauralTrackCard: View {
                     .fill(Color.white.opacity(0.001))
                     .oasisGlassEffect(in: RoundedRectangle(cornerRadius: 20, style: .continuous))
                     .overlay {
+                        SoundBackdropImage(backdrop: track.backdrop, opacity: backdropOpacity)
+                            .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+                    }
+                    .overlay {
                         RoundedRectangle(cornerRadius: 20, style: .continuous)
                             .fill(isActive ? track.tint.opacity(0.13) : Color.white.opacity(0.018))
                     }
             }
-        .overlay {
-            RoundedRectangle(cornerRadius: 20, style: .continuous)
+            .overlay {
+                RoundedRectangle(cornerRadius: 20, style: .continuous)
                     .strokeBorder(isActive ? track.tint.opacity(0.28) : Color.white.opacity(0.06), lineWidth: 1)
-        }
+            }
         }
         .accessibilityIdentifier("binaural.track.\(track.id)")
         .accessibilityValue(accessibilityValue)
         .accessibilityAddTraits(isActive ? .isSelected : [])
         .buttonStyle(BinauralButtonScaleStyle())
+    }
+
+    private var backdropOpacity: Double {
+        if isLocked { return 0.055 }
+        return isActive ? 0.18 : 0.095
     }
 
     private var accessibilityValue: Text {

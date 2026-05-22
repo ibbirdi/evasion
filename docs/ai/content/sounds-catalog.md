@@ -1,7 +1,7 @@
 ---
 title: Sounds Catalog
 status: stable
-last_updated: 2026-05-19
+last_updated: 2026-05-22
 tracks:
   - "ios-native/OasisNative/Models/SoundChannelMetadata.swift"
   - "ios-native/OasisNative/Models/AppModels.swift"
@@ -11,6 +11,7 @@ tracks:
 related:
   - "../architecture/audio-engine.md"
   - "../architecture/binaural.md"
+  - "sound-backgrounds.md"
   - "../operations/known-issues.md"
 ---
 
@@ -65,6 +66,8 @@ The 35 ambient channels and 4 binaural tracks. The single source of truth for ru
 **File-mismatch entries** (channel IDs differ from file names): `goelands`/`goelants1.m4a`, `tonnerre`/`orage1.m4a`, `village`/`ville1.m4a`. These are historical and **not** to be "fixed" — see [../operations/known-issues.md](../operations/known-issues.md).
 
 **Visual tints**: each channel stores a stable RGB tint in `SoundChannelMetadata.swift`. Runtime UI rendering boosts that tint's HSB saturation/brightness centrally in `ChannelMetadata.tint`, so mixer rows, sliders, minimaps, spatial controls, and premium teasers read more vibrant without editing every channel value. Tints should still match the channel mood: bird ambience reads morning-gold, wind/harbour sounds lean airy/coastal blue, thunder is muted storm-violet, night sounds are darker blue/indigo, and shelter sounds use warmer wood/cabin tones.
+
+**Visual backgrounds**: every ambient channel also has a subtle Pexels photo watermark mapped by `SoundChannel.backdrop` and stored in `Assets.xcassets/SoundBackgrounds`. Source photo IDs and selection rationale live in [sound-backgrounds.md](sound-backgrounds.md); keep that file in sync whenever a background asset changes.
 
 ## Licences and attribution
 

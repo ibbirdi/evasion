@@ -57,7 +57,19 @@ private struct MacBinauralTrackRow: View {
                 model.setBinauralEnabled(true)
             }
         } label: {
-            MacPanelSurface(padding: EdgeInsets(top: 11, leading: 11, bottom: 11, trailing: 11)) {
+            ZStack {
+                RoundedRectangle(cornerRadius: 10, style: .continuous)
+                    .fill(Color.white.opacity(0.001))
+                    .macLiquidGlass(in: RoundedRectangle(cornerRadius: 10, style: .continuous))
+                    .overlay {
+                        SoundBackdropImage(backdrop: track.backdrop, opacity: backdropOpacity)
+                            .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                    }
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 10, style: .continuous)
+                            .fill(selected ? track.tint.opacity(0.12) : Color.white.opacity(0.025))
+                    }
+
                 HStack(spacing: 11) {
                     Image(systemName: locked ? "lock.fill" : (selected ? "waveform.path.badge.plus" : "waveform.path"))
                         .font(.system(size: 14, weight: .semibold))
@@ -83,8 +95,18 @@ private struct MacBinauralTrackRow: View {
                             .foregroundStyle(track.tint)
                     }
                 }
+                .padding(EdgeInsets(top: 11, leading: 11, bottom: 11, trailing: 11))
+            }
+            .overlay {
+                RoundedRectangle(cornerRadius: 10, style: .continuous)
+                    .strokeBorder(selected ? track.tint.opacity(0.24) : Color.white.opacity(0.055), lineWidth: 1)
             }
         }
         .buttonStyle(.plain)
+    }
+
+    private var backdropOpacity: Double {
+        if locked { return 0.05 }
+        return selected ? 0.16 : 0.08
     }
 }

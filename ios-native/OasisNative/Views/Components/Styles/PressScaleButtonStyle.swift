@@ -45,6 +45,43 @@ extension View {
     }
 }
 
+struct SoundBackdropImage: View {
+    let backdrop: SoundBackdrop
+    var opacity: Double
+
+    var body: some View {
+        GeometryReader { proxy in
+            Image(backdrop.assetName)
+                .resizable()
+                .scaledToFill()
+                .frame(
+                    width: proxy.size.width,
+                    height: proxy.size.height,
+                    alignment: backdrop.focus.alignment
+                )
+                .clipped()
+                .saturation(0.72)
+                .contrast(0.86)
+                .brightness(-0.08)
+                .opacity(opacity)
+                .overlay {
+                    LinearGradient(
+                        colors: [
+                            Color.black.opacity(0.42),
+                            Color.black.opacity(0.18),
+                            Color.black.opacity(0.58)
+                        ],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
+                    .opacity(min(opacity * 2.1, 0.72))
+                }
+        }
+        .accessibilityHidden(true)
+        .allowsHitTesting(false)
+    }
+}
+
 struct PressScaleButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         #if os(iOS)

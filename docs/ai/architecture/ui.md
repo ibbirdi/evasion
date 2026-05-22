@@ -1,7 +1,7 @@
 ---
 title: UI System
 status: stable
-last_updated: 2026-05-20
+last_updated: 2026-05-22
 tracks:
   - "ios-native/OasisNative/Views/**"
   - "ios-native/OasisNative/Support/Info.plist"
@@ -87,6 +87,7 @@ Most overlays bind to an optional state on `AppModel` and present when non-nil:
 | `GlassSurfaces` | Backdrop-blur frosted glass containers (cards, panels). Wraps `iOS 26+ glassEffect` when available. |
 | `AnimatedLiquidAura` | Liquid blob aura around the play button when audio is active. Paused under XCUITest. |
 | `AnimatedBackdrop` | Static full-screen deep blue/grey backdrop. It intentionally does not adapt to selected or playing channel tints. |
+| `SoundBackdropImage` | Shared photo watermark renderer for sound rows, binaural cards, and `SoundDetailSheet`; images come from `Assets.xcassets/SoundBackgrounds` and are intentionally low-opacity, desaturated, and darkened. |
 | `WaveformSignatureLine` | Audio-reactive signature line in the header. Paused under XCUITest. |
 | `HomeToolbarImmersiveAudioToggle` | Top-left native toolbar button for the persisted global immersive audio mode. |
 | `MixerBoardSectionView` | One row of the mixer board. |
@@ -117,6 +118,8 @@ Per-channel **tint** is the dominant token: each `SoundChannel` carries an `RGB`
 - The `LiquidActivityPalette.playback()` ordering — see below.
 
 The global app backdrop stays static in a deep blue/grey range for visual sobriety; do not reintroduce active-channel colour adaptation there unless the product direction changes again.
+
+Per-track photo backgrounds are secondary texture, not primary content. `SoundChannel.backdrop` and `BinauralTrack.backdrop` map each track to a Pexels-sourced image and crop focus. Rows keep opacity under ~18%, with the existing tint gradients and glass material above the photo so labels, sliders, and lock states remain the readable layer.
 
 `LiquidActivityPalette.playback()` returns the tints of currently-active channels, ordered by volume. iOS uses those colours in `AnimatedLiquidAura`; macOS uses them in the native `MacAnimatedPlaybackMesh` play button, avoiding black mesh stops so active mixes stay luminous.
 

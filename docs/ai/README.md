@@ -79,6 +79,7 @@ codebase/        — where things live, how to read the repo
 
 content/         — material the app ships
   sounds-catalog.md   35 channels + 4 binaurals, sources, licences, encoding
+  sound-backgrounds.md Pexels background image sources and per-track visual rationale
   localization.md     6 locales, AppCopy, fastlane metadata, key conventions
 
 marketing/       — how Oasis is sold
