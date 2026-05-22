@@ -6,12 +6,12 @@
     "defaultLocale": "en-US"
   },
   "run": {
-    "daysBack": 14,
-    "minScore": 65,
-    "maxItems": 12,
+    "daysBack": 21,
+    "minScore": 55,
+    "maxItems": 15,
     "delayMs": 1100,
-    "redditMaxQueries": 18,
-    "hnMaxQueries": 8
+    "redditMaxQueries": 20,
+    "hnMaxQueries": 10
   },
   "guardrails": {
     "dailyReplyCap": 5,
@@ -34,6 +34,15 @@
         "intent": "Find people actively avoiding subscriptions in sleep or white-noise apps."
       },
       {
+        "id": "reddit_ios_sleep_app_reco",
+        "enabled": true,
+        "segment": "sleep",
+        "campaign": "reddit_ios_sleep_reco",
+        "terms": "\"sleep app\" OR \"rain sounds\" OR \"white noise app\" OR \"brown noise app\"",
+        "subreddits": ["iosapps", "iOS", "iphone"],
+        "intent": "Find iPhone owners asking for sleep, rain, white-noise, or brown-noise app recommendations."
+      },
+      {
         "id": "reddit_bettersleep_alt",
         "enabled": true,
         "segment": "subscription",
@@ -41,6 +50,15 @@
         "terms": "\"BetterSleep\" \"subscription\" OR \"BetterSleep\" \"paywall\" OR \"Calm\" \"subscription\"",
         "subreddits": ["sleep", "insomnia", "iosapps"],
         "intent": "Find people complaining about subscription-heavy sleep apps."
+      },
+      {
+        "id": "reddit_calm_headspace_alt",
+        "enabled": true,
+        "segment": "subscription",
+        "campaign": "reddit_calm_alt",
+        "terms": "\"Calm\" \"subscription\" OR \"Headspace\" \"subscription\" OR \"meditation app\" \"no subscription\"",
+        "subreddits": ["iosapps", "meditation", "productivity"],
+        "intent": "Find users replacing subscription-heavy wellness apps with simpler one-time-purchase tools."
       },
       {
         "id": "reddit_white_noise_reco",
@@ -52,6 +70,15 @@
         "intent": "Find recommendation threads for sleep sounds, white noise, rain, or brown noise."
       },
       {
+        "id": "reddit_insomnia_noise_masking",
+        "enabled": true,
+        "segment": "sleep",
+        "campaign": "reddit_insomnia_noise",
+        "terms": "\"rain sounds\" OR \"white noise\" OR \"brown noise\" OR \"sleep timer\"",
+        "subreddits": ["sleep", "insomnia"],
+        "intent": "Find sleep-sound threads where Oasis can be suggested without making medical claims."
+      },
+      {
         "id": "reddit_focus_ambient",
         "enabled": true,
         "segment": "focus",
@@ -61,6 +88,15 @@
         "intent": "Find people using ambience for deep work, reading, study, or focus."
       },
       {
+        "id": "reddit_deepwork_noise",
+        "enabled": true,
+        "segment": "focus",
+        "campaign": "reddit_deepwork_noise",
+        "terms": "\"background noise\" \"focus\" OR \"ambient sounds\" \"deep work\" OR \"rain sounds\" \"study\"",
+        "subreddits": ["productivity", "GetStudying", "deepwork"],
+        "intent": "Find focus and study threads where stable, non-music ambience is the user need."
+      },
+      {
         "id": "reddit_travel_offline",
         "enabled": true,
         "segment": "travel",
@@ -68,6 +104,15 @@
         "terms": "\"offline\" \"sleep app\" OR \"hotel noise\" \"sleep\" OR \"travel\" \"white noise\"",
         "subreddits": ["travel", "onebag", "sleep", "iosapps"],
         "intent": "Find travelers who need offline background sound for hotels, flights, or noisy rooms."
+      },
+      {
+        "id": "reddit_hotel_noise",
+        "enabled": true,
+        "segment": "travel",
+        "campaign": "reddit_hotel_noise",
+        "terms": "\"hotel noise\" \"sleep\" OR \"noisy hotel\" OR \"sleep on plane\" OR \"white noise\" \"travel\"",
+        "subreddits": ["travel", "onebag", "solotravel", "sleep"],
+        "intent": "Find high-intent travel sleep problems where offline audio is a concrete advantage."
       },
       {
         "id": "reddit_indie_feedback",
@@ -91,11 +136,25 @@
         "terms": "\"no subscription\" \"iOS app\""
       },
       {
+        "id": "hn_ask_apps_no_subscription",
+        "enabled": true,
+        "segment": "maker",
+        "campaign": "hn_ask_no_subscription",
+        "terms": "\"Ask HN\" \"no subscription\" \"app\""
+      },
+      {
         "id": "hn_offline_audio_app",
         "enabled": true,
         "segment": "maker",
         "campaign": "hn_maker_offline_audio",
         "terms": "\"offline\" \"audio\" \"iOS\""
+      },
+      {
+        "id": "hn_background_noise",
+        "enabled": true,
+        "segment": "focus",
+        "campaign": "hn_background_noise",
+        "terms": "\"background noise\" \"focus\""
       },
       {
         "id": "hn_sleep_app",

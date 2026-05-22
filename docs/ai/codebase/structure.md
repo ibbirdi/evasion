@@ -51,7 +51,7 @@ ios-native/
 │   ├── Views/                       SwiftUI screens, components, overlays
 │   ├── Support/                     Configuration, L10n keys, Info.plist, shader, helpers
 │   ├── Resources/                   Audio (.m4a), Images, Localizable.xcstrings
-│   └── Assets.xcassets/             App icon, accent color, sound background images
+│   └── Assets.xcassets/             App icon, accent color, launch image, header ring logo, sound background images
 ├── OasisNativeUITests/              UI tests (screenshots + premium flow + marketing scenarios)
 └── scripts/                         iOS-specific scripts (probably empty/legacy)
 ```
@@ -102,6 +102,7 @@ Views/
 | `AppConfiguration.swift` | Build flags, env / Info.plist readers, dev and screenshot launch-argument overrides. |
 | `AppBootstrap.swift` | Shared RevenueCat / TelemetryDeck startup used by both app targets. |
 | `Info.plist` | App identity, RevenueCat keys, background modes, UI style. |
+| `LaunchScreen.storyboard` | Static iOS launch screen. Displays the `SplashScreen` asset edge-to-edge with aspect-fill cover behaviour. |
 | `L10n.swift` | `LocalizedStringResource` keys for all UI strings. |
 | `LiquidAuraShaders.metal` | Metal shader for the animated liquid aura. |
 | `Platform/AppReviewRequester.swift` | Platform adapter for iOS review prompts; no-op on macOS. |
@@ -120,6 +121,8 @@ Views/
 | Path | Contains |
 | --- | --- |
 | `AccentColor.colorset/` | Legacy iOS accent colour. |
+| `SplashScreen.imageset/` | Static image shown by the iOS launch storyboard. |
+| `OasisRingLogo.imageset/` | Transparent ring logo used by the iOS header wordmark animation. |
 | `SoundBackgrounds/*.imageset` | Pexels-derived 1200×800 JPEG watermarks for ambient and binaural track cards. Source choices are documented in [../content/sound-backgrounds.md](../content/sound-backgrounds.md). |
 
 ## `fastlane/`

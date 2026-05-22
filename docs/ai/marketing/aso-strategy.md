@@ -1,7 +1,7 @@
 ---
 title: ASO Strategy
 status: stable
-last_updated: 2026-05-20
+last_updated: 2026-05-22
 tracks:
   - "fastlane/metadata/**"
   - "fastlane/screenshots/**"
@@ -17,9 +17,9 @@ Synthesised from the 2026-05-02 audit (v2 of the original audit doc, post sleep-
 
 The big picture is in [positioning.md](positioning.md). This file is the operational layer: what to ship, in what order.
 
-## Current local state — 2026-05-19
+## Current local state — 2026-05-22
 
-The latest low-risk ASO pass cleaned the invisible keyword fields, updated the screenshot hooks toward immersion / escape, and refreshed the visual treatment of the App Store screenshots.
+The latest low-risk ASO pass cleaned the invisible keyword fields, updated the screenshot hooks toward immersion / escape, and refreshed the visual treatment of the App Store screenshots. Version `1.5.1` is a release-note-only metadata update around the iOS 17+ audience unlock; the App Store description, screenshots, and keyword positioning remain the approved 35-sound / no-subscription set.
 
 - Removed `baby` / `bebe` targeting from all 6 keyword files, in line with [positioning.md](positioning.md)'s anti-persona guidance.
 - Replaced those slots with adult use cases such as study, reading, work, and calm; all locales remain ≤100 chars and have zero indexed-word overlap across `name + subtitle + keywords`.
@@ -27,8 +27,8 @@ The latest low-risk ASO pass cleaned the invisible keyword fields, updated the s
 - Keep sub-category files blank: App Store Connect currently reports no valid subcategories for `HEALTH_AND_FITNESS`, `LIFESTYLE`, or `TRAVEL`, and rejects invalid `primarySubcategoryOne` values.
 - Re-rendered and staged 60 composite screenshots from the current raw captures; slide 01 now leads with `35 real-world sounds to mix. Offline. No subscription.`, and slide 09 now states `32 extra sounds with one purchase.` in English and natural equivalents in the other 5 locales.
 - Increased screenshot eyebrow size for readability and removed line-art background details, keeping only blob-like acoustic fields, gradients, glows, grain, and vignette.
-- App Preview videos are disabled for the `1.5.0` App Store upload: the existing remote previews were deleted on 2026-05-19, and `stage_appstore_assets` now stages screenshots only until new videos are regenerated.
-- Bumped the app to version `1.5.0`; localized `release_notes.txt` now use the approved French source about immersive sound, 35 nature sounds, automatic volume-variation ranges, and redesigned presets.
+- App Preview videos are disabled for the `1.5.1` App Store upload: the existing remote previews were deleted on 2026-05-19, and `stage_appstore_assets` now stages screenshots only until new videos are regenerated.
+- Bumped the app to version `1.5.1`; localized `release_notes.txt` now focus on iOS 17+ support while preserving the 35-sound, binaural, preset, timer, offline, and one-time-purchase positioning.
 - Replaced the first line of each `description.txt` with the approved multi-use opening line.
 
 ## macOS review notes — 2026-05-20
@@ -135,7 +135,7 @@ CPPs are free; spawn them as A/B vehicles without touching the main page.
 1. Push Variant A names / subtitles / keywords for all 6 locales.
 2. Leave sub-category files blank unless App Store Connect exposes valid subcategories for these primary categories. **Verified locally 2026-05-18.**
 3. Rewrite `promotional_text.txt` for all 6 locales (template 1 — seasonal). **Done locally 2026-05-17.**
-4. Rewrite `release_notes.txt` for current version 1.5.0 — replace "performance + bugs" with the actual list. **Done locally 2026-05-19.**
+4. Rewrite `release_notes.txt` for current version 1.5.1 — mention the iOS 17+ audience-unlock patch. **Done locally 2026-05-22.**
 5. Render Slide 01 v2 (multi-use eyebrow + subhead) and re-stage. **Done locally 2026-05-17.**
 6. Push first description line per locale. **Done locally 2026-05-17.**
 7. `bundle exec fastlane appstore_metadata` to ship.

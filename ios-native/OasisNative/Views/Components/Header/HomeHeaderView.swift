@@ -1,10 +1,8 @@
 import SwiftUI
-import UIKit
 
 /// Floating header, rendered above the home backdrop inside the ZStack. Reduced to the
-/// brand lockup (wordmark + waveform) after the per-surface chips moved to the navigation
-/// bar's native toolbar — kept custom because the animated waveform isn't a standard
-/// control surface.
+/// animated brand lockup after the per-surface chips moved to the navigation bar's
+/// native toolbar.
 struct HomeHeaderView: View {
     let compactProgress: CGFloat
 
@@ -22,232 +20,152 @@ struct HomeHeaderView: View {
 
 private struct BrandLockupView: View {
     @Environment(AppModel.self) private var model
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     let visibility: CGFloat
 
-    /// Cap on the lockup's frame at full expanded state. The previous design
-    /// hard-coded "47pt = 22pt wordmark + 25pt padding" which silently chopped
-    /// the wave: 22pt is the font *size*, not the *line height* — SF Pro
-    /// semibold at 22pt actually renders at ~26pt of typographic metrics. The
-    /// real intrinsic content (~51pt) was ~4pt larger than the cap, and
-    /// `.clipped()` swallowed the wave's bottom strokes. 60pt gives a
-    /// generous cushion against iOS-version variance in font metrics.
-    private static let expandedHeightCap: CGFloat = 60
+    private static let lockupSize: CGFloat = 158
+    private static let visualCanvasSize: CGFloat = 208
+    private static let ringSize: CGFloat = 118
+    private static let expandedHeightCap: CGFloat = 165
 
     var body: some View {
-        // Anchoring the waveform to the text's *own* frame via `.background`
-        // serves two purposes:
-        //   1. The wave inherits the text's intrinsic width (~95pt for
-        //      "OASIS" at 22pt semibold + 4pt kerning) instead of stretching
-        //      across the screen — matches the wordmark's footprint.
-        //   2. Any side-bearing or trailing-kerning quirk shifts wave and
-        //      wordmark together, never apart.
-        //
-        // 25pt bottom padding hosts the 24pt-tall wave with 1pt of clear space
-        // between the baseline of the wordmark and the top of the wave.
-        Text(verbatim: "OASIS")
-            .oasisFont(size: 22, weight: .semibold, design: .default, relativeTo: .title3)
-            .kerning(4)
-            .foregroundStyle(.white.opacity(0.96))
-            .padding(.bottom, 25)
-            .background(alignment: .bottom) {
-                WaveformSignatureLine()
-                    .frame(maxWidth: .infinity, maxHeight: 24)
+        ZStack {
+            ZStack {
+                RotatingOasisLogoRing(
+                    isPlaying: model.isPlaying,
+                    reduceMotion: reduceMotion,
+                    rotationDirection: -1,
+                    initialRotationDegrees: 118
+                )
+                .frame(width: Self.ringSize, height: Self.ringSize)
+                .saturation(1.14)
+                .contrast(1.02)
+                .opacity(0.56)
+                .blendMode(.plusLighter)
+                .accessibilityHidden(true)
+
+                RotatingOasisLogoRing(
+                    isPlaying: model.isPlaying,
+                    reduceMotion: reduceMotion,
+                    rotationDirection: 1,
+                    initialRotationDegrees: 0
+                )
+                .frame(width: Self.ringSize, height: Self.ringSize)
+                .saturation(1.14)
+                .contrast(1.02)
+                .opacity(0.56)
+                .blendMode(.plusLighter)
+                .accessibilityHidden(true)
             }
-            // `maxHeight` (not a fixed `height`) so intrinsic ~51pt content
-            // wins at full visibility, while the cap still collapses to 0
-            // when the user scrolls.
-            .frame(maxHeight: Self.expandedHeightCap * visibility, alignment: .top)
-            .opacity(visibility)
-            .scaleEffect(0.92 + (visibility * 0.08), anchor: .top)
-            .clipped()
-            .accessibilityElement(children: .combine)
-            .accessibilityLabel(L10n.App.title)
-            .animation(.smooth(duration: 0.18), value: visibility)
+            .compositingGroup()
+            .brightness(-0.14)
+
+            OasisHeaderWordmark()
+        }
+        .frame(width: Self.visualCanvasSize, height: Self.visualCanvasSize)
+        .offset(y: -30)
+        .frame(width: Self.lockupSize, height: Self.lockupSize, alignment: .top)
+        // `maxHeight` (not a fixed `height`) lets the full lockup render at
+        // rest while the cap still collapses to 0 when the user scrolls.
+        .frame(maxHeight: Self.expandedHeightCap * visibility, alignment: .top)
+        .opacity(visibility)
+        .scaleEffect(0.92 + (visibility * 0.08), anchor: .top)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(L10n.App.title)
+        .animation(.smooth(duration: 0.18), value: visibility)
     }
 }
 
-/// Signature line rendered beneath the OASIS wordmark. Two character states the view
-/// morphs between via an explicit time-based crossfade:
-///
-/// - **Paused** (`p` = 0): a single regular sinusoid, slow accumulated phase, subtle
-///   amplitude.
-/// - **Playing** (`p` = 1): same primary sinusoid + a slow drift overlay, faster phase,
-///   noticeably larger amplitude.
-///
-/// Why an integrated phase accumulator. The naive formula `phaseTime = time × speed`
-/// is unusable here because `time` (`timeIntervalSinceReferenceDate`) is on the order
-/// of 7 × 10⁸ at runtime. Interpolating `speed` during the transition makes
-/// `phaseTime` jump by ~10⁸ units per frame even though the change in `speed` is
-/// fractional, producing the "spring going in all directions" effect users reported.
-/// Instead, `PhaseAccumulator` integrates `dt × speed` each tick, so changes in
-/// `speed` only change the *derivative* of phase, never its instantaneous value.
-private struct WaveformSignatureLine: View {
-    @Environment(AppModel.self) private var model
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+private struct OasisHeaderWordmark: View {
+    private static let letters: [(id: Int, value: String)] = [
+        (0, "O"),
+        (1, "A"),
+        (2, "S"),
+        (3, "I"),
+        (4, "S")
+    ]
 
-    @State private var transitionFrom: Double = 0
-    @State private var transitionTo: Double = 0
-    @State private var transitionStartTime: TimeInterval = 0
-    @State private var hasInitialised = false
-    @State private var phaseAccumulator = PhaseAccumulator()
+    var body: some View {
+        HStack(spacing: 3) {
+            ForEach(Self.letters, id: \.id) { letter in
+                Text(verbatim: letter.value)
+            }
+        }
+        .oasisFont(size: 18, weight: .semibold, design: .default, relativeTo: .title3)
+        .foregroundStyle(.white.opacity(0.98))
+        .shadow(color: .black.opacity(0.45), radius: 7, x: 0, y: 2)
+    }
+}
 
-    private static let transitionDuration: Double = 0.40
+private struct RotatingOasisLogoRing: View {
+    let isPlaying: Bool
+    let reduceMotion: Bool
+    let rotationDirection: Double
+    let initialRotationDegrees: Double
+
+    @State private var rotationAccumulator = RingRotationAccumulator()
+
+    private static let idleDegreesPerSecond: Double = 4.2
+    private static let playbackDegreesPerSecond: Double = 13.0
 
     var body: some View {
         let shouldPause = AppConfiguration.isRunningScreenshotAutomation || reduceMotion
-        TimelineView(.animation(minimumInterval: 1.0 / 24.0, paused: shouldPause)) { context in
-            let now = AppConfiguration.isRunningScreenshotAutomation
-                ? 3.4
-                : context.date.timeIntervalSinceReferenceDate
-            let p = computePhaseProgress(at: now)
-            let palette = model.activePlaybackPalette
+        TimelineView(.animation(minimumInterval: 1.0 / 30.0, paused: shouldPause)) { context in
+            let now = context.date.timeIntervalSinceReferenceDate
+            let speed = isPlaying ? Self.playbackDegreesPerSecond : Self.idleDegreesPerSecond
+            let rotation = rotationAccumulator.advance(
+                to: now,
+                degreesPerSecond: speed * rotationDirection,
+                paused: shouldPause
+            )
 
-            // Speed varies between idle (0.40) and playback (0.95). The accumulator
-            // integrates this over time so transitions don't lurch.
-            let speed = 0.40 + (0.95 - 0.40) * p
-            let accumulatedPhase = phaseAccumulator.advance(to: now, speed: speed)
-
-            Canvas { gc, size in
-                drawWave(
-                    gc: gc,
-                    size: size,
-                    time: now,
-                    palette: palette,
-                    paletteCount: palette.count,
-                    p: p,
-                    phaseTime: accumulatedPhase
-                )
-            }
+            OasisLogoRingArtwork()
+                .rotationEffect(.degrees(rotation + initialRotationDegrees))
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
-        .onAppear { initialiseIfNeeded() }
-        .onChange(of: model.isPlaying) { _, newValue in
-            startTransition(toPlaying: newValue)
-        }
-    }
-
-    private func initialiseIfNeeded() {
-        guard !hasInitialised else { return }
-        let initial: Double = model.isPlaying ? 1 : 0
-        transitionFrom = initial
-        transitionTo = initial
-        transitionStartTime = 0
-        hasInitialised = true
-    }
-
-    private func startTransition(toPlaying: Bool) {
-        let now = Date().timeIntervalSinceReferenceDate
-        // Capture wherever the wave currently is so rapid toggles re-aim from the in-
-        // flight value rather than snapping back to the previous start.
-        transitionFrom = computePhaseProgress(at: now)
-        transitionTo = toPlaying ? 1 : 0
-        transitionStartTime = now
-    }
-
-    private func computePhaseProgress(at now: TimeInterval) -> Double {
-        guard transitionStartTime > 0 else { return transitionTo }
-        let elapsed = now - transitionStartTime
-        if elapsed >= Self.transitionDuration { return transitionTo }
-        if elapsed <= 0 { return transitionFrom }
-        let t = elapsed / Self.transitionDuration
-        let eased = t * t * (3 - 2 * t)
-        return transitionFrom + (transitionTo - transitionFrom) * eased
-    }
-
-    private func drawWave(
-        gc: GraphicsContext,
-        size: CGSize,
-        time: TimeInterval,
-        palette: [Color],
-        paletteCount: Int,
-        p: Double,
-        phaseTime: Double
-    ) {
-        var path = Path()
-        let midY = size.height / 2
-        let width = size.width
-        let step: Double = 1.4
-
-        let pClamped = max(0, min(1, p))
-
-        // Drift overlay only fades in during playback; idle stays a clean single sinusoid.
-        let driftMix = 0.30 * pClamped
-
-        // Idle 0.22 (subtle); play capped at 1.20.
-        let idleAmp = 0.22
-        let playAmp = min(1.20, 0.85 + Double(paletteCount) * 0.08)
-        let amplitude = idleAmp + (playAmp - idleAmp) * pClamped
-
-        // Slow envelope breathing during playback only. At rest = constant 1.0.
-        let envelopeNoise = 1.0 + (0.7 + 0.3 * sin(time * 0.42) - 1.0) * pClamped
-
-        // Multiplier 0.20 chosen so peak excursion stays well clear of the canvas
-        // edges, accounting for the larger 2.0pt stroke. With 24pt canvas:
-        // peak ≤ 1.20 × 1.30 × 1.0 × 24 × 0.20 = 7.49pt vs. 10.5pt available from
-        // midY (after 1.5pt half-stroke + cushion margin) → ~28% headroom.
-        let multiplier: Double = 0.20
-
-        path.move(to: CGPoint(x: 0, y: midY))
-
-        var x: Double = 0
-        while x <= Double(width) {
-            let nx = x / Double(width)
-
-            let primary = sin(nx * 4.5 * .pi + phaseTime)
-            let drift = sin(nx * 1.7 * .pi + time * 0.6)
-            let wave = primary + drift * driftMix
-
-            let envelope = sin(nx * .pi)
-            let yRaw = midY + amplitude * envelopeNoise * Double(size.height) * multiplier * wave * envelope
-
-            // Stroke half-width margin: stroke = 2.0 pt, so each side needs 1.0 pt clear.
-            // Extra 0.5 pt cushion absorbs sub-pixel rounding from SwiftUI layout and
-            // prevents the bottom-edge "overflow hidden" clipping users were seeing.
-            let strokeMargin: Double = 1.5
-            let y = min(max(yRaw, strokeMargin), Double(size.height) - strokeMargin)
-
-            path.addLine(to: CGPoint(x: x, y: y))
-            x += step
-        }
-
-        let colors: [Color] = palette.isEmpty
-            ? [Color.white.opacity(0.55)]
-            : palette.map { $0.opacity(0.82) }
-
-        let shading = GraphicsContext.Shading.linearGradient(
-            Gradient(colors: colors),
-            startPoint: .zero,
-            endPoint: CGPoint(x: width, y: 0)
-        )
-
-        gc.stroke(path, with: shading, lineWidth: 2.0)
     }
 }
 
-/// Reference-typed phase integrator owned by `WaveformSignatureLine`. Stores accumulated
-/// phase + the timestamp of the last advance so the next call can integrate `dt × speed`.
-/// Class semantics on purpose: SwiftUI's `@State` keeps a stable reference for the view's
-/// lifetime, and mutating the object's properties from inside the Canvas closure does
-/// *not* trigger a body invalidation (which is exactly what we want — the closure is the
-/// only writer, the next frame just reads the new accumulated value).
-private final class PhaseAccumulator {
-    private var phase: Double = 0
+private struct OasisLogoRingArtwork: View {
+    var body: some View {
+        Image("OasisRingLogo")
+            .resizable()
+            .scaledToFit()
+            .saturation(1.08)
+            .contrast(1.04)
+            .shadow(color: Color(red: 0.32, green: 0.92, blue: 1.0).opacity(0.28), radius: 8)
+            .shadow(color: Color(red: 1.0, green: 0.61, blue: 0.20).opacity(0.22), radius: 8)
+            .opacity(0.96)
+    }
+}
+
+/// Reference-typed integrator owned by `RotatingOasisLogoRing`. It keeps the ring's
+/// angle continuous when playback changes speed and when animations pause for tests or
+/// Reduce Motion.
+private final class RingRotationAccumulator {
+    private var angle: Double = 0
     private var lastTime: TimeInterval = -1
 
-    func advance(to now: TimeInterval, speed: Double) -> Double {
-        defer { lastTime = now }
-        guard lastTime > 0, now > lastTime else { return phase }
-        // Clamp the per-tick delta. When the app is backgrounded then resumed, `now`
-        // jumps by seconds or minutes — without the clamp the wave would suddenly
-        // catapult through hundreds of cycles in one frame.
-        let dt = min(now - lastTime, 0.5)
-        phase += dt * speed
-        // Periodically wrap to prevent floating-point precision loss over a long
-        // session. 2π ≈ 6.28 wave cycles, so wrapping at 10 000 cycles keeps phase
-        // values modest without introducing visible discontinuity (sin is 2π-periodic).
-        if phase > 10_000 * .pi * 2 {
-            phase = phase.truncatingRemainder(dividingBy: 2 * .pi)
+    func advance(to now: TimeInterval, degreesPerSecond: Double, paused: Bool) -> Double {
+        guard !paused else {
+            lastTime = now
+            return angle
         }
-        return phase
+
+        guard lastTime > 0, now > lastTime else {
+            lastTime = now
+            return angle
+        }
+
+        let dt = min(now - lastTime, 0.5)
+        angle += dt * degreesPerSecond
+        if angle > 360 {
+            angle = angle.truncatingRemainder(dividingBy: 360)
+        } else if angle < -360 {
+            angle = angle.truncatingRemainder(dividingBy: 360)
+        }
+        lastTime = now
+        return angle
     }
 }
 

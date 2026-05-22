@@ -9,6 +9,7 @@ import {
   type ConfigBundle,
   HashtagsFileSchema,
   HooksFileSchema,
+  LANGS,
   type Lang,
   type Scenario,
   ScenarioSchema,
@@ -63,18 +64,26 @@ async function readJson<S extends z.ZodTypeAny>(
 }
 
 export async function loadConfig(): Promise<ConfigBundle> {
-  const [mixes, hooksFr, hooksEn, captionsFr, captionsEn, hashtags] = await Promise.all([
+  const [mixes, hashtags, hooksEntries, captionsEntries] = await Promise.all([
     readJson(path.join(CONFIG_DIR, "audio-mixes.json"), AudioMixesFileSchema),
-    readJson(path.join(CONFIG_DIR, "hooks.fr.json"), HooksFileSchema),
-    readJson(path.join(CONFIG_DIR, "hooks.en.json"), HooksFileSchema),
-    readJson(path.join(CONFIG_DIR, "captions.fr.json"), CaptionsFileSchema),
-    readJson(path.join(CONFIG_DIR, "captions.en.json"), CaptionsFileSchema),
     readJson(path.join(CONFIG_DIR, "hashtags.json"), HashtagsFileSchema),
+    Promise.all(
+      LANGS.map(async (lang) => [
+        lang,
+        await readJson(path.join(CONFIG_DIR, `hooks.${lang}.json`), HooksFileSchema),
+      ] as const),
+    ),
+    Promise.all(
+      LANGS.map(async (lang) => [
+        lang,
+        await readJson(path.join(CONFIG_DIR, `captions.${lang}.json`), CaptionsFileSchema),
+      ] as const),
+    ),
   ]);
   return {
     mixes: mixes.mixes,
-    hooks: { fr: hooksFr, en: hooksEn },
-    captions: { fr: captionsFr, en: captionsEn },
+    hooks: Object.fromEntries(hooksEntries) as Record<Lang, typeof hooksEntries[number][1]>,
+    captions: Object.fromEntries(captionsEntries) as Record<Lang, typeof captionsEntries[number][1]>,
     hashtags,
   };
 }

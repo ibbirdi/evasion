@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		02E6B12F1111111111111101 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 02E6B12F1111111111111102 /* LaunchScreen.storyboard */; };
 		0373DC32FCB0C17432A88476 /* tente1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = D3C929E1471C537D81D126AC /* tente1.m4a */; };
 		066257264E2050FEFAC0AEA8 /* SpatialAudioPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA77671E1FA3336D62915614 /* SpatialAudioPanel.swift */; };
 		08CB8DDA3252DFA81119A4A5 /* aubeJungle1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = CA3F48A884343264A1A40780 /* aubeJungle1.m4a */; };
@@ -184,6 +185,7 @@
 /* Begin PBXFileReference section */
 		0327811F88C3A11432F23565 /* Assets.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		033C60A95051A14ED6A399DE /* BottomBarView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BottomBarView.swift; sourceTree = "<group>"; };
+		02E6B12F1111111111111102 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		03D39C0299D2EEED166CC90D /* MacPaywallSheet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MacPaywallSheet.swift; sourceTree = "<group>"; };
 		0583A9E3C0C53BFC58D08FA7 /* PremiumModels.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PremiumModels.swift; sourceTree = "<group>"; };
 		06EF23F4D90BEC2A1E58185E /* MacMixerSection.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MacMixerSection.swift; sourceTree = "<group>"; };
@@ -407,6 +409,7 @@
 			children = (
 				4784A01B738584AE350A7998 /* AppConfiguration.swift */,
 				1E49CEAB7ED0CC9B3E8AF91A /* Info.plist */,
+				02E6B12F1111111111111102 /* LaunchScreen.storyboard */,
 				FC96BF7AE88C9BA018C858CB /* L10n.swift */,
 				231B474700628B0D4E3CB541 /* LiquidAuraShaders.metal */,
 				FC750FD7773139229B5C635F /* RoutePickerView.swift */,
@@ -750,6 +753,7 @@
 			files = (
 				21C3A3DCCC573A019B22F40B /* AppIcon.icon in Resources */,
 				9A2C15F80538B1A3B50BFEB4 /* Assets.xcassets in Resources */,
+				02E6B12F1111111111111101 /* LaunchScreen.storyboard in Resources */,
 				500ACDACC6781AC630C3EC25 /* 1_binaural_sleep_delta.m4a in Resources */,
 				9A787393726AB62561E31956 /* 2_binaural_meditation_theta.m4a in Resources */,
 				82400A7DBE0AC0060ED99ECC /* 3_binaural_relax_alpha.m4a in Resources */,
@@ -992,7 +996,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jonathanluquet.drift.UITests;
 				PRODUCT_NAME = OasisNativeUITests;
 				SDKROOT = iphoneos;
@@ -1098,7 +1102,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_ASSET_PATHS = "\"\"";
 				DEVELOPMENT_TEAM = 346GF2QVCC;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -1106,16 +1110,14 @@
 				INFOPLIST_FILE = OasisNative/Support/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
-				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
-				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5.0;
+				MARKETING_VERSION = 1.5.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jonathanluquet.drift;
 				PRODUCT_NAME = Oasis;
 				SDKROOT = iphoneos;
@@ -1189,7 +1191,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jonathanluquet.drift.UITests;
 				PRODUCT_NAME = OasisNativeUITests;
 				SDKROOT = iphoneos;
@@ -1207,7 +1209,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_ASSET_PATHS = "\"\"";
 				DEVELOPMENT_TEAM = 346GF2QVCC;
 				ENABLE_APP_SANDBOX = YES;
@@ -1218,16 +1220,14 @@
 				INFOPLIST_FILE = OasisNative/Support/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
-				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
-				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5.0;
+				MARKETING_VERSION = 1.5.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jonathanluquet.drift;
 				PRODUCT_NAME = Oasis;
 				REGISTER_APP_GROUPS = YES;

@@ -1,7 +1,7 @@
 ---
 title: Release Process
 status: stable
-last_updated: 2026-05-20
+last_updated: 2026-05-22
 tracks:
   - "fastlane/Fastfile"
   - "fastlane/Deliverfile"
@@ -25,7 +25,8 @@ How a new version of Oasis ships to the App Store.
 - **App Store Connect username**: `jonathanluquet@me.com` (in `fastlane/Deliverfile` and `fastlane/Fastfile`).
 - **Display name**: Oasis.
 - **Mac App Store category**: `public.app-category.healthcare-fitness` (`LSApplicationCategoryType` in `Mac/Info.plist`), matching the committed fastlane primary category.
-- **Current iOS version**: `MARKETING_VERSION = 1.5.0`, `CURRENT_PROJECT_VERSION = 6` (build).
+- **Current iOS version**: `MARKETING_VERSION = 1.5.1`, `CURRENT_PROJECT_VERSION = 7` (build).
+- **Current iOS deployment target**: iOS 17.0. Version 1.5.1 is the audience-unlock patch prepared to remove the public iOS 18+ install requirement.
 - **Current macOS version**: `MARKETING_VERSION = 1.0.0`, `CURRENT_PROJECT_VERSION = 1` (build).
 
 Version is set in `OasisNative.xcodeproj/project.pbxproj`. Edit it directly or via Xcode's General tab.
@@ -45,6 +46,7 @@ Recent history:
 - `1.4.2` (build 4) — ASO / release-note refresh for the current feature set; no-subscription and offline positioning brought forward.
 - `1.4.3` (build 5) — sound-detail attribution simplification plus refreshed localized App Store screenshots and previews.
 - `1.5.0` (build 6) — immersive audio mode, richer 35-sound catalogue positioning, refined presets flow, updated App Store visuals, and UI polish.
+- `1.5.1` (build 7) — iOS 17+ deployment-target audience unlock for the download growth sprint.
 
 ## Pre-release checklist
 
@@ -52,11 +54,13 @@ Run from a clean working tree on `main`.
 
 - [ ] Bump `MARKETING_VERSION` and `CURRENT_PROJECT_VERSION` in the Xcode project.
 - [ ] Run the iOS build CLI (see [../codebase/build-and-test.md](../codebase/build-and-test.md)) — must pass.
+- [ ] Run the release preflight: `node scripts/acquisition/check-release-readiness.mjs`. For upload, it must report `Verdict: ready`.
 - [ ] If touching shared code used by the menu bar app, also run the `OasisMac` Debug build.
 - [ ] Before uploading macOS, run the `OasisMac` Release build and confirm `CODE_SIGN_ENTITLEMENTS = OasisNative/Mac/OasisMac.entitlements`.
 - [ ] For the first macOS release, add the macOS platform to the existing Oasis app record in App Store Connect; do not create a separate app record.
 - [ ] Run `OasisNativePremiumFlowTests` — must pass.
-- [ ] Re-render iOS screenshots if any iOS UI/copy changed: `bundle exec fastlane screenshots` (filtered to the App Store screenshot test), then `swift scripts/generate_store_screenshot_comps.swift` and `bundle exec fastlane stage_appstore_assets`. App Preview videos are currently excluded from staging/upload for `1.5.0`.
+- [ ] Re-render iOS screenshots if any iOS UI/copy changed: `bundle exec fastlane screenshots` (filtered to the App Store screenshot test), then `swift scripts/generate_store_screenshot_comps.swift` and `bundle exec fastlane stage_appstore_assets`. App Preview videos are currently excluded from staging/upload for `1.5.1`.
+  - Keep snapshot launch flags in one combined `launch_arguments` string; multiple array entries produce multiple full locale passes.
 - [ ] Re-render macOS screenshots if the menu bar app, macOS copy, or Mac App Store visuals changed: `bundle exec fastlane mac_appstore_screenshots`. Upload-ready files land in `fastlane/appstore-upload-macos/<locale>/`.
 - [ ] Update `fastlane/metadata/<locale>/release_notes.txt` per locale — actual product changes, not "performance + bugs".
 - [ ] Update memory: bump `last_updated` on any file affected by the release.
@@ -109,16 +113,30 @@ Files that don't trigger Apple review: `keywords.txt`, `promotional_text.txt`, `
 Pushes screenshots + metadata for an existing binary version. It does not upload App Preview videos unless staging is explicitly re-enabled.
 
 ```bash
-bundle exec fastlane appstore_release app_version:1.5.0
+bundle exec fastlane appstore_release app_version:1.5.1
 ```
 
 This is the typical "metadata + visuals" release lane — does not upload an `.ipa`.
 
-## Binary upload (manual)
+## Binary upload
 
-The `Fastfile` does not currently include a build-and-upload lane. Binary upload is done via Xcode → Archive → Distribute App → App Store Connect, signed with the team certificate.
+Use the `build_and_upload` lane to archive, export an App Store IPA, and upload it to TestFlight/App Store Connect:
 
-If you need a CLI lane, add `gym` (or `xcodebuild archive` + `xcrun altool`) and document it here.
+```bash
+bundle exec fastlane build_and_upload ipa_name:OasisNative-1.5.1-b7.ipa
+```
+
+The lane writes the IPA to `fastlane/builds/`, build logs to `fastlane/buildlogs/`, uploads with `upload_to_testflight`, and skips automatic submission. If Fastlane authentication is not available, use Xcode → Archive → Distribute App → App Store Connect as the manual fallback with the same team certificate.
+
+If archive succeeds but export fails with `No signing certificate "iOS Distribution" found`, Xcode is currently signing the archive with an Apple Development identity. Refresh the Apple ID in Xcode, install the App Store distribution certificate/profile for team `346GF2QVCC`, then rerun the lane against the same version/build.
+
+Use the acquisition preflight to confirm the blocker is gone:
+
+```bash
+node scripts/acquisition/check-release-readiness.mjs
+```
+
+It writes `scripts/acquisition/release-readiness.md` and `.json`, checking the current `OasisNative` version/build, latest archive, local signing identities, and the last Fastlane archive log.
 
 ### macOS platform upload
 

@@ -1,0 +1,176 @@
+{
+  "objective": "1000 first-time iOS downloads worldwide",
+  "automationPolicy": {
+    "ownedAccounts": "Use official publishing APIs or approved schedulers only.",
+    "communities": "Human review required before posting or replying.",
+    "forbidden": [
+      "shared or rented accounts",
+      "browser automation for posting",
+      "proxy rotation",
+      "rate-limit evasion",
+      "duplicate cross-posting into unrelated communities"
+    ]
+  },
+  "languages": [
+    {
+      "id": "fr-FR",
+      "slug": "fr",
+      "market": "France / francophone",
+      "angle": "sleep and no-subscription"
+    },
+    {
+      "id": "en-US",
+      "slug": "en",
+      "market": "US / UK / global English",
+      "angle": "sleep, focus, no subscription"
+    },
+    {
+      "id": "de-DE",
+      "slug": "de",
+      "market": "Germany / Austria / Switzerland",
+      "angle": "privacy, offline, one-time purchase"
+    },
+    {
+      "id": "es-ES",
+      "slug": "es",
+      "market": "Spain / LATAM Spanish test",
+      "angle": "sleep, rain sounds, focus"
+    },
+    {
+      "id": "it",
+      "slug": "it",
+      "market": "Italy",
+      "angle": "sleep, calm, no subscription"
+    },
+    {
+      "id": "pt-BR",
+      "slug": "ptbr",
+      "market": "Brazil",
+      "angle": "sleep, focus, offline"
+    }
+  ],
+  "channels": [
+    {
+      "id": "youtube_shorts",
+      "label": "YouTube Shorts",
+      "mode": "official_api",
+      "cadence": "daily_video",
+      "recommendedSlotsLocal": ["18:30"],
+      "source": "https://developers.google.com/youtube/v3/docs/videos/insert",
+      "notes": "Use videos.insert with localized title/description and publishAt when OAuth is configured."
+    },
+    {
+      "id": "tiktok",
+      "label": "TikTok",
+      "mode": "official_api_after_audit",
+      "cadence": "daily_video",
+      "recommendedSlotsLocal": ["20:00"],
+      "source": "https://developers.tiktok.com/doc/content-posting-api-reference-direct-post",
+      "notes": "Direct Post requires explicit account consent; unaudited clients are private-only and API caps must be respected."
+    },
+    {
+      "id": "instagram_reels",
+      "label": "Instagram Reels",
+      "mode": "official_api_or_meta_business_suite",
+      "cadence": "daily_video",
+      "recommendedSlotsLocal": ["19:15"],
+      "source": "https://developers.facebook.com/docs/instagram-platform/content-publishing/",
+      "notes": "Use Instagram professional account publishing or Meta Business Suite; no browser posting automation."
+    },
+    {
+      "id": "facebook_reels",
+      "label": "Facebook Reels",
+      "mode": "official_meta_tools",
+      "cadence": "daily_video",
+      "recommendedSlotsLocal": ["19:30"],
+      "source": "https://developers.facebook.com/docs/",
+      "notes": "Cross-post only where the audience is distinct enough to avoid duplicate-fatigue."
+    },
+    {
+      "id": "bluesky",
+      "label": "Bluesky",
+      "mode": "official_api",
+      "cadence": "daily_text",
+      "recommendedSlotsLocal": ["17:30"],
+      "source": "https://docs.bsky.app/docs/advanced-guides/posts",
+      "notes": "Post one text/link update per day with language tags and a campaign link."
+    },
+    {
+      "id": "mastodon",
+      "label": "Mastodon",
+      "mode": "official_api",
+      "cadence": "daily_text",
+      "recommendedSlotsLocal": ["17:45"],
+      "source": "https://docs.joinmastodon.org/methods/statuses/",
+      "notes": "Use scheduled_at for owned posts; pick one relevant instance/account, not many duplicate accounts."
+    },
+    {
+      "id": "x",
+      "label": "X",
+      "mode": "official_api_or_native_scheduler",
+      "cadence": "daily_text",
+      "recommendedSlotsLocal": ["18:00"],
+      "source": "https://docs.x.com/",
+      "notes": "Use official API/native scheduling only if account/API access exists."
+    },
+    {
+      "id": "reddit",
+      "label": "Reddit",
+      "mode": "human_review",
+      "cadence": "radar_only",
+      "recommendedSlotsLocal": ["manual"],
+      "source": "https://www.reddit.com/dev/api/",
+      "notes": "Do not auto-post. Radar may draft a reply, but Jonathan manually checks rules and context."
+    },
+    {
+      "id": "hacker_news",
+      "label": "Hacker News",
+      "mode": "human_review",
+      "cadence": "only_when_story_fit",
+      "recommendedSlotsLocal": ["manual"],
+      "source": "https://news.ycombinator.com/newsguidelines.html",
+      "notes": "Only post founder/story content when it is genuinely interesting to HN."
+    },
+    {
+      "id": "product_hunt",
+      "label": "Product Hunt",
+      "mode": "manual_launch",
+      "cadence": "one_launch_window",
+      "recommendedSlotsLocal": ["manual"],
+      "source": "https://www.producthunt.com/",
+      "notes": "Prepare one coordinated launch, not daily posting."
+    }
+  ],
+  "localizedCopy": {
+    "fr-FR": {
+      "sleep": "Une pluie douce, une forêt calme, un timer. Oasis transforme l'iPhone en refuge sonore, sans abonnement.",
+      "premium": "Une app calme ne devrait pas te facturer tous les mois. Oasis se débloque avec un achat unique.",
+      "spatial": "Mets un casque: avec Oasis, tu peux placer la pluie autour de toi."
+    },
+    "en-US": {
+      "sleep": "Soft rain, a calm forest, a timer. Oasis turns your iPhone into a sound shelter, no subscription.",
+      "premium": "A calm app should not bill you every month. Oasis unlocks with one purchase.",
+      "spatial": "Put on headphones: with Oasis, you can place rain around you."
+    },
+    "de-DE": {
+      "sleep": "Sanfter Regen, ein ruhiger Wald, ein Timer. Oasis macht dein iPhone zum Klangrückzugsort, ohne Abo.",
+      "premium": "Eine ruhige App sollte dich nicht jeden Monat belasten. Oasis wird mit einem einmaligen Kauf freigeschaltet.",
+      "spatial": "Setz Kopfhörer auf: Mit Oasis kannst du Regen um dich herum platzieren."
+    },
+    "es-ES": {
+      "sleep": "Lluvia suave, bosque tranquilo y temporizador. Oasis convierte tu iPhone en un refugio sonoro, sin suscripción.",
+      "premium": "Una app de calma no debería cobrarte cada mes. Oasis se desbloquea con una compra única.",
+      "spatial": "Ponte auriculares: con Oasis puedes colocar la lluvia a tu alrededor."
+    },
+    "it": {
+      "sleep": "Pioggia leggera, foresta calma e timer. Oasis trasforma l'iPhone in un rifugio sonoro, senza abbonamento.",
+      "premium": "Un'app per rilassarsi non dovrebbe farti pagare ogni mese. Oasis si sblocca con un acquisto unico.",
+      "spatial": "Metti le cuffie: con Oasis puoi posizionare la pioggia intorno a te."
+    },
+    "pt-BR": {
+      "sleep": "Chuva suave, floresta calma e timer. Oasis transforma o iPhone em um refúgio sonoro, sem assinatura.",
+      "premium": "Um app calmo não deveria cobrar todo mês. Oasis desbloqueia tudo com uma compra única.",
+      "spatial": "Coloque fones: com Oasis, você posiciona a chuva ao seu redor."
+    }
+  }
+}

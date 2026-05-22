@@ -1,0 +1,37 @@
+{
+  "generatedAt": "2026-05-22T15:23:45.469Z",
+  "project": {
+    "marketingVersion": "1.0.0",
+    "buildNumber": "1",
+    "iOSDeploymentTarget": "17.0"
+  },
+  "archive": {
+    "exists": true,
+    "archivePath": "/Users/jonathanluquet/Library/Developer/Xcode/Archives/2026-05-22/OasisNative 22-05-2026, 16.45.xcarchive",
+    "info": {
+      "bundleId": "com.jonathanluquet.drift",
+      "marketingVersion": "1.5.1",
+      "buildNumber": "7",
+      "signingIdentity": "Apple Development: Jonathan Luquet (939343JY8Y)",
+      "team": "346GF2QVCC",
+      "name": "OasisNative",
+      "scheme": "OasisNative"
+    },
+    "error": ""
+  },
+  "signing": {
+    "status": 0,
+    "hasAppleDevelopment": false,
+    "hasDistribution": false,
+    "output": "0 valid identities found"
+  },
+  "fastlane": {
+    "logPath": "/Users/jonathanluquet/CODE/evasion/fastlane/buildlogs/Oasis-OasisNative.log",
+    "exists": true,
+    "archiveSucceeded": true,
+    "missingDistributionCert": false,
+    "invalidXcodeCredentials": false,
+    "appSpecificPasswordRequired": false
+  },
+  "verdict": "blocked"
+}

@@ -1,6 +1,7 @@
 import { z } from "zod";
 
-export const LangSchema = z.enum(["fr", "en"]);
+export const LANGS = ["fr", "en", "de", "es", "it", "ptbr"] as const;
+export const LangSchema = z.enum(LANGS);
 export type Lang = z.infer<typeof LangSchema>;
 
 export const PositionSchema = z.enum(["top", "center", "bottom"]);
@@ -21,6 +22,10 @@ export type Mood = z.infer<typeof MoodSchema>;
 const LocalizedTextSchema = z.object({
   fr: z.string().min(1),
   en: z.string().min(1),
+  de: z.string().min(1).optional(),
+  es: z.string().min(1).optional(),
+  it: z.string().min(1).optional(),
+  ptbr: z.string().min(1).optional(),
 });
 
 export const OverlaySpecSchema = z
@@ -216,6 +221,10 @@ export type CaptionsFile = z.infer<typeof CaptionsFileSchema>;
 export const HashtagsFileSchema = z.object({
   fr: z.record(z.string(), z.array(z.string())),
   en: z.record(z.string(), z.array(z.string())),
+  de: z.record(z.string(), z.array(z.string())),
+  es: z.record(z.string(), z.array(z.string())),
+  it: z.record(z.string(), z.array(z.string())),
+  ptbr: z.record(z.string(), z.array(z.string())),
 });
 export type HashtagsFile = z.infer<typeof HashtagsFileSchema>;
 

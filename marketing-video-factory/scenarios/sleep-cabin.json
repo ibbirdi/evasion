@@ -30,14 +30,15 @@
   "actions": [
     { "at":  0.5, "type": "setSlider", "target": "channel.slider.pluie",    "value": 0.90 },
     { "at":  2.2, "type": "setSlider", "target": "channel.slider.foret",    "value": 0.50 },
-    { "at":  3.8, "type": "setSlider", "target": "channel.slider.tonnerre", "value": 0.30 },
+    { "at":  4.8, "type": "scrollTo",    "target": "channel.spatial.pluie", "maxSwipes": 3 },
     { "at":  5.5, "type": "tap",         "target": "channel.spatial.pluie"             },
     { "at":  6.8, "type": "dragSpatial", "to": { "x":  0.00, "y":  0.90 }, "duration": 1.4 },
     { "at":  9.0, "type": "dragSpatial", "to": { "x": -0.50, "y":  0.60 }, "duration": 1.3 },
     { "at": 11.5, "type": "dismissPanel" },
-    { "at": 12.5, "type": "tap",         "target": "channel.spatial.tonnerre"          },
+    { "at": 12.5, "type": "scrollTo",    "target": "channel.spatial.tonnerre", "maxSwipes": 3 },
+    { "at": 13.0, "type": "tap",         "target": "channel.spatial.tonnerre"          },
     { "at": 13.8, "type": "dragSpatial", "to": { "x":  0.00, "y":  0.95 }, "duration": 1.5 },
-    { "at": 16.2, "type": "dismissPanel" }
+    { "at": 16.6, "type": "dismissPanel" }
   ],
 
   "overlays": [

@@ -58,7 +58,7 @@ Patterns this codebase has settled on. Follow these by default — diverge only 
 ### Animation
 
 - Default: `.animation(.smooth, value: …)`. Use `.spring` only when the result is intentional.
-- Continuous animations (auras, waveform) **must** check `AppConfiguration.isRunningUITests` and freeze when true. Otherwise XCUITest hangs.
+- Continuous animations (auras, rotating logo rings) **must** check `AppConfiguration.isRunningUITests` and freeze when true. Otherwise XCUITest hangs.
 - Continuous decorative animations must also respect `accessibilityReduceMotion`.
 - macOS continuous meshes such as the menu bar play button must also pause for screenshot automation and inactive scene phase, because the menu bar panel is often validated through scripted builds/screenshots.
 

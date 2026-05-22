@@ -1,3 +1,3 @@
-Oasis ora è più immersivo e più semplice da usare.
+Oasis ora supporta iOS 17+.
 
-Attiva Suono immersivo per una scena sonora più profonda, mixa 35 suoni naturali, scegli l'intervallo della variazione automatica del volume e salva le tue atmosfere più rapidamente con i preset ripensati.
+Questo aggiornamento mantiene il mixer con 35 suoni, le modalità binaurali, i preset, il timer, la riproduzione offline e lo sblocco con acquisto unico, rendendo l'app disponibile a più utenti iPhone.

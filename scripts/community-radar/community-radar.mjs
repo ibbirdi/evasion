@@ -378,6 +378,16 @@ function scoreOpportunity(item, rulesBySubreddit, daysBack) {
     risks.push("other product Show HN, use as research only");
   }
 
+  if (item.source === "reddit" && item.segment === "maker" && containsAny(item.title.toLowerCase(), [/^built\b/, /^shipped\b/, /^just shipped\b/, /^i built\b/]) && !/oasis/i.test(item.title)) {
+    score -= 80;
+    risks.push("other maker launch thread, use as research only");
+  }
+
+  if (item.source === "reddit" && containsAny(text, [/built my own .*app/, /made me build my own/, /i built my own/, /my own ambient sound app/]) && !/oasis/i.test(text)) {
+    score -= 60;
+    risks.push("other app launch, use as research only");
+  }
+
   if (item.source === "reddit" && item.segment !== "maker" && !questionLike) {
     score -= 25;
     risks.push("not an obvious request thread");

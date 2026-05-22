@@ -13,12 +13,13 @@ related:
 
 # UI System
 
-SwiftUI throughout. iOS 16+ baseline for `OasisNative`, macOS 15+ for `OasisMac`; some iOS surfaces opt into iOS 26+ refinements (zoom transitions, glass effects).
+SwiftUI throughout. iOS 17+ baseline for `OasisNative`, macOS 15+ for `OasisMac`; some iOS surfaces opt into iOS 26+ refinements (zoom transitions, glass effects).
 
 ## Global constraints
 
 - **Dark mode only.** `Info.plist` sets `UIUserInterfaceStyle = Dark`. Don't introduce light-mode variants.
 - **Portrait only.** `UISupportedInterfaceOrientations` is portrait. The mixer board and minimap assume vertical layout.
+- **Launch screen.** `Info.plist` points to `LaunchScreen.storyboard`, which displays the `SplashScreen` asset edge-to-edge with aspect-fill cover behaviour.
 - **Avoid asset-wide accent overrides.** The UI uses per-channel tints. The macOS target applies a local pastel Oasis accent through `MacDesign.accent` / `.tint(...)` for native controls, instead of the legacy neon-green `AccentColor` asset. iOS still carries the legacy asset setting until it is normalised.
 
 ## iOS top-level structure
@@ -45,7 +46,7 @@ Onboarding is a single overlay file: `Views/Overlays/OnboardingView.swift`. Its 
 NSStatusItem
 └── Borderless NSPanel
     └── MacMixerPanel
-        ├── MacMixerHeader            — OASIS wordmark + waveform, native MeshGradient play button, timer, random mix, immersive toggle
+        ├── MacMixerHeader            — compact counter-rotating OASIS ring logo lockup, native MeshGradient play button, timer, random mix, AirPlay route picker, immersive toggle
         ├── segmented section picker  — mixer / presets / binaural
         ├── MacMixerSection           — search, active/all filter, iOS-order sound rows, volume/range sliders, info sheets, placement popovers
         ├── MacPresetsSection         — save, load, delete mixes
@@ -54,7 +55,7 @@ NSStatusItem
         └── .sheet MacInlineUpsellSheet
 ```
 
-macOS intentionally uses native desktop controls where they fit: segmented pickers, `Menu`, switch toggles, popovers, hover help, compact icon buttons, scrollable lists, and a panel-like density. The mixer keeps sounds in `SoundChannel.allCases` order to match iOS. Each sound row has a small info button that opens the shared `SoundDetailSheet` as an in-panel overlay with its Apple Maps minimap and explicit close button, avoiding AppKit's separate square sheet window over the rounded menu bar panel. Sound placement is edited from each row's dedicated placement button rather than a separate tab. AUTO volume reuses the shared `AutoVariationRangeSlider` so min/max bounds stay editable on both platforms. The main mixer list hides the default macOS scroller, overlays a thin custom indicator, and fades its top/bottom edges with an alpha mask driven by native `ScrollGeometry`. The menu bar panel background is a translucent Liquid Glass/material surface, and the header stays minimal: OASIS lockup, waveform signature, play button, immersive toggle, timer, shuffle, and quit only.
+macOS intentionally uses native desktop controls where they fit: segmented pickers, `Menu`, switch toggles, popovers, hover help, compact icon buttons, scrollable lists, and a panel-like density. The mixer keeps sounds in `SoundChannel.allCases` order to match iOS. Each sound row has a small info button that opens the shared `SoundDetailSheet` as an in-panel overlay with its Apple Maps minimap and explicit close button, avoiding AppKit's separate square sheet window over the rounded menu bar panel. Sound placement is edited from each row's dedicated placement button rather than a separate tab. AUTO volume reuses the shared `AutoVariationRangeSlider` so min/max bounds stay editable on both platforms. The main mixer list hides the default macOS scroller, overlays a thin custom indicator, and fades its top/bottom edges with an alpha mask driven by native `ScrollGeometry`. The menu bar panel background is a translucent Liquid Glass/material surface, and the header stays minimal: compact counter-rotating OASIS ring logo lockup, play button, immersive toggle, timer, shuffle, AirPlay route picker, and quit only.
 
 ## SwiftUI patterns used here
 
@@ -88,7 +89,7 @@ Most overlays bind to an optional state on `AppModel` and present when non-nil:
 | `AnimatedLiquidAura` | Liquid blob aura around the play button when audio is active. Paused under XCUITest. |
 | `AnimatedBackdrop` | Static full-screen deep blue/grey backdrop. It intentionally does not adapt to selected or playing channel tints. |
 | `SoundBackdropImage` | Shared photo watermark renderer for sound rows, binaural cards, and `SoundDetailSheet`; images come from `Assets.xcassets/SoundBackgrounds` and are intentionally low-opacity, desaturated, and darkened. |
-| `WaveformSignatureLine` | Audio-reactive signature line in the header. Paused under XCUITest. |
+| `HomeHeaderView` | Floating OASIS wordmark centered inside two same-size counter-rotating logo rings. The rings start offset, use balanced additive blending, and are darkened as a group so colours mix without overexposing the lockup. The rings freeze under screenshot automation / Reduce Motion. |
 | `HomeToolbarImmersiveAudioToggle` | Top-left native toolbar button for the persisted global immersive audio mode. |
 | `MixerBoardSectionView` | One row of the mixer board. |
 | `HapticSlider` | Slider with `sensoryFeedback` haptics on tick. Also hosts `AutoVariationRangeSlider`, the two-handle volume interval control used when a channel is in auto-variation mode. |
@@ -134,7 +135,7 @@ There is no centralised colour file beyond `SoundChannelMetadata.swift` for chan
 
 ## XCUITest quiescence
 
-`AnimatedLiquidAura`, `MacAnimatedPlaybackMesh`, and `WaveformSignatureLine` check screenshot automation / UI-test flags and freeze their animation state. `MacMixerPanel` also reads `-OASISMacScreenshotScenario` to seed the visible section, detail overlay, timer, binaural state, and auto-volume range for Mac App Store captures. Without these guards, automated screenshot runs can wait indefinitely for "no animations in progress" or produce nondeterministic panels. Don't add new continuous animations or screenshot scenarios without applying the same pattern.
+`AnimatedLiquidAura`, `MacAnimatedPlaybackMesh`, and the rotating iOS/macOS header rings check screenshot automation / UI-test flags and freeze their animation state. `MacMixerPanel` also reads `-OASISMacScreenshotScenario` to seed the visible section, detail overlay, timer, binaural state, and auto-volume range for Mac App Store captures. Without these guards, automated screenshot runs can wait indefinitely for "no animations in progress" or produce nondeterministic panels. Don't add new continuous animations or screenshot scenarios without applying the same pattern.
 
 ## Localisation in views
 

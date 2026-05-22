@@ -65,3 +65,7 @@ fastlane
 .bundle
 .claude/*
 !.claude/settings.json
+
+# Generated acquisition upload packs
+scripts/acquisition/manual-packs/
+scripts/acquisition/outreach-pack/

@@ -15,6 +15,10 @@ const START_MARKER_PATH = "/tmp/oasis-marketing/scenario-started.txt";
 const LOCALES: Record<Lang, { locale: string; appleLanguages: string }> = {
   fr: { locale: "fr_FR", appleLanguages: "fr" },
   en: { locale: "en_US", appleLanguages: "en" },
+  de: { locale: "de_DE", appleLanguages: "de" },
+  es: { locale: "es_ES", appleLanguages: "es" },
+  it: { locale: "it_IT", appleLanguages: "it" },
+  ptbr: { locale: "pt_BR", appleLanguages: "pt-BR" },
 };
 
 export async function writeScenarioFile(

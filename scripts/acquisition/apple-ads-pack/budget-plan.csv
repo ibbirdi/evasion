@@ -1,0 +1,7 @@
+market,locale,countriesOrRegions,campaignName,weight,dailyBudgetCap,cpaGoal,expectedDownloadsAtTarget,estimatedSpendAtCpaGoal
+English core,en-US,US|GB|CA|AU|NZ,Oasis English core Search Results,0.42,10,1.5,252,378
+Francophone,fr-FR,FR|BE|CH|CA,Oasis Francophone Search Results,0.12,10,1.5,72,108
+DACH,de-DE,DE|AT|CH,Oasis DACH Search Results,0.13,10,1.5,78,117
+Spanish,es-ES,ES|MX|CO|AR|CL,Oasis Spanish Search Results,0.15,10,1.5,90,135
+Italy,it,IT,Oasis Italy Search Results,0.08,10,1.5,48,72
+Brazil,pt-BR,BR,Oasis Brazil Search Results,0.1,10,1.5,60,90

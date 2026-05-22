@@ -17,14 +17,13 @@
   "outro": { "duration": 2.8 },
 
   "introOverlays": [
-    { "start": 0.4, "duration": 2.2, "text": { "fr": "Tu paies.",       "en": "You pay." },              "position": "center", "size": "xxl" },
-    { "start": 2.9, "duration": 2.2, "text": { "fr": "Tous les mois.",  "en": "Every month." },          "position": "center", "size": "xl"  },
-    { "start": 5.4, "duration": 2.4, "text": { "fr": "Pourquoi ?",      "en": "Why?" },                  "position": "center", "size": "xxl" }
+    { "start": 0.4, "duration": 2.2, "text": { "fr": "Tu paies.",       "en": "You pay.",        "de": "Du zahlst.",        "es": "Pagas.",          "it": "Paghi.",          "ptbr": "Você paga." },        "position": "center", "size": "xxl" },
+    { "start": 2.9, "duration": 2.2, "text": { "fr": "Tous les mois.",  "en": "Every month.",    "de": "Jeden Monat.",      "es": "Cada mes.",       "it": "Ogni mese.",      "ptbr": "Todo mês." },          "position": "center", "size": "xl"  },
+    { "start": 5.4, "duration": 2.4, "text": { "fr": "Pourquoi ?",      "en": "Why?",            "de": "Warum?",           "es": "¿Por qué?",       "it": "Perché?",         "ptbr": "Por quê?" },           "position": "center", "size": "xxl" }
   ],
 
   "setup": [
-    { "at": 0.0, "type": "tap", "target": "home.bottom.shuffle"       },
-    { "at": 0.7, "type": "tap", "target": "home.header.active-filter" }
+    { "at": 0.0, "type": "tap", "target": "home.bottom.shuffle"       }
   ],
 
   "actions": [
@@ -34,16 +33,13 @@
     { "at":  6.5, "type": "dismissPanel" },
     { "at":  7.5, "type": "tap",       "target": "home.bottom.presets"                },
     { "at":  9.8, "type": "dismissPanel" },
-    { "at": 10.8, "type": "scrollTo",  "target": "channel.row.savane", "maxSwipes": 6 },
-    { "at": 13.0, "type": "tap",       "target": "channel.spatial.savane"             },
-    { "at": 14.0, "type": "dragSpatial","to": { "x": 0.7, "y": -0.4 }, "duration": 1.2 },
-    { "at": 15.8, "type": "dismissPanel" }
+    { "at": 11.0, "type": "wait",      "duration": 4.2 }
   ],
 
   "overlays": [
-    { "start":  0.5, "duration": 4.0, "text": { "fr": "20 sons. 4 binauraux.",        "en": "20 sounds. 4 binaurals." }, "position": "center", "backdrop": true },
-    { "start":  4.5, "duration": 5.0, "text": { "fr": "Spatial 3D. Presets. Timer.",  "en": "3D spatial. Presets. Timer." }, "position": "center", "backdrop": true },
-    { "start": 10.0, "duration": 5.4, "text": { "fr": "Tout débloqué.\nSans abonnement.", "en": "All unlocked.\nNo subscription." }, "position": "center", "backdrop": true },
-    { "start": 15.6, "duration": 2.4, "text": { "fr": "Oasis — un achat. Pour toujours.", "en": "Oasis — one purchase. Forever." }, "position": "center", "size": "lg", "backdrop": true }
+    { "start":  0.5, "duration": 4.0, "text": { "fr": "35 sons. 4 binauraux.",        "en": "35 sounds. 4 binaurals.",       "de": "35 Klänge. 4 Binaurals.",       "es": "35 sonidos. 4 binaurales.",       "it": "35 suoni. 4 binaurali.",       "ptbr": "35 sons. 4 binaurais." }, "position": "center", "backdrop": true },
+    { "start":  4.5, "duration": 5.0, "text": { "fr": "Binauraux. Presets. Timer.",  "en": "Binaurals. Presets. Timer.",    "de": "Binaurals. Presets. Timer.",    "es": "Binaurales. Presets. Timer.",    "it": "Binaurali. Preset. Timer.",    "ptbr": "Binaurais. Presets. Timer." }, "position": "center", "backdrop": true },
+    { "start": 10.0, "duration": 5.4, "text": { "fr": "Tout débloqué.\nSans abonnement.", "en": "All unlocked.\nNo subscription.", "de": "Alles freigeschaltet.\nKein Abo.", "es": "Todo desbloqueado.\nSin suscripción.", "it": "Tutto sbloccato.\nSenza abbonamento.", "ptbr": "Tudo desbloqueado.\nSem assinatura." }, "position": "center", "backdrop": true },
+    { "start": 15.6, "duration": 2.4, "text": { "fr": "Oasis — un achat. Pour toujours.", "en": "Oasis — one purchase. Forever.", "de": "Oasis — einmal kaufen. Für immer.", "es": "Oasis — una compra. Para siempre.", "it": "Oasis — un acquisto. Per sempre.", "ptbr": "Oasis — uma compra. Para sempre." }, "position": "center", "size": "lg", "backdrop": true }
   ]
 }

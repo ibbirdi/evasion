@@ -1,7 +1,7 @@
 ---
 title: Community Radar
 status: stable
-last_updated: 2026-05-20
+last_updated: 2026-05-22
 tracks:
   - "scripts/community-radar/**"
 related:
@@ -12,7 +12,13 @@ related:
 
 # Community Radar
 
-`scripts/community-radar/` is a lightweight acquisition helper for finding high-intent community threads without automating spammy behavior.
+`scripts/community-radar/` is a lightweight acquisition helper for finding high-intent community threads without automating spammy behavior. It is now part of the [download-growth sprint](download-growth-sprint.md).
+
+## Current local state — 2026-05-22
+
+- Defaults are broadened for daily acquisition: 21-day recency, minimum score 55, 15 max items.
+- Query set now includes iOS sleep-app recommendations, Calm/Headspace subscription alternatives, insomnia/noise masking, deep-work ambience, hotel/travel noise, and maker/indie feedback threads.
+- A 2026-05-22 run at score 70 found no opportunities; when the radar is quiet, use the owned short-form video loop instead of forcing a community reply.
 
 ## Purpose
 

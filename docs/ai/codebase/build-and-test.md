@@ -1,7 +1,7 @@
 ---
 title: Build and Test
 status: stable
-last_updated: 2026-05-20
+last_updated: 2026-05-22
 tracks:
   - "ios-native/OasisNative.xcodeproj/**"
   - "ios-native/OasisNativeUITests/**"
@@ -52,7 +52,7 @@ xcodebuild -scheme OasisMac -project "ios-native/OasisNative.xcodeproj" \
 
 - Schemes: `OasisNative` (iOS) and `OasisMac` (macOS menu bar app).
 - Configurations: `Debug` and `Release`. Debug keeps RevenueCat at `.error` by default so dashboard health warnings do not look like app failures in Xcode; add `-OASISRevenueCatDebugLogs` (or env `OASIS_REVENUECAT_DEBUG_LOGS=1`) when actively debugging purchases.
-- Target iOS: 16+ baseline; certain effects require iOS 26+ (the codebase guards them with `if #available`).
+- Target iOS: 17+ baseline; certain effects require iOS 26+ (the codebase guards them with `if #available`). The iOS app uses Swift Observation, so iOS 16 would require replacing `@Observable`/`@Bindable` across the shared model layer.
 - Target macOS: 15+ baseline, accessory menu bar app (`LSUIElement`) with an `NSStatusItem` opening a custom borderless mixer `NSPanel`. The target includes shared UI helpers such as `HapticSlider`, `SoundDetailSheet`, and `SoundLocationMinimap` so the menu bar mixer can reuse the iOS auto-volume range slider, detail sheet, and Apple Maps minimap.
 - macOS local Run scheme: `OasisMac.xcscheme` passes `-OASISPremiumOverride premium` in Debug so normal Xcode launches do not start RevenueCat without a Mac App Store receipt. Switch that launch argument to `revenueCat` only when actively testing StoreKit / RevenueCat purchase flows.
 - macOS signing: `OasisMac` uses `Mac/OasisMac.entitlements` with App Sandbox enabled and outbound network access for RevenueCat / StoreKit-backed purchase flows. Keep the entitlement set minimal; add new permissions only for features that genuinely require them.
@@ -70,7 +70,7 @@ Ten scenarios driven by `setUpWithError` reading launch arguments. Each produces
 
 | Slug | What it captures |
 | --- | --- |
-| `01_hero` | Mix playing with active waveform, premium override. |
+| `01_hero` | Mix playing with active header logo and playback aura, premium override. |
 | `02_library` | Mixer scrolled to expose premium channel locks. |
 | `03_detail_sheet` | `SoundDetailSheet` open on Savanna. |
 | `04_binaural` | `BinauralPanel` with the four tracks. |
@@ -89,6 +89,8 @@ Launch arguments used by these tests:
 - `-OASISResetState YES` (force known mix)
 - `-OASISPremiumOverride premium` (or `free` for 08/09/10)
 - `-OASISImmersiveAudioEnabled YES` (force the global immersive sound toggle on for every App Store screenshot)
+
+Fastlane `launch_arguments` must stay as one combined string in the lane / `Snapfile` (for example `"-OASISResetState YES -OASISImmersiveAudioEnabled YES"`). Snapshot treats each array element as a separate launch-argument set; splitting these flags into two strings doubles the full locale pass.
 
 Manual onboarding checks can add `-OASISResetOnboarding` to clear only the first-launch flag. Do not use it in screenshot lanes; those intentionally bypass onboarding via screenshot automation.
 
@@ -126,7 +128,8 @@ From repo root, run `bundle exec fastlane <lane>`:
 | `mac_appstore_release app_version:1.0.0` | Upload macOS screenshots + metadata for an existing macOS binary version. Uses `platform: "osx"` and does not upload a binary. |
 | `stage_appstore_assets` | Stage screenshots into `fastlane/appstore-upload/<locale>/`; screenshots are renamed to the Variant B display order and App Preview videos are intentionally excluded. |
 | `appstore_metadata` | Push metadata only, no binary. Fast iteration on text. |
-| `appstore_release app_version:1.5.0` | Push screenshots + metadata for an existing binary version. |
+| `build_and_upload ipa_name:OasisNative-1.5.1-b7.ipa` | Archive/export the iOS App Store IPA and upload it to TestFlight/App Store Connect without automatic submission. |
+| `appstore_release app_version:1.5.1` | Push screenshots + metadata for an existing binary version. |
 
 The `Fastfile` autodetects the repo root by looking for `ios-native/OasisNative.xcodeproj` in 4 candidate paths.
 
@@ -157,6 +160,7 @@ All under `scripts/`. Purpose-specific, not part of the build pipeline.
 | `createFastlaneCountriesFolders.js` | Bootstrap a new locale's metadata folder structure. |
 | `generateFastlaneTxtFiles.js` | Mirror the canonical `fastlane/metadata/<locale>/*.txt` files into the script metadata output path. |
 | `community-radar/community-radar.mjs` | Daily Reddit / HN / forum acquisition radar. Outputs a manual-review digest only; it never posts. |
+| `acquisition/check-release-readiness.mjs` | Before retrying App Store upload — checks the iOS version/build, latest archive, local distribution signing identity, and last Fastlane archive log. |
 
 ## Community radar
 

@@ -65,7 +65,7 @@ function resolveOverlaysList(
     let text: string;
     if (ov.textRef === "hook") text = hook;
     else if (ov.textRef === "caption") text = caption;
-    else if (ov.text) text = ov.text[lang];
+    else if (ov.text) text = ov.text[lang] ?? ov.text.en ?? ov.text.fr;
     else
       throw new FactoryError(
         `Overlay in scenario "${scenarioId}" missing text/textRef.`,

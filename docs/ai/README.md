@@ -56,6 +56,12 @@ Touch in this order:
 2. [marketing/positioning.md](marketing/positioning.md)
 3. [marketing/aso-strategy.md](marketing/aso-strategy.md) — campaign links / Custom Product Pages
 
+### "I'm trying to increase downloads"
+1. [marketing/download-growth-sprint.md](marketing/download-growth-sprint.md)
+2. [marketing/community-radar.md](marketing/community-radar.md)
+3. [marketing/video-factory.md](marketing/video-factory.md)
+4. [marketing/aso-strategy.md](marketing/aso-strategy.md) — only if analytics show a listing conversion issue
+
 ## File map
 
 ```
@@ -86,6 +92,7 @@ marketing/       — how Oasis is sold
   aso-strategy.md     Title/subtitle/keywords per locale, screenshot order
   store-assets.md     Screenshot specs, brief reconciliation, Figma workflow
   positioning.md      Multi-use angle, competitors, moats
+  download-growth-sprint.md  1000-download sprint, metrics loop, campaign IDs
   community-radar.md  Reddit / HN / forum opportunity radar and manual reply rules
   video-factory.md    Scenario-driven social-video pipeline (simulator + FFmpeg)
 

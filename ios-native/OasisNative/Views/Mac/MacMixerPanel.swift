@@ -149,7 +149,7 @@ private struct MacMixerHeader: View {
         VStack(spacing: 14) {
             HStack(alignment: .center, spacing: 18) {
                 MacBrandLockup()
-                    .frame(width: 118, height: 60, alignment: .leading)
+                    .frame(width: 78, height: 66, alignment: .leading)
 
                 Spacer(minLength: 0)
 
@@ -182,6 +182,8 @@ private struct MacMixerHeader: View {
                     action: model.randomizeMix
                 )
 
+                MacRoutePickerButton()
+
                 #if os(macOS)
                 Button {
                     MacApplicationCommands.quit()
@@ -201,18 +203,130 @@ private struct MacMixerHeader: View {
 }
 
 private struct MacBrandLockup: View {
+    @Environment(AppModel.self) private var model
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
     var body: some View {
-        Text(verbatim: "OASIS")
-            .oasisFont(size: 22, weight: .semibold, design: .default, relativeTo: .title3)
-            .kerning(4)
-            .foregroundStyle(.white.opacity(0.96))
-            .padding(.bottom, 25)
-            .background(alignment: .bottom) {
-                MacWaveformSignatureLine()
-                    .frame(maxWidth: .infinity, maxHeight: 24)
+        ZStack {
+            ZStack {
+                MacRotatingOasisLogoRing(
+                    isPlaying: model.isPlaying,
+                    reduceMotion: reduceMotion,
+                    rotationDirection: -1,
+                    initialRotationDegrees: 118
+                )
+                .opacity(0.56)
+                .blendMode(.plusLighter)
+                .accessibilityHidden(true)
+
+                MacRotatingOasisLogoRing(
+                    isPlaying: model.isPlaying,
+                    reduceMotion: reduceMotion,
+                    rotationDirection: 1,
+                    initialRotationDegrees: 0
+                )
+                .opacity(0.56)
+                .blendMode(.plusLighter)
+                .accessibilityHidden(true)
             }
-            .accessibilityElement(children: .combine)
-            .accessibilityLabel(L10n.App.title)
+            .compositingGroup()
+            .brightness(-0.14)
+
+            MacOasisWordmark()
+        }
+        .frame(width: 66, height: 66)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(L10n.App.title)
+    }
+}
+
+private struct MacOasisWordmark: View {
+    private static let letters: [(id: Int, value: String)] = [
+        (0, "O"),
+        (1, "A"),
+        (2, "S"),
+        (3, "I"),
+        (4, "S")
+    ]
+
+    var body: some View {
+        HStack(spacing: 1.7) {
+            ForEach(Self.letters, id: \.id) { letter in
+                Text(verbatim: letter.value)
+            }
+        }
+        .oasisFont(size: 10.5, weight: .semibold, design: .default, relativeTo: .caption)
+        .foregroundStyle(.white.opacity(0.97))
+        .shadow(color: .black.opacity(0.42), radius: 4, x: 0, y: 1)
+    }
+}
+
+private struct MacRotatingOasisLogoRing: View {
+    let isPlaying: Bool
+    let reduceMotion: Bool
+    let rotationDirection: Double
+    let initialRotationDegrees: Double
+
+    @State private var rotationAccumulator = MacRingRotationAccumulator()
+
+    private static let idleDegreesPerSecond: Double = 4.2
+    private static let playbackDegreesPerSecond: Double = 13.0
+
+    var body: some View {
+        let shouldPause = AppConfiguration.isRunningScreenshotAutomation || reduceMotion
+        TimelineView(.animation(minimumInterval: 1.0 / 30.0, paused: shouldPause)) { context in
+            let now = context.date.timeIntervalSinceReferenceDate
+            let speed = isPlaying ? Self.playbackDegreesPerSecond : Self.idleDegreesPerSecond
+            let rotation = rotationAccumulator.advance(
+                to: now,
+                degreesPerSecond: speed * rotationDirection,
+                paused: shouldPause
+            )
+
+            MacOasisLogoRingArtwork()
+                .rotationEffect(.degrees(rotation + initialRotationDegrees))
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
+    }
+}
+
+private struct MacOasisLogoRingArtwork: View {
+    var body: some View {
+        Image("OasisRingLogo")
+            .resizable()
+            .scaledToFit()
+            .saturation(1.08)
+            .contrast(1.04)
+            .shadow(color: Color(red: 0.32, green: 0.92, blue: 1.0).opacity(0.28), radius: 8)
+            .shadow(color: Color(red: 1.0, green: 0.61, blue: 0.20).opacity(0.22), radius: 8)
+            .opacity(0.96)
+    }
+}
+
+private final class MacRingRotationAccumulator {
+    private var angle: Double = 0
+    private var lastTime: TimeInterval = -1
+
+    func advance(to now: TimeInterval, degreesPerSecond: Double, paused: Bool) -> Double {
+        guard !paused else {
+            lastTime = now
+            return angle
+        }
+
+        guard lastTime > 0, now > lastTime else {
+            lastTime = now
+            return angle
+        }
+
+        let dt = min(now - lastTime, 0.5)
+        angle += dt * degreesPerSecond
+        if angle > 360 {
+            angle = angle.truncatingRemainder(dividingBy: 360)
+        } else if angle < -360 {
+            angle = angle.truncatingRemainder(dividingBy: 360)
+        }
+        lastTime = now
+        return angle
     }
 }
 
@@ -397,138 +511,6 @@ private struct MacAnimatedPlaybackMesh: View {
 private extension Array {
     subscript(safe index: Int) -> Element? {
         indices.contains(index) ? self[index] : nil
-    }
-}
-
-private struct MacWaveformSignatureLine: View {
-    @Environment(AppModel.self) private var model
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
-
-    @State private var transitionFrom: Double = 0
-    @State private var transitionTo: Double = 0
-    @State private var transitionStartTime: TimeInterval = 0
-    @State private var hasInitialised = false
-    @State private var phaseAccumulator = MacWavePhaseAccumulator()
-
-    private static let transitionDuration: Double = 0.40
-
-    var body: some View {
-        let shouldPause = AppConfiguration.isRunningScreenshotAutomation || reduceMotion
-        TimelineView(.animation(minimumInterval: 1.0 / 24.0, paused: shouldPause)) { context in
-            let now = AppConfiguration.isRunningScreenshotAutomation
-                ? 3.4
-                : context.date.timeIntervalSinceReferenceDate
-            let p = computePhaseProgress(at: now)
-            let palette = model.activePlaybackPalette
-            let speed = 0.40 + (0.95 - 0.40) * p
-            let accumulatedPhase = phaseAccumulator.advance(to: now, speed: speed)
-
-            Canvas { gc, size in
-                drawWave(
-                    gc: gc,
-                    size: size,
-                    time: now,
-                    palette: palette,
-                    paletteCount: palette.count,
-                    p: p,
-                    phaseTime: accumulatedPhase
-                )
-            }
-        }
-        .onAppear { initialiseIfNeeded() }
-        .onChange(of: model.isPlaying) { _, newValue in
-            startTransition(toPlaying: newValue)
-        }
-    }
-
-    private func initialiseIfNeeded() {
-        guard !hasInitialised else { return }
-        let initial: Double = model.isPlaying ? 1 : 0
-        transitionFrom = initial
-        transitionTo = initial
-        transitionStartTime = 0
-        hasInitialised = true
-    }
-
-    private func startTransition(toPlaying: Bool) {
-        let now = Date().timeIntervalSinceReferenceDate
-        transitionFrom = computePhaseProgress(at: now)
-        transitionTo = toPlaying ? 1 : 0
-        transitionStartTime = now
-    }
-
-    private func computePhaseProgress(at now: TimeInterval) -> Double {
-        guard transitionStartTime > 0 else { return transitionTo }
-        let elapsed = now - transitionStartTime
-        if elapsed >= Self.transitionDuration { return transitionTo }
-        if elapsed <= 0 { return transitionFrom }
-        let t = elapsed / Self.transitionDuration
-        let eased = t * t * (3 - 2 * t)
-        return transitionFrom + (transitionTo - transitionFrom) * eased
-    }
-
-    private func drawWave(
-        gc: GraphicsContext,
-        size: CGSize,
-        time: TimeInterval,
-        palette: [Color],
-        paletteCount: Int,
-        p: Double,
-        phaseTime: Double
-    ) {
-        var path = Path()
-        let midY = size.height / 2
-        let width = size.width
-        let step: Double = 1.4
-        let pClamped = max(0, min(1, p))
-        let driftMix = 0.30 * pClamped
-        let idleAmp = 0.22
-        let playAmp = min(1.20, 0.85 + Double(paletteCount) * 0.08)
-        let amplitude = idleAmp + (playAmp - idleAmp) * pClamped
-        let envelopeNoise = 1.0 + (0.7 + 0.3 * sin(time * 0.42) - 1.0) * pClamped
-
-        path.move(to: CGPoint(x: 0, y: midY))
-
-        var x: Double = 0
-        while x <= Double(width) {
-            let nx = x / Double(width)
-            let primary = sin(nx * 4.5 * .pi + phaseTime)
-            let drift = sin(nx * 1.7 * .pi + time * 0.6)
-            let wave = primary + drift * driftMix
-            let envelope = sin(nx * .pi)
-            let yRaw = midY + amplitude * envelopeNoise * Double(size.height) * 0.20 * wave * envelope
-            let y = min(max(yRaw, 1.5), Double(size.height) - 1.5)
-
-            path.addLine(to: CGPoint(x: x, y: y))
-            x += step
-        }
-
-        let colors = palette.isEmpty
-            ? [Color.white.opacity(0.55)]
-            : palette.map { $0.opacity(0.82) }
-        let shading = GraphicsContext.Shading.linearGradient(
-            Gradient(colors: colors),
-            startPoint: .zero,
-            endPoint: CGPoint(x: width, y: 0)
-        )
-
-        gc.stroke(path, with: shading, lineWidth: 2.0)
-    }
-}
-
-private final class MacWavePhaseAccumulator {
-    private var phase: Double = 0
-    private var lastTime: TimeInterval = -1
-
-    func advance(to now: TimeInterval, speed: Double) -> Double {
-        defer { lastTime = now }
-        guard lastTime > 0, now > lastTime else { return phase }
-        let dt = min(now - lastTime, 0.5)
-        phase += dt * speed
-        if phase > 10_000 * .pi * 2 {
-            phase = phase.truncatingRemainder(dividingBy: 2 * .pi)
-        }
-        return phase
     }
 }
 

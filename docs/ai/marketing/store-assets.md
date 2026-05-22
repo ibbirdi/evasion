@@ -1,7 +1,7 @@
 ---
 title: App Store Assets
 status: stable
-last_updated: 2026-05-20
+last_updated: 2026-05-22
 tracks:
   - "fastlane/Fastfile"
   - "fastlane/Snapfile"
@@ -25,7 +25,7 @@ related:
 
 # App Store Assets
 
-Specs and copy for the 60 App Store screenshots (10 slides × 6 locales). App Preview videos are local-only for now and are not uploaded for version `1.5.0`.
+Specs and copy for the 60 App Store screenshots (10 slides × 6 locales). App Preview videos are local-only for now and are not uploaded for version `1.5.1`.
 
 > **Important:** two design briefs existed historically — a Cowork brief (v2) and a design-handoff brief (v3). They diverge on multiple dimensions (font, device width, palette, JPEG quality). **The v3 spec below is canonical.** The Cowork brief has been retired; do not back-port any v2 specs.
 
@@ -49,7 +49,7 @@ Mac screenshots sell the native menu bar experience and never reuse iPhone mocku
 04_saved_ambiences    05_binaural_timer
 ```
 
-Raw captures come from the actual `OasisMac` panel in deterministic screenshot mode: the app opens the system-rendered template status item panel automatically, seeds premium/active sounds, forces immersive audio on, pauses continuous mesh/wave animations, and applies a fixed scenario. Detail screenshots use the in-panel macOS `SoundDetailSheet` overlay, not an AppKit sheet window.
+Raw captures come from the actual `OasisMac` panel in deterministic screenshot mode: the app opens the system-rendered template status item panel automatically, seeds premium/active sounds, forces immersive audio on, pauses continuous mesh/logo animations, and applies a fixed scenario. The visible header includes the compact counter-rotating OASIS ring logo, playback, timer, shuffle, AirPlay route picker, and quit controls. Detail screenshots use the in-panel macOS `SoundDetailSheet` overlay, not an AppKit sheet window.
 
 The macOS copy mirrors the iOS App Store screenshots while selling the native menu bar panel: lead with `35 sounds`, `mixing`, and `escape into real nature`; use detail, saved mixes, and binaural/timer slides as proof points rather than mechanical feature explanations. The bottom-left copy block is text-only: no icon or capsule before the eyebrow.
 
@@ -186,6 +186,8 @@ Both check `AppConfiguration.isRunningUITests` and freeze. Don't add new continu
 
 Every App Store screenshot launches with `-OASISImmersiveAudioEnabled YES`, and `OasisNativeScreenshots.launchApp` asserts that `home.header.immersive` is selected before capturing. This keeps the visible "Immersive sound" / localized label present anywhere the home toolbar is visible.
 
+Keep the Fastlane / `Snapfile` `launch_arguments` value as one combined string. Snapshot interprets multiple array entries as multiple complete runs, not multiple arguments, so splitting reset and immersive flags causes every locale to be captured twice.
+
 The composited slides (`figma-pro/<slug>.jpg`) overlay copy onto these raw captures.
 
 ## Acceptance criteria
@@ -193,7 +195,7 @@ The composited slides (`figma-pro/<slug>.jpg`) overlay copy onto these raw captu
 A finished screenshot set passes when:
 
 - 60 JPEGs at exactly `1320 × 2868`, sRGB, no alpha, ≤ 2 MB each.
-- No App Preview MP4s staged for `1.5.0`.
+- No App Preview MP4s staged for `1.5.1`.
 - Naming matches the 10 slugs above, in 6 locale folders.
 - Each headline and subhead fits its measured layout budget, with no clipping or awkward orphan word.
 - Devices vertical, no rotation.

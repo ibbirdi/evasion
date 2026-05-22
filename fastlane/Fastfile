@@ -151,8 +151,7 @@ platform :ios do
       # the run time and hide regressions.
       number_of_retries: 0,
       launch_arguments: [
-        "-OASISResetState YES",
-        "-OASISImmersiveAudioEnabled YES"
+        "-OASISResetState YES -OASISImmersiveAudioEnabled YES"
       ],
       buildlog_path: buildlog_directory,
       derived_data_path: derived_data_directory
@@ -223,7 +222,7 @@ platform :ios do
   desc "Upload metadata to App Store Connect without screenshots"
   lane :appstore_metadata do |options|
     repo_root = oasis_repo_root
-    app_version = options[:app_version] || "1.5.0"
+    app_version = options[:app_version] || "1.5.1"
 
     upload_to_app_store(
       username: "jonathanluquet@me.com",
@@ -275,7 +274,7 @@ platform :ios do
   desc "Upload screenshots + metadata to App Store Connect (no binary)"
   lane :appstore_release do |options|
     repo_root = oasis_repo_root
-    app_version = options[:app_version] || "1.5.0"
+    app_version = options[:app_version] || "1.5.1"
     staging_result = oasis_stage_appstore_media(repo_root)
 
     upload_to_app_store(

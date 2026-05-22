@@ -3,7 +3,7 @@
     "core": ["#oasis", "#sonsdelanature", "#iphone", "#appios"],
     "sleep": ["#sommeil", "#dormir", "#insomnie", "#bruitblanc", "#pluie", "#orage", "#calme"],
     "focus": ["#focus", "#concentration", "#productivite", "#deepwork", "#travail", "#etudes"],
-    "spatial": ["#audio3d", "#audiospatial", "#binaural", "#asmr", "#3daudio"],
+    "spatial": ["#placementsonore", "#binaural", "#asmr", "#immersif", "#ambiance"],
     "premium": ["#sansabonnement", "#achatunique", "#indieapp", "#applicationindie"],
     "general": ["#relaxation", "#meditation", "#mindfulness", "#ambiance", "#nature"]
   },
@@ -11,8 +11,40 @@
     "core": ["#oasis", "#naturesounds", "#iphone", "#iosapp"],
     "sleep": ["#sleep", "#insomnia", "#whitenoise", "#rainsounds", "#thunderstorm", "#sleepaid"],
     "focus": ["#focus", "#deepwork", "#productivity", "#studywithme", "#concentration"],
-    "spatial": ["#3daudio", "#spatialaudio", "#binaural", "#asmr", "#immersiveaudio"],
+    "spatial": ["#soundplacement", "#binaural", "#asmr", "#immersiveaudio", "#soundscape"],
     "premium": ["#nosubscription", "#onetimepurchase", "#indieapp", "#indiedev"],
     "general": ["#relaxation", "#meditation", "#mindfulness", "#ambient", "#nature"]
+  },
+  "de": {
+    "core": ["#oasis", "#naturgeraeusche", "#iphone", "#iosapp"],
+    "sleep": ["#schlaf", "#einschlafen", "#regen", "#weissesrauschen", "#entspannung"],
+    "focus": ["#fokus", "#konzentration", "#produktivitaet", "#deepwork", "#lernen"],
+    "spatial": ["#klangplatzierung", "#binaural", "#asmr", "#immersiv", "#klanglandschaft"],
+    "premium": ["#keinabo", "#einmalkauf", "#indieapp", "#iosapp"],
+    "general": ["#relaxation", "#meditation", "#achtsamkeit", "#ambiente", "#natur"]
+  },
+  "es": {
+    "core": ["#oasis", "#sonidosdelanaturaleza", "#iphone", "#appios"],
+    "sleep": ["#suenyo", "#dormir", "#lluvia", "#ruidoblanco", "#calma"],
+    "focus": ["#focus", "#concentracion", "#productividad", "#deepwork", "#estudio"],
+    "spatial": ["#posicionamientodesonido", "#binaural", "#asmr", "#inmersivo", "#paisajesonoro"],
+    "premium": ["#sinsuscripcion", "#compraunica", "#indieapp", "#appios"],
+    "general": ["#relajacion", "#meditacion", "#mindfulness", "#ambiente", "#naturaleza"]
+  },
+  "it": {
+    "core": ["#oasis", "#suonidellanatura", "#iphone", "#appios"],
+    "sleep": ["#sonno", "#dormire", "#pioggia", "#rumorebianco", "#calma"],
+    "focus": ["#focus", "#concentrazione", "#produttivita", "#deepwork", "#studio"],
+    "spatial": ["#posizionamentosonoro", "#binaural", "#asmr", "#immersivo", "#paesaggiosonoro"],
+    "premium": ["#senzaabbonamento", "#acquistounico", "#indieapp", "#appios"],
+    "general": ["#relax", "#meditazione", "#mindfulness", "#ambiente", "#natura"]
+  },
+  "ptbr": {
+    "core": ["#oasis", "#sonsdanatureza", "#iphone", "#appios"],
+    "sleep": ["#sono", "#dormir", "#chuva", "#ruidobranco", "#calma"],
+    "focus": ["#foco", "#concentracao", "#produtividade", "#deepwork", "#estudo"],
+    "spatial": ["#posicionamentosonoro", "#binaural", "#asmr", "#imersivo", "#paisagemsonora"],
+    "premium": ["#semassinatura", "#compraunica", "#indieapp", "#appios"],
+    "general": ["#relaxamento", "#meditacao", "#mindfulness", "#ambiente", "#natureza"]
   }
 }

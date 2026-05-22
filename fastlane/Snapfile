@@ -101,6 +101,5 @@ namespace_log_files(true)
 only_testing(["OasisNativeUITests/OasisNativeScreenshots/testAppStoreScreenshots"])
 number_of_retries(0)
 launch_arguments([
-  "-OASISResetState YES",
-  "-OASISImmersiveAudioEnabled YES"
+  "-OASISResetState YES -OASISImmersiveAudioEnabled YES"
 ])

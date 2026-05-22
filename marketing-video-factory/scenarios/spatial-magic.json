@@ -23,26 +23,27 @@
   ],
 
   "setup": [
-    { "at": 0.0, "type": "tap", "target": "home.bottom.shuffle"       },
-    { "at": 0.7, "type": "tap", "target": "home.header.active-filter" }
+    { "at": 0.0, "type": "tap", "target": "home.bottom.shuffle"       }
   ],
 
   "actions": [
-    { "at":  0.5, "type": "tap",         "target": "channel.spatial.pluie"       },
-    { "at":  1.8, "type": "dragSpatial", "to": { "x": -0.85, "y":  0.00 }, "duration": 1.5 },
-    { "at":  4.3, "type": "dragSpatial", "to": { "x":  0.85, "y":  0.00 }, "duration": 1.3 },
-    { "at":  6.6, "type": "dragSpatial", "to": { "x":  0.00, "y":  0.85 }, "duration": 1.4 },
-    { "at":  9.5, "type": "dismissPanel" },
-    { "at": 10.5, "type": "tap",         "target": "channel.spatial.tonnerre"    },
-    { "at": 11.5, "type": "dragSpatial", "to": { "x":  0.60, "y": -0.70 }, "duration": 1.3 },
-    { "at": 13.8, "type": "dragSpatial", "to": { "x": -0.50, "y":  0.80 }, "duration": 1.4 },
-    { "at": 16.5, "type": "dismissPanel" }
+    { "at":  0.5, "type": "setSlider",   "target": "channel.slider.pluie", "value": 0.75 },
+    { "at":  1.6, "type": "setSlider",   "target": "channel.slider.foret", "value": 0.55 },
+    { "at":  2.8, "type": "scrollTo",    "target": "channel.spatial.pluie", "maxSwipes": 3 },
+    { "at":  3.4, "type": "tap",         "target": "channel.spatial.pluie"       },
+    { "at":  4.6, "type": "dragSpatial", "to": { "x": -0.85, "y":  0.00 }, "duration": 1.4 },
+    { "at":  6.8, "type": "dragSpatial", "to": { "x":  0.85, "y":  0.00 }, "duration": 1.3 },
+    { "at":  8.8, "type": "dragSpatial", "to": { "x":  0.00, "y":  0.85 }, "duration": 1.4 },
+    { "at": 11.2, "type": "dragSpatial", "to": { "x":  0.60, "y": -0.70 }, "duration": 1.3 },
+    { "at": 13.6, "type": "dragSpatial", "to": { "x": -0.50, "y":  0.80 }, "duration": 1.4 },
+    { "at": 15.8, "type": "dragSpatial", "to": { "x":  0.00, "y":  0.00 }, "duration": 1.2 },
+    { "at": 17.4, "type": "dismissPanel" }
   ],
 
   "overlays": [
-    { "start":  0.5, "duration": 4.0, "text": { "fr": "Place la pluie.",            "en": "Place the rain." },          "position": "center", "backdrop": true },
-    { "start":  4.8, "duration": 4.7, "text": { "fr": "À gauche. À droite. Derrière.","en": "Left. Right. Behind." },   "position": "center", "backdrop": true },
-    { "start": 10.0, "duration": 5.8, "text": { "fr": "Le son te suit.",             "en": "The sound follows you." }, "position": "center", "backdrop": true },
-    { "start": 16.5, "duration": 2.4, "text": { "fr": "Oasis — audio 3D immersif",   "en": "Oasis — immersive 3D audio" }, "position": "center", "size": "lg", "backdrop": true }
+    { "start":  0.5, "duration": 3.6, "text": { "fr": "Choisis un son.",             "en": "Pick a sound." },           "position": "center", "backdrop": true },
+    { "start":  4.2, "duration": 4.8, "text": { "fr": "Déplace la pluie.",           "en": "Move the rain." },          "position": "center", "backdrop": true },
+    { "start":  9.4, "duration": 5.8, "text": { "fr": "À gauche. À droite. Derrière.","en": "Left. Right. Behind." },   "position": "center", "backdrop": true },
+    { "start": 16.0, "duration": 2.8, "text": { "fr": "Oasis — placement sonore immersif",   "en": "Oasis — immersive sound placement" }, "position": "center", "size": "lg", "backdrop": true }
   ]
 }

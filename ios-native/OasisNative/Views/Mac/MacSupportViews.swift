@@ -2,6 +2,7 @@ import SwiftUI
 
 #if os(macOS)
 import AppKit
+import AVKit
 #endif
 
 enum MacPanelLayout {
@@ -175,6 +176,55 @@ struct MacIconButton: View {
         .accessibilityLabel(Text(accessibilityLabel))
     }
 }
+
+#if os(macOS)
+struct MacRoutePickerButton: View {
+    private let shape = RoundedRectangle(cornerRadius: 7, style: .continuous)
+
+    var body: some View {
+        MacRoutePickerControl(
+            normalColor: NSColor.white.withAlphaComponent(0.86),
+            highlightedColor: NSColor.white.withAlphaComponent(0.95),
+            activeColor: NSColor(
+                calibratedRed: 0.64,
+                green: 0.86,
+                blue: 0.82,
+                alpha: 1.0
+            )
+        )
+        .frame(width: 28, height: 28)
+        .contentShape(Rectangle())
+        .macLiquidGlass(in: shape, interactive: true)
+        .background(Color.white.opacity(0.045), in: shape)
+        .accessibilityLabel(Text(L10n.HomeControls.routePicker))
+        .help(L10n.string(L10n.HomeControls.routePicker))
+    }
+}
+
+private struct MacRoutePickerControl: NSViewRepresentable {
+    let normalColor: NSColor
+    let highlightedColor: NSColor
+    let activeColor: NSColor
+
+    func makeNSView(context: Context) -> AVRoutePickerView {
+        let view = AVRoutePickerView(frame: .zero)
+        applyConfiguration(to: view)
+        return view
+    }
+
+    func updateNSView(_ nsView: AVRoutePickerView, context: Context) {
+        applyConfiguration(to: nsView)
+    }
+
+    private func applyConfiguration(to view: AVRoutePickerView) {
+        view.isRoutePickerButtonBordered = false
+        view.setRoutePickerButtonColor(normalColor, for: .normal)
+        view.setRoutePickerButtonColor(highlightedColor, for: .normalHighlighted)
+        view.setRoutePickerButtonColor(activeColor, for: .active)
+        view.setRoutePickerButtonColor(activeColor.withAlphaComponent(0.95), for: .activeHighlighted)
+    }
+}
+#endif
 
 struct MacPrimaryButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {

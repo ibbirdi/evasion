@@ -155,11 +155,9 @@ struct HomeView: View {
                             )
                         }
                         .padding(.horizontal, 0)
-                        // Header is now ~58pt tall (brand lockup only — Timer/Filter
-                        // moved to the native nav-bar toolbar). Top inset reduced from
-                        // 120 → 78 so the first card sits ~16pt below the waveform
-                        // instead of the previous ~60pt empty band.
-                        .padding(.top, proxy.safeAreaInsets.top + 78)
+                        // Header has a generous visual box for the ring glow, but the
+                        // scroll inset stays tight so the mixer does not feel pushed down.
+                        .padding(.top, proxy.safeAreaInsets.top + 112)
                         .padding(.bottom, 110)
                         .frame(maxWidth: .infinity, alignment: .top)
                     }
@@ -170,11 +168,9 @@ struct HomeView: View {
 
                     VStack(spacing: 0) {
                         HomeHeaderView(compactProgress: headerCompactProgress)
-                        // Wordmark sits flush with the status-bar boundary at rest
-                        // (no extra 4pt cushion — the wave already buffers the
-                        // bottom). Pulls 14pt closer to the status bar at full
-                        // compact.
-                        .padding(.top, proxy.safeAreaInsets.top - (headerCompactProgress * 14))
+                        // Keep the ring above the first mixer card while preserving
+                        // the tight scroll inset underneath it.
+                        .padding(.top, max(0, proxy.safeAreaInsets.top - 34 - (headerCompactProgress * 14)))
                         .padding(.horizontal, 8)
 
                         Spacer(minLength: 0)
@@ -308,16 +304,31 @@ private struct AdaptiveSheetDetentModifier: ViewModifier {
     @Binding var detentHeight: CGFloat
 
     func body(content: Content) -> some View {
-        content.onGeometryChange(for: CGFloat.self, of: { proxy in
-            proxy.size.height
-        }) { _, newHeight in
-            guard newHeight.isFinite, newHeight > 44 else { return }
+        content
+            .background {
+                GeometryReader { proxy in
+                    Color.clear.preference(
+                        key: AdaptiveSheetHeightPreferenceKey.self,
+                        value: proxy.size.height
+                    )
+                }
+            }
+            .onPreferenceChange(AdaptiveSheetHeightPreferenceKey.self) { newHeight in
+                guard newHeight.isFinite, newHeight > 44 else { return }
 
-            let targetHeight = max(minimumAdaptivePanelHeight, ceil(newHeight))
-            guard abs(detentHeight - targetHeight) > 1 else { return }
+                let targetHeight = max(minimumAdaptivePanelHeight, ceil(newHeight))
+                guard abs(detentHeight - targetHeight) > 1 else { return }
 
-            detentHeight = targetHeight
-        }
+                detentHeight = targetHeight
+            }
+    }
+}
+
+private struct AdaptiveSheetHeightPreferenceKey: PreferenceKey {
+    static let defaultValue: CGFloat = 0
+
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        value = max(value, nextValue())
     }
 }
 

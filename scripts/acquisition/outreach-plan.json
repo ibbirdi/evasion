@@ -1,0 +1,107 @@
+{
+  "objective": "Manual multilingual outreach for the 1000-download sprint",
+  "policy": {
+    "automation": "Generate packs and tracking rows only; do not send emails, DMs, comments, or submissions automatically.",
+    "personalization": "Every outbound message must be manually reviewed and adapted before sending.",
+    "disclosure": "Disclose that Jonathan is the solo developer of Oasis.",
+    "claims": "Do not make medical claims around insomnia, anxiety, tinnitus, babies, or treatment."
+  },
+  "tracks": [
+    {
+      "id": "ios-curators",
+      "label": "iOS app curators",
+      "locale": "en-US",
+      "campaign": "outreach_ios_curators",
+      "expectedDownloads": 45,
+      "targets": [
+        "tiny iOS app newsletters",
+        "App Store discovery newsletters",
+        "indie app review blogs",
+        "minimal app curation accounts",
+        "one-time-purchase app roundups"
+      ],
+      "angle": "A native iPhone ambient sound mixer that is offline-first and not another subscription.",
+      "subject": "Oasis: a no-subscription iPhone sound mixer for sleep and focus"
+    },
+    {
+      "id": "sleep-focus-creators",
+      "label": "Sleep and focus creators",
+      "locale": "en-US",
+      "campaign": "outreach_sleep_focus",
+      "expectedDownloads": 55,
+      "targets": [
+        "sleep routine creators",
+        "deep work newsletters",
+        "ADHD-friendly focus tool roundups",
+        "travel noise masking creators",
+        "headphone and ambient sound reviewers"
+      ],
+      "angle": "35 offline nature sounds, binaural tracks, spatial placement, timer, and background playback.",
+      "subject": "A quiet iPhone app for sleep, focus, and travel noise"
+    },
+    {
+      "id": "fr-wellbeing",
+      "label": "French wellbeing and tech curators",
+      "locale": "fr-FR",
+      "campaign": "outreach_fr_wellbeing",
+      "expectedDownloads": 35,
+      "targets": [
+        "newsletters bien-etre francophones",
+        "blogs iPhone francophones",
+        "createurs productivite francophones",
+        "communautes no-code/indie francophones",
+        "curateurs d'apps sans abonnement"
+      ],
+      "angle": "Une app iPhone de sons de nature, utilisable hors ligne, avec achat unique.",
+      "subject": "Oasis: sons de nature sur iPhone, sans abonnement"
+    },
+    {
+      "id": "de-privacy-offline",
+      "label": "German privacy/offline app curators",
+      "locale": "de-DE",
+      "campaign": "outreach_de_privacy",
+      "expectedDownloads": 30,
+      "targets": [
+        "German iOS app newsletters",
+        "privacy-friendly app roundups",
+        "offline app curators",
+        "DACH productivity newsletters",
+        "one-time-purchase software lists"
+      ],
+      "angle": "Offline nature sounds, clear pricing, and a one-time unlock instead of a subscription.",
+      "subject": "Oasis: offline nature sounds for iPhone, no subscription"
+    },
+    {
+      "id": "es-latam",
+      "label": "Spanish sleep/focus curators",
+      "locale": "es-ES",
+      "campaign": "outreach_es_sleep_focus",
+      "expectedDownloads": 35,
+      "targets": [
+        "Spanish iPhone app roundups",
+        "LATAM productivity newsletters",
+        "sleep routine creators in Spanish",
+        "Spanish focus/study communities",
+        "apps sin suscripcion curators"
+      ],
+      "angle": "Sonidos de lluvia y naturaleza para dormir o concentrarse, sin suscripcion.",
+      "subject": "Oasis: sonidos de naturaleza para iPhone, sin suscripcion"
+    },
+    {
+      "id": "it-ptbr-local",
+      "label": "Italian and Brazilian local tests",
+      "locale": "multi",
+      "campaign": "outreach_it_ptbr_local",
+      "expectedDownloads": 30,
+      "targets": [
+        "Italian iOS app roundups",
+        "Brazilian iPhone creators",
+        "Italian sleep/focus creators",
+        "Brazilian productivity newsletters",
+        "local no-subscription app lists"
+      ],
+      "angle": "Localized App Store pages and localized short videos for Italy and Brazil.",
+      "subject": "Oasis: nature sounds for iPhone with a one-time unlock"
+    }
+  ]
+}

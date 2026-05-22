@@ -1,7 +1,7 @@
 ---
 title: Secrets and Keys
 status: stable
-last_updated: 2026-05-20
+last_updated: 2026-05-22
 tracks:
   - "ios-native/OasisNative/Support/Info.plist"
   - "ios-native/OasisNative/Mac/Info.plist"
@@ -44,6 +44,7 @@ Currently empty in the app plists — TelemetryDeck is wired but not active. To 
 - Username: `jonathanluquet@me.com` (committed in `fastlane/Deliverfile` and `fastlane/Fastfile`).
 - Password: prompted at upload time, or stored in the macOS Keychain by `fastlane`. Two-factor session lasts ~30 days.
 - App-specific password: may be required depending on account MFA setup.
+- The `build_and_upload`, `appstore_metadata`, `appstore_release`, and `mac_appstore_release` lanes all use this same username. `build_and_upload` also needs local App Store signing assets because `match` is not wired.
 
 These are not committed.
 
@@ -51,6 +52,7 @@ These are not committed.
 
 - Team ID and certificates: managed via Xcode (Signing & Capabilities → Automatically manage signing).
 - Provisioning profiles: auto-managed locally.
+- App Store export requires an `iOS Distribution` / Apple Distribution certificate for team `346GF2QVCC`; an Apple Development identity can archive but cannot export the App Store IPA.
 - macOS App Store sandboxing: `OasisMac` uses `Mac/OasisMac.entitlements` with `com.apple.security.app-sandbox = true` and `com.apple.security.network.client = true`. The network entitlement is needed for RevenueCat / StoreKit-related HTTP access; avoid broader entitlements unless a feature needs them.
 - For CI: `match` (fastlane's signing helper) is **not** wired. Builds happen on Jonathan's local Mac.
 
@@ -74,7 +76,7 @@ These bypass production settings during development, UI tests, and fastlane snap
 | `-OASISRevenueCatDebugLogs` | Enable verbose RevenueCat SDK logs in Debug builds. |
 | `-OASISImmersiveAudioEnabled YES|NO` | Force the global immersive audio toggle for deterministic screenshot/dev launches. |
 | `-FASTLANE_SNAPSHOT YES` | Set automatically by fastlane; combines with the above. |
-| `-ui_testing` | Set by XCUITest target; freezes auras / waveform. |
+| `-ui_testing` | Set by XCUITest target; freezes continuous decorative animations. |
 
 Defined in [`AppConfiguration.swift`](../../../ios-native/OasisNative/Support/AppConfiguration.swift). Premium override parsing lives under `DevelopmentPremiumOverride`; general launch-argument parsing lives in the `ProcessInfo` helpers at the bottom of the file.
 

@@ -1,7 +1,7 @@
 ---
 title: Marketing Video Factory
 status: stable
-last_updated: 2026-05-19
+last_updated: 2026-05-22
 tracks:
   - "marketing-video-factory/**"
   - "ios-native/OasisNativeUITests/MarketingScenarioRunner.swift"
@@ -16,6 +16,18 @@ related:
 Local pipeline that produces social-marketing videos (TikTok, Reels, Shorts) by **scripting the live app inside a simulator**, screen-recording the result, then layering text overlays and the configured Oasis audio mix in FFmpeg.
 
 Lives under [`marketing-video-factory/`](../../../marketing-video-factory/). Subproject is self-contained: Node + TypeScript + FFmpeg. Reuses iOS source only via the existing audio bundle and a single XCUITest target.
+
+## Current acquisition use — 2026-05-22
+
+The factory is one of the daily loops for the [download-growth sprint](download-growth-sprint.md). Current scenario copy is aligned with the 1.5.x listing:
+
+- Use "35 sounds" in premium/no-subscription videos.
+- Prefer "sound placement" / "immersive sound placement" over "3D audio" in visible overlays, hooks, captions, and hashtags.
+- Rotate `sleep-cabin`, `no-subscription-pitch`, and `spatial-magic` before creating new scenarios.
+- `no-subscription-pitch` intentionally proves sliders, binaural modes, and presets only; keep sound-placement gestures for `sleep-cabin` / `spatial-magic` so the anti-subscription asset stays robust.
+- For the global 1000-download sprint, generate English variants before reusing French-overlay videos in non-French markets. Current ready EN assets: `oasis_no_subscription_pitch_en_120442_c294f.mp4`, `oasis_sleep_cabin_en_121053_c294g.mp4`, and `oasis_spatial_magic_en_121214_c294h.mp4`.
+- Six-locale generation is available for scenarios that provide overlay translations. `no-subscription-pitch` currently has FR/EN/DE/ES/IT/PT-BR overlays and native ready exports for all six App Store languages: FR `oasis_no_subscription_pitch_fr_114414_c294d.mp4`, EN `oasis_no_subscription_pitch_en_120442_c294f.mp4`, DE `oasis_no_subscription_pitch_de_122309_c294i.mp4`, ES `oasis_no_subscription_pitch_es_122750_c294j.mp4`, IT `oasis_no_subscription_pitch_it_122838_c296h.mp4`, and PT-BR `oasis_no_subscription_pitch_ptbr_122926_c296i.mp4`.
+- The acquisition publisher can reuse ready video metadata for owned text posts, but it does not upload videos itself; video platforms stay on official upload/scheduler flows.
 
 ## What it produces
 
@@ -73,7 +85,7 @@ The simulator's screen recording **does not capture audio reliably**, so audio i
 | --- | --- |
 | `npm run validate` | Check FFmpeg + configs + scenarios. |
 | `npm run list` | List scenarios and audio mixes. |
-| `npm run record -- --scenario <id> [--lang fr\|en] [--seed N] [--dry-run] [--keep-raw] [--debug]` | Generate one video. |
+| `npm run record -- --scenario <id> [--lang fr\|en\|de\|es\|it\|ptbr] [--seed N] [--dry-run] [--keep-raw] [--debug]` | Generate one video. |
 | `npm run sync` | Symlink iOS audio aliases into `assets/audio/`. |
 | `npm run clean [--all]` | Remove `.tmp/` (and `output/` with `--all`). |
 | `npm run typecheck` | `tsc --noEmit`. |
@@ -88,6 +100,6 @@ The simulator's screen recording **does not capture audio reliably**, so audio i
 ## Constraints / known limits
 
 - The simulator boots cold per run (~5–10 s overhead). The sync marker absorbs this; final output is trimmed cleanly.
-- iOS UI locale is set via `-AppleLanguages`/`-AppleLocale` launch args. Six locales available (matches fastlane), but only `fr` and `en` are wired in the Node driver today (see `LOCALES` in `marketing-video-factory/src/sim/runTest.ts`).
+- iOS UI locale is set via `-AppleLanguages`/`-AppleLocale` launch args. The Node driver supports the six App Store languages: `fr`, `en`, `de`, `es`, `it`, and `ptbr` (see `LOCALES` in `marketing-video-factory/src/sim/runTest.ts`).
 - Native device aspect is 9:19.5 → cropped to 9:16, losing ~210 px top + ~210 px bottom. The OASIS header and bottom bar remain visible; the iOS status bar and home indicator are cropped out.
 - Overlays positioned at `top`/`bottom` can visually overlap the in-app header/bottom bar. The drop-shadow filter keeps them readable; for high-stakes shoots, tune `TOP_TEXT_Y`/`BOTTOM_TEXT_Y` in `src/render/renderOverlay.ts`.

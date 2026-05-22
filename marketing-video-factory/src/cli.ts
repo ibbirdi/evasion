@@ -105,7 +105,7 @@ program
   .command("record")
   .description("Record a scenario from the simulator and render the final social video.")
   .option("-s, --scenario <id>", "scenario id (file under scenarios/)", "sleep-rain-demo")
-  .option("-l, --lang <lang>", "fr | en (overrides scenario lang)")
+  .option("-l, --lang <lang>", "fr | en | de | es | it | ptbr (overrides scenario lang)")
   .option("--device <name>", "simulator device name", DEFAULT_DEVICE)
   .option("--seed <n>", "deterministic hook/caption pick")
   .option("--dry-run", "skip simulator + FFmpeg, write metadata only")

@@ -139,11 +139,19 @@ final class MarketingScenarioRunner: XCTestCase {
             element.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
             return
         }
+        scrollTo(target: target, maxSwipes: 8, in: app)
+        if waitForHittable(element, timeout: 2) {
+            element.tap()
+            return
+        }
         XCTFail("Element '\(target)' not tappable")
     }
 
     private func setSlider(target: String, value: Double, in app: XCUIApplication) {
         let slider = app.sliders[target]
+        if !slider.exists {
+            scrollTo(target: target, maxSwipes: 8, in: app)
+        }
         guard waitForExistence(slider, timeout: 4) else {
             XCTFail("Slider '\(target)' not found")
             return
