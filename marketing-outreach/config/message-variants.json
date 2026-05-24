@@ -1,0 +1,125 @@
+{
+  "fallbackLanguage": "en",
+  "languages": {
+    "fr": {
+      "displayName": "Français",
+      "promoCodeMissingText": "A ASSIGNER",
+      "templateSuffix": "fr",
+      "defaultTemplate": "dm-creator.fr",
+      "unknownLanguageWarning": "Langue inconnue: validation manuelle recommandée avant envoi.",
+      "angles": {
+        "sleep": "sommeil et routine du soir",
+        "focus": "concentration et bruit de fond",
+        "study": "sessions study with me",
+        "productivity": "focus et productivité douce",
+        "wellness": "relaxation et bien-être",
+        "meditation": "méditation et relaxation",
+        "desk_setup": "setup de bureau et routines de focus",
+        "ambient_sounds": "sons naturels immersifs",
+        "white_noise": "bruit de fond et sons naturels",
+        "ios_apps": "app iOS indépendante sans abonnement",
+        "default": "sons naturels immersifs"
+      }
+    },
+    "en": {
+      "displayName": "English",
+      "promoCodeMissingText": "TO ASSIGN",
+      "templateSuffix": "en",
+      "defaultTemplate": "dm-creator.en",
+      "unknownLanguageWarning": "Unknown language: manual validation recommended before sending.",
+      "angles": {
+        "sleep": "sleep and night routines",
+        "focus": "focus and background sound",
+        "study": "study with me sessions",
+        "productivity": "calm productivity",
+        "wellness": "relaxation and wellbeing",
+        "meditation": "meditation and relaxation",
+        "desk_setup": "desk setups and calm workspace routines",
+        "ambient_sounds": "immersive natural soundscapes",
+        "white_noise": "background noise and natural sounds",
+        "ios_apps": "independent iOS app with no subscription",
+        "default": "immersive natural soundscapes"
+      }
+    },
+    "es": {
+      "displayName": "Español",
+      "promoCodeMissingText": "POR ASIGNAR",
+      "templateSuffix": "es",
+      "defaultTemplate": "dm-creator.es",
+      "unknownLanguageWarning": "Idioma desconocido: se recomienda validación manual antes de enviar.",
+      "angles": {
+        "sleep": "sueño y rutina nocturna",
+        "focus": "concentración y sonido de fondo",
+        "study": "sesiones study with me",
+        "productivity": "productividad tranquila",
+        "wellness": "relajación y bienestar",
+        "meditation": "meditación y relajación",
+        "desk_setup": "setups de escritorio y rutinas de concentración",
+        "ambient_sounds": "paisajes sonoros naturales inmersivos",
+        "white_noise": "ruido de fondo y sonidos naturales",
+        "ios_apps": "app iOS independiente sin suscripción",
+        "default": "paisajes sonoros naturales inmersivos"
+      }
+    },
+    "de": {
+      "displayName": "Deutsch",
+      "promoCodeMissingText": "ZUWEISEN",
+      "templateSuffix": "de",
+      "defaultTemplate": "dm-creator.de",
+      "unknownLanguageWarning": "Unbekannte Sprache: bitte vor dem Senden manuell prüfen.",
+      "angles": {
+        "sleep": "Schlaf und Abendroutine",
+        "focus": "Fokus und ruhige Hintergrundgeräusche",
+        "study": "Study-with-me-Sessions",
+        "productivity": "ruhige Produktivität",
+        "wellness": "Entspannung und Wohlbefinden",
+        "meditation": "Meditation und Entspannung",
+        "desk_setup": "Desk-Setups und ruhige Fokus-Routinen",
+        "ambient_sounds": "immersive Naturklänge",
+        "white_noise": "Hintergrundgeräusche und Naturklänge",
+        "ios_apps": "unabhängige iOS-App ohne Abo",
+        "default": "immersive Naturklänge"
+      }
+    },
+    "it": {
+      "displayName": "Italiano",
+      "promoCodeMissingText": "DA ASSEGNARE",
+      "templateSuffix": "it",
+      "defaultTemplate": "dm-creator.it",
+      "unknownLanguageWarning": "Lingua sconosciuta: consigliata una verifica manuale prima dell'invio.",
+      "angles": {
+        "sleep": "sonno e routine serale",
+        "focus": "concentrazione e suoni di sottofondo",
+        "study": "sessioni study with me",
+        "productivity": "produttività calma",
+        "wellness": "relax e benessere",
+        "meditation": "meditazione e relax",
+        "desk_setup": "setup da scrivania e routine di concentrazione",
+        "ambient_sounds": "paesaggi sonori naturali immersivi",
+        "white_noise": "rumore di fondo e suoni naturali",
+        "ios_apps": "app iOS indipendente senza abbonamento",
+        "default": "paesaggi sonori naturali immersivi"
+      }
+    },
+    "pt-BR": {
+      "displayName": "Português (Brasil)",
+      "promoCodeMissingText": "A ATRIBUIR",
+      "templateSuffix": "pt-BR",
+      "defaultTemplate": "dm-creator.pt-BR",
+      "unknownLanguageWarning": "Idioma desconhecido: recomenda-se validação manual antes do envio.",
+      "angles": {
+        "sleep": "sono e rotina noturna",
+        "focus": "foco e som de fundo",
+        "study": "sessões study with me",
+        "productivity": "produtividade tranquila",
+        "wellness": "relaxamento e bem-estar",
+        "meditation": "meditação e relaxamento",
+        "desk_setup": "setups de mesa e rotinas de foco",
+        "ambient_sounds": "paisagens sonoras naturais imersivas",
+        "white_noise": "ruído de fundo e sons naturais",
+        "ios_apps": "app iOS independente sem assinatura",
+        "default": "paisagens sonoras naturais imersivas"
+      }
+    }
+  }
+}

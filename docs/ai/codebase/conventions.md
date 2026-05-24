@@ -1,14 +1,17 @@
 ---
 title: Code Conventions
 status: stable
-last_updated: 2026-05-22
+last_updated: 2026-05-23
 tracks:
   - "ios-native/OasisNative/**/*.swift"
   - "ios-native/OasisNative/Support/L10n.swift"
+  - "marketing-outreach/**/*.ts"
+  - "marketing-outreach/templates/**"
 related:
   - "structure.md"
   - "../architecture/ui.md"
   - "../operations/known-issues.md"
+  - "../marketing/outreach-crm.md"
 ---
 
 # Code Conventions
@@ -21,6 +24,7 @@ Patterns this codebase has settled on. Follow these by default — diverge only 
 - **UI strings**: never hardcoded. Always go through `L10n` (`Support/L10n.swift` keys, `Resources/Localizable.xcstrings` translations).
 - **User-facing copy in 6 locales**: `en-US, fr-FR, de-DE, es-ES, it, pt-BR`.
 - **Sound-placement wording**: user-facing copy says "sound placement" / localized equivalents, not "3D audio" or "spatial audio".
+- **Marketing outreach templates**: keep operational code in English, but keep creator-facing templates localized in `fr`, `en`, `es`, `de`, `it`, and `pt-BR`. The outreach CLI must remain human-in-the-loop: no automatic sending, scraping, or platform login automation.
 
 ## Swift / SwiftUI
 
@@ -54,7 +58,7 @@ Patterns this codebase has settled on. Follow these by default — diverge only 
 - Keep native macOS controls visually native: use local `.tint(MacDesign.accent)` for switches and segmented pickers instead of the legacy `AccentColor` asset, and keep stronger channel/premium colours inside custom Oasis controls such as rows, badges, and the playback aura.
 - Keep the menu bar status item icon local to AppKit. It currently uses a fixed template `wind` SF Symbol and leaves `contentTintColor` nil so AppKit renders the standard menu bar colour for the active appearance and selection state. Do not vary this icon by playback state.
 - Keep the main menu bar panel's chrome in SwiftUI. `MacPanelPopoverShape` clips the content and draws the top arrow; `MacPanelChromeState` receives the status item anchor from `MacMenuBarPanelController`. The `NSPanel` content layer stays clear and unclipped so the arrow and transparent material are not cut off.
-- The menu bar status item sends its action on mouse-down so the first click after launch is not swallowed by `LSUIElement` activation. Defer panel presentation by one MainActor yield before touching SwiftUI/AppKit layout; opening a SwiftUI-backed `NSPanel` directly inside button tracking can trip AttributeGraph on recent macOS builds.
+- The menu bar status item sends its action on mouse-down so the first click after launch is not swallowed by `LSUIElement` activation. Defer panel presentation by one MainActor yield before touching SwiftUI/AppKit layout; opening a SwiftUI-backed `NSPanel` directly inside button tracking can trip AttributeGraph on recent macOS builds. Treat `NSPanel.isVisible` as insufficient for toggle state: after `hidesOnDeactivate`, a stale visible/non-key panel must be forced through `show(relativeTo:)` instead of toggled closed.
 
 ### Animation
 

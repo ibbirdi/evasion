@@ -1,0 +1,20 @@
+Suggested subject:
+Free Premium access to review Oasis, an immersive iOS soundscape app
+
+Hi {{name}},
+
+I’m the independent developer of Oasis, an iOS app for creating immersive soundscapes for sleep, focus, and relaxation.
+
+The app lets people mix natural sounds like rain, forest, river, wind, thunder, and birds, with a sound placement feature to position each layer in space.
+
+I’d be happy to offer you free Premium access to test it, with no obligation to publish.
+If the app feels relevant to your audience, feedback or a mention would of course be deeply appreciated.
+
+Premium code:
+{{promoCode}}
+
+App Store link:
+{{appStoreUrl}}
+
+Thank you,
+{{senderName}}

@@ -1,0 +1,37 @@
+{
+  "name": "oasis-marketing-outreach",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Human-in-the-loop outreach CRM for distributing Oasis Premium promo codes.",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "outreach:validate": "tsx src/cli.ts validate",
+    "outreach:import": "tsx src/cli.ts import",
+    "outreach:score": "tsx src/cli.ts score",
+    "outreach:plan": "tsx src/cli.ts plan",
+    "outreach:message": "tsx src/cli.ts message",
+    "outreach:update": "tsx src/cli.ts update",
+    "outreach:note": "tsx src/cli.ts note",
+    "outreach:sent": "tsx src/cli.ts sent",
+    "outreach:reply": "tsx src/cli.ts reply",
+    "outreach:followups": "tsx src/cli.ts followups",
+    "outreach:report": "tsx src/cli.ts report",
+    "outreach:codes:import": "tsx src/cli.ts codes:import",
+    "outreach:codes:assign": "tsx src/cli.ts codes:assign",
+    "outreach:codes:assign-batch": "tsx src/cli.ts codes:assign-batch",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "commander": "^12.1.0",
+    "csv-parse": "^5.6.0",
+    "csv-stringify": "^6.5.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.21",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3"
+  }
+}

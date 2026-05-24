@@ -1,0 +1,6 @@
+Salut {{name}},
+
+Je fais une dernière petite relance au cas où mon message précédent se serait perdu.
+Je peux toujours t’offrir un accès Premium gratuit à Oasis si tu veux tester l’app et me dire ce que tu en penses.
+
+Aucune obligation, et si ce n’est pas le bon moment, aucun souci.

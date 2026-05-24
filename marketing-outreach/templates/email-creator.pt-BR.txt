@@ -1,0 +1,19 @@
+Assunto sugerido:
+Acesso Premium gratuito para testar o Oasis
+
+Olá {{name}},
+
+sou o desenvolvedor independente do Oasis, um app iOS de paisagens sonoras imersivas para sono, foco e relaxamento.
+
+Acho que seu conteúdo sobre {{niche}} pode combinar bem com o app. Eu adoraria oferecer acesso Premium gratuito para você testar com calma.
+
+Não existe nenhuma obrigação de publicação. Estou buscando principalmente feedback honesto de pessoas interessadas em experiências sonoras calmas e úteis.
+
+Código Premium:
+{{promoCode}}
+
+Link da App Store:
+{{appStoreUrl}}
+
+Muito obrigado,
+{{senderName}}

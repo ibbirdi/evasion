@@ -1,7 +1,7 @@
 ---
 title: Architecture Overview
 status: stable
-last_updated: 2026-05-20
+last_updated: 2026-05-22
 tracks:
   - "ios-native/OasisNative/OasisNativeApp.swift"
   - "ios-native/OasisNative/Mac/OasisMacApp.swift"
@@ -71,7 +71,7 @@ Oasis is a native Apple-platform app with two app targets in the same Xcode proj
 | Actor | File | Role |
 | --- | --- | --- |
 | `OasisNativeApp` | [OasisNativeApp.swift](../../../ios-native/OasisNative/OasisNativeApp.swift) | iOS entry point. Calls `AppBootstrap.configure()`, instantiates `AppModel`, and presents `RootView`. |
-| `OasisMacApp` | [Mac/OasisMacApp.swift](../../../ios-native/OasisNative/Mac/OasisMacApp.swift) | macOS entry point. Calls `AppBootstrap.configure()`, owns the status item app delegate using a fixed template wind icon, keeps one `AppModel`, and presents `MacMixerPanel` inside a custom borderless `NSPanel`. |
+| `OasisMacApp` | [Mac/OasisMacApp.swift](../../../ios-native/OasisNative/Mac/OasisMacApp.swift) | macOS entry point. Calls `AppBootstrap.configure()`, owns the status item app delegate using a fixed template wind icon, keeps one `AppModel`, and presents `MacMixerPanel` inside a custom borderless `NSPanel`. The status-item toggle treats stale visible/non-key panels as closed so the menu bar icon can always reopen the panel after deactivation. |
 | `AppBootstrap` | [Support/AppBootstrap.swift](../../../ios-native/OasisNative/Support/AppBootstrap.swift) | Shared startup for RevenueCat + TelemetryDeck so iOS and macOS do not drift. |
 | `AppModel` | [Services/AppModel.swift](../../../ios-native/OasisNative/Services/AppModel.swift) | Hub. `@Observable @MainActor`. Owns mix state, per-channel auto-variation ranges, immersive audio toggle, presets, premium state, timer, engagement metrics. Bridges UI ↔ engine ↔ RevenueCat. See [state.md](state.md). |
 | `AudioMixerEngine` | [Services/AudioMixerEngine.swift](../../../ios-native/OasisNative/Services/AudioMixerEngine.swift) | The audio graph. `AVAudioEngine` + `AVAudioEnvironmentNode` + 35 `AVAudioPlayerNode`. Handles loops, fades, spatial/immersive profiles, remote commands. See [audio-engine.md](audio-engine.md). |

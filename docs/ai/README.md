@@ -56,6 +56,11 @@ Touch in this order:
 2. [marketing/positioning.md](marketing/positioning.md)
 3. [marketing/aso-strategy.md](marketing/aso-strategy.md) — campaign links / Custom Product Pages
 
+### "I'm distributing promo codes / doing creator outreach"
+1. [marketing/outreach-crm.md](marketing/outreach-crm.md)
+2. [marketing/download-growth-sprint.md](marketing/download-growth-sprint.md)
+3. [marketing/positioning.md](marketing/positioning.md)
+
 ### "I'm trying to increase downloads"
 1. [marketing/download-growth-sprint.md](marketing/download-growth-sprint.md)
 2. [marketing/community-radar.md](marketing/community-radar.md)
@@ -94,6 +99,7 @@ marketing/       — how Oasis is sold
   positioning.md      Multi-use angle, competitors, moats
   download-growth-sprint.md  1000-download sprint, metrics loop, campaign IDs
   community-radar.md  Reddit / HN / forum opportunity radar and manual reply rules
+  outreach-crm.md     Human-reviewed promo-code creator / reviewer outreach CRM
   video-factory.md    Scenario-driven social-video pipeline (simulator + FFmpeg)
 
 operations/      — how Oasis ships and runs

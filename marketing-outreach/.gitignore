@@ -1,0 +1,14 @@
+# Dependencies and local build output
+node_modules/
+*.tsbuildinfo
+
+# Real outreach data can contain contacts or promo codes.
+data/prospects.csv
+data/promo-codes.csv
+data/outreach-log.csv
+data/responses.csv
+data/*.local.csv
+
+# Generated plans, reports, and rendered messages may include assigned codes.
+exports/*
+!exports/.gitkeep

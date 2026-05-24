@@ -1,0 +1,68 @@
+{
+  "tiers": {
+    "A": 75,
+    "B": 55,
+    "C": 35,
+    "D": 0
+  },
+  "weights": {
+    "highFitNiche": 28,
+    "mediumFitNiche": 14,
+    "microCreator": 24,
+    "smallCreator": 10,
+    "largeCreatorPenalty": -16,
+    "supportedLanguage": 12,
+    "unknownLanguagePenalty": -4,
+    "unsupportedLanguagePenalty": -14,
+    "publicContact": 14,
+    "manualPositiveNote": 10,
+    "manualNegativeNote": -24,
+    "engagementPositive": 8,
+    "engagementNegative": -10,
+    "spammyPenalty": -35,
+    "irrelevantBrandPenalty": -16,
+    "doNotContactPenalty": -100
+  },
+  "highFitNiches": [
+    "sleep",
+    "relaxation",
+    "focus",
+    "productivity",
+    "study",
+    "adhd",
+    "meditation",
+    "wellness",
+    "ios_apps",
+    "desk_setup",
+    "night_routine",
+    "ambient_sounds",
+    "white_noise",
+    "indie_apps"
+  ],
+  "mediumFitNiches": ["apple", "student", "developer", "creator_tools"],
+  "positiveNoteKeywords": [
+    "engaged",
+    "active",
+    "responsive",
+    "reviewer",
+    "apps",
+    "sleep",
+    "focus",
+    "routine",
+    "ambient",
+    "sound",
+    "meditation",
+    "study",
+    "positive"
+  ],
+  "negativeNoteKeywords": [
+    "spammy",
+    "giveaway hunter",
+    "irrelevant",
+    "brand only",
+    "no fit",
+    "negative",
+    "bot"
+  ],
+  "targetCountries": ["FR", "US", "GB", "CA", "DE", "ES", "IT", "BR", "PT", "BE", "CH"]
+}

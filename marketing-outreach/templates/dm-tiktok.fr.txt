@@ -1,0 +1,9 @@
+Salut {{name}} 👋
+
+Je suis le développeur d’Oasis, une app iOS de paysages sonores immersifs pour sommeil, focus et relaxation.
+
+Je peux t’offrir un accès Premium gratuit si tu veux la tester.
+Aucune obligation de post : je cherche surtout des retours honnêtes de personnes qui aiment ce type d’univers 🌿
+
+Code : {{promoCode}}
+Lien : {{appStoreUrl}}

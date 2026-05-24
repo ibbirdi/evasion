@@ -1,0 +1,9 @@
+Oi {{name}} 👋
+
+Sou o desenvolvedor independente do Oasis, um app iOS de paisagens sonoras naturais para sono, foco e relaxamento.
+
+Posso te oferecer acesso Premium gratuito se você quiser testar.
+Não existe nenhuma obrigação de postar: estou buscando principalmente feedback honesto de pessoas que gostam desse tipo de experiência sonora 🌿
+
+Código: {{promoCode}}
+Link: {{appStoreUrl}}

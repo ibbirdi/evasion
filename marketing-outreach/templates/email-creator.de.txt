@@ -1,0 +1,19 @@
+Betreffvorschlag:
+Kostenloser Premium-Zugang zum Testen von Oasis
+
+Hallo {{name}},
+
+ich bin der unabhängige Entwickler von Oasis, einer iOS-App für immersive Naturklänge zum Schlafen, Fokussieren und Entspannen.
+
+Ich denke, dein Thema rund um {{niche}} könnte gut zur App passen. Ich würde dir gern kostenlosen Premium-Zugang geben, damit du Oasis in Ruhe testen kannst.
+
+Es gibt keine Pflicht zur Veröffentlichung. Ich suche vor allem ehrliches Feedback von Menschen, denen ruhige und nützliche Audio-Erlebnisse wichtig sind.
+
+Premium-Code:
+{{promoCode}}
+
+App-Store-Link:
+{{appStoreUrl}}
+
+Vielen Dank,
+{{senderName}}

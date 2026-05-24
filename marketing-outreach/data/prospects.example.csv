@@ -1,0 +1,4 @@
+id,name,handle,platform,profileUrl,email,niche,followers,engagementHint,country,language,contactMethod,notes,status
+example-sleep-creator-fr,Marie Dupont,@marie.sleep,instagram,https://www.instagram.com/marie.sleep,,sleep,8200,high engagement on night routine posts,FR,fr,dm,"Posts about sleep routines and calming sounds",new
+example-study-en,Alex Study,@alexstudy,tiktok,https://www.tiktok.com/@alexstudy,,study,24500,active comments,US,en,dm,"Study with me videos and focus setup content",new
+example-ios-reviewer-de,iOS Kurator,,blog,https://example.com/contact,hello@example.com,ios_apps,12000,newsletter audience,DE,de,email,"Reviews independent iOS apps",shortlisted

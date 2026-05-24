@@ -44,6 +44,7 @@ private final class MacAppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationWillResignActive(_ notification: Notification) {
         model.handleScenePhase(.inactive)
+        panelController?.hide()
     }
 
     func applicationWillTerminate(_ notification: Notification) {
@@ -154,11 +155,15 @@ private final class MacMenuBarPanelController {
     }
 
     func toggle(relativeTo button: NSStatusBarButton) {
-        if panel.isVisible {
-            panel.orderOut(nil)
+        if panel.isVisible && panel.isKeyWindow && NSApp.isActive {
+            hide()
         } else {
             show(relativeTo: button)
         }
+    }
+
+    func hide() {
+        panel.orderOut(nil)
     }
 
     func show(relativeTo button: NSStatusBarButton) {
@@ -167,7 +172,7 @@ private final class MacMenuBarPanelController {
         positionPanel(relativeTo: button)
         NSApp.activate(ignoringOtherApps: true)
         panel.orderFrontRegardless()
-        panel.makeKey()
+        panel.makeKeyAndOrderFront(nil)
     }
 
     func writeSnapshot(to path: String) throws {

@@ -1,0 +1,20 @@
+Oggetto suggerito:
+Accesso Premium gratuito per provare Oasis, app iOS di paesaggi sonori immersivi
+
+Ciao {{name}},
+
+sono lo sviluppatore indipendente di Oasis, un’app iOS che permette di creare paesaggi sonori immersivi per dormire, concentrarsi o rilassarsi.
+
+L’app permette di mixare suoni naturali come pioggia, foresta, fiume, vento, temporale o uccelli, con una funzione per posizionare ogni suono nello spazio.
+
+Mi farebbe piacere offrirti accesso Premium gratuito per provarla, senza nessun obbligo di pubblicazione.
+Se l’app ti sembra interessante per il tuo pubblico, un feedback o una menzione sarebbero naturalmente molto apprezzati.
+
+Codice Premium:
+{{promoCode}}
+
+Link App Store:
+{{appStoreUrl}}
+
+Grazie mille,
+{{senderName}}

@@ -1,0 +1,6 @@
+Hallo {{name}},
+
+eine letzte kurze Nachfrage, falls meine vorige Nachricht untergegangen ist.
+Ich kann dir weiterhin kostenlosen Premium-Zugang zu Oasis geben, wenn du die App testen und mir deine ehrliche Meinung sagen möchtest.
+
+Ohne Verpflichtung, und wenn es gerade nicht passt, ist das völlig okay.

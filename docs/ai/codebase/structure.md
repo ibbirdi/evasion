@@ -1,16 +1,23 @@
 ---
 title: Repo Structure
 status: stable
-last_updated: 2026-05-22
+last_updated: 2026-05-23
 tracks:
   - "ios-native/**"
   - "scripts/**"
   - "fastlane/**"
   - "marketing-video-factory/**"
+  - "marketing-outreach/README.md"
+  - "marketing-outreach/package.json"
+  - "marketing-outreach/src/**"
+  - "marketing-outreach/config/**"
+  - "marketing-outreach/templates/**"
+  - "marketing-outreach/data/*.example.csv"
 related:
   - "conventions.md"
   - "build-and-test.md"
   - "../marketing/video-factory.md"
+  - "../marketing/outreach-crm.md"
 ---
 
 # Repo Structure
@@ -27,6 +34,7 @@ Map of where things live and what each directory is responsible for.
 ├── ios-native/                      The Xcode project — primary code
 ├── fastlane/                        Release automation, metadata, screenshots
 ├── marketing-video-factory/         Scenario-driven social-video generator — see ../marketing/video-factory.md
+├── marketing-outreach/              Human-reviewed promo-code outreach CRM — see ../marketing/outreach-crm.md
 ├── scripts/                         Helper scripts (audio encoding, asset gen, etc.)
 │   ├── ai-memory/                   Memory drift-check tooling
 │   └── community-radar/             Organic Reddit / forum acquisition radar
@@ -164,6 +172,10 @@ Locales: `en-US`, `fr-FR`, `de-DE`, `es-ES`, `it`, `pt-BR`. See [../content/loca
 | `ai-memory/` | Memory drift detection tooling — see [../meta/drift-check.md](../meta/drift-check.md). |
 | `community-radar/` | Reddit / Hacker News / forum acquisition digest — see [../marketing/community-radar.md](../marketing/community-radar.md). |
 
+## `marketing-outreach/`
+
+Local TypeScript CLI for controlled Premium promo-code distribution. It imports manually sourced prospects, validates compliance/data quality, scores fit, assigns one unique code per prospect, renders localized message drafts, exports daily plans/follow-ups/reports, and records status changes. It never sends messages or scrapes platforms. See [../marketing/outreach-crm.md](../marketing/outreach-crm.md).
+
 ## Where to put new files
 
 | You're adding… | Put it in… |
@@ -176,4 +188,5 @@ Locales: `en-US`, `fr-FR`, `de-DE`, `es-ES`, `it`, `pt-BR`. See [../content/loca
 | A new build helper | `scripts/` |
 | A new fastlane lane | `fastlane/Fastfile` |
 | A new social-video scenario | `marketing-video-factory/scenarios/<id>.json` — see [../marketing/video-factory.md](../marketing/video-factory.md) |
+| A creator/reviewer outreach workflow change | `marketing-outreach/` — see [../marketing/outreach-crm.md](../marketing/outreach-crm.md) |
 | New AI memory | `docs/ai/<section>/` and update [../README.md](../README.md) |

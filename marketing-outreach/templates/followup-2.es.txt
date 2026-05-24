@@ -1,0 +1,6 @@
+Hola {{name}},
+
+Una última pequeña continuación por si mi mensaje anterior se perdió.
+Todavía puedo ofrecerte acceso Premium gratuito a Oasis si quieres probarla y contarme qué te parece.
+
+Sin ninguna obligación, y si no es buen momento, no pasa nada.

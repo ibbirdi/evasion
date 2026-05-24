@@ -1,0 +1,10 @@
+{
+  "dailyContactLimit": 20,
+  "maxFollowups": 2,
+  "minDaysBeforeFollowup": 5,
+  "requireManualApproval": true,
+  "allowAutoSend": false,
+  "complianceWarnings": true,
+  "supportedLanguages": ["fr", "en", "es", "de", "it", "pt-BR"],
+  "emailComplianceWarning": "B2C email outreach in France/EU generally requires prior consent. Prefer public professional contact addresses, contact forms, respectful manual DMs, or community feedback requests where allowed."
+}

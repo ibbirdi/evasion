@@ -1,0 +1,128 @@
+{
+  "sleep": {
+    "label": "Sleep",
+    "description": "Creators and communities around sleep routines, calming sounds, and night ambience.",
+    "recommendedAngles": ["sleep and night routines", "rain, forest, campfire, and ocean mixes", "offline bedtime ambience"],
+    "recommendedTemplates": ["dm-creator", "dm-instagram", "dm-tiktok"],
+    "manualSearchKeywords": ["sleep routine", "night routine", "sleep sounds", "rain sounds", "sons sommeil", "routine du soir"]
+  },
+  "relaxation": {
+    "label": "Relaxation",
+    "description": "Relaxation, calm living, stress relief, and slow lifestyle creators.",
+    "recommendedAngles": ["calm natural soundscapes", "honest feedback from relaxation audiences", "one-time premium unlock"],
+    "recommendedTemplates": ["dm-creator", "dm-instagram"],
+    "manualSearchKeywords": ["relaxation", "calm app", "relaxing sounds", "ambience relaxante", "sonidos relajantes"]
+  },
+  "focus": {
+    "label": "Focus",
+    "description": "Deep work, focus sessions, background ambience, and work-with-me creators.",
+    "recommendedAngles": ["background sound for deep work", "mix rain, river, wind, and cafe ambience", "offline focus companion"],
+    "recommendedTemplates": ["dm-creator", "dm-tiktok", "email-creator"],
+    "manualSearchKeywords": ["focus app", "deep work", "focus sounds", "work with me", "bruit de fond concentration"]
+  },
+  "productivity": {
+    "label": "Productivity",
+    "description": "Productivity, planning, desk workflow, and calm routine content.",
+    "recommendedAngles": ["calm productivity without subscriptions", "focus soundscapes for work blocks", "indie iOS app story"],
+    "recommendedTemplates": ["dm-creator", "email-creator"],
+    "manualSearchKeywords": ["productivity apps", "desk productivity", "focus routine", "apps productivité"]
+  },
+  "study": {
+    "label": "Study",
+    "description": "Study with me, student focus, exam prep, and Pomodoro ambience.",
+    "recommendedAngles": ["study ambience", "mix natural sound backgrounds", "free Premium test for feedback"],
+    "recommendedTemplates": ["dm-tiktok", "dm-instagram", "dm-creator"],
+    "manualSearchKeywords": ["study with me", "studytok", "study ambience", "pomodoro sounds", "studygram"]
+  },
+  "adhd": {
+    "label": "ADHD-friendly",
+    "description": "Creators discussing focus tools, gentle routines, and distraction-light environments.",
+    "recommendedAngles": ["steady ambience for focus", "no medical claims", "manual feedback from people who use focus tools"],
+    "recommendedTemplates": ["dm-creator", "reddit-feedback"],
+    "manualSearchKeywords": ["ADHD focus sounds", "ADHD productivity", "body doubling", "focus ambience"]
+  },
+  "meditation": {
+    "label": "Meditation",
+    "description": "Meditation, breathing, mindfulness, and quiet practice communities.",
+    "recommendedAngles": ["natural ambience for practice", "spatial sound placement", "one-time premium unlock"],
+    "recommendedTemplates": ["dm-creator", "email-creator"],
+    "manualSearchKeywords": ["meditation sounds", "mindfulness app", "ambient meditation", "sons méditation"]
+  },
+  "wellness": {
+    "label": "Wellness",
+    "description": "Wellbeing, self-care, evening routines, and calm lifestyle content.",
+    "recommendedAngles": ["calm premium iOS experience", "offline natural sounds", "independent app"],
+    "recommendedTemplates": ["dm-instagram", "dm-creator"],
+    "manualSearchKeywords": ["wellness routine", "self care night", "routine bien-être", "bem-estar rotina"]
+  },
+  "ios_apps": {
+    "label": "iOS apps",
+    "description": "iOS app reviewers, app curators, Apple-focused blogs, and app newsletters.",
+    "recommendedAngles": ["native iOS audio mixer", "spatial sound placement", "no subscription, lifetime purchase"],
+    "recommendedTemplates": ["email-reviewer", "email-creator"],
+    "manualSearchKeywords": ["iOS app review", "apps iPhone", "app curator", "indie iOS apps", "best iPhone apps"]
+  },
+  "apple": {
+    "label": "Apple",
+    "description": "Apple ecosystem creators and accounts that review apps or workflows.",
+    "recommendedAngles": ["native iOS app", "offline audio bundle", "one-time premium"],
+    "recommendedTemplates": ["email-reviewer", "dm-creator"],
+    "manualSearchKeywords": ["Apple apps", "iPhone setup", "iOS workflow", "apps Apple"]
+  },
+  "desk_setup": {
+    "label": "Desk setup",
+    "description": "Desk setup, workspace, study setup, and ambient work environment creators.",
+    "recommendedAngles": ["sound layer for desk setups", "focus ambience", "spatial placement demo"],
+    "recommendedTemplates": ["dm-instagram", "dm-tiktok", "dm-creator"],
+    "manualSearchKeywords": ["desk setup", "study setup", "workspace ambience", "setup bureau"]
+  },
+  "night_routine": {
+    "label": "Night routine",
+    "description": "Evening routines, cozy routines, wind-down rituals, and sleep prep content.",
+    "recommendedAngles": ["offline night ambience", "rain and forest mixes", "honest feedback from routine creators"],
+    "recommendedTemplates": ["dm-instagram", "dm-tiktok"],
+    "manualSearchKeywords": ["night routine", "evening routine", "routine du soir", "rutina nocturna"]
+  },
+  "ambient_sounds": {
+    "label": "Ambient sounds",
+    "description": "Ambient audio, sound design, white noise, and background sound channels.",
+    "recommendedAngles": ["natural recordings", "mix multiple layers", "sound placement"],
+    "recommendedTemplates": ["dm-creator", "reddit-feedback"],
+    "manualSearchKeywords": ["ambient sounds", "nature sounds", "soundscape", "sons naturels", "paisajes sonoros"]
+  },
+  "white_noise": {
+    "label": "White noise",
+    "description": "White noise, brown noise, rain noise, and masking-sound audiences.",
+    "recommendedAngles": ["natural alternatives to white noise", "rain, river, wind, ocean layers", "offline use"],
+    "recommendedTemplates": ["dm-creator", "reddit-feedback"],
+    "manualSearchKeywords": ["white noise", "brown noise", "rain noise", "bruit blanc", "ruido blanco"]
+  },
+  "indie_apps": {
+    "label": "Indie apps",
+    "description": "Indie app communities, makers, and reviewers of small independent products.",
+    "recommendedAngles": ["solo developer story", "no subscription", "feedback-driven Premium access"],
+    "recommendedTemplates": ["email-reviewer", "reddit-feedback", "dm-creator"],
+    "manualSearchKeywords": ["indie apps", "indie iOS", "solo developer app", "apps indépendantes"]
+  },
+  "student": {
+    "label": "Student",
+    "description": "Student routines, studying, exam prep, and campus productivity.",
+    "recommendedAngles": ["study ambience", "Pomodoro-compatible background sound", "simple Premium test"],
+    "recommendedTemplates": ["dm-tiktok", "dm-instagram"],
+    "manualSearchKeywords": ["student routine", "study tips", "study with me", "routine étudiant"]
+  },
+  "developer": {
+    "label": "Developer",
+    "description": "Developers who share tools, workflows, indie app feedback, or focus sessions.",
+    "recommendedAngles": ["indie iOS craft", "native AVAudioEngine", "focus ambience while coding"],
+    "recommendedTemplates": ["dm-creator", "email-creator"],
+    "manualSearchKeywords": ["developer setup", "coding focus", "indie hacker app", "dev tools"]
+  },
+  "creator_tools": {
+    "label": "Creator tools",
+    "description": "Creators who test tools, workflows, and apps for better content production.",
+    "recommendedAngles": ["sound background for creative work", "Premium access for feedback", "independent app"],
+    "recommendedTemplates": ["dm-creator", "email-creator"],
+    "manualSearchKeywords": ["creator tools", "apps for creators", "content workflow", "outils créateurs"]
+  }
+}

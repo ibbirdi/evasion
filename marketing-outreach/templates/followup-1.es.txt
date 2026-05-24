@@ -1,0 +1,6 @@
+Hola {{name}}, te envío una pequeña y única continuación.
+
+Te había propuesto acceso Premium gratuito a Oasis para probar la app.
+Sin ninguna obligación — busco sobre todo opiniones honestas.
+
+Si no te interesa, no pasa nada 🌿

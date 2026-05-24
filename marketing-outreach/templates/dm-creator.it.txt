@@ -1,0 +1,12 @@
+Ciao {{name}} 👋
+
+Sto sviluppando Oasis, un’app iOS di suoni naturali immersivi con audio spaziale.
+
+Il tuo mondo intorno a {{niche}} mi sembra molto in linea con l’app.
+Posso offrirti Premium gratis se vuoi provarla liberamente.
+
+Se ti piace e ti va di parlarne, per me sarebbe già tantissimo 🌿
+Ma non c’è nessun obbligo: la cosa più utile sarebbe un feedback sincero.
+
+Codice: {{promoCode}}
+Link: {{appStoreUrl}}

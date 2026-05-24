@@ -1,18 +1,21 @@
 ---
 title: Build and Test
 status: stable
-last_updated: 2026-05-22
+last_updated: 2026-05-23
 tracks:
   - "ios-native/OasisNative.xcodeproj/**"
   - "ios-native/OasisNativeUITests/**"
   - "fastlane/Fastfile"
   - "scripts/**"
+  - "marketing-outreach/package.json"
+  - "marketing-outreach/src/**"
   - "Gemfile"
 related:
   - "../operations/release-process.md"
   - "../operations/secrets-and-keys.md"
   - "../marketing/video-factory.md"
   - "../marketing/community-radar.md"
+  - "../marketing/outreach-crm.md"
 ---
 
 # Build and Test
@@ -190,6 +193,23 @@ npm install
 npm run sync                                    # symlink Oasis audio aliases
 npm run record -- --scenario sleep-rain-demo
 ```
+
+## Marketing outreach CRM
+
+Subproject at `marketing-outreach/` manages human-reviewed Premium promo-code outreach. It is a local TypeScript CLI and never sends messages automatically.
+
+Run from inside the subproject:
+
+```bash
+cd marketing-outreach
+npm install
+npm run typecheck
+npm run outreach:validate
+npm run outreach:score
+npm run outreach:plan -- --limit 20 --lang fr
+```
+
+Full workflow and compliance guardrails are documented in [../marketing/outreach-crm.md](../marketing/outreach-crm.md).
 
 ## Drift check
 

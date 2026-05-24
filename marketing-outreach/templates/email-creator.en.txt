@@ -1,0 +1,19 @@
+Suggested subject:
+Free Premium access to try Oasis
+
+Hi {{name}},
+
+I’m the independent developer of Oasis, an iOS app for immersive natural soundscapes for sleep, focus, and relaxation.
+
+I thought your work around {{niche}} might be a good fit for the app. I’d be happy to offer you free Premium access so you can try it at your own pace.
+
+There is no obligation to post. I’m mainly looking for honest feedback from people who care about calm, useful audio experiences.
+
+Premium code:
+{{promoCode}}
+
+App Store link:
+{{appStoreUrl}}
+
+Thank you,
+{{senderName}}

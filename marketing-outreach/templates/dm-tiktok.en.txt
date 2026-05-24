@@ -1,0 +1,9 @@
+Hi {{name}} 👋
+
+I’m the indie developer of Oasis, an iOS app for immersive natural soundscapes for sleep, focus, and relaxation.
+
+I’d be happy to give you free Premium access if you’d like to try it.
+No post required at all: I’m mainly looking for honest feedback from people who enjoy this kind of calm audio experience 🌿
+
+Code: {{promoCode}}
+Link: {{appStoreUrl}}

@@ -1,0 +1,9 @@
+Hallo {{name}} 👋
+
+Ich bin der unabhängige Entwickler von Oasis, einer iOS-App für immersive Naturklänge zum Schlafen, Fokussieren und Entspannen.
+
+Ich kann dir gern kostenlosen Premium-Zugang geben, wenn du die App ausprobieren möchtest.
+Es gibt keine Pflicht zu posten: Ich suche vor allem ehrliches Feedback von Menschen, die solche ruhigen Audio-Erlebnisse mögen 🌿
+
+Code: {{promoCode}}
+Link: {{appStoreUrl}}
