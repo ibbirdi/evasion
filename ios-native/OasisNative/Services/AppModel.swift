@@ -1354,6 +1354,7 @@ final class AppModel {
         [
             .oiseaux: ChannelState(volume: 0.22, isMuted: false, autoVariationEnabled: false),
             .vent: ChannelState(volume: 0.26, isMuted: false, autoVariationEnabled: true),
+            .plage: ChannelState(volume: 0.24, isMuted: false, autoVariationEnabled: false),
             .foret: ChannelState(volume: 0.28, isMuted: false, autoVariationEnabled: false),
             .pluie: ChannelState(volume: 0.20, isMuted: false, autoVariationEnabled: false),
             .tonnerre: ChannelState(volume: 0.16, isMuted: false, autoVariationEnabled: true),

@@ -27,6 +27,7 @@ struct SoundDetailSheet: View {
                         .padding(.trailing, showsCloseButton ? 48 : 0)
                     locationBlock
                     SoundLocationMinimap(channel: channel)
+                        .accessibilityIdentifier("sound.detail.map")
                     creditBlock
                 }
                 .padding(.horizontal, 22)

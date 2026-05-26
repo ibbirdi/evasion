@@ -1,7 +1,7 @@
 ---
 title: App Store Assets
 status: stable
-last_updated: 2026-05-22
+last_updated: 2026-05-26
 tracks:
   - "fastlane/Fastfile"
   - "fastlane/Snapfile"
@@ -27,7 +27,7 @@ related:
 
 Specs and copy for the 60 App Store screenshots (10 slides × 6 locales). App Preview videos are local-only for now and are not uploaded for version `1.5.1`.
 
-> **Important:** two design briefs existed historically — a Cowork brief (v2) and a design-handoff brief (v3). They diverge on multiple dimensions (font, device width, palette, JPEG quality). **The v3 spec below is canonical.** The Cowork brief has been retired; do not back-port any v2 specs.
+> **Important:** two design briefs existed historically — a Cowork brief (v2) and a design-handoff brief (v3). They diverged on multiple dimensions (font, device width, palette, JPEG quality). **The v4 dynamic-scene compositor is canonical for iOS App Store screenshots.** The v3 renderer is retained as a `--classic` fallback only.
 
 ## Canvas (non-negotiable)
 
@@ -84,38 +84,45 @@ The slug is *what the slide depicts*. The position is *where it appears in the c
 
 `fastlane stage_appstore_assets` copies source composites into `fastlane/appstore-upload/<locale>/` and renames them to this display order, so App Store Connect receives alphabetically sorted files in the intended carousel sequence.
 
-## Type system (v3)
+## Type system (v4)
 
 | Element | Specs |
 | --- | --- |
-| Headline | **SF Pro Display Heavy**, adaptive 136 → 80 pt, line-height 0.90, LS 0. Centered. The renderer measures each locale and steps down before overflow. |
-| Subhead | SF Pro Display Medium 54 pt, LH 1.16, LS 0, 80 % opacity. Centered. May wrap when needed; the renderer measures height before placing the device. |
-| Eyebrow | SF Pro Display Semibold 40 pt UPPERCASE, tracking +3.0 pt, accent color. Current screenshots use an eyebrow on every slide. |
+| Headline | **SF Pro Condensed Black** via the system font API, adaptive 148 → 84 pt, line-height 0.90, LS 0. Usually left-aligned in a top editorial block. Manual headline line breaks are avoided unless a locale truly needs them; the renderer checks total height and unbreakable word width before choosing a size. |
+| Subhead | Avenir Next Medium 66 pt, LH 0.96, LS 0, 76 % opacity. Usually left-aligned below the headline. |
+| Eyebrow | Avenir Next Demi Bold 48 pt UPPERCASE, tracking +4.2 pt, accent color. Current screenshots use an eyebrow on every slide. |
 
-> Eyebrows were increased on 2026-05-18 because the previous size was too hard to read on iPhone. The font is **SF Pro Display** (not Rounded — Rounded was the old Cowork v2 spec, which read consumer-playful).
+> The canonical iOS App Store compositor uses **SF Pro Condensed** for headlines and **Avenir Next** for eyebrow/subhead support text. Do not use SF Rounded for App Store assets.
 
-## Color system (v3)
+## Color system (v4)
 
-Per-slide background style and accent color live in [`scripts/screenshot_content.json`](../../../scripts/screenshot_content.json), not in a duplicated Swift table. The active background styles are:
+Per-slide scene mood, background style, and accent color live in [`scripts/screenshot_content.json`](../../../scripts/screenshot_content.json), not in a duplicated Swift table. The v4 scene renderer uses mood palettes:
+
+- `aurora`, `lagoon`, `violet`, `copper` for dark premium / immersive slides.
+- `mist`, `dawn`, `graphite` for light editorial slides.
+
+The v3/classic fallback background styles are still supported:
 
 - `studioGradient`, `sageMist`, `spatialGradient`, `midnightCopper` in the current screenshot set.
 - Legacy styles still supported by the renderer: `warmGradient`, `creamRadial`, `duskGradient`.
 
-Background texture uses gradients, radial glows, subtle grain, vignette, and filled organic `drawSoundBand` shapes only. Line-based background details were removed on 2026-05-18; do not reintroduce topographic contours, wave ribbons, orbital rings, or other stroked line art unless the visual direction changes.
+Background texture uses gradients, radial glows, subtle grain, vignette, and filled organic `drawSoundBand` / kinetic wash shapes only. Line-based background details were removed on 2026-05-18; do not reintroduce topographic contours, wave ribbons, orbital rings, or other stroked line art unless the visual direction changes.
 
 ## Device mockup
 
 - Uses the Apple-style bezel PNG from `bezelImage` in `screenshot_content.json`.
 - The compositor uses the bezel aspect ratio `3000 / 1470` for all layout math.
-- Device max widths are layout-specific: poster 1160, top 1080, bottom 1060, bleed 1150, peek-bottom 1220.
-- Device size can shrink when locale text needs more vertical room.
-- Shadows and subtle reflection are drawn by `drawDevice`; no manual frame edits in JPEG output.
+- In v4, each slide's `scene.device` controls `x`, `y`, `width`, `rotation`, and opacity. Current iOS App Store direction is upright phones only (`rotation: 0`); do not reintroduce tilted devices without a new visual direction.
+- The classic fallback still has layout-specific max widths: poster 1160, top 1080, bottom 1060, bleed 1150, peek-bottom 1220.
+- Shadows and subtle reflection are drawn by `drawDeviceImage`; no manual frame edits in JPEG output.
 
 ## Layout grid
 
-The renderer has five adaptive layouts: `poster`, `top`, `bottom`, `bleed`, and `peekBottom`. Each layout measures eyebrow, headline, and subhead first, then fits the device into the remaining canvas. This is intentional: translated copy should be natural, not forced into identical line breaks.
+The canonical renderer uses `scene` objects in `screenshot_content.json` for mood, text block, and device placement only. Do not use configured JSON highlight layers for the App Store set: the professional pop-out emphasis system is metadata-anchored to real simulator captures.
 
-All current slides have an eyebrow. If a future slide has no eyebrow, the renderer falls back to the configured SF Symbol marker.
+UI elements that float above the phone must come from `fastlane/screenshots/<locale>/extracted-assets/*.png` plus their sibling JSON metadata, both written by `OasisNativeScreenshots.swift` from live simulator scenarios. The extractor adds a small element-specific capture padding so the PNG is not cut at the UI edge. The compositor maps each padded `visibleFramePoints` rect back onto the phone's real screen rect, then scales it around its own origin so the pop-out overlaps the source UI instead of becoming a duplicate elsewhere.
+
+The classic fallback renderer still has five adaptive layouts: `poster`, `top`, `bottom`, `bleed`, and `peekBottom`. It measures eyebrow, headline, and subhead first, then fits the device into the remaining canvas.
 
 ## Per-slide copy (en-US)
 
@@ -161,8 +168,13 @@ Single Swift script: [`scripts/generate_store_screenshot_comps.swift`](../../../
 - `NSBitmapImageRep` at explicit pixel size (avoids the Retina lockFocus doubling trap).
 - JPEG factor `0.92`.
 - All 60 assets render in < 10 seconds.
-- Source data lives in `scripts/screenshot_content.json`; render code and pipeline code live in the Swift script.
-- The renderer also writes review-size JPEGs to `fastlane/screenshots/<locale>/figma-pro/preview/`; App Store staging uses only the 10 top-level `figma-pro/<slug>.jpg` files per locale.
+- Source data lives in `scripts/screenshot_content.json`; v4 scene render code and fallback classic code live in the Swift script.
+- Extracted UI emphasis assets live in `fastlane/screenshots/<locale>/extracted-assets/`. Each PNG is a padded crop from `XCUIScreen.main.screenshot().image` using the real `XCUIElement` frame, and each JSON file stores the element frame, padded visible frame, capture padding, and screen size.
+- The v4 compositor does not read manual overlay coordinates for these elements. It auto-anchors each extracted PNG to the original phone screen position before applying a controlled scale, extra-large rounded clipping mask, 20%-opacity white border, faint inner white hairline, and a strong soft box shadow cast by an opaque underlay hidden beneath the real crop. Do not re-card or redraw the inside of the crop; the simulator PNG must remain the visual content.
+- The renderer strictly validates `extracted-assets` before drawing. Each locale must contain only the approved simulator captures, each with fresh metadata including `elementFramePoints` and `paddingPoints`. Stale generated PNGs or unexpected files such as old separate binaural crops must make rendering fail.
+- During design iteration, validate one locale only: `SCREENSHOT_LANGUAGES=fr-FR OASIS_SCREENSHOT_PARTIAL=1 bundle exec fastlane screenshots`, then `swift scripts/generate_store_screenshot_comps.swift --lang fr-FR`. Do not run all 6 locales until the French set is approved.
+- `swift scripts/generate_store_screenshot_comps.swift` renders the canonical v4 set into `figma-pro/`.
+- `swift scripts/generate_store_screenshot_comps.swift --classic` renders the old v3/classic set into `figma-pro-classic/` for comparison or rollback.
 
 When changing copy, palette, layout, source capture mapping, or accent colors: edit `scripts/screenshot_content.json`, re-run the Swift compositor, and stage upload assets. Don't edit JPEGs by hand.
 
@@ -190,15 +202,31 @@ Keep the Fastlane / `Snapfile` `launch_arguments` value as one combined string. 
 
 The composited slides (`figma-pro/<slug>.jpg`) overlay copy onto these raw captures.
 
+The screenshot test also captures selected real UI elements after the matching raw scenario. Current extracted assets are:
+
+```
+01_active_forest      02_active_river       03_detail_map
+04_binaural_modes     05_spatial_stage      06_preset_starter
+06_preset_calm        06_preset_storm       07_active_rain
+08_active_birds       09_active_shore       09_library_teaser
+10_paywall_primary
+```
+
+These are the only approved source for floating UI emphasis in v4 App Store assets. `04_binaural_modes` is one single crop of the full four-card grid; separate `04_binaural_delta`, `04_binaural_theta`, `04_binaural_alpha`, and `04_binaural_beta` crops are deprecated and must not reappear. Active-row pop-outs must be active in the underlying simulator screenshot, and free-tier screenshots use the deterministic screenshot shuffle so Birds, Wind, and Beach can be highlighted without premium content.
+
 ## Acceptance criteria
 
 A finished screenshot set passes when:
 
 - 60 JPEGs at exactly `1320 × 2868`, sRGB, no alpha, ≤ 2 MB each.
+- During pre-approval iteration, only the `fr-FR` validation set should exist under `fastlane/screenshots/`; the full 6-locale set is generated only after visual approval.
 - No App Preview MP4s staged for `1.5.1`.
 - Naming matches the 10 slugs above, in 6 locale folders.
 - Each headline and subhead fits its measured layout budget, with no clipping or awkward orphan word.
-- Devices vertical, no rotation.
+- Phones are cleanly framed and upright (`rotation == 0` for the current v4 direction).
+- `scripts/screenshot_content.json` has no configured highlight layers for the canonical set.
+- Floating UI emphasis uses real padded simulator PNGs plus metadata, preserves aspect ratio, overlaps the source element, and improves readability through scale, rounded clipping, accent-harmonised borders, and breathing room instead of duplicating arbitrary UI elsewhere.
+- The single binaural pop-out is `04_binaural_modes`; old per-track binaural PNGs are absent.
 - Per-slide background style and accent match `scripts/screenshot_content.json`.
 - Eyebrow present on every slide, readable on iPhone-sized previews.
 - Backgrounds use blobs / filled acoustic bands only, with no decorative line art.

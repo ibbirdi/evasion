@@ -1,7 +1,7 @@
 ---
 title: State Model and Persistence
 status: stable
-last_updated: 2026-05-20
+last_updated: 2026-05-26
 tracks:
   - "ios-native/OasisNative/Services/AppModel.swift"
   - "ios-native/OasisNative/Services/GentleReminderScheduler.swift"
@@ -139,7 +139,7 @@ Stored directly in `UserDefaults` (not inside `PersistedMixerState`) because the
 
 Completing onboarding from the final page can also open the lifetime paywall when the premium CTA is tapped. The flag is still written first, so dismissing the paywall lands in `HomeView` instead of returning to onboarding.
 
-For simulator/dev verification, `-OASISResetOnboarding` clears only this onboarding flag on launch. `-OASISResetState` still resets mixer state but does not imply onboarding reset. `-OASISImmersiveAudioEnabled YES|NO` is a launch-only override for deterministic screenshots and development checks.
+For simulator/dev verification, `-OASISResetOnboarding` clears only this onboarding flag on launch. `-OASISResetState` still resets mixer state but does not imply onboarding reset. `-OASISImmersiveAudioEnabled YES|NO` is a launch-only override for deterministic screenshots and development checks. Screenshot-only random-mix templates also seed known active channels; the free-tier template includes Birds, Wind, and Beach so App Store captures can highlight active free rows without premium content.
 
 ## Engine sync barrier
 

@@ -23,7 +23,7 @@ private struct BrandLockupView: View {
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     let visibility: CGFloat
 
-    private static let logoScale: CGFloat = 1.2
+    private static let logoScale: CGFloat = 0.84
     private static let lockupSize: CGFloat = 158 * logoScale
     private static let visualCanvasSize: CGFloat = 208 * logoScale
     private static let ringSize: CGFloat = 118 * logoScale
@@ -86,7 +86,7 @@ private struct OasisHeaderWordmark: View {
         (3, "I"),
         (4, "S")
     ]
-    private static let logoScale: CGFloat = 1.2
+    private static let logoScale: CGFloat = 0.82
 
     var body: some View {
         HStack(spacing: 3 * Self.logoScale) {

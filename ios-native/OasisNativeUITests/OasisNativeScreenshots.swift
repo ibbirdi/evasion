@@ -46,18 +46,20 @@ final class OasisNativeScreenshots: XCTestCase {
                 launchApp(app, premiumOverride: "premium")
                 startPlayingMix(in: app, shuffleFirst: true)
                 snapshot("01_hero", waitForLoadingIndicator: false)
+                snapshotElement("01_active_forest", element: element(in: app, id: "channel.row.foret"))
             }
         }
 
         if shouldRun("02_library") {
             runScenario { app in
-                // 02 Library — rich 10-channel mix playing, scrolled to the bottom of the
-                // library so the international provenance (new sounds + locations) is visible.
+                // 02 Library — rich 10-channel mix playing, scrolled into the
+                // library so provenance-rich premium rows are visible.
                 launchApp(app, premiumOverride: "premium")
                 startPlayingMix(in: app, shuffleFirst: true)
-                scrollToElement(id: "channel.row.jungleAsie", in: app, maxSwipes: 10)
+                scrollToElement(id: "channel.row.riviere", in: app, maxSwipes: 6)
                 pause(seconds: 0.3)
                 snapshot("02_library", waitForLoadingIndicator: false)
+                snapshotElement("02_active_river", element: element(in: app, id: "channel.row.riviere"))
             }
         }
 
@@ -73,6 +75,7 @@ final class OasisNativeScreenshots: XCTestCase {
                 _ = panel(in: app, id: "panel.sound-detail.container").waitForExistence(timeout: 6)
                 pause(seconds: 0.6)
                 snapshot("03_detail_sheet", waitForLoadingIndicator: false)
+                snapshotElement("03_detail_map", element: element(in: app, id: "sound.detail.map"))
             }
         }
 
@@ -89,6 +92,7 @@ final class OasisNativeScreenshots: XCTestCase {
                 _ = panel(in: app, id: "panel.binaural.container").waitForExistence(timeout: 6)
                 pause(seconds: 0.5)
                 snapshot("04_binaural", waitForLoadingIndicator: false)
+                snapshotElement("04_binaural_modes", element: element(in: app, id: "binaural.track.grid"))
             }
         }
 
@@ -102,6 +106,7 @@ final class OasisNativeScreenshots: XCTestCase {
                 _ = panel(in: app, id: "panel.spatial.container").waitForExistence(timeout: 6)
                 pause(seconds: 0.5)
                 snapshot("05_spatial", waitForLoadingIndicator: false)
+                snapshotElement("05_spatial_stage", element: element(in: app, id: "spatial.stage"))
             }
         }
 
@@ -117,6 +122,9 @@ final class OasisNativeScreenshots: XCTestCase {
                 _ = panel(in: app, id: "panel.presets.container").waitForExistence(timeout: 6)
                 pause(seconds: 0.5)
                 snapshot("06_presets", waitForLoadingIndicator: false)
+                snapshotElement("06_preset_starter", element: element(in: app, id: "presets.row.preset_default_starter"))
+                snapshotElement("06_preset_calm", element: element(in: app, id: "presets.row.preset_default_calm"))
+                snapshotElement("06_preset_storm", element: element(in: app, id: "presets.row.preset_default_storm"))
             }
         }
 
@@ -129,6 +137,7 @@ final class OasisNativeScreenshots: XCTestCase {
                 tap(button(in: app, id: "home.header.timer"))
                 pause(seconds: 0.8) // let the system menu animate in
                 snapshot("07_timer", waitForLoadingIndicator: false)
+                snapshotElement("07_active_rain", element: element(in: app, id: "channel.row.pluie"))
             }
         }
 
@@ -138,8 +147,9 @@ final class OasisNativeScreenshots: XCTestCase {
             runScenario { app in
                 // 08 Free home — 3 starter sounds playing. Shows the ungated experience.
                 launchApp(app, premiumOverride: "free")
-                startPlayingMix(in: app, shuffleFirst: false)
+                startPlayingMix(in: app, shuffleFirst: true)
                 snapshot("08_free_home", waitForLoadingIndicator: false)
+                snapshotElement("08_active_birds", element: element(in: app, id: "channel.row.oiseaux"))
             }
         }
 
@@ -148,10 +158,12 @@ final class OasisNativeScreenshots: XCTestCase {
                 // 09 Library teaser — free user scrolled to the locked premium section card.
                 // Playback running so the free mix is live behind the teaser card.
                 launchApp(app, premiumOverride: "free")
-                startPlayingMix(in: app, shuffleFirst: false)
+                startPlayingMix(in: app, shuffleFirst: true)
                 scrollToElement(id: "premium.library.teaser", in: app, maxSwipes: 10)
                 pause(seconds: 0.5)
                 snapshot("09_library_teaser", waitForLoadingIndicator: false)
+                snapshotElement("09_active_shore", element: element(in: app, id: "channel.row.plage"))
+                snapshotElement("09_library_teaser", element: element(in: app, id: "premium.library.teaser"))
             }
         }
 
@@ -159,13 +171,14 @@ final class OasisNativeScreenshots: XCTestCase {
             runScenario { app in
                 // 10 Paywall — triggered from the teaser "See Premium" CTA.
                 launchApp(app, premiumOverride: "free")
-                startPlayingMix(in: app, shuffleFirst: false)
+                startPlayingMix(in: app, shuffleFirst: true)
                 scrollToElement(id: "premium.library.teaser", in: app, maxSwipes: 10)
                 waitForHittable(button(in: app, id: "premium.library.teaser.primary"))
                 tap(button(in: app, id: "premium.library.teaser.primary"))
                 _ = panel(in: app, id: "premium.paywall.container").waitForExistence(timeout: 8)
                 pause(seconds: 0.8)
                 snapshot("10_paywall", waitForLoadingIndicator: false)
+                snapshotElement("10_paywall_primary", element: element(in: app, id: "premium.paywall.primary"))
             }
         }
     }
@@ -177,7 +190,7 @@ final class OasisNativeScreenshots: XCTestCase {
     /// Important: in screenshot automation, tapping the shuffle button already sets
     /// `isPlaying = true` inside `applyScreenshotShuffle()`. Tapping the playback button
     /// after shuffle would therefore TOGGLE playback off. So when we shuffle, we skip
-    /// the playback tap. Free scenarios (no shuffle) still need the explicit playback tap.
+    /// the playback tap. Non-shuffled scenarios still need the explicit playback tap.
     private func startPlayingMix(in app: XCUIApplication, shuffleFirst: Bool) {
         if shuffleFirst {
             waitForHittable(button(in: app, id: "home.bottom.shuffle"))
@@ -227,6 +240,24 @@ final class OasisNativeScreenshots: XCTestCase {
 
     private func panel(in app: XCUIApplication, id: String) -> XCUIElement {
         app.otherElements[id]
+    }
+
+    private func element(in app: XCUIApplication, id: String) -> XCUIElement {
+        app.descendants(matching: .any).matching(identifier: id).firstMatch
+    }
+
+    private func element(in app: XCUIApplication, label: String) -> XCUIElement {
+        app.descendants(matching: .any).matching(NSPredicate(format: "label == %@", label)).firstMatch
+    }
+
+    private var timerOptionLabels: [(assetSuffix: String, label: String)] {
+        let usesEnglishHour = Snapshot.deviceLanguage.hasPrefix("en")
+        return [
+            ("15", "15 min"),
+            ("30", "30 min"),
+            ("60", usesEnglishHour ? "1 hr" : "1 h"),
+            ("120", usesEnglishHour ? "2 hr" : "2 h")
+        ]
     }
 
     // MARK: - Waiting

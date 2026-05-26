@@ -1,7 +1,7 @@
 ---
 title: Build and Test
 status: stable
-last_updated: 2026-05-23
+last_updated: 2026-05-26
 tracks:
   - "ios-native/OasisNative.xcodeproj/**"
   - "ios-native/OasisNativeUITests/**"
@@ -86,6 +86,8 @@ Ten scenarios driven by `setUpWithError` reading launch arguments. Each produces
 
 The screenshot lane is filtered to `OasisNativeUITests/OasisNativeScreenshots/testAppStoreScreenshots` so it does not run premium-flow tests or the social-video `MarketingScenarioRunner`.
 
+The App Store screenshot suite also writes real simulator element crops into `fastlane/screenshots/<locale>/extracted-assets/` for the v4 compositor. `SnapshotHelper` deletes and recreates that folder at screenshot setup so stale assets cannot survive between runs. `SnapshotHelper.snapshotElement` crops `XCUIScreen.main.screenshot().image` using the visible `XCUIElement` frame plus a small element-specific padding, then writes both a PNG and JSON metadata (`elementFramePoints`, padded `visibleFramePoints`, `paddingPoints`, screen size, and image pixel size). These extracted assets are captured from the same live scenarios as the raw screenshots, not from a separate mock view. Current approved pop-out crops include active rows for Forest, River, Rain, Birds, and Beach; one full `binaural.track.grid` crop; the detail map; spatial stage; preset rows; library teaser; and paywall CTA.
+
 Launch arguments used by these tests:
 
 - `-FASTLANE_SNAPSHOT YES` (set by fastlane)
@@ -144,6 +146,7 @@ App Store Connect username: `jonathanluquet@me.com` (in `Fastfile`). The passwor
 - Devices: iPhone 17 Pro Max.
 - `clean: false` so the bundle is reused across locales (faster).
 - `retries: 0` — fail fast.
+- During visual iteration, run only the French validation pass with `SCREENSHOT_LANGUAGES=fr-FR OASIS_SCREENSHOT_PARTIAL=1 bundle exec fastlane screenshots`, then render with `swift scripts/generate_store_screenshot_comps.swift --lang fr-FR`. Wait for design approval before running every locale.
 
 ## Helper scripts
 
@@ -153,7 +156,7 @@ All under `scripts/`. Purpose-specific, not part of the build pipeline.
 | --- | --- |
 | `convert_new_sounds.sh` | When adding/replacing an ambient channel — encodes raw `.wav` to `.m4a` via the 2-pass loudnorm pipeline. See [../content/sounds-catalog.md](../content/sounds-catalog.md). |
 | `generateBinauralSounds.py` | When changing the binaural design (rare). Produces the 4 m4a files. |
-| `generate_store_screenshot_comps.swift` | When updating App Store screenshots — composites the 10 localized slides over adaptive blob-only backgrounds and exports JPEGs at `1320×2868`. See [../marketing/store-assets.md](../marketing/store-assets.md). |
+| `generate_store_screenshot_comps.swift` | When updating App Store screenshots — renders the canonical v4 dynamic scenes from raw captures and exports JPEGs at `1320×2868`; `--classic` writes the old v3 fallback into `figma-pro-classic/`. See [../marketing/store-assets.md](../marketing/store-assets.md). |
 | `capture_macos_screenshots.rb` | When updating macOS App Store screenshots — builds `OasisMac`, opens the menu bar panel in deterministic screenshot mode, and captures 5 scenarios × 6 locales. |
 | `generate_mac_store_screenshot_comps.swift` | Composites real macOS panel captures into `2880×1800` Mac App Store screenshots and stages them separately from iOS assets. |
 | `mac_screenshot_content.json` | Source data for macOS screenshot copy, slide ordering, source capture mapping, and accent colours. |

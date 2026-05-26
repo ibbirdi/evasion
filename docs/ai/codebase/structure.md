@@ -1,7 +1,7 @@
 ---
 title: Repo Structure
 status: stable
-last_updated: 2026-05-23
+last_updated: 2026-05-26
 tracks:
   - "ios-native/**"
   - "scripts/**"
@@ -142,7 +142,8 @@ fastlane/
 ├── Snapfile                         snapshot config
 ├── metadata/<locale>/               App Store metadata per locale (name, subtitle, keywords, description, …)
 ├── screenshots/<locale>/            Captured + finalised screenshots
-│   └── figma-pro/                   Final composited screenshots + preview JPEGs
+│   ├── extracted-assets/            Real simulator element crops + metadata for v4 App Store pop-out emphasis
+│   └── figma-pro/                   Final composited screenshots
 ├── screenshots-macos/<locale>/      macOS panel captures + final Mac App Store screenshots
 ├── app-previews/<locale>/           Generated App Preview MP4s
 ├── appstore-upload/                 Staging dir for upload flow
@@ -159,7 +160,7 @@ Locales: `en-US`, `fr-FR`, `de-DE`, `es-ES`, `it`, `pt-BR`. See [../content/loca
 | `convert_new_sounds.sh` | Encode raw `.wav` → `.m4a` per the loudnorm pipeline. |
 | `generateBinauralSounds.py` | Pre-render the 4 binaural tracks. |
 | `generate_app_previews.rb` | Build App Preview videos from screenshots. |
-| `generate_store_screenshot_comps.swift` | Composite the 60 final App Store screenshots. |
+| `generate_store_screenshot_comps.swift` | Render the final iOS App Store screenshots using the v4 dynamic-scene compositor; use `--lang fr-FR` for one-locale validation and `--classic` only for old v3 comparison comps. |
 | `capture_macos_screenshots.rb` | Build `OasisMac` and capture the real menu bar panel in all App Store locales. |
 | `generate_mac_store_screenshot_comps.swift` | Composite real macOS panel captures into 2880×1800 Mac App Store screenshots. |
 | `add_files_to_xcode.py` | Add files to the Xcode project programmatically. |

@@ -1,7 +1,7 @@
 ---
 title: UI System
 status: stable
-last_updated: 2026-05-22
+last_updated: 2026-05-26
 tracks:
   - "ios-native/OasisNative/Views/**"
   - "ios-native/OasisNative/Support/Info.plist"
@@ -89,7 +89,7 @@ Most overlays bind to an optional state on `AppModel` and present when non-nil:
 | `AnimatedLiquidAura` | Liquid blob aura around the play button when audio is active. Paused under XCUITest. |
 | `AnimatedBackdrop` | Static full-screen deep blue/grey backdrop. It intentionally does not adapt to selected or playing channel tints. |
 | `SoundBackdropImage` | Shared photo watermark renderer for sound rows, binaural cards, and `SoundDetailSheet`; images come from `Assets.xcassets/SoundBackgrounds` and are intentionally low-opacity, desaturated, and darkened. |
-| `HomeHeaderView` | Floating OASIS wordmark centered inside two same-size counter-rotating logo rings. The lockup keeps ring, canvas, height cap, and wordmark metrics scaled together at 1.2× so the brand can grow without text/ring drift. The rings start offset, use balanced additive blending, and are darkened as a group so colours mix without overexposing the lockup. The rings freeze under screenshot automation / Reduce Motion. |
+| `HomeHeaderView` | Floating OASIS wordmark centered inside two same-size counter-rotating logo rings. The iOS lockup is intentionally compact (`BrandLockupView` about 0.84×, internal wordmark about 0.82×) so the OASIS letters stay inside the ring in App Store screenshots. The rings start offset, use balanced additive blending, and are darkened as a group so colours mix without overexposing the lockup. The rings freeze under screenshot automation / Reduce Motion. |
 | `HomeToolbarImmersiveAudioToggle` | Top-left native toolbar button for the persisted global immersive audio mode. |
 | `MixerBoardSectionView` | One row of the mixer board. |
 | `HapticSlider` | Slider with `sensoryFeedback` haptics on tick. Also hosts `AutoVariationRangeSlider`, the two-handle volume interval control used when a channel is in auto-variation mode. |
@@ -155,7 +155,8 @@ The same identifiers serve VoiceOver and UI tests (screenshots, premium-flow tes
 - **Header + bottom bar**: `home.scroll`, `home.header.immersive`, `home.header.timer`, `home.bottom.{shuffle,playback,routepicker,presets,binaural}`.
 - **Panels** (sheets): `panel.spatial.container`, `panel.presets.container`, `panel.binaural.container`, `panel.sound-detail.container`, `panel.timer.unlock`.
 - **Spatial drag target**: `spatial.stage` — the drag stage inside `SpatialAudioPanel`. Carries `.accessibilityElement(children: .ignore)` plus a label so XCUITest can target it for synthetic drag gestures (the underlying ZStack would otherwise not register as an accessibility leaf).
-- **Presets / binaural / timer rows**: `presets.row.<id>`, `presets.name`, `presets.save`, `binaural.track.<id>`, `timer.unlock.option.<duration>`.
+- **Presets / binaural / timer rows**: `presets.list`, `presets.row.<id>`, `presets.row.button.<id>`, `presets.name`, `presets.save`, `binaural.track.grid`, `binaural.track.<id>`, `timer.unlock.option.<duration>`.
+- **Detail sheet**: `sound.detail.map`.
 - **Paywall + teaser**: `premium.paywall.{container,primary,restore,close,retry,help,loading}`, `premium.library.teaser`, `premium.library.teaser.primary`, `premium.library.teaser.toggle`, `premium.banner{,.primary,.dismiss}`, `premium.inline.{primary,secondary,dismiss}`.
 
 Convention: `<surface>.<role>[.<entity>]`. Lowercase, dot-separated, no spaces. The marketing video factory's scenario JSON references these strings verbatim — see [../marketing/video-factory.md](../marketing/video-factory.md).

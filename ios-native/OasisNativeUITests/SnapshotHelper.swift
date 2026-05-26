@@ -37,6 +37,11 @@ func snapshot(_ name: String, timeWaitingForIdle timeout: TimeInterval = 20) {
     Snapshot.snapshot(name, timeWaitingForIdle: timeout)
 }
 
+@MainActor
+func snapshotElement(_ name: String, element: XCUIElement, waitForExistence timeout: TimeInterval = 5) {
+    Snapshot.snapshotElement(name, element: element, waitForExistence: timeout)
+}
+
 enum SnapshotError: Error, CustomDebugStringConvertible {
     case cannotFindSimulatorHomeDirectory
     case cannotRunOnPhysicalDevice
@@ -57,8 +62,25 @@ open class Snapshot: NSObject {
     static var app: XCUIApplication?
     static var waitForAnimations = true
     static var cacheDirectory: URL?
+    static var didPrepareExtractedAssetsDirectory = false
     static var screenshotsDirectory: URL? {
         return cacheDirectory?.appendingPathComponent("screenshots", isDirectory: true)
+    }
+    static var extractedAssetsDirectory: URL? {
+        let locale = ProcessInfo.processInfo.environment["FASTLANE_LANGUAGE"] ?? deviceLanguage
+        guard !locale.isEmpty else { return nil }
+
+        let sourceFile = URL(fileURLWithPath: #filePath)
+        let repoRoot = sourceFile
+            .deletingLastPathComponent() // OasisNativeUITests
+            .deletingLastPathComponent() // ios-native
+            .deletingLastPathComponent()
+
+        return repoRoot
+            .appendingPathComponent("fastlane", isDirectory: true)
+            .appendingPathComponent("screenshots", isDirectory: true)
+            .appendingPathComponent(locale, isDirectory: true)
+            .appendingPathComponent("extracted-assets", isDirectory: true)
     }
     static var deviceLanguage = ""
     static var currentLocale = ""
@@ -80,6 +102,7 @@ open class Snapshot: NSObject {
             setLanguage(app)
             setLocale(app)
             setLaunchArguments(app)
+            prepareExtractedAssetsDirectory()
         } catch let error {
             NSLog(error.localizedDescription)
         }
@@ -148,6 +171,21 @@ open class Snapshot: NSObject {
         }
     }
 
+    class func prepareExtractedAssetsDirectory() {
+        guard !didPrepareExtractedAssetsDirectory, let assetsDir = extractedAssetsDirectory else { return }
+
+        do {
+            if FileManager.default.fileExists(atPath: assetsDir.path) {
+                try FileManager.default.removeItem(at: assetsDir)
+            }
+            try FileManager.default.createDirectory(at: assetsDir, withIntermediateDirectories: true)
+            didPrepareExtractedAssetsDirectory = true
+        } catch let error {
+            NSLog("Unable to prepare extracted marketing assets directory: \(assetsDir.path)")
+            NSLog(error.localizedDescription)
+        }
+    }
+
     open class func snapshot(_ name: String, timeWaitingForIdle timeout: TimeInterval = 20) {
         if timeout > 0 {
             waitForLoadingIndicatorToDisappear(within: timeout)
@@ -199,6 +237,95 @@ open class Snapshot: NSObject {
                 NSLog(error.localizedDescription)
             }
         #endif
+    }
+
+    open class func snapshotElement(_ name: String, element: XCUIElement, waitForExistence timeout: TimeInterval = 5) {
+        prepareExtractedAssetsDirectory()
+
+        guard element.waitForExistence(timeout: timeout), element.frame.size.width > 0, element.frame.size.height > 0 else {
+            NSLog("Unable to capture marketing asset '\(name)': element does not exist or has an empty frame.")
+            return
+        }
+
+        let screenImage = XCUIScreen.main.screenshot().image
+        let screenFrame = CGRect(origin: .zero, size: screenImage.size)
+        let frame = element.frame
+        let visibleFrame = frame.intersection(screenFrame)
+        guard !visibleFrame.isNull, visibleFrame.width > 2, visibleFrame.height > 2 else {
+            NSLog("Unable to capture marketing asset '\(name)': element is outside the visible screen.")
+            return
+        }
+
+        let padding = elementCapturePadding(for: name)
+        let captureFrame = visibleFrame
+            .insetBy(dx: -padding.horizontal, dy: -padding.vertical)
+            .intersection(screenFrame)
+
+        guard let image = cropScreenImage(screenImage, to: captureFrame) else {
+            NSLog("Unable to capture marketing asset '\(name)': screen crop failed.")
+            return
+        }
+
+        guard let assetsDir = extractedAssetsDirectory else { return }
+        let pngPath = assetsDir.appendingPathComponent("\(name).png")
+        let metadataPath = assetsDir.appendingPathComponent("\(name).json")
+
+        do {
+            try FileManager.default.createDirectory(at: assetsDir, withIntermediateDirectories: true)
+            try image.pngData()?.write(to: pngPath, options: .atomic)
+
+            let json = """
+            {
+              "name": "\(name)",
+              "framePoints": { "x": \(frame.minX), "y": \(frame.minY), "width": \(frame.width), "height": \(frame.height) },
+              "elementFramePoints": { "x": \(visibleFrame.minX), "y": \(visibleFrame.minY), "width": \(visibleFrame.width), "height": \(visibleFrame.height) },
+              "visibleFramePoints": { "x": \(captureFrame.minX), "y": \(captureFrame.minY), "width": \(captureFrame.width), "height": \(captureFrame.height) },
+              "paddingPoints": { "horizontal": \(padding.horizontal), "vertical": \(padding.vertical) },
+              "screenPoints": { "width": \(screenImage.size.width), "height": \(screenImage.size.height) },
+              "screenScale": \(screenImage.scale),
+              "imagePixels": { "width": \(Int(image.size.width * image.scale)), "height": \(Int(image.size.height * image.scale)) }
+            }
+            """
+            try json.data(using: .utf8)?.write(to: metadataPath, options: .atomic)
+        } catch let error {
+            NSLog("Problem writing marketing asset: \(name) to \(assetsDir)")
+            NSLog(error.localizedDescription)
+        }
+    }
+
+    private class func elementCapturePadding(for name: String) -> (horizontal: CGFloat, vertical: CGFloat) {
+        if name.contains("_active_") {
+            return (horizontal: 18, vertical: 12)
+        }
+        if name.hasPrefix("06_preset") {
+            return (horizontal: 16, vertical: 10)
+        }
+        if name == "04_binaural_modes" {
+            return (horizontal: 16, vertical: 12)
+        }
+        if name == "05_spatial_stage" {
+            return (horizontal: 12, vertical: 12)
+        }
+        return (horizontal: 12, vertical: 10)
+    }
+
+    private class func cropScreenImage(_ image: UIImage, to frame: CGRect) -> UIImage? {
+        guard let cgImage = image.cgImage else { return nil }
+        let scale = image.scale
+        let pixelBounds = CGRect(x: 0, y: 0, width: cgImage.width, height: cgImage.height)
+        let pixelFrame = CGRect(
+            x: floor(frame.minX * scale),
+            y: floor(frame.minY * scale),
+            width: ceil(frame.width * scale),
+            height: ceil(frame.height * scale)
+        ).intersection(pixelBounds)
+
+        guard !pixelFrame.isNull, pixelFrame.width > 1, pixelFrame.height > 1,
+              let cropped = cgImage.cropping(to: pixelFrame) else {
+            return nil
+        }
+
+        return UIImage(cgImage: cropped, scale: scale, orientation: .up)
     }
 
     class func fixLandscapeOrientation(image: UIImage) -> UIImage {

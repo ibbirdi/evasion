@@ -71,6 +71,7 @@ struct BinauralPanel: View {
                     BinauralTrackCard(track: track)
                 }
             }
+            .accessibilityIdentifier("binaural.track.grid")
         }
         .padding(.horizontal, 20)
         .padding(.bottom, 22)

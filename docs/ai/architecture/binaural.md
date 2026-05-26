@@ -1,7 +1,7 @@
 ---
 title: Binaural Engine
 status: stable
-last_updated: 2026-05-20
+last_updated: 2026-05-26
 tracks:
   - "ios-native/OasisNative/Services/AudioMixerEngine.swift"
   - "ios-native/OasisNative/Models/AppModels.swift"
@@ -78,6 +78,8 @@ When `isBinauralActive` flips off, the active player is paused but kept allocate
 
 1. The four track cards (Delta, Theta, Alpha, Beta) with their L10n names (`binaural.track.delta`, …) and lock badges on the premium ones.
 2. A volume slider bound to `binauralVolume`.
+
+The four-card grid exposes `binaural.track.grid` for screenshot extraction so App Store pop-outs can use one real simulator crop of the complete mode selector rather than four separate duplicated cards.
 
 [`MacBinauralSection`](../../../ios-native/OasisNative/Views/Mac/MacBinauralSection.swift) exposes the same state inside the macOS mixer panel: one enable toggle, the shared volume slider, and track rows routed through `AppModel.selectBinauralTrack(_:)`.
 

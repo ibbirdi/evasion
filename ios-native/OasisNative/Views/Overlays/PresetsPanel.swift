@@ -272,6 +272,7 @@ struct PresetsPanel: View {
             LazyVStack(spacing: 10) {
                 presetRows
             }
+            .accessibilityIdentifier("presets.list")
         }
     }
 
@@ -368,9 +369,8 @@ private struct PresetRow: View {
             Button(action: onSelect) {
                 rowContent
                     .accessibilityElement(children: .combine)
-                    .accessibilityIdentifier("presets.row.\(preset.id)")
             }
-            .accessibilityIdentifier("presets.row.\(preset.id)")
+            .accessibilityIdentifier("presets.row.button.\(preset.id)")
             .accessibilityAddTraits(isActive ? .isSelected : [])
             .buttonStyle(PresetButtonScaleStyle())
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -385,6 +385,8 @@ private struct PresetRow: View {
         }
         .padding(.horizontal, 11)
         .padding(.vertical, 10)
+        .accessibilityElement(children: .contain)
+        .accessibilityIdentifier("presets.row.\(preset.id)")
         .presetGlassButtonBackground(
             in: RoundedRectangle(cornerRadius: 22, style: .continuous),
             tint: isActive ? rowTint.opacity(0.13) : Color.white.opacity(0.018),

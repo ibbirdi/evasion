@@ -157,7 +157,7 @@ struct HomeView: View {
                         .padding(.horizontal, 0)
                         // Header has a generous visual box for the ring glow, but the
                         // scroll inset stays tight so the mixer does not feel pushed down.
-                        .padding(.top, proxy.safeAreaInsets.top + 112)
+                        .padding(.top, proxy.safeAreaInsets.top + 96)
                         .padding(.bottom, 110)
                         .frame(maxWidth: .infinity, alignment: .top)
                     }
