@@ -77,7 +77,7 @@ Wide organic hero textures may keep their cinematic aspect ratio, but resample t
 | `organic_dark_satin` | `13946140` | Steve Johnson | Short nap and sleep routine hero cards | Sculptural satin ribbon on a black field; chosen after visual inspection because it feels calmer and more premium than the old dark water crop. |
 | `organic_warm_fabric` | `30263578` | Gulsum Haydaroglu | Reading, focus support, Theta/Alpha binaural | Warm folded fabric, used sparingly under tint so it reads tactile rather than muddy. |
 | `organic_blue_fabric` | `23338914` | Efl-E-Sun | Beta binaural fallback | Blue-black textile folds with a cooler, cleaner technical mood. |
-| `organic_blue_flow` | `29586677` | Steve Johnson | Deep work and noisy-hotel routine hero cards | Soft blue fabric flow with generous negative space; kept because it adds colour without reading as a place photo. |
+| `organic_blue_flow` | `29586677` | Steve Johnson | Deep work and Travel cocoon routine hero cards | Soft blue fabric flow with generous negative space; kept because it adds colour without reading as a place photo. |
 
 ## Binaural tracks
 

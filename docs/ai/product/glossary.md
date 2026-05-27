@@ -41,7 +41,7 @@ Vocabulary used inside the codebase, the UI copy, and these memory files. Some t
 
 **Oasis glyph** (`OasisGlyph`). Small curated subset of Phosphor SVG icons stored in `Assets.xcassets/OasisGlyphs` and rendered through `OasisGlyphImage`. Used for app-specific concepts like routine intents, masking, ambience layers, included-state marks, channel identity, minimap pins, and preset preview chips; common platform actions stay SF Symbols/native controls.
 
-**Guided routine** (`GuidedRoutineKind`). Fixed one-tap routine shown in `ComposePanel`. Oasis ships 2 free routines (`nap`, `reset`) and 6 Premium routines (`deepSleep`, `deepWork`, `noisyHotel`, `reading`, `rainCabin`, `morning`).
+**Guided routine** (`GuidedRoutineKind`). Fixed one-tap routine shown in `ComposePanel`. Oasis ships 2 free routines (`nap`, `reset`) and 6 Premium routines (`deepSleep`, `deepWork`, `noisyHotel` shown as Travel cocoon, `reading`, `rainCabin`, `morning`).
 
 **Ambience recipe** (`AmbienceRecipe`). Transactional mix description produced by a guided routine, the legacy Composer parser, or a ritual phase. Can include ambient channels, procedural noise layers, binaural state, immersive mode, and a timer.
 

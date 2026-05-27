@@ -31,7 +31,7 @@ related:
 | Random mix | Yes, restricted to free channels | Yes, full library |
 | Sound placement | Yes, on accessible channels | Yes, on accessible channels |
 | Binaural tracks | Delta only | Delta / Theta / Alpha / Beta |
-| Guided routines | 2 prepared routines: Short nap and Soft reset, both limited to free ambient channels, free noises, Delta or no binaural, and timers ≤ 30 min | 6 additional prepared routines: Deep sleep, Deep work, Noisy hotel, Evening reading, Rain cabin, and Gentle morning, with full-library channels, premium noises, binaural modes, longer timers where useful, and `+N` UI overflow when there are many audible layers |
+| Guided routines | 2 prepared routines: Short nap and Soft reset, both limited to free ambient channels, free noises, Delta or no binaural, and timers ≤ 30 min | 6 additional prepared routines: Deep sleep, Deep work, Travel cocoon, Evening reading, Rain cabin, and Gentle morning, with full-library channels, premium noises, binaural modes, longer timers where useful, and `+N` UI overflow when there are many audible layers |
 | Procedural noise engine | Used behind guided routines where helpful | Premium-only layers remain gated when surfaced by future UX |
 | Sleep timer | 15 / 30 min | 15 / 30 / 60 / 120 min |
 | Presets | 1 saved user ambience | Create, load, delete, reorder full ambience snapshots |

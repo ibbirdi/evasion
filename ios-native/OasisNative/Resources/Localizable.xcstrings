@@ -5569,37 +5569,37 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hotellärm, Deep Work, Regen zum Lesen..."
+            "value" : "Reisekokon, Deep Work, Regen zum Lesen..."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hotel noise, deep work, rain for reading..."
+            "value" : "Travel cocoon, deep work, rain for reading..."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hotel ruidoso, trabajo profundo, lluvia para leer..."
+            "value" : "Refugio de viaje, trabajo profundo, lluvia para leer..."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hôtel bruyant, concentration, pluie pour lire..."
+            "value" : "Cocon de voyage, concentration, pluie pour lire..."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hotel rumoroso, deep work, pioggia per leggere..."
+            "value" : "Coccola di viaggio, deep work, pioggia per leggere..."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hotel barulhento, foco profundo, chuva para ler..."
+            "value" : "Casulo de viagem, foco profundo, chuva para ler..."
           }
         }
       }
@@ -7538,25 +7538,25 @@
       }
     },
     "compose.routine.noisyHotel.subtitle" : {
-      "comment" : "Guided premium routine subtitle for hotel and transport masking.",
+      "comment" : "Guided premium routine subtitle for a calming hotel and transport soundscape.",
       "localizations" : {
-        "de" : { "stringUnit" : { "state" : "translated", "value" : "Eine dichte Offline-Decke für Zimmer, Züge und Flugzeuge, mit Ventilator und Kabinenrauschen." } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "A dense offline cover for rooms, trains and planes, with fan and aircraft layers." } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Una cobertura offline densa para habitaciones, trenes y aviones, con ventilador y cabina." } },
-        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Une couverture offline dense pour les chambres, trains et avions, avec ventilateur et souffle cabine." } },
-        "it" : { "stringUnit" : { "state" : "translated", "value" : "Una copertura offline densa per stanze, treni e aerei, con ventilatore e cabina." } },
-        "pt" : { "stringUnit" : { "state" : "translated", "value" : "Uma cobertura offline densa para quartos, trens e aviões, com ventilador e cabine." } }
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Ein ruhiger Offline-Kokon für fremde Zimmer, Züge und Flugzeuge, mit sanftem Ventilator und Kabinenluft." } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "A steady offline cocoon for unfamiliar rooms, trains and planes, with soft fan and cabin air layers." } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Un refugio offline estable para habitaciones nuevas, trenes y aviones, con ventilador suave y aire de cabina." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Un cocon offline stable pour chambres inconnues, trains et avions, avec ventilateur doux et souffle cabine." } },
+        "it" : { "stringUnit" : { "state" : "translated", "value" : "Un bozzolo offline stabile per stanze sconosciute, treni e aerei, con ventola morbida e aria di cabina." } },
+        "pt" : { "stringUnit" : { "state" : "translated", "value" : "Um casulo offline estável para quartos desconhecidos, trens e aviões, com ventilador suave e ar de cabine." } }
       }
     },
     "compose.routine.noisyHotel.title" : {
-      "comment" : "Guided premium routine title for hotel and transport masking.",
+      "comment" : "Guided premium routine title for a calming hotel and transport soundscape.",
       "localizations" : {
-        "de" : { "stringUnit" : { "state" : "translated", "value" : "Lautes Hotel" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Noisy hotel" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Hotel ruidoso" } },
-        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Hôtel bruyant" } },
-        "it" : { "stringUnit" : { "state" : "translated", "value" : "Hotel rumoroso" } },
-        "pt" : { "stringUnit" : { "state" : "translated", "value" : "Hotel barulhento" } }
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Reisekokon" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Travel cocoon" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Refugio de viaje" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Cocon de voyage" } },
+        "it" : { "stringUnit" : { "state" : "translated", "value" : "Coccola di viaggio" } },
+        "pt" : { "stringUnit" : { "state" : "translated", "value" : "Casulo de viagem" } }
       }
     },
     "compose.routine.rainCabin.subtitle" : {
@@ -8077,83 +8077,83 @@
       }
     },
     "compose.suggestion.hotel.prompt" : {
-      "comment" : "Prompt inserted by the noisy hotel composer suggestion.",
+      "comment" : "Prompt inserted by the travel cocoon composer suggestion.",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Lautes Hotel, stabile Reisemaske, keine scharfen Geräusche"
+            "value" : "Reisekokon, stabile Reisedecke, keine scharfen Geräusche"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Noisy hotel, steady travel mask, no sharp sounds"
+            "value" : "Travel cocoon, steady travel cover, no sharp sounds"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hotel ruidoso, máscara de viaje estable, sin sonidos bruscos"
+            "value" : "Refugio de viaje, cobertura estable, sin sonidos bruscos"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hôtel bruyant, masque voyage stable, pas de sons brusques"
+            "value" : "Cocon de voyage, couverture stable, pas de sons brusques"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hotel rumoroso, maschera viaggio stabile, niente suoni bruschi"
+            "value" : "Coccola di viaggio, copertura stabile, niente suoni bruschi"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hotel barulhento, máscara de viagem estável, sem sons bruscos"
+            "value" : "Casulo de viagem, cobertura estável, sem sons bruscos"
           }
         }
       }
     },
     "compose.suggestion.hotel.title" : {
-      "comment" : "Composer prompt suggestion chip for noisy hotel rooms.",
+      "comment" : "Composer prompt suggestion chip for a calming hotel and transport soundscape.",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Lautes Hotel"
+            "value" : "Reisekokon"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Noisy hotel"
+            "value" : "Travel cocoon"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hotel ruidoso"
+            "value" : "Refugio de viaje"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hôtel bruyant"
+            "value" : "Cocon de voyage"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hotel rumoroso"
+            "value" : "Coccola di viaggio"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hotel barulhento"
+            "value" : "Casulo de viagem"
           }
         }
       }

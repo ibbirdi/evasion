@@ -575,13 +575,13 @@ struct SoundRowView: View {
         .accessibilityElement(children: .contain)
         .accessibilityIdentifier("channel.row.\(channel.id)")
         .background {
-            // Active rows: frosted material + a soft channel-tint wash. Inactive rows:
-            // lighter material, almost no tint. Keep activity readable through the wash
-            // and controls, without a colored outline around active rows.
+            // Active rows keep a neutral translucent surface so the place photo remains
+            // visible. Activity is carried by text weight and controls rather than a
+            // channel-coloured wash.
             ZStack {
                 Rectangle()
                     .fill(isActive ? AnyShapeStyle(.ultraThinMaterial) : AnyShapeStyle(.thinMaterial))
-                    .opacity(isActive ? 1 : 0.45)
+                    .opacity(isActive ? 0.62 : 0.45)
                 SoundBackdropImage(backdrop: channel.backdrop, opacity: backdropOpacity)
                 Rectangle()
                     .fill(channelBackgroundGradient)
@@ -834,13 +834,13 @@ struct SoundRowView: View {
 
     private var statusBackground: Color {
         if isLocked { return Color.white.opacity(0.06) }
-        if isActive { return channel.tint.opacity(0.16) }
+        if isActive { return Color.white.opacity(0.06) }
         return Color.white.opacity(0.04)
     }
 
     private var secondaryTint: Color {
         if isLocked { return .white.opacity(0.48) }
-        return isActive ? channel.tint.opacity(0.95) : .white.opacity(0.44)
+        return isActive ? .white.opacity(0.70) : .white.opacity(0.44)
     }
 
     private var sliderOpacity: Double {
@@ -853,20 +853,16 @@ struct SoundRowView: View {
 
     private var backdropOpacity: Double {
         if isLocked { return 0.055 }
-        if isActive { return state.autoVariationEnabled ? 0.18 : 0.15 }
+        if isActive { return state.autoVariationEnabled ? 0.32 : 0.30 }
         return 0.085
     }
 
     private var channelBackgroundGradient: LinearGradient {
         if isActive {
-            // Subtle coloured wash. Just enough to signal "this track is part of the mix"
-            // without reading as a glow.
-            let leadingOpacity = state.autoVariationEnabled ? 0.17 : 0.14
             return LinearGradient(
                 colors: [
-                    channel.tint.opacity(leadingOpacity),
-                    channel.tint.opacity(leadingOpacity * 0.56),
-                    Color.white.opacity(0.025)
+                    Color.black.opacity(0.030),
+                    Color.white.opacity(0.018)
                 ],
                 startPoint: .leading,
                 endPoint: .trailing
