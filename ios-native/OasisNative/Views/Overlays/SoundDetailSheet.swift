@@ -138,10 +138,9 @@ struct SoundDetailSheet: View {
                         .strokeBorder(channel.tint.opacity(0.45), lineWidth: 1.2)
                 }
 
-            Image(systemName: channel.systemImage)
-                .font(.system(size: max(18, titleStackHeight * 0.42), weight: .semibold))
+            OasisGlyphImage(glyph: channel.oasisGlyph)
                 .foregroundStyle(.white)
-                .symbolRenderingMode(.hierarchical)
+                .frame(width: max(18, titleStackHeight * 0.44), height: max(18, titleStackHeight * 0.44))
                 .accessibilityHidden(true)
         }
         .frame(width: titleStackHeight, height: titleStackHeight)

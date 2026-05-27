@@ -69,9 +69,9 @@ struct SoundLocationMinimap: View {
                     .fill(channel.tint)
                     .shadow(color: channel.tint.opacity(0.45), radius: 8, y: 2)
 
-                Image(systemName: channel.systemImage)
-                    .oasisFont(size: 13, weight: .semibold, design: .default, relativeTo: .caption)
+                OasisGlyphImage(glyph: channel.oasisGlyph)
                     .foregroundStyle(.black.opacity(0.86))
+                    .frame(width: 16, height: 16)
                     .accessibilityHidden(true)
             }
             .frame(width: 30, height: 30)

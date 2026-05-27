@@ -1,7 +1,7 @@
 ---
 title: Localization
 status: stable
-last_updated: 2026-05-22
+last_updated: 2026-05-27
 tracks:
   - "ios-native/OasisNative/Support/L10n.swift"
   - "ios-native/OasisNative/Resources/Localizable.xcstrings"
@@ -54,6 +54,8 @@ presets.default.<id>                  default preset names (starter / calm / sto
 timer.option<minutes>                 timer.option15, timer.option30, …
 header.<key>
 home.controls.<key>
+compose.<scope>.<key>
+noise.<id>[.subtitle]
 spatial.<key>
 mac.<surface>.<key>
 sound.detail.<key>
@@ -65,11 +67,13 @@ errors.<key>
 
 `header.immersive`, `header.immersive.sound`, `header.immersive.enabled`, and `header.immersive.disabled` localize the home toolbar toggle, its active visible label, and its accessibility value.
 
-`home.controls.*`, `mixer.accessibility.*`, `binaural.volume/enabled/disabled`, and `spatial.stage.*` cover VoiceOver-only labels, hints, values, and custom actions. Keep these translated as natural UI phrases, not literal descriptions of SF Symbols.
+`home.controls.*`, `mixer.accessibility.*`, `binaural.volume/enabled/disabled`, and `spatial.stage.*` cover VoiceOver-only labels, hints, values, and custom actions. Keep these translated as natural UI phrases, not literal descriptions of SF Symbols. `home.controls.compose` now opens guided Routines, not a technical composer.
 
 `spatial.center` is the only user-facing center/reset action in the sound-placement panel. There is no separate `spatial.reset` key because the old "Recenter sound" button duplicated the center preset.
 
-The full-screen presets panel uses `presets.save.*`, `presets.delete.confirm.*`, `presets.list.*`, and `presets.status.*` keys for its save button + name-entry alert, delete confirmation, list section, and row badges.
+The full-screen presets panel uses `presets.save.*`, `presets.delete.confirm.*`, `presets.list.*`, `presets.manage*`, and `presets.status.*` keys for its save button + name-entry alert, delete confirmation, list section, explicit management-mode toggle, and row badges.
+
+The Routines sheet uses `home.controls.compose` and `compose.*` keys. Keep this family fully translated because the panel is visible in normal gameplay: the sheet title/subtitle, 8 routine selector titles/subtitles under `compose.routine.<id>.*`, "what will happen" heading (`compose.routine.plan`), explanatory sentence (`compose.routine.context`), natural layer labels (`compose.routine.layer.*`), CTA states (`compose.routine.start/current/replace`), legacy Composer recipe titles/subtitles, and the dedicated Composer paywall copy all live here. The first 2 routines are free and must not mention premium-only layers; the other 6 are Premium and may describe their intended richer soundscape because the UI clearly locks/upsells them. The Home follow-up status uses `home.routine.active`, `home.routine.stop`, `home.routine.rest.*`, and `home.routine.supportingLayers` for the passive listening cue, explicit guided-routine stop action, and Premium overflow row. Routine copy should use natural phrasing in each locale and stay truthful for both free and premium users. Prefer wellbeing language ("soundscape", "noise cover", "fade out") over technical or jargon-heavy labels like "masking". Premium routine summaries can exceed three sounds, so localized copy should support compact `+N` overflow rather than enumerating every layer.
 
 `notifications.gentleReminder.title` and `notifications.gentleReminder.body` localize the single local notification that invites inactive users back to Oasis after several days.
 

@@ -195,6 +195,14 @@ enum SoundBackdropFocus: String, Sendable {
     }
 }
 
+enum OrganicBackdrop {
+    static let darkWater = SoundBackdrop(assetName: "organic_dark_water", focus: .center)
+    static let warmFabric = SoundBackdrop(assetName: "organic_warm_fabric", focus: .center)
+    static let blueFabric = SoundBackdrop(assetName: "organic_blue_fabric", focus: .center)
+    static let blueFlow = SoundBackdrop(assetName: "organic_blue_flow", focus: .center)
+    static let darkSatin = SoundBackdrop(assetName: "organic_dark_satin", focus: .center)
+}
+
 extension SoundChannel {
     var metadata: ChannelMetadata {
         guard let value = Self.metadataTable[self] else {
@@ -206,6 +214,48 @@ extension SoundChannel {
     var filename: String { metadata.filename }
     var category: SoundCategory { metadata.category }
     var systemImage: String { metadata.systemImage }
+    var oasisGlyph: OasisGlyph {
+        switch self {
+        case .oiseaux, .goelands:
+            return .bird
+        case .vent, .ventNuit:
+            return .wind
+        case .plage, .mer:
+            return .waves
+        case .foret, .foretChiloe:
+            return .tree
+        case .pluie, .pluieForet, .fortePluie, .pluieFenetre, .pluieCabane:
+            return .cloudRain
+        case .tonnerre, .orageMontagne:
+            return .lightning
+        case .cigales:
+            return .bug
+        case .grillons, .foretNuit:
+            return .moonStars
+        case .tente:
+            return .tent
+        case .riviere, .lac, .crueMontagne, .cascade:
+            return .drop
+        case .village:
+            return .house
+        case .campfire:
+            return .flame
+        case .cafe:
+            return .coffee
+        case .savane, .jungleAmerique, .jungleAsie:
+            return .leaf
+        case .aubeJungle:
+            return .sunHorizon
+        case .port:
+            return .sailboat
+        case .chevres, .cloches:
+            return .bell
+        case .carillons:
+            return .musicNote
+        case .neigeVille:
+            return .snowflake
+        }
+    }
     var tint: Color { metadata.tint }
     var location: ChannelLocation { metadata.location }
     var credit: ChannelCredit { metadata.credit }
@@ -944,13 +994,13 @@ extension BinauralTrack {
     var backdrop: SoundBackdrop {
         switch self {
         case .delta:
-            return SoundBackdrop(assetName: "binaural_delta_background", focus: .top)
+            return OrganicBackdrop.darkWater
         case .theta:
-            return SoundBackdrop(assetName: "binaural_theta_background", focus: .center)
+            return OrganicBackdrop.warmFabric
         case .alpha:
-            return SoundBackdrop(assetName: "binaural_alpha_background", focus: .center)
+            return OrganicBackdrop.warmFabric
         case .beta:
-            return SoundBackdrop(assetName: "binaural_beta_background", focus: .center)
+            return OrganicBackdrop.blueFabric
         }
     }
 }

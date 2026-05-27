@@ -13,6 +13,8 @@ extension PremiumAccentToken {
             return Color(red: 0.52, green: 0.91, blue: 0.64)
         case .preview:
             return Color(red: 0.97, green: 0.79, blue: 0.41)
+        case .composer:
+            return AmbienceIntent.reset.tint
         case .neutral:
             return SoundChannel.oiseaux.tint
         }
@@ -202,82 +204,142 @@ struct PremiumLibraryTeaserCard: View {
     let onToggleExpanded: () -> Void
 
     var body: some View {
-        GlassSurface(
-            tint: SoundChannel.pluie.tint.opacity(0.08),
-            cornerRadius: 24,
-            padding: EdgeInsets(top: 18, leading: 18, bottom: 18, trailing: 18)
-        ) {
-            VStack(alignment: .leading, spacing: 14) {
-                HStack(alignment: .center, spacing: 12) {
-                    Image(systemName: "sparkles")
-                        .oasisFont(size: 16, weight: .semibold, design: .default, relativeTo: .headline)
-                        .foregroundStyle(SoundChannel.pluie.tint)
-                        .frame(width: 34, height: 34)
-                        .accessibilityHidden(true)
-                        .background {
-                            Circle()
-                                .fill(SoundChannel.pluie.tint.opacity(0.16))
-                        }
-
-                    VStack(alignment: .leading, spacing: 2) {
-                        Text(presentation.title)
-                            .oasisFont(size: 16, weight: .semibold, relativeTo: .headline)
-                            .foregroundStyle(.white)
-
-                        Text(presentation.badgeTitle)
-                            .oasisFont(size: 11, weight: .bold, relativeTo: .caption)
-                            .foregroundStyle(SoundChannel.pluie.tint.opacity(0.92))
+        VStack(alignment: .leading, spacing: 16) {
+            HStack {
+                Text(presentation.badgeTitle)
+                    .oasisFont(size: 12, weight: .bold, relativeTo: .caption)
+                    .foregroundStyle(Color(red: 0.08, green: 0.08, blue: 0.10))
+                    .padding(.horizontal, 11)
+                    .padding(.vertical, 7)
+                    .background {
+                        Capsule()
+                            .fill(.white.opacity(0.90))
                     }
 
-                    Spacer(minLength: 0)
-                }
+                Spacer(minLength: 0)
+            }
+
+            Spacer(minLength: 30)
+
+            VStack(alignment: .leading, spacing: 5) {
+                Text(presentation.title)
+                    .oasisFont(size: 18, weight: .semibold, relativeTo: .headline)
+                    .foregroundStyle(.white)
+                    .lineLimit(2)
 
                 Text(presentation.message)
                     .oasisFont(size: 13, weight: .medium, relativeTo: .subheadline)
-                    .foregroundStyle(.white.opacity(0.72))
+                    .foregroundStyle(.white.opacity(0.76))
+                    .lineLimit(2)
                     .fixedSize(horizontal: false, vertical: true)
-
-                HStack(spacing: 10) {
-                    Button(action: onPrimaryAction) {
-                        Text(presentation.ctaTitle)
-                            .oasisFont(size: 13, weight: .bold, relativeTo: .subheadline)
-                            .foregroundStyle(Color(red: 0.06, green: 0.08, blue: 0.12))
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, 12)
-                            .background {
-                                RoundedRectangle(cornerRadius: 18, style: .continuous)
-                                    .fill(
-                                        LinearGradient(
-                                            colors: [
-                                                Color(red: 0.97, green: 0.83, blue: 0.47),
-                                                Color(red: 0.97, green: 0.72, blue: 0.34)
-                                            ],
-                                            startPoint: .topLeading,
-                                            endPoint: .bottomTrailing
-                                        )
-                                    )
-                            }
-                    }
-                    .buttonStyle(PressScaleButtonStyle())
-                    .accessibilityIdentifier("premium.library.teaser.primary")
-
-                    Button(action: onToggleExpanded) {
-                        Text(isExpanded ? presentation.collapseTitle : presentation.expandTitle)
-                            .oasisFont(size: 12, weight: .semibold, relativeTo: .caption)
-                            .foregroundStyle(.white.opacity(0.82))
-                            .padding(.horizontal, 14)
-                            .padding(.vertical, 12)
-                            .background {
-                                RoundedRectangle(cornerRadius: 18, style: .continuous)
-                                    .fill(Color.white.opacity(0.05))
-                            }
-                    }
-                    .buttonStyle(PressScaleButtonStyle())
-                    .accessibilityIdentifier("premium.library.teaser.toggle")
-                }
             }
+
+            VStack(spacing: 6) {
+                Button(action: onPrimaryAction) {
+                    Text(presentation.ctaTitle)
+                        .oasisFont(size: 14, weight: .bold, relativeTo: .subheadline)
+                        .foregroundStyle(Color(red: 0.06, green: 0.08, blue: 0.12))
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.84)
+                        .frame(maxWidth: .infinity, minHeight: 46)
+                        .background {
+                            Capsule()
+                                .fill(
+                                    LinearGradient(
+                                        colors: [
+                                            Color(red: 0.99, green: 0.85, blue: 0.48),
+                                            Color(red: 0.96, green: 0.69, blue: 0.33)
+                                        ],
+                                        startPoint: .topLeading,
+                                        endPoint: .bottomTrailing
+                                    )
+                                )
+                        }
+                }
+                .buttonStyle(PressScaleButtonStyle())
+                .accessibilityIdentifier("premium.library.teaser.primary")
+
+                Button(action: onToggleExpanded) {
+                    Text(isExpanded ? presentation.collapseTitle : presentation.expandTitle)
+                        .oasisFont(size: 12, weight: .semibold, relativeTo: .caption)
+                        .foregroundStyle(.white.opacity(0.80))
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.82)
+                        .frame(maxWidth: .infinity, minHeight: 34)
+                }
+                .buttonStyle(PressScaleButtonStyle())
+                .accessibilityIdentifier("premium.library.teaser.toggle")
+            }
+        }
+        .padding(16)
+        .frame(maxWidth: .infinity, minHeight: 222, alignment: .bottomLeading)
+        .background {
+            PremiumLibraryTeaserBackdrop()
         }
         .accessibilityElement(children: .contain)
         .accessibilityIdentifier("premium.library.teaser")
+    }
+}
+
+private struct PremiumLibraryTeaserBackdrop: View {
+    private let shape = RoundedRectangle(cornerRadius: 24, style: .continuous)
+
+    var body: some View {
+        ZStack {
+            shape
+                .fill(.ultraThinMaterial)
+
+            PremiumLibraryBackdropMosaic()
+                .clipShape(shape)
+
+            LinearGradient(
+                colors: [
+                    Color.black.opacity(0.18),
+                    Color.black.opacity(0.38),
+                    Color.black.opacity(0.78)
+                ],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+
+            LinearGradient(
+                colors: [
+                    SoundChannel.pluieForet.tint.opacity(0.26),
+                    SoundChannel.campfire.tint.opacity(0.12),
+                    Color.black.opacity(0.30)
+                ],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+        }
+        .clipShape(shape)
+        .overlay {
+            shape
+                .strokeBorder(Color.white.opacity(0.12), lineWidth: 1)
+        }
+        .shadow(color: Color.black.opacity(0.20), radius: 18, y: 10)
+        .accessibilityHidden(true)
+        .allowsHitTesting(false)
+    }
+}
+
+private struct PremiumLibraryBackdropMosaic: View {
+    private let channels: [SoundChannel] = [.pluieForet, .foretNuit, .campfire]
+
+    var body: some View {
+        GeometryReader { proxy in
+            HStack(spacing: 1) {
+                SoundBackdropImage(backdrop: channels[0].backdrop, opacity: 0.88)
+                    .frame(width: proxy.size.width * 0.60, height: proxy.size.height)
+
+                VStack(spacing: 1) {
+                    SoundBackdropImage(backdrop: channels[1].backdrop, opacity: 0.82)
+                        .frame(height: proxy.size.height * 0.52)
+
+                    SoundBackdropImage(backdrop: channels[2].backdrop, opacity: 0.78)
+                }
+                .frame(width: proxy.size.width * 0.40, height: proxy.size.height)
+            }
+        }
     }
 }

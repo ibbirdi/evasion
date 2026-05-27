@@ -1,7 +1,7 @@
 ---
 title: Positioning
 status: stable
-last_updated: 2026-05-19
+last_updated: 2026-05-27
 tracks:
   - "fastlane/metadata/**/description.txt"
   - "fastlane/metadata/**/subtitle.txt"
@@ -78,6 +78,8 @@ Aesthetic positioning: closer to **Endel, Reflectly, Mirror** (premium-feel, res
 - "Less than the price of a coffee in Paris" / "moins qu'un café à Paris" — confirmed converting (commits `2b9072a`, `e4ba1e6`).
 - Apply across all 6 locales (translation-tested).
 - Don't introduce "less than X subscription apps for Y months" comparisons — they age fast and complicate copy.
+
+On the iOS paywall, lead with ownership before feature breadth: the organic hero's first claim is "one purchase / lifetime access / no subscription", then the compact benefit tiles support the offer. Do not bury this moat below long feature copy.
 
 ## Voice
 

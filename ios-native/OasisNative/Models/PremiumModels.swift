@@ -6,6 +6,7 @@ enum PremiumAccentToken: String, Sendable {
     case binaural
     case timer
     case preview
+    case composer
     case neutral
 }
 
@@ -19,6 +20,9 @@ enum PremiumEntryPoint: Hashable, Sendable {
     case binaural(BinauralTrack)
     case spatial(SoundChannel)
     case previewEnd
+    case composer
+    case ritual(String)
+    case noise(ProceduralNoise)
 
     enum Category: Hashable, Sendable {
         case manual
@@ -29,6 +33,9 @@ enum PremiumEntryPoint: Hashable, Sendable {
         case binaural
         case spatial
         case preview
+        case composer
+        case ritual
+        case noise
     }
 
     var category: Category {
@@ -49,6 +56,12 @@ enum PremiumEntryPoint: Hashable, Sendable {
             return .spatial
         case .previewEnd:
             return .preview
+        case .composer:
+            return .composer
+        case .ritual:
+            return .ritual
+        case .noise:
+            return .noise
         }
     }
 
@@ -72,6 +85,12 @@ enum PremiumEntryPoint: Hashable, Sendable {
             return "spatial_\(channel.id)"
         case .previewEnd:
             return "preview_end"
+        case .composer:
+            return "composer"
+        case let .ritual(id):
+            return "ritual_\(id)"
+        case let .noise(noise):
+            return "noise_\(noise.id)"
         }
     }
 
@@ -89,6 +108,8 @@ enum PremiumEntryPoint: Hashable, Sendable {
             return .binaural
         case .preview:
             return .preview
+        case .composer, .ritual, .noise:
+            return .composer
         }
     }
 
@@ -106,6 +127,12 @@ enum PremiumEntryPoint: Hashable, Sendable {
             return "waveform.path"
         case .preview:
             return "play.circle.fill"
+        case .composer:
+            return "sparkles"
+        case .ritual:
+            return "timer"
+        case .noise:
+            return "waveform"
         }
     }
 }

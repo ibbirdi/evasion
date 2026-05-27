@@ -1,7 +1,7 @@
 ---
 title: Release Process
 status: stable
-last_updated: 2026-05-22
+last_updated: 2026-05-27
 tracks:
   - "fastlane/Fastfile"
   - "fastlane/Deliverfile"

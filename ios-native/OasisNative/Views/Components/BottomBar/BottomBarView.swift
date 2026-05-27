@@ -1,42 +1,88 @@
 import SwiftUI
 
 struct BottomToolbarItemLabel: View {
-    let systemImage: String
+    let glyph: OasisGlyph?
+    let systemImage: String?
     let tint: Color
     let isActivated: Bool
     let palette: [Color]
 
+    init(systemImage: String, tint: Color, isActivated: Bool, palette: [Color]) {
+        self.glyph = nil
+        self.systemImage = systemImage
+        self.tint = tint
+        self.isActivated = isActivated
+        self.palette = palette
+    }
+
+    init(glyph: OasisGlyph, tint: Color, isActivated: Bool, palette: [Color]) {
+        self.glyph = glyph
+        self.systemImage = nil
+        self.tint = tint
+        self.isActivated = isActivated
+        self.palette = palette
+    }
+
     var body: some View {
-        Image(systemName: systemImage)
-            .oasisFont(size: 20, weight: .semibold, design: .default, relativeTo: .body)
-            .foregroundStyle(.white)
-            .symbolRenderingMode(.hierarchical)
-            .frame(width: 48, height: 48)
+        icon
+            .foregroundStyle(isActivated ? .white : .white.opacity(0.66))
+            .frame(width: 44, height: 44)
             .background {
-                ZStack {
-                    Circle()
-                        .fill(Color.white.opacity(0.001))
-                        .oasisGlassEffect(in: Circle())
-                        .overlay {
-                            Circle()
-                                .fill(isActivated ? tint.opacity(0.18) : Color.white.opacity(0.022))
-                        }
-                }
+                Circle()
+                    .fill(isActivated ? tint.opacity(0.18) : Color.white.opacity(0.001))
             }
             .overlay {
                 Circle()
-                    .strokeBorder(activeBorderStyle, lineWidth: 1.25)
+                    .strokeBorder(activeBorderStyle, lineWidth: isActivated ? 1.15 : 0.8)
             }
             .contentShape(Circle())
             .animation(.smooth(duration: 0.22), value: isActivated)
+    }
+
+    @ViewBuilder
+    private var icon: some View {
+        if let glyph {
+            OasisGlyphImage(glyph: glyph)
+                .frame(width: 20, height: 20)
+        } else {
+            Image(systemName: systemImage ?? "circle")
+                .oasisFont(size: 18, weight: .semibold, design: .default, relativeTo: .body)
+                .symbolRenderingMode(.hierarchical)
+        }
     }
 
     private var activeBorderStyle: AnyShapeStyle {
         if isActivated {
             AnyShapeStyle(tint.opacity(0.34))
         } else {
-            AnyShapeStyle(Color.white.opacity(0.08))
+            AnyShapeStyle(Color.white.opacity(0.035))
         }
+    }
+}
+
+private struct BottomToolbarGlassRail: View {
+    var body: some View {
+        Capsule(style: .continuous)
+            .fill(Color.white.opacity(0.001))
+            .oasisGlassEffect(in: Capsule(style: .continuous))
+            .overlay {
+                Capsule(style: .continuous)
+                    .fill(
+                        LinearGradient(
+                            colors: [
+                                Color.white.opacity(0.050),
+                                Color.white.opacity(0.018)
+                            ],
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
+                    )
+            }
+            .overlay {
+                Capsule(style: .continuous)
+                    .strokeBorder(Color.white.opacity(0.115), lineWidth: 1)
+            }
+            .shadow(color: .black.opacity(0.26), radius: 22, y: 12)
     }
 }
 
@@ -95,6 +141,11 @@ struct PlaybackToolbarLabel: View {
                 Circle()
                     .strokeBorder(borderStyle(for: palette), lineWidth: 1.3)
             }
+            .shadow(
+                color: (palette.first ?? .white).opacity(model.isPlaying ? 0.18 : 0.0),
+                radius: model.isPlaying ? 14 : 0,
+                y: model.isPlaying ? 6 : 0
+            )
             .animation(.smooth(duration: 0.22), value: model.isPlaying)
     }
 
@@ -115,63 +166,195 @@ struct PlaybackToolbarLabel: View {
 struct BottomBarView: View {
     @Environment(AppModel.self) private var model
     let transitionNamespace: Namespace.ID
+    let onOpenCompose: (PanelTransitionSource) -> Void
     let onOpenPresets: (PanelTransitionSource) -> Void
     let onOpenBinaural: (PanelTransitionSource) -> Void
 
+    private var isGuidedRoutineActive: Bool {
+        model.activeRitualSession == nil && model.activeComposerRecipeTitle != nil
+    }
+
     var body: some View {
-        HStack(spacing: 12) {
+        ZStack(alignment: .topLeading) {
+            barContent
+            .padding(.horizontal, 10)
+            .padding(.vertical, 8)
+            .background { BottomToolbarGlassRail() }
+
+        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 10)
+        .frame(maxWidth: 360)
+        .frame(maxWidth: .infinity)
+    }
+
+    @ViewBuilder
+    private var barContent: some View {
+        if isGuidedRoutineActive {
+            HStack(spacing: 12) {
+                playbackButton
+
+                routePickerButton
+            }
+            .transition(.opacity.combined(with: .scale(scale: 0.98)))
+        } else {
+            HStack(spacing: 8) {
+                composeButton
+
+                presetsButton
+
+                playbackButton
+
+                binauralButton
+
+                routePickerButton
+            }
+            .transition(.opacity.combined(with: .scale(scale: 0.98)))
+        }
+    }
+
+    private var playbackButton: some View {
+        Button {
+            model.togglePlayback()
+        } label: {
+            PlaybackToolbarLabel()
+        }
+        .accessibilityIdentifier("home.bottom.playback")
+        .accessibilityLabel(Text(model.isPlaying ? L10n.HomeControls.pause : L10n.HomeControls.play))
+        .buttonStyle(PressScaleButtonStyle())
+    }
+
+    private var routePickerButton: some View {
+        RoutePickerView()
+            .frame(width: 20, height: 20)
+            .foregroundStyle(.white.opacity(0.66))
+            .padding(12)
+            .accessibilityIdentifier("home.bottom.routepicker")
+            .accessibilityLabel(Text(L10n.HomeControls.routePicker))
+            .background {
+                Circle()
+                    .fill(Color.white.opacity(0.001))
+            }
+            .overlay {
+                Circle().strokeBorder(Color.white.opacity(0.035), lineWidth: 0.8)
+            }
+    }
+
+    @ViewBuilder
+    private var composeButton: some View {
+        if AppConfiguration.isRunningScreenshotAutomation {
             Button {
-                withAnimation(.smooth(duration: 0.24)) {
-                    model.randomizeMix()
-                }
+                model.randomizeMix()
             } label: {
                 BottomToolbarItemLabel(
                     systemImage: "shuffle",
-                    tint: .white,
+                    tint: AmbienceIntent.reset.tint,
                     isActivated: false,
-                    palette: []
+                    palette: [AmbienceIntent.sleep.tint, AmbienceIntent.focus.tint, AmbienceIntent.reset.tint]
                 )
             }
             .accessibilityIdentifier("home.bottom.shuffle")
             .accessibilityLabel(Text(L10n.HomeControls.shuffle))
             .buttonStyle(PressScaleButtonStyle())
-
-            presetsButton
-
-            Button {
-                model.togglePlayback()
+        } else {
+            let button = Button {
+                onOpenCompose(.bottomCompose)
             } label: {
-                PlaybackToolbarLabel()
+                BottomToolbarItemLabel(
+                    glyph: composeButtonGlyph,
+                    tint: composeButtonTint,
+                    isActivated: composeButtonIsActivated,
+                    palette: composeButtonPalette
+                )
             }
-            .accessibilityIdentifier("home.bottom.playback")
-            .accessibilityLabel(Text(model.isPlaying ? L10n.HomeControls.pause : L10n.HomeControls.play))
+            .accessibilityIdentifier("home.bottom.compose")
+            .accessibilityLabel(Text(composeButtonAccessibilityLabel))
+            .accessibilityValue(Text(composeStatusLabel ?? ""))
             .buttonStyle(PressScaleButtonStyle())
+            .animation(.smooth(duration: 0.22), value: composeStatusLabel)
+            .animation(.smooth(duration: 0.22), value: model.activeRitualSession?.ritualID)
 
-            binauralButton
-
-            RoutePickerView()
-                .frame(width: 22, height: 22)
-                .foregroundStyle(.white)
-                .padding(13)
-                .accessibilityIdentifier("home.bottom.routepicker")
-                .accessibilityLabel(Text(L10n.HomeControls.routePicker))
-                .background {
-                    Circle()
-                        .fill(Color.white.opacity(0.001))
-                        .oasisGlassEffect(in: Circle())
-                        .overlay {
-                            Circle()
-                                .fill(Color.white.opacity(0.022))
-                        }
+            if #available(iOS 26.0, *) {
+                button.matchedTransitionSource(id: PanelTransitionSource.bottomCompose.transitionID, in: transitionNamespace) { source in
+                    source
+                        .background(.clear)
+                        .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
                 }
-                .overlay {
-                    Circle().strokeBorder(Color.white.opacity(0.14), lineWidth: 1.25)
-                }
+            } else {
+                button
+            }
         }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 12)
-        .frame(maxWidth: 412)
-        .frame(maxWidth: .infinity)
+    }
+
+    private var composeStatusLabel: String? {
+        guard model.activeRitualSession == nil else { return nil }
+
+        if let activeComposerRecipeTitle = model.activeComposerRecipeTitle {
+            return activeComposerRecipeTitle
+        }
+
+        return model.activeNoiseBlendTitle
+    }
+
+    private var composeButtonGlyph: OasisGlyph {
+        if let activeRitualSession = model.activeRitualSession {
+            return activeRitualSession.intent.oasisGlyph
+        }
+
+        if model.activeComposerRecipeTitle != nil {
+            return .sparkle
+        }
+
+        if model.activeNoiseBlendTitle != nil {
+            return .waveform
+        }
+
+        return .sparkle
+    }
+
+    private var composeButtonTint: Color {
+        if let activeRitualSession = model.activeRitualSession {
+            return activeRitualSession.intent.tint
+        }
+
+        if model.activeComposerRecipeTitle != nil {
+            return model.activePlaybackPalette.first ?? AmbienceIntent.sleep.tint
+        }
+
+        return activeNoiseTints.first ?? AmbienceIntent.reset.tint
+    }
+
+    private var composeButtonPalette: [Color] {
+        if let activeRitualSession = model.activeRitualSession {
+            return [activeRitualSession.intent.tint, .white.opacity(0.72)]
+        }
+
+        if model.activeComposerRecipeTitle != nil {
+            return model.activePlaybackPalette
+        }
+
+        if model.activeNoiseBlendTitle != nil, !activeNoiseTints.isEmpty {
+            return Array(activeNoiseTints.prefix(2)) + [.white.opacity(0.72)]
+        }
+
+        return [AmbienceIntent.sleep.tint, AmbienceIntent.focus.tint, AmbienceIntent.reset.tint]
+    }
+
+    private var activeNoiseTints: [Color] {
+        ProceduralNoise.allCases.compactMap { noise in
+            model.isProceduralNoiseActive(noise) ? noise.tint : nil
+        }
+    }
+
+    private var composeButtonIsActivated: Bool {
+        model.showsComposePanel
+            || model.activeRitualSession != nil
+            || model.activeComposerRecipeTitle != nil
+            || model.activeNoiseBlendTitle != nil
+    }
+
+    private var composeButtonAccessibilityLabel: LocalizedStringResource {
+        model.activeRitualSession == nil ? L10n.HomeControls.compose : L10n.HomeControls.activeRitual
     }
 
     @ViewBuilder
@@ -228,7 +411,7 @@ struct BottomBarView: View {
             onOpenBinaural(.bottomBinaural)
         } label: {
             BottomToolbarItemLabel(
-                systemImage: "waveform.path",
+                glyph: .waveform,
                 tint: model.activeBinauralTrack.tint,
                 isActivated: model.isBinauralActive,
                 palette: LiquidActivityPalette.binaural(for: model.activeBinauralTrack.tint)

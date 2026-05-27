@@ -9,9 +9,14 @@ struct PresetsPanel: View {
     @State private var rowMidpoints: [String: CGFloat] = [:]
     @State private var isShowingSavePresetPrompt = false
     @State private var presetPendingDeletion: Preset?
+    @State private var isManagingPresets = false
 
     private var canReorderPresets: Bool {
         model.isPremium
+    }
+
+    private var canManagePresets: Bool {
+        canReorderPresets || model.presets.contains(where: canDelete(_:))
     }
 
     var body: some View {
@@ -63,6 +68,7 @@ struct PresetsPanel: View {
         .accessibilityIdentifier("panel.presets.container")
         .onDisappear {
             isShowingSavePresetPrompt = false
+            isManagingPresets = false
         }
         .confirmationDialog(
             Text(L10n.Presets.confirmDeleteTitle),
@@ -158,6 +164,7 @@ struct PresetsPanel: View {
                     )
             }
             .accessibilityLabel(Text(L10n.Presets.close))
+            .accessibilityIdentifier("panel.presets.close")
             .oasisMinimumHitTarget()
             .buttonStyle(PresetButtonScaleStyle())
         }
@@ -173,9 +180,9 @@ struct PresetsPanel: View {
                 preset: preset,
                 isLocked: model.isPresetLocked(preset),
                 isDragging: activeDragPresetID == preset.id,
-                showsReorderControl: canReorderPresets,
-                isReorderEnabled: canReorderPresets && !isShowingSavePresetPrompt,
-                isDeleteEnabled: canDelete(preset) && !isShowingSavePresetPrompt,
+                showsReorderControl: canReorderPresets && isManagingPresets,
+                isReorderEnabled: canReorderPresets && isManagingPresets && !isShowingSavePresetPrompt,
+                isDeleteEnabled: canDelete(preset) && isManagingPresets && !isShowingSavePresetPrompt,
                 onSelect: {
                     guard !model.isPresetLocked(preset) else {
                         model.requestPremiumAccess(from: .presetLoad)
@@ -267,6 +274,32 @@ struct PresetsPanel: View {
                         Capsule()
                             .fill(LiquidActivityPalette.preset[0].opacity(0.14))
                     }
+
+                if canManagePresets {
+                    Button {
+                        withAnimation(.smooth(duration: 0.22)) {
+                            isManagingPresets.toggle()
+                            activeDragPresetID = nil
+                            lastReorderTargetID = nil
+                        }
+                    } label: {
+                        Text(isManagingPresets ? L10n.Presets.doneManaging : L10n.Presets.manage)
+                            .oasisFont(size: 12, weight: .bold, relativeTo: .caption)
+                            .foregroundStyle(isManagingPresets ? Color(red: 0.05, green: 0.07, blue: 0.10) : .white.opacity(0.78))
+                            .padding(.horizontal, 10)
+                            .padding(.vertical, 6)
+                            .background {
+                                Capsule()
+                                    .fill(isManagingPresets ? LiquidActivityPalette.preset[0].opacity(0.92) : Color.white.opacity(0.055))
+                            }
+                            .overlay {
+                                Capsule()
+                                    .strokeBorder(Color.white.opacity(isManagingPresets ? 0.12 : 0.08), lineWidth: 1)
+                            }
+                    }
+                    .buttonStyle(PresetButtonScaleStyle())
+                    .accessibilityLabel(Text(isManagingPresets ? L10n.Presets.doneManaging : L10n.Presets.manage))
+                }
             }
 
             LazyVStack(spacing: 10) {
@@ -400,7 +433,7 @@ private struct PresetRow: View {
 
     private var rowContent: some View {
         HStack(spacing: 12) {
-            iconWell
+            visualWell
 
             VStack(alignment: .leading, spacing: 5) {
                 Text(model.presetDisplayName(preset))
@@ -409,12 +442,16 @@ private struct PresetRow: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .lineLimit(1)
 
-                Text(statusLabel)
-                    .oasisFont(size: 10, weight: .semibold, relativeTo: .caption2)
-                    .foregroundStyle(statusTint)
-                    .tracking(0.9)
-                    .textCase(.uppercase)
-                    .lineLimit(1)
+                if shouldShowStatusLabel {
+                    Text(statusLabel)
+                        .oasisFont(size: 10, weight: .semibold, relativeTo: .caption2)
+                        .foregroundStyle(statusTint)
+                        .tracking(0.9)
+                        .textCase(.uppercase)
+                        .lineLimit(1)
+                }
+
+                ambienceChips
             }
 
             Spacer(minLength: 0)
@@ -423,10 +460,32 @@ private struct PresetRow: View {
         .contentShape(Rectangle())
     }
 
-    private var iconWell: some View {
+    private var visualWell: some View {
         ZStack {
+            RoundedRectangle(cornerRadius: 14, style: .continuous)
+                .fill(Color.white.opacity(0.05))
+                .overlay {
+                    visualBackdrop
+                }
+                .overlay {
+                    LinearGradient(
+                        colors: [
+                            Color.black.opacity(0.08),
+                            Color.black.opacity(0.34)
+                        ],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
+                }
+                .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+
             Circle()
-                .fill(iconTint.opacity(isLocked ? 0.10 : 0.18))
+                .fill(Color.black.opacity(0.22))
+                .frame(width: 27, height: 27)
+                .overlay {
+                    Circle()
+                        .strokeBorder(Color.white.opacity(0.16), lineWidth: 1)
+                }
 
             Image(systemName: iconName)
                 .oasisFont(size: 14, weight: .bold, design: .default, relativeTo: .caption)
@@ -434,7 +493,20 @@ private struct PresetRow: View {
                 .symbolRenderingMode(.hierarchical)
                 .accessibilityHidden(true)
         }
-        .frame(width: 38, height: 38)
+        .frame(width: 46, height: 46)
+        .opacity(isLocked ? 0.64 : 1)
+        .shadow(color: rowTint.opacity(isLocked ? 0.0 : 0.14), radius: 10, y: 5)
+    }
+
+    @ViewBuilder
+    private var visualBackdrop: some View {
+        if let channel = primaryVisualChannel {
+            SoundBackdropImage(backdrop: channel.backdrop, opacity: isLocked ? 0.42 : 0.82)
+                .saturation(isLocked ? 0.45 : 1)
+        } else {
+            OrganicBackdropImage(backdrop: fallbackOrganicBackdrop, opacity: isLocked ? 0.32 : 0.74, bottomShadeOpacity: 0.44)
+                .saturation(isLocked ? 0.54 : 1)
+        }
     }
 
     private var iconName: String {
@@ -446,7 +518,7 @@ private struct PresetRow: View {
     private var iconTint: Color {
         if isLocked { return .white.opacity(0.42) }
         if isActive { return rowTint }
-        return .white.opacity(0.72)
+        return .white.opacity(0.86)
     }
 
     private var statusLabel: LocalizedStringResource {
@@ -456,10 +528,98 @@ private struct PresetRow: View {
         return L10n.Presets.statusOasis
     }
 
+    private var shouldShowStatusLabel: Bool {
+        isLocked || isActive || preset.isUser
+    }
+
     private var statusTint: Color {
         if isLocked { return .white.opacity(0.42) }
         if isActive { return rowTint.opacity(0.92) }
         return .white.opacity(0.42)
+    }
+
+    private var ambienceChips: some View {
+        let chips = previewChips
+        let visibleChips = Array(chips.prefix(4))
+        let hiddenCount = max(chips.count - visibleChips.count, 0)
+
+        return HStack(spacing: 5) {
+            ForEach(visibleChips) { chip in
+                PresetPreviewChip(chip: chip, isLocked: isLocked)
+            }
+
+            if hiddenCount > 0 {
+                Text("+\(hiddenCount)")
+                    .oasisFont(size: 9, weight: .bold, relativeTo: .caption2)
+                    .foregroundStyle(.white.opacity(isLocked ? 0.40 : 0.66))
+                    .padding(.horizontal, 7)
+                    .padding(.vertical, 4)
+                    .background {
+                        Capsule().fill(Color.white.opacity(isLocked ? 0.035 : 0.07))
+                    }
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .accessibilityHidden(true)
+    }
+
+    private var previewChips: [PresetPreviewChip.Model] {
+        let channelChips = SoundChannel.allCases.compactMap { channel -> PresetPreviewChip.Model? in
+            guard preset.channels[channel]?.isMuted == false else { return nil }
+            return PresetPreviewChip.Model(
+                id: "channel-\(channel.id)",
+                title: channel.localizedName,
+                glyph: channel.oasisGlyph,
+                tint: channel.tint
+            )
+        }
+
+        let noiseChips = ProceduralNoise.allCases.compactMap { noise -> PresetPreviewChip.Model? in
+            guard preset.proceduralNoises?[noise]?.isMuted == false else { return nil }
+            return PresetPreviewChip.Model(
+                id: "noise-\(noise.id)",
+                title: noise.presetPreviewTitle,
+                systemImage: noise.systemImage,
+                tint: noise.tint
+            )
+        }
+
+        let timerChip = preset.timerDurationMinutes.map { timerDurationMinutes in
+            PresetPreviewChip.Model(
+                id: "timer-\(timerDurationMinutes)",
+                title: L10n.timerOptionLabel(minutes: timerDurationMinutes),
+                systemImage: "timer",
+                tint: rowTint
+            )
+        }
+
+        let binauralChip: PresetPreviewChip.Model? = {
+            guard preset.isBinauralActive == true, let track = preset.activeBinauralTrack else {
+                return nil
+            }
+            return PresetPreviewChip.Model(
+                id: "binaural-\(track.id)",
+                title: track.localizedTitle,
+                systemImage: "waveform.path",
+                tint: track.tint
+            )
+        }()
+
+        var chips = Array(channelChips.prefix(2))
+        chips += Array(noiseChips.prefix(1))
+
+        if let timerChip {
+            chips.append(timerChip)
+        }
+
+        if let binauralChip {
+            chips.append(binauralChip)
+        }
+
+        chips += Array(noiseChips.dropFirst())
+        chips += Array(channelChips.dropFirst(2))
+
+        return chips
     }
 
     private var reorderHandle: some View {
@@ -513,9 +673,102 @@ private struct PresetRow: View {
     }
 
     private var rowTint: Color {
+        if let primaryVisualChannel {
+            return primaryVisualChannel.tint
+        }
+        if let primaryNoiseTint {
+            return primaryNoiseTint
+        }
+        if preset.isBinauralActive == true, let track = preset.activeBinauralTrack {
+            return track.tint
+        }
         let palette = SoundChannel.allCases.map(\.tint)
         let index = max(model.presets.firstIndex(where: { $0.id == preset.id }) ?? 0, 0)
         return palette[index % palette.count]
+    }
+
+    private var primaryVisualChannel: SoundChannel? {
+        activeChannelStates.max { lhs, rhs in
+            lhs.state.volume < rhs.state.volume
+        }?.channel
+    }
+
+    private var activeChannelStates: [(channel: SoundChannel, state: ChannelState)] {
+        SoundChannel.allCases.compactMap { channel in
+            guard let state = preset.channels[channel], !state.isMuted else { return nil }
+            return (channel, state)
+        }
+    }
+
+    private var primaryNoiseTint: Color? {
+        ProceduralNoise.allCases.compactMap { noise -> Color? in
+            guard preset.proceduralNoises?[noise]?.isMuted == false else { return nil }
+            return noise.tint
+        }
+        .first
+    }
+
+    private var fallbackOrganicBackdrop: SoundBackdrop {
+        if preset.isBinauralActive == true {
+            return OrganicBackdrop.darkWater
+        }
+        if primaryNoiseTint != nil {
+            return OrganicBackdrop.blueFabric
+        }
+        return OrganicBackdrop.warmFabric
+    }
+}
+
+private struct PresetPreviewChip: View {
+    struct Model: Identifiable {
+        let id: String
+        let title: String
+        var systemImage: String? = nil
+        var glyph: OasisGlyph? = nil
+        let tint: Color
+    }
+
+    let chip: Model
+    let isLocked: Bool
+
+    var body: some View {
+        HStack(spacing: 4) {
+            if let glyph = chip.glyph {
+                OasisGlyphImage(glyph: glyph)
+                    .frame(width: 9, height: 9)
+                    .accessibilityHidden(true)
+            } else if let systemImage = chip.systemImage {
+                Image(systemName: systemImage)
+                    .oasisFont(size: 8, weight: .bold, design: .default, relativeTo: .caption2)
+                    .accessibilityHidden(true)
+            }
+
+            Text(chip.title)
+                .oasisFont(size: 9, weight: .bold, relativeTo: .caption2)
+                .lineLimit(1)
+        }
+        .foregroundStyle(.white.opacity(isLocked ? 0.44 : 0.78))
+        .padding(.horizontal, 7)
+        .padding(.vertical, 4)
+        .background {
+            Capsule().fill(chip.tint.opacity(isLocked ? 0.06 : 0.13))
+        }
+        .overlay {
+            Capsule().strokeBorder(chip.tint.opacity(isLocked ? 0.08 : 0.18), lineWidth: 1)
+        }
+    }
+}
+
+private extension ProceduralNoise {
+    var presetPreviewTitle: String {
+        switch self {
+        case .white: return L10n.string(L10n.NoiseLab.white)
+        case .brown: return L10n.string(L10n.NoiseLab.brown)
+        case .pink: return L10n.string(L10n.NoiseLab.pink)
+        case .green: return L10n.string(L10n.NoiseLab.green)
+        case .fan: return L10n.string(L10n.NoiseLab.fan)
+        case .aircraft: return L10n.string(L10n.NoiseLab.aircraft)
+        }
     }
 }
 

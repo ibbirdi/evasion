@@ -7,6 +7,26 @@
     "·" : {
 
     },
+    "%@ - %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ - %2$@"
+          }
+        }
+      }
+    },
+    "%@ · %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ · %2$@"
+          }
+        }
+      }
+    },
     "%@ %@ · freesound.org" : {
       "localizations" : {
         "en" : {
@@ -28,6 +48,25 @@
       }
     },
     "%lld" : {
+
+    },
+    "%lld min" : {
+
+    },
+    "%lld/%lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld/%2$lld"
+          }
+        }
+      }
+    },
+    "%lldm" : {
+
+    },
+    "+%lld" : {
 
     },
     "app.title" : {
@@ -4950,6 +4989,3626 @@
         }
       }
     },
+    "compose.activeRitual" : {
+      "comment" : "Label shown above the currently running ritual.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktives Ritual"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Active ritual"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ritual activo"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rituel actif"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rituale attivo"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ritual ativo"
+          }
+        }
+      }
+    },
+    "compose.advancePhase" : {
+      "comment" : "Compact button title that advances an active ritual to the next phase.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weiter"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skip"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saltar"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passer"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salta"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Avançar"
+          }
+        }
+      }
+    },
+    "compose.apply" : {
+      "comment" : "Button that applies a generated ambience and starts playback.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anwenden und abspielen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apply & play"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplicar y reproducir"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Appliquer et écouter"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Applica e ascolta"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplicar e tocar"
+          }
+        }
+      }
+    },
+    "compose.free" : {
+      "comment" : "Badge for a free composer item.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gratis"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Free"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gratis"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gratuit"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gratis"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grátis"
+          }
+        }
+      }
+    },
+    "compose.generate" : {
+      "comment" : "Button that generates an ambience recipe.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Komponieren"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Compose"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Componer"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Composer"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Componi"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Compor"
+          }
+        }
+      }
+    },
+    "compose.intent.focus" : {
+      "comment" : "Composer focus intent.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fokus"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Focus"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Foco"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Focus"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Focus"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Foco"
+          }
+        }
+      }
+    },
+    "compose.intent.reading" : {
+      "comment" : "Composer reading intent.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lesen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reading"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lectura"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lecture"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lettura"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Leitura"
+          }
+        }
+      }
+    },
+    "compose.intent.reset" : {
+      "comment" : "Composer reset intent.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reset"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reset"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reset"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reset"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reset"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reset"
+          }
+        }
+      }
+    },
+    "compose.intent.sleep" : {
+      "comment" : "Composer sleep intent.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Schlaf"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sleep"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sueño"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sommeil"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sonno"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sono"
+          }
+        }
+      }
+    },
+    "compose.intent.travel" : {
+      "comment" : "Composer travel intent.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reise"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Travel"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Viaje"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Voyage"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Viaggio"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Viagem"
+          }
+        }
+      }
+    },
+    "compose.nextPhase" : {
+      "comment" : "Short label that introduces the next phase in an active ritual.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nächste"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Siguiente"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suivant"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prossima"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Próxima"
+          }
+        }
+      }
+    },
+    "compose.pausedRitual" : {
+      "comment" : "Short status shown when an active ritual is paused.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pausiert"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paused"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "En pausa"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "En pause"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In pausa"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pausado"
+          }
+        }
+      }
+    },
+    "compose.pauseRitual" : {
+      "comment" : "Button that pauses the active ritual.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ritual pausieren"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pause ritual"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pausar ritual"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mettre le rituel en pause"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Metti in pausa il rituale"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pausar ritual"
+          }
+        }
+      }
+    },
+    "compose.premium" : {
+      "comment" : "Badge for a premium composer item.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Premium"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Premium"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Premium"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Premium"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Premium"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Premium"
+          }
+        }
+      }
+    },
+    "compose.prompt.placeholder" : {
+      "comment" : "Placeholder for the local ambience prompt.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hotellärm, Deep Work, Regen zum Lesen..."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hotel noise, deep work, rain for reading..."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hotel ruidoso, trabajo profundo, lluvia para leer..."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hôtel bruyant, concentration, pluie pour lire..."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hotel rumoroso, deep work, pioggia per leggere..."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hotel barulhento, foco profundo, chuva para ler..."
+          }
+        }
+      }
+    },
+    "compose.recipe.focus.subtitle" : {
+      "comment" : "Generated focus recipe subtitle.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ein stabiler Klangteppich, um im Flow zu bleiben."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A steady work bed for staying in flow."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una base sonora estable para mantener el foco."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un lit sonore stable pour garder le fil."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un letto sonoro stabile per restare nel flusso."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uma base sonora estável para manter o foco."
+          }
+        }
+      }
+    },
+    "compose.recipe.focus.title" : {
+      "comment" : "Generated focus recipe title.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fokusblase"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Focus bubble"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Burbuja de concentración"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bulle de concentration"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bolla di concentrazione"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bolha de concentração"
+          }
+        }
+      }
+    },
+    "compose.recipe.reading.subtitle" : {
+      "comment" : "Generated premium reading recipe subtitle.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ein warmer Raum für Bücher, Journal und Abendruhe."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A warm room for books, journaling and evening calm."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una sala cálida para leer, escribir y calmar la noche."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Une pièce chaude pour lire, écrire et redescendre le soir."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una stanza calda per leggere, scrivere e calmare la sera."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uma sala quente para ler, escrever e acalmar a noite."
+          }
+        }
+      }
+    },
+    "compose.recipe.reading.title" : {
+      "comment" : "Generated reading recipe title.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lesezimmer"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reading room"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sala de lectura"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pièce de lecture"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stanza lettura"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sala de leitura"
+          }
+        }
+      }
+    },
+    "compose.recipe.reset.subtitle" : {
+      "comment" : "Generated reset recipe subtitle.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Der einfache Oasis-Startmix, klar und bereit."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The simple Oasis starter mix, cleaned up and ready."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El mix Oasis simple, limpio y listo."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le mix Oasis simple, nettoyé et prêt."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Il mix Oasis semplice, pulito e pronto."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O mix Oasis simples, limpo e pronto."
+          }
+        }
+      }
+    },
+    "compose.recipe.reset.title" : {
+      "comment" : "Generated reset recipe title.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oasis Reset"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oasis reset"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reset Oasis"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reset Oasis"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reset Oasis"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reset Oasis"
+          }
+        }
+      }
+    },
+    "compose.recipe.sleep.subtitle" : {
+      "comment" : "Generated premium sleep recipe subtitle.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Echte Wellen, Nachtluft und warmes braunes Rauschen."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Real waves, night air and a warm brown-noise floor."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Olas reales, aire nocturno y una base cálida de ruido marrón."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vagues réelles, air de nuit et socle chaud de bruit brun."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Onde reali, aria notturna e una base calda di rumore marrone."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ondas reais, ar noturno e uma base quente de ruído marrom."
+          }
+        }
+      }
+    },
+    "compose.recipe.sleep.title" : {
+      "comment" : "Generated sleep recipe title.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Schlafkokon"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sleep cocoon"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Capullo de sueño"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cocon de sommeil"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bozzolo di sonno"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Casulo de sono"
+          }
+        }
+      }
+    },
+    "compose.recipe.travel.subtitle" : {
+      "comment" : "Generated premium travel recipe subtitle.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eine dichtere Offline-Maske für Hotels und Verkehr."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A denser offline mask for hotel rooms and transport."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una máscara offline más densa para hoteles y transporte."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un masque offline plus dense pour hôtels et transports."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una maschera offline più densa per hotel e trasporti."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uma máscara offline mais densa para hotéis e transporte."
+          }
+        }
+      }
+    },
+    "compose.recipe.travel.title" : {
+      "comment" : "Generated travel recipe title.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reiseschutz"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Travel shield"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Escudo de viaje"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bouclier de voyage"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scudo viaggio"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Escudo de viagem"
+          }
+        }
+      }
+    },
+    "compose.resumeRitual" : {
+      "comment" : "Button that resumes the active ritual.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ritual fortsetzen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Resume ritual"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reanudar ritual"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reprendre le rituel"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Riprendi il rituale"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Retomar ritual"
+          }
+        }
+      }
+    },
+    "compose.ritual.focus.phase.enter.subtitle" : {
+      "comment" : "Focus ritual first phase subtitle.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Leises Café, Wind und eine stabile Fokusbasis."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Low cafe room, wind and a steady focus bed."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Café suave, viento y una base de enfoque estable."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Café feutré, vent et base de concentration stable."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Café basso, vento e una base focus costante."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Café baixo, vento e uma base de foco constante."
+          }
+        }
+      }
+    },
+    "compose.ritual.focus.phase.enter.title" : {
+      "comment" : "Focus ritual first phase title.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Einstieg"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entrar"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entrer"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entrare"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entrar"
+          }
+        }
+      }
+    },
+    "compose.ritual.focus.phase.flow.subtitle" : {
+      "comment" : "Focus ritual middle phase subtitle.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grünes Rauschen und Beta liegen unter dem Raum."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Green noise and Beta sit under the room."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El ruido verde y Beta sostienen la sala."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le bruit vert et Bêta soutiennent la pièce."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rumore verde e Beta restano sotto la stanza."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ruído verde e Beta sustentam o ambiente."
+          }
+        }
+      }
+    },
+    "compose.ritual.focus.phase.flow.title" : {
+      "comment" : "Focus ritual middle phase title.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Flow"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Flow"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Flujo"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Flow"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Flow"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fluxo"
+          }
+        }
+      }
+    },
+    "compose.ritual.focus.phase.return.subtitle" : {
+      "comment" : "Focus ritual final phase subtitle.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Szene wird heller, bevor der Timer endet."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The scene lightens before the timer ends."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La escena se aligera antes de que termine el temporizador."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La scène s’allège avant la fin du minuteur."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La scena si alleggerisce prima della fine del timer."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A cena fica mais leve antes do timer terminar."
+          }
+        }
+      }
+    },
+    "compose.ritual.focus.phase.return.title" : {
+      "comment" : "Focus ritual final phase title.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rückkehr"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Return"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Volver"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Revenir"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rientrare"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Voltar"
+          }
+        }
+      }
+    },
+    "compose.ritual.focus.subtitle" : {
+      "comment" : "Focus ritual subtitle.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "50 Min. Fokus mit Café-Luft, grünem Rauschen und Beta."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A 50 min focus block with cafe air, green noise and Beta support."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "50 min de foco con café, ruido verde y apoyo Beta."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "50 min de focus avec air de café, bruit vert et support Bêta."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "50 min di focus con café, rumore verde e Beta."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "50 min de foco com café, ruído verde e Beta."
+          }
+        }
+      }
+    },
+    "compose.ritual.focus.title" : {
+      "comment" : "Focus ritual title.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deep Work"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deep Work"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deep Work"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Travail profond"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deep Work"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deep Work"
+          }
+        }
+      }
+    },
+    "compose.ritual.reading.phase.close.subtitle" : {
+      "comment" : "Reading ritual final phase subtitle.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Der Raum wird kleiner und ruhiger."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The room gets smaller and quieter."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La habitación se vuelve más íntima y tranquila."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La pièce devient plus intime et plus calme."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La stanza diventa più raccolta e silenziosa."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O ambiente fica mais íntimo e calmo."
+          }
+        }
+      }
+    },
+    "compose.ritual.reading.phase.close.title" : {
+      "comment" : "Reading ritual final phase title.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Schließen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Close"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cerrar"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Refermer"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chiudere"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fechar"
+          }
+        }
+      }
+    },
+    "compose.ritual.reading.phase.open.subtitle" : {
+      "comment" : "Reading ritual first phase subtitle.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lagerfeuer, Waldluft und ein wenig Wind."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Campfire, forest air and a little wind."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fogata, aire de bosque y un poco de viento."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feu de camp, air de forêt et un peu de vent."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fuoco da campo, aria di bosco e un po’ di vento."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fogueira, ar de floresta e um pouco de vento."
+          }
+        }
+      }
+    },
+    "compose.ritual.reading.phase.open.title" : {
+      "comment" : "Reading ritual first phase title.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Öffnen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abrir"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ouvrir"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aprire"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abrir"
+          }
+        }
+      }
+    },
+    "compose.ritual.reading.phase.read.subtitle" : {
+      "comment" : "Reading ritual middle phase subtitle.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Warme Textur mit weichem Rauschbett."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Warm texture with a soft noise floor."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Textura cálida con una base de ruido suave."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Texture chaude avec un fond sonore doux."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Texture calda con un fondo sonoro morbido."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Textura quente com uma base de ruído suave."
+          }
+        }
+      }
+    },
+    "compose.ritual.reading.phase.read.title" : {
+      "comment" : "Reading ritual middle phase title.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lesen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Read"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Leer"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lire"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Leggere"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ler"
+          }
+        }
+      }
+    },
+    "compose.ritual.reading.subtitle" : {
+      "comment" : "Reading ritual subtitle.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "35 Min. Ruhe für Bücher, Journal und Abend."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A 35 min quiet room for books, journaling and evening calm."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "35 min de calma para leer, escribir y cerrar el día."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "35 min au calme pour lire, écrire et apaiser la soirée."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "35 min quieti per leggere, scrivere e calmare la sera."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "35 min de calma para ler, escrever e fechar a noite."
+          }
+        }
+      }
+    },
+    "compose.ritual.reading.title" : {
+      "comment" : "Reading ritual title.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lesezimmer"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reading Room"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sala de lectura"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pièce de lecture"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stanza lettura"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sala de leitura"
+          }
+        }
+      }
+    },
+    "compose.ritual.sleep.phase.drift.subtitle" : {
+      "comment" : "Sleep ritual middle phase subtitle.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Braunes Rauschen macht den Raum weicher."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brown noise takes the edges off the room."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El ruido marrón suaviza los bordes de la habitación."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le bruit brun adoucit les contours de la pièce."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Il rumore brown ammorbidisce i bordi della stanza."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O ruído brown suaviza as bordas do quarto."
+          }
+        }
+      }
+    },
+    "compose.ritual.sleep.phase.drift.title" : {
+      "comment" : "Sleep ritual middle phase title.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gleiten"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Drift"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Derivar"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dériver"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fluttuare"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Flutuar"
+          }
+        }
+      }
+    },
+    "compose.ritual.sleep.phase.fade.subtitle" : {
+      "comment" : "Sleep ritual final phase subtitle.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ein leiseres Bett für die letzten Minuten."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A quieter bed for the final minutes."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una base más tranquila para los últimos minutos."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un lit sonore plus discret pour les dernières minutes."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una base più quieta per gli ultimi minuti."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uma base mais calma para os minutos finais."
+          }
+        }
+      }
+    },
+    "compose.ritual.sleep.phase.fade.title" : {
+      "comment" : "Sleep ritual final phase title.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ausblenden"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fade"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desvanecer"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Estomper"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sfumare"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desvanecer"
+          }
+        }
+      }
+    },
+    "compose.ritual.sleep.phase.settle.subtitle" : {
+      "comment" : "Sleep ritual first phase subtitle.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vögel, Wind und ein sanftes Ufer."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Birds, wind and a soft shoreline."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pájaros, viento y una orilla suave."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oiseaux, vent et rivage doux."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uccelli, vento e una riva morbida."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pássaros, vento e uma margem suave."
+          }
+        }
+      }
+    },
+    "compose.ritual.sleep.phase.settle.title" : {
+      "comment" : "Sleep ritual first phase title.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ankommen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Settle"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aterrizar"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se poser"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Posarsi"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Assentar"
+          }
+        }
+      }
+    },
+    "compose.ritual.sleep.subtitle" : {
+      "comment" : "Sleep ritual subtitle.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "30 Min. Ausklang, der langsam in Wellen und braunes Rauschen sinkt."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A 30 min wind-down that slowly darkens into waves and brown noise."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "30 min para bajar el ritmo hacia olas y ruido marrón."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "30 min pour ralentir, puis glisser vers vagues et bruit brun."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "30 min per rallentare verso onde e rumore marrone."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "30 min para desacelerar em ondas e ruído marrom."
+          }
+        }
+      }
+    },
+    "compose.ritual.sleep.title" : {
+      "comment" : "Sleep ritual title.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Schlafabstieg"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sleep Descent"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Descenso al sueño"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Descente vers le sommeil"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Discesa nel sonno"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Descida para o sono"
+          }
+        }
+      }
+    },
+    "compose.ritual.travel.phase.cover.subtitle" : {
+      "comment" : "Travel ritual first phase subtitle.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kabinenrauschen, Wind und fernes Wasser."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aircraft hush, wind and distant water."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Murmullo de cabina, viento y agua distante."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Souffle cabine, vent et eau lointaine."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Soffio di cabina, vento e acqua lontana."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sopro de cabine, vento e água distante."
+          }
+        }
+      }
+    },
+    "compose.ritual.travel.phase.cover.title" : {
+      "comment" : "Travel ritual first phase title.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abschirmung"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cover"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cubrir"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Couvrir"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Coprire"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cobrir"
+          }
+        }
+      }
+    },
+    "compose.ritual.travel.phase.hold.subtitle" : {
+      "comment" : "Travel ritual middle phase subtitle.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ein stabilerer Schild für unberechenbare Räume."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A steadier shield for unpredictable rooms."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un escudo más estable para habitaciones impredecibles."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un bouclier plus stable pour les pièces imprévisibles."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uno scudo più stabile per stanze imprevedibili."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Um escudo mais estável para quartos imprevisíveis."
+          }
+        }
+      }
+    },
+    "compose.ritual.travel.phase.hold.title" : {
+      "comment" : "Travel ritual middle phase title.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Halten"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hold"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mantener"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Maintenir"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tenere"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Manter"
+          }
+        }
+      }
+    },
+    "compose.ritual.travel.phase.soften.subtitle" : {
+      "comment" : "Travel ritual final phase subtitle.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weniger Tiefton, bevor die Session endet."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Less low end before the session closes."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Menos graves antes de cerrar la sesión."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Moins de graves avant la fin de la session."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Meno basse frequenze prima della chiusura."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Menos graves antes do fim da sessão."
+          }
+        }
+      }
+    },
+    "compose.ritual.travel.phase.soften.title" : {
+      "comment" : "Travel ritual final phase title.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weicher"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Soften"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suavizar"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adoucir"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ammorbidire"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suavizar"
+          }
+        }
+      }
+    },
+    "compose.ritual.travel.subtitle" : {
+      "comment" : "Travel ritual subtitle.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "45 Min. Offline-Maske für Hotels, Züge und Flugzeuge."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A 45 min offline mask for hotel rooms, trains and planes."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "45 min de máscara offline para hoteles, trenes y aviones."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "45 min de masque offline pour hôtels, trains et avions."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "45 min offline per hotel, treni e aerei."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "45 min offline para hotéis, trens e aviões."
+          }
+        }
+      }
+    },
+    "compose.ritual.travel.title" : {
+      "comment" : "Travel ritual title.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reiseschutz"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Travel Shield"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Escudo viaje"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bouclier de voyage"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scudo viaggio"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Escudo viagem"
+          }
+        }
+      }
+    },
+    "compose.routine.context" : {
+      "comment" : "Short explanatory sentence in the routine detail card.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oasis kombiniert diese Ebenen und startet eine klare Routine."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oasis combines these layers and starts one clear routine."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oasis combina estas capas e inicia una rutina clara."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oasis combine ces couches et lance une routine claire."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oasis combina questi livelli e avvia una routine chiara."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oasis combina estas camadas e inicia uma rotina clara."
+          }
+        }
+      }
+    },
+    "compose.routine.current" : {
+      "comment" : "Disabled primary button label when the selected guided routine is already running.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Routine läuft"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Routine in progress"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rutina en curso"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Routine en cours"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Routine in corso"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rotina em andamento"
+          }
+        }
+      }
+    },
+    "compose.routine.deepSleep.subtitle" : {
+      "comment" : "Guided premium routine subtitle for a longer sleep mix.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Ein längerer Nachtmix mit Regen am Fenster, dunkler Waldluft und einer tiefen, stabilen Basis." } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "A longer night blend with window rain, dark forest air and a low, steady floor." } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Una mezcla nocturna más larga con lluvia en la ventana, bosque oscuro y una base baja y estable." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Un mélange long pour la nuit : pluie à la fenêtre, forêt sombre et une base basse très stable." } },
+        "it" : { "stringUnit" : { "state" : "translated", "value" : "Un mix notturno più lungo con pioggia alla finestra, foresta scura e una base bassa e stabile." } },
+        "pt" : { "stringUnit" : { "state" : "translated", "value" : "Um mix noturno mais longo com chuva na janela, floresta escura e uma base baixa e estável." } }
+      }
+    },
+    "compose.routine.deepSleep.title" : {
+      "comment" : "Guided premium routine title for a longer sleep mix.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Tiefer Schlaf" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Deep sleep" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Sueño profundo" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Nuit profonde" } },
+        "it" : { "stringUnit" : { "state" : "translated", "value" : "Sonno profondo" } },
+        "pt" : { "stringUnit" : { "state" : "translated", "value" : "Sono profundo" } }
+      }
+    },
+    "compose.routine.deepWork.subtitle" : {
+      "comment" : "Guided premium routine subtitle for focus work.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Ein fokussierter Raum mit leisem Café, feinem Fluss und stabilem grünen Rauschen." } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "A focused room with cafe hush, river detail and a steady green-noise floor." } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Una sala de concentración con café suave, detalle de río y una base estable de ruido verde." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Une bulle de concentration avec café discret, rivière fine et bruit vert régulier." } },
+        "it" : { "stringUnit" : { "state" : "translated", "value" : "Una stanza di concentrazione con caffè leggero, dettagli di fiume e rumore verde stabile." } },
+        "pt" : { "stringUnit" : { "state" : "translated", "value" : "Uma sala de concentração com café suave, detalhe de rio e uma base estável de ruído verde." } }
+      }
+    },
+    "compose.routine.deepWork.title" : {
+      "comment" : "Guided premium routine title for focus work.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Tiefe Konzentration" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Deep work" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Trabajo profundo" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Travail profond" } },
+        "it" : { "stringUnit" : { "state" : "translated", "value" : "Lavoro profondo" } },
+        "pt" : { "stringUnit" : { "state" : "translated", "value" : "Foco profundo" } }
+      }
+    },
+    "compose.routine.morning.subtitle" : {
+      "comment" : "Guided premium routine subtitle for a bright morning mix.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Ein heller Start mit Dschungelmorgen, Vögeln, Seeluft und leichten Windspielen." } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "A bright start with jungle dawn, birds, lake air and light chimes." } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Un inicio luminoso con amanecer de jungla, pájaros, aire de lago y campanas ligeras." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Un départ lumineux avec aube de jungle, oiseaux, air du lac et carillons légers." } },
+        "it" : { "stringUnit" : { "state" : "translated", "value" : "Un inizio luminoso con alba nella giungla, uccelli, aria di lago e campanelli leggeri." } },
+        "pt" : { "stringUnit" : { "state" : "translated", "value" : "Um começo luminoso com amanhecer na selva, pássaros, ar do lago e sinos leves." } }
+      }
+    },
+    "compose.routine.morning.title" : {
+      "comment" : "Guided premium routine title for a bright morning mix.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Sanfter Morgen" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Gentle morning" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Mañana suave" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Matin doux" } },
+        "it" : { "stringUnit" : { "state" : "translated", "value" : "Mattino dolce" } },
+        "pt" : { "stringUnit" : { "state" : "translated", "value" : "Manhã suave" } }
+      }
+    },
+    "compose.routine.nap.subtitle" : {
+      "comment" : "Guided routine subtitle for a short free nap mix.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Ein 15-minütiges Ankommen: sanfte Wellen, leichter Wind, Vögel und warmes braunes Rauschen." } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "A 15 minute landing: gentle waves, light wind, birds and warm brown noise." } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Un aterrizaje de 15 minutos: olas suaves, viento ligero, pájaros y ruido marrón cálido." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Un atterrissage de 15 minutes : vagues douces, vent léger, oiseaux et bruit brun chaleureux." } },
+        "it" : { "stringUnit" : { "state" : "translated", "value" : "Un atterraggio di 15 minuti: onde leggere, vento lieve, uccelli e rumore marrone caldo." } },
+        "pt" : { "stringUnit" : { "state" : "translated", "value" : "Um pouso de 15 minutos: ondas suaves, vento leve, pássaros e ruído marrom quente." } }
+      }
+    },
+    "compose.routine.nap.title" : {
+      "comment" : "Guided routine title for a short free nap mix.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Kurzschlaf" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Short nap" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Siesta corta" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Sieste courte" } },
+        "it" : { "stringUnit" : { "state" : "translated", "value" : "Pisolino breve" } },
+        "pt" : { "stringUnit" : { "state" : "translated", "value" : "Soneca curta" } }
+      }
+    },
+    "compose.routine.noisyHotel.subtitle" : {
+      "comment" : "Guided premium routine subtitle for hotel and transport masking.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Eine dichte Offline-Decke für Zimmer, Züge und Flugzeuge, mit Ventilator und Kabinenrauschen." } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "A dense offline cover for rooms, trains and planes, with fan and aircraft layers." } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Una cobertura offline densa para habitaciones, trenes y aviones, con ventilador y cabina." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Une couverture offline dense pour les chambres, trains et avions, avec ventilateur et souffle cabine." } },
+        "it" : { "stringUnit" : { "state" : "translated", "value" : "Una copertura offline densa per stanze, treni e aerei, con ventilatore e cabina." } },
+        "pt" : { "stringUnit" : { "state" : "translated", "value" : "Uma cobertura offline densa para quartos, trens e aviões, com ventilador e cabine." } }
+      }
+    },
+    "compose.routine.noisyHotel.title" : {
+      "comment" : "Guided premium routine title for hotel and transport masking.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Lautes Hotel" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Noisy hotel" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Hotel ruidoso" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Hôtel bruyant" } },
+        "it" : { "stringUnit" : { "state" : "translated", "value" : "Hotel rumoroso" } },
+        "pt" : { "stringUnit" : { "state" : "translated", "value" : "Hotel barulhento" } }
+      }
+    },
+    "compose.routine.rainCabin.subtitle" : {
+      "comment" : "Guided premium routine subtitle for a sheltered rain mix.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Ein geschützter Sturm-Mix mit Hüttenregen, Waldregen, fernem Donner und tiefer brauner Basis." } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "A sheltered storm mix with cabin rain, forest rain, distant thunder and a low brown floor." } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Un refugio de tormenta con lluvia en el techo, lluvia de bosque, trueno lejano y base marrón." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Un abri sous l'orage : pluie sur le toit, forêt mouillée, tonnerre lointain et base brune." } },
+        "it" : { "stringUnit" : { "state" : "translated", "value" : "Un riparo di temporale con pioggia sul tetto, pioggia nella foresta, tuono lontano e base marrone." } },
+        "pt" : { "stringUnit" : { "state" : "translated", "value" : "Um abrigo de tempestade com chuva no telhado, chuva na floresta, trovão distante e base marrom." } }
+      }
+    },
+    "compose.routine.rainCabin.title" : {
+      "comment" : "Guided premium routine title for a sheltered rain mix.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Regenhütte" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Rain cabin" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Cabaña con lluvia" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Cabane sous la pluie" } },
+        "it" : { "stringUnit" : { "state" : "translated", "value" : "Cabina sotto la pioggia" } },
+        "pt" : { "stringUnit" : { "state" : "translated", "value" : "Cabana na chuva" } }
+      }
+    },
+    "compose.routine.reading.subtitle" : {
+      "comment" : "Guided premium routine subtitle for reading.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Eine warme Ecke für Bücher: Feuer, See, Waldluft, sanfte Windspiele und stabile Ruhe." } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "A warm corner for books: fire, lake, forest air, soft chimes and stable calm." } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Un rincón cálido para leer: fuego, lago, aire de bosque, campanas suaves y calma estable." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Un coin chaleureux pour lire : feu, lac, air de forêt, carillons doux et calme stable." } },
+        "it" : { "stringUnit" : { "state" : "translated", "value" : "Un angolo caldo per leggere: fuoco, lago, aria di foresta, campanelli morbidi e calma stabile." } },
+        "pt" : { "stringUnit" : { "state" : "translated", "value" : "Um canto quente para ler: fogo, lago, ar de floresta, sinos suaves e calma estável." } }
+      }
+    },
+    "compose.routine.reading.title" : {
+      "comment" : "Guided premium routine title for reading.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Abendlektüre" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Evening reading" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Lectura nocturna" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Lecture du soir" } },
+        "it" : { "stringUnit" : { "state" : "translated", "value" : "Lettura serale" } },
+        "pt" : { "stringUnit" : { "state" : "translated", "value" : "Leitura à noite" } }
+      }
+    },
+    "compose.routine.reset.subtitle" : {
+      "comment" : "Guided routine subtitle for a free reset mix.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Ein klarer Gratis-Mix zum Durchatmen: Ufer, Luft, Vögel und ein leiser Schleier aus weißem Rauschen." } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "A clear free mix for stepping away: shore, air, birds and a quiet white-noise veil." } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Una mezcla gratuita y clara para desconectar: orilla, aire, pájaros y un velo discreto de ruido blanco." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Un mix gratuit très clair pour souffler : plage, air, oiseaux et un voile discret de bruit blanc." } },
+        "it" : { "stringUnit" : { "state" : "translated", "value" : "Un mix gratuito e pulito per staccare: riva, aria, uccelli e un velo discreto di rumore bianco." } },
+        "pt" : { "stringUnit" : { "state" : "translated", "value" : "Um mix gratuito e claro para respirar: margem, ar, pássaros e um véu discreto de ruído branco." } }
+      }
+    },
+    "compose.routine.reset.title" : {
+      "comment" : "Guided routine title for a free reset mix.",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Sanfter Neustart" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Soft reset" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Pausa suave" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Retour au calme" } },
+        "it" : { "stringUnit" : { "state" : "translated", "value" : "Reset morbido" } },
+        "pt" : { "stringUnit" : { "state" : "translated", "value" : "Reinício suave" } }
+      }
+    },
+    "compose.routine.layer.ambience" : {
+      "comment" : "Label for the nature sound layer in the routine detail card.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Klangbild"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Soundscape"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paisaje sonoro"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Décor sonore"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paesaggio sonoro"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paisagem sonora"
+          }
+        }
+      }
+    },
+    "compose.routine.layer.end" : {
+      "comment" : "Label for the automatic end timer in the routine detail card.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ausklang"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fade out"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cierre suave"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fin douce"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sfumatura finale"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desvanecer"
+          }
+        }
+      }
+    },
+    "compose.routine.layer.mask" : {
+      "comment" : "Label for the noise and binaural masking layer in the routine detail card.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geräuschdecke"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Noise cover"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Capa de ruido"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bruit de fond"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copertura sonora"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Camada de ruído"
+          }
+        }
+      }
+    },
+    "compose.routine.plan" : {
+      "comment" : "Heading above the short explanation of what a guided routine will start.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Was passiert"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "What will happen"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Qué pasará"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ce qui va se passer"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cosa succede"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O que vai acontecer"
+          }
+        }
+      }
+    },
+    "compose.routine.replace" : {
+      "comment" : "Primary button label when launching the selected guided routine will replace the current one.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Routine ersetzen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Replace routine"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reemplazar rutina"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remplacer la routine"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sostituisci routine"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Substituir rotina"
+          }
+        }
+      }
+    },
+    "compose.routine.start" : {
+      "comment" : "Primary button that starts the selected guided routine.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Routine starten"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start routine"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Iniciar rutina"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lancer la routine"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Avvia routine"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Iniciar rotina"
+          }
+        }
+      }
+    },
+    "compose.start" : {
+      "comment" : "Button that starts a ritual.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Starten"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Iniciar"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lancer"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Avvia"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Iniciar"
+          }
+        }
+      }
+    },
+    "compose.stopRitual" : {
+      "comment" : "Button that stops the active ritual while leaving audio as-is.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ritual stoppen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stop ritual"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Detener ritual"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arrêter le rituel"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ferma rituale"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Parar ritual"
+          }
+        }
+      }
+    },
+    "compose.stopRitual.confirmation.message" : {
+      "comment" : "Message of the confirmation alert before stopping an active ritual.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dein aktueller Klangmix läuft weiter, aber die Ritual-Timeline endet."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your current sound mix will keep playing, but the ritual timeline will end."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La mezcla sonora actual seguirá sonando, pero la línea del ritual terminará."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le mix sonore continue, mais la progression du rituel s’arrête."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Il mix sonoro attuale continuerà, ma la timeline del rituale terminerà."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A mistura sonora atual continuará tocando, mas a linha do ritual será encerrada."
+          }
+        }
+      }
+    },
+    "compose.stopRitual.confirmation.title" : {
+      "comment" : "Title of the confirmation alert before stopping an active ritual.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dieses Ritual stoppen?"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stop this ritual?"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Detener este ritual?"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arrêter ce rituel ?"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fermare questo rituale?"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Parar este ritual?"
+          }
+        }
+      }
+    },
+    "compose.subtitle" : {
+      "comment" : "Subtitle of the simplified guided ambience panel.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wähle ein Bedürfnis, prüfe den Mix und starte ihn."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pick a need, preview the mix, then start."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Elige una necesidad, revisa la mezcla y empieza."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choisissez un besoin, voyez le mix, puis lancez-le."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scegli un bisogno, guarda il mix e avvialo."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Escolha uma necessidade, veja o mix e inicie."
+          }
+        }
+      }
+    },
+    "compose.suggestion.hotel.prompt" : {
+      "comment" : "Prompt inserted by the noisy hotel composer suggestion.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lautes Hotel, stabile Reisemaske, keine scharfen Geräusche"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Noisy hotel, steady travel mask, no sharp sounds"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hotel ruidoso, máscara de viaje estable, sin sonidos bruscos"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hôtel bruyant, masque voyage stable, pas de sons brusques"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hotel rumoroso, maschera viaggio stabile, niente suoni bruschi"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hotel barulhento, máscara de viagem estável, sem sons bruscos"
+          }
+        }
+      }
+    },
+    "compose.suggestion.hotel.title" : {
+      "comment" : "Composer prompt suggestion chip for noisy hotel rooms.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lautes Hotel"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Noisy hotel"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hotel ruidoso"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hôtel bruyant"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hotel rumoroso"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hotel barulhento"
+          }
+        }
+      }
+    },
+    "compose.suggestion.nap.prompt" : {
+      "comment" : "Prompt inserted by the short nap composer suggestion.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kurzer Schlaf, braunes Rauschen, sanfte Wellen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Short nap, brown noise, gentle waves"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Siesta corta, ruido marrón, olas suaves"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sieste courte, bruit brun, vagues douces"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pisolino breve, rumore marrone, onde leggere"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Soneca curta, ruído marrom, ondas suaves"
+          }
+        }
+      }
+    },
+    "compose.suggestion.nap.title" : {
+      "comment" : "Composer prompt suggestion chip for a short nap.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kurzer Schlaf"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Short nap"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Siesta corta"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sieste courte"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pisolino breve"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Soneca curta"
+          }
+        }
+      }
+    },
+    "compose.suggestion.reading.prompt" : {
+      "comment" : "Prompt inserted by the quiet reading composer suggestion.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ruhig lesen, warmer Raum, kein Donner"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quiet reading, warm room, no thunder"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lectura tranquila, sala cálida, sin truenos"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lecture calme, pièce chaleureuse, pas d'orage"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lettura calma, stanza calda, niente tuoni"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Leitura calma, sala quente, sem trovões"
+          }
+        }
+      }
+    },
+    "compose.suggestion.reading.title" : {
+      "comment" : "Composer prompt suggestion chip for quiet reading.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ruhig lesen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quiet reading"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lectura tranquila"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lecture calme"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lettura calma"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Leitura calma"
+          }
+        }
+      }
+    },
+    "compose.suggestion.work.prompt" : {
+      "comment" : "Prompt inserted by the deep work composer suggestion.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deep Work, stabiles Rauschen, leises Café"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deep work, steady noise, cafe hush"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trabajo profundo, ruido estable, café suave"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Travail profond, bruit stable, café discret"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lavoro profondo, rumore stabile, caffè leggero"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Foco profundo, ruído estável, café suave"
+          }
+        }
+      }
+    },
+    "compose.suggestion.work.title" : {
+      "comment" : "Composer prompt suggestion chip for focus work.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deep Work"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deep work"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trabajo profundo"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Travail profond"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lavoro profondo"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Foco profundo"
+          }
+        }
+      }
+    },
+    "compose.surprise" : {
+      "comment" : "Button that generates a random ambience.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Überrasch mich"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Surprise me"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sorpréndeme"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Surprenez-moi"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sorprendimi"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Surpreenda-me"
+          }
+        }
+      }
+    },
+    "compose.tab.composer" : {
+      "comment" : "Segment title for the composer tab.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Composer"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Composer"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Composer"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Composer"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Composer"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Composer"
+          }
+        }
+      }
+    },
+    "compose.tab.noise" : {
+      "comment" : "Segment title for the noise lab tab.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rauschen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Noise"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ruido"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bruit"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rumore"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ruído"
+          }
+        }
+      }
+    },
+    "compose.tab.rituals" : {
+      "comment" : "Segment title for the rituals tab.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rituale"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rituals"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rituales"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rituels"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rituali"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rituais"
+          }
+        }
+      }
+    },
+    "compose.title" : {
+      "comment" : "Title of the simplified guided ambience panel.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Routinen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Routines"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rutinas"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Routines"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Routine"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rotinas"
+          }
+        }
+      }
+    },
     "header.activeFilter" : {
       "comment" : "Accessibility label for the toolbar button that filters the mixer to active sounds.",
       "localizations" : {
@@ -5319,6 +8978,252 @@
         }
       }
     },
+    "home.active.addTimer" : {
+      "comment" : "Accessibility label for adding a 30 minute timer from the active Home scene card.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "30-Min.-Timer setzen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Set 30 min timer"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Poner temporizador de 30 min"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajouter un minuteur de 30 min"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Imposta timer 30 min"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Definir timer de 30 min"
+          }
+        }
+      }
+    },
+    "home.active.adjust" : {
+      "comment" : "Accessibility hint for opening the active scene controls from Home.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anpassen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adjust"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajustar"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajuster"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Regola"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajustar"
+          }
+        }
+      }
+    },
+    "home.active.clearTimer" : {
+      "comment" : "Accessibility label for clearing the timer from the active Home scene card.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Timer löschen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clear timer"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quitar temporizador"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Retirer le minuteur"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rimuovi timer"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limpar timer"
+          }
+        }
+      }
+    },
+    "home.active.listening" : {
+      "comment" : "Small status label on the Home active scene card while audio is playing.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Läuft"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Now playing"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sonando"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "En écoute"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In ascolto"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Em reprodução"
+          }
+        }
+      }
+    },
+    "home.active.paused" : {
+      "comment" : "Small status label on the Home active scene card while audio is paused.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pausiert"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paused"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "En pausa"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "En pause"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In pausa"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Em pausa"
+          }
+        }
+      }
+    },
+    "home.controls.activeRitual" : {
+      "comment" : "Accessibility label for the home bottom compose button while a ritual is active.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktives Ritual öffnen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open active ritual"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abrir ritual activo"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ouvrir le rituel actif"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apri rituale attivo"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abrir ritual ativo"
+          }
+        }
+      }
+    },
     "home.controls.binaural" : {
       "comment" : "Accessibility label for the home bottom binaural modes button.",
       "localizations" : {
@@ -5356,6 +9261,47 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Modos binaurais"
+          }
+        }
+      }
+    },
+    "home.controls.compose" : {
+      "comment" : "Accessibility label for the home bottom button that opens guided routines.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Routinen öffnen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open routines"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abrir rutinas"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ouvrir les routines"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apri routine"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abrir rotinas"
           }
         }
       }
@@ -5561,6 +9507,211 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Mix aleatório"
+          }
+        }
+      }
+    },
+    "home.routine.active" : {
+      "comment" : "Small status label shown on Home while a guided routine is active.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Routine aktiv"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Routine active"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rutina activa"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Routine active"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Routine attiva"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rotina ativa"
+          }
+        }
+      }
+    },
+    "home.routine.rest.subtitle" : {
+      "comment" : "Quiet footer subtitle shown after guided routine rows on Home.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oasis hält die Ebenen stabil und blendet am Ende aus."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oasis keeps the layers steady and fades out at the end."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oasis mantiene las capas estables y se desvanece al final."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oasis garde les couches en place et s’estompe à la fin."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oasis mantiene stabili i livelli e sfuma alla fine."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oasis mantém as camadas estáveis e desaparece no fim."
+          }
+        }
+      }
+    },
+    "home.routine.rest.title" : {
+      "comment" : "Quiet footer title shown after guided routine rows on Home.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Du kannst das iPhone weglegen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You can put the iPhone down"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Puedes dejar el iPhone"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vous pouvez poser l’iPhone"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Puoi posare l’iPhone"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pode deixar o iPhone de lado"
+          }
+        }
+      }
+    },
+    "home.routine.stop" : {
+      "comment" : "Button that stops the active guided routine and returns Home to normal mixing mode.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Routine beenden"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stop routine"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Detener rutina"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stopper la routine"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Interrompi routine"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Parar rotina"
+          }
+        }
+      }
+    },
+    "home.routine.supportingLayers" : {
+      "comment" : "Compact label for guided routine layers that are playing in the background.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Leisere Ebenen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Softer layers"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Capas suaves"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Couches en fond"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Livelli di fondo"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Camadas suaves"
           }
         }
       }
@@ -6836,6 +10987,867 @@
         }
       }
     },
+    "noise.aircraft" : {
+      "comment" : "Aircraft cabin noise title.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Flugzeug"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aircraft"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Avión"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Avion"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aereo"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Avião"
+          }
+        }
+      }
+    },
+    "noise.aircraft.subtitle" : {
+      "comment" : "Aircraft cabin noise subtitle.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kabinenrumoren für Reisen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cabin rumble for travel"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rumbo de cabina para viajar"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rondeur cabine pour voyager"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rombo cabina per viaggiare"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rumble de cabine para viajar"
+          }
+        }
+      }
+    },
+    "noise.blend.focus.subtitle" : {
+      "comment" : "Subtitle for the focus noise blend.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stabile Basis"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Steady edge softener"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Base estable"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Base stable"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Base stabile"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Base estável"
+          }
+        }
+      }
+    },
+    "noise.blend.focus.title" : {
+      "comment" : "One-tap Noise Lab blend for focus.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fokusbasis"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Focus floor"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Base focus"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Socle focus"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Base focus"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Base foco"
+          }
+        }
+      }
+    },
+    "noise.blend.sleep.subtitle" : {
+      "comment" : "Subtitle for the sleep noise blend.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Warme Hülle"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Warm room cover"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cobertura cálida"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cocon grave"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copertura calda"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cobertura quente"
+          }
+        }
+      }
+    },
+    "noise.blend.sleep.title" : {
+      "comment" : "One-tap Noise Lab blend for sleep masking.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Schlafmaske"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sleep mask"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Máscara sueño"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Masque sommeil"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Maschera sonno"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Máscara sono"
+          }
+        }
+      }
+    },
+    "noise.blend.travel.subtitle" : {
+      "comment" : "Subtitle for the travel noise blend.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kabinenhülle"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cabin-like cover"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cobertura cabina"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Texture cabine"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copertura cabina"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cobertura cabine"
+          }
+        }
+      }
+    },
+    "noise.blend.travel.title" : {
+      "comment" : "One-tap Noise Lab blend for travel masking.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reiseruhe"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Travel hush"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Silencio viaje"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cocon voyage"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quiete viaggio"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Silêncio viagem"
+          }
+        }
+      }
+    },
+    "noise.brown" : {
+      "comment" : "Brown noise title.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Braun"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brown"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Marrón"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brun"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Marrone"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Marrom"
+          }
+        }
+      }
+    },
+    "noise.brown.subtitle" : {
+      "comment" : "Brown noise subtitle.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Warme Abdeckung im Tiefton"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Warm low-end room cover"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cobertura cálida de graves"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Couverture chaude dans les graves"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copertura calda sulle basse"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cobertura quente nos graves"
+          }
+        }
+      }
+    },
+    "noise.fan" : {
+      "comment" : "Fan noise title.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ventilator"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fan"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ventilador"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ventilateur"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ventilatore"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ventilador"
+          }
+        }
+      }
+    },
+    "noise.fan.subtitle" : {
+      "comment" : "Fan noise subtitle.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mechanisches Raumrauschen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mechanical room hush"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Soplo mecánico de habitación"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Souffle mécanique de pièce"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Soffio meccanico da stanza"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sopro mecânico de ambiente"
+          }
+        }
+      }
+    },
+    "noise.green" : {
+      "comment" : "Green noise title.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grün"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Green"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verde"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vert"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verde"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verde"
+          }
+        }
+      }
+    },
+    "noise.green.subtitle" : {
+      "comment" : "Green noise subtitle.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weiche Mitte für Fokus"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mid-band focus softness"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suavidad media para foco"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Douceur centrée pour le focus"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Morbidezza media per focus"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suavidade média para foco"
+          }
+        }
+      }
+    },
+    "noise.pink" : {
+      "comment" : "Pink noise title.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rosa"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pink"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rosa"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rose"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rosa"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rosa"
+          }
+        }
+      }
+    },
+    "noise.pink.subtitle" : {
+      "comment" : "Pink noise subtitle.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ausgewogene, regenartige Textur"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Balanced rain-like texture"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Textura equilibrada tipo lluvia"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Texture équilibrée proche de la pluie"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Texture equilibrata simile alla pioggia"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Textura equilibrada tipo chuva"
+          }
+        }
+      }
+    },
+    "noise.subtitle" : {
+      "comment" : "Subtitle for the procedural noise tab.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lokale prozedurale Ebenen für Maskierung, Fokus und Reisen. Keine Downloads."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Local procedural layers for masking, focus and travel. No downloads."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Capas procedurales locales para enmascarar, enfocarte y viajar. Sin descargas."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Couches procédurales locales pour masquer, se concentrer et voyager. Sans téléchargement."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Layer procedurali locali per mascherare, concentrarti e viaggiare. Nessun download."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Camadas procedurais locais para mascarar, focar e viajar. Sem downloads."
+          }
+        }
+      }
+    },
+    "noise.title" : {
+      "comment" : "Title of the procedural noise tab.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rauschlabor"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Noise Lab"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Laboratorio de ruido"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Labo bruit"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lab rumore"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Laboratório de ruído"
+          }
+        }
+      }
+    },
+    "noise.volume" : {
+      "comment" : "Accessibility label for procedural noise volume sliders.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rauschlautstärke"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Noise volume"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Volumen del ruido"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Volume du bruit"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Volume rumore"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Volume do ruído"
+          }
+        }
+      }
+    },
+    "noise.white" : {
+      "comment" : "White noise title.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weiß"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "White"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Blanco"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Blanc"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bianco"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Branco"
+          }
+        }
+      }
+    },
+    "noise.white.subtitle" : {
+      "comment" : "White noise subtitle.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Helle Maskierung über das ganze Spektrum"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bright full-spectrum masking"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enmascaramiento claro de espectro completo"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Masquage clair plein spectre"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mascheramento chiaro a spettro pieno"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mascaramento claro de espectro completo"
+          }
+        }
+      }
+    },
     "notifications.gentleReminder.body" : {
       "comment" : "Body of the gentle local notification scheduled after several days without reopening the app.",
       "localizations" : {
@@ -7410,6 +12422,88 @@
         }
       }
     },
+    "paywall.benefit.composer" : {
+      "comment" : "Premium benefit row for the ambience composer.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Composer-Rezepte für Schlaf, Reise, Lesen und Fokus"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Composer recipes for sleep, travel, reading and focus"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recetas Composer para sueño, viaje, lectura y foco"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recettes Composer pour sommeil, voyage, lecture et focus"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ricette Composer per sonno, viaggio, lettura e focus"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Receitas Composer para sono, viagem, leitura e foco"
+          }
+        }
+      }
+    },
+    "paywall.benefit.noiseLab" : {
+      "comment" : "Premium benefit row for the procedural noise lab.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prozedurale Rauschebenen für Maskierung und Deep Work"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Procedural noise layers for masking and deep work"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Capas de ruido procedural para enmascarar y enfocarte"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bruits procéduraux pour masquer et travailler profondément"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Layer di rumore procedurale per mascherare e lavorare"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Camadas de ruído procedural para mascarar e focar"
+          }
+        }
+      }
+    },
     "paywall.benefit.presets" : {
       "comment" : "Premium benefit row about saved mixes.",
       "localizations" : {
@@ -7902,6 +12996,47 @@
         }
       }
     },
+    "paywall.subtitle.composer" : {
+      "comment" : "Paywall subtitle for premium composer and procedural noise features.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erstelle reichere Klangwelten mit Premium-Sounds, Ritualen, Fokusmodi und prozeduralem Rauschen."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create richer soundscapes with premium sounds, rituals, focus modes and procedural noise layers."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crea ambientes más ricos con sonidos Premium, rituales, modos de foco y ruido procedural."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Créez des ambiances plus riches avec sons Premium, rituels, modes focus et bruits procéduraux."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crea paesaggi sonori più ricchi con suoni Premium, rituali, focus e rumori procedurali."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crie paisagens mais ricas com sons Premium, rituais, foco e ruídos procedurais."
+          }
+        }
+      }
+    },
     "paywall.subtitle.generic" : {
       "comment" : "Generic paywall subtitle summarizing the full premium offer.",
       "localizations" : {
@@ -8144,6 +13279,47 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Modos binaurais"
+          }
+        }
+      }
+    },
+    "paywall.title.composer" : {
+      "comment" : "Paywall title when the user taps premium composer, ritual, or noise features.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vollen Composer freischalten"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unlock the full composer"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desbloquea el composer completo"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Débloquez le composer complet"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sblocca il composer completo"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desbloqueie o composer completo"
           }
         }
       }
@@ -9661,6 +14837,88 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Mixes salvos"
+          }
+        }
+      }
+    },
+    "presets.manage" : {
+      "comment" : "Button title that reveals preset reorder and delete controls.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verwalten"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Manage"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gestionar"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gérer"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gestisci"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gerenciar"
+          }
+        }
+      }
+    },
+    "presets.manage.done" : {
+      "comment" : "Button title that hides preset reorder and delete controls.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fertig"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Done"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Listo"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Terminé"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fatto"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Concluído"
           }
         }
       }

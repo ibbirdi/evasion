@@ -1,10 +1,11 @@
 ---
 title: Audio Engine
 status: stable
-last_updated: 2026-05-20
+last_updated: 2026-05-27
 tracks:
   - "ios-native/OasisNative/Services/AudioMixerEngine.swift"
   - "ios-native/OasisNative/Models/AppModels.swift"
+  - "ios-native/OasisNative/Models/AmbienceModels.swift"
 related:
   - "binaural.md"
   - "state.md"
@@ -23,7 +24,8 @@ AVAudioEngine (ambientEngine)
     ├── AVAudioPlayerNode  (channel oiseaux)
     ├── AVAudioPlayerNode  (channel vent)
     ├── ...
-    └── AVAudioPlayerNode  (channel cloches)      — 35 nodes, one per channel
+    ├── AVAudioPlayerNode  (channel cloches)      — 35 nodes, one per channel
+    └── AVAudioSourceNode  (procedural noise)      — created lazily per active noise
 ```
 
 `environmentNode` parameters (set in `AudioMixerEngine`):
@@ -54,6 +56,12 @@ The loop is hand-rolled because we want randomised in-points to avoid perceptibl
 
 `scheduleToken` is critical: without it, swapping channels or pausing leaves dangling completion handlers that would re-trigger and double-schedule.
 
+## Procedural noise playback
+
+Noise Lab layers are local `AVAudioSourceNode` generators connected to the same `environmentNode` as ambient channels. They do not ship audio files and do not need network access.
+
+`ProceduralNoiseGenerator` produces deterministic white, brown, pink, green, fan, and aircraft-style layers from a seeded pseudo-random stream plus light filtering/oscillators. `AudioMixerEngine` lazily attaches one source node per noise type when a snapshot says it should play. Volume is just `ProceduralNoiseState.volume * masterFade`, with premium access checked before the node contributes audible output.
+
 ## Master fade
 
 A single master multiplier `masterFade ∈ [0, 1]` is animated to mute the entire ambient bus during transitions:
@@ -65,7 +73,7 @@ A single master multiplier `masterFade ∈ [0, 1]` is animated to mute the entir
 
 `animateFade(start, target, duration)` steps the value at ≥ 120 ms intervals, calling `refreshPlayerVolumes()` each tick. On fade-out completion, `pauseAllPlayers()` is called.
 
-`refreshPlayerVolumes()` computes effective per-channel volume = `sourceVolume * masterFade * (channelState.isMuted ? 0 : 1)`, where `sourceVolume` is either `channelState.volume` or the live auto-variation value.
+`refreshPlayerVolumes()` computes effective per-channel volume = `sourceVolume * masterFade * (channelState.isMuted ? 0 : 1)`, where `sourceVolume` is either `channelState.volume` or the live auto-variation value. Procedural noise and binaural paths also apply `masterFade` so play/pause transitions remain unified.
 
 ## Spatial audio
 
@@ -75,7 +83,7 @@ Per-channel `SpatialPoint(x, y) ∈ [-1, 1] × [-1, 1]` is mapped to the player'
 
 ### Immersive audio mode
 
-`AppModel.immersiveAudioEnabled` is a persisted global toggle. It affects ambient channels only; binaural tracks remain on their dedicated `AVAudioPlayer` path.
+`AppModel.immersiveAudioEnabled` is a persisted global toggle. It affects the ambient engine path: field-recording channels and procedural noise source nodes share the `AVAudioEnvironmentNode`; binaural tracks remain on their dedicated `AVAudioPlayer` path.
 
 When disabled, player rendering stays close to the legacy behavior:
 - stereo ambience beds keep `.ambienceBed`
@@ -146,4 +154,4 @@ Full pipeline rationale and per-file measurements: [../content/sounds-catalog.md
 
 ## Sync barrier (`sync(with:)`)
 
-`AudioMixerEngine.sync(with: AppModel)` is the single coupling point. Whenever `AppModel` mutates anything the engine cares about, `AppModel` calls `sync` so the engine reconciles its players, fades, immersive mode, and spatial positioning to match. This is intentionally one-directional: the engine does not push state back into `AppModel` except via the two callbacks `onRemotePlaybackChange` and `onVariationChanged`.
+`AudioMixerEngine.sync(with: AppModel)` is the single coupling point. Whenever `AppModel` mutates anything the engine cares about, `AppModel` calls `sync` so the engine reconciles its channel players, procedural source nodes, fades, immersive mode, and spatial positioning to match. This is intentionally one-directional: the engine does not push state back into `AppModel` except via the two callbacks `onRemotePlaybackChange` and `onVariationChanged`.

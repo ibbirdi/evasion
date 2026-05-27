@@ -1,10 +1,11 @@
 ---
 title: Binaural Engine
 status: stable
-last_updated: 2026-05-26
+last_updated: 2026-05-27
 tracks:
   - "ios-native/OasisNative/Services/AudioMixerEngine.swift"
   - "ios-native/OasisNative/Models/AppModels.swift"
+  - "ios-native/OasisNative/Models/SoundChannelMetadata.swift"
   - "ios-native/OasisNative/Views/Overlays/BinauralPanel.swift"
   - "ios-native/OasisNative/Views/Mac/MacBinauralSection.swift"
 related:
@@ -76,8 +77,10 @@ When `isBinauralActive` flips off, the active player is paused but kept allocate
 
 [`BinauralPanel`](../../../ios-native/OasisNative/Views/Overlays/BinauralPanel.swift) presents the iOS flow:
 
-1. The four track cards (Delta, Theta, Alpha, Beta) with their L10n names (`binaural.track.delta`, …) and lock badges on the premium ones.
-2. A volume slider bound to `binauralVolume`.
+1. A single organic texture-backed hero card with the panel title, active track/frequency, headphone hint, enable toggle, and volume slider bound to `binauralVolume`.
+2. The four track cards (Delta, Theta, Alpha, Beta) with their L10n names (`binaural.track.delta`, …), a small tint rule, and lock/check status on the premium/selected ones.
+
+The hero and track cards use `BinauralTrack.backdrop`, which intentionally maps to `OrganicBackdrop` textures rather than place photos because binaural modes are abstract listening states, not field-recording locations.
 
 The four-card grid exposes `binaural.track.grid` for screenshot extraction so App Store pop-outs can use one real simulator crop of the complete mode selector rather than four separate duplicated cards.
 

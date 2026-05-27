@@ -11,9 +11,9 @@ struct SpatialAudioPanel: View {
     var body: some View {
         VStack(spacing: 18) {
             VStack(spacing: 6) {
-                Image(systemName: "scope")
-                    .oasisFont(size: 18, weight: .semibold, design: .default, relativeTo: .headline)
+                OasisGlyphImage(glyph: .target)
                     .foregroundStyle(channel.tint.opacity(0.92))
+                    .frame(width: 20, height: 20)
                     .accessibilityHidden(true)
 
                 Text(model.channelName(channel))
@@ -172,6 +172,7 @@ private struct SpatialPlacementStage: View {
                 sourceOrb(at: orbPoint)
             }
             .frame(width: stageSize.width, height: stageSize.height)
+            .clipShape(RoundedRectangle(cornerRadius: 28, style: .continuous))
             .contentShape(RoundedRectangle(cornerRadius: 28, style: .continuous))
             .gesture(
                 DragGesture(minimumDistance: 0)
@@ -244,9 +245,9 @@ private struct SpatialPlacementStage: View {
                 }
                 .frame(width: 46, height: 46)
 
-            Image(systemName: channel.systemImage)
-                .oasisFont(size: 15, weight: .semibold, design: .default, relativeTo: .body)
+            OasisGlyphImage(glyph: channel.oasisGlyph)
                 .foregroundStyle(.white)
+                .frame(width: 19, height: 19)
                 .accessibilityHidden(true)
         }
         .shadow(color: .black.opacity(0.18), radius: 14, y: 8)

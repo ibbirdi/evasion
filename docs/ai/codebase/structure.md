@@ -1,7 +1,7 @@
 ---
 title: Repo Structure
 status: stable
-last_updated: 2026-05-26
+last_updated: 2026-05-27
 tracks:
   - "ios-native/**"
   - "scripts/**"
@@ -31,6 +31,7 @@ Map of where things live and what each directory is responsible for.
 ├── AGENTS.md                        Universal AI entrypoint (start here)
 ├── README.md                        Short pitch + pointer to AGENTS.md
 ├── docs/ai/                         AI memory (you are here)
+├── docs/licenses/                   Third-party asset license notes kept outside the app bundle
 ├── ios-native/                      The Xcode project — primary code
 ├── fastlane/                        Release automation, metadata, screenshots
 ├── marketing-video-factory/         Scenario-driven social-video generator — see ../marketing/video-factory.md
@@ -59,7 +60,7 @@ ios-native/
 │   ├── Views/                       SwiftUI screens, components, overlays
 │   ├── Support/                     Configuration, L10n keys, Info.plist, shader, helpers
 │   ├── Resources/                   Audio (.m4a), Images, Localizable.xcstrings
-│   └── Assets.xcassets/             App icon, accent color, launch image, header ring logo, sound background images
+│   └── Assets.xcassets/             App icon, accent color, launch image, header ring logo, sound/background/glyph assets
 ├── OasisNativeUITests/              UI tests (screenshots + premium flow + marketing scenarios)
 └── scripts/                         iOS-specific scripts (probably empty/legacy)
 ```
@@ -73,6 +74,7 @@ Plain Codable types. No business logic, no AVFoundation imports.
 | File | Contains |
 | --- | --- |
 | `AppModels.swift` | `SoundChannel` (35 cases), `BinauralTrack` (4 cases), `ChannelState`, `AutoVariationRange`, `Preset`, `SpatialPoint`, `PersistedMixerState`. |
+| `AmbienceModels.swift` | `OasisGlyph`, `AmbienceIntent`, `GuidedRoutineKind`, `ProceduralNoise`, `AmbienceRecipe`, `RitualPreset`, `ActiveRitualSession`. |
 | `SoundChannelMetadata.swift` | Per-channel metadata: file name, category, location, author, licence, SF Symbol, RGB tint plus central vibrant-tint rendering. The single source of truth for the catalog. |
 | `PremiumModels.swift` | `PremiumEntryPoint`, `PremiumPaywallContext`, `PremiumInlineUpsellContext`. |
 
@@ -83,6 +85,7 @@ Business logic, engines, integrations.
 | File | Contains |
 | --- | --- |
 | `AppModel.swift` | The hub. See [../architecture/state.md](../architecture/state.md). |
+| `AmbienceComposer.swift` | Local deterministic recipe builder for the 2 free + 6 Premium guided routines, legacy Composer prompts, multilingual keyword matching, and ritual phase templates. |
 | `AudioMixerEngine.swift` | Ambient audio engine. See [../architecture/audio-engine.md](../architecture/audio-engine.md). |
 | `GentleReminderScheduler.swift` | Local notification scheduler for the gentle re-open reminder after several inactive days. |
 | `PremiumCoordinator.swift` | Routes premium requests (inline vs paywall). |
@@ -99,7 +102,7 @@ Views/
 ├── RootView.swift                   Root: onboarding gate, paywall presentation
 ├── Mac/                             macOS borderless menu bar mixer panel, sections, paywall sheets
 ├── Components/                      Reusable building blocks (see ../architecture/ui.md)
-├── Overlays/                        Modal panels: Presets, Binaural, Spatial, Paywall, SoundDetailSheet
+├── Overlays/                        Modal panels: Compose, Presets, Binaural, Spatial, Paywall, SoundDetailSheet
 └── Onboarding/                      First-launch flow
 ```
 
@@ -131,7 +134,9 @@ Views/
 | `AccentColor.colorset/` | Legacy iOS accent colour. |
 | `SplashScreen.imageset/` | Static image shown by the iOS launch storyboard. |
 | `OasisRingLogo.imageset/` | Transparent ring logo used by the iOS header wordmark animation. |
-| `SoundBackgrounds/*.imageset` | Pexels-derived 1200×800 JPEG watermarks for ambient and binaural track cards. Source choices are documented in [../content/sound-backgrounds.md](../content/sound-backgrounds.md). |
+| `SoundBackgrounds/*.imageset` | Pexels-derived JPEG watermarks for ambient place-based sound cards. Source choices are documented in [../content/sound-backgrounds.md](../content/sound-backgrounds.md). |
+| `OrganicBackgrounds/*.imageset` | Pexels-derived abstract/organic textures for non-place surfaces: guided routine cards, concept upsells, and binaural track cards. |
+| `OasisGlyphs/*.imageset` | Curated Phosphor SVG template glyphs for Oasis-specific concepts. License note: `docs/licenses/phosphor-icons.md`. |
 
 ## `fastlane/`
 

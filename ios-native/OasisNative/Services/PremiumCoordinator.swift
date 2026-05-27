@@ -11,7 +11,7 @@ final class PremiumCoordinator {
 
     func route(for entryPoint: PremiumEntryPoint) -> PremiumRouteDecision {
         switch entryPoint.category {
-        case .preset, .binaural:
+        case .preset, .binaural, .composer, .ritual, .noise:
             let wasInserted = inlineShownCategories.insert(entryPoint.category).inserted
             if wasInserted {
                 return .inline(PremiumInlineUpsellContext(entryPoint: entryPoint))

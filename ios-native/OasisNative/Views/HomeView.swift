@@ -4,6 +4,7 @@ import UIKit
 private let minimumAdaptivePanelHeight: CGFloat = 240
 
 enum PanelTransitionSource: String, Hashable, Sendable {
+    case bottomCompose
     case headerPresets
     case bottomPresets
     case headerBinaural
@@ -13,7 +14,7 @@ enum PanelTransitionSource: String, Hashable, Sendable {
 
     var usesZoomTransition: Bool {
         switch self {
-        case .bottomPresets, .bottomBinaural:
+        case .bottomCompose, .bottomPresets, .bottomBinaural:
             true
         case .headerPresets, .headerBinaural:
             false
@@ -27,11 +28,121 @@ private enum ActiveHomePanel: String, Identifiable {
     var id: String { rawValue }
 }
 
+private struct HomeTopRitualIndicator: View {
+    @Environment(AppModel.self) private var model
+    let session: ActiveRitualSession
+    let action: () -> Void
+
+    private var tint: Color {
+        session.intent.tint
+    }
+
+    var body: some View {
+        TimelineView(.periodic(from: .now, by: 1)) { timeline in
+            let progress = session.phaseProgress(at: timeline.date)
+            let remainingMinutes = session.totalRemainingMinutes(at: timeline.date)
+
+            Button(action: action) {
+                VStack(spacing: 4) {
+                    HStack(spacing: 10) {
+                        OasisGlyphImage(glyph: session.intent.oasisGlyph)
+                            .foregroundStyle(tint)
+                            .frame(width: 12, height: 12)
+                            .accessibilityHidden(true)
+
+                        Text(session.phaseTitle)
+                            .oasisFont(size: 11, weight: .semibold, relativeTo: .caption)
+                            .foregroundStyle(.white.opacity(0.90))
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.84)
+
+                        Spacer(minLength: 4)
+
+                        if model.isPlaying {
+                            Text("\(remainingMinutes)m")
+                                .oasisFont(size: 10, weight: .semibold, relativeTo: .caption2)
+                                .foregroundStyle(.white.opacity(0.68))
+                                .monospacedDigit()
+                                .contentTransition(.numericText())
+                        } else {
+                            Text(L10n.HomeControls.pause)
+                                .oasisFont(size: 9, weight: .bold, relativeTo: .caption2)
+                                .foregroundStyle(tint)
+                                .lineLimit(1)
+                                .minimumScaleFactor(0.82)
+                                .padding(.horizontal, 6)
+                                .padding(.vertical, 2)
+                                .background {
+                                    Capsule().fill(tint.opacity(0.13))
+                                }
+                                .overlay {
+                                    Capsule().strokeBorder(tint.opacity(0.20), lineWidth: 1)
+                                }
+                                .layoutPriority(1)
+                        }
+                    }
+
+                    HomeRitualPillProgress(progress: progress, tint: tint)
+                }
+                .padding(.horizontal, 10)
+                .padding(.vertical, 7)
+                .frame(width: 152)
+                .background {
+                    RoundedRectangle(cornerRadius: 16, style: .continuous)
+                        .fill(Color.white.opacity(0.001))
+                        .oasisGlassEffect(in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+                        .overlay {
+                            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                                .fill(Color(red: 0.04, green: 0.06, blue: 0.11).opacity(0.36))
+                        }
+                }
+                .overlay {
+                    RoundedRectangle(cornerRadius: 16, style: .continuous)
+                        .strokeBorder(tint.opacity(0.22), lineWidth: 1)
+                }
+            }
+            .buttonStyle(PressScaleButtonStyle())
+            .accessibilityIdentifier("home.ritual.active")
+            .accessibilityElement(children: .combine)
+            .accessibilityLabel(Text(accessibilityLabel(remainingMinutes: remainingMinutes)))
+        }
+    }
+
+    private func accessibilityLabel(remainingMinutes: Int) -> String {
+        let base = "\(L10n.string(L10n.Compose.activeRitual)), \(session.ritualTitle), \(session.phaseTitle)"
+        if model.isPlaying {
+            return "\(base), \(remainingMinutes) min"
+        }
+        return "\(base), \(L10n.string(L10n.Compose.pausedRitual)), \(remainingMinutes) min"
+    }
+}
+
+private struct HomeRitualPillProgress: View {
+    let progress: Double
+    let tint: Color
+
+    var body: some View {
+        GeometryReader { proxy in
+            ZStack(alignment: .leading) {
+                Capsule()
+                    .fill(Color.white.opacity(0.08))
+
+                Capsule()
+                    .fill(tint.opacity(0.72))
+                    .frame(width: max(proxy.size.width * progress, 5))
+            }
+        }
+        .frame(height: 4)
+        .accessibilityHidden(true)
+    }
+}
+
 struct HomeView: View {
     @Environment(AppModel.self) private var model
     @State private var headerCompactProgress: CGFloat = 0
     @State private var activePanel: ActiveHomePanel?
     @State private var activePanelSource: PanelTransitionSource?
+    @State private var showsComposeFullScreen = false
     @State private var showsPresetsFullScreen = false
     @State private var activeSpatialChannel: SoundChannel?
     @State private var activeDetailChannel: SoundChannel?
@@ -41,6 +152,16 @@ struct HomeView: View {
 
     fileprivate static let headerCollapseDistance: CGFloat = 140
     fileprivate static let headerProgressSteps: CGFloat = 48
+    private func openCompose(from source: PanelTransitionSource) {
+        showsPresetsFullScreen = false
+        showsComposeFullScreen = true
+        activeSpatialChannel = nil
+        activeDetailChannel = nil
+        showsTimerUnlockPanel = false
+        activePanelSource = nil
+        activePanel = nil
+    }
+
     private func openPresets(from source: PanelTransitionSource) {
         activePanel = nil
         activePanelSource = nil
@@ -192,17 +313,14 @@ struct HomeView: View {
                     }
                     .ignoresSafeArea(edges: .bottom)
 
-                    // Live timer countdown, centered horizontally at the nav-bar's
-                    // vertical line. Rendered as a free-floating overlay rather than a
-                    // `ToolbarItem` because iOS 26's Liquid Glass wraps every toolbar
-                    // item in a button-shaped capsule, which made the plain text read
-                    // as a tappable control. The 44pt-tall frame matches the standard
-                    // nav-bar row height so the text lands on the same vertical line
-                    // as the trailing timer/filter icons.
+                    // Passive timer feedback, centered horizontally at the nav-bar's
+                    // vertical line while no routine or ritual owns that space.
                     VStack(spacing: 0) {
-                        TimerCountdownIndicator()
-                            .frame(maxWidth: .infinity, alignment: .center)
-                            .frame(height: 44)
+                        if model.activeRitualSession == nil && model.activeComposerRecipeTitle == nil {
+                            TimerCountdownIndicator()
+                                .frame(maxWidth: .infinity, alignment: .center)
+                                .frame(height: 44)
+                        }
                         Spacer(minLength: 0)
                     }
                     .padding(.top, max(0, proxy.safeAreaInsets.top - 52))
@@ -215,6 +333,7 @@ struct HomeView: View {
                 .oasisBottomBar(spacing: 0) {
                     BottomBarView(
                         transitionNamespace: panelTransitionNamespace,
+                        onOpenCompose: openCompose,
                         onOpenPresets: openPresets,
                         onOpenBinaural: openBinaural
                     )
@@ -228,11 +347,24 @@ struct HomeView: View {
                 ToolbarItem(placement: .topBarLeading) {
                     HomeToolbarImmersiveAudioToggle()
                 }
+                ToolbarItem(placement: .principal) {
+                    if let session = model.activeRitualSession {
+                        HomeTopRitualIndicator(session: session) {
+                            openCompose(from: .bottomCompose)
+                        }
+                    } else if model.activeComposerRecipeTitle != nil {
+                        HomeRoutineStatusIndicator {
+                            openCompose(from: .bottomCompose)
+                        }
+                    }
+                }
                 ToolbarItem(placement: .topBarTrailing) {
                     HomeToolbarTimerMenu(onRequestPremiumTimer: openTimerUnlock)
                 }
                 ToolbarItem(placement: .topBarTrailing) {
-                    HomeToolbarActiveFilter()
+                    if model.activeComposerRecipeTitle == nil {
+                        HomeToolbarActiveFilter()
+                    }
                 }
             }
         }
@@ -243,6 +375,11 @@ struct HomeView: View {
             case .binaural:
                 binauralPanelView(source: activePanelSource)
             }
+        }
+        .fullScreenCover(isPresented: $showsComposeFullScreen, onDismiss: {
+            model.showsComposePanel = false
+        }) {
+            ComposePanel()
         }
         .fullScreenCover(isPresented: $showsPresetsFullScreen, onDismiss: {
             model.showsPresetsPanel = false
@@ -281,6 +418,9 @@ struct HomeView: View {
         .onChange(of: activePanel) { _, panel in
             model.showsBinauralPanel = panel == .binaural
         }
+        .onChange(of: showsComposeFullScreen) { _, isPresented in
+            model.showsComposePanel = isPresented
+        }
         .onChange(of: activeSpatialChannel) { _, channel in
             model.showsSpatialPanel = channel != nil
         }
@@ -289,6 +429,7 @@ struct HomeView: View {
 
             activePanel = nil
             activePanelSource = nil
+            showsComposeFullScreen = false
             showsPresetsFullScreen = false
             activeSpatialChannel = nil
             activeDetailChannel = nil

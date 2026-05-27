@@ -13,6 +13,11 @@
 		08CB8DDA3252DFA81119A4A5 /* aubeJungle1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = CA3F48A884343264A1A40780 /* aubeJungle1.m4a */; };
 		09FD179D6405E4FD390C0EFD /* crueMontagne1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 8884536F0AA450F2F083F2DF /* crueMontagne1.m4a */; };
 		0AAD68259A1142A61D51FC93 /* PresetsPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E768D16CAD66C04EBF83D5 /* PresetsPanel.swift */; };
+		A10000000000000000000011 /* AmbienceModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000001 /* AmbienceModels.swift */; };
+		A10000000000000000000012 /* AmbienceModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000001 /* AmbienceModels.swift */; };
+		A10000000000000000000013 /* AmbienceComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000002 /* AmbienceComposer.swift */; };
+		A10000000000000000000014 /* AmbienceComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000002 /* AmbienceComposer.swift */; };
+		A10000000000000000000015 /* ComposePanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000003 /* ComposePanel.swift */; };
 		0C76D0B3BF86F39E462BD58A /* cloches1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 5B579DB66D072A2C2F148E57 /* cloches1.m4a */; };
 		0DAA238BA43ACF042D11C550 /* PremiumAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = B557568A6A98D4FCBC1CE62D /* PremiumAnalytics.swift */; };
 		0E79C3019AB5DF91B14D274C /* PressScaleButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923E9E1A67A87DB4D00413D5 /* PressScaleButtonStyle.swift */; };
@@ -243,6 +248,9 @@
 		9625355B170D9668E14AF5E6 /* pluie1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = pluie1.m4a; sourceTree = "<group>"; };
 		97CF15054D4BD25DDC8FB810 /* MacSupportViews.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MacSupportViews.swift; sourceTree = "<group>"; };
 		9C2B7C896E8B028C8B5A8DAD /* BinauralPanel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BinauralPanel.swift; sourceTree = "<group>"; };
+		A10000000000000000000001 /* AmbienceModels.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AmbienceModels.swift; sourceTree = "<group>"; };
+		A10000000000000000000002 /* AmbienceComposer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AmbienceComposer.swift; sourceTree = "<group>"; };
+		A10000000000000000000003 /* ComposePanel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ComposePanel.swift; sourceTree = "<group>"; };
 		A137F46F743AEE635FC3E0D9 /* fortePluie1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = fortePluie1.m4a; sourceTree = "<group>"; };
 		A23571059B1A5B8569D1C897 /* savane1.m4a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = savane1.m4a; sourceTree = "<group>"; };
 		A5299F4278BA80ABEF80C7BD /* oasisLogo.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = oasisLogo.png; sourceTree = "<group>"; };
@@ -382,6 +390,7 @@
 			isa = PBXGroup;
 			children = (
 				2C9CF5CB0296B8F31B7A9229 /* AppModels.swift */,
+				A10000000000000000000001 /* AmbienceModels.swift */,
 				0583A9E3C0C53BFC58D08FA7 /* PremiumModels.swift */,
 				4CB2B954A30853038E3CBAD7 /* SoundChannelMetadata.swift */,
 			);
@@ -499,6 +508,7 @@
 		7379DAA1094F77FFD99DE4F8 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				A10000000000000000000002 /* AmbienceComposer.swift */,
 				45F2B47F9DE8AE9D87AB8CE5 /* AppModel.swift */,
 				B32541DAD45035BE48CA19E6 /* AudioMixerEngine.swift */,
 				20EADBC31D4F4F41BDB1F100 /* GentleReminderScheduler.swift */,
@@ -630,6 +640,7 @@
 			isa = PBXGroup;
 			children = (
 				9C2B7C896E8B028C8B5A8DAD /* BinauralPanel.swift */,
+				A10000000000000000000003 /* ComposePanel.swift */,
 				4540A77013151E8A35B54323 /* OnboardingView.swift */,
 				E6E299F814AD1B323ED7C0FF /* PaywallOverlay.swift */,
 				E6E768D16CAD66C04EBF83D5 /* PresetsPanel.swift */,
@@ -863,9 +874,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				533820985164AE9E0AA65BF6 /* AppModels.swift in Sources */,
+				A10000000000000000000012 /* AmbienceModels.swift in Sources */,
 				A537C7D07334C8FE11E73272 /* PremiumModels.swift in Sources */,
 				AD163A0D197715ABA3F7F373 /* SoundChannelMetadata.swift in Sources */,
 				68F68581191F71B083B039D7 /* AppModel.swift in Sources */,
+				A10000000000000000000014 /* AmbienceComposer.swift in Sources */,
 				5FBC478C302AF1D0F2995192 /* AudioMixerEngine.swift in Sources */,
 				99E6177F3914BBA4C6DA3418 /* GentleReminderScheduler.swift in Sources */,
 				C6DAA9C6642C731BF6D38E27 /* PremiumAnalytics.swift in Sources */,
@@ -899,10 +912,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				54694DB83301993B06CC9F90 /* AppModels.swift in Sources */,
+				A10000000000000000000011 /* AmbienceModels.swift in Sources */,
 				213EC66F0BA31A0E275075A1 /* PremiumModels.swift in Sources */,
 				4AB9635DBD532E4986DC108D /* SoundChannelMetadata.swift in Sources */,
 				85A7B62A79773A0C3A9E86E1 /* OasisNativeApp.swift in Sources */,
 				14D1C3B3DDD8CFC7EAFFDB07 /* AppModel.swift in Sources */,
+				A10000000000000000000013 /* AmbienceComposer.swift in Sources */,
 				165FFEA996C5534F61F7B9E8 /* AudioMixerEngine.swift in Sources */,
 				20EADBC31D4F4F41BDB1F101 /* GentleReminderScheduler.swift in Sources */,
 				0DAA238BA43ACF042D11C550 /* PremiumAnalytics.swift in Sources */,
@@ -926,6 +941,7 @@
 				620B223D084B63F0AADB8022 /* PressScaleButtonStyle.swift in Sources */,
 				1CE1CA65B82CCCDA487121A0 /* HomeView.swift in Sources */,
 				D538E7A060E1FFE7D0E6CF01 /* BinauralPanel.swift in Sources */,
+				A10000000000000000000015 /* ComposePanel.swift in Sources */,
 				3837C075503216E0A23EE915 /* OnboardingView.swift in Sources */,
 				81D4A39FD48B378DC54DBAAA /* PaywallOverlay.swift in Sources */,
 				0AAD68259A1142A61D51FC93 /* PresetsPanel.swift in Sources */,

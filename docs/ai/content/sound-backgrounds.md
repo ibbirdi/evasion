@@ -1,10 +1,12 @@
 ---
 title: Sound Backgrounds
 status: stable
-last_updated: 2026-05-22
+last_updated: 2026-05-27
 tracks:
   - "ios-native/OasisNative/Assets.xcassets/SoundBackgrounds/**"
+  - "ios-native/OasisNative/Assets.xcassets/OrganicBackgrounds/**"
   - "ios-native/OasisNative/Models/SoundChannelMetadata.swift"
+  - "ios-native/OasisNative/Views/Overlays/ComposePanel.swift"
 related:
   - "sounds-catalog.md"
   - "../architecture/ui.md"
@@ -13,15 +15,19 @@ related:
 
 # Sound Backgrounds
 
-Every ambient and binaural track has a subtle photo watermark in `Assets.xcassets/SoundBackgrounds`. Runtime mapping is in `SoundChannel.backdrop` and `BinauralTrack.backdrop`.
+Ambient tracks use subtle place-photo watermarks from `Assets.xcassets/SoundBackgrounds`, mapped by `SoundChannel.backdrop`.
 
-All shipped photos were downloaded from Pexels at `1200×800` using:
+Non-place surfaces use the abstract texture family in `Assets.xcassets/OrganicBackgrounds`, mapped by `OrganicBackdrop` and usually rendered through `OrganicBackdropImage`. This includes Composer suggestion cards, ritual launch cards, Noise Lab blend cards, and binaural track cards. Guided routine cards pair these organic textures with the curated Phosphor `OasisGlyphs` for the non-place intent and layer icons. Routine hero titles use shadow over the brighter organic textures, and detail/plan row backgrounds must be clipped to the same rounded shape as their border so tint overlays never leak square corners. Keep the split strict: real field recordings can show representative places; abstract use cases should use organic textures instead of place photography.
+
+Most shipped photos were downloaded from Pexels at `1200×800` using:
 
 ```
 https://images.pexels.com/photos/<id>/pexels-photo-<id>.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop
 ```
 
-Pexels photos are free for commercial use under the Pexels license; attribution is not required, but source IDs are kept here for traceability. Keep replacements landscape-friendly, low-contrast at row scale, and representative of the recording place when the source location is known.
+Pexels photos are free for commercial use under the Pexels license; attribution is not required, but source IDs are kept here for traceability. Keep ambient replacements landscape-friendly, low-contrast at row scale, and representative of the recording place when the source location is known. Keep organic replacements abstract, dark-mode compatible, and visually quiet under tint overlays.
+
+Wide organic hero textures may keep their cinematic aspect ratio, but resample the long edge to roughly `2200 px` or less and inspect them in-app before shipping.
 
 ## Ambient channels
 
@@ -63,11 +69,21 @@ Pexels photos are free for commercial use under the Pexels license; attribution 
 | `carillons` | `sound_carillons_background` | `12181261` | Garden wind chime close-up for Santa Fe-style chimes. |
 | `cloches` | `sound_cloches_background` | `18241108` | Hanover church tower street view for church bells. |
 
+## Organic conceptual backgrounds
+
+| Asset | Pexels ID | Photographer | Used for | Visual brief |
+| --- | --- | --- | --- | --- |
+| `organic_dark_water` | `32505829` | Valeriia Miller | Brown-noise masks, fallback sleep texture | Dark water ripples with enough contour to feel organic without reading as a specific place. |
+| `organic_dark_satin` | `13946140` | Steve Johnson | Short nap and sleep routine hero cards | Sculptural satin ribbon on a black field; chosen after visual inspection because it feels calmer and more premium than the old dark water crop. |
+| `organic_warm_fabric` | `30263578` | Gulsum Haydaroglu | Reading, focus support, Theta/Alpha binaural | Warm folded fabric, used sparingly under tint so it reads tactile rather than muddy. |
+| `organic_blue_fabric` | `23338914` | Efl-E-Sun | Beta binaural fallback | Blue-black textile folds with a cooler, cleaner technical mood. |
+| `organic_blue_flow` | `29586677` | Steve Johnson | Deep work and noisy-hotel routine hero cards | Soft blue fabric flow with generous negative space; kept because it adds colour without reading as a place photo. |
+
 ## Binaural tracks
 
-| Track | Asset | Pexels ID | Visual brief |
-| --- | --- | --- | --- |
-| `delta` | `binaural_delta_background` | `17086452` | Star field for sleep. |
-| `theta` | `binaural_theta_background` | `35523768` | Still sunrise water for meditation. |
-| `alpha` | `binaural_alpha_background` | `33130681` | Warm sea glow for relaxation. |
-| `beta` | `binaural_beta_background` | `35235742` | Crisp mountain valley for focus. |
+| Track | Runtime backdrop | Visual brief |
+| --- | --- | --- |
+| `delta` | `organic_dark_water` | Sleep-oriented, dark, low-motion texture. |
+| `theta` | `organic_warm_fabric` | Meditation/rest texture with warm softness. |
+| `alpha` | `organic_warm_fabric` | Relaxation texture, shared with Theta for calmer visual load. |
+| `beta` | `organic_blue_fabric` | Focus texture with cooler contrast. |

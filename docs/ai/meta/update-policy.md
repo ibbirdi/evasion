@@ -1,7 +1,7 @@
 ---
 title: Memory Update Policy
 status: stable
-last_updated: 2026-05-23
+last_updated: 2026-05-27
 tracks:
   - "AGENTS.md"
   - "docs/ai/**"
@@ -25,7 +25,8 @@ The contract every AI agent must honour when working on Oasis. The high-level su
 | `Views/HomeView.swift`, `Views/Components/**` | `architecture/ui.md` |
 | `Models/AppModels.swift` | `architecture/state.md`, plus `content/sounds-catalog.md` if `SoundChannel` cases changed |
 | `Models/SoundChannelMetadata.swift` | `content/sounds-catalog.md` |
-| `Assets.xcassets/SoundBackgrounds/**` | `content/sound-backgrounds.md`, `architecture/ui.md` if rendering changed |
+| `Assets.xcassets/SoundBackgrounds/**` or `Assets.xcassets/OrganicBackgrounds/**` | `content/sound-backgrounds.md`, `architecture/ui.md` if rendering changed |
+| `Assets.xcassets/OasisGlyphs/**` | `architecture/ui.md`, `codebase/conventions.md`, `codebase/structure.md`, and `docs/licenses/` if the upstream license/source changes |
 | `Support/AppConfiguration.swift`, `Support/Info.plist` | `operations/secrets-and-keys.md` |
 | `Support/L10n.swift`, `Resources/Localizable.xcstrings` | `content/localization.md` (if a key family was added) |
 | A `.m4a` file in `Assets/` | `content/sounds-catalog.md` (re-run loudnorm measurements!) |

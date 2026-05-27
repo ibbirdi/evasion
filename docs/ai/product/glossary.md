@@ -1,9 +1,10 @@
 ---
 title: Glossary
 status: stable
-last_updated: 2026-05-20
+last_updated: 2026-05-27
 tracks:
   - "ios-native/OasisNative/Models/AppModels.swift"
+  - "ios-native/OasisNative/Models/AmbienceModels.swift"
   - "ios-native/OasisNative/Models/SoundChannelMetadata.swift"
   - "ios-native/OasisNative/Support/L10n.swift"
 related:
@@ -34,9 +35,23 @@ Vocabulary used inside the codebase, the UI copy, and these memory files. Some t
 
 **Binaural track** (`BinauralTrack`). One of `.delta`, `.theta`, `.alpha`, `.beta`. Played by a dedicated `AVAudioPlayer`, looped infinitely. Delta is free; the other three are premium. See [architecture/binaural.md](../architecture/binaural.md).
 
+**Procedural noise** (`ProceduralNoise`). Local generated noise layer, not a bundled audio file. White and brown are free; pink, green, fan, and aircraft are premium. Played through `AVAudioSourceNode` in the ambient engine.
+
 ## Mix and presets
 
-**Preset** (`Preset`). Named snapshot of `[SoundChannel: ChannelState]`. Fields: `id`, `name`, `channels`. Persisted in `PersistedMixerState`.
+**Oasis glyph** (`OasisGlyph`). Small curated subset of Phosphor SVG icons stored in `Assets.xcassets/OasisGlyphs` and rendered through `OasisGlyphImage`. Used for app-specific concepts like routine intents, masking, ambience layers, included-state marks, channel identity, minimap pins, and preset preview chips; common platform actions stay SF Symbols/native controls.
+
+**Guided routine** (`GuidedRoutineKind`). Fixed one-tap routine shown in `ComposePanel`. Oasis ships 2 free routines (`nap`, `reset`) and 6 Premium routines (`deepSleep`, `deepWork`, `noisyHotel`, `reading`, `rainCabin`, `morning`).
+
+**Ambience recipe** (`AmbienceRecipe`). Transactional mix description produced by a guided routine, the legacy Composer parser, or a ritual phase. Can include ambient channels, procedural noise layers, binaural state, immersive mode, and a timer.
+
+**Composer.** Bottom-bar Routines sheet that previews fixed guided routines and applies their deterministic `AmbienceRecipe`s. The legacy local intent/prompt parser still exists in `AmbienceComposer` for compatibility paths. No backend and no LLM call.
+
+**Ritual** (`RitualPreset`). Multi-phase routine made of timed `RitualPhase` recipes. Starting one applies phase 1, starts playback and the total timer, then advances phases while playing.
+
+**Active ritual session** (`ActiveRitualSession`). Persisted runtime state for a currently running ritual. It tracks the active phase, total phase count, phase progress, remaining minutes, paused remaining values, and wall-clock phase dates so Home and the Rituals tab can restore the correct ritual phase after pause or app relaunch.
+
+**Preset** (`Preset`). Named ambience snapshot. New presets include ambient channel states, procedural noise layers, binaural state, immersive mode, and an optional timer; older decoded presets may contain only `channels` and then load with safe defaults for the newer fields. Persisted in `PersistedMixerState`.
 
 **Default presets.** Three shipped presets: `preset_default_starter`, `preset_default_calm`, `preset_default_storm`. Always present.
 

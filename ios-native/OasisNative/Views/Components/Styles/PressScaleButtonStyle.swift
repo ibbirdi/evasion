@@ -45,6 +45,19 @@ extension View {
     }
 }
 
+struct OasisGlyphImage: View {
+    let glyph: OasisGlyph
+
+    var body: some View {
+        Image(glyph.rawValue)
+            .renderingMode(.template)
+            .interpolation(.high)
+            .resizable()
+            .scaledToFit()
+            .accessibilityHidden(true)
+    }
+}
+
 struct SoundBackdropImage: View {
     let backdrop: SoundBackdrop
     var opacity: Double
@@ -75,6 +88,43 @@ struct SoundBackdropImage: View {
                         endPoint: .bottomTrailing
                     )
                     .opacity(min(opacity * 2.1, 0.72))
+                }
+        }
+        .accessibilityHidden(true)
+        .allowsHitTesting(false)
+    }
+}
+
+struct OrganicBackdropImage: View {
+    let backdrop: SoundBackdrop
+    var opacity: Double
+    var bottomShadeOpacity: Double = 0.34
+
+    var body: some View {
+        GeometryReader { proxy in
+            Image(backdrop.assetName)
+                .resizable()
+                .scaledToFill()
+                .frame(
+                    width: proxy.size.width,
+                    height: proxy.size.height,
+                    alignment: backdrop.focus.alignment
+                )
+                .clipped()
+                .saturation(0.92)
+                .contrast(1.02)
+                .brightness(-0.03)
+                .opacity(opacity)
+                .overlay {
+                    LinearGradient(
+                        colors: [
+                            Color.black.opacity(0.12),
+                            Color.black.opacity(0.03),
+                            Color.black.opacity(bottomShadeOpacity)
+                        ],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
                 }
         }
         .accessibilityHidden(true)

@@ -1,7 +1,7 @@
 ---
 title: Paywall and Premium Gating
 status: stable
-last_updated: 2026-05-20
+last_updated: 2026-05-27
 tracks:
   - "ios-native/OasisNative/Services/PremiumCoordinator.swift"
   - "ios-native/OasisNative/Services/PremiumRevenueCatService.swift"
@@ -36,7 +36,9 @@ Where free becomes paid. The contract is set by [../product/premium-model.md](..
 [`PremiumCoordinator`](../../../ios-native/OasisNative/Services/PremiumCoordinator.swift) takes a `PremiumEntryPoint` and returns either an inline-upsell context or a full-paywall context.
 
 ```
-.preset, .binaural               →  inline upsell first (if not yet shown for this entry point)
+.preset, .binaural,
+.composer, .ritual(<id>),
+.noise(<id>)                     →  inline upsell first (if not yet shown for this entry point)
                                     →  full paywall on retry
 
 .channel(<id>), .timer, .spatial,
@@ -86,25 +88,31 @@ The "Restore" button is exposed in both the iOS paywall and the macOS paywall sh
 | Surface | Gate | Behaviour |
 | --- | --- | --- |
 | Channel card (mixer) | `isChannelLocked(_:)` | Tapping a locked channel calls `requestPremiumAccess(from: .channel(id))`. |
-| Preset save | `canSaveFreePreset` | Free tier capped at 1 preset; the second save attempt routes to upsell. |
-| Preset load | `isPresetLocked(_:)` | Loading a preset that contains premium channels in non-zero state routes to upsell. |
+| Preset save | `canSaveFreePreset` | Free tier capped at 1 full ambience preset; saving premium channels, premium noise, premium binaural, or a long timer routes to upsell. |
+| Preset load | `isPresetLocked(_:)` | Loading a preset that contains premium channels, premium noise, a premium binaural track, or a long timer routes to upsell. |
 | Binaural panel | `selectBinauralTrack(_:)` | Tapping Theta/Alpha/Beta as free user → inline upsell. |
 | Timer menu | `canUseTimer(_:)` | 60 / 120 min options route to paywall. |
+| Routines / Composer | `applyAmbienceRecipe(_:)` | The 2 free guided routines apply directly; the 6 Premium guided routines and any generated recipe that requires inaccessible premium content route to the Composer inline upsell first, then the paywall. |
+| Rituals | `startRitual(_:)` | Free users can start the free Sleep Descent ritual; premium rituals route to the Composer inline upsell first, then the paywall. |
+| Noise Lab | `toggleProceduralNoise(_:)` / `setProceduralNoiseVolume(_:)` | Premium noise layers route to the Composer inline upsell first, then the paywall when locked. |
 | Spatial panel | inherits channel lock | Premium channels remain greyed out in the minimap. |
 | Signature preview | `signaturePreviewLastPlayedAt` cooldown + `isPremium` | Free users get a 45 s preview, throttled to once per week. |
 | Onboarding final page | `completeOnboarding(..., presentPaywall: true)` | Primary final CTA completes onboarding and opens the full paywall; secondary CTA enters the free tier. |
 | Home banner | `showsPremiumHomeBanner` | Dismissable; cooldown via `premiumBannerLastDismissedAt`. |
 
-`enforcePremiumAccess()` (in [`AppModel`](../../../ios-native/OasisNative/Services/AppModel.swift)) is called on every premium state change. It mutes premium channels, resets the active binaural track to `.delta`, and clamps the timer if the user just lost premium (e.g. refund). See [state.md](state.md).
+`enforcePremiumAccess()` (in [`AppModel`](../../../ios-native/OasisNative/Services/AppModel.swift)) is called on every premium state change. It mutes premium channels and premium noise layers, resets the active binaural track to `.delta`, and clamps the timer if the user just lost premium (e.g. refund). See [state.md](state.md).
 
 ## Paywall copy & context
 
 `PremiumPaywallContext` carries which feature triggered the paywall. The `PaywallOverlay` view selects:
 - A title variant (generic vs feature-targeted).
-- A list of benefits, with the triggering feature pinned at the top.
+- An organic texture-backed lifetime hero. The "one purchase / lifetime access / no subscription" trust line is the first visual claim, and the feature subtitle is shortened to the first useful sentence to avoid repeating the subscription message.
+- A compact 2x2 benefit tile grid with distinct SF Symbols and the triggering feature pinned first. Keep these tiles scannable; avoid returning to long checkmark lists.
 - The "price of a coffee in Paris" anchor — keep across all locales (commits `2b9072a`, `e4ba1e6`).
 
 Localisation: every paywall string is in `Localizable.xcstrings` under `paywall.*` and `premium.inline.*`.
+
+Composer, ritual and Noise Lab entry points use the `.composer` accent/category so the inline card, paywall title, and benefits are about richer recipes, procedural masking layers, and premium binaural support rather than a generic locked-sound message.
 
 ## Analytics
 

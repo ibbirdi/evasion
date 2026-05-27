@@ -12,10 +12,13 @@ final class AppModel {
     var timerEndDate: Date?
     var timerRemainingWhenPaused: TimeInterval?
     var currentPresetID: String?
+    var activeComposerRecipeTitle: String?
+    var activeNoiseBlendTitle: String?
 
     var isPremium = AppConfiguration.forcedPremiumAccess ?? false
     var activePaywallContext: PremiumPaywallContext?
     var activeInlineUpsell: PremiumInlineUpsellContext?
+    var showsComposePanel = false
     var showsBinauralPanel = false
     var showsPresetsPanel = false
     var showsSpatialPanel = false
@@ -33,7 +36,9 @@ final class AppModel {
     var immersiveAudioEnabled = false
 
     var channels: [SoundChannel: ChannelState] = .initialChannels
+    var proceduralNoises: [ProceduralNoise: ProceduralNoiseState] = .initialNoises
     var presets: [Preset] = .defaultPresets()
+    var activeRitualSession: ActiveRitualSession?
     var premiumBannerLastDismissedAt: Date?
     var signaturePreviewLastPlayedAt: Date?
 
@@ -58,6 +63,8 @@ final class AppModel {
     @ObservationIgnored private var persistenceTask: Task<Void, Never>?
     @ObservationIgnored private var premiumBannerTask: Task<Void, Never>?
     @ObservationIgnored private var signaturePreviewTask: Task<Void, Never>?
+    @ObservationIgnored private var ritualTask: Task<Void, Never>?
+    @ObservationIgnored private var activeRitualPreset: RitualPreset?
     @ObservationIgnored private var listened60sTask: Task<Void, Never>?
     @ObservationIgnored private var reviewPromptTask: Task<Void, Never>?
     @ObservationIgnored private var listeningStartedAt: Date?
@@ -73,6 +80,7 @@ final class AppModel {
             isPlaying: isPlaying,
             isPremium: isPremium,
             channels: channels,
+            proceduralNoises: proceduralNoises,
             isBinauralActive: isBinauralActive,
             activeBinauralTrack: activeBinauralTrack,
             binauralVolume: binauralVolume,
@@ -142,6 +150,25 @@ final class AppModel {
             symbolName: "waveform.path",
             accentToken: .binaural
         )
+    }
+
+    var composerUpsellPresentation: PremiumInlineUpsellPresentation? {
+        guard let entryPoint = activeInlineUpsell?.entryPoint else { return nil }
+
+        switch entryPoint.category {
+        case .composer, .ritual, .noise:
+            return PremiumInlineUpsellPresentation(
+                title: L10n.string(L10n.Paywall.titleComposer),
+                message: L10n.string(L10n.Paywall.subtitleComposer),
+                primaryActionTitle: L10n.string(L10n.Premium.inlineUnlock),
+                secondaryActionTitle: L10n.string(L10n.Premium.inlineNotNow),
+                footnote: nil,
+                symbolName: entryPoint.symbolName,
+                accentToken: .composer
+            )
+        case .manual, .onboarding, .sound, .timer, .preset, .binaural, .spatial, .preview:
+            return nil
+        }
     }
 
     var paywallPresentation: PremiumPaywallPresentation? {
@@ -236,12 +263,61 @@ final class AppModel {
         SoundChannel.allCases.filter(isAmbientChannelActive(_:)).count
     }
 
+    func isProceduralNoiseLocked(_ noise: ProceduralNoise) -> Bool {
+        !isPremium && noise.isPremium
+    }
+
+    func isProceduralNoiseActive(_ noise: ProceduralNoise) -> Bool {
+        guard let state = proceduralNoises[noise] else { return false }
+        return !state.isMuted && !isProceduralNoiseLocked(noise)
+    }
+
+    var activeProceduralNoiseCount: Int {
+        ProceduralNoise.allCases.filter(isProceduralNoiseActive(_:)).count
+    }
+
+    var activeAudioSourceCount: Int {
+        activeAmbientChannelsCount + activeProceduralNoiseCount + (isBinauralActive ? 1 : 0)
+    }
+
+    var activeRitualNextPhaseTitle: String? {
+        guard let session = activeRitualSession else { return nil }
+        let nextIndex = session.phaseIndex + 1
+        let ritual = activeRitualDefinition(for: session)
+
+        guard let ritual, ritual.phases.indices.contains(nextIndex) else { return nil }
+        return ritual.phases[nextIndex].title
+    }
+
+    var activeRitualCurrentPhaseSubtitle: String? {
+        guard
+            let session = activeRitualSession,
+            let ritual = activeRitualDefinition(for: session),
+            ritual.phases.indices.contains(session.phaseIndex)
+        else { return nil }
+
+        return ritual.phases[session.phaseIndex].subtitle
+    }
+
+    var activeRitualCurrentPhaseRecipe: AmbienceRecipe? {
+        guard
+            let session = activeRitualSession,
+            let ritual = activeRitualDefinition(for: session),
+            ritual.phases.indices.contains(session.phaseIndex)
+        else { return nil }
+
+        return ritual.phases[session.phaseIndex].recipe
+    }
+
     /// Ordered palette of channel tints for every unmuted ambient channel, shaped for the
     /// liquid aura that breathes inside the main play/pause button.
     var activePlaybackPalette: [Color] {
         let colors = SoundChannel.allCases.compactMap { channel -> Color? in
             guard let state = channels[channel], !state.isMuted else { return nil }
             return channel.tint
+        } + ProceduralNoise.allCases.compactMap { noise -> Color? in
+            guard let state = proceduralNoises[noise], !state.isMuted else { return nil }
+            return noise.tint
         }
         return LiquidActivityPalette.playback(from: colors)
     }
@@ -311,9 +387,11 @@ final class AppModel {
             if let pausedRemaining = timerRemainingWhenPaused, timerDurationMinutes != nil {
                 timerEndDate = Date().addingTimeInterval(pausedRemaining)
             }
+            resumeActiveRitualIfNeeded()
             schedulePremiumBannerIfNeeded()
         } else if let endDate = timerEndDate {
             endListeningSession()
+            pauseActiveRitualIfNeeded()
             timerRemainingWhenPaused = max(endDate.timeIntervalSinceNow, 0)
             timerEndDate = nil
             cancelPremiumBannerScheduling()
@@ -338,6 +416,8 @@ final class AppModel {
             return
         }
 
+        cancelActiveRitual()
+        currentPresetID = nil
         timerDurationMinutes = minutes
         timerRemainingWhenPaused = minutes.map { Double($0 * 60) }
         timerEndDate = minutes.map { Date().addingTimeInterval(Double($0 * 60)) }
@@ -355,6 +435,7 @@ final class AppModel {
         }
 
         finishSignaturePreview(restoreState: false, shouldPromotePaywall: false)
+        cancelActiveRitual()
 
         var newChannels = [SoundChannel: ChannelState].initialChannels
         let maxActive = min(8, availableChannels.count)
@@ -373,6 +454,7 @@ final class AppModel {
         channels = newChannels
         variationDisplayVolumes.removeAll()
         currentPresetID = nil
+        activeComposerRecipeTitle = nil
 
         if !isPlaying {
             isPlaying = true
@@ -401,12 +483,14 @@ final class AppModel {
         }
 
         let clampedValue = AutoVariationRange.unitValue(value, fallback: state.volume)
+        cancelActiveRitual()
         state.volume = clampedValue
         if !state.autoVariationEnabled {
             state.autoVariationRange = .defaultRange(around: clampedValue)
         }
         channels[channel] = state
         currentPresetID = nil
+        activeComposerRecipeTitle = nil
         schedulePersistence()
         synchronizeAudio()
     }
@@ -418,6 +502,7 @@ final class AppModel {
         }
 
         let clampedRange = range.clamped()
+        cancelActiveRitual()
         let liveVolume = variationDisplayVolumes[channel] ?? state.volume
         let clampedLiveVolume = clampedRange.clampedValue(liveVolume)
 
@@ -430,6 +515,7 @@ final class AppModel {
         }
 
         currentPresetID = nil
+        activeComposerRecipeTitle = nil
         schedulePersistence()
         synchronizeAudio()
     }
@@ -440,6 +526,7 @@ final class AppModel {
             return
         }
 
+        cancelActiveRitual()
         state.isMuted.toggle()
         channels[channel] = state
         if state.isMuted {
@@ -448,6 +535,7 @@ final class AppModel {
             variationDisplayVolumes[channel] = state.autoVariationRange.clampedValue(state.volume)
         }
         currentPresetID = nil
+        activeComposerRecipeTitle = nil
 
         if handleNoActiveChannelsIfNeeded() {
             return
@@ -463,6 +551,7 @@ final class AppModel {
             return
         }
 
+        cancelActiveRitual()
         state.autoVariationEnabled.toggle()
         if state.autoVariationEnabled {
             state.volume = state.autoVariationRange.clampedValue(state.volume)
@@ -476,6 +565,7 @@ final class AppModel {
             variationDisplayVolumes.removeValue(forKey: channel)
         }
         currentPresetID = nil
+        activeComposerRecipeTitle = nil
         schedulePersistence()
         synchronizeAudio()
     }
@@ -486,15 +576,19 @@ final class AppModel {
             return
         }
 
+        cancelActiveRitual()
         state.spatialPosition = value.clamped()
         channels[channel] = state
         currentPresetID = nil
+        activeComposerRecipeTitle = nil
         schedulePersistence()
         synchronizeAudio()
     }
 
     func setBinauralEnabled(_ enabled: Bool) {
         guard isBinauralActive != enabled else { return }
+        cancelActiveRitual()
+        activeComposerRecipeTitle = nil
         if enabled {
             audioEngine.preloadBinauralTrack(activeBinauralTrack)
         }
@@ -510,6 +604,8 @@ final class AppModel {
             return false
         }
 
+        cancelActiveRitual()
+        activeComposerRecipeTitle = nil
         activeBinauralTrack = track
         audioEngine.preloadBinauralTrack(track)
         schedulePersistence()
@@ -518,6 +614,8 @@ final class AppModel {
     }
 
     func setBinauralVolume(_ value: Double) {
+        cancelActiveRitual()
+        activeComposerRecipeTitle = nil
         binauralVolume = value
         schedulePersistence()
         synchronizeAudio()
@@ -529,9 +627,234 @@ final class AppModel {
 
     func setImmersiveAudioEnabled(_ enabled: Bool) {
         guard immersiveAudioEnabled != enabled else { return }
+        cancelActiveRitual()
+        activeComposerRecipeTitle = nil
         immersiveAudioEnabled = enabled
         schedulePersistence()
         synchronizeAudio()
+    }
+
+    func composeAmbience(intent: AmbienceIntent, prompt: String) -> AmbienceRecipe {
+        AmbienceComposer.compose(intent: intent, prompt: prompt, premium: isPremium)
+    }
+
+    func composeGuidedRoutine(_ kind: GuidedRoutineKind) -> AmbienceRecipe {
+        AmbienceComposer.guidedRoutine(kind)
+    }
+
+    @discardableResult
+    func applyAmbienceRecipe(_ recipe: AmbienceRecipe) -> Bool {
+        let didApply = applyAmbienceRecipe(recipe, startPlayback: true, cancelRitual: true, appliesTimer: true)
+        if didApply {
+            activeComposerRecipeTitle = recipe.title
+            activeNoiseBlendTitle = nil
+            schedulePersistence()
+        }
+        return didApply
+    }
+
+    func stopGuidedRoutine() {
+        guard activeComposerRecipeTitle != nil else { return }
+        activeComposerRecipeTitle = nil
+        activeNoiseBlendTitle = nil
+        showsOnlyActiveChannels = false
+        timerDurationMinutes = nil
+        timerEndDate = nil
+        timerRemainingWhenPaused = nil
+        updateTimerDisplayValue()
+        schedulePersistence()
+        synchronizeAudio()
+    }
+
+    func proceduralNoiseState(for noise: ProceduralNoise) -> ProceduralNoiseState {
+        proceduralNoises[noise] ?? ProceduralNoiseState()
+    }
+
+    func setProceduralNoiseVolume(_ noise: ProceduralNoise, value: Double) {
+        guard !isProceduralNoiseLocked(noise) else {
+            requestPremiumAccess(from: .noise(noise))
+            return
+        }
+
+        cancelActiveRitual()
+        currentPresetID = nil
+        activeComposerRecipeTitle = nil
+        activeNoiseBlendTitle = nil
+        var state = proceduralNoises[noise] ?? ProceduralNoiseState()
+        state.volume = AutoVariationRange.unitValue(value, fallback: state.volume)
+        proceduralNoises[noise] = state
+        schedulePersistence()
+        synchronizeAudio()
+    }
+
+    func toggleProceduralNoise(_ noise: ProceduralNoise) {
+        guard !isProceduralNoiseLocked(noise) else {
+            requestPremiumAccess(from: .noise(noise))
+            return
+        }
+
+        cancelActiveRitual()
+        currentPresetID = nil
+        activeComposerRecipeTitle = nil
+        activeNoiseBlendTitle = nil
+        var state = proceduralNoises[noise] ?? ProceduralNoiseState()
+        state.isMuted.toggle()
+        proceduralNoises[noise] = state
+
+        if handleNoActiveChannelsIfNeeded() {
+            return
+        }
+
+        schedulePersistence()
+        synchronizeAudio()
+    }
+
+    @discardableResult
+    func applyProceduralNoiseBlend(
+        _ blend: [ProceduralNoise: Double],
+        title: String? = nil,
+        startPlayback: Bool = true
+    ) -> Bool {
+        if let lockedNoise = blend.keys.first(where: isProceduralNoiseLocked(_:)) {
+            requestPremiumAccess(from: .noise(lockedNoise))
+            return false
+        }
+
+        cancelActiveRitual()
+        currentPresetID = nil
+        activeComposerRecipeTitle = nil
+        activeNoiseBlendTitle = title
+
+        for noise in ProceduralNoise.allCases {
+            var state = proceduralNoises[noise] ?? ProceduralNoiseState()
+
+            if let volume = blend[noise] {
+                state.volume = AutoVariationRange.unitValue(volume, fallback: state.volume)
+                state.isMuted = false
+            } else {
+                state.isMuted = true
+            }
+
+            proceduralNoises[noise] = state
+        }
+
+        if handleNoActiveChannelsIfNeeded() {
+            return true
+        }
+
+        if startPlayback, !isPlaying {
+            setPlayback(true)
+        } else {
+            schedulePersistence()
+            synchronizeAudio()
+        }
+        return true
+    }
+
+    func clearProceduralNoises() {
+        guard activeProceduralNoiseCount > 0 else { return }
+
+        cancelActiveRitual()
+        currentPresetID = nil
+        activeComposerRecipeTitle = nil
+        activeNoiseBlendTitle = nil
+
+        for noise in ProceduralNoise.allCases {
+            guard var state = proceduralNoises[noise], !state.isMuted else { continue }
+            state.isMuted = true
+            proceduralNoises[noise] = state
+        }
+
+        if handleNoActiveChannelsIfNeeded() {
+            return
+        }
+
+        schedulePersistence()
+        synchronizeAudio()
+    }
+
+    func startRitual(_ ritual: RitualPreset) {
+        guard isPremium || !ritual.requiresPremium else {
+            requestPremiumAccess(from: .ritual(ritual.id))
+            return
+        }
+        guard let firstPhase = ritual.phases.first else { return }
+
+        finishSignaturePreview(restoreState: false, shouldPromotePaywall: false)
+        ritualTask?.cancel()
+        activeComposerRecipeTitle = nil
+        activeNoiseBlendTitle = nil
+        activeRitualPreset = ritual
+
+        let now = Date()
+        let totalEndDate = now.addingTimeInterval(ritual.totalDurationSeconds)
+        activeRitualSession = ActiveRitualSession(
+            ritualID: ritual.id,
+            ritualTitle: ritual.title,
+            intent: firstPhase.recipe.intent,
+            phaseIndex: 0,
+            phaseCount: ritual.phases.count,
+            phaseTitle: firstPhase.title,
+            phaseStartDate: now,
+            phaseEndDate: now.addingTimeInterval(firstPhase.durationSeconds),
+            phaseDurationSeconds: firstPhase.durationSeconds,
+            totalEndDate: totalEndDate,
+            phaseRemainingWhenPaused: nil,
+            totalRemainingWhenPaused: nil
+        )
+
+        timerDurationMinutes = ritual.totalMinutes
+        timerRemainingWhenPaused = ritual.totalDurationSeconds
+        timerEndDate = isPlaying ? totalEndDate : nil
+
+        applyRitualPhase(ritual, index: 0, totalEndDate: totalEndDate)
+        scheduleRitualAdvancement(ritual, totalEndDate: totalEndDate)
+    }
+
+    func cancelActiveRitual() {
+        let hadActiveRitual = activeRitualSession != nil || activeRitualPreset != nil || ritualTask != nil
+        ritualTask?.cancel()
+        ritualTask = nil
+        activeRitualPreset = nil
+        activeRitualSession = nil
+        if hadActiveRitual {
+            schedulePersistence()
+        }
+    }
+
+    func advanceActiveRitualToNextPhase() {
+        guard
+            let session = activeRitualSession,
+            let ritual = activeRitualDefinition(for: session)
+        else { return }
+
+        let nextIndex = session.phaseIndex + 1
+        guard ritual.phases.indices.contains(nextIndex) else { return }
+
+        let remainingDuration = ritual.phases[nextIndex...].reduce(0) { partialResult, phase in
+            partialResult + phase.durationSeconds
+        }
+        let totalEndDate = Date().addingTimeInterval(remainingDuration)
+        let shouldKeepPlaying = isPlaying
+
+        activeRitualPreset = ritual
+        ritualTask?.cancel()
+        ritualTask = nil
+        applyRitualPhase(
+            ritual,
+            index: nextIndex,
+            totalEndDate: totalEndDate,
+            shouldStartPlayback: shouldKeepPlaying
+        )
+
+        if shouldKeepPlaying {
+            scheduleRitualAdvancement(
+                ritual,
+                from: nextIndex,
+                initialDelay: ritual.phases[nextIndex].durationSeconds,
+                totalEndDate: totalEndDate
+            )
+        }
     }
 
     func loadPreset(_ preset: Preset) {
@@ -541,10 +864,23 @@ final class AppModel {
         }
 
         finishSignaturePreview(restoreState: false, shouldPromotePaywall: false)
+        cancelActiveRitual()
 
         channels = preset.channels
+        proceduralNoises = preset.proceduralNoises ?? .initialNoises
         variationDisplayVolumes.removeAll()
         currentPresetID = preset.id
+        activeComposerRecipeTitle = nil
+        activeNoiseBlendTitle = nil
+        isBinauralActive = preset.isBinauralActive ?? false
+        activeBinauralTrack = preset.activeBinauralTrack ?? .delta
+        binauralVolume = AutoVariationRange.unitValue(preset.binauralVolume ?? 0.5, fallback: 0.5)
+        immersiveAudioEnabled = preset.immersiveAudioEnabled ?? false
+        timerDurationMinutes = preset.timerDurationMinutes
+        timerRemainingWhenPaused = preset.timerDurationMinutes.map { Double($0 * 60) }
+        timerEndDate = isPlaying
+            ? preset.timerDurationMinutes.map { Date().addingTimeInterval(Double($0 * 60)) }
+            : nil
 
         if handleNoActiveChannelsIfNeeded() {
             return
@@ -563,22 +899,97 @@ final class AppModel {
 
     @discardableResult
     func savePreset(named name: String) -> Bool {
+        savePreset(
+            named: name,
+            preset: Preset(
+                id: "preset_user_\(Int(Date().timeIntervalSince1970 * 1000))",
+                name: name,
+                channels: channels,
+                proceduralNoises: proceduralNoises,
+                isBinauralActive: isBinauralActive,
+                activeBinauralTrack: activeBinauralTrack,
+                binauralVolume: binauralVolume,
+                timerDurationMinutes: timerDurationMinutes,
+                immersiveAudioEnabled: immersiveAudioEnabled
+            ),
+            requiresPremiumContent: !currentMixUsesOnlyFreeChannels,
+            activateSavedPreset: true
+        )
+    }
+
+    @discardableResult
+    func saveCurrentScene(named name: String) -> Bool {
+        savePreset(
+            named: name,
+            preset: Preset(
+                id: "preset_user_\(Int(Date().timeIntervalSince1970 * 1000))",
+                name: name,
+                channels: channels,
+                proceduralNoises: proceduralNoises,
+                isBinauralActive: isBinauralActive,
+                activeBinauralTrack: activeBinauralTrack,
+                binauralVolume: binauralVolume,
+                timerDurationMinutes: timerDurationMinutes,
+                immersiveAudioEnabled: immersiveAudioEnabled
+            ),
+            requiresPremiumContent: !currentMixUsesOnlyFreeChannels,
+            activateSavedPreset: true,
+            preserveActiveSceneTitle: true
+        )
+    }
+
+    @discardableResult
+    func savePreset(named name: String, from recipe: AmbienceRecipe) -> Bool {
+        savePreset(
+            named: name,
+            preset: Preset(
+                id: "preset_user_\(Int(Date().timeIntervalSince1970 * 1000))",
+                name: name,
+                channels: recipe.channels,
+                proceduralNoises: recipe.proceduralNoises,
+                isBinauralActive: recipe.isBinauralActive,
+                activeBinauralTrack: recipe.binauralTrack,
+                binauralVolume: recipe.binauralVolume,
+                timerDurationMinutes: recipe.timerMinutes,
+                immersiveAudioEnabled: recipe.immersiveAudioEnabled
+            ),
+            requiresPremiumContent: recipe.requiresPremium,
+            activateSavedPreset: false
+        )
+    }
+
+    @discardableResult
+    private func savePreset(
+        named name: String,
+        preset draftPreset: Preset,
+        requiresPremiumContent: Bool,
+        activateSavedPreset: Bool,
+        preserveActiveSceneTitle: Bool = false
+    ) -> Bool {
         let trimmedName = name.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmedName.isEmpty else { return false }
 
-        guard isPremium || canSaveFreePreset else {
+        guard isPremium || !requiresPremiumContent else {
             requestPremiumAccess(from: .presetSave)
             return false
         }
 
-        let preset = Preset(
-            id: "preset_user_\(Int(Date().timeIntervalSince1970 * 1000))",
-            name: trimmedName,
-            channels: channels
-        )
+        guard isPremium || presets.filter(\.isUser).isEmpty else {
+            requestPremiumAccess(from: .presetSave)
+            return false
+        }
+
+        var preset = draftPreset
+        preset.name = trimmedName
 
         presets.append(preset)
-        currentPresetID = preset.id
+        if activateSavedPreset {
+            currentPresetID = preset.id
+            if !preserveActiveSceneTitle {
+                activeComposerRecipeTitle = nil
+                activeNoiseBlendTitle = nil
+            }
+        }
         premiumAnalytics.track(.presetSaved(kind: isPremium ? "premium" : "free"))
         schedulePersistence()
         return true
@@ -588,6 +999,7 @@ final class AppModel {
         presets.removeAll { $0.id == preset.id }
         if currentPresetID == preset.id {
             currentPresetID = nil
+            activeComposerRecipeTitle = nil
         }
         schedulePersistence()
     }
@@ -679,6 +1091,16 @@ final class AppModel {
                 L10n.string(L10n.Paywall.benefitBinaural),
                 L10n.string(L10n.Paywall.benefitUpdates)
             ]
+
+        case .composer, .ritual, .noise:
+            title = L10n.string(L10n.Paywall.titleComposer)
+            subtitle = L10n.string(L10n.Paywall.subtitleComposer)
+            benefitRows = [
+                L10n.string(L10n.Paywall.benefitComposer),
+                L10n.string(L10n.Paywall.benefitNoiseLab),
+                L10n.string(L10n.Paywall.benefitBinaural),
+                L10n.string(L10n.Paywall.benefitUpdates)
+            ]
         }
 
         return PremiumPaywallPresentation(
@@ -725,6 +1147,7 @@ final class AppModel {
         signaturePreviewRestoreState = SignaturePreviewRestoreState(
             channels: channels,
             currentPresetID: currentPresetID,
+            activeComposerRecipeTitle: activeComposerRecipeTitle,
             isPlaying: isPlaying,
             isBinauralActive: isBinauralActive,
             activeBinauralTrack: activeBinauralTrack,
@@ -742,6 +1165,7 @@ final class AppModel {
         channels = preset.channels
         variationDisplayVolumes.removeAll()
         currentPresetID = preset.id
+        activeComposerRecipeTitle = nil
         previewUnlockedChannels = Set(
             preset.channels.compactMap { channel, state in
                 guard !state.isMuted, !SoundChannel.freeChannels.contains(channel) else { return nil }
@@ -782,6 +1206,7 @@ final class AppModel {
         if restoreState, !isPremium, let restoreState = signaturePreviewRestoreState {
             channels = restoreState.channels
             currentPresetID = restoreState.currentPresetID
+            activeComposerRecipeTitle = restoreState.activeComposerRecipeTitle
             isPlaying = restoreState.isPlaying
             isBinauralActive = restoreState.isBinauralActive
             activeBinauralTrack = restoreState.activeBinauralTrack
@@ -825,6 +1250,7 @@ final class AppModel {
     }
 
     func closeOverlays() {
+        showsComposePanel = false
         showsBinauralPanel = false
         showsPresetsPanel = false
         showsSpatialPanel = false
@@ -894,6 +1320,324 @@ final class AppModel {
         channels.allSatisfy { channel, state in
             state.isMuted || SoundChannel.freeChannels.contains(channel)
         }
+            && proceduralNoises.allSatisfy { noise, state in
+                state.isMuted || !noise.isPremium
+            }
+            && (!isBinauralActive || !activeBinauralTrack.isPremium)
+            && (timerDurationMinutes ?? 0) <= 30
+    }
+
+    @discardableResult
+    private func applyAmbienceRecipe(
+        _ recipe: AmbienceRecipe,
+        startPlayback: Bool,
+        cancelRitual shouldCancelRitual: Bool,
+        appliesTimer: Bool
+    ) -> Bool {
+        guard isPremium || !recipe.requiresPremium else {
+            requestPremiumAccess(from: .composer)
+            return false
+        }
+
+        if shouldCancelRitual {
+            cancelActiveRitual()
+        }
+        finishSignaturePreview(restoreState: false, shouldPromotePaywall: false)
+
+        channels = recipe.channels
+        proceduralNoises = recipe.proceduralNoises
+        variationDisplayVolumes.removeAll()
+        currentPresetID = nil
+        activeComposerRecipeTitle = nil
+        activeNoiseBlendTitle = nil
+        isBinauralActive = recipe.isBinauralActive
+        activeBinauralTrack = recipe.binauralTrack
+        binauralVolume = AutoVariationRange.unitValue(recipe.binauralVolume, fallback: binauralVolume)
+        immersiveAudioEnabled = recipe.immersiveAudioEnabled
+
+        if appliesTimer {
+            timerDurationMinutes = recipe.timerMinutes
+            timerRemainingWhenPaused = recipe.timerMinutes.map { Double($0 * 60) }
+            timerEndDate = isPlaying
+                ? recipe.timerMinutes.map { Date().addingTimeInterval(Double($0 * 60)) }
+                : nil
+        }
+
+        if handleNoActiveChannelsIfNeeded() {
+            return true
+        }
+
+        if startPlayback, !isPlaying {
+            setPlayback(true)
+        } else {
+            startTimerTickerIfNeeded()
+            updateTimerDisplayValue()
+            schedulePersistence()
+            synchronizeAudio()
+        }
+
+        return true
+    }
+
+    private func applyRitualPhase(
+        _ ritual: RitualPreset,
+        index: Int,
+        totalEndDate: Date,
+        shouldStartPlayback: Bool = true
+    ) {
+        guard ritual.phases.indices.contains(index) else { return }
+        let phase = ritual.phases[index]
+        let now = Date()
+        let totalRemaining = max(totalEndDate.timeIntervalSince(now), 0)
+
+        activeRitualSession = ActiveRitualSession(
+            ritualID: ritual.id,
+            ritualTitle: ritual.title,
+            intent: phase.recipe.intent,
+            phaseIndex: index,
+            phaseCount: ritual.phases.count,
+            phaseTitle: phase.title,
+            phaseStartDate: now,
+            phaseEndDate: now.addingTimeInterval(phase.durationSeconds),
+            phaseDurationSeconds: phase.durationSeconds,
+            totalEndDate: totalEndDate,
+            phaseRemainingWhenPaused: shouldStartPlayback ? nil : phase.durationSeconds,
+            totalRemainingWhenPaused: shouldStartPlayback ? nil : totalRemaining
+        )
+
+        _ = applyAmbienceRecipe(
+            phase.recipe,
+            startPlayback: shouldStartPlayback,
+            cancelRitual: false,
+            appliesTimer: false
+        )
+
+        timerDurationMinutes = ritual.totalMinutes
+        timerEndDate = isPlaying ? totalEndDate : nil
+        timerRemainingWhenPaused = totalRemaining
+        startTimerTickerIfNeeded()
+        updateTimerDisplayValue()
+        schedulePersistence()
+    }
+
+    private func activeRitualDefinition(for session: ActiveRitualSession) -> RitualPreset? {
+        activeRitualPreset ?? RitualPreset.builtIns.first { $0.id == session.ritualID }
+    }
+
+    private func scheduleRitualAdvancement(_ ritual: RitualPreset, totalEndDate: Date) {
+        ritualTask?.cancel()
+        ritualTask = Task { [weak self] in
+            await self?.runRitualAdvancement(
+                ritual,
+                from: 0,
+                initialDelay: ritual.phases.first?.durationSeconds ?? 0,
+                totalEndDate: totalEndDate
+            )
+        }
+    }
+
+    private func scheduleRitualAdvancement(
+        _ ritual: RitualPreset,
+        from currentIndex: Int,
+        initialDelay: TimeInterval,
+        totalEndDate: Date
+    ) {
+        ritualTask?.cancel()
+        ritualTask = Task { [weak self] in
+            await self?.runRitualAdvancement(
+                ritual,
+                from: currentIndex,
+                initialDelay: initialDelay,
+                totalEndDate: totalEndDate
+            )
+        }
+    }
+
+    private func runRitualAdvancement(
+        _ ritual: RitualPreset,
+        from currentIndex: Int,
+        initialDelay: TimeInterval,
+        totalEndDate: Date
+    ) async {
+        var delay = initialDelay
+
+        for nextIndex in ritual.phases.indices where nextIndex > currentIndex {
+            try? await Task.sleep(for: .milliseconds(max(Int(delay * 1000), 1)))
+            guard !Task.isCancelled else { return }
+
+            await MainActor.run {
+                guard
+                    activeRitualSession?.ritualID == ritual.id,
+                    isPlaying
+                else { return }
+
+                withAnimation(.smooth(duration: 0.35)) {
+                    applyRitualPhase(ritual, index: nextIndex, totalEndDate: totalEndDate)
+                }
+            }
+
+            guard !Task.isCancelled else { return }
+            delay = ritual.phases[nextIndex].durationSeconds
+        }
+    }
+
+    private func pauseActiveRitualIfNeeded() {
+        guard var session = activeRitualSession else { return }
+
+        ritualTask?.cancel()
+        ritualTask = nil
+
+        let now = Date()
+        session.phaseRemainingWhenPaused = max(session.phaseEndDate.timeIntervalSince(now), 0)
+        session.totalRemainingWhenPaused = max(session.totalEndDate.timeIntervalSince(now), 0)
+        activeRitualSession = session
+    }
+
+    private func resumeActiveRitualIfNeeded() {
+        guard
+            var session = activeRitualSession,
+            let ritual = activeRitualPreset
+        else { return }
+
+        let now = Date()
+        let phaseRemaining = session.phaseRemainingWhenPaused ?? max(session.phaseEndDate.timeIntervalSince(now), 0)
+        let totalRemaining = session.totalRemainingWhenPaused ?? max(session.totalEndDate.timeIntervalSince(now), 0)
+
+        session.phaseStartDate = now.addingTimeInterval(-(session.phaseDurationSeconds - phaseRemaining))
+        session.phaseEndDate = now.addingTimeInterval(phaseRemaining)
+        session.totalEndDate = now.addingTimeInterval(totalRemaining)
+        session.phaseRemainingWhenPaused = nil
+        session.totalRemainingWhenPaused = nil
+        activeRitualSession = session
+
+        scheduleRitualAdvancement(
+            ritual,
+            from: session.phaseIndex,
+            initialDelay: phaseRemaining,
+            totalEndDate: session.totalEndDate
+        )
+    }
+
+    private var activeRitualSessionForPersistence: ActiveRitualSession? {
+        guard let session = activeRitualSession else { return nil }
+
+        if let totalRemainingWhenPaused = session.totalRemainingWhenPaused {
+            return totalRemainingWhenPaused > 0 ? session : nil
+        }
+
+        return session.totalEndDate > Date() ? session : nil
+    }
+
+    private func restoreActiveRitualIfNeeded(from persistedSession: ActiveRitualSession?) {
+        guard
+            let persistedSession,
+            let ritual = RitualPreset.builtIns.first(where: { $0.id == persistedSession.ritualID }),
+            isPremium || !ritual.requiresPremium,
+            var session = restoredRitualSession(from: persistedSession, ritual: ritual)
+        else { return }
+
+        if !isPlaying {
+            session = pausedRestoredRitualSession(session)
+        }
+
+        activeRitualPreset = ritual
+        activeRitualSession = session
+        timerDurationMinutes = ritual.totalMinutes
+        timerRemainingWhenPaused = session.totalRemainingWhenPaused ?? max(session.totalEndDate.timeIntervalSinceNow, 0)
+        timerEndDate = isPlaying ? session.totalEndDate : nil
+
+        if ritual.phases.indices.contains(session.phaseIndex) {
+            let phase = ritual.phases[session.phaseIndex]
+            _ = applyAmbienceRecipe(
+                phase.recipe,
+                startPlayback: false,
+                cancelRitual: false,
+                appliesTimer: false
+            )
+            activeRitualSession = session
+        }
+
+        updateTimerDisplayValue()
+
+        if isPlaying {
+            scheduleRitualAdvancement(
+                ritual,
+                from: session.phaseIndex,
+                initialDelay: max(session.phaseEndDate.timeIntervalSinceNow, 0),
+                totalEndDate: session.totalEndDate
+            )
+        }
+    }
+
+    private func restoredRitualSession(
+        from session: ActiveRitualSession,
+        ritual: RitualPreset,
+        now: Date = Date()
+    ) -> ActiveRitualSession? {
+        guard ritual.phases.indices.contains(session.phaseIndex) else { return nil }
+
+        if let totalRemainingWhenPaused = session.totalRemainingWhenPaused {
+            guard totalRemainingWhenPaused > 0 else { return nil }
+            let phaseRemainingWhenPaused = session.phaseRemainingWhenPaused
+                ?? max(session.phaseEndDate.timeIntervalSince(session.phaseStartDate), 1)
+            let phase = ritual.phases[session.phaseIndex]
+
+            return ActiveRitualSession(
+                ritualID: ritual.id,
+                ritualTitle: ritual.title,
+                intent: phase.recipe.intent,
+                phaseIndex: session.phaseIndex,
+                phaseCount: ritual.phases.count,
+                phaseTitle: phase.title,
+                phaseStartDate: now.addingTimeInterval(-(phase.durationSeconds - phaseRemainingWhenPaused)),
+                phaseEndDate: now.addingTimeInterval(phaseRemainingWhenPaused),
+                phaseDurationSeconds: phase.durationSeconds,
+                totalEndDate: now.addingTimeInterval(totalRemainingWhenPaused),
+                phaseRemainingWhenPaused: phaseRemainingWhenPaused,
+                totalRemainingWhenPaused: totalRemainingWhenPaused
+            )
+        }
+
+        guard session.totalEndDate > now else { return nil }
+
+        let ritualStartDate = session.totalEndDate.addingTimeInterval(-ritual.totalDurationSeconds)
+        var phaseStartDate = ritualStartDate
+
+        for (index, phase) in ritual.phases.enumerated() {
+            let phaseEndDate = phaseStartDate.addingTimeInterval(phase.durationSeconds)
+            if now <= phaseEndDate || index == ritual.phases.index(before: ritual.phases.endIndex) {
+                return ActiveRitualSession(
+                    ritualID: ritual.id,
+                    ritualTitle: ritual.title,
+                    intent: phase.recipe.intent,
+                    phaseIndex: index,
+                    phaseCount: ritual.phases.count,
+                    phaseTitle: phase.title,
+                    phaseStartDate: phaseStartDate,
+                    phaseEndDate: phaseEndDate,
+                    phaseDurationSeconds: phase.durationSeconds,
+                    totalEndDate: session.totalEndDate,
+                    phaseRemainingWhenPaused: nil,
+                    totalRemainingWhenPaused: nil
+                )
+            }
+            phaseStartDate = phaseEndDate
+        }
+
+        return nil
+    }
+
+    private func pausedRestoredRitualSession(_ session: ActiveRitualSession, now: Date = Date()) -> ActiveRitualSession {
+        var pausedSession = session
+        let phaseRemaining = session.phaseRemainingWhenPaused ?? max(session.phaseEndDate.timeIntervalSince(now), 0)
+        let totalRemaining = session.totalRemainingWhenPaused ?? max(session.totalEndDate.timeIntervalSince(now), 0)
+
+        pausedSession.phaseStartDate = now.addingTimeInterval(-(session.phaseDurationSeconds - phaseRemaining))
+        pausedSession.phaseEndDate = now.addingTimeInterval(phaseRemaining)
+        pausedSession.totalEndDate = now.addingTimeInterval(totalRemaining)
+        pausedSession.phaseRemainingWhenPaused = phaseRemaining
+        pausedSession.totalRemainingWhenPaused = totalRemaining
+        return pausedSession
     }
 
     private func trackAppSession() {
@@ -1019,7 +1763,7 @@ final class AppModel {
 
         audioEngine.onVariationChanged = { [weak self] channel, value in
             guard let self else { return }
-            guard !self.showsPresetsPanel, !self.showsBinauralPanel, !self.showsSpatialPanel else { return }
+            guard !self.showsComposePanel, !self.showsPresetsPanel, !self.showsBinauralPanel, !self.showsSpatialPanel else { return }
 
             if let value {
                 self.variationDisplayVolumes[channel] = value
@@ -1038,8 +1782,11 @@ final class AppModel {
         do {
             let persisted = try JSONDecoder().decode(PersistedMixerState.self, from: data)
             channels = persisted.channels
+            proceduralNoises = persisted.proceduralNoises ?? .initialNoises
             presets = mergeMissingDefaultPresets(into: persisted.presets)
             currentPresetID = persisted.currentPresetID
+            activeComposerRecipeTitle = persisted.activeComposerRecipeTitle
+            activeNoiseBlendTitle = persisted.activeNoiseBlendTitle
             isBinauralActive = persisted.isBinauralActive
             activeBinauralTrack = persisted.activeBinauralTrack
             binauralVolume = persisted.binauralVolume
@@ -1048,6 +1795,7 @@ final class AppModel {
             immersiveAudioEnabled = persisted.immersiveAudioEnabled ?? false
 
             enforcePremiumAccess()
+            restoreActiveRitualIfNeeded(from: persisted.activeRitualSession)
             return true
         } catch {
             print("Failed to decode persisted mixer state: \(error)")
@@ -1071,8 +1819,12 @@ final class AppModel {
         guard AppConfiguration.shouldPersistState else { return }
         let persisted = PersistedMixerState(
             channels: channels,
+            proceduralNoises: proceduralNoises,
             presets: presets,
             currentPresetID: currentPresetID,
+            activeComposerRecipeTitle: activeComposerRecipeTitle,
+            activeNoiseBlendTitle: activeNoiseBlendTitle,
+            activeRitualSession: activeRitualSessionForPersistence,
             isBinauralActive: isBinauralActive,
             activeBinauralTrack: activeBinauralTrack,
             binauralVolume: binauralVolume,
@@ -1117,6 +1869,16 @@ final class AppModel {
             }
         }
 
+        for noise in ProceduralNoise.allCases where noise.isPremium {
+            if var state = proceduralNoises[noise] {
+                state.isMuted = true
+                proceduralNoises[noise] = state
+            }
+        }
+        if activeProceduralNoiseCount == 0 {
+            activeNoiseBlendTitle = nil
+        }
+
         if activeBinauralTrack.isPremium && !previewUnlockedTracks.contains(activeBinauralTrack) {
             activeBinauralTrack = .delta
         }
@@ -1158,6 +1920,7 @@ final class AppModel {
                 self.timerEndDate = nil
                 timerRemainingWhenPaused = nil
                 timerDisplayValue = nil
+                cancelActiveRitual()
                 persistState()
                 synchronizeAudio()
 
@@ -1295,6 +2058,7 @@ final class AppModel {
             }
         }
         currentPresetID = nil
+        activeComposerRecipeTitle = nil
 
         if !isPlaying {
             isPlaying = true
@@ -1317,11 +2081,13 @@ final class AppModel {
 
     @discardableResult
     private func handleNoActiveChannelsIfNeeded() -> Bool {
-        guard activeAmbientChannelsCount == 0 else { return false }
+        guard activeAudioSourceCount == 0 else { return false }
 
         if showsOnlyActiveChannels {
             showsOnlyActiveChannels = false
         }
+        activeComposerRecipeTitle = nil
+        activeNoiseBlendTitle = nil
 
         guard isPlaying else { return false }
 
@@ -1396,6 +2162,7 @@ final class AppModel {
 private struct SignaturePreviewRestoreState {
     let channels: [SoundChannel: ChannelState]
     let currentPresetID: String?
+    let activeComposerRecipeTitle: String?
     let isPlaying: Bool
     let isBinauralActive: Bool
     let activeBinauralTrack: BinauralTrack

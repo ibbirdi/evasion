@@ -106,42 +106,18 @@ struct PaywallOverlay: View {
                             )
                         ) {
                             VStack(spacing: 0) {
-                                VStack(spacing: 10) {
-                                    Image(systemName: presentation.symbolName)
-                                        .oasisFont(size: 22, weight: .semibold, design: .default, relativeTo: .title3)
-                                        .foregroundStyle(presentation.accentToken.tint)
-                                        .accessibilityHidden(true)
+                                PaywallLifetimeHero(
+                                    title: presentation.title,
+                                    subtitle: heroSubtitle,
+                                    trustLine: L10n.string(L10n.Paywall.noSubscription),
+                                    tint: presentation.accentToken.tint,
+                                    backdrop: heroBackdrop,
+                                    isCompact: isCompactHeight
+                                )
+                                .padding(.bottom, isCompactHeight ? 18 : 22)
 
-                                    Text(presentation.title)
-                                        .oasisFont(size: isCompactHeight ? 29 : 33, weight: .semibold, relativeTo: .largeTitle)
-                                        .foregroundStyle(.white)
-                                        .multilineTextAlignment(.center)
-                                        .minimumScaleFactor(0.85)
-
-                                    Text(presentation.subtitle)
-                                        .oasisFont(size: isCompactHeight ? 14 : 15, weight: .medium, relativeTo: .body)
-                                        .foregroundStyle(.white.opacity(0.64))
-                                        .multilineTextAlignment(.center)
-                                        .fixedSize(horizontal: false, vertical: true)
-                                }
+                                PaywallBenefitGrid(items: benefitItems, isCompact: isCompactHeight)
                                 .padding(.bottom, isCompactHeight ? 18 : 24)
-
-                                VStack(alignment: .leading, spacing: isCompactHeight ? 10 : 14) {
-                                    ForEach(Array(presentation.benefitRows.enumerated()), id: \.offset) { index, benefit in
-                                        BenefitRow(
-                                            text: benefit,
-                                            tint: benefitTint(for: index),
-                                            isCompact: isCompactHeight
-                                        )
-                                    }
-                                }
-                                .padding(.bottom, isCompactHeight ? 18 : 24)
-
-                                Text(L10n.Paywall.noSubscription)
-                                    .oasisFont(size: isCompactHeight ? 13 : 14, weight: .medium, relativeTo: .subheadline)
-                                    .foregroundStyle(.white.opacity(0.58))
-                                    .multilineTextAlignment(.center)
-                                    .padding(.bottom, isCompactHeight ? 18 : 22)
 
                                 primaryActionButton(isCompactHeight: isCompactHeight)
 
@@ -338,6 +314,54 @@ struct PaywallOverlay: View {
         }
     }
 
+    private var benefitItems: [PaywallBenefitItem] {
+        presentation.benefitRows.enumerated().map { index, text in
+            PaywallBenefitItem(
+                text: compactBenefitText(text),
+                symbolName: benefitSymbol(for: index),
+                tint: benefitTint(for: index)
+            )
+        }
+    }
+
+    private var heroSubtitle: String {
+        guard let firstSentence = presentation.subtitle.split(whereSeparator: { ".!?".contains($0) }).first else {
+            return presentation.subtitle
+        }
+        return String(firstSentence)
+    }
+
+    private func compactBenefitText(_ text: String) -> String {
+        guard let colonIndex = text.firstIndex(of: ":") else { return text }
+        return String(text[..<colonIndex])
+    }
+
+    private func benefitSymbol(for index: Int) -> String {
+        switch index {
+        case 0:
+            return "speaker.wave.2.fill"
+        case 1:
+            return "bookmark.fill"
+        case 2:
+            return "waveform.path.ecg"
+        default:
+            return "sparkles"
+        }
+    }
+
+    private var heroBackdrop: SoundBackdrop {
+        switch context.entryPoint.category {
+        case .binaural:
+            return OrganicBackdrop.darkWater
+        case .timer, .preset, .preview:
+            return OrganicBackdrop.warmFabric
+        case .composer, .ritual, .noise:
+            return OrganicBackdrop.blueFabric
+        case .manual, .onboarding, .sound, .spatial:
+            return OrganicBackdrop.darkWater
+        }
+    }
+
     private func loadCurrentPackage(forceReload: Bool = false) async {
         guard forceReload || loadState == .idle else { return }
 
@@ -418,27 +442,150 @@ private enum PaywallLoadState {
     case failed
 }
 
-private struct BenefitRow: View {
-    let text: String
+private struct PaywallLifetimeHero: View {
+    let title: String
+    let subtitle: String
+    let trustLine: String
     let tint: Color
+    let backdrop: SoundBackdrop
     let isCompact: Bool
 
     var body: some View {
-        HStack(alignment: .center, spacing: isCompact ? 12 : 14) {
-            Image(systemName: "checkmark.circle.fill")
-                .oasisFont(size: isCompact ? 18 : 20, weight: .bold, design: .default, relativeTo: .headline)
-                .foregroundStyle(tint)
-                .frame(width: isCompact ? 22 : 24, height: isCompact ? 22 : 24)
-                .accessibilityHidden(true)
+        let shape = RoundedRectangle(cornerRadius: 28, style: .continuous)
 
-            Text(text)
-                .oasisFont(size: isCompact ? 15 : 17, weight: .medium, relativeTo: .body)
-                .foregroundStyle(.white.opacity(0.90))
-                .lineSpacing(isCompact ? 2 : 3)
-                .fixedSize(horizontal: false, vertical: true)
+        VStack(alignment: .leading, spacing: 0) {
+            HStack(alignment: .top, spacing: 10) {
+                HStack(spacing: 8) {
+                    Image(systemName: "infinity")
+                        .oasisFont(size: 12, weight: .bold, design: .default, relativeTo: .caption)
+                        .accessibilityHidden(true)
+
+                    Text(trustLine)
+                        .oasisFont(size: isCompact ? 11 : 12, weight: .bold, relativeTo: .caption)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.70)
+                }
+                .foregroundStyle(Color(red: 0.06, green: 0.08, blue: 0.12))
+                .padding(.horizontal, 11)
+                .padding(.vertical, 7)
+                .background {
+                    Capsule()
+                        .fill(Color.white.opacity(0.88))
+                }
+                .accessibilityLabel(Text(trustLine))
+            }
+
+            Spacer(minLength: isCompact ? 34 : 42)
+
+            VStack(alignment: .leading, spacing: 6) {
+                Text(title)
+                    .oasisFont(size: isCompact ? 27 : 31, weight: .semibold, relativeTo: .largeTitle)
+                    .foregroundStyle(.white)
+                    .multilineTextAlignment(.leading)
+                    .minimumScaleFactor(0.82)
+
+                Text(subtitle)
+                    .oasisFont(size: isCompact ? 13 : 14, weight: .medium, relativeTo: .body)
+                    .foregroundStyle(.white.opacity(0.72))
+                    .multilineTextAlignment(.leading)
+                    .lineLimit(2)
+                    .minimumScaleFactor(0.82)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+        }
+        .padding(.horizontal, isCompact ? 16 : 18)
+        .padding(.vertical, isCompact ? 16 : 18)
+        .frame(maxWidth: .infinity)
+        .frame(minHeight: isCompact ? 168 : 186, alignment: .bottomLeading)
+        .background {
+            shape
+                .fill(Color(red: 0.035, green: 0.045, blue: 0.070))
+                .overlay {
+                    OrganicBackdropImage(backdrop: backdrop, opacity: 0.84, bottomShadeOpacity: 0.50)
+                }
+                .overlay {
+                    LinearGradient(
+                        colors: [
+                            Color.black.opacity(0.12),
+                            tint.opacity(0.18),
+                            Color.black.opacity(0.66)
+                        ],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
+                }
+                .clipShape(shape)
+        }
+        .clipShape(shape)
+        .overlay {
+            shape.strokeBorder(Color.white.opacity(0.13), lineWidth: 1)
+        }
+        .accessibilityElement(children: .combine)
+    }
+}
+
+private struct PaywallBenefitItem: Identifiable {
+    let id = UUID()
+    let text: String
+    let symbolName: String
+    let tint: Color
+}
+
+private struct PaywallBenefitGrid: View {
+    let items: [PaywallBenefitItem]
+    let isCompact: Bool
+
+    private var columns: [GridItem] {
+        [
+            GridItem(.flexible(), spacing: isCompact ? 8 : 10),
+            GridItem(.flexible(), spacing: isCompact ? 8 : 10)
+        ]
+    }
+
+    var body: some View {
+        LazyVGrid(columns: columns, alignment: .center, spacing: isCompact ? 8 : 10) {
+            ForEach(items) { item in
+                PaywallBenefitTile(item: item, isCompact: isCompact)
+            }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.horizontal, isCompact ? 6 : 8)
-        .padding(.vertical, isCompact ? 8 : 10)
+    }
+}
+
+private struct PaywallBenefitTile: View {
+    let item: PaywallBenefitItem
+    let isCompact: Bool
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: isCompact ? 8 : 10) {
+            Image(systemName: item.symbolName)
+                .oasisFont(size: isCompact ? 15 : 16, weight: .semibold, design: .default, relativeTo: .headline)
+                .foregroundStyle(item.tint)
+                .symbolRenderingMode(.hierarchical)
+                .frame(width: isCompact ? 30 : 32, height: isCompact ? 30 : 32)
+                .background {
+                    Circle()
+                        .fill(item.tint.opacity(0.15))
+                }
+                .accessibilityHidden(true)
+
+            Text(item.text)
+                .oasisFont(size: isCompact ? 13 : 14, weight: .semibold, relativeTo: .subheadline)
+                .foregroundStyle(.white.opacity(0.88))
+                .lineLimit(2)
+                .minimumScaleFactor(0.78)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+        .frame(maxWidth: .infinity, minHeight: isCompact ? 86 : 94, alignment: .topLeading)
+        .padding(isCompact ? 12 : 14)
+        .background {
+            RoundedRectangle(cornerRadius: 20, style: .continuous)
+                .fill(Color.white.opacity(0.055))
+        }
+        .overlay {
+            RoundedRectangle(cornerRadius: 20, style: .continuous)
+                .strokeBorder(Color.white.opacity(0.09), lineWidth: 1)
+        }
+        .accessibilityElement(children: .combine)
     }
 }

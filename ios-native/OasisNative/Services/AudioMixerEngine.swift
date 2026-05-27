@@ -25,6 +25,123 @@ private final class AmbientChannelPlayback: @unchecked Sendable {
     }
 }
 
+private final class ProceduralNoisePlayback: @unchecked Sendable {
+    let noise: ProceduralNoise
+    let node: AVAudioSourceNode
+
+    init(noise: ProceduralNoise, sampleRate: Double) {
+        self.noise = noise
+        let generator = ProceduralNoiseGenerator(noise: noise, sampleRate: sampleRate)
+
+        self.node = AVAudioSourceNode { _, _, frameCount, audioBufferList -> OSStatus in
+            let buffers = UnsafeMutableAudioBufferListPointer(audioBufferList)
+            let frameTotal = Int(frameCount)
+
+            for frame in 0..<frameTotal {
+                let sample = generator.nextSample()
+                for buffer in buffers {
+                    guard let data = buffer.mData else { continue }
+                    data.assumingMemoryBound(to: Float.self)[frame] = sample
+                }
+            }
+
+            return noErr
+        }
+    }
+}
+
+private final class ProceduralNoiseGenerator: @unchecked Sendable {
+    let noise: ProceduralNoise
+    let sampleRate: Float
+
+    private var seed: UInt64
+    private var brown: Float = 0
+    private var greenLow: Float = 0
+    private var greenHigh: Float = 0
+    private var pinkB0: Float = 0
+    private var pinkB1: Float = 0
+    private var pinkB2: Float = 0
+    private var pinkB3: Float = 0
+    private var pinkB4: Float = 0
+    private var pinkB5: Float = 0
+    private var pinkB6: Float = 0
+    private var phaseA: Float = 0
+    private var phaseB: Float = 0
+    private var phaseC: Float = 0
+
+    init(noise: ProceduralNoise, sampleRate: Double) {
+        self.noise = noise
+        self.sampleRate = Float(sampleRate)
+        self.seed = UInt64(abs(noise.rawValue.hashValue)) &+ 0x9E37_79B9_7F4A_7C15
+    }
+
+    func nextSample() -> Float {
+        switch noise {
+        case .white:
+            return white() * 0.24
+        case .brown:
+            brown = (brown * 0.985) + (white() * 0.040)
+            return clamp(brown * 2.6)
+        case .pink:
+            return pink() * 0.34
+        case .green:
+            let sample = white()
+            greenLow = (greenLow * 0.992) + (sample * 0.008)
+            greenHigh = (greenHigh * 0.84) + ((sample - greenLow) * 0.16)
+            return clamp((greenHigh + pink() * 0.28) * 0.50)
+        case .fan:
+            let rumble = brownSample() * 0.46
+            let blade = oscillator(frequency: 118, phase: &phaseA) * 0.050
+            let motor = oscillator(frequency: 236, phase: &phaseB) * 0.028
+            let slow = 0.92 + (oscillator(frequency: 0.42, phase: &phaseC) * 0.08)
+            return clamp((rumble + blade + motor) * slow)
+        case .aircraft:
+            let rumble = brownSample() * 0.58
+            let cabin = pink() * 0.24
+            let engine = oscillator(frequency: 88, phase: &phaseA) * 0.036
+            let pressure = oscillator(frequency: 0.18, phase: &phaseB) * 0.055
+            return clamp(rumble + cabin + engine + pressure)
+        }
+    }
+
+    private func brownSample() -> Float {
+        brown = (brown * 0.992) + (white() * 0.032)
+        return clamp(brown * 2.4)
+    }
+
+    private func pink() -> Float {
+        let white = white()
+        pinkB0 = 0.99886 * pinkB0 + white * 0.0555179
+        pinkB1 = 0.99332 * pinkB1 + white * 0.0750759
+        pinkB2 = 0.96900 * pinkB2 + white * 0.1538520
+        pinkB3 = 0.86650 * pinkB3 + white * 0.3104856
+        pinkB4 = 0.55000 * pinkB4 + white * 0.5329522
+        pinkB5 = -0.7616 * pinkB5 - white * 0.0168980
+        let output = pinkB0 + pinkB1 + pinkB2 + pinkB3 + pinkB4 + pinkB5 + pinkB6 + white * 0.5362
+        pinkB6 = white * 0.115926
+        return clamp(output * 0.11)
+    }
+
+    private func oscillator(frequency: Float, phase: inout Float) -> Float {
+        let value = sin(phase)
+        phase += (2 * .pi * frequency) / sampleRate
+        if phase > 2 * .pi {
+            phase -= 2 * .pi
+        }
+        return value
+    }
+
+    private func white() -> Float {
+        seed = seed &* 6364136223846793005 &+ 1442695040888963407
+        let bits = UInt32((seed >> 32) & 0xFFFF_FFFF)
+        return (Float(bits) / Float(UInt32.max) * 2) - 1
+    }
+
+    private func clamp(_ value: Float) -> Float {
+        min(max(value, -0.94), 0.94)
+    }
+}
+
 private enum AmbientImmersiveProfile {
     case closeCozy
     case naturalOutdoor
@@ -146,8 +263,10 @@ final class AudioMixerEngine: @unchecked Sendable {
     private let queue = DispatchQueue(label: "com.jonathanluquet.oasis.audio-engine", qos: .userInitiated)
     private let ambientEngine = AVAudioEngine()
     private let environmentNode = AVAudioEnvironmentNode()
+    private let proceduralFormat = AVAudioFormat(standardFormatWithSampleRate: 44_100, channels: 2)
 
     private var ambientPlayers: [SoundChannel: AmbientChannelPlayback] = [:]
+    private var proceduralPlayers: [ProceduralNoise: ProceduralNoisePlayback] = [:]
     private var binauralPlayers: [BinauralTrack: AVAudioPlayer] = [:]
     private var variationTasks: [SoundChannel: Task<Void, Never>] = [:]
     private var fadeTask: Task<Void, Never>?
@@ -163,6 +282,7 @@ final class AudioMixerEngine: @unchecked Sendable {
         isPlaying: false,
         isPremium: false,
         channels: .initialChannels,
+        proceduralNoises: .initialNoises,
         isBinauralActive: false,
         activeBinauralTrack: .delta,
         binauralVolume: 0.5,
@@ -293,6 +413,22 @@ final class AudioMixerEngine: @unchecked Sendable {
             print("Failed to prepare spatial audio for \(channel.filename): \(error)")
             return nil
         }
+    }
+
+    private func proceduralPlayer(for noise: ProceduralNoise) -> ProceduralNoisePlayback? {
+        if let player = proceduralPlayers[noise] {
+            return player
+        }
+
+        guard let proceduralFormat else { return nil }
+        configureAmbientEngineIfNeeded()
+
+        let playback = ProceduralNoisePlayback(noise: noise, sampleRate: proceduralFormat.sampleRate)
+        ambientEngine.attach(playback.node)
+        playback.node.volume = 0
+        ambientEngine.connect(playback.node, to: environmentNode, format: proceduralFormat)
+        proceduralPlayers[noise] = playback
+        return playback
     }
 
     private func binauralPlayer(for track: BinauralTrack) -> AVAudioPlayer? {
@@ -449,6 +585,10 @@ final class AudioMixerEngine: @unchecked Sendable {
             }
         }
 
+        for noise in ProceduralNoise.allCases where shouldPlayProceduralNoise(noise) {
+            _ = proceduralPlayer(for: noise)
+        }
+
         for track in BinauralTrack.allCases where shouldPlayBinaural(track) {
             guard let player = binauralPlayer(for: track), !player.isPlaying else { continue }
             player.play()
@@ -517,6 +657,7 @@ final class AudioMixerEngine: @unchecked Sendable {
 
     private func pauseAllPlayers() {
         ambientPlayers.values.forEach(stopAmbientPlayback(_:))
+        proceduralPlayers.values.forEach { $0.node.volume = 0 }
         binauralPlayers.values.forEach { $0.pause() }
     }
 
@@ -542,6 +683,14 @@ final class AudioMixerEngine: @unchecked Sendable {
             } else if !keepAliveForFade {
                 stopAmbientPlayback(playback)
             }
+        }
+
+        for noise in ProceduralNoise.allCases {
+            guard let playback = proceduralPlayers[noise] ?? (shouldPlayProceduralNoise(noise) ? proceduralPlayer(for: noise) : nil) else {
+                continue
+            }
+
+            playback.node.volume = Float(targetProceduralVolume(for: noise))
         }
 
         for track in BinauralTrack.allCases {
@@ -575,11 +724,25 @@ final class AudioMixerEngine: @unchecked Sendable {
             startAmbientEngineIfNeeded()
         }
 
+        let proceduralNoisesToPrime = ProceduralNoise.allCases.filter { noise in
+            guard let state = snapshot.proceduralNoises[noise], !state.isMuted else { return false }
+            return snapshot.hasProceduralNoiseAccess(to: noise)
+        }
+
+        if !proceduralNoisesToPrime.isEmpty {
+            configureAmbientEngineIfNeeded()
+            startAmbientEngineIfNeeded()
+        }
+
         for channel in ambientChannelsToPrime {
             guard let playback = ambientPlayer(for: channel) else { continue }
 
             applySpatialMixingConfiguration(for: channel, playback: playback)
             scheduleAmbientPlaybackIfNeeded(playback)
+        }
+
+        for noise in proceduralNoisesToPrime {
+            _ = proceduralPlayer(for: noise)
         }
 
         if snapshot.hasBinauralAccess(to: snapshot.activeBinauralTrack) {
@@ -591,6 +754,12 @@ final class AudioMixerEngine: @unchecked Sendable {
         for channel in SoundChannel.allCases {
             if let player = ambientPlayers[channel] {
                 player.node.volume = Float(targetAmbientVolume(for: channel))
+            }
+        }
+
+        for noise in ProceduralNoise.allCases {
+            if let player = proceduralPlayers[noise] {
+                player.node.volume = Float(targetProceduralVolume(for: noise))
             }
         }
 
@@ -612,6 +781,12 @@ final class AudioMixerEngine: @unchecked Sendable {
         return min(max(sourceVolume, 0), 1) * masterFade
     }
 
+    private func targetProceduralVolume(for noise: ProceduralNoise) -> Double {
+        guard let state = latestSnapshot.proceduralNoises[noise], state.isMuted == false else { return 0 }
+        guard latestSnapshot.hasProceduralNoiseAccess(to: noise) else { return 0 }
+        return min(max(state.volume, 0), 1) * masterFade
+    }
+
     private func targetBinauralVolume(for track: BinauralTrack) -> Double {
         guard latestSnapshot.isBinauralActive else { return 0 }
         guard latestSnapshot.activeBinauralTrack == track else { return 0 }
@@ -623,6 +798,12 @@ final class AudioMixerEngine: @unchecked Sendable {
         guard latestSnapshot.isPlaying else { return false }
         guard let state = latestSnapshot.channels[channel] else { return false }
         return !state.isMuted && latestSnapshot.hasAmbientAccess(to: channel)
+    }
+
+    private func shouldPlayProceduralNoise(_ noise: ProceduralNoise) -> Bool {
+        guard latestSnapshot.isPlaying else { return false }
+        guard let state = latestSnapshot.proceduralNoises[noise] else { return false }
+        return !state.isMuted && latestSnapshot.hasProceduralNoiseAccess(to: noise)
     }
 
     private func shouldPlayBinaural(_ track: BinauralTrack) -> Bool {

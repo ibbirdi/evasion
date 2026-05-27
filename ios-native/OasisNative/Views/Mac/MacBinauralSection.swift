@@ -42,6 +42,7 @@ struct MacBinauralSection: View {
 private struct MacBinauralTrackRow: View {
     @Environment(AppModel.self) private var model
     let track: BinauralTrack
+    private let rowShape = RoundedRectangle(cornerRadius: 10, style: .continuous)
 
     private var selected: Bool {
         model.activeBinauralTrack == track
@@ -58,16 +59,14 @@ private struct MacBinauralTrackRow: View {
             }
         } label: {
             ZStack {
-                RoundedRectangle(cornerRadius: 10, style: .continuous)
+                rowShape
                     .fill(Color.white.opacity(0.001))
-                    .macLiquidGlass(in: RoundedRectangle(cornerRadius: 10, style: .continuous))
+                    .macLiquidGlass(in: rowShape)
                     .overlay {
-                        SoundBackdropImage(backdrop: track.backdrop, opacity: backdropOpacity)
-                            .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                        OrganicBackdropImage(backdrop: track.backdrop, opacity: backdropOpacity, bottomShadeOpacity: 0.40)
                     }
                     .overlay {
-                        RoundedRectangle(cornerRadius: 10, style: .continuous)
-                            .fill(selected ? track.tint.opacity(0.12) : Color.white.opacity(0.025))
+                        rowShape.fill(selected ? track.tint.opacity(0.12) : Color.white.opacity(0.025))
                     }
 
                 HStack(spacing: 11) {
@@ -97,16 +96,16 @@ private struct MacBinauralTrackRow: View {
                 }
                 .padding(EdgeInsets(top: 11, leading: 11, bottom: 11, trailing: 11))
             }
+            .clipShape(rowShape)
             .overlay {
-                RoundedRectangle(cornerRadius: 10, style: .continuous)
-                    .strokeBorder(selected ? track.tint.opacity(0.24) : Color.white.opacity(0.055), lineWidth: 1)
+                rowShape.strokeBorder(selected ? track.tint.opacity(0.24) : Color.white.opacity(0.055), lineWidth: 1)
             }
         }
         .buttonStyle(.plain)
     }
 
     private var backdropOpacity: Double {
-        if locked { return 0.05 }
-        return selected ? 0.16 : 0.08
+        if locked { return 0.14 }
+        return selected ? 0.30 : 0.18
     }
 }

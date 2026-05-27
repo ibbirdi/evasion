@@ -119,30 +119,30 @@ struct AutoVariationRangeSlider: View {
                     .frame(width: 7, height: 7)
                     .shadow(color: tint.opacity(0.55), radius: 5)
                     .offset(x: liveX - 3.5)
+                    .allowsHitTesting(false)
 
                 rangeHandle(isActive: activeHandle == .lower)
-                    .offset(x: lowerX - handleRadius)
+                    .frame(width: 44, height: 36)
+                    .contentShape(Circle())
+                    .offset(x: lowerX - 22)
+                    .gesture(handleDragGesture(
+                        .lower,
+                        trackStart: handleRadius,
+                        trackWidth: trackWidth
+                    ))
 
                 rangeHandle(isActive: activeHandle == .upper)
-                    .offset(x: upperX - handleRadius)
+                    .frame(width: 44, height: 36)
+                    .contentShape(Circle())
+                    .offset(x: upperX - 22)
+                    .gesture(handleDragGesture(
+                        .upper,
+                        trackStart: handleRadius,
+                        trackWidth: trackWidth
+                    ))
             }
             .frame(width: proxy.size.width, height: proxy.size.height, alignment: .leading)
-            .contentShape(Rectangle())
-            .gesture(
-                DragGesture(minimumDistance: 0)
-                    .onChanged { gesture in
-                        updateRange(
-                            with: gesture.location.x,
-                            trackStart: handleRadius,
-                            trackWidth: trackWidth,
-                            lowerX: lowerX,
-                            upperX: upperX
-                        )
-                    }
-                    .onEnded { _ in
-                        activeHandle = nil
-                    }
-            )
+            .coordinateSpace(name: "AutoVariationRangeSlider")
         }
         .frame(height: 36)
         .animation(.linear(duration: 0.14), value: liveValue)
@@ -176,15 +176,22 @@ struct AutoVariationRangeSlider: View {
             .frame(width: 24, height: 24)
     }
 
-    private func updateRange(
-        with locationX: CGFloat,
+    private func handleDragGesture(
+        _ handle: RangeSliderHandle,
         trackStart: CGFloat,
-        trackWidth: CGFloat,
-        lowerX: CGFloat,
-        upperX: CGFloat
-    ) {
+        trackWidth: CGFloat
+    ) -> some Gesture {
+        DragGesture(minimumDistance: 0, coordinateSpace: .named("AutoVariationRangeSlider"))
+            .onChanged { gesture in
+                updateRange(handle, with: gesture.location.x, trackStart: trackStart, trackWidth: trackWidth)
+            }
+            .onEnded { _ in
+                activeHandle = nil
+            }
+    }
+
+    private func updateRange(_ handle: RangeSliderHandle, with locationX: CGFloat, trackStart: CGFloat, trackWidth: CGFloat) {
         let value = min(max(Double((locationX - trackStart) / trackWidth), 0), 1)
-        let handle = activeHandle ?? nearestHandle(to: locationX, lowerX: lowerX, upperX: upperX)
         activeHandle = handle
 
         switch handle {
@@ -199,10 +206,6 @@ struct AutoVariationRangeSlider: View {
                 upperBound: max(value, range.lowerBound + AutoVariationRange.minimumWidth)
             ).clamped()
         }
-    }
-
-    private func nearestHandle(to locationX: CGFloat, lowerX: CGFloat, upperX: CGFloat) -> RangeSliderHandle {
-        abs(locationX - lowerX) <= abs(locationX - upperX) ? .lower : .upper
     }
 
     private func updateQuantizedBounds() {

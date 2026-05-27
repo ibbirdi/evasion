@@ -144,6 +144,7 @@ private struct MacChannelRow: View {
                         .fill(channelBackgroundGradient)
                 }
         }
+        .clipShape(rowShape)
         .overlay {
             rowShape
                 .strokeBorder(Color.white.opacity(isActive ? 0.08 : 0.045), lineWidth: 0.8)

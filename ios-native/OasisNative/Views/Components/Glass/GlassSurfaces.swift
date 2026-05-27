@@ -40,6 +40,7 @@ struct GlassSurface<Content: View>: View {
                             .fill(tint)
                     }
             }
+            .clipShape(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
             .overlay {
                 RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
                     .strokeBorder(Color.white.opacity(0.10), lineWidth: 1)
@@ -78,6 +79,7 @@ struct CompactGlassPanel<Content: View>: View {
                         .fill(Color.white.opacity(0.03))
                 }
         }
+        .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
         .overlay {
             RoundedRectangle(cornerRadius: 30, style: .continuous)
                 .strokeBorder(Color.white.opacity(0.10), lineWidth: 1)

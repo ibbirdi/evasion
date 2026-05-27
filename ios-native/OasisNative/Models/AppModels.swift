@@ -217,6 +217,12 @@ struct Preset: Codable, Equatable, Identifiable {
     let id: String
     var name: String
     var channels: [SoundChannel: ChannelState]
+    var proceduralNoises: [ProceduralNoise: ProceduralNoiseState]?
+    var isBinauralActive: Bool?
+    var activeBinauralTrack: BinauralTrack?
+    var binauralVolume: Double?
+    var timerDurationMinutes: Int?
+    var immersiveAudioEnabled: Bool?
 
     var isDefault: Bool {
         id.hasPrefix("preset_default_") || isSignature
@@ -234,13 +240,22 @@ struct Preset: Codable, Equatable, Identifiable {
         channels.contains { channel, state in
             !state.isMuted && !SoundChannel.freeChannels.contains(channel)
         }
+            || (proceduralNoises ?? [:]).contains { noise, state in
+                !state.isMuted && noise.isPremium
+            }
+            || ((isBinauralActive ?? false) && (activeBinauralTrack?.isPremium ?? false))
+            || (timerDurationMinutes ?? 0) > 30
     }
 }
 
 struct PersistedMixerState: Codable {
     var channels: [SoundChannel: ChannelState]
+    var proceduralNoises: [ProceduralNoise: ProceduralNoiseState]?
     var presets: [Preset]
     var currentPresetID: String?
+    var activeComposerRecipeTitle: String?
+    var activeNoiseBlendTitle: String?
+    var activeRitualSession: ActiveRitualSession?
     var isBinauralActive: Bool
     var activeBinauralTrack: BinauralTrack
     var binauralVolume: Double
@@ -257,6 +272,7 @@ struct MixerSnapshot {
     var isPlaying: Bool
     var isPremium: Bool
     var channels: [SoundChannel: ChannelState]
+    var proceduralNoises: [ProceduralNoise: ProceduralNoiseState]
     var isBinauralActive: Bool
     var activeBinauralTrack: BinauralTrack
     var binauralVolume: Double
@@ -270,6 +286,10 @@ struct MixerSnapshot {
 
     func hasBinauralAccess(to track: BinauralTrack) -> Bool {
         isPremium || !track.isPremium || previewUnlockedTracks.contains(track)
+    }
+
+    func hasProceduralNoiseAccess(to noise: ProceduralNoise) -> Bool {
+        isPremium || !noise.isPremium
     }
 }
 

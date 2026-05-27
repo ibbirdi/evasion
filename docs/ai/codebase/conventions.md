@@ -1,7 +1,7 @@
 ---
 title: Code Conventions
 status: stable
-last_updated: 2026-05-23
+last_updated: 2026-05-27
 tracks:
   - "ios-native/OasisNative/**/*.swift"
   - "ios-native/OasisNative/Support/L10n.swift"
@@ -40,6 +40,7 @@ Patterns this codebase has settled on. Follow these by default — diverge only 
 - One root `@Observable` model: `AppModel`. Inject via `@Environment(AppModel.self)`.
 - Avoid `@StateObject`, `@ObservedObject`, `ObservableObject`. The codebase is `@Observable` throughout (Swift 5.9+).
 - For non-observable internal helpers in `AppModel`: `@ObservationIgnored private let …`.
+- Local feature generators such as `AmbienceComposer` stay deterministic and offline; they return models/recipes, while `AppModel` owns applying them and enforcing premium gates. Guided routines are fixed, curated recipes: 2 free routines that only use free-access layers, plus 6 Premium routines that preview richer full-library mixes and route through the Composer upsell if locked. Routine copy must cover the supported UI locales, describe the user's wellbeing intent, and avoid exposing technical controls. Routines should expose a clear "what will happen" preview before playback, keep the launch CTA reachable without scrolling through controls, and leave a Home status after launch rather than starting an opaque "random" state. While a guided routine is active, prefer a calmer listening surface: relevant active rows only, volume/mute still available, advanced placement/auto controls hidden, bottom-bar actions reduced to playback and audio output, and the active-status capsule used as the adjustment/replacement path.
 
 ### Threading
 
@@ -65,21 +66,29 @@ Patterns this codebase has settled on. Follow these by default — diverge only 
 - Default: `.animation(.smooth, value: …)`. Use `.spring` only when the result is intentional.
 - Continuous animations (auras, rotating logo rings) **must** check `AppConfiguration.isRunningUITests` and freeze when true. Otherwise XCUITest hangs.
 - Continuous decorative animations must also respect `accessibilityReduceMotion`.
+- When a decorative trail must follow a curved or breathing path, prefer a small `Canvas` that samples past positions on the real trajectory instead of layering fixed `Shape` strokes with a simple gradient; the visual should reveal motion, not just direction.
 - macOS continuous meshes such as the menu bar play button must also pause for screenshot automation and inactive scene phase, because the menu bar panel is often validated through scripted builds/screenshots.
 
 ### Accessibility and sizing
 
 - Use `.oasisFont(...)` for app UI text so typography participates in Dynamic Type while keeping Oasis' compact rounded style.
 - Use `.oasisMinimumHitTarget()` around icon-only or visually compact controls; the visible chrome may stay smaller, but the tappable area should be at least 44 pt.
+- Iconography is split by role: keep SF Symbols/native controls for platform actions (play, pause, close, timer, AirPlay), and use the curated Phosphor-based `OasisGlyph` assets for Oasis-specific concepts such as routine intents, ambience layers, masking layers, included-state marks, channel identity, minimap pins, and preset preview chips. Add only selected SVGs to `Assets.xcassets/OasisGlyphs` instead of vendoring a full icon package.
 - When resizing the OASIS ring logo lockups, scale the ring artwork, canvas/frame, vertical offset or height cap, and wordmark type together; the iOS and macOS headers currently use a 1.2 lockup scale.
 - Hide decorative SF Symbols from VoiceOver when the surrounding button/row already provides the semantic label.
 - If a custom gesture is required, provide a button or custom accessibility action path too.
+- When a parent test identifier wraps tappable children, set the parent as `.accessibilityElement(children: .contain)` so SwiftUI does not propagate the parent identifier over the child button identifiers.
+- When summarising a guided routine or Premium mix, do not assume a maximum of three active sounds. Show the leading items that fit and append a compact `+N` overflow when needed. In the active Home state, keep only the most useful layers as direct row controls and fold quieter extras into a supporting-layers summary rather than adding a dense control widget.
+- When reopening the Routines sheet from an active routine, seed the current routine selection and make the CTA state explicit: "Stop routine" for the running routine, and "Replace routine" after the user selects another option.
+- Guided-routine copy should describe intent and outcome in human terms. Prefer labels like soundscape, noise cover, and fade out over technical language that makes the feature feel like an audio control desk.
+- For rounded containers with images, material fills, or gradient overlays, clip the complete composed surface to the same shape before applying the border. Clipping only the image layer still lets unmasked gradient/material overlays show square corners.
 
 ### Sheets and covers
 
 - `.sheet(item:)` for modals carrying a payload.
-- `.fullScreenCover` only for the paywall (focus moment).
+- `.fullScreenCover` for focused flows that should not feel like transient controls: paywall, presets management, and guided Routines.
 - Never push the paywall via `NavigationStack`; always present.
+- Keep conversion overlays visually sparse: one dominant CTA, quiet secondary actions, and short scannable benefit tiles rather than repeated checkmark lists.
 
 ## Naming
 
@@ -95,7 +104,7 @@ savane, jungleAmerique, jungleAsie
 
 These IDs are persisted in user `UserDefaults` payloads. **Renaming a case requires a migration** in `PersistedMixerState` decoding. Don't rename casually.
 
-Per-sound background assets use stable asset names derived from these IDs, e.g. `sound_oiseaux_background` and `sound_orage_montagne_background`. Keep the asset name stable when swapping the image, and update `SoundChannel.backdrop` plus [../content/sound-backgrounds.md](../content/sound-backgrounds.md) when a source photo changes.
+Per-sound background assets use stable asset names derived from these IDs, e.g. `sound_oiseaux_background` and `sound_orage_montagne_background`. Keep the asset name stable when swapping the image, and update `SoundChannel.backdrop` plus [../content/sound-backgrounds.md](../content/sound-backgrounds.md) when a source photo changes. Non-place surfaces should use `OrganicBackdrop` / `Assets.xcassets/OrganicBackgrounds` instead of borrowing a place photo from a channel.
 
 There are three known mismatches between channel IDs and underlying file names — see [../operations/known-issues.md](../operations/known-issues.md):
 
@@ -123,6 +132,8 @@ binaural.track.<id>                   binaural.track.delta
 paywall.<scope>.<key>                 paywall.title.generic, paywall.benefits.sounds
 premium.inline.<entry_point>          premium.inline.preset
 presets.<scope>.<key>                 presets.panel.title, presets.default.starter
+compose.<scope>.<key>                 compose.ritual.sleep.title
+noise.<id>[.subtitle]                 noise.brown.subtitle
 timer.option<minutes>                 timer.option15, timer.option60
 header.<key>                          header.timer
 spatial.<key>

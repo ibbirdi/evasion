@@ -1,11 +1,13 @@
 ---
 title: Premium Model
 status: stable
-last_updated: 2026-05-20
+last_updated: 2026-05-27
 tracks:
   - "ios-native/OasisNative/Services/PremiumCoordinator.swift"
   - "ios-native/OasisNative/Services/PremiumRevenueCatService.swift"
   - "ios-native/OasisNative/Services/AppModel.swift"
+  - "ios-native/OasisNative/Models/PremiumModels.swift"
+  - "ios-native/OasisNative/Models/AmbienceModels.swift"
   - "ios-native/OasisNative/Views/Overlays/PaywallOverlay.swift"
   - "ios-native/OasisNative/Views/Mac/MacPaywallSheet.swift"
   - "ios-native/OasisNative/Views/Mac/MacInlineUpsellSheet.swift"
@@ -29,8 +31,10 @@ related:
 | Random mix | Yes, restricted to free channels | Yes, full library |
 | Sound placement | Yes, on accessible channels | Yes, on accessible channels |
 | Binaural tracks | Delta only | Delta / Theta / Alpha / Beta |
+| Guided routines | 2 prepared routines: Short nap and Soft reset, both limited to free ambient channels, free noises, Delta or no binaural, and timers ≤ 30 min | 6 additional prepared routines: Deep sleep, Deep work, Noisy hotel, Evening reading, Rain cabin, and Gentle morning, with full-library channels, premium noises, binaural modes, longer timers where useful, and `+N` UI overflow when there are many audible layers |
+| Procedural noise engine | Used behind guided routines where helpful | Premium-only layers remain gated when surfaced by future UX |
 | Sleep timer | 15 / 30 min | 15 / 30 / 60 / 120 min |
-| Presets | 1 saved user mix | Create, load, delete, reorder |
+| Presets | 1 saved user ambience | Create, load, delete, reorder full ambience snapshots |
 | Saved presets cap | 1 | Unlimited |
 | Restoration | N/A | Yes |
 
@@ -43,7 +47,7 @@ related:
 - **Package**: `$rc_lifetime`.
 - **App Store product**: `premium`. Keep it available to the macOS platform in the same App Store Connect app record so the lifetime unlock behaves as a Universal Purchase across iOS and macOS.
 
-The "no subscription, ever" stance is the **primary moat** and is repeated in screenshot 10 (paywall), the paywall copy, the multi-locale store description, and release notes. Don't introduce subscription mechanics without the user explicitly authorizing it (see user feedback `feedback_no_subscription`).
+The "no subscription, ever" stance is the **primary moat** and is repeated in screenshot 10 (paywall), the paywall copy, the multi-locale store description, and release notes. On iOS, `PaywallOverlay` makes this the first visual claim in the organic hero and keeps the purchase path to one dominant lifetime CTA. Don't introduce subscription mechanics without the user explicitly authorizing it (see user feedback `feedback_no_subscription`).
 
 ## Pricing copy
 
@@ -53,7 +57,7 @@ The paywall anchors the price as "less than the price of a coffee in Paris" / "m
 
 [`PremiumCoordinator`](../../../ios-native/OasisNative/Services/PremiumCoordinator.swift) decides whether a premium request shows an inline upsell first or jumps straight to the full paywall:
 
-- `.preset`, `.binaural` entry points → inline upsell first; if dismissed and re-triggered, full paywall.
+- `.preset`, `.binaural`, `.composer`, `.ritual`, and `.noise` entry points → inline upsell first; if dismissed and re-triggered, full paywall.
 - All other entry points (`.channel`, `.timer`, `.spatial`, `.signature_preview`, `.home_banner`, …) → full paywall directly.
 
 The active context is exposed via `AppModel.activePaywallContext` (full paywall) and `AppModel.activeInlineUpsell` (inline upsell). iOS and macOS observe the same state and present platform-specific paywall surfaces.

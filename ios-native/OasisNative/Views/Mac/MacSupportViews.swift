@@ -358,6 +358,8 @@ extension PremiumAccentToken {
             return Color(red: 0.52, green: 0.91, blue: 0.64)
         case .preview:
             return Color(red: 0.97, green: 0.79, blue: 0.41)
+        case .composer:
+            return AmbienceIntent.reset.tint
         case .neutral:
             return SoundChannel.oiseaux.tint
         }

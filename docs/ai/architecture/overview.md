@@ -1,7 +1,7 @@
 ---
 title: Architecture Overview
 status: stable
-last_updated: 2026-05-22
+last_updated: 2026-05-27
 tracks:
   - "ios-native/OasisNative/OasisNativeApp.swift"
   - "ios-native/OasisNative/Mac/OasisMacApp.swift"
@@ -32,20 +32,18 @@ Oasis is a native Apple-platform app with two app targets in the same Xcode proj
                            ▼
               ┌────────────────────────┐
               │   AppModel             │  ← @Observable, @MainActor, source of truth
-              └─┬───────┬───────┬──────┘
-                │       │       │
-        owns    │  uses │       │ uses
-                ▼       ▼       ▼
+              └─┬───────┬───────┬──────┬───────────┐
+                │       │       │      │           │
+        owns    │  uses │       │ uses │ uses      │ uses
+                ▼       ▼       ▼      ▼           ▼
    ┌──────────────┐ ┌──────────────┐ ┌──────────────────────────┐
    │ AudioMixer   │ │ Premium      │ │ RevenueCatObserver       │
    │ Engine       │ │ Coordinator  │ │ + PremiumRevenueCatSvc   │
    └──────────────┘ └──────────────┘ └──────────────────────────┘
-                │
-                │ uses
-                ▼
-              ┌────────────────────────┐
-              │ GentleReminderScheduler│  ← local re-open reminder after inactivity
-              └────────────────────────┘
+   ┌──────────────────────────┐ ┌──────────────────────────┐
+   │ AmbienceComposer         │ │ GentleReminderScheduler  │
+   │ local prompt → recipe    │ │ local re-open reminder   │
+   └──────────────────────────┘ └──────────────────────────┘
 
               ┌────────────────────────┐
               │   RootView             │  ← iOS onboarding, root navigation
@@ -55,11 +53,11 @@ Oasis is a native Apple-platform app with two app targets in the same Xcode proj
               ┌────────────────────────┐
               │   HomeView             │  ← mixer board, header, playback
               └────────────────────────┘
-                  ▲     ▲     ▲     ▲
-                  │     │     │     │  .sheet / .fullScreenCover
-                  │     │     │     │
-        PresetsPanel  Binaural  Spatial  Paywall
-                      Panel    Panel   Overlay
+                  ▲     ▲     ▲     ▲     ▲
+                  │     │     │     │     │  .sheet / .fullScreenCover
+                  │     │     │     │     │
+          ComposePanel  Presets  Binaural  Spatial  Paywall
+                        Panel    Panel    Panel    Overlay
 
               ┌────────────────────────┐
               │   MacMixerPanel        │  ← macOS borderless menu bar panel
@@ -73,8 +71,9 @@ Oasis is a native Apple-platform app with two app targets in the same Xcode proj
 | `OasisNativeApp` | [OasisNativeApp.swift](../../../ios-native/OasisNative/OasisNativeApp.swift) | iOS entry point. Calls `AppBootstrap.configure()`, instantiates `AppModel`, and presents `RootView`. |
 | `OasisMacApp` | [Mac/OasisMacApp.swift](../../../ios-native/OasisNative/Mac/OasisMacApp.swift) | macOS entry point. Calls `AppBootstrap.configure()`, owns the status item app delegate using a fixed template wind icon, keeps one `AppModel`, and presents `MacMixerPanel` inside a custom borderless `NSPanel`. The status-item toggle treats stale visible/non-key panels as closed so the menu bar icon can always reopen the panel after deactivation. |
 | `AppBootstrap` | [Support/AppBootstrap.swift](../../../ios-native/OasisNative/Support/AppBootstrap.swift) | Shared startup for RevenueCat + TelemetryDeck so iOS and macOS do not drift. |
-| `AppModel` | [Services/AppModel.swift](../../../ios-native/OasisNative/Services/AppModel.swift) | Hub. `@Observable @MainActor`. Owns mix state, per-channel auto-variation ranges, immersive audio toggle, presets, premium state, timer, engagement metrics. Bridges UI ↔ engine ↔ RevenueCat. See [state.md](state.md). |
-| `AudioMixerEngine` | [Services/AudioMixerEngine.swift](../../../ios-native/OasisNative/Services/AudioMixerEngine.swift) | The audio graph. `AVAudioEngine` + `AVAudioEnvironmentNode` + 35 `AVAudioPlayerNode`. Handles loops, fades, spatial/immersive profiles, remote commands. See [audio-engine.md](audio-engine.md). |
+| `AppModel` | [Services/AppModel.swift](../../../ios-native/OasisNative/Services/AppModel.swift) | Hub. `@Observable @MainActor`. Owns mix state, procedural noise state, active rituals, immersive audio toggle, presets, premium state, timer, engagement metrics. Bridges UI ↔ engine ↔ RevenueCat. See [state.md](state.md). |
+| `AudioMixerEngine` | [Services/AudioMixerEngine.swift](../../../ios-native/OasisNative/Services/AudioMixerEngine.swift) | The audio graph. `AVAudioEngine` + `AVAudioEnvironmentNode` + 35 `AVAudioPlayerNode` plus procedural `AVAudioSourceNode` layers. Handles loops, fades, spatial/immersive profiles, remote commands. See [audio-engine.md](audio-engine.md). |
+| `AmbienceComposer` | [Services/AmbienceComposer.swift](../../../ios-native/OasisNative/Services/AmbienceComposer.swift) | Local deterministic recipe builder for Composer prompts and ritual phase templates. No network or LLM call. |
 | `GentleReminderScheduler` | [Services/GentleReminderScheduler.swift](../../../ios-native/OasisNative/Services/GentleReminderScheduler.swift) | Local notification scheduler. Requests provisional alert permission after onboarding, cancels pending reminders on app open, and schedules one gentle re-open reminder after several inactive days. |
 | `PremiumCoordinator` | [Services/PremiumCoordinator.swift](../../../ios-native/OasisNative/Services/PremiumCoordinator.swift) | Routes premium requests to inline-upsell or full-paywall. See [paywall.md](paywall.md). |
 | `PremiumRevenueCatService` | [Services/PremiumRevenueCatService.swift](../../../ios-native/OasisNative/Services/PremiumRevenueCatService.swift) | Thin wrapper around `Purchases.shared` (purchase, restore, fetch offerings). |
@@ -111,6 +110,16 @@ User taps locked channel
   → User taps "Buy" → AppModel.purchaseLifetime(package:)
   → PremiumRevenueCatService.purchase(package:) → RevenueCat
   → On success: applyCustomerInfo(updated) → isPremium = true → enforcePremiumAccess()
+```
+
+## Data flow on Composer / Ritual
+
+```
+User opens ComposePanel
+  → AppModel.composeGuidedRoutine(kind:) calls AmbienceComposer for the fixed 2 free + 6 Premium routines
+  → AppModel.applyAmbienceRecipe(recipe) OR startRitual(preset)
+  → AppModel updates channels, procedural noise, binaural, immersive, timer
+  → audioEngine.sync(with:) reconciles file players and source nodes
 ```
 
 ## Persistence
