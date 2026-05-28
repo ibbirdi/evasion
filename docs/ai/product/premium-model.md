@@ -32,7 +32,7 @@ related:
 | Sound placement | Yes, on accessible channels | Yes, on accessible channels |
 | Binaural tracks | Delta only | Delta / Theta / Alpha / Beta |
 | My Ambiences | Load free Oasis saved ambiences; locked ambiences preview but upsell before playback | Load all Oasis ambiences; create, edit, delete, and style personal saved ambiences |
-| Procedural noise engine | Free white/brown layers where accessible | Premium-only layers remain gated when surfaced by current or future UX |
+| Procedural noise engine | White and brown noise | Pink, green, fan, and aircraft-cabin noise layers |
 | Sleep timer | 15 / 30 min | 15 / 30 / 60 / 120 min |
 | Saved ambiences | No saving; tapping Save opens the preset upsell | Create, load, edit, delete, and style full ambience snapshots from My Ambiences |
 | Saved ambience cap | 0 | Unlimited |
@@ -47,7 +47,7 @@ related:
 - **Package**: `$rc_lifetime`.
 - **App Store product**: `premium`. Keep it available to the macOS platform in the same App Store Connect app record so the lifetime unlock behaves as a Universal Purchase across iOS and macOS.
 
-The "no subscription, ever" stance is the **primary moat** and is repeated in screenshot 10 (paywall), the paywall copy, the multi-locale store description, and release notes. On iOS, `PaywallOverlay` makes this the first visual claim in the organic hero and keeps the purchase path to one dominant lifetime CTA. Premium copy should sell current surfaces: richer ambiences, 32 extra sounds, longer timers, premium binaural modes, and personal saved ambiences. Do not mention a visible "Composer" screen or claim free users can save a first personal ambience. Don't introduce subscription mechanics without the user explicitly authorizing it (see user feedback `feedback_no_subscription`).
+The "no subscription, ever" stance is the **primary moat** and is repeated in screenshot 10 (paywall), the paywall copy, the multi-locale store description, and release notes. On iOS, `PaywallOverlay` makes this the first visual claim in the organic hero and keeps the purchase path to one dominant lifetime CTA. Premium copy should sell current surfaces: richer ambiences, 32 extra sounds, 4 extra noise layers, longer timers, premium binaural modes, and personal saved ambiences. Do not mention a visible "Composer" screen or claim free users can save a first personal ambience. Don't introduce subscription mechanics without the user explicitly authorizing it (see user feedback `feedback_no_subscription`).
 
 ## Pricing copy
 

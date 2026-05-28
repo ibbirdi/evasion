@@ -297,8 +297,11 @@ open class Snapshot: NSObject {
         if name.contains("_active_") {
             return (horizontal: 18, vertical: 12)
         }
-        if name.hasPrefix("06_preset") {
+        if name.hasPrefix("06_ambience") || name.hasPrefix("06_saved") {
             return (horizontal: 16, vertical: 10)
+        }
+        if name.hasPrefix("09_noise") {
+            return (horizontal: 18, vertical: 12)
         }
         if name == "04_binaural_modes" {
             return (horizontal: 16, vertical: 12)

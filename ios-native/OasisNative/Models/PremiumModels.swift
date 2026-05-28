@@ -150,9 +150,23 @@ struct PremiumInlineUpsellContext: Identifiable, Equatable {
 struct PremiumPaywallPresentation {
     let title: String
     let subtitle: String
-    let benefitRows: [String]
+    let benefitRows: [PremiumPaywallBenefit]
     let symbolName: String
     let accentToken: PremiumAccentToken
+}
+
+enum PremiumBenefitKind: Sendable {
+    case sounds
+    case noise
+    case presets
+    case binaural
+    case timer
+    case updates
+}
+
+struct PremiumPaywallBenefit: Sendable {
+    let kind: PremiumBenefitKind
+    let text: String
 }
 
 struct PremiumInlineUpsellPresentation {

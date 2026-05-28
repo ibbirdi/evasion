@@ -1,3 +1,5 @@
-Oasis ora supporta iOS 17+.
+Oasis ora è più chiara, morbida e personale.
 
-Questo aggiornamento mantiene il mixer con 35 suoni, le modalità binaurali, i preset, il timer, la riproduzione offline e lo sblocco con acquisto unico, rendendo l'app disponibile a più utenti iPhone.
+- Nuova sezione Le mie atmosfere: salva i tuoi paesaggi sonori, scegli uno sfondo, modificali, eliminali e avviali per la durata che preferisci.
+- Nuovi rumori Premium per mascherare meglio i suoni intorno a te: rumore rosa, rumore verde, ventilatore e cabina aerea.
+- Controlli rifiniti, nuove immagini App Store e una schermata Premium a vita più calda.

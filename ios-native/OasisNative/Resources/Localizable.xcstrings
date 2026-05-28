@@ -1,8 +1,12 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "": {},
-    "·" : {},
+    "" : {
+
+    },
+    "·" : {
+
+    },
     "%@ - %@" : {
       "localizations" : {
         "en" : {
@@ -53,8 +57,12 @@
         }
       }
     },
-    "%lld" : {},
-    "%lld min" : {},
+    "%lld" : {
+
+    },
+    "%lld min" : {
+
+    },
     "%lld/%lld" : {
       "localizations" : {
         "en" : {
@@ -65,8 +73,12 @@
         }
       }
     },
-    "%lldm" : {},
-    "+%lld" : {},
+    "%lldm" : {
+
+    },
+    "+%lld" : {
+
+    },
     "app.title" : {
       "comment" : "App title and fallback brand label when the logo image is unavailable.",
       "localizations" : {
@@ -12996,37 +13008,37 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Klangdecke für Fokus, Reisen und tieferen Schlaf"
+            "value" : "4 zusätzliche Rauschschichten: Pink, Grün, Ventilator, Flugzeugkabine"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Noise cover for focus, travel and deeper sleep"
+            "value" : "4 extra noise layers: pink, green, fan, aircraft cabin"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cobertura sonora para foco, viaje y sueño profundo"
+            "value" : "4 ruidos extra: rosa, verde, ventilador, cabina de avión"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Couverture sonore pour focus, voyage et sommeil profond"
+            "value" : "4 bruits en plus : rose, vert, ventilateur, cabine d’avion"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Copertura sonora per focus, viaggio e sonno profondo"
+            "value" : "4 rumori extra: rosa, verde, ventilatore, cabina aerea"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cobertura sonora para foco, viagem e sono profundo"
+            "value" : "4 ruídos extras: rosa, verde, ventilador, cabine de avião"
           }
         }
       }
@@ -13570,37 +13582,37 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Schalte 32 weitere Sounds, Timer für 1/2 Std. und unbegrenzt gespeicherte Klangwelten frei. Ein Kauf, kein Abo."
+            "value" : "Schalte 32 weitere Sounds, 4 zusätzliche Rauschschichten, Timer für 1/2 Std. und unbegrenzt gespeicherte Klangwelten frei. Ein Kauf, kein Abo."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Unlock 32 more sounds, 1 hr/2 hr timers and unlimited saved ambiences. One purchase, no subscription."
+            "value" : "Unlock 32 more sounds, 4 extra noise layers, 1 hr/2 hr timers and unlimited saved ambiences. One purchase, no subscription."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Desbloquea 32 sonidos más, temporizadores de 1/2 h y ambientes guardados ilimitados. Una compra, sin suscripción."
+            "value" : "Desbloquea 32 sonidos más, 4 ruidos extra, temporizadores de 1/2 h y ambientes guardados ilimitados. Una compra, sin suscripción."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Débloquez 32 sons en plus, les minuteurs 1 h/2 h et les ambiances enregistrées illimitées. Un seul achat, sans abonnement."
+            "value" : "Débloquez 32 sons, 4 bruits en plus, les minuteurs 1 h/2 h et les ambiances enregistrées illimitées. Un seul achat, sans abonnement."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sblocca 32 suoni in più, timer da 1/2 h e atmosfere salvate illimitate. Un solo acquisto, nessun abbonamento."
+            "value" : "Sblocca 32 suoni in più, 4 rumori extra, timer da 1/2 h e atmosfere salvate illimitate. Un solo acquisto, nessun abbonamento."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Desbloqueie 32 sons extras, timers de 1/2 h e ambientes salvos ilimitados. Uma compra, sem assinatura."
+            "value" : "Desbloqueie 32 sons extras, 4 ruídos extras, timers de 1/2 h e ambientes salvos ilimitados. Uma compra, sem assinatura."
           }
         }
       }

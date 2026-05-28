@@ -106,8 +106,8 @@ The "Restore" button is exposed in both the iOS paywall and the macOS paywall sh
 
 `PremiumPaywallContext` carries which feature triggered the paywall. The `PaywallOverlay` view selects:
 - A title variant (generic vs feature-targeted).
-- An organic texture-backed lifetime hero. The "one purchase / lifetime access / no subscription" trust line is the first visual claim, and the feature subtitle is shortened to the first useful sentence to avoid repeating the subscription message.
-- A compact 2x2 benefit tile grid with distinct SF Symbols and the triggering feature pinned first. Keep these tiles scannable; avoid returning to long checkmark lists.
+- A beach/photo-backed lifetime hero. The hero and full-screen backdrop use `paywall_beach_background` (Pexels 673865 by Pok Rie), with a sand/foam/water palette rather than the older green aurora treatment. The "one purchase / lifetime access / no subscription" trust line is the first visual claim, and the feature subtitle is shortened to the first useful sentence to avoid repeating the subscription message.
+- A compact 2x2 benefit tile grid with distinct SF Symbols and the triggering feature pinned first. Every full paywall context should include the Premium noise value somewhere in those four tiles (`4 bruits en plus` / 4 extra noise layers), alongside sounds, ambiences, timer, or binaural as context demands. Keep these tiles scannable; avoid returning to long checkmark lists.
 - The "price of a coffee in Paris" anchor — keep across all locales (commits `2b9072a`, `e4ba1e6`).
 
 Localisation: every paywall string is in `Localizable.xcstrings` under `paywall.*` and `premium.inline.*`.
@@ -132,7 +132,7 @@ These flow through TelemetryDeck (when `TelemetryDeckAppID` is configured) and i
 `-OASISPremiumOverride free|premium|revenueCat` bypasses RevenueCat entirely:
 
 - `free` → `isPremium = false`, no RevenueCat calls.
-- `premium` → `isPremium = true`, no RevenueCat calls. Used by every screenshot scenario except `08_free_home`, `09_library_teaser`, `10_paywall`.
+- `premium` → `isPremium = true`, no RevenueCat calls. Used by every screenshot scenario except `08_free_home` and `10_paywall`; `09_noise` uses Premium so the extra noise layers are visible.
 - `revenueCat` (default) → normal flow.
 
 Defined in [`DevelopmentPremiumOverride`](../../../ios-native/OasisNative/Support/AppConfiguration.swift). Non-premium launch arguments, such as the App Store screenshot immersive-audio override, live beside it in `AppConfiguration`.

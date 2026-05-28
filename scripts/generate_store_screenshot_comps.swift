@@ -36,6 +36,7 @@ enum BackgroundStyle: String, Codable {
     case sageMist          // soft editorial mist with restrained color
     case spatialGradient   // deep blue/teal/violet for spatial audio
     case midnightCopper    // dark premium copper for purchase/value slides
+    case coastalSand       // soft beach palette inspired by Pok Rie's Pexels shoreline
 }
 
 enum RenderStyle: String {
@@ -51,6 +52,7 @@ enum SceneMood: String, Codable {
     case dawn
     case lagoon
     case graphite
+    case coast
 }
 
 enum TextAlignmentToken: String, Codable {
@@ -281,11 +283,11 @@ enum Tokens {
     // ── Dynamic v4 scene renderer
     static let dynamicEyebrowSize: CGFloat = 48
     static let dynamicEyebrowKerning: CGFloat = 4.2
-    static let dynamicEyebrowToHeadlineGap: CGFloat = 22
-    static let dynamicHeadlineStepSizes: [CGFloat] = [148, 140, 132, 124, 116, 108, 100, 92, 84]
+    static let dynamicEyebrowToHeadlineGap: CGFloat = 16
+    static let dynamicHeadlineStepSizes: [CGFloat] = [180, 172, 164, 156, 148, 140, 132, 124, 116, 108, 100, 92, 84]
     static let dynamicHeadlineLeading: CGFloat = 0.90
-    static let dynamicHeadlineToSubheadGap: CGFloat = 22
-    static let dynamicSubheadSize: CGFloat = 66
+    static let dynamicHeadlineToSubheadGap: CGFloat = 16
+    static let dynamicSubheadSize: CGFloat = 54
     static let dynamicSubheadLeading: CGFloat = 0.96
 }
 
@@ -546,6 +548,26 @@ func drawBackground(slide: Slide) {
                        radius: rect.width * 0.76, alpha: 0.42)
         drawRadialGlow(color: slide.accent, center: CGPoint(x: rect.maxX - 220, y: rect.maxY - 420),
                        radius: rect.width * 0.48, alpha: 0.18)
+
+    case .coastalSand:
+        let cs = CGColorSpaceCreateDeviceRGB()
+        let grad = CGGradient(
+            colorsSpace: cs,
+            colors: [
+                hex("#E9D1BD").cgColor,
+                hex("#9FB5B2").cgColor,
+                hex("#DFA07D").cgColor
+            ] as CFArray,
+            locations: [0, 0.46, 1]
+        )!
+        ctx.drawLinearGradient(grad,
+                               start: CGPoint(x: rect.minX, y: rect.maxY),
+                               end:   CGPoint(x: rect.maxX, y: rect.minY),
+                               options: [.drawsBeforeStartLocation, .drawsAfterEndLocation])
+        drawRadialGlow(color: hex("#F2E9DC"), center: CGPoint(x: rect.midX + 80, y: rect.maxY - 520),
+                       radius: rect.width * 0.68, alpha: 0.28)
+        drawRadialGlow(color: hex("#C9775E"), center: CGPoint(x: rect.minX + 240, y: rect.minY + 420),
+                       radius: rect.width * 0.58, alpha: 0.20)
     }
 
     drawAcousticField(slide: slide, in: rect)
@@ -651,6 +673,18 @@ func palette(for mood: SceneMood, slide: Slide) -> ScenePalette {
             surface: hex("#F8F8F4"),
             hairline: hex("#FFFFFF")
         )
+    case .coast:
+        return ScenePalette(
+            top: hex("#F0DAC8"),
+            middle: hex("#A5B8B6"),
+            bottom: hex("#E3A17D"),
+            glowPrimary: hex("#C9775E"),
+            glowSecondary: hex("#F3ECE2"),
+            text: hex("#121923"),
+            mutedText: hex("#495158"),
+            surface: hex("#FAEEE4"),
+            hairline: hex("#FFFFFF")
+        )
     }
 }
 
@@ -658,6 +692,7 @@ func drawDynamicBackground(slide: Slide, mood: SceneMood) {
     guard let ctx = NSGraphicsContext.current?.cgContext else { return }
     let rect = CGRect(origin: .zero, size: Tokens.canvasSize)
     let p = palette(for: mood, slide: slide)
+    let usesSoftLight = mood == .mist || mood == .dawn || mood == .graphite || mood == .coast
     let cs = CGColorSpaceCreateDeviceRGB()
     let gradient = CGGradient(
         colorsSpace: cs,
@@ -672,24 +707,24 @@ func drawDynamicBackground(slide: Slide, mood: SceneMood) {
     )
 
     drawRadialGlow(color: p.glowPrimary, center: CGPoint(x: rect.maxX - 180, y: rect.maxY - 520),
-                   radius: rect.width * 0.84, alpha: mood == .mist || mood == .dawn || mood == .graphite ? 0.26 : 0.38)
+                   radius: rect.width * 0.84, alpha: usesSoftLight ? 0.26 : 0.38)
     drawRadialGlow(color: p.glowSecondary, center: CGPoint(x: rect.minX + 210, y: rect.minY + 620),
-                   radius: rect.width * 0.72, alpha: mood == .mist || mood == .dawn || mood == .graphite ? 0.18 : 0.28)
+                   radius: rect.width * 0.72, alpha: usesSoftLight ? 0.18 : 0.28)
 
-    drawKineticWash(in: rect, color: p.glowSecondary, alpha: mood == .mist || mood == .dawn || mood == .graphite ? 0.16 : 0.09,
+    drawKineticWash(in: rect, color: p.glowSecondary, alpha: usesSoftLight ? 0.16 : 0.09,
                     y: rect.maxY - 610, rotation: -11)
-    drawKineticWash(in: rect, color: p.glowPrimary, alpha: mood == .mist || mood == .dawn || mood == .graphite ? 0.13 : 0.07,
+    drawKineticWash(in: rect, color: p.glowPrimary, alpha: usesSoftLight ? 0.13 : 0.07,
                     y: rect.minY + 560, rotation: 8)
 
     drawSoundBand(in: rect, baseY: rect.midY + 270, height: 460,
                   amplitude: 54, wavelength: 720, phase: 90,
-                  color: p.glowPrimary, alpha: mood == .mist || mood == .dawn || mood == .graphite ? 0.055 : 0.075)
+                  color: p.glowPrimary, alpha: usesSoftLight ? 0.055 : 0.075)
     drawSoundBand(in: rect, baseY: rect.minY + 420, height: 510,
                   amplitude: 70, wavelength: 610, phase: 210,
-                  color: p.glowSecondary, alpha: mood == .mist || mood == .dawn || mood == .graphite ? 0.050 : 0.080)
+                  color: p.glowSecondary, alpha: usesSoftLight ? 0.050 : 0.080)
 
     drawGrainOverlay(in: rect, opacity: 0.035)
-    drawVignette(in: rect, darkness: mood == .mist || mood == .dawn || mood == .graphite ? 0.10 : 0.31)
+    drawVignette(in: rect, darkness: usesSoftLight ? 0.10 : 0.31)
 }
 
 func drawKineticWash(in rect: CGRect, color: NSColor, alpha: CGFloat, y: CGFloat, rotation: CGFloat) {
@@ -753,6 +788,14 @@ func drawAcousticField(slide: Slide, in rect: CGRect) {
         drawSoundBand(in: rect, baseY: rect.minY + 320, height: 420,
                       amplitude: 46, wavelength: 520, phase: 220,
                       color: hex("#85A884"), alpha: 0.052)
+
+    case .coastalSand:
+        drawSoundBand(in: rect, baseY: rect.midY + 180, height: 500,
+                      amplitude: 58, wavelength: 640, phase: 70,
+                      color: hex("#C9775E"), alpha: 0.060)
+        drawSoundBand(in: rect, baseY: rect.minY + 430, height: 430,
+                      amplitude: 48, wavelength: 560, phase: 210,
+                      color: hex("#F3ECE2"), alpha: 0.075)
 
     case .midnightCopper, .warmGradient:
         drawSoundBand(in: rect, baseY: rect.minY + 390, height: 520,
@@ -1532,14 +1575,20 @@ func anchoredAssets(for slide: Slide) -> [AnchoredAsset] {
         return [AnchoredAsset(name: "04_binaural_modes", scale: 1.24, cornerRadius: 82)]
     case "05_spatial":
         return [AnchoredAsset(name: "05_spatial_stage", scale: 1.42, cornerRadius: 88)]
-    case "06_presets":
-        return [AnchoredAsset(name: "06_preset_starter", scale: 1.56, cornerRadius: 74)]
+    case "06_ambiences":
+        return [
+            AnchoredAsset(name: "06_saved_starter", scale: 1.46, cornerRadius: 74),
+            AnchoredAsset(name: "06_saved_reset", scale: 1.36, cornerRadius: 74)
+        ]
     case "07_timer":
         return [AnchoredAsset(name: "07_active_rain", scale: 1.34, cornerRadius: 68)]
     case "08_free_home":
         return [AnchoredAsset(name: "08_active_birds", scale: 1.34, cornerRadius: 68)]
-    case "09_library_teaser":
-        return [AnchoredAsset(name: "09_active_shore", scale: 1.34, cornerRadius: 68)]
+    case "09_noise":
+        return [
+            AnchoredAsset(name: "09_noise_green", scale: 1.32, cornerRadius: 68),
+            AnchoredAsset(name: "09_noise_fan", scale: 1.28, cornerRadius: 68)
+        ]
     case "10_paywall":
         return [AnchoredAsset(name: "10_paywall_primary", scale: 1.26, cornerRadius: 74)]
     default:
@@ -1554,15 +1603,35 @@ func expectedCapturedAssetNames() -> Set<String> {
         "03_detail_map",
         "04_binaural_modes",
         "05_spatial_stage",
-        "06_preset_starter",
-        "06_preset_calm",
-        "06_preset_storm",
+        "06_ambience_duration",
+        "06_saved_starter",
+        "06_saved_reset",
+        "06_saved_storm",
         "07_active_rain",
         "08_active_birds",
-        "09_active_shore",
-        "09_library_teaser",
+        "09_noise_green",
+        "09_noise_fan",
         "10_paywall_primary"
     ])
+}
+
+func appStoreOutputFileName(for slide: Slide) -> String {
+    switch slide.slug {
+    case "06_ambiences":
+        return "03_ambiences.jpg"
+    case "07_timer":
+        return "04_timer.jpg"
+    case "05_spatial":
+        return "05_spatial.jpg"
+    case "08_free_home":
+        return "06_free_home.jpg"
+    case "03_detail_sheet":
+        return "07_detail_sheet.jpg"
+    case "04_binaural":
+        return "08_binaural.jpg"
+    default:
+        return "\(slide.slug).jpg"
+    }
 }
 
 func validateExtractedAssetsDirectory(_ assetsDir: URL, expectedNames: Set<String>) throws {
@@ -1702,27 +1771,7 @@ func drawRoundedExtractedAsset(_ image: NSImage,
     image.draw(in: rect, from: .zero, operation: .sourceOver, fraction: 1)
     ctx.restoreGState()
 
-    ctx.saveGState()
-    let borderGlow = NSShadow()
-    borderGlow.shadowColor = NSColor.white.withAlphaComponent(0.14)
-    borderGlow.shadowBlurRadius = 16
-    borderGlow.shadowOffset = .zero
-    borderGlow.set()
-    NSColor.white.withAlphaComponent(0.14).setStroke()
-    path.lineWidth = 11
-    path.stroke()
-    ctx.restoreGState()
-
-    NSColor.white.withAlphaComponent(0.20).setStroke()
-    path.lineWidth = 5.8
-    path.stroke()
-
-    let innerRect = rect.insetBy(dx: 3.6, dy: 3.6)
-    let innerRadius = max(radius - 3.6, 0)
-    let innerPath = NSBezierPath(roundedRect: innerRect, xRadius: innerRadius, yRadius: innerRadius)
-    NSColor.white.withAlphaComponent(0.16).setStroke()
-    innerPath.lineWidth = 1.5
-    innerPath.stroke()
+    // Keep highlight crops borderless so they read as lifted UI, not framed cards.
 }
 
 func anchoredRect(_ frame: ExtractedAssetMetadata.Rect,
@@ -1870,6 +1919,12 @@ for language in languages {
         ?? (renderStyle == .dynamic ? "figma-pro" : "figma-pro-classic")
     let outputDir = langDir.appendingPathComponent(outputFolder)
     try FileManager.default.createDirectory(at: outputDir, withIntermediateDirectories: true)
+    if onlySlug == nil {
+        let existingOutputs = try FileManager.default.contentsOfDirectory(at: outputDir, includingPropertiesForKeys: nil)
+        for output in existingOutputs where output.pathExtension == "jpg" {
+            try FileManager.default.removeItem(at: output)
+        }
+    }
     if renderStyle == .dynamic {
         try validateExtractedAssetsDirectory(
             langDir.appendingPathComponent("extracted-assets", isDirectory: true),
@@ -1888,12 +1943,13 @@ for language in languages {
             skipped.append("\(language)/\(slide.slug) — missing capture")
             continue
         }
-        let outputURL = outputDir.appendingPathComponent("\(slide.slug).jpg")
+        let outputFileName = appStoreOutputFileName(for: slide)
+        let outputURL = outputDir.appendingPathComponent(outputFileName)
         try renderSlide(slide: slide, copy: copy,
                         inputURL: inputURL,
                         outputURL: outputURL)
         produced += 1
-        print("✓ \(language)/\(slide.slug).jpg")
+        print("✓ \(language)/\(outputFileName)")
     }
 }
 

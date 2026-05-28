@@ -29,38 +29,41 @@ private struct BrandLockupView: View {
     private static let ringSize: CGFloat = 118 * logoScale
     private static let verticalOffset: CGFloat = -30 * logoScale
     private static let expandedHeightCap: CGFloat = 165 * logoScale
+    private static let showsLogoRings = false
 
     var body: some View {
         ZStack {
-            ZStack {
-                RotatingOasisLogoRing(
-                    isPlaying: model.isPlaying,
-                    reduceMotion: reduceMotion,
-                    rotationDirection: -1,
-                    initialRotationDegrees: 118
-                )
-                .frame(width: Self.ringSize, height: Self.ringSize)
-                .saturation(1.14)
-                .contrast(1.02)
-                .opacity(0.56)
-                .blendMode(.plusLighter)
-                .accessibilityHidden(true)
+            if Self.showsLogoRings {
+                ZStack {
+                    RotatingOasisLogoRing(
+                        isPlaying: model.isPlaying,
+                        reduceMotion: reduceMotion,
+                        rotationDirection: -1,
+                        initialRotationDegrees: 118
+                    )
+                    .frame(width: Self.ringSize, height: Self.ringSize)
+                    .saturation(1.14)
+                    .contrast(1.02)
+                    .opacity(0.56)
+                    .blendMode(.plusLighter)
+                    .accessibilityHidden(true)
 
-                RotatingOasisLogoRing(
-                    isPlaying: model.isPlaying,
-                    reduceMotion: reduceMotion,
-                    rotationDirection: 1,
-                    initialRotationDegrees: 0
-                )
-                .frame(width: Self.ringSize, height: Self.ringSize)
-                .saturation(1.14)
-                .contrast(1.02)
-                .opacity(0.56)
-                .blendMode(.plusLighter)
-                .accessibilityHidden(true)
+                    RotatingOasisLogoRing(
+                        isPlaying: model.isPlaying,
+                        reduceMotion: reduceMotion,
+                        rotationDirection: 1,
+                        initialRotationDegrees: 0
+                    )
+                    .frame(width: Self.ringSize, height: Self.ringSize)
+                    .saturation(1.14)
+                    .contrast(1.02)
+                    .opacity(0.56)
+                    .blendMode(.plusLighter)
+                    .accessibilityHidden(true)
+                }
+                .compositingGroup()
+                .brightness(-0.14)
             }
-            .compositingGroup()
-            .brightness(-0.14)
 
             HomeMixConstellationView(
                 nodes: mixConstellationNodes,
@@ -194,7 +197,7 @@ private struct HomeMixConstellationView: View {
         let pulse = pulse(for: node, time: time)
         let headWidth = 1.35 + node.size * 0.12
         let headDiameter = 2.4 + node.size * 0.22
-        let trailDuration = 1.02 + Double(node.size) * 0.025
+        let trailDuration = (1.02 + Double(node.size) * 0.025) * 3.0
         let meteorOpacity = 0.78 + pulse * 0.18
 
         for segment in stride(from: Self.trailSegments - 1, through: 0, by: -1) {
@@ -325,10 +328,10 @@ private struct HomeMixConstellationView: View {
     }
 
     private func radius(for index: Int, node: HomeMixConstellationNode, time: Double) -> CGFloat {
-        let lane = CGFloat(index % 3) * 6.8
-        let breath = CGFloat(sin(time * 1.42 + node.phase)) * (3.8 + node.size * 0.10)
+        let lane = CGFloat(index % 3) * 5.6
+        let breath = CGFloat(sin(time * 1.42 + node.phase)) * (3.2 + node.size * 0.08)
         let slowLift = CGFloat(sin(time * 0.54 + node.phase * 0.7)) * 1.4
-        return 56 + lane + breath + slowLift
+        return 49 + lane + breath + slowLift
     }
 
     private func pulse(for node: HomeMixConstellationNode, time: Double) -> Double {

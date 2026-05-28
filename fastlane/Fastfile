@@ -1,18 +1,29 @@
 require "json"
 require "fileutils"
 
+# App Store Connect intermittently returns 500s when Deliver creates screenshot
+# placeholders concurrently. Keep screenshot uploads sequential unless explicitly
+# overridden from the shell.
+ENV["DELIVER_NUMBER_OF_THREADS"] ||= "1"
+ENV["FL_MAX_NUMBER_OF_THREADS"] ||= "1"
+
 default_platform(:ios)
 
 APPSTORE_SCREENSHOT_DISPLAY_ORDER = {
   "01_hero.jpg" => "01_hero.jpg",
   "02_library.jpg" => "02_library.jpg",
-  "07_timer.jpg" => "03_timer.jpg",
-  "05_spatial.jpg" => "04_spatial.jpg",
-  "08_free_home.jpg" => "05_free_home.jpg",
-  "03_detail_sheet.jpg" => "06_detail_sheet.jpg",
-  "04_binaural.jpg" => "07_binaural.jpg",
-  "06_presets.jpg" => "08_presets.jpg",
-  "09_library_teaser.jpg" => "09_library_teaser.jpg",
+  "03_ambiences.jpg" => "03_ambiences.jpg",
+  "06_ambiences.jpg" => "03_ambiences.jpg",
+  "04_timer.jpg" => "04_timer.jpg",
+  "07_timer.jpg" => "04_timer.jpg",
+  "05_spatial.jpg" => "05_spatial.jpg",
+  "06_free_home.jpg" => "06_free_home.jpg",
+  "08_free_home.jpg" => "06_free_home.jpg",
+  "07_detail_sheet.jpg" => "07_detail_sheet.jpg",
+  "03_detail_sheet.jpg" => "07_detail_sheet.jpg",
+  "08_binaural.jpg" => "08_binaural.jpg",
+  "04_binaural.jpg" => "08_binaural.jpg",
+  "09_noise.jpg" => "09_noise.jpg",
   "10_paywall.jpg" => "10_paywall.jpg"
 }.freeze
 
@@ -222,7 +233,7 @@ platform :ios do
   desc "Upload metadata to App Store Connect without screenshots"
   lane :appstore_metadata do |options|
     repo_root = oasis_repo_root
-    app_version = options[:app_version] || "1.5.1"
+    app_version = options[:app_version] || "1.5.2"
 
     upload_to_app_store(
       username: "jonathanluquet@me.com",
@@ -274,7 +285,7 @@ platform :ios do
   desc "Upload screenshots + metadata to App Store Connect (no binary)"
   lane :appstore_release do |options|
     repo_root = oasis_repo_root
-    app_version = options[:app_version] || "1.5.1"
+    app_version = options[:app_version] || "1.5.2"
     staging_result = oasis_stage_appstore_media(repo_root)
 
     upload_to_app_store(

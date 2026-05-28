@@ -81,18 +81,18 @@ Ten scenarios driven by `setUpWithError` reading launch arguments. Each produces
 | `06_ambiences` | My Ambiences panel with saved Oasis ambiences, duration choices, image-backed selector capsules, and the top save action. |
 | `07_timer` | Timer menu showing the 4 options. |
 | `08_free_home` | Free-tier home (3 channels, locks visible). |
-| `09_library_teaser` | Free-tier library showing locked premium card. |
+| `09_noise` | Premium Noise Lab rows showing the extra green and fan noise layers. |
 | `10_paywall` | Full paywall. |
 
 The screenshot lane is filtered to `OasisNativeUITests/OasisNativeScreenshots/testAppStoreScreenshots` so it does not run premium-flow tests or the social-video `MarketingScenarioRunner`.
 
-The App Store screenshot suite also writes real simulator element crops into `fastlane/screenshots/<locale>/extracted-assets/` for the v4 compositor. `SnapshotHelper` deletes and recreates that folder at screenshot setup so stale assets cannot survive between runs. `SnapshotHelper.snapshotElement` crops `XCUIScreen.main.screenshot().image` using the visible `XCUIElement` frame plus a small element-specific padding, then writes both a PNG and JSON metadata (`elementFramePoints`, padded `visibleFramePoints`, `paddingPoints`, screen size, and image pixel size). These extracted assets are captured from the same live scenarios as the raw screenshots, not from a separate mock view. Current approved pop-out crops include active rows for Forest, River, Rain, Birds, and Beach; one full `binaural.track.grid` crop; the detail map; spatial stage; preset rows; library teaser; and paywall CTA.
+The App Store screenshot suite also writes real simulator element crops into `fastlane/screenshots/<locale>/extracted-assets/` for the v4 compositor. `SnapshotHelper` deletes and recreates that folder at screenshot setup so stale assets cannot survive between runs. `SnapshotHelper.snapshotElement` crops `XCUIScreen.main.screenshot().image` using the visible `XCUIElement` frame plus a small element-specific padding, then writes both a PNG and JSON metadata (`elementFramePoints`, padded `visibleFramePoints`, `paddingPoints`, screen size, and image pixel size). These extracted assets are captured from the same live scenarios as the raw screenshots, not from a separate mock view. Current approved pop-out crops include active rows for Forest, River, Rain, Birds, and Beach; one full `binaural.track.grid` crop; the detail map; spatial stage; My Ambiences duration and saved ambience cards (`06_saved_starter`, `06_saved_reset`, `06_saved_storm`); premium noise rows (`09_noise_green`, `09_noise_fan`); and the paywall CTA.
 
 Launch arguments used by these tests:
 
 - `-FASTLANE_SNAPSHOT YES` (set by fastlane)
 - `-OASISResetState YES` (force known mix)
-- `-OASISPremiumOverride premium` (or `free` for 08/09/10)
+- `-OASISPremiumOverride premium` (or `free` for 08/10)
 - `-OASISImmersiveAudioEnabled YES` (force the global immersive sound toggle on for every App Store screenshot)
 
 Fastlane `launch_arguments` must stay as one combined string in the lane / `Snapfile` (for example `"-OASISResetState YES -OASISImmersiveAudioEnabled YES"`). Snapshot treats each array element as a separate launch-argument set; splitting these flags into two strings doubles the full locale pass.
@@ -136,8 +136,8 @@ From repo root, run `bundle exec fastlane <lane>`:
 | `mac_appstore_release app_version:1.0.0` | Upload macOS screenshots + metadata for an existing macOS binary version. Uses `platform: "osx"` and does not upload a binary. |
 | `stage_appstore_assets` | Stage screenshots into `fastlane/appstore-upload/<locale>/`; screenshots are renamed to the Variant B display order and App Preview videos are intentionally excluded. |
 | `appstore_metadata` | Push metadata only, no binary. Fast iteration on text. |
-| `build_and_upload ipa_name:OasisNative-1.5.1-b7.ipa` | Archive/export the iOS App Store IPA and upload it to TestFlight/App Store Connect without automatic submission. |
-| `appstore_release app_version:1.5.1` | Push screenshots + metadata for an existing binary version. |
+| `build_and_upload ipa_name:OasisNative-1.5.2-b8.ipa` | Archive/export the iOS App Store IPA and upload it to TestFlight/App Store Connect without automatic submission. |
+| `appstore_release app_version:1.5.2` | Push screenshots + metadata for an existing binary version. |
 
 The `Fastfile` autodetects the repo root by looking for `ios-native/OasisNative.xcodeproj` in 4 candidate paths.
 

@@ -16,8 +16,8 @@ import XCTest
 ///   06_ambiences       — My ambiences panel with saved Oasis mixes
 ///   07_timer           — Timer menu open with all four duration options
 ///   08_free_home       — Free tier base screen with the three starter sounds playing
-///   09_library_teaser  — Free tier scrolled to the locked premium library card
-///   10_paywall         — Premium paywall triggered from the library teaser
+///   09_noise           — Premium noise layers visible and active in the mixer
+///   10_paywall         — Premium paywall triggered from the library Premium teaser
 @MainActor
 final class OasisNativeScreenshots: XCTestCase {
 
@@ -38,7 +38,7 @@ final class OasisNativeScreenshots: XCTestCase {
             return onlyScenarios.contains(name)
         }
 
-        // MARK: — Premium scenarios (7)
+        // MARK: — Premium scenarios (8)
 
         if shouldRun("01_hero") {
             runScenario { app in
@@ -122,6 +122,7 @@ final class OasisNativeScreenshots: XCTestCase {
                 snapshot("06_ambiences", waitForLoadingIndicator: false)
                 snapshotElement("06_ambience_duration", element: element(in: app, id: "compose.ambience.duration"))
                 snapshotElement("06_saved_starter", element: element(in: app, id: "compose.ambience.preset_default_starter"))
+                snapshotElement("06_saved_reset", element: element(in: app, id: "compose.ambience.preset_default_reset"))
                 snapshotElement("06_saved_storm", element: element(in: app, id: "compose.ambience.preset_default_storm"))
             }
         }
@@ -139,7 +140,7 @@ final class OasisNativeScreenshots: XCTestCase {
             }
         }
 
-        // MARK: — Free scenarios (3)
+        // MARK: — Free scenarios (2)
 
         if shouldRun("08_free_home") {
             runScenario { app in
@@ -151,17 +152,20 @@ final class OasisNativeScreenshots: XCTestCase {
             }
         }
 
-        if shouldRun("09_library_teaser") {
+        if shouldRun("09_noise") {
             runScenario { app in
-                // 09 Library teaser — free user scrolled to the locked premium section card.
-                // Playback running so the free mix is live behind the teaser card.
-                launchApp(app, premiumOverride: "free")
+                // 09 Noise layers — premium procedural noise rows active in the mixer.
+                // The App Store slide uses this to explain the extra noise-cover layers.
+                launchApp(app, premiumOverride: "premium")
                 startPlayingMix(in: app, shuffleFirst: true)
-                scrollToElement(id: "premium.library.teaser", in: app, maxSwipes: 10)
+                scrollToElement(id: "noise.row.green", in: app, maxSwipes: 12)
+                tap(button(in: app, id: "noise.mute.green"))
+                scrollToElement(id: "noise.row.fan", in: app, maxSwipes: 4)
+                tap(button(in: app, id: "noise.mute.fan"))
                 pause(seconds: 0.5)
-                snapshot("09_library_teaser", waitForLoadingIndicator: false)
-                snapshotElement("09_active_shore", element: element(in: app, id: "channel.row.plage"))
-                snapshotElement("09_library_teaser", element: element(in: app, id: "premium.library.teaser"))
+                snapshot("09_noise", waitForLoadingIndicator: false)
+                snapshotElement("09_noise_green", element: element(in: app, id: "noise.row.green"))
+                snapshotElement("09_noise_fan", element: element(in: app, id: "noise.row.fan"))
             }
         }
 

@@ -61,7 +61,7 @@ struct MacPaywallSheet: View {
                         HStack(spacing: 9) {
                             Image(systemName: "checkmark.circle.fill")
                                 .foregroundStyle(presentation.accentToken.macTint)
-                            Text(verbatim: row)
+                            Text(verbatim: row.text)
                                 .font(.system(size: 13, weight: .medium, design: .rounded))
                                 .foregroundStyle(.white.opacity(0.84))
                         }

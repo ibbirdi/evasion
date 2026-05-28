@@ -729,7 +729,7 @@ enum L10n {
 
         static let subtitleGeneric = LocalizedStringResource(
             "paywall.subtitle.generic",
-            defaultValue: "Unlock 32 more sounds, 1 hr/2 hr timers and unlimited saved ambiences. One purchase, no subscription.",
+            defaultValue: "Unlock 32 more sounds, 4 extra noise layers, 1 hr/2 hr timers and unlimited saved ambiences. One purchase, no subscription.",
             bundle: .main,
             comment: "Generic paywall subtitle summarizing the full premium offer."
         )
@@ -820,7 +820,7 @@ enum L10n {
 
         static let benefitNoiseLab = LocalizedStringResource(
             "paywall.benefit.noiseLab",
-            defaultValue: "Noise cover for focus, travel and deeper sleep",
+            defaultValue: "4 extra noise layers: pink, green, fan, aircraft cabin",
             bundle: .main,
             comment: "Premium benefit row for noise cover layers."
         )

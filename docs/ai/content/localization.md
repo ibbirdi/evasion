@@ -6,6 +6,7 @@ tracks:
   - "ios-native/OasisNative/Support/L10n.swift"
   - "ios-native/OasisNative/Resources/Localizable.xcstrings"
   - "fastlane/metadata/**"
+  - "scripts/screenshot_content.json"
 related:
   - "sounds-catalog.md"
   - "../codebase/conventions.md"
@@ -130,11 +131,11 @@ Apple indexes each unique word **once** across `name + subtitle + keywords`. Rep
 
 ## App Store Connect surface (per locale)
 
-Each locale has its own ASC view: name, subtitle, description, keywords, promotional text, release notes, screenshots, optional App Preview videos, optional URLs. fastlane lanes push metadata and screenshots; App Preview videos are currently excluded from staging/upload for `1.5.1`. See [../operations/release-process.md](../operations/release-process.md).
+Each locale has its own ASC view: name, subtitle, description, keywords, promotional text, release notes, screenshots, optional App Preview videos, optional URLs. fastlane lanes push metadata and screenshots; App Preview videos are currently excluded from staging/upload for `1.5.2`. See [../operations/release-process.md](../operations/release-process.md).
 
 Non-localized review information lives in `fastlane/metadata/review_information/`. The macOS `1.0.0` review note explains that the Mac build is the native menu bar adaptation of the existing iOS app, shares the same bundle ID and lifetime Premium entitlement, and must be opened from the macOS menu bar icon.
 
-As of 2026-05-22, visible ASO copy and screenshot overlays in all 6 locales use the current catalogue promise: `35` total nature sounds to mix, with `32` extra sounds unlocked by the lifetime purchase. The `1.5.1` release notes are localized around the iOS 17+ audience unlock while preserving the 35-sound, binaural, preset, timer, offline, and one-time-purchase positioning. Keep those numbers aligned with [sounds-catalog.md](sounds-catalog.md) and [marketing/store-assets.md](../marketing/store-assets.md).
+As of 2026-05-28, ASO copy and screenshot overlays in all 6 locales use the current catalogue promise: `35` total nature sounds to mix, with `32` extra sounds unlocked by the lifetime purchase. Premium paywall and screenshot copy also sell the `4` extra noise layers (pink/green/fan/aircraft cabin) instead of hiding them behind generic Premium wording. The localized `1.5.2` release notes focus on the graphic refresh, My Ambiences / Mes ambiances, and Premium noise layers; the French description must not claim free users can save a first personal mix. Screenshot overlays were adapted per language after FR approval, not translated word-for-word; each locale should keep natural local phrasing for My Ambiences, sound masking, sound placement, and lifetime Premium. Keep those numbers aligned with [sounds-catalog.md](sounds-catalog.md), [product/premium-model.md](../product/premium-model.md), and [marketing/store-assets.md](../marketing/store-assets.md).
 
 ## Feature notes
 

@@ -110,3 +110,4 @@ Wide organic hero textures may keep their cinematic aspect ratio, but resample t
 | `routine_twilight_water` | `9585883` | Lada Rezantseva | Soft twilight water texture for calm saved ambiences. |
 | `routine_foggy_trees` | `30205488` | Ali Berke GÜL | Foggy leafless forest for darker focus/sleep moods. |
 | `routine_aurora_mountains` | `2113567` | Tobias Bjørkli | Aurora over snow and mountains for expansive night ambience cards. |
+| `paywall_beach_background` | `673865` | Pok Rie | Calm shoreline with pink sand, white foam, and muted water for the main Premium paywall background. |

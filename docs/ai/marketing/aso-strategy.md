@@ -1,10 +1,13 @@
 ---
 title: ASO Strategy
 status: stable
-last_updated: 2026-05-27
+last_updated: 2026-05-28
 tracks:
   - "fastlane/metadata/**"
-  - "fastlane/screenshots/**"
+  - "fastlane/Fastfile"
+  - "scripts/screenshot_content.json"
+  - "scripts/generate_store_screenshot_comps.swift"
+  - "ios-native/OasisNativeUITests/OasisNativeScreenshots.swift"
 related:
   - "positioning.md"
   - "store-assets.md"
@@ -17,18 +20,18 @@ Synthesised from the 2026-05-02 audit (v2 of the original audit doc, post sleep-
 
 The big picture is in [positioning.md](positioning.md). This file is the operational layer: what to ship, in what order.
 
-## Current local state — 2026-05-22
+## Current local state — 2026-05-28
 
-The latest low-risk ASO pass cleaned the invisible keyword fields, updated the screenshot hooks toward immersion / escape, and refreshed the visual treatment of the App Store screenshots. Version `1.5.1` is a release-note-only metadata update around the iOS 17+ audience unlock; the App Store description, screenshots, and keyword positioning remain the approved 35-sound / no-subscription set.
+The latest ASO pass has moved from French-first validation to full localized asset generation for the new My Ambiences release surface. The FR screenshot set was approved, the other five locales were adapted semantically, and all 60 screenshots were regenerated, composited, and staged in `fastlane/appstore-upload/<locale>`. Version `1.5.2` keeps the iOS 17+ audience unlock, the 35-sound / no-subscription positioning, and removes stale claims that free users can save a first mix.
 
 - Removed `baby` / `bebe` targeting from all 6 keyword files, in line with [positioning.md](positioning.md)'s anti-persona guidance.
 - Replaced those slots with adult use cases such as study, reading, work, and calm; all locales remain ≤100 chars and have zero indexed-word overlap across `name + subtitle + keywords`.
 - Removed `3D` from all App Store names. Screenshot headlines use sound-placement language; the slide 05 subhead keeps the approved French-source idea of a spatial audio engine.
 - Keep sub-category files blank: App Store Connect currently reports no valid subcategories for `HEALTH_AND_FITNESS`, `LIFESTYLE`, or `TRAVEL`, and rejects invalid `primarySubcategoryOne` values.
-- Re-rendered and staged 60 composite screenshots from the current raw captures; slide 01 now leads with `35 real-world sounds to mix. Offline. No subscription.`, and slide 09 now states `32 extra sounds with one purchase.` in English and natural equivalents in the other 5 locales.
+- Re-rendered and staged all 6 localized composite screenshot sets from current raw captures; slide 01 leads with the 35-sound/offline/no-subscription promise, staged slide 03 showcases My Ambiences with saved ambience capsule pop-outs and custom/never-static engine copy, slide 09 replaces the old library teaser with Premium noise layers using a sound-masking/frequency-range angle, and slide 10 uses the beach/sand Premium paywall while stating the extra sounds, extra noise layers, binaural modes, and saved ambiences.
 - Increased screenshot eyebrow size for readability and removed line-art background details, keeping only blob-like acoustic fields, gradients, glows, grain, and vignette.
-- App Preview videos are disabled for the `1.5.1` App Store upload: the existing remote previews were deleted on 2026-05-19, and `stage_appstore_assets` now stages screenshots only until new videos are regenerated.
-- Bumped the app to version `1.5.1`; localized `release_notes.txt` now focus on iOS 17+ support while preserving the 35-sound, binaural, preset, timer, offline, and one-time-purchase positioning.
+- App Preview videos are disabled for the `1.5.2` App Store upload: the existing remote previews were deleted on 2026-05-19, and `stage_appstore_assets` now stages screenshots only until new videos are regenerated.
+- Bumped the app to version `1.5.2`; localized `release_notes.txt` now focuses on the graphic refresh, My Ambiences, Premium noise layers, and the warmer lifetime Premium surface.
 - Replaced the first line of each `description.txt` with the approved multi-use opening line.
 
 ## macOS review notes — 2026-05-20
@@ -99,14 +102,14 @@ The body re-tools the "WHY OASIS" block toward positive benefits (`Pay once, kee
 
 ## Screenshot order — Variant B (multi-use)
 
-Reorder the existing 10 captures to lead with multi-use moments before binaural (which is opaque to a casual viewer):
+Reorder the existing 10 captures to lead with catalogue depth and custom ambiences before timer and more technical differentiators:
 
 ```
-01_hero → 02_library → 07_timer → 05_spatial → 08_free_home →
-03_detail_sheet → 04_binaural → 06_ambiences → 09_library_teaser → 10_paywall
+01_hero → 02_library → 06_ambiences → 07_timer → 05_spatial →
+08_free_home → 03_detail_sheet → 04_binaural → 09_noise → 10_paywall
 ```
 
-Reorder is done during `stage_appstore_assets` / `appstore_release`: source composites keep their slug names, while upload-ready staged files are renamed to numeric display order. No re-rendering is needed.
+Final-order filenames are now produced by the compositor and preserved by `stage_appstore_assets` / `appstore_release`: the source scenario `06_ambiences` is uploaded as `03_ambiences.jpg`, `07_timer` as `04_timer.jpg`, and so on. The lane still accepts older source-order aliases to prevent stale local outputs from breaking staging.
 
 ## App Preview video — disabled for current upload
 
@@ -135,7 +138,7 @@ CPPs are free; spawn them as A/B vehicles without touching the main page.
 1. Push Variant A names / subtitles / keywords for all 6 locales.
 2. Leave sub-category files blank unless App Store Connect exposes valid subcategories for these primary categories. **Verified locally 2026-05-18.**
 3. Rewrite `promotional_text.txt` for all 6 locales (template 1 — seasonal). **Done locally 2026-05-17.**
-4. Rewrite `release_notes.txt` for current version 1.5.1 — mention the iOS 17+ audience-unlock patch. **Done locally 2026-05-22.**
+4. Rewrite `release_notes.txt` for current version 1.5.2 — mention the visual refresh, My Ambiences, and Premium noise layers. **Done locally 2026-05-28.**
 5. Render Slide 01 v2 (multi-use eyebrow + subhead) and re-stage. **Done locally 2026-05-17.**
 6. Push first description line per locale. **Done locally 2026-05-17.**
 7. `bundle exec fastlane appstore_metadata` to ship.

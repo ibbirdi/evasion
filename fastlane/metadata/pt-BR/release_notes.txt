@@ -1,3 +1,5 @@
-O Oasis agora é compatível com iOS 17+.
+O Oasis ficou mais claro, acolhedor e pessoal.
 
-Esta atualização mantém o mixer com 35 sons, modos binaurais, presets, timer, reprodução offline e desbloqueio por compra única, deixando o app disponível para mais usuários de iPhone.
+- Nova área Minhas ambiências: salve suas próprias paisagens sonoras, escolha um fundo, edite, apague e toque pelo tempo que quiser.
+- Novos ruídos Premium para suavizar melhor os sons ao redor: ruído rosa, ruído verde, ventilador e cabine de avião.
+- Controles refinados, novos visuais da App Store e uma tela Premium vitalícia mais acolhedora.

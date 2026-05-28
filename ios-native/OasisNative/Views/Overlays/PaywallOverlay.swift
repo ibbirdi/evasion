@@ -22,8 +22,8 @@ struct PaywallOverlay: View {
 
     private let ctaGradient = LinearGradient(
         colors: [
-            Color(red: 0.95, green: 0.84, blue: 0.45),
-            Color(red: 0.97, green: 0.72, blue: 0.33)
+            Color(red: 0.92, green: 0.63, blue: 0.49),
+            Color(red: 0.72, green: 0.85, blue: 0.87)
         ],
         startPoint: .topLeading,
         endPoint: .bottomTrailing
@@ -39,25 +39,7 @@ struct PaywallOverlay: View {
             let topInset = proxy.safeAreaInsets.top
 
             ZStack {
-                AnimatedBackdrop()
-
-                LinearGradient(
-                    colors: [
-                        Color(red: 0.03, green: 0.05, blue: 0.12).opacity(0.70),
-                        Color(red: 0.02, green: 0.03, blue: 0.09).opacity(0.86)
-                    ],
-                    startPoint: .top,
-                    endPoint: .bottom
-                )
-                .ignoresSafeArea()
-
-                Rectangle()
-                    .fill(.ultraThinMaterial)
-                    .ignoresSafeArea()
-
-                Color(red: 0.01, green: 0.02, blue: 0.07)
-                    .opacity(0.74)
-                    .ignoresSafeArea()
+                PaywallAtmosphericBackground()
 
                 VStack(spacing: 0) {
                     HStack {
@@ -96,7 +78,7 @@ struct PaywallOverlay: View {
 
                     VStack(spacing: isCompactHeight ? 14 : 18) {
                         GlassSurface(
-                            tint: presentation.accentToken.tint.opacity(0.08),
+                            tint: Color(red: 0.91, green: 0.62, blue: 0.48).opacity(0.06),
                             cornerRadius: 34,
                             padding: EdgeInsets(
                                 top: isCompactHeight ? 20 : 24,
@@ -110,7 +92,6 @@ struct PaywallOverlay: View {
                                     title: presentation.title,
                                     subtitle: heroSubtitle,
                                     trustLine: L10n.string(L10n.Paywall.noSubscription),
-                                    tint: presentation.accentToken.tint,
                                     backdrop: heroBackdrop,
                                     isCompact: isCompactHeight
                                 )
@@ -203,7 +184,7 @@ struct PaywallOverlay: View {
                 .background {
                     RoundedRectangle(cornerRadius: 26, style: .continuous)
                         .fill(ctaGradient)
-                        .shadow(color: Color(red: 0.97, green: 0.74, blue: 0.32).opacity(ctaPulse ? 0.32 : 0.14), radius: ctaPulse ? 20 : 12, y: 8)
+                        .shadow(color: Color(red: 0.91, green: 0.62, blue: 0.48).opacity(ctaPulse ? 0.28 : 0.13), radius: ctaPulse ? 22 : 12, y: 8)
                 }
                 .onAppear {
                     guard !reduceMotion else { return }
@@ -301,25 +282,12 @@ struct PaywallOverlay: View {
         }
     }
 
-    private func benefitTint(for index: Int) -> Color {
-        switch index {
-        case 0:
-            return presentation.accentToken.tint
-        case 1:
-            return SoundChannel.foret.tint
-        case 2:
-            return SoundChannel.pluie.tint
-        default:
-            return BinauralTrack.alpha.tint
-        }
-    }
-
     private var benefitItems: [PaywallBenefitItem] {
-        presentation.benefitRows.enumerated().map { index, text in
+        presentation.benefitRows.map { benefit in
             PaywallBenefitItem(
-                text: compactBenefitText(text),
-                symbolName: benefitSymbol(for: index),
-                tint: benefitTint(for: index)
+                text: compactBenefitText(benefit.text),
+                symbolName: benefitSymbol(for: benefit.kind),
+                tint: benefitTint(for: benefit.kind)
             )
         }
     }
@@ -336,30 +304,42 @@ struct PaywallOverlay: View {
         return String(text[..<colonIndex])
     }
 
-    private func benefitSymbol(for index: Int) -> String {
-        switch index {
-        case 0:
+    private func benefitTint(for kind: PremiumBenefitKind) -> Color {
+        switch kind {
+        case .sounds:
+            return Color(red: 0.60, green: 0.77, blue: 0.82)
+        case .noise:
+            return Color(red: 0.91, green: 0.68, blue: 0.54)
+        case .presets:
+            return Color(red: 0.86, green: 0.54, blue: 0.44)
+        case .binaural:
+            return Color(red: 0.72, green: 0.74, blue: 0.88)
+        case .timer:
+            return Color(red: 0.94, green: 0.75, blue: 0.52)
+        case .updates:
+            return Color(red: 0.93, green: 0.86, blue: 0.76)
+        }
+    }
+
+    private func benefitSymbol(for kind: PremiumBenefitKind) -> String {
+        switch kind {
+        case .sounds:
             return "speaker.wave.2.fill"
-        case 1:
+        case .noise:
+            return "waveform"
+        case .presets:
             return "bookmark.fill"
-        case 2:
+        case .binaural:
             return "waveform.path.ecg"
-        default:
+        case .timer:
+            return "timer"
+        case .updates:
             return "sparkles"
         }
     }
 
     private var heroBackdrop: SoundBackdrop {
-        switch context.entryPoint.category {
-        case .binaural:
-            return OrganicBackdrop.darkWater
-        case .timer, .preset, .preview:
-            return OrganicBackdrop.warmFabric
-        case .composer, .ritual, .noise:
-            return OrganicBackdrop.blueFabric
-        case .manual, .onboarding, .sound, .spatial:
-            return OrganicBackdrop.darkWater
-        }
+        SoundBackdrop(assetName: "paywall_beach_background", focus: .center)
     }
 
     private func loadCurrentPackage(forceReload: Bool = false) async {
@@ -442,11 +422,59 @@ private enum PaywallLoadState {
     case failed
 }
 
+private struct PaywallAtmosphericBackground: View {
+    var body: some View {
+        ZStack {
+            Color(red: 0.050, green: 0.058, blue: 0.064)
+
+            OrganicBackdropImage(
+                backdrop: SoundBackdrop(assetName: "paywall_beach_background", focus: .center),
+                opacity: 0.34,
+                bottomShadeOpacity: 0.80
+            )
+            .saturation(0.96)
+            .contrast(1.04)
+            .blur(radius: 8)
+            .scaleEffect(1.08)
+
+            LinearGradient(
+                colors: [
+                    Color(red: 0.47, green: 0.57, blue: 0.58).opacity(0.20),
+                    Color(red: 0.13, green: 0.10, blue: 0.10).opacity(0.54),
+                    Color.black.opacity(0.84)
+                ],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+
+            RadialGradient(
+                colors: [
+                    Color(red: 0.91, green: 0.62, blue: 0.48).opacity(0.22),
+                    Color.clear
+                ],
+                center: .topTrailing,
+                startRadius: 40,
+                endRadius: 520
+            )
+
+            RadialGradient(
+                colors: [
+                    Color(red: 0.62, green: 0.78, blue: 0.82).opacity(0.16),
+                    Color.clear
+                ],
+                center: .bottomLeading,
+                startRadius: 70,
+                endRadius: 540
+            )
+        }
+        .ignoresSafeArea()
+    }
+}
+
 private struct PaywallLifetimeHero: View {
     let title: String
     let subtitle: String
     let trustLine: String
-    let tint: Color
     let backdrop: SoundBackdrop
     let isCompact: Bool
 
@@ -499,16 +527,16 @@ private struct PaywallLifetimeHero: View {
         .frame(minHeight: isCompact ? 168 : 186, alignment: .bottomLeading)
         .background {
             shape
-                .fill(Color(red: 0.035, green: 0.045, blue: 0.070))
+                .fill(Color(red: 0.10, green: 0.08, blue: 0.08))
                 .overlay {
-                    OrganicBackdropImage(backdrop: backdrop, opacity: 0.84, bottomShadeOpacity: 0.50)
+                    OrganicBackdropImage(backdrop: backdrop, opacity: 0.92, bottomShadeOpacity: 0.64)
                 }
                 .overlay {
                     LinearGradient(
                         colors: [
-                            Color.black.opacity(0.12),
-                            tint.opacity(0.18),
-                            Color.black.opacity(0.66)
+                            Color.black.opacity(0.06),
+                            Color(red: 0.91, green: 0.62, blue: 0.48).opacity(0.08),
+                            Color(red: 0.12, green: 0.10, blue: 0.10).opacity(0.80)
                         ],
                         startPoint: .topLeading,
                         endPoint: .bottomTrailing
@@ -518,7 +546,7 @@ private struct PaywallLifetimeHero: View {
         }
         .clipShape(shape)
         .overlay {
-            shape.strokeBorder(Color.white.opacity(0.13), lineWidth: 1)
+            shape.strokeBorder(Color.white.opacity(0.16), lineWidth: 1)
         }
         .accessibilityElement(children: .combine)
     }
@@ -580,11 +608,20 @@ private struct PaywallBenefitTile: View {
         .padding(isCompact ? 12 : 14)
         .background {
             RoundedRectangle(cornerRadius: 20, style: .continuous)
-                .fill(Color.white.opacity(0.055))
+                .fill(
+                    LinearGradient(
+                        colors: [
+                            Color.white.opacity(0.070),
+                            item.tint.opacity(0.075)
+                        ],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
+                )
         }
         .overlay {
             RoundedRectangle(cornerRadius: 20, style: .continuous)
-                .strokeBorder(Color.white.opacity(0.09), lineWidth: 1)
+                .strokeBorder(item.tint.opacity(0.18), lineWidth: 1)
         }
         .accessibilityElement(children: .combine)
     }

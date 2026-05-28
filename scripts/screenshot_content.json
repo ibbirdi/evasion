@@ -16,7 +16,7 @@
         "text": {
           "x": 76,
           "y": 96,
-          "width": 1060,
+          "width": 1168,
           "height": 560,
           "align": "left",
           "tone": "light"
@@ -43,7 +43,7 @@
         "text": {
           "x": 76,
           "y": 106,
-          "width": 1060,
+          "width": 1168,
           "height": 560,
           "align": "left",
           "tone": "dark"
@@ -70,7 +70,7 @@
         "text": {
           "x": 76,
           "y": 104,
-          "width": 1060,
+          "width": 1168,
           "height": 560,
           "align": "left",
           "tone": "dark"
@@ -97,7 +97,7 @@
         "text": {
           "x": 76,
           "y": 106,
-          "width": 1060,
+          "width": 1168,
           "height": 560,
           "align": "left",
           "tone": "light"
@@ -124,7 +124,7 @@
         "text": {
           "x": 76,
           "y": 106,
-          "width": 1060,
+          "width": 1168,
           "height": 560,
           "align": "left",
           "tone": "light"
@@ -139,8 +139,8 @@
       }
     },
     {
-      "slug": "06_presets",
-      "source": "06_presets.png",
+      "slug": "06_ambiences",
+      "source": "06_ambiences.png",
       "layout": "peekBottom",
       "background": "sageMist",
       "accent": "#BE3E8C",
@@ -151,7 +151,7 @@
         "text": {
           "x": 76,
           "y": 104,
-          "width": 1060,
+          "width": 1168,
           "height": 560,
           "align": "left",
           "tone": "dark"
@@ -178,7 +178,7 @@
         "text": {
           "x": 76,
           "y": 112,
-          "width": 1060,
+          "width": 1168,
           "height": 560,
           "align": "left",
           "tone": "light"
@@ -205,7 +205,7 @@
         "text": {
           "x": 76,
           "y": 106,
-          "width": 1060,
+          "width": 1168,
           "height": 560,
           "align": "left",
           "tone": "dark"
@@ -220,19 +220,19 @@
       }
     },
     {
-      "slug": "09_library_teaser",
-      "source": "09_library_teaser.png",
+      "slug": "09_noise",
+      "source": "09_noise.png",
       "layout": "bleed",
-      "background": "sageMist",
-      "accent": "#6A9E22",
-      "iconSymbol": "sparkles",
-      "darkText": true,
+      "background": "spatialGradient",
+      "accent": "#8BE99B",
+      "iconSymbol": "waveform",
+      "darkText": false,
       "scene": {
-        "mood": "lagoon",
+        "mood": "aurora",
         "text": {
           "x": 76,
           "y": 106,
-          "width": 1060,
+          "width": 1168,
           "height": 560,
           "align": "left",
           "tone": "light"
@@ -250,19 +250,19 @@
       "slug": "10_paywall",
       "source": "10_paywall.png",
       "layout": "top",
-      "background": "midnightCopper",
-      "accent": "#E7A85B",
+      "background": "coastalSand",
+      "accent": "#C9775E",
       "iconSymbol": "checkmark.seal.fill",
-      "darkText": false,
+      "darkText": true,
       "scene": {
-        "mood": "copper",
+        "mood": "coast",
         "text": {
           "x": 76,
           "y": 106,
-          "width": 1060,
+          "width": 1168,
           "height": 560,
           "align": "left",
-          "tone": "light"
+          "tone": "dark"
         },
         "device": {
           "x": 195,
@@ -277,314 +277,314 @@
   "copy": {
     "en-US": {
       "01_hero": {
-        "eyebrow": "SLEEP · FOCUS · ESCAPE",
-        "headline": "Escape into real nature.",
-        "subhead": "35 real-world sounds to mix. Offline. No subscription."
+        "eyebrow": "SLEEP · FOCUS · CALM",
+        "headline": "Your sound refuge, in a few taps.",
+        "subhead": "35 nature recordings. Offline. No subscription."
       },
       "02_library": {
-        "eyebrow": "IMMERSION",
-        "headline": "Build your refuge.",
-        "subhead": "Rain, forest, sea, campfire and much more."
+        "eyebrow": "35 NATURE SOUNDS",
+        "headline": "Shape the exact ambience you need.",
+        "subhead": "Rain, forest, ocean, campfire, birds, thunder… fine-tune every layer."
       },
       "03_detail_sheet": {
-        "eyebrow": "REALISM",
-        "headline": "Real recordings.",
-        "subhead": "Every sound was carefully recorded around the world."
+        "eyebrow": "REAL PLACES",
+        "headline": "Every sound starts in a real landscape.",
+        "subhead": "Location and source stay visible, so each ambience feels grounded."
       },
       "04_binaural": {
         "eyebrow": "BINAURAL WAVES",
-        "headline": "Calm your mind with 4 brainwave modes.",
-        "subhead": "Delta, Theta, Alpha and Beta."
+        "headline": "Find your rhythm.",
+        "subhead": "Delta, Theta, Alpha or Beta for sleep, breathing room or focus."
       },
       "05_spatial": {
         "eyebrow": "SOUND PLACEMENT",
-        "headline": "Place sounds around you.",
-        "subhead": "Spatial audio engine."
+        "headline": "Put rain here, forest there.",
+        "subhead": "Place each sound around you for a more natural scene."
       },
-      "06_presets": {
-        "eyebrow": "SAVED MIXES",
-        "headline": "Return to your ambiences.",
-        "subhead": "Save your mixes and reload them in one tap."
+      "06_ambiences": {
+        "eyebrow": "MY AMBIENCES",
+        "headline": "Custom ambiences, never frozen.",
+        "subhead": "The audio engine shifts volume, nuance and placement on every listen."
       },
       "07_timer": {
         "eyebrow": "SLEEP TIMER",
         "headline": "Fall asleep at your pace.",
-        "subhead": "15 min, 30 min, 1 h or 2 h."
+        "subhead": "15 min, 30 min, 1 h or 2 h, whenever you are ready."
       },
       "08_free_home": {
         "eyebrow": "START FREE",
-        "headline": "Start right now.",
-        "subhead": "3 ambiences, timer and sound placement included."
+        "headline": "Start without an account.",
+        "subhead": "3 sounds included, plus timer and sound placement."
       },
-      "09_library_teaser": {
-        "eyebrow": "FULL LIBRARY",
-        "headline": "Unlock more sounds for life.",
-        "subhead": "32 extra sounds with one purchase."
+      "09_noise": {
+        "eyebrow": "SOUND MASKING",
+        "headline": "Each noise covers a different frequency range.",
+        "subhead": "Pink, green, fan and aircraft-cabin noise help smooth irregular sounds around you."
       },
       "10_paywall": {
         "eyebrow": "LIFETIME PREMIUM",
-        "headline": "One purchase. Yours for life.",
-        "subhead": "No subscription. No account. 100% offline."
+        "headline": "One purchase. No subscription.",
+        "subhead": "32 extra sounds, 4 extra noise layers, binaural modes and saved ambiences."
       }
     },
     "fr-FR": {
       "01_hero": {
-        "eyebrow": "SOMMEIL · FOCUS · ÉVASION",
-        "headline": "Évadez-vous en pleine nature.",
-        "subhead": "35 sons réels à mixer. Hors ligne. Sans abonnement."
+        "eyebrow": "SOMMEIL · CONCENTRATION · CALME",
+        "headline": "Votre refuge sonore, en quelques gestes.",
+        "subhead": "35 vrais sons de nature. Hors ligne. Sans abonnement."
       },
       "02_library": {
-        "eyebrow": "IMMERSION",
-        "headline": "Créez votre refuge.",
-        "subhead": "Pluie, forêt, mer, feu de camp et bien plus."
+        "eyebrow": "35 SONS DE NATURE",
+        "headline": "Composez l’ambiance exacte qu’il vous faut.",
+        "subhead": "Pluie, forêt, mer, feu de camp, oiseaux, orage… tout se dose finement."
       },
       "03_detail_sheet": {
-        "eyebrow": "RÉALISME",
-        "headline": "Enregistrements réels.",
-        "subhead": "Tous les sons ont été soigneusement enregistrés, aux 4 coins du monde."
+        "eyebrow": "PRISES RÉELLES",
+        "headline": "Chaque son vient d’un vrai paysage.",
+        "subhead": "Lieu, contexte et source restent visibles, pour une ambiance qui sonne juste."
       },
       "04_binaural": {
         "eyebrow": "ONDES BINAURALES",
-        "headline": "Apaisez votre esprit grâce aux 4 ondes cérébrales.",
-        "subhead": "Delta, Theta, Alpha et Beta."
+        "headline": "Trouvez votre rythme.",
+        "subhead": "Delta, Theta, Alpha ou Beta pour dormir, souffler ou vous concentrer."
       },
       "05_spatial": {
         "eyebrow": "PLACEMENT SONORE",
-        "headline": "Placez les sons autour de vous.",
-        "subhead": "Moteur audio spatial."
+        "headline": "Installez la pluie ici, la forêt là.",
+        "subhead": "Placez chaque son autour de vous pour une scène plus naturelle."
       },
-      "06_presets": {
-        "eyebrow": "MIX SAUVEGARDÉS",
-        "headline": "Retrouvez vos ambiances.",
-        "subhead": "Sauvegardez vos mix et rechargez-les en un geste."
+      "06_ambiences": {
+        "eyebrow": "MES AMBIANCES",
+        "headline": "Des ambiances sur mesure, jamais figées.",
+        "subhead": "Le moteur audio fait varier volumes, nuances et placement à chaque écoute."
       },
       "07_timer": {
-        "eyebrow": "TIMER SOMMEIL",
-        "headline": "Endormez-vous, à votre rythme.",
-        "subhead": "15 min, 30 min, 1 h ou 2 h."
+        "eyebrow": "MINUTEUR",
+        "headline": "Laissez Oasis s’éteindre doucement.",
+        "subhead": "15 min, 30 min, 1 h ou 2 h, selon votre rythme."
       },
       "08_free_home": {
-        "eyebrow": "DÉMARRAGE GRATUIT",
-        "headline": "Commencez dès maintenant.",
-        "subhead": "3 ambiances, minuteur et placement sonore inclus."
+        "eyebrow": "GRATUIT POUR COMMENCER",
+        "headline": "Démarrez sans compte.",
+        "subhead": "3 sons inclus, minuteur et placement sonore."
       },
-      "09_library_teaser": {
-        "eyebrow": "BIBLIOTHÈQUE COMPLÈTE",
-        "headline": "Débloquez plus de sons à vie.",
-        "subhead": "32 sons en plus avec un seul achat."
+      "09_noise": {
+        "eyebrow": "MASQUAGE SONORE",
+        "headline": "Chaque bruit cible une plage de fréquences.",
+        "subhead": "Bruit rose, bruit vert, ventilateur et cabine d’avion aident à lisser les sons irréguliers autour de vous."
       },
       "10_paywall": {
         "eyebrow": "PREMIUM À VIE",
-        "headline": "Un achat. À vie.",
-        "subhead": "Sans abonnement. Sans compte. 100% hors ligne."
+        "headline": "Un achat. Zéro abonnement.",
+        "subhead": "32 sons et 4 bruits en plus, modes binauraux et ambiances sauvegardées."
       }
     },
     "de-DE": {
       "01_hero": {
-        "eyebrow": "SCHLAF · FOKUS · AUSZEIT",
-        "headline": "Tauche ein in echte Natur.",
-        "subhead": "35 echte Naturklänge zum Mischen. Offline. Kein Abo."
+        "eyebrow": "SCHLAF · FOKUS · RUHE",
+        "headline": "Dein Klangrückzug mit wenigen Gesten.",
+        "subhead": "35 echte Naturaufnahmen. Offline. Kein Abo."
       },
       "02_library": {
-        "eyebrow": "IMMERSION",
-        "headline": "Schaffe deinen Rückzugsort.",
-        "subhead": "Regen, Wald, Meer, Lagerfeuer und vieles mehr."
+        "eyebrow": "35 NATURKLÄNGE",
+        "headline": "Stimme die Atmosphäre genau auf dich ab.",
+        "subhead": "Regen, Wald, Meer, Feuer, Vögel, Gewitter… jede Ebene lässt sich fein dosieren."
       },
       "03_detail_sheet": {
-        "eyebrow": "REALISMUS",
-        "headline": "Echte Aufnahmen.",
-        "subhead": "Alle Klänge wurden sorgfältig auf der ganzen Welt aufgenommen."
+        "eyebrow": "ECHTE ORTE",
+        "headline": "Jeder Klang kommt aus einer echten Landschaft.",
+        "subhead": "Ort und Quelle bleiben sichtbar, damit die Atmosphäre glaubwürdig klingt."
       },
       "04_binaural": {
         "eyebrow": "BINAURALE WELLEN",
-        "headline": "Beruhige den Geist mit 4 Hirnwellen-Modi.",
-        "subhead": "Delta, Theta, Alpha und Beta."
+        "headline": "Finde deinen Rhythmus.",
+        "subhead": "Delta, Theta, Alpha oder Beta zum Schlafen, Durchatmen oder Fokussieren."
       },
       "05_spatial": {
         "eyebrow": "KLANGPLATZIERUNG",
-        "headline": "Platziere Klänge um dich herum.",
-        "subhead": "Audio-Engine für Raumklang."
+        "headline": "Regen hier, Wald dort.",
+        "subhead": "Platziere jeden Klang um dich herum, damit die Szene natürlicher wirkt."
       },
-      "06_presets": {
-        "eyebrow": "GESPEICHERTE MIXE",
-        "headline": "Zurück zu deinen Atmosphären.",
-        "subhead": "Speichere Mixe und lade sie mit einem Tipp."
+      "06_ambiences": {
+        "eyebrow": "MEINE ATMOSPHÄREN",
+        "headline": "Persönlich, aber nie starr.",
+        "subhead": "Die Audio-Engine variiert Lautstärke, Nuancen und Platzierung bei jedem Hören."
       },
       "07_timer": {
         "eyebrow": "SCHLAF-TIMER",
-        "headline": "Schlaf ein in deinem Tempo.",
-        "subhead": "15 Min, 30 Min, 1 h oder 2 h."
+        "headline": "Oasis blendet sanft aus.",
+        "subhead": "15 Min, 30 Min, 1 h oder 2 h, ganz nach deinem Tempo."
       },
       "08_free_home": {
         "eyebrow": "GRATIS STARTEN",
-        "headline": "Leg direkt los.",
-        "subhead": "3 Atmosphären, Timer und Klangplatzierung inklusive."
+        "headline": "Starte ohne Konto.",
+        "subhead": "3 Klänge inklusive, plus Timer und Klangplatzierung."
       },
-      "09_library_teaser": {
-        "eyebrow": "VOLLE BIBLIOTHEK",
-        "headline": "Mehr Klänge lebenslang.",
-        "subhead": "32 zusätzliche Klänge mit einem Kauf."
+      "09_noise": {
+        "eyebrow": "KLANGMASKIERUNG",
+        "headline": "Jedes Rauschen deckt einen anderen Frequenzbereich ab.",
+        "subhead": "Pinkes, grünes, Ventilator- und Kabinenrauschen glätten unregelmäßige Geräusche um dich herum."
       },
       "10_paywall": {
         "eyebrow": "PREMIUM FÜR IMMER",
-        "headline": "Einmal zahlen. Für immer.",
-        "subhead": "Kein Abo. Kein Konto. 100% offline."
+        "headline": "Einmal kaufen. Kein Abo.",
+        "subhead": "32 weitere Klänge, 4 zusätzliche Rauscharten, binaurale Modi und gespeicherte Atmosphären."
       }
     },
     "es-ES": {
       "01_hero": {
-        "eyebrow": "SUEÑO · FOCO · EVASIÓN",
-        "headline": "Escapa a la naturaleza real.",
-        "subhead": "35 sonidos reales para mezclar. Sin conexión. Sin suscripción."
+        "eyebrow": "SUEÑO · CONCENTRACIÓN · CALMA",
+        "headline": "Tu refugio sonoro en unos toques.",
+        "subhead": "35 grabaciones de naturaleza. Sin conexión. Sin suscripción."
       },
       "02_library": {
-        "eyebrow": "INMERSIÓN",
-        "headline": "Crea tu refugio.",
-        "subhead": "Lluvia, bosque, mar, hoguera y mucho más."
+        "eyebrow": "35 SONIDOS NATURALES",
+        "headline": "Crea justo el ambiente que necesitas.",
+        "subhead": "Lluvia, bosque, mar, hoguera, pájaros, tormenta… ajusta cada capa."
       },
       "03_detail_sheet": {
-        "eyebrow": "REALISMO",
-        "headline": "Grabaciones reales.",
-        "subhead": "Todos los sonidos se grabaron con cuidado en todo el mundo."
+        "eyebrow": "LUGARES REALES",
+        "headline": "Cada sonido nace en un paisaje real.",
+        "subhead": "Ubicación, contexto y fuente siguen visibles para que todo suene auténtico."
       },
       "04_binaural": {
         "eyebrow": "ONDAS BINAURALES",
-        "headline": "Calma tu mente con 4 ritmos cerebrales.",
-        "subhead": "Delta, Theta, Alpha y Beta."
+        "headline": "Encuentra tu ritmo.",
+        "subhead": "Delta, Theta, Alpha o Beta para dormir, respirar o concentrarte."
       },
       "05_spatial": {
         "eyebrow": "POSICIÓN SONORA",
-        "headline": "Coloca sonidos a tu alrededor.",
-        "subhead": "Motor de audio espacial."
+        "headline": "La lluvia aquí, el bosque allí.",
+        "subhead": "Coloca cada sonido a tu alrededor para una escena más natural."
       },
-      "06_presets": {
-        "eyebrow": "MEZCLAS GUARDADAS",
-        "headline": "Recupera tus ambientes.",
-        "subhead": "Guarda tus mezclas y recárgalas con un toque."
+      "06_ambiences": {
+        "eyebrow": "MIS AMBIENTES",
+        "headline": "Ambientes a medida, nunca estáticos.",
+        "subhead": "El motor de audio varía volumen, matices y posición en cada escucha."
       },
       "07_timer": {
-        "eyebrow": "TEMPORIZADOR SUEÑO",
-        "headline": "Duérmete a tu ritmo.",
-        "subhead": "15 min, 30 min, 1 h o 2 h."
+        "eyebrow": "TEMPORIZADOR",
+        "headline": "Deja que Oasis se apague suavemente.",
+        "subhead": "15 min, 30 min, 1 h o 2 h, a tu ritmo."
       },
       "08_free_home": {
-        "eyebrow": "INICIO GRATIS",
-        "headline": "Empieza ahora.",
-        "subhead": "3 ambientes, temporizador y ubicación sonora incluidos."
+        "eyebrow": "EMPIEZA GRATIS",
+        "headline": "Empieza sin cuenta.",
+        "subhead": "3 sonidos incluidos, temporizador y posición sonora."
       },
-      "09_library_teaser": {
-        "eyebrow": "BIBLIOTECA COMPLETA",
-        "headline": "Desbloquea más sonidos de por vida.",
-        "subhead": "32 sonidos extra con una sola compra."
+      "09_noise": {
+        "eyebrow": "ENMASCARAMIENTO SONORO",
+        "headline": "Cada ruido cubre una banda de frecuencia distinta.",
+        "subhead": "Ruido rosa, verde, ventilador y cabina de avión ayudan a suavizar sonidos irregulares alrededor."
       },
       "10_paywall": {
         "eyebrow": "PREMIUM DE POR VIDA",
-        "headline": "Una compra. Para siempre.",
-        "subhead": "Sin suscripción. Sin cuenta. 100% sin conexión."
+        "headline": "Una compra. Sin suscripción.",
+        "subhead": "32 sonidos y 4 ruidos extra, modos binaurales y ambientes guardados."
       }
     },
     "it": {
       "01_hero": {
-        "eyebrow": "SONNO · FOCUS · EVASIONE",
-        "headline": "Evadi nella natura reale.",
-        "subhead": "35 suoni reali da mixare. Offline. Senza abbonamento."
+        "eyebrow": "SONNO · FOCUS · CALMA",
+        "headline": "Il tuo rifugio sonoro in pochi gesti.",
+        "subhead": "35 registrazioni di natura. Offline. Senza abbonamento."
       },
       "02_library": {
-        "eyebrow": "IMMERSIONE",
-        "headline": "Crea il tuo rifugio.",
-        "subhead": "Pioggia, foresta, mare, falò e molto altro."
+        "eyebrow": "35 SUONI NATURALI",
+        "headline": "Crea l’atmosfera esatta che ti serve.",
+        "subhead": "Pioggia, foresta, mare, falò, uccelli, temporale… regola ogni livello."
       },
       "03_detail_sheet": {
-        "eyebrow": "REALISMO",
-        "headline": "Registrazioni reali.",
-        "subhead": "Tutti i suoni sono stati registrati con cura nel mondo."
+        "eyebrow": "LUOGHI REALI",
+        "headline": "Ogni suono nasce da un paesaggio reale.",
+        "subhead": "Luogo, contesto e fonte restano visibili, per un’atmosfera credibile."
       },
       "04_binaural": {
         "eyebrow": "ONDE BINAURALI",
-        "headline": "Calma la mente con 4 ritmi cerebrali.",
-        "subhead": "Delta, Theta, Alpha e Beta."
+        "headline": "Trova il tuo ritmo.",
+        "subhead": "Delta, Theta, Alpha o Beta per dormire, respirare o concentrarti."
       },
       "05_spatial": {
         "eyebrow": "POSIZIONE SUONI",
-        "headline": "Posiziona i suoni intorno a te.",
-        "subhead": "Motore audio spaziale."
+        "headline": "La pioggia qui, la foresta lì.",
+        "subhead": "Posiziona ogni suono intorno a te per una scena più naturale."
       },
-      "06_presets": {
-        "eyebrow": "MIX SALVATI",
-        "headline": "Ritrova le tue atmosfere.",
-        "subhead": "Salva i tuoi mix e ricaricali con un gesto."
+      "06_ambiences": {
+        "eyebrow": "LE MIE ATMOSFERE",
+        "headline": "Atmosfere su misura, mai statiche.",
+        "subhead": "Il motore audio varia volume, sfumature e posizione a ogni ascolto."
       },
       "07_timer": {
-        "eyebrow": "TIMER SONNO",
-        "headline": "Addormentati al tuo ritmo.",
-        "subhead": "15 min, 30 min, 1 h o 2 h."
+        "eyebrow": "TIMER",
+        "headline": "Lascia che Oasis sfumi lentamente.",
+        "subhead": "15 min, 30 min, 1 h o 2 h, secondo il tuo ritmo."
       },
       "08_free_home": {
-        "eyebrow": "INIZIO GRATIS",
-        "headline": "Comincia subito.",
-        "subhead": "3 atmosfere, timer e posizione dei suoni inclusi."
+        "eyebrow": "INIZIA GRATIS",
+        "headline": "Inizia senza account.",
+        "subhead": "3 suoni inclusi, timer e posizione dei suoni."
       },
-      "09_library_teaser": {
-        "eyebrow": "LIBRERIA COMPLETA",
-        "headline": "Sblocca più suoni a vita.",
-        "subhead": "32 suoni extra con un solo acquisto."
+      "09_noise": {
+        "eyebrow": "MASCHERAMENTO SONORO",
+        "headline": "Ogni rumore copre una diversa banda di frequenze.",
+        "subhead": "Rumore rosa, verde, ventilatore e cabina aerea aiutano ad attenuare i suoni irregolari intorno a te."
       },
       "10_paywall": {
         "eyebrow": "PREMIUM A VITA",
-        "headline": "Un acquisto. Per sempre.",
-        "subhead": "Senza abbonamento. Senza account. 100% offline."
+        "headline": "Un acquisto. Nessun abbonamento.",
+        "subhead": "32 suoni e 4 rumori extra, modalità binaurali e atmosfere salvate."
       }
     },
     "pt-BR": {
       "01_hero": {
-        "eyebrow": "SONO · FOCO · ESCAPE",
-        "headline": "Escape para a natureza real.",
-        "subhead": "35 sons reais para mixar. Offline. Sem assinatura."
+        "eyebrow": "SONO · FOCO · CALMA",
+        "headline": "Seu refúgio sonoro em poucos toques.",
+        "subhead": "35 gravações da natureza. Offline. Sem assinatura."
       },
       "02_library": {
-        "eyebrow": "IMERSÃO",
-        "headline": "Crie seu refúgio.",
-        "subhead": "Chuva, floresta, mar, fogueira e muito mais."
+        "eyebrow": "35 SONS DA NATUREZA",
+        "headline": "Crie exatamente o ambiente que você precisa.",
+        "subhead": "Chuva, floresta, mar, fogueira, pássaros, trovão… ajuste cada camada."
       },
       "03_detail_sheet": {
-        "eyebrow": "REALISMO",
-        "headline": "Gravações reais.",
-        "subhead": "Todos os sons foram gravados com cuidado ao redor do mundo."
+        "eyebrow": "LUGARES REAIS",
+        "headline": "Cada som vem de uma paisagem real.",
+        "subhead": "Local, contexto e fonte ficam visíveis, para uma ambiência mais natural."
       },
       "04_binaural": {
         "eyebrow": "ONDAS BINAURAIS",
-        "headline": "Acalme sua mente com 4 ritmos cerebrais.",
-        "subhead": "Delta, Theta, Alpha e Beta."
+        "headline": "Encontre seu ritmo.",
+        "subhead": "Delta, Theta, Alpha ou Beta para dormir, respirar ou focar."
       },
       "05_spatial": {
         "eyebrow": "POSIÇÃO DOS SONS",
-        "headline": "Posicione os sons ao seu redor.",
-        "subhead": "Motor de áudio espacial."
+        "headline": "A chuva aqui, a floresta ali.",
+        "subhead": "Posicione cada som ao seu redor para uma cena mais natural."
       },
-      "06_presets": {
-        "eyebrow": "MIXES SALVOS",
-        "headline": "Recupere suas ambiências.",
-        "subhead": "Salve seus mixes e recarregue com um toque."
+      "06_ambiences": {
+        "eyebrow": "MINHAS AMBIÊNCIAS",
+        "headline": "Ambiências sob medida, nunca paradas.",
+        "subhead": "O motor de áudio varia volume, nuances e posição a cada escuta."
       },
       "07_timer": {
-        "eyebrow": "TIMER DE SONO",
-        "headline": "Durma no seu ritmo.",
-        "subhead": "15 min, 30 min, 1 h ou 2 h."
+        "eyebrow": "TIMER",
+        "headline": "Deixe o Oasis apagar aos poucos.",
+        "subhead": "15 min, 30 min, 1 h ou 2 h, no seu ritmo."
       },
       "08_free_home": {
         "eyebrow": "COMECE GRÁTIS",
-        "headline": "Comece agora.",
-        "subhead": "3 ambiências, timer e posição dos sons incluídos."
+        "headline": "Comece sem criar conta.",
+        "subhead": "3 sons incluídos, timer e posição dos sons."
       },
-      "09_library_teaser": {
-        "eyebrow": "BIBLIOTECA COMPLETA",
-        "headline": "Desbloqueie mais sons para sempre.",
-        "subhead": "32 sons extras com uma compra."
+      "09_noise": {
+        "eyebrow": "MASCARAMENTO SONORO",
+        "headline": "Cada ruído cobre uma faixa de frequência diferente.",
+        "subhead": "Ruído rosa, verde, ventilador e cabine de avião ajudam a suavizar sons irregulares ao redor."
       },
       "10_paywall": {
         "eyebrow": "PREMIUM VITALÍCIO",
-        "headline": "Uma compra. Para sempre.",
-        "subhead": "Sem assinatura. Sem conta. 100% offline."
+        "headline": "Uma compra. Sem assinatura.",
+        "subhead": "32 sons e 4 ruídos extras, modos binaurais e ambientes salvos."
       }
     }
   }

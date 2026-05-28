@@ -1067,77 +1067,77 @@ final class AppModel {
     func paywallPresentation(for entryPoint: PremiumEntryPoint) -> PremiumPaywallPresentation {
         let title: String
         let subtitle: String
-        let benefitRows: [String]
+        let benefitRows: [PremiumPaywallBenefit]
 
         switch entryPoint.category {
         case .manual, .onboarding:
             title = L10n.string(L10n.Paywall.titleGeneric)
             subtitle = L10n.string(L10n.Paywall.subtitleGeneric)
             benefitRows = [
-                L10n.string(L10n.Paywall.benefitSounds),
-                L10n.string(L10n.Paywall.benefitPresets),
-                L10n.string(L10n.Paywall.benefitBinaural),
-                L10n.string(L10n.Paywall.benefitUpdates)
+                paywallBenefit(.sounds),
+                paywallBenefit(.noise),
+                paywallBenefit(.presets),
+                paywallBenefit(.binaural)
             ]
 
         case .sound, .spatial:
             title = L10n.string(L10n.Paywall.titleSounds)
             subtitle = L10n.string(L10n.Paywall.subtitleSounds)
             benefitRows = [
-                L10n.string(L10n.Paywall.benefitSounds),
-                L10n.string(L10n.Paywall.benefitPresets),
-                L10n.string(L10n.Paywall.benefitBinaural),
-                L10n.string(L10n.Paywall.benefitUpdates)
+                paywallBenefit(.sounds),
+                paywallBenefit(.noise),
+                paywallBenefit(.presets),
+                paywallBenefit(.binaural)
             ]
 
         case .timer:
             title = L10n.string(L10n.Paywall.titleTimer)
             subtitle = L10n.string(L10n.Paywall.subtitleTimer)
             benefitRows = [
-                L10n.string(L10n.Paywall.benefitTimer),
-                L10n.string(L10n.Paywall.benefitSounds),
-                L10n.string(L10n.Paywall.benefitPresets),
-                L10n.string(L10n.Paywall.benefitBinaural)
+                paywallBenefit(.timer),
+                paywallBenefit(.sounds),
+                paywallBenefit(.noise),
+                paywallBenefit(.binaural)
             ]
 
         case .preset:
             title = L10n.string(L10n.Paywall.titlePresets)
             subtitle = L10n.string(L10n.Paywall.subtitlePresets)
             benefitRows = [
-                L10n.string(L10n.Paywall.benefitPresets),
-                L10n.string(L10n.Paywall.benefitSounds),
-                L10n.string(L10n.Paywall.benefitBinaural),
-                L10n.string(L10n.Paywall.benefitUpdates)
+                paywallBenefit(.presets),
+                paywallBenefit(.sounds),
+                paywallBenefit(.noise),
+                paywallBenefit(.binaural)
             ]
 
         case .binaural:
             title = L10n.string(L10n.Paywall.titleBinaural)
             subtitle = L10n.string(L10n.Paywall.subtitleBinaural)
             benefitRows = [
-                L10n.string(L10n.Paywall.benefitBinaural),
-                L10n.string(L10n.Paywall.benefitSounds),
-                L10n.string(L10n.Paywall.benefitPresets),
-                L10n.string(L10n.Paywall.benefitUpdates)
+                paywallBenefit(.binaural),
+                paywallBenefit(.sounds),
+                paywallBenefit(.noise),
+                paywallBenefit(.presets)
             ]
 
         case .preview:
             title = L10n.string(L10n.Paywall.titlePreview)
             subtitle = L10n.string(L10n.Paywall.subtitlePreview)
             benefitRows = [
-                L10n.string(L10n.Paywall.benefitPresets),
-                L10n.string(L10n.Paywall.benefitSounds),
-                L10n.string(L10n.Paywall.benefitBinaural),
-                L10n.string(L10n.Paywall.benefitUpdates)
+                paywallBenefit(.presets),
+                paywallBenefit(.sounds),
+                paywallBenefit(.noise),
+                paywallBenefit(.binaural)
             ]
 
         case .composer, .ritual, .noise:
             title = L10n.string(L10n.Paywall.titleComposer)
             subtitle = L10n.string(L10n.Paywall.subtitleComposer)
             benefitRows = [
-                L10n.string(L10n.Paywall.benefitComposer),
-                L10n.string(L10n.Paywall.benefitNoiseLab),
-                L10n.string(L10n.Paywall.benefitBinaural),
-                L10n.string(L10n.Paywall.benefitUpdates)
+                paywallBenefit(.presets, text: L10n.string(L10n.Paywall.benefitComposer)),
+                paywallBenefit(.noise),
+                paywallBenefit(.binaural),
+                paywallBenefit(.sounds)
             ]
         }
 
@@ -1148,6 +1148,30 @@ final class AppModel {
             symbolName: entryPoint.symbolName,
             accentToken: entryPoint.accentToken
         )
+    }
+
+    private func paywallBenefit(_ kind: PremiumBenefitKind, text overrideText: String? = nil) -> PremiumPaywallBenefit {
+        let text: String
+        if let overrideText {
+            text = overrideText
+        } else {
+            switch kind {
+            case .sounds:
+                text = L10n.string(L10n.Paywall.benefitSounds)
+            case .noise:
+                text = L10n.string(L10n.Paywall.benefitNoiseLab)
+            case .presets:
+                text = L10n.string(L10n.Paywall.benefitPresets)
+            case .binaural:
+                text = L10n.string(L10n.Paywall.benefitBinaural)
+            case .timer:
+                text = L10n.string(L10n.Paywall.benefitTimer)
+            case .updates:
+                text = L10n.string(L10n.Paywall.benefitUpdates)
+            }
+        }
+
+        return PremiumPaywallBenefit(kind: kind, text: text)
     }
 
     func presentPaywall(from entryPoint: PremiumEntryPoint) {

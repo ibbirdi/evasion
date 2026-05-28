@@ -74,7 +74,7 @@ Patterns this codebase has settled on. Follow these by default — diverge only 
 - Use `.oasisFont(...)` for app UI text so typography participates in Dynamic Type while keeping Oasis' compact rounded style.
 - Use `.oasisMinimumHitTarget()` around icon-only or visually compact controls; the visible chrome may stay smaller, but the tappable area should be at least 44 pt.
 - Iconography is split by role: keep SF Symbols/native controls for platform actions (play, pause, close, timer, AirPlay), and use the curated Phosphor-based `OasisGlyph` assets for Oasis-specific concepts such as ambience layers, masking layers, included-state marks, channel identity, minimap pins, and preset preview chips. Add only selected SVGs to `Assets.xcassets/OasisGlyphs` instead of vendoring a full icon package.
-- When resizing the OASIS ring logo lockups, scale the ring artwork, canvas/frame, vertical offset or height cap, and wordmark type together; the iOS and macOS headers currently use a 1.2 lockup scale.
+- When resizing OASIS logo lockups, scale any visible ring artwork, canvas/frame, vertical offset or height cap, and wordmark type together. The iOS header currently keeps its ring code behind `showsLogoRings = false`; the macOS header still renders the compact ring lockup.
 - Hide decorative SF Symbols from VoiceOver when the surrounding button/row already provides the semantic label.
 - If a custom gesture is required, provide a button or custom accessibility action path too.
 - When a parent test identifier wraps tappable children, set the parent as `.accessibilityElement(children: .contain)` so SwiftUI does not propagate the parent identifier over the child button identifiers.
