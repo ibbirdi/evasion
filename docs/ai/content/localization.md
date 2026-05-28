@@ -1,7 +1,7 @@
 ---
 title: Localization
 status: stable
-last_updated: 2026-05-27
+last_updated: 2026-05-28
 tracks:
   - "ios-native/OasisNative/Support/L10n.swift"
   - "ios-native/OasisNative/Resources/Localizable.xcstrings"
@@ -67,13 +67,13 @@ errors.<key>
 
 `header.immersive`, `header.immersive.sound`, `header.immersive.enabled`, and `header.immersive.disabled` localize the home toolbar toggle, its active visible label, and its accessibility value.
 
-`home.controls.*`, `mixer.accessibility.*`, `binaural.volume/enabled/disabled`, and `spatial.stage.*` cover VoiceOver-only labels, hints, values, and custom actions. Keep these translated as natural UI phrases, not literal descriptions of SF Symbols. `home.controls.compose` now opens guided Routines, not a technical composer.
+`home.controls.*`, `mixer.accessibility.*`, `binaural.volume/enabled/disabled`, and `spatial.stage.*` cover VoiceOver-only labels, hints, values, and custom actions. Keep these translated as natural UI phrases, not literal descriptions of SF Symbols. `home.controls.compose` now opens My Ambiences / Mes ambiances, not a technical composer.
 
 `spatial.center` is the only user-facing center/reset action in the sound-placement panel. There is no separate `spatial.reset` key because the old "Recenter sound" button duplicated the center preset.
 
-The full-screen presets panel uses `presets.save.*`, `presets.delete.confirm.*`, `presets.list.*`, `presets.manage*`, and `presets.status.*` keys for its save button + name-entry alert, delete confirmation, list section, explicit management-mode toggle, and row badges.
+The iOS My Ambiences panel reuses `presets.save.*`, `presets.edit.*`, `presets.delete.confirm.*`, and `presets.status.*` keys for saving, editing, and deleting personal ambiences because those ambiences are persisted as `Preset` snapshots. The old iOS manage-toggle copy is not used in My Ambiences; `presets.manage*` remains for the legacy Presets surface/macOS section.
 
-The Routines sheet uses `home.controls.compose` and `compose.*` keys. Keep this family fully translated because the panel is visible in normal gameplay: the sheet title/subtitle, 8 routine selector titles/subtitles under `compose.routine.<id>.*`, "what will happen" heading (`compose.routine.plan`), explanatory sentence (`compose.routine.context`), natural layer labels (`compose.routine.layer.*`), CTA states (`compose.routine.start/current/replace`), legacy Composer recipe titles/subtitles, and the dedicated Composer paywall copy all live here. The first 2 routines are free and must not mention premium-only layers; the other 6 are Premium and may describe their intended richer soundscape because the UI clearly locks/upsells them. The Home follow-up status uses `home.routine.active`, `home.routine.stop`, `home.routine.rest.*`, and `home.routine.supportingLayers` for the passive listening cue, explicit guided-routine stop action, and Premium overflow row. Routine copy should use natural phrasing in each locale and stay truthful for both free and premium users. Prefer wellbeing language ("soundscape", "noise cover", "fade out") over technical or jargon-heavy labels like "masking", and name routines around the desired state rather than the unpleasant problem being solved. Premium routine summaries can exceed three sounds, so localized copy should support compact `+N` overflow rather than enumerating every layer.
+The My Ambiences sheet uses `home.controls.compose` and `compose.*` keys. Keep this family fully translated because the panel is visible in normal gameplay: the sheet title/subtitle, save background label, "what will happen" heading, explanatory sentence, natural layer labels, CTA states, legacy recipe titles/subtitles, and the dedicated premium-ambience/paywall copy all live here. Saved ambiences appear in the selector and use the generic preset save/edit/delete/status copy; creating or editing them is Premium-only, so free users should see the preset upsell. That upsell must not claim the first save is free. Some localization keys still keep historical `compose.routine.*` / `home.routine.*` names for migration stability, but their values and comments should describe ambiences only. The Home follow-up status covers the passive listening cue and explicit active-ambience stop action. My Ambiences and Premium copy should use natural phrasing in each locale and stay truthful for both free and premium users. Write from the user's point of view: avoid internal product language such as "combines layers" when a clearer sentence can say what happens on tap, what starts, and how the chosen duration is used. Prefer wellbeing language ("soundscape", "noise cover", "fade out") over technical or jargon-heavy labels like "masking" or "procedural". Premium ambience summaries can exceed three sounds, so localized preview copy should support compact `+N` overflow rather than enumerating every layer.
 
 `notifications.gentleReminder.title` and `notifications.gentleReminder.body` localize the single local notification that invites inactive users back to Oasis after several days.
 

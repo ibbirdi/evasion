@@ -203,6 +203,67 @@ enum OrganicBackdrop {
     static let darkSatin = SoundBackdrop(assetName: "organic_dark_satin", focus: .center)
 }
 
+struct AmbienceBackdropChoice: Identifiable, Sendable {
+    let backdrop: SoundBackdrop
+
+    var id: String { backdrop.assetName }
+}
+
+enum AmbienceBackdropLibrary {
+    static let defaultAssetName = OrganicBackdrop.blueFabric.assetName
+
+    static let extraBackdrops: [SoundBackdrop] = [
+        .init(assetName: "ambience_soft_hues", focus: .center),
+        .init(assetName: "ambience_colorful_shapes", focus: .center),
+        .init(assetName: "ambience_colorful_fabric", focus: .center),
+        .init(assetName: "ambience_warm_fluid", focus: .center),
+        .init(assetName: "ambience_forest_cabin", focus: .center),
+        .init(assetName: "routine_misty_forest", focus: .center),
+        .init(assetName: "routine_dark_ocean", focus: .center),
+        .init(assetName: "routine_rain_window", focus: .center),
+        .init(assetName: "routine_starry_lake", focus: .center),
+        .init(assetName: "routine_aurora_lake", focus: .center),
+        .init(assetName: "routine_night_cabin", focus: .center),
+        .init(assetName: "routine_night_waves", focus: .center),
+        .init(assetName: "routine_twilight_water", focus: .center),
+        .init(assetName: "routine_foggy_trees", focus: .center),
+        .init(assetName: "routine_aurora_mountains", focus: .center)
+    ]
+
+    static var all: [AmbienceBackdropChoice] {
+        uniqueBackdrops(
+            [
+                OrganicBackdrop.darkWater,
+                OrganicBackdrop.warmFabric,
+                OrganicBackdrop.blueFabric,
+                OrganicBackdrop.blueFlow,
+                OrganicBackdrop.darkSatin
+            ]
+            + SoundChannel.allCases.map(\.backdrop)
+            + [
+                SoundBackdrop(assetName: "binaural_delta_background", focus: .center),
+                SoundBackdrop(assetName: "binaural_theta_background", focus: .center),
+                SoundBackdrop(assetName: "binaural_alpha_background", focus: .center),
+                SoundBackdrop(assetName: "binaural_beta_background", focus: .center)
+            ]
+            + extraBackdrops
+        )
+    }
+
+    static func backdrop(for assetName: String?, fallback: SoundBackdrop = OrganicBackdrop.blueFabric) -> SoundBackdrop {
+        guard let assetName else { return fallback }
+        return all.first { $0.id == assetName }?.backdrop ?? fallback
+    }
+
+    private static func uniqueBackdrops(_ backdrops: [SoundBackdrop]) -> [AmbienceBackdropChoice] {
+        var seenAssetNames = Set<String>()
+        return backdrops.compactMap { backdrop in
+            guard seenAssetNames.insert(backdrop.assetName).inserted else { return nil }
+            return AmbienceBackdropChoice(backdrop: backdrop)
+        }
+    }
+}
+
 extension SoundChannel {
     var metadata: ChannelMetadata {
         guard let value = Self.metadataTable[self] else {

@@ -1,5 +1,13 @@
 import SwiftUI
 
+private enum BottomToolbarStyle {
+    static let sideButtonSize: CGFloat = 44
+    static let playbackButtonSize: CGFloat = 58
+    static let borderWidth: CGFloat = 1
+    static let inactiveBorderOpacity: Double = 0.08
+    static let activeBorderOpacity: Double = 0.34
+}
+
 struct BottomToolbarItemLabel: View {
     let glyph: OasisGlyph?
     let systemImage: String?
@@ -26,14 +34,15 @@ struct BottomToolbarItemLabel: View {
     var body: some View {
         icon
             .foregroundStyle(isActivated ? .white : .white.opacity(0.66))
-            .frame(width: 44, height: 44)
+            .frame(width: BottomToolbarStyle.sideButtonSize, height: BottomToolbarStyle.sideButtonSize)
             .background {
                 Circle()
                     .fill(isActivated ? tint.opacity(0.18) : Color.white.opacity(0.001))
+                    .oasisGlassEffect(in: Circle())
             }
             .overlay {
                 Circle()
-                    .strokeBorder(activeBorderStyle, lineWidth: isActivated ? 1.15 : 0.8)
+                    .strokeBorder(activeBorderStyle, lineWidth: BottomToolbarStyle.borderWidth)
             }
             .contentShape(Circle())
             .animation(.smooth(duration: 0.22), value: isActivated)
@@ -53,9 +62,9 @@ struct BottomToolbarItemLabel: View {
 
     private var activeBorderStyle: AnyShapeStyle {
         if isActivated {
-            AnyShapeStyle(tint.opacity(0.34))
+            AnyShapeStyle(tint.opacity(BottomToolbarStyle.activeBorderOpacity))
         } else {
-            AnyShapeStyle(Color.white.opacity(0.035))
+            AnyShapeStyle(Color.white.opacity(BottomToolbarStyle.inactiveBorderOpacity))
         }
     }
 }
@@ -104,7 +113,7 @@ struct PlaybackToolbarLabel: View {
                 y: model.isPlaying ? 1.5 : 1
             )
             .symbolEffect(.bounce, value: model.isPlaying)
-            .frame(width: 58, height: 58)
+            .frame(width: BottomToolbarStyle.playbackButtonSize, height: BottomToolbarStyle.playbackButtonSize)
             .background {
                 ZStack {
                     Circle()
@@ -139,7 +148,7 @@ struct PlaybackToolbarLabel: View {
             }
             .overlay {
                 Circle()
-                    .strokeBorder(borderStyle(for: palette), lineWidth: 1.3)
+                    .strokeBorder(borderStyle(for: palette), lineWidth: BottomToolbarStyle.borderWidth)
             }
             .shadow(
                 color: (palette.first ?? .white).opacity(model.isPlaying ? 0.18 : 0.0),
@@ -151,11 +160,11 @@ struct PlaybackToolbarLabel: View {
 
     private func borderStyle(for palette: [Color]) -> AnyShapeStyle {
         guard model.isPlaying else {
-            return AnyShapeStyle(Color.white.opacity(0.08))
+            return AnyShapeStyle(Color.white.opacity(BottomToolbarStyle.inactiveBorderOpacity))
         }
         return AnyShapeStyle(
             LinearGradient(
-                colors: palette.map { $0.opacity(0.42) },
+                colors: palette.map { $0.opacity(BottomToolbarStyle.activeBorderOpacity) },
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )
@@ -167,10 +176,9 @@ struct BottomBarView: View {
     @Environment(AppModel.self) private var model
     let transitionNamespace: Namespace.ID
     let onOpenCompose: (PanelTransitionSource) -> Void
-    let onOpenPresets: (PanelTransitionSource) -> Void
     let onOpenBinaural: (PanelTransitionSource) -> Void
 
-    private var isGuidedRoutineActive: Bool {
+    private var isSavedAmbienceActive: Bool {
         model.activeRitualSession == nil && model.activeComposerRecipeTitle != nil
     }
 
@@ -190,7 +198,7 @@ struct BottomBarView: View {
 
     @ViewBuilder
     private var barContent: some View {
-        if isGuidedRoutineActive {
+        if isSavedAmbienceActive {
             HStack(spacing: 12) {
                 playbackButton
 
@@ -201,7 +209,7 @@ struct BottomBarView: View {
             HStack(spacing: 8) {
                 composeButton
 
-                presetsButton
+                shuffleButton
 
                 playbackButton
 
@@ -234,55 +242,49 @@ struct BottomBarView: View {
             .background {
                 Circle()
                     .fill(Color.white.opacity(0.001))
+                    .oasisGlassEffect(in: Circle())
+                    .overlay {
+                        Circle()
+                            .fill(Color.white.opacity(0.012))
+                    }
             }
             .overlay {
-                Circle().strokeBorder(Color.white.opacity(0.035), lineWidth: 0.8)
+                Circle()
+                    .strokeBorder(
+                        Color.white.opacity(BottomToolbarStyle.inactiveBorderOpacity),
+                        lineWidth: BottomToolbarStyle.borderWidth
+                    )
             }
+            .contentShape(Circle())
     }
 
     @ViewBuilder
     private var composeButton: some View {
-        if AppConfiguration.isRunningScreenshotAutomation {
-            Button {
-                model.randomizeMix()
-            } label: {
-                BottomToolbarItemLabel(
-                    systemImage: "shuffle",
-                    tint: AmbienceIntent.reset.tint,
-                    isActivated: false,
-                    palette: [AmbienceIntent.sleep.tint, AmbienceIntent.focus.tint, AmbienceIntent.reset.tint]
-                )
-            }
-            .accessibilityIdentifier("home.bottom.shuffle")
-            .accessibilityLabel(Text(L10n.HomeControls.shuffle))
-            .buttonStyle(PressScaleButtonStyle())
-        } else {
-            let button = Button {
-                onOpenCompose(.bottomCompose)
-            } label: {
-                BottomToolbarItemLabel(
-                    glyph: composeButtonGlyph,
-                    tint: composeButtonTint,
-                    isActivated: composeButtonIsActivated,
-                    palette: composeButtonPalette
-                )
-            }
-            .accessibilityIdentifier("home.bottom.compose")
-            .accessibilityLabel(Text(composeButtonAccessibilityLabel))
-            .accessibilityValue(Text(composeStatusLabel ?? ""))
-            .buttonStyle(PressScaleButtonStyle())
-            .animation(.smooth(duration: 0.22), value: composeStatusLabel)
-            .animation(.smooth(duration: 0.22), value: model.activeRitualSession?.ritualID)
+        let button = Button {
+            onOpenCompose(.bottomCompose)
+        } label: {
+            BottomToolbarItemLabel(
+                glyph: composeButtonGlyph,
+                tint: composeButtonTint,
+                isActivated: composeButtonIsActivated,
+                palette: composeButtonPalette
+            )
+        }
+        .accessibilityIdentifier("home.bottom.compose")
+        .accessibilityLabel(Text(composeButtonAccessibilityLabel))
+        .accessibilityValue(Text(composeStatusLabel ?? ""))
+        .buttonStyle(PressScaleButtonStyle())
+        .animation(.smooth(duration: 0.22), value: composeStatusLabel)
+        .animation(.smooth(duration: 0.22), value: model.activeRitualSession?.ritualID)
 
-            if #available(iOS 26.0, *) {
-                button.matchedTransitionSource(id: PanelTransitionSource.bottomCompose.transitionID, in: transitionNamespace) { source in
-                    source
-                        .background(.clear)
-                        .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
-                }
-            } else {
-                button
+        if #available(iOS 26.0, *) {
+            button.matchedTransitionSource(id: PanelTransitionSource.bottomCompose.transitionID, in: transitionNamespace) { source in
+                source
+                    .background(.clear)
+                    .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
             }
+        } else {
+            button
         }
     }
 
@@ -357,52 +359,20 @@ struct BottomBarView: View {
         model.activeRitualSession == nil ? L10n.HomeControls.compose : L10n.HomeControls.activeRitual
     }
 
-    @ViewBuilder
-    private var presetsButton: some View {
-        let button = Button {
-            onOpenPresets(.bottomPresets)
+    private var shuffleButton: some View {
+        Button {
+            model.randomizeMix()
         } label: {
             BottomToolbarItemLabel(
-                systemImage: model.currentPresetID == nil ? "bookmark" : "bookmark.fill",
-                tint: LiquidActivityPalette.preset[0],
-                isActivated: model.activePreset != nil,
-                palette: LiquidActivityPalette.preset
+                systemImage: "shuffle",
+                tint: AmbienceIntent.reset.tint,
+                isActivated: false,
+                palette: [AmbienceIntent.sleep.tint, AmbienceIntent.focus.tint, AmbienceIntent.reset.tint]
             )
         }
-        .accessibilityIdentifier("home.bottom.presets")
-        .accessibilityLabel(Text(L10n.HomeControls.presets))
+        .accessibilityIdentifier("home.bottom.shuffle")
+        .accessibilityLabel(Text(L10n.HomeControls.shuffle))
         .buttonStyle(PressScaleButtonStyle())
-        // Active preset name surfaces directly below the button — replaces the preset chip
-        // that used to live in the header. Rendered via overlay so it floats outside the
-        // bar's intrinsic layout and doesn't grow the toolbar's height.
-        .overlay(alignment: .bottom) {
-            if let preset = model.activePreset {
-                Text(model.presetDisplayName(preset))
-                    .oasisFont(size: 10, weight: .semibold, relativeTo: .caption2)
-                    .foregroundStyle(LiquidActivityPalette.preset[0].opacity(0.92))
-                    .lineLimit(1)
-                    .fixedSize()
-                    .offset(y: 16)
-                    .transition(.opacity.combined(with: .move(edge: .top)))
-            }
-        }
-        .animation(.smooth(duration: 0.22), value: model.activePreset?.id)
-
-        if #available(iOS 26.0, *) {
-            button.matchedTransitionSource(id: PanelTransitionSource.bottomPresets.transitionID, in: transitionNamespace) { source in
-                // Match the actual circular shape of `BottomToolbarItemLabel` so the source
-                // config does not leave a slightly off RoundedRectangle clip on the button
-                // after the sheet transition ends.
-                // 48pt button with cornerRadius == half = perfect circle. The previous
-                // value of 26 overshot the half-size, leaving a slightly bulged outline
-                // after the sheet transition finished.
-                source
-                    .background(.clear)
-                    .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
-            }
-        } else {
-            button
-        }
     }
 
     @ViewBuilder

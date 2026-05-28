@@ -1,10 +1,11 @@
 ---
 title: Sound Backgrounds
 status: stable
-last_updated: 2026-05-27
+last_updated: 2026-05-28
 tracks:
   - "ios-native/OasisNative/Assets.xcassets/SoundBackgrounds/**"
   - "ios-native/OasisNative/Assets.xcassets/OrganicBackgrounds/**"
+  - "ios-native/OasisNative/Assets.xcassets/RoutineBackgrounds/**"
   - "ios-native/OasisNative/Models/SoundChannelMetadata.swift"
   - "ios-native/OasisNative/Views/Overlays/ComposePanel.swift"
 related:
@@ -17,7 +18,9 @@ related:
 
 Ambient tracks use subtle place-photo watermarks from `Assets.xcassets/SoundBackgrounds`, mapped by `SoundChannel.backdrop`.
 
-Non-place surfaces use the abstract texture family in `Assets.xcassets/OrganicBackgrounds`, mapped by `OrganicBackdrop` and usually rendered through `OrganicBackdropImage`. This includes Composer suggestion cards, ritual launch cards, Noise Lab blend cards, and binaural track cards. Guided routine cards pair these organic textures with the curated Phosphor `OasisGlyphs` for the non-place intent and layer icons. Routine hero titles use shadow over the brighter organic textures, and detail/plan row backgrounds must be clipped to the same rounded shape as their border so tint overlays never leak square corners. Keep the split strict: real field recordings can show representative places; abstract use cases should use organic textures instead of place photography.
+Non-place surfaces use the abstract texture family in `Assets.xcassets/OrganicBackgrounds`, mapped by `OrganicBackdrop` and usually rendered through `OrganicBackdropImage`. This includes Composer suggestion cards, ritual launch cards, Noise Lab blend cards, and binaural track cards. My Ambiences hero titles use shadow over imagery, and detail/plan row backgrounds must be clipped to the same rounded shape as their border so tint overlays never leak square corners. Keep the split strict: real field recordings can show representative places; abstract use cases should use organic textures instead of place photography.
+
+`Assets.xcassets/RoutineBackgrounds` stores extra Pexels photos that are not tied to a specific sound. `AmbienceBackdropLibrary` exposes organic textures, ambient sound backdrops, binaural background assets, and these extra ambience photos to the My Ambiences save picker. User presets persist the selected asset name as `Preset.backdropAssetName`; older presets fall back to the strongest audible channel background. The save/edit background picker must show these assets in equal-size tiles and crop each image within its tile instead of letting source aspect ratios affect the grid. Every My Ambiences selector pill should be image-led, omit the leading glyph, and use a strong dark title shadow over the selected background. The shipped default ambiences should use unique background assets so the selector grid does not repeat base artwork, and the model should refresh built-in backdrop names from `Array.defaultPresets()` when loading persisted state. Intent glyphs remain appropriate in detail cards, plan rows, and other explanatory UI outside the selector capsule.
 
 Most shipped photos were downloaded from Pexels at `1200×800` using:
 
@@ -74,10 +77,10 @@ Wide organic hero textures may keep their cinematic aspect ratio, but resample t
 | Asset | Pexels ID | Photographer | Used for | Visual brief |
 | --- | --- | --- | --- | --- |
 | `organic_dark_water` | `32505829` | Valeriia Miller | Brown-noise masks, fallback sleep texture | Dark water ripples with enough contour to feel organic without reading as a specific place. |
-| `organic_dark_satin` | `13946140` | Steve Johnson | Short nap and sleep routine hero cards | Sculptural satin ribbon on a black field; chosen after visual inspection because it feels calmer and more premium than the old dark water crop. |
+| `organic_dark_satin` | `13946140` | Steve Johnson | Sleep-leaning ambience cards | Sculptural satin ribbon on a black field; chosen after visual inspection because it feels calmer and more premium than the old dark water crop. |
 | `organic_warm_fabric` | `30263578` | Gulsum Haydaroglu | Reading, focus support, Theta/Alpha binaural | Warm folded fabric, used sparingly under tint so it reads tactile rather than muddy. |
 | `organic_blue_fabric` | `23338914` | Efl-E-Sun | Beta binaural fallback | Blue-black textile folds with a cooler, cleaner technical mood. |
-| `organic_blue_flow` | `29586677` | Steve Johnson | Deep work and Travel cocoon routine hero cards | Soft blue fabric flow with generous negative space; kept because it adds colour without reading as a place photo. |
+| `organic_blue_flow` | `29586677` | Steve Johnson | Focus-leaning ambience cards | Soft blue fabric flow with generous negative space; kept because it adds colour without reading as a place photo. |
 
 ## Binaural tracks
 
@@ -87,3 +90,23 @@ Wide organic hero textures may keep their cinematic aspect ratio, but resample t
 | `theta` | `organic_warm_fabric` | Meditation/rest texture with warm softness. |
 | `alpha` | `organic_warm_fabric` | Relaxation texture, shared with Theta for calmer visual load. |
 | `beta` | `organic_blue_fabric` | Focus texture with cooler contrast. |
+
+## Extra ambience backgrounds
+
+| Asset | Pexels ID | Photographer | Visual brief |
+| --- | --- | --- | --- |
+| `ambience_soft_hues` | `33706966` | Landiva Weber | Brighter pink/green organic shapes for Soft reset / Retour au calme. |
+| `ambience_colorful_shapes` | `33500208` | Zeynep Sude Emek | Starry forest night for Deep sleep / Nuit profonde, replacing the harsh abstract shapes. |
+| `ambience_colorful_fabric` | `36147547` | Rafael Minguet Delgado | Multicolour fabric texture for Travel cocoon, lighter and more varied than the old blue-black fabric. |
+| `ambience_warm_fluid` | `31646205` | Jin He | Warm bedside bedroom for Evening reading / Lecture du soir, replacing the fluid-art crop. |
+| `ambience_forest_cabin` | `37242869` | Matt Baker | Forest cabin exterior for Rain cabin / Cabane sous la pluie, more literal than the old abstract fabric. |
+| `routine_misty_forest` | `14701776` | Diego Benjamín | Dense green forest mist for sleep/calm ambiences. |
+| `routine_dark_ocean` | `34155534` | Kris Møklebust | Dark ocean ripples for low-motion night ambience cards. |
+| `routine_rain_window` | `6632182` | Zeinab Ghassemi | Rain droplets and soft city blur for rainy saved mixes. |
+| `routine_starry_lake` | `12249381` | Josh Hild | Lake reflection under stars for quiet night scenes. |
+| `routine_aurora_lake` | `16747789` | Stijn Dijkstra | Aurora reflected on water for premium-feeling deep night scenes. |
+| `routine_night_cabin` | `9179968` | Людмила Ульянова | Warm cabin in dark woods for sheltered reading/sleep ambiences. |
+| `routine_night_waves` | `15979121` | Allan Carvalho | Moody wave motion for ocean-heavy ambiences. |
+| `routine_twilight_water` | `9585883` | Lada Rezantseva | Soft twilight water texture for calm saved ambiences. |
+| `routine_foggy_trees` | `30205488` | Ali Berke GÜL | Foggy leafless forest for darker focus/sleep moods. |
+| `routine_aurora_mountains` | `2113567` | Tobias Bjørkli | Aurora over snow and mountains for expansive night ambience cards. |

@@ -1,7 +1,7 @@
 ---
 title: ASO Strategy
 status: stable
-last_updated: 2026-05-22
+last_updated: 2026-05-27
 tracks:
   - "fastlane/metadata/**"
   - "fastlane/screenshots/**"
@@ -103,7 +103,7 @@ Reorder the existing 10 captures to lead with multi-use moments before binaural 
 
 ```
 01_hero → 02_library → 07_timer → 05_spatial → 08_free_home →
-03_detail_sheet → 04_binaural → 06_presets → 09_library_teaser → 10_paywall
+03_detail_sheet → 04_binaural → 06_ambiences → 09_library_teaser → 10_paywall
 ```
 
 Reorder is done during `stage_appstore_assets` / `appstore_release`: source composites keep their slug names, while upload-ready staged files are renamed to numeric display order. No re-rendering is needed.
@@ -123,8 +123,8 @@ Local App Preview MP4s can still be generated in 6 locales from the composited s
 ASC allows up to **35** Custom Product Pages per app. Plan three:
 
 - **Main** — Variant A above (multi-use).
-- **Sleep First** — sleep-led headline, screenshots reordered with `01_hero` → `07_timer` → `04_binaural` (Delta foreground) → `06_presets` (Sleep mix). Used for ads to insomnia / "sleep sounds" search.
-- **Focus** — focus-led, lead with `05_spatial` → `06_presets` (focus mix) → `04_binaural` (Beta). Used for ads to "focus music" / "study sounds" cohorts.
+- **Sleep First** — sleep-led headline, screenshots reordered with `01_hero` → `07_timer` → `04_binaural` (Delta foreground) → `06_ambiences` (saved ambience). Used for ads to insomnia / "sleep sounds" search.
+- **Focus** — focus-led, lead with `05_spatial` → `06_ambiences` (saved ambience) → `04_binaural` (Beta). Used for ads to "focus music" / "study sounds" cohorts.
 
 CPPs are free; spawn them as A/B vehicles without touching the main page.
 

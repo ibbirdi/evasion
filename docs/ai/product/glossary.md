@@ -1,7 +1,7 @@
 ---
 title: Glossary
 status: stable
-last_updated: 2026-05-27
+last_updated: 2026-05-28
 tracks:
   - "ios-native/OasisNative/Models/AppModels.swift"
   - "ios-native/OasisNative/Models/AmbienceModels.swift"
@@ -33,19 +33,19 @@ Vocabulary used inside the codebase, the UI copy, and these memory files. Some t
 
 **Master fade.** Multiplier applied to all ambient players during play/pause transitions. Animated 0 → 1 over 1.6 s on play, 1 → 0 over 0.9 s on pause (customizable per call via `setNextPauseFadeDuration`).
 
-**Binaural track** (`BinauralTrack`). One of `.delta`, `.theta`, `.alpha`, `.beta`. Played by a dedicated `AVAudioPlayer`, looped infinitely. Delta is free; the other three are premium. See [architecture/binaural.md](../architecture/binaural.md).
+**Binaural track** (`BinauralTrack`). One of `.delta`, `.theta`, `.alpha`, `.beta`. Played by a dedicated `AVAudioPlayer`, looped infinitely. Delta is free; the other three are premium. Each case also exposes a representative `beatFrequencyHz` so UI cards can draw a frequency-shaped waveform. See [architecture/binaural.md](../architecture/binaural.md).
 
 **Procedural noise** (`ProceduralNoise`). Local generated noise layer, not a bundled audio file. White and brown are free; pink, green, fan, and aircraft are premium. Played through `AVAudioSourceNode` in the ambient engine.
 
 ## Mix and presets
 
-**Oasis glyph** (`OasisGlyph`). Small curated subset of Phosphor SVG icons stored in `Assets.xcassets/OasisGlyphs` and rendered through `OasisGlyphImage`. Used for app-specific concepts like routine intents, masking, ambience layers, included-state marks, channel identity, minimap pins, and preset preview chips; common platform actions stay SF Symbols/native controls.
+**Oasis glyph** (`OasisGlyph`). Small curated subset of Phosphor SVG icons stored in `Assets.xcassets/OasisGlyphs` and rendered through `OasisGlyphImage`. Used for app-specific concepts like masking, ambience layers, included-state marks, channel identity, minimap pins, and preset preview chips; common platform actions stay SF Symbols/native controls.
 
-**Guided routine** (`GuidedRoutineKind`). Fixed one-tap routine shown in `ComposePanel`. Oasis ships 2 free routines (`nap`, `reset`) and 6 Premium routines (`deepSleep`, `deepWork`, `noisyHotel` shown as Travel cocoon, `reading`, `rainCabin`, `morning`).
+**Saved ambience** (`Preset`). The single iOS standard for reusable mixes in My Ambiences. A saved ambience can include ambient channels, procedural noise layers, binaural state, immersive mode, timer, and an optional background image.
 
-**Ambience recipe** (`AmbienceRecipe`). Transactional mix description produced by a guided routine, the legacy Composer parser, or a ritual phase. Can include ambient channels, procedural noise layers, binaural state, immersive mode, and a timer.
+**Ambience recipe** (`AmbienceRecipe`). Transactional mix description produced by a saved ambience, the legacy Composer parser, or a ritual phase. Can include ambient channels, procedural noise layers, binaural state, immersive mode, and a timer.
 
-**Composer.** Bottom-bar Routines sheet that previews fixed guided routines and applies their deterministic `AmbienceRecipe`s. The legacy local intent/prompt parser still exists in `AmbienceComposer` for compatibility paths. No backend and no LLM call.
+**My Ambiences.** Bottom-bar sheet that lists saved Oasis/user ambiences, lets Premium users save/edit/delete their own ambiences, and applies their `AmbienceRecipe`s. The legacy local intent/prompt parser still exists in `AmbienceComposer` for compatibility paths. No backend and no LLM call.
 
 **Ritual** (`RitualPreset`). Multi-phase routine made of timed `RitualPhase` recipes. Starting one applies phase 1, starts playback and the total timer, then advances phases while playing.
 

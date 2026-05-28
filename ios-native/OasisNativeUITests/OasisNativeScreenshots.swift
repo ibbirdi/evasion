@@ -13,7 +13,7 @@ import XCTest
 ///   03_detail_sheet    — `SoundDetailSheet` open on Savanna (new sound) at .large detent
 ///   04_binaural        — Binaural panel with the 4 brainwave tracks
 ///   05_spatial         — Spatial 3D placement panel
-///   06_presets         — Presets panel with the default + signature mixes
+///   06_ambiences       — My ambiences panel with saved Oasis mixes
 ///   07_timer           — Timer menu open with all four duration options
 ///   08_free_home       — Free tier base screen with the three starter sounds playing
 ///   09_library_teaser  — Free tier scrolled to the locked premium library card
@@ -110,21 +110,19 @@ final class OasisNativeScreenshots: XCTestCase {
             }
         }
 
-        if shouldRun("06_presets") {
+        if shouldRun("06_ambiences") {
             runScenario { app in
-                // 06 Presets panel — default + signature "After the Rain" mix visible.
-                // Presets button lives in the bottom bar (moved out of the header
-                // when the native toolbar took over).
+                // 06 My ambiences panel — saved Oasis mixes in one surface.
                 launchApp(app, premiumOverride: "premium")
                 startPlayingMix(in: app, shuffleFirst: true)
-                waitForHittable(button(in: app, id: "home.bottom.presets"))
-                tap(button(in: app, id: "home.bottom.presets"))
-                _ = panel(in: app, id: "panel.presets.container").waitForExistence(timeout: 6)
+                waitForHittable(button(in: app, id: "home.bottom.compose"))
+                tap(button(in: app, id: "home.bottom.compose"))
+                _ = panel(in: app, id: "panel.compose.container").waitForExistence(timeout: 6)
                 pause(seconds: 0.5)
-                snapshot("06_presets", waitForLoadingIndicator: false)
-                snapshotElement("06_preset_starter", element: element(in: app, id: "presets.row.preset_default_starter"))
-                snapshotElement("06_preset_calm", element: element(in: app, id: "presets.row.preset_default_calm"))
-                snapshotElement("06_preset_storm", element: element(in: app, id: "presets.row.preset_default_storm"))
+                snapshot("06_ambiences", waitForLoadingIndicator: false)
+                snapshotElement("06_ambience_duration", element: element(in: app, id: "compose.ambience.duration"))
+                snapshotElement("06_saved_starter", element: element(in: app, id: "compose.ambience.preset_default_starter"))
+                snapshotElement("06_saved_storm", element: element(in: app, id: "compose.ambience.preset_default_storm"))
             }
         }
 

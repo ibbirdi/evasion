@@ -527,26 +527,14 @@ struct TimerCountdownIndicator: View {
     }
 }
 
-/// Compact passive feedback for guided routines. It keeps the current routine name and
+/// Compact passive feedback for active ambiences. It keeps the current ambience name and
 /// timer visible without inserting another control into the mixer itself.
-struct HomeRoutineStatusIndicator: View {
+struct HomeAmbienceStatusIndicator: View {
     @Environment(AppModel.self) private var model
     var action: (() -> Void)?
 
     private var accent: Color {
         model.activePlaybackPalette.first ?? AmbienceIntent.reset.tint
-    }
-
-    private var timerRemainingFraction: Double? {
-        guard
-            let timerDurationMinutes = model.timerDurationMinutes,
-            timerDurationMinutes > 0,
-            let timerDisplayValue = model.timerDisplayValue
-        else { return nil }
-
-        let total = Double(timerDurationMinutes * 60)
-        guard total > 0 else { return nil }
-        return min(max(timerDisplayValue / total, 0), 1)
     }
 
     var body: some View {
@@ -560,17 +548,17 @@ struct HomeRoutineStatusIndicator: View {
                     .accessibilityAddTraits(.isButton)
                     .accessibilityElement(children: .ignore)
                     .accessibilityLabel(Text(accessibilityLabel(title: title)))
-                    .accessibilityIdentifier("home.routine.status")
+                    .accessibilityIdentifier("home.ambience.status")
                 } else {
                     statusContent(title: title, showsDisclosure: false)
                         .accessibilityElement(children: .ignore)
                         .accessibilityLabel(Text(accessibilityLabel(title: title)))
-                        .accessibilityIdentifier("home.routine.status")
+                        .accessibilityIdentifier("home.ambience.status")
                 }
 
                 Button {
                     withAnimation(.smooth(duration: 0.24)) {
-                        model.stopGuidedRoutine()
+                        model.stopActiveAmbience()
                     }
                 } label: {
                     Image(systemName: "xmark")
@@ -592,8 +580,8 @@ struct HomeRoutineStatusIndicator: View {
                         }
                 }
                 .buttonStyle(PressScaleButtonStyle())
-                .accessibilityLabel(Text(L10n.HomeActive.stopRoutine))
-                .accessibilityIdentifier("home.routine.stop")
+                .accessibilityLabel(Text(L10n.HomeActive.stopAmbience))
+                .accessibilityIdentifier("home.ambience.stop")
             }
         } else {
             TimerCountdownIndicator()
@@ -613,7 +601,7 @@ struct HomeRoutineStatusIndicator: View {
                 .accessibilityHidden(true)
 
             VStack(alignment: .leading, spacing: 1) {
-                Text(L10n.HomeActive.activeRoutine)
+                Text(L10n.HomeActive.activeAmbience)
                     .oasisFont(size: 9, weight: .bold, relativeTo: .caption2)
                     .foregroundStyle(.white.opacity(0.48))
                     .lineLimit(1)
@@ -656,45 +644,14 @@ struct HomeRoutineStatusIndicator: View {
                         .fill(Color(red: 0.035, green: 0.050, blue: 0.090).opacity(0.42))
                 }
         }
-        .overlay {
-            Capsule(style: .continuous)
-                .strokeBorder(accent.opacity(showsDisclosure ? 0.25 : 0.20), lineWidth: 1)
-        }
-        .overlay(alignment: .bottom) {
-            if let timerRemainingFraction {
-                HomeRoutineStatusProgress(progress: timerRemainingFraction, tint: accent)
-                    .padding(.horizontal, 13)
-                    .padding(.bottom, 4)
-            }
-        }
     }
 
     private func accessibilityLabel(title: String) -> String {
-        let base = "\(L10n.string(L10n.HomeActive.activeRoutine)), \(title)"
+        let base = "\(L10n.string(L10n.HomeActive.activeAmbience)), \(title)"
         if model.timerDurationMinutes != nil {
             return "\(base), \(model.timerToolbarTitle)"
         }
         return base
-    }
-}
-
-private struct HomeRoutineStatusProgress: View {
-    let progress: Double
-    let tint: Color
-
-    var body: some View {
-        GeometryReader { proxy in
-            ZStack(alignment: .leading) {
-                Capsule(style: .continuous)
-                    .fill(Color.white.opacity(0.075))
-
-                Capsule(style: .continuous)
-                    .fill(tint.opacity(0.70))
-                    .frame(width: max(proxy.size.width * progress, 5))
-            }
-        }
-        .frame(height: 2.5)
-        .accessibilityHidden(true)
     }
 }
 

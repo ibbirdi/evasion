@@ -1,7 +1,7 @@
 ---
 title: Product Vision
 status: stable
-last_updated: 2026-05-19
+last_updated: 2026-05-27
 tracks:
   - "ios-native/OasisNative/Views/RootView.swift"
   - "ios-native/OasisNative/Views/Overlays/OnboardingView.swift"
@@ -50,7 +50,7 @@ Decisions taken explicitly:
 
 ## Free vs premium
 
-Free is intentionally usable, not crippled. See [premium-model.md](premium-model.md) for the full breakdown. Headline: 3 of 35 channels, 1 of 4 binaural tracks (Delta), 15/30 min timer, no presets panel. The free 3 are Birds, Wind, Beach — chosen for breadth of mood (forest-ish, weather, water).
+Free is intentionally usable, not crippled. See [premium-model.md](premium-model.md) for the full breakdown. Headline: 3 of 35 channels, 1 of 4 binaural tracks (Delta), 15/30 min timer, direct Shuffle, and the 2 free prepared ambiences inside My Ambiences. Saving personal ambiences is Premium-only. The free 3 are Birds, Wind, Beach — chosen for breadth of mood (forest-ish, weather, water).
 
 The final onboarding page states this model directly: users can unlock lifetime access immediately or start free. Keep both choices visible so the paywall feels like a clear purchase moment, not a surprise gate.
 

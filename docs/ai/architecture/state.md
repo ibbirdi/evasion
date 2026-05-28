@@ -1,7 +1,7 @@
 ---
 title: State Model and Persistence
 status: stable
-last_updated: 2026-05-27
+last_updated: 2026-05-28
 tracks:
   - "ios-native/OasisNative/Services/AppModel.swift"
   - "ios-native/OasisNative/Services/GentleReminderScheduler.swift"
@@ -37,6 +37,7 @@ final class AppModel {
   var currentPresetID: String?
   var activeComposerRecipeTitle: String?
   var activeNoiseBlendTitle: String?
+  var isAmbiencePlaybackLocked: Bool       // derived: active ambience controls are read-only
 
   // Binaural (persisted)
   var isBinauralActive: Bool = false
@@ -86,11 +87,9 @@ struct ChannelState: Codable, Equatable {
 
 `AutoVariationRange` also normalises non-finite values back into `[0, 1]`. This keeps older or corrupted simulator/user defaults from leaking `NaN` into the UI, the audio engine, or VoiceOver values.
 
-## Guided routines, legacy rituals and procedural noise
+## Ambience recipes, legacy rituals and procedural noise
 
-`AmbienceRecipe` is the shared recipe type for guided routines, the legacy Composer path, and built-in rituals. It can set ambient channel states, procedural noise layers, binaural state, immersive mode, and an optional timer in one model-level transaction.
-
-Guided routines are keyed by `GuidedRoutineKind`. The free surface has exactly 2 routines (`nap`, `reset`) whose recipes only use the 3 free ambient channels, free procedural noises, Delta/no binaural, and timers no longer than 30 minutes. The premium surface adds exactly 6 routines (`deepSleep`, `deepWork`, `noisyHotel` shown to users as Travel cocoon, `reading`, `rainCabin`, `morning`) whose deterministic recipes use premium channels/noises/binaurals where those layers make the ambience distinct. `AppModel.composeGuidedRoutine(_:)` returns the full recipe for preview; `applyAmbienceRecipe(_:)` remains the gate that routes locked recipes to the Composer upsell/paywall before mutating audio state.
+`AmbienceRecipe` is the shared recipe type for saved ambiences, the legacy Composer path, and built-in rituals. It can set ambient channel states, procedural noise layers, binaural state, immersive mode, and an optional timer in one model-level transaction. The old guided-routine list is removed from the iOS product surface; My Ambiences now launches saved `Preset` snapshots only.
 
 `ProceduralNoiseState` mirrors the lightweight part of `ChannelState` used by generated noise layers: `{ volume: Double, isMuted: Bool }`. The free tier includes white and brown noise; the premium tier adds pink, green, fan, and aircraft layers.
 
@@ -100,11 +99,11 @@ Guided routines are keyed by `GuidedRoutineKind`. The free surface has exactly 2
 
 `ActiveRitualSession` is runtime state persisted with the mixer so long-running rituals survive app relaunch. Starting a `RitualPreset` applies its first phase, starts playback, sets a total timer, then advances phases with `ritualTask` while the app is playing. The session carries intent, phase count, phase start/end dates, duration, and paused remaining values so the Home toolbar status pill and Rituals-tab active card can show live progress, expose the current phase subtitle, expose the current phase recipe for ingredient chips, expose the next queued phase from the active preset, pause/resume can restart phase scheduling from the correct point, and relaunch can restore the correct phase from wall-clock time. `advanceActiveRitualToNextPhase()` manually skips to the next phase, reapplies that phase's recipe, reschedules future phase advancement, shortens the total remaining duration to the queued phases, and preserves paused playback when invoked while paused. User edits to the mix cancel the active ritual so manual control always wins.
 
-`activeComposerRecipeTitle` names the currently-applied guided routine / generated Composer recipe on Home. It is set only when a generated `AmbienceRecipe` is applied, persisted with the mixer state, restored after signature-preview playback, and cleared as soon as the user manually changes the composition, loads or saves through the generic Presets surface, starts a ritual, or randomizes the mix. The dedicated `saveCurrentScene(named:)` path used by active generated scenes saves the current ambience as a preset while preserving the active scene title so the listening context does not collapse into a generic preset state.
+`activeComposerRecipeTitle` names the currently-applied saved ambience / generated Composer recipe on Home. It is set when an `AmbienceRecipe` is applied from My Ambiences or a legacy generated scene, persisted with the mixer state, restored after signature-preview playback, and cleared only by explicit focused-listening exits or replacement flows. Saving while an ambience is active preserves the active title so "save" never doubles as "leave this ambience." While the title is non-nil, `isAmbiencePlaybackLocked` makes ambient channel, procedural noise, binaural, and immersive-audio mutations no-op until the user stops or replaces the active ambience; this prevents a slider/button edit from silently breaking the launched preset.
 
-`stopGuidedRoutine()` is the explicit exit from guided listening. It clears the active routine title, active noise-blend title, active-only filter, and timer state while preserving the current ambient/noise/binaural mix and playback state, so the user can return to normal manual mixing without an abrupt audio reset.
+`stopActiveAmbience()` is the explicit exit from focused ambience listening. It clears the active ambience title, active noise-blend title, active-only filter, and timer state while preserving the current ambient/noise/binaural mix and playback state, so the user can return to normal manual mixing without an abrupt audio reset.
 
-Premium guided routines may apply more than five ambient/noise layers at once. That is valid model state: do not truncate the recipe or assume a three-sound maximum. The Home UI is responsible for keeping the listening state calm by showing leading layers as direct controls and summarising softer extras in `home.routine.supporting-layers`.
+Premium ambiences may apply more than five ambient/noise layers at once. That is valid model state: do not truncate the recipe or assume a three-sound maximum. The Home UI is responsible for keeping the listening state calm while preserving canonical sound order; active ambience rows are filtered to the audible mix but are not promoted or resorted.
 
 `activeNoiseBlendTitle` names a one-tap Noise Lab blend while that blend remains intact. It is persisted with the mixer state, shown in the Home bottom compose badge and Noise Lab active strip, and cleared by manual procedural-noise edits, clearing all noise layers, loading presets, applying Composer recipes, starting rituals, or premium reconciliation when no procedural noise remains. Noise-only manual edits therefore fall back to the procedural-noise count instead of a stale intention name.
 
@@ -121,10 +120,11 @@ struct Preset: Codable, Identifiable, Equatable {
   var binauralVolume: Double?
   var timerDurationMinutes: Int?
   var immersiveAudioEnabled: Bool?
+  var backdropAssetName: String? // optional visual background chosen in My Ambiences
 }
 ```
 
-New presets saved from the Presets panel, Composer recipe card, or active scene bookmark capture the full ambience: ambient channels, procedural noise layers, binaural state, immersive mode, and timer. Older decoded presets that lack the optional fields are treated as channel-only snapshots and reset the extra layers to safe defaults when loaded.
+New presets saved from the iOS My Ambiences panel, macOS Presets section, Composer recipe card, or active scene bookmark capture the full ambience: ambient channels, procedural noise layers, binaural state, immersive mode, timer, and optionally the selected background asset for the iOS ambience card. Saving and editing user presets is Premium-only; free users are routed through the preset upsell before any preset is created or renamed. On iOS these snapshots are presented as ambiences inside `ComposePanel`; user-created ambiences are edited from a direct card pencil button, and the selected launch duration can override the stored timer for that run. Built-in default ambiences should each ship with a unique `backdropAssetName` so the selector grid never shows duplicate base artwork; `AppModel` refreshes those built-in backdrop names when persisted state is loaded so older installs pick up visual swaps without changing user-created ambiences. Older decoded presets that lack the optional fields are treated as channel-only snapshots, choose a visual fallback from their strongest audible channel, and reset the extra layers to safe defaults when loaded.
 
 `currentPresetID` is cleared by user edits that make the live mix diverge from the saved snapshot, including timer changes and procedural-noise blend/manual edits. The active scene bookmark can then accurately reflect whether the current listening state is still the saved ambience.
 

@@ -193,9 +193,9 @@ enum L10n {
 
         static let compose = LocalizedStringResource(
             "home.controls.compose",
-            defaultValue: "Open routines",
+            defaultValue: "Open my ambiences",
             bundle: .main,
-            comment: "Accessibility label for the home bottom button that opens guided routines."
+            comment: "Accessibility label for the home bottom button that opens saved ambiences."
         )
 
         static let activeRitual = LocalizedStringResource(
@@ -242,39 +242,39 @@ enum L10n {
     }
 
     enum HomeActive {
-        static let activeRoutine = LocalizedStringResource(
+        static let activeAmbience = LocalizedStringResource(
             "home.routine.active",
-            defaultValue: "Routine active",
+            defaultValue: "Ambience active",
             bundle: .main,
-            comment: "Small status label shown on Home while a guided routine is active."
+            comment: "Small status label shown on Home while a saved ambience is active."
         )
 
-        static let stopRoutine = LocalizedStringResource(
+        static let stopAmbience = LocalizedStringResource(
             "home.routine.stop",
-            defaultValue: "Stop routine",
+            defaultValue: "Stop ambience",
             bundle: .main,
-            comment: "Button that stops the active guided routine and returns Home to normal mixing mode."
+            comment: "Button that stops the active saved ambience and returns Home to normal mixing mode."
         )
 
-        static let routineRestTitle = LocalizedStringResource(
+        static let ambienceRestTitle = LocalizedStringResource(
             "home.routine.rest.title",
             defaultValue: "You can put the iPhone down",
             bundle: .main,
-            comment: "Quiet footer title shown after guided routine rows on Home."
+            comment: "Quiet footer title shown after active ambience rows on Home."
         )
 
-        static let routineRestSubtitle = LocalizedStringResource(
+        static let ambienceRestSubtitle = LocalizedStringResource(
             "home.routine.rest.subtitle",
             defaultValue: "Oasis keeps the layers steady and fades out at the end.",
             bundle: .main,
-            comment: "Quiet footer subtitle shown after guided routine rows on Home."
+            comment: "Quiet footer subtitle shown after active ambience rows on Home."
         )
 
-        static let routineSupportingLayers = LocalizedStringResource(
+        static let ambienceSupportingLayers = LocalizedStringResource(
             "home.routine.supportingLayers",
             defaultValue: "Softer layers",
             bundle: .main,
-            comment: "Compact label for guided routine layers that are playing in the background."
+            comment: "Compact label for active ambience layers that are playing in the background."
         )
 
         static let listening = LocalizedStringResource(
@@ -316,90 +316,80 @@ enum L10n {
     enum Compose {
         static let title = LocalizedStringResource(
             "compose.title",
-            defaultValue: "Routines",
+            defaultValue: "My ambiences",
             bundle: .main,
-            comment: "Title of the simplified guided ambience panel."
+            comment: "Title of the saved ambience panel."
         )
 
         static let subtitle = LocalizedStringResource(
             "compose.subtitle",
-            defaultValue: "Pick a need, preview the mix, then start.",
+            defaultValue: "Save, launch, and shape your favorite soundscapes.",
             bundle: .main,
-            comment: "Subtitle of the simplified guided ambience panel."
+            comment: "Subtitle of the saved ambience panel."
         )
 
-        static let routinePlan = LocalizedStringResource(
+        static let ambienceBackground = LocalizedStringResource(
+            "compose.routine.background",
+            defaultValue: "Background image",
+            bundle: .main,
+            comment: "Label above the image picker used when saving an ambience."
+        )
+
+        static let ambiencePlan = LocalizedStringResource(
             "compose.routine.plan",
             defaultValue: "What will happen",
             bundle: .main,
-            comment: "Heading above the short explanation of what a guided routine will start."
+            comment: "Heading above the short explanation of what an ambience will start."
         )
 
-        static let routineContext = LocalizedStringResource(
+        static let ambienceContext = LocalizedStringResource(
             "compose.routine.context",
-            defaultValue: "Oasis prepares this mix, then starts it together.",
+            defaultValue: "When you press play, these sounds start together and follow your timer choice.",
             bundle: .main,
-            comment: "Short explanatory sentence in the routine detail card."
+            comment: "Short explanatory sentence in the ambience detail card."
         )
 
-        static let routineLayerAmbience = LocalizedStringResource(
+        static let ambienceLayerAmbience = LocalizedStringResource(
             "compose.routine.layer.ambience",
             defaultValue: "Ambience",
             bundle: .main,
-            comment: "Label for the nature sound layer in the routine detail card."
+            comment: "Label for the nature sound layer in the ambience detail card."
         )
 
-        static let routineLayerMask = LocalizedStringResource(
+        static let ambienceLayerMask = LocalizedStringResource(
             "compose.routine.layer.mask",
             defaultValue: "Masking",
             bundle: .main,
-            comment: "Label for the noise and binaural masking layer in the routine detail card."
+            comment: "Label for the noise and binaural masking layer in the ambience detail card."
         )
 
-        static let routineLayerEnd = LocalizedStringResource(
+        static let ambienceLayerEnd = LocalizedStringResource(
             "compose.routine.layer.end",
             defaultValue: "Fade out",
             bundle: .main,
-            comment: "Label for the automatic end timer in the routine detail card."
+            comment: "Label for the automatic end timer in the ambience detail card."
         )
 
-        static let routineStart = LocalizedStringResource(
+        static let ambienceStart = LocalizedStringResource(
             "compose.routine.start",
-            defaultValue: "Start routine",
+            defaultValue: "Start ambience",
             bundle: .main,
-            comment: "Primary button that starts the selected guided routine."
+            comment: "Primary button that starts the selected saved ambience."
         )
 
-        static let routineCurrent = LocalizedStringResource(
+        static let ambienceCurrent = LocalizedStringResource(
             "compose.routine.current",
-            defaultValue: "Routine in progress",
+            defaultValue: "Ambience in progress",
             bundle: .main,
-            comment: "Disabled primary button label when the selected guided routine is already running."
+            comment: "Disabled primary button label when the selected saved ambience is already running."
         )
 
-        static let routineReplace = LocalizedStringResource(
+        static let ambienceReplace = LocalizedStringResource(
             "compose.routine.replace",
-            defaultValue: "Replace routine",
+            defaultValue: "Replace ambience",
             bundle: .main,
-            comment: "Primary button label when launching the selected guided routine will replace the current one."
+            comment: "Primary button label when launching the selected ambience will replace the current one."
         )
-
-        static let routineNapTitle = LocalizedStringResource("compose.routine.nap.title", defaultValue: "Short nap", bundle: .main, comment: "Guided routine title for a short free nap mix.")
-        static let routineNapSubtitle = LocalizedStringResource("compose.routine.nap.subtitle", defaultValue: "A 15 minute landing: gentle waves, light wind, birds and warm brown noise.", bundle: .main, comment: "Guided routine subtitle for a short free nap mix.")
-        static let routineResetTitle = LocalizedStringResource("compose.routine.reset.title", defaultValue: "Soft reset", bundle: .main, comment: "Guided routine title for a free reset mix.")
-        static let routineResetSubtitle = LocalizedStringResource("compose.routine.reset.subtitle", defaultValue: "A clear free mix for stepping away: shore, air, birds and a quiet white-noise veil.", bundle: .main, comment: "Guided routine subtitle for a free reset mix.")
-        static let routineDeepSleepTitle = LocalizedStringResource("compose.routine.deepSleep.title", defaultValue: "Deep sleep", bundle: .main, comment: "Guided premium routine title for a longer sleep mix.")
-        static let routineDeepSleepSubtitle = LocalizedStringResource("compose.routine.deepSleep.subtitle", defaultValue: "A longer night blend with window rain, dark forest air and a low, steady floor.", bundle: .main, comment: "Guided premium routine subtitle for a longer sleep mix.")
-        static let routineDeepWorkTitle = LocalizedStringResource("compose.routine.deepWork.title", defaultValue: "Deep work", bundle: .main, comment: "Guided premium routine title for focus work.")
-        static let routineDeepWorkSubtitle = LocalizedStringResource("compose.routine.deepWork.subtitle", defaultValue: "A focused room with cafe hush, river detail and a steady green-noise floor.", bundle: .main, comment: "Guided premium routine subtitle for focus work.")
-        static let routineNoisyHotelTitle = LocalizedStringResource("compose.routine.noisyHotel.title", defaultValue: "Travel cocoon", bundle: .main, comment: "Guided premium routine title for a calming hotel and transport soundscape.")
-        static let routineNoisyHotelSubtitle = LocalizedStringResource("compose.routine.noisyHotel.subtitle", defaultValue: "A steady offline cocoon for unfamiliar rooms, trains and planes, with soft fan and cabin air layers.", bundle: .main, comment: "Guided premium routine subtitle for a calming hotel and transport soundscape.")
-        static let routineReadingTitle = LocalizedStringResource("compose.routine.reading.title", defaultValue: "Evening reading", bundle: .main, comment: "Guided premium routine title for reading.")
-        static let routineReadingSubtitle = LocalizedStringResource("compose.routine.reading.subtitle", defaultValue: "A warm corner for books: fire, lake, forest air, soft chimes and stable calm.", bundle: .main, comment: "Guided premium routine subtitle for reading.")
-        static let routineRainCabinTitle = LocalizedStringResource("compose.routine.rainCabin.title", defaultValue: "Rain cabin", bundle: .main, comment: "Guided premium routine title for a sheltered rain mix.")
-        static let routineRainCabinSubtitle = LocalizedStringResource("compose.routine.rainCabin.subtitle", defaultValue: "A sheltered storm mix with cabin rain, forest rain, distant thunder and a low brown floor.", bundle: .main, comment: "Guided premium routine subtitle for a sheltered rain mix.")
-        static let routineMorningTitle = LocalizedStringResource("compose.routine.morning.title", defaultValue: "Gentle morning", bundle: .main, comment: "Guided premium routine title for a bright morning mix.")
-        static let routineMorningSubtitle = LocalizedStringResource("compose.routine.morning.subtitle", defaultValue: "A bright start with jungle dawn, birds, lake air and light chimes.", bundle: .main, comment: "Guided premium routine subtitle for a bright morning mix.")
 
         static let composer = LocalizedStringResource("compose.tab.composer", defaultValue: "Composer", bundle: .main, comment: "Segment title for the composer tab.")
         static let rituals = LocalizedStringResource("compose.tab.rituals", defaultValue: "Rituals", bundle: .main, comment: "Segment title for the rituals tab.")
@@ -523,6 +513,15 @@ enum L10n {
             comment: "Name of the third default ambience."
         )
 
+        static let defaultNap = LocalizedStringResource("compose.routine.nap.title", defaultValue: "Short nap", bundle: .main, comment: "Name of the built-in short nap ambience.")
+        static let defaultReset = LocalizedStringResource("compose.routine.reset.title", defaultValue: "Soft reset", bundle: .main, comment: "Name of the built-in reset ambience.")
+        static let defaultDeepSleep = LocalizedStringResource("compose.routine.deepSleep.title", defaultValue: "Deep sleep", bundle: .main, comment: "Name of the built-in deep sleep ambience.")
+        static let defaultDeepWork = LocalizedStringResource("compose.routine.deepWork.title", defaultValue: "Deep work", bundle: .main, comment: "Name of the built-in focus ambience.")
+        static let defaultTravel = LocalizedStringResource("compose.routine.noisyHotel.title", defaultValue: "Travel cocoon", bundle: .main, comment: "Name of the built-in travel ambience.")
+        static let defaultReading = LocalizedStringResource("compose.routine.reading.title", defaultValue: "Evening reading", bundle: .main, comment: "Name of the built-in reading ambience.")
+        static let defaultRainCabin = LocalizedStringResource("compose.routine.rainCabin.title", defaultValue: "Rain cabin", bundle: .main, comment: "Name of the built-in rain cabin ambience.")
+        static let defaultMorning = LocalizedStringResource("compose.routine.morning.title", defaultValue: "Gentle morning", bundle: .main, comment: "Name of the built-in morning ambience.")
+
         static let afterTheRain = LocalizedStringResource(
             "presets.default.afterRain",
             defaultValue: "After the Rain",
@@ -563,6 +562,13 @@ enum L10n {
             defaultValue: "Save this ambience",
             bundle: .main,
             comment: "Title of the popup used to save the current ambient scene as a preset."
+        )
+
+        static let editSectionTitle = LocalizedStringResource(
+            "presets.edit.section.title",
+            defaultValue: "Edit ambience",
+            bundle: .main,
+            comment: "Title of the full-screen editor used to rename, restyle, or delete a saved ambience."
         )
 
         static let saveSectionSubtitle = LocalizedStringResource(
@@ -695,9 +701,9 @@ enum L10n {
 
         static let titlePresets = LocalizedStringResource(
             "paywall.title.presets",
-            defaultValue: "Keep more mixes",
+            defaultValue: "Save personal ambiences",
             bundle: .main,
-            comment: "Paywall title when the user wants premium preset features."
+            comment: "Paywall title when the user wants to save personal ambiences."
         )
 
         static let titleBinaural = LocalizedStringResource(
@@ -709,21 +715,21 @@ enum L10n {
 
         static let titlePreview = LocalizedStringResource(
             "paywall.title.preview",
-            defaultValue: "Unlock this mix",
+            defaultValue: "Unlock this ambience",
             bundle: .main,
             comment: "Paywall title shown after the featured ambience preview has ended."
         )
 
         static let titleComposer = LocalizedStringResource(
             "paywall.title.composer",
-            defaultValue: "Unlock the full composer",
+            defaultValue: "Unlock richer ambiences",
             bundle: .main,
-            comment: "Paywall title when the user taps premium composer, ritual, or noise features."
+            comment: "Paywall title when the user taps a locked premium ambience or noise-cover feature."
         )
 
         static let subtitleGeneric = LocalizedStringResource(
             "paywall.subtitle.generic",
-            defaultValue: "Unlock 32 more sounds, 1 hr/2 hr timers and unlimited saved mixes. One purchase, no subscription.",
+            defaultValue: "Unlock 32 more sounds, 1 hr/2 hr timers and unlimited saved ambiences. One purchase, no subscription.",
             bundle: .main,
             comment: "Generic paywall subtitle summarizing the full premium offer."
         )
@@ -744,9 +750,9 @@ enum L10n {
 
         static let subtitlePresets = LocalizedStringResource(
             "paywall.subtitle.presets",
-            defaultValue: "Save your favorite mixes and bring them back in one tap.",
+            defaultValue: "Save each ambience with its name and background, then start it again in one tap.",
             bundle: .main,
-            comment: "Paywall subtitle when the user wants to save or reload mixes."
+            comment: "Paywall subtitle when the user wants to save or edit personal ambiences."
         )
 
         static let subtitleBinaural = LocalizedStringResource(
@@ -758,30 +764,30 @@ enum L10n {
 
         static let subtitlePreview = LocalizedStringResource(
             "paywall.subtitle.preview",
-            defaultValue: "Unlock Premium to come back to this mix anytime.",
+            defaultValue: "Unlock Premium to return to this ambience anytime.",
             bundle: .main,
             comment: "Paywall subtitle shown after the featured ambience preview has finished."
         )
 
         static let subtitleComposer = LocalizedStringResource(
             "paywall.subtitle.composer",
-            defaultValue: "Create richer soundscapes with premium sounds, rituals, focus modes and procedural noise layers.",
+            defaultValue: "Launch ambiences with premium sounds, noise cover, binaural support and longer fade-outs.",
             bundle: .main,
-            comment: "Paywall subtitle for premium composer and procedural noise features."
+            comment: "Paywall subtitle for locked premium ambience and noise-cover features."
         )
 
         static let benefitSounds = LocalizedStringResource(
             "paywall.benefit.sounds",
-            defaultValue: "11 extra sounds: rain, forest, thunder, river...",
+            defaultValue: "32 extra sounds: rain, forest, thunder, river...",
             bundle: .main,
             comment: "First premium benefit row about the extra ambient library."
         )
 
         static let benefitPresets = LocalizedStringResource(
             "paywall.benefit.presets",
-            defaultValue: "Unlimited saved mixes",
+            defaultValue: "Unlimited saved ambiences",
             bundle: .main,
-            comment: "Premium benefit row about saved mixes."
+            comment: "Premium benefit row about saved ambiences."
         )
 
         static let benefitTimer = LocalizedStringResource(
@@ -807,16 +813,16 @@ enum L10n {
 
         static let benefitComposer = LocalizedStringResource(
             "paywall.benefit.composer",
-            defaultValue: "Composer recipes for sleep, travel, reading and focus",
+            defaultValue: "Premium ambiences for sleep, travel, reading and focus",
             bundle: .main,
-            comment: "Premium benefit row for the ambience composer."
+            comment: "Premium benefit row for richer saved ambiences."
         )
 
         static let benefitNoiseLab = LocalizedStringResource(
             "paywall.benefit.noiseLab",
-            defaultValue: "Procedural noise layers for masking and deep work",
+            defaultValue: "Noise cover for focus, travel and deeper sleep",
             bundle: .main,
-            comment: "Premium benefit row for the procedural noise lab."
+            comment: "Premium benefit row for noise cover layers."
         )
 
         static let noSubscription = LocalizedStringResource(
@@ -893,7 +899,7 @@ enum L10n {
 
         static let bannerSubtitle = LocalizedStringResource(
             "premium.banner.subtitle",
-            defaultValue: "Unlock 32 more sounds, 1 hr/2 hr timers and unlimited saved mixes.",
+            defaultValue: "Unlock 32 more sounds, 1 hr/2 hr timers and unlimited saved ambiences.",
             bundle: .main,
             comment: "Short explanatory line in the premium home banner."
         )
@@ -949,16 +955,16 @@ enum L10n {
 
         static let inlinePresetTitle = LocalizedStringResource(
             "premium.inline.preset.title",
-            defaultValue: "Keep more mixes",
+            defaultValue: "Save personal ambiences",
             bundle: .main,
-            comment: "Inline upsell title shown in the presets panel."
+            comment: "Inline upsell title shown when the user wants to save personal ambiences."
         )
 
         static let inlinePresetSubtitle = LocalizedStringResource(
             "premium.inline.preset.subtitle",
-            defaultValue: "The first one is free. Premium lets you save as many mixes as you want.",
+            defaultValue: "Saving is a Premium feature: keep every ambience with its own name and background.",
             bundle: .main,
-            comment: "Inline upsell message shown when the user wants premium preset features."
+            comment: "Inline upsell message shown when a free user wants to save or edit a personal ambience."
         )
 
         static let inlineBinauralTitle = LocalizedStringResource(
@@ -991,7 +997,7 @@ enum L10n {
 
         static let previewCTA = LocalizedStringResource(
             "premium.preview.cta",
-            defaultValue: "Try a Premium mix",
+            defaultValue: "Try a Premium ambience",
             bundle: .main,
             comment: "Secondary inline upsell action that launches the featured ambience preview."
         )

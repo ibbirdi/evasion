@@ -1,7 +1,7 @@
 ---
 title: Build and Test
 status: stable
-last_updated: 2026-05-27
+last_updated: 2026-05-28
 tracks:
   - "ios-native/OasisNative.xcodeproj/**"
   - "ios-native/OasisNativeUITests/**"
@@ -78,7 +78,7 @@ Ten scenarios driven by `setUpWithError` reading launch arguments. Each produces
 | `03_detail_sheet` | `SoundDetailSheet` open on Savanna. |
 | `04_binaural` | `BinauralPanel` with the four tracks. |
 | `05_spatial` | `SpatialAudioPanel` sound-placement minimap. |
-| `06_presets` | `PresetsPanel` with default + signature presets. |
+| `06_ambiences` | My Ambiences panel with saved Oasis ambiences, duration choices, image-backed selector capsules, and the top save action. |
 | `07_timer` | Timer menu showing the 4 options. |
 | `08_free_home` | Free-tier home (3 channels, locks visible). |
 | `09_library_teaser` | Free-tier library showing locked premium card. |
@@ -103,16 +103,15 @@ Manual onboarding checks can add `-OASISResetOnboarding` to clear only the first
 
 Flow tests that verify the upsell-then-paywall logic:
 
-- `testLockedPresetShowsInlineUpsellBeforePaywall`
+- `testLockedSavedAmbienceShowsInlineUpsellBeforePaywall`
+- `testSavingAmbienceRequiresPremiumForFreeUsers`
 - `testLockedBinauralTrackKeepsPanelOpen`
 - `testFreeShortTimerDoesNotShowPaywall`
 - `testPremiumLongTimerShowsUnlockPanelBeforePaywall`
-- `testGuidedRoutineStartsLocalizedMixAndKeepsMixerClean`
-- `testGuidedRoutineCanBeReplacedInTwoTaps`
-- `testPremiumGuidedRoutineShowsUpsellForFreeUsers`
-- `testPremiumGuidedRoutineSummarizesExtraLayers`
+- `testSavedAmbienceStartsLocalizedMixAndKeepsMixerClean`
+- `testSavedAmbienceCanBeReplacedInTwoTaps`
 
-Presets and binaural entry points live in the bottom bar, so the tests target `home.bottom.presets` and `home.bottom.binaural` (not the older header identifiers). The guided-routine tests launch without `-ui_testing` so the first bottom-bar slot remains `home.bottom.compose` instead of the screenshot-automation shuffle compatibility button. They verify the full-screen Routines surface copy, the "what will happen" detail card, tappable `compose.guided.<id>` selector controls for the free `nap`/`reset` routines and Premium routines such as `deepSleep`, explicit `compose.routine.start` launch, the locked Premium routine upsell path (`premium.inline.composer`) for free users, the `home.routine.status` feedback and separate `home.routine.stop` action after launch, reopening Routines from that active-status capsule, the active-routine stop CTA, the "Replace routine" CTA after selecting a different free routine, the calmer guided Home state without `home.header.active-filter`, `home.bottom.compose`, `home.bottom.presets`, or `home.bottom.binaural`, replacing one guided routine with another, Premium `+N` preview overflow, the `home.routine.supporting-layers` row for richer mixes, and the absence of the old `home.active.scene` widget in the mixer. Run these manually or in Xcode when touching premium gating, guided routines, or the bottom bar; the App Store screenshot lane intentionally filters them out.
+My Ambiences, shuffle, and binaural entry points live in the bottom bar, so the tests target `home.bottom.compose`, `home.bottom.shuffle`, and `home.bottom.binaural` (not the older header identifiers). The My Ambiences tests launch without `-ui_testing` so the first bottom-bar slot remains `home.bottom.compose` instead of the screenshot-automation shuffle compatibility button. They verify the full-screen My Ambiences surface copy, the "what will happen" detail card, duration selector `compose.ambience.duration`, top save action `compose.ambience.save`, free-user save gating via `premium.inline.preset`, tappable `compose.ambience.<id>` selector controls for saved Oasis mixes such as `preset_default_starter` and `preset_default_storm`, explicit `compose.ambience.start` launch, the locked Premium ambience upsell path (`premium.inline.composer`) for free users, the `home.ambience.status` feedback and separate `home.ambience.stop` action after launch, reopening My Ambiences from that active-status capsule, the active-ambience stop CTA, the "Replace ambience" CTA after selecting another ambience or duration, the calmer active Home state without `home.header.active-filter`, `home.bottom.compose`, or `home.bottom.binaural`, replacing one saved ambience with another, Premium `+N` preview overflow, stable mixer row order after toggling sounds, and the absence of the old `home.active.scene` widget in the mixer. Run these manually or in Xcode when touching premium gating, My Ambiences, or the bottom bar; the App Store screenshot lane intentionally filters them out.
 
 Run from Xcode's Test navigator or `xcodebuild test`.
 

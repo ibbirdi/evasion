@@ -1,12 +1,8 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "" : {
-
-    },
-    "·" : {
-
-    },
+    "": {},
+    "·" : {},
     "%@ - %@" : {
       "localizations" : {
         "en" : {
@@ -37,6 +33,16 @@
         }
       }
     },
+    "%@ %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ %2$lld"
+          }
+        }
+      }
+    },
     "%@, %@" : {
       "localizations" : {
         "en" : {
@@ -47,12 +53,8 @@
         }
       }
     },
-    "%lld" : {
-
-    },
-    "%lld min" : {
-
-    },
+    "%lld" : {},
+    "%lld min" : {},
     "%lld/%lld" : {
       "localizations" : {
         "en" : {
@@ -63,12 +65,8 @@
         }
       }
     },
-    "%lldm" : {
-
-    },
-    "+%lld" : {
-
-    },
+    "%lldm" : {},
+    "+%lld" : {},
     "app.title" : {
       "comment" : "App title and fallback brand label when the logo image is unavailable.",
       "localizations" : {
@@ -7367,266 +7365,297 @@
         }
       }
     },
-    "compose.routine.context" : {
-      "comment" : "Short explanatory sentence in the routine detail card.",
+    "compose.routine.background" : {
+      "comment" : "Label above the image picker used when saving an ambience.",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Oasis kombiniert diese Ebenen und startet eine klare Routine."
+            "value" : "Hintergrundbild"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Oasis combines these layers and starts one clear routine."
+            "value" : "Background image"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Oasis combina estas capas e inicia una rutina clara."
+            "value" : "Imagen de fondo"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Oasis combine ces couches et lance une routine claire."
+            "value" : "Image de fond"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Oasis combina questi livelli e avvia una routine chiara."
+            "value" : "Immagine di sfondo"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Oasis combina estas camadas e inicia uma rotina clara."
+            "value" : "Imagem de fundo"
+          }
+        }
+      }
+    },
+    "compose.routine.context" : {
+      "comment" : "Short explanatory sentence in the ambience detail card.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beim Start beginnen diese Sounds gemeinsam und folgen deiner Timer-Auswahl."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "When you press play, these sounds start together and follow your timer choice."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Al iniciar, estos sonidos empiezan juntos y siguen la duración elegida."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Au lancement, ces sons démarrent ensemble et suivent la durée choisie."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All’avvio, questi suoni partono insieme e seguono la durata scelta."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ao iniciar, estes sons começam juntos e seguem a duração escolhida."
           }
         }
       }
     },
     "compose.routine.current" : {
-      "comment" : "Disabled primary button label when the selected guided routine is already running.",
+      "comment" : "Disabled primary button label when the selected saved ambience is already running.",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Routine läuft"
+            "value" : "Klangwelt läuft"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Routine in progress"
+            "value" : "Ambience in progress"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Rutina en curso"
+            "value" : "Ambiente en curso"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Routine en cours"
+            "value" : "Ambiance en cours"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Routine in corso"
+            "value" : "Atmosfera in corso"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Rotina em andamento"
+            "value" : "Ambiência em andamento"
           }
         }
       }
     },
     "compose.routine.deepSleep.subtitle" : {
       "comment" : "Guided premium routine subtitle for a longer sleep mix.",
+      "extractionState" : "stale",
       "localizations" : {
-        "de" : { "stringUnit" : { "state" : "translated", "value" : "Ein längerer Nachtmix mit Regen am Fenster, dunkler Waldluft und einer tiefen, stabilen Basis." } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "A longer night blend with window rain, dark forest air and a low, steady floor." } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Una mezcla nocturna más larga con lluvia en la ventana, bosque oscuro y una base baja y estable." } },
-        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Un mélange long pour la nuit : pluie à la fenêtre, forêt sombre et une base basse très stable." } },
-        "it" : { "stringUnit" : { "state" : "translated", "value" : "Un mix notturno più lungo con pioggia alla finestra, foresta scura e una base bassa e stabile." } },
-        "pt" : { "stringUnit" : { "state" : "translated", "value" : "Um mix noturno mais longo com chuva na janela, floresta escura e uma base baixa e estável." } }
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ein längerer Nachtmix mit Regen am Fenster, dunkler Waldluft und einer tiefen, stabilen Basis."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A longer night blend with window rain, dark forest air and a low, steady floor."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una mezcla nocturna más larga con lluvia en la ventana, bosque oscuro y una base baja y estable."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un mélange long pour la nuit : pluie à la fenêtre, forêt sombre et une base basse très stable."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un mix notturno più lungo con pioggia alla finestra, foresta scura e una base bassa e stabile."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Um mix noturno mais longo com chuva na janela, floresta escura e uma base baixa e estável."
+          }
+        }
       }
     },
     "compose.routine.deepSleep.title" : {
-      "comment" : "Guided premium routine title for a longer sleep mix.",
+      "comment" : "Name of the built-in deep sleep ambience.",
       "localizations" : {
-        "de" : { "stringUnit" : { "state" : "translated", "value" : "Tiefer Schlaf" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Deep sleep" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Sueño profundo" } },
-        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Nuit profonde" } },
-        "it" : { "stringUnit" : { "state" : "translated", "value" : "Sonno profondo" } },
-        "pt" : { "stringUnit" : { "state" : "translated", "value" : "Sono profundo" } }
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tiefer Schlaf"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deep sleep"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sueño profundo"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nuit profonde"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sonno profondo"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sono profundo"
+          }
+        }
       }
     },
     "compose.routine.deepWork.subtitle" : {
       "comment" : "Guided premium routine subtitle for focus work.",
+      "extractionState" : "stale",
       "localizations" : {
-        "de" : { "stringUnit" : { "state" : "translated", "value" : "Ein fokussierter Raum mit leisem Café, feinem Fluss und stabilem grünen Rauschen." } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "A focused room with cafe hush, river detail and a steady green-noise floor." } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Una sala de concentración con café suave, detalle de río y una base estable de ruido verde." } },
-        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Une bulle de concentration avec café discret, rivière fine et bruit vert régulier." } },
-        "it" : { "stringUnit" : { "state" : "translated", "value" : "Una stanza di concentrazione con caffè leggero, dettagli di fiume e rumore verde stabile." } },
-        "pt" : { "stringUnit" : { "state" : "translated", "value" : "Uma sala de concentração com café suave, detalhe de rio e uma base estável de ruído verde." } }
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ein fokussierter Raum mit leisem Café, feinem Fluss und stabilem grünen Rauschen."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A focused room with cafe hush, river detail and a steady green-noise floor."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una sala de concentración con café suave, detalle de río y una base estable de ruido verde."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Une bulle de concentration avec café discret, rivière fine et bruit vert régulier."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una stanza di concentrazione con caffè leggero, dettagli di fiume e rumore verde stabile."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uma sala de concentração com café suave, detalhe de rio e uma base estável de ruído verde."
+          }
+        }
       }
     },
     "compose.routine.deepWork.title" : {
-      "comment" : "Guided premium routine title for focus work.",
+      "comment" : "Name of the built-in focus ambience.",
       "localizations" : {
-        "de" : { "stringUnit" : { "state" : "translated", "value" : "Tiefe Konzentration" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Deep work" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Trabajo profundo" } },
-        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Travail profond" } },
-        "it" : { "stringUnit" : { "state" : "translated", "value" : "Lavoro profondo" } },
-        "pt" : { "stringUnit" : { "state" : "translated", "value" : "Foco profundo" } }
-      }
-    },
-    "compose.routine.morning.subtitle" : {
-      "comment" : "Guided premium routine subtitle for a bright morning mix.",
-      "localizations" : {
-        "de" : { "stringUnit" : { "state" : "translated", "value" : "Ein heller Start mit Dschungelmorgen, Vögeln, Seeluft und leichten Windspielen." } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "A bright start with jungle dawn, birds, lake air and light chimes." } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Un inicio luminoso con amanecer de jungla, pájaros, aire de lago y campanas ligeras." } },
-        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Un départ lumineux avec aube de jungle, oiseaux, air du lac et carillons légers." } },
-        "it" : { "stringUnit" : { "state" : "translated", "value" : "Un inizio luminoso con alba nella giungla, uccelli, aria di lago e campanelli leggeri." } },
-        "pt" : { "stringUnit" : { "state" : "translated", "value" : "Um começo luminoso com amanhecer na selva, pássaros, ar do lago e sinos leves." } }
-      }
-    },
-    "compose.routine.morning.title" : {
-      "comment" : "Guided premium routine title for a bright morning mix.",
-      "localizations" : {
-        "de" : { "stringUnit" : { "state" : "translated", "value" : "Sanfter Morgen" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Gentle morning" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Mañana suave" } },
-        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Matin doux" } },
-        "it" : { "stringUnit" : { "state" : "translated", "value" : "Mattino dolce" } },
-        "pt" : { "stringUnit" : { "state" : "translated", "value" : "Manhã suave" } }
-      }
-    },
-    "compose.routine.nap.subtitle" : {
-      "comment" : "Guided routine subtitle for a short free nap mix.",
-      "localizations" : {
-        "de" : { "stringUnit" : { "state" : "translated", "value" : "Ein 15-minütiges Ankommen: sanfte Wellen, leichter Wind, Vögel und warmes braunes Rauschen." } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "A 15 minute landing: gentle waves, light wind, birds and warm brown noise." } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Un aterrizaje de 15 minutos: olas suaves, viento ligero, pájaros y ruido marrón cálido." } },
-        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Un atterrissage de 15 minutes : vagues douces, vent léger, oiseaux et bruit brun chaleureux." } },
-        "it" : { "stringUnit" : { "state" : "translated", "value" : "Un atterraggio di 15 minuti: onde leggere, vento lieve, uccelli e rumore marrone caldo." } },
-        "pt" : { "stringUnit" : { "state" : "translated", "value" : "Um pouso de 15 minutos: ondas suaves, vento leve, pássaros e ruído marrom quente." } }
-      }
-    },
-    "compose.routine.nap.title" : {
-      "comment" : "Guided routine title for a short free nap mix.",
-      "localizations" : {
-        "de" : { "stringUnit" : { "state" : "translated", "value" : "Kurzschlaf" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Short nap" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Siesta corta" } },
-        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Sieste courte" } },
-        "it" : { "stringUnit" : { "state" : "translated", "value" : "Pisolino breve" } },
-        "pt" : { "stringUnit" : { "state" : "translated", "value" : "Soneca curta" } }
-      }
-    },
-    "compose.routine.noisyHotel.subtitle" : {
-      "comment" : "Guided premium routine subtitle for a calming hotel and transport soundscape.",
-      "localizations" : {
-        "de" : { "stringUnit" : { "state" : "translated", "value" : "Ein ruhiger Offline-Kokon für fremde Zimmer, Züge und Flugzeuge, mit sanftem Ventilator und Kabinenluft." } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "A steady offline cocoon for unfamiliar rooms, trains and planes, with soft fan and cabin air layers." } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Un refugio offline estable para habitaciones nuevas, trenes y aviones, con ventilador suave y aire de cabina." } },
-        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Un cocon offline stable pour chambres inconnues, trains et avions, avec ventilateur doux et souffle cabine." } },
-        "it" : { "stringUnit" : { "state" : "translated", "value" : "Un bozzolo offline stabile per stanze sconosciute, treni e aerei, con ventola morbida e aria di cabina." } },
-        "pt" : { "stringUnit" : { "state" : "translated", "value" : "Um casulo offline estável para quartos desconhecidos, trens e aviões, com ventilador suave e ar de cabine." } }
-      }
-    },
-    "compose.routine.noisyHotel.title" : {
-      "comment" : "Guided premium routine title for a calming hotel and transport soundscape.",
-      "localizations" : {
-        "de" : { "stringUnit" : { "state" : "translated", "value" : "Reisekokon" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Travel cocoon" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Refugio de viaje" } },
-        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Cocon de voyage" } },
-        "it" : { "stringUnit" : { "state" : "translated", "value" : "Coccola di viaggio" } },
-        "pt" : { "stringUnit" : { "state" : "translated", "value" : "Casulo de viagem" } }
-      }
-    },
-    "compose.routine.rainCabin.subtitle" : {
-      "comment" : "Guided premium routine subtitle for a sheltered rain mix.",
-      "localizations" : {
-        "de" : { "stringUnit" : { "state" : "translated", "value" : "Ein geschützter Sturm-Mix mit Hüttenregen, Waldregen, fernem Donner und tiefer brauner Basis." } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "A sheltered storm mix with cabin rain, forest rain, distant thunder and a low brown floor." } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Un refugio de tormenta con lluvia en el techo, lluvia de bosque, trueno lejano y base marrón." } },
-        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Un abri sous l'orage : pluie sur le toit, forêt mouillée, tonnerre lointain et base brune." } },
-        "it" : { "stringUnit" : { "state" : "translated", "value" : "Un riparo di temporale con pioggia sul tetto, pioggia nella foresta, tuono lontano e base marrone." } },
-        "pt" : { "stringUnit" : { "state" : "translated", "value" : "Um abrigo de tempestade com chuva no telhado, chuva na floresta, trovão distante e base marrom." } }
-      }
-    },
-    "compose.routine.rainCabin.title" : {
-      "comment" : "Guided premium routine title for a sheltered rain mix.",
-      "localizations" : {
-        "de" : { "stringUnit" : { "state" : "translated", "value" : "Regenhütte" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Rain cabin" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Cabaña con lluvia" } },
-        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Cabane sous la pluie" } },
-        "it" : { "stringUnit" : { "state" : "translated", "value" : "Cabina sotto la pioggia" } },
-        "pt" : { "stringUnit" : { "state" : "translated", "value" : "Cabana na chuva" } }
-      }
-    },
-    "compose.routine.reading.subtitle" : {
-      "comment" : "Guided premium routine subtitle for reading.",
-      "localizations" : {
-        "de" : { "stringUnit" : { "state" : "translated", "value" : "Eine warme Ecke für Bücher: Feuer, See, Waldluft, sanfte Windspiele und stabile Ruhe." } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "A warm corner for books: fire, lake, forest air, soft chimes and stable calm." } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Un rincón cálido para leer: fuego, lago, aire de bosque, campanas suaves y calma estable." } },
-        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Un coin chaleureux pour lire : feu, lac, air de forêt, carillons doux et calme stable." } },
-        "it" : { "stringUnit" : { "state" : "translated", "value" : "Un angolo caldo per leggere: fuoco, lago, aria di foresta, campanelli morbidi e calma stabile." } },
-        "pt" : { "stringUnit" : { "state" : "translated", "value" : "Um canto quente para ler: fogo, lago, ar de floresta, sinos suaves e calma estável." } }
-      }
-    },
-    "compose.routine.reading.title" : {
-      "comment" : "Guided premium routine title for reading.",
-      "localizations" : {
-        "de" : { "stringUnit" : { "state" : "translated", "value" : "Abendlektüre" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Evening reading" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Lectura nocturna" } },
-        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Lecture du soir" } },
-        "it" : { "stringUnit" : { "state" : "translated", "value" : "Lettura serale" } },
-        "pt" : { "stringUnit" : { "state" : "translated", "value" : "Leitura à noite" } }
-      }
-    },
-    "compose.routine.reset.subtitle" : {
-      "comment" : "Guided routine subtitle for a free reset mix.",
-      "localizations" : {
-        "de" : { "stringUnit" : { "state" : "translated", "value" : "Ein klarer Gratis-Mix zum Durchatmen: Ufer, Luft, Vögel und ein leiser Schleier aus weißem Rauschen." } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "A clear free mix for stepping away: shore, air, birds and a quiet white-noise veil." } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Una mezcla gratuita y clara para desconectar: orilla, aire, pájaros y un velo discreto de ruido blanco." } },
-        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Un mix gratuit très clair pour souffler : plage, air, oiseaux et un voile discret de bruit blanc." } },
-        "it" : { "stringUnit" : { "state" : "translated", "value" : "Un mix gratuito e pulito per staccare: riva, aria, uccelli e un velo discreto di rumore bianco." } },
-        "pt" : { "stringUnit" : { "state" : "translated", "value" : "Um mix gratuito e claro para respirar: margem, ar, pássaros e um véu discreto de ruído branco." } }
-      }
-    },
-    "compose.routine.reset.title" : {
-      "comment" : "Guided routine title for a free reset mix.",
-      "localizations" : {
-        "de" : { "stringUnit" : { "state" : "translated", "value" : "Sanfter Neustart" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Soft reset" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Pausa suave" } },
-        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Retour au calme" } },
-        "it" : { "stringUnit" : { "state" : "translated", "value" : "Reset morbido" } },
-        "pt" : { "stringUnit" : { "state" : "translated", "value" : "Reinício suave" } }
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tiefe Konzentration"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deep work"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trabajo profundo"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Travail profond"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lavoro profondo"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Foco profundo"
+          }
+        }
       }
     },
     "compose.routine.layer.ambience" : {
-      "comment" : "Label for the nature sound layer in the routine detail card.",
+      "comment" : "Label for the nature sound layer in the ambience detail card.",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -7667,7 +7696,7 @@
       }
     },
     "compose.routine.layer.end" : {
-      "comment" : "Label for the automatic end timer in the routine detail card.",
+      "comment" : "Label for the automatic end timer in the ambience detail card.",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -7708,7 +7737,7 @@
       }
     },
     "compose.routine.layer.mask" : {
-      "comment" : "Label for the noise and binaural masking layer in the routine detail card.",
+      "comment" : "Label for the noise and binaural masking layer in the ambience detail card.",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -7748,8 +7777,257 @@
         }
       }
     },
+    "compose.routine.morning.subtitle" : {
+      "comment" : "Guided premium routine subtitle for a bright morning mix.",
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ein heller Start mit Dschungelmorgen, Vögeln, Seeluft und leichten Windspielen."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A bright start with jungle dawn, birds, lake air and light chimes."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un inicio luminoso con amanecer de jungla, pájaros, aire de lago y campanas ligeras."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un départ lumineux avec aube de jungle, oiseaux, air du lac et carillons légers."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un inizio luminoso con alba nella giungla, uccelli, aria di lago e campanelli leggeri."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Um começo luminoso com amanhecer na selva, pássaros, ar do lago e sinos leves."
+          }
+        }
+      }
+    },
+    "compose.routine.morning.title" : {
+      "comment" : "Name of the built-in morning ambience.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sanfter Morgen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gentle morning"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mañana suave"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Matin doux"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mattino dolce"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Manhã suave"
+          }
+        }
+      }
+    },
+    "compose.routine.nap.subtitle" : {
+      "comment" : "Guided routine subtitle for a short free nap mix.",
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ein 15-minütiges Ankommen: sanfte Wellen, leichter Wind, Vögel und warmes braunes Rauschen."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A 15 minute landing: gentle waves, light wind, birds and warm brown noise."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un aterrizaje de 15 minutos: olas suaves, viento ligero, pájaros y ruido marrón cálido."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un atterrissage de 15 minutes : vagues douces, vent léger, oiseaux et bruit brun chaleureux."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un atterraggio di 15 minuti: onde leggere, vento lieve, uccelli e rumore marrone caldo."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Um pouso de 15 minutos: ondas suaves, vento leve, pássaros e ruído marrom quente."
+          }
+        }
+      }
+    },
+    "compose.routine.nap.title" : {
+      "comment" : "Name of the built-in short nap ambience.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kurzschlaf"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Short nap"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Siesta corta"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sieste courte"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pisolino breve"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Soneca curta"
+          }
+        }
+      }
+    },
+    "compose.routine.noisyHotel.subtitle" : {
+      "comment" : "Guided premium routine subtitle for a calming hotel and transport soundscape.",
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ein ruhiger Offline-Kokon für fremde Zimmer, Züge und Flugzeuge, mit sanftem Ventilator und Kabinenluft."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A steady offline cocoon for unfamiliar rooms, trains and planes, with soft fan and cabin air layers."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un refugio offline estable para habitaciones nuevas, trenes y aviones, con ventilador suave y aire de cabina."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un cocon offline stable pour chambres inconnues, trains et avions, avec ventilateur doux et souffle cabine."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un bozzolo offline stabile per stanze sconosciute, treni e aerei, con ventola morbida e aria di cabina."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Um casulo offline estável para quartos desconhecidos, trens e aviões, com ventilador suave e ar de cabine."
+          }
+        }
+      }
+    },
+    "compose.routine.noisyHotel.title" : {
+      "comment" : "Name of the built-in travel ambience.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reisekokon"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Travel cocoon"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Refugio de viaje"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cocon de voyage"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Coccola di viaggio"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Casulo de viagem"
+          }
+        }
+      }
+    },
     "compose.routine.plan" : {
-      "comment" : "Heading above the short explanation of what a guided routine will start.",
+      "comment" : "Heading above the short explanation of what an ambience will start.",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -7789,84 +8067,333 @@
         }
       }
     },
-    "compose.routine.replace" : {
-      "comment" : "Primary button label when launching the selected guided routine will replace the current one.",
+    "compose.routine.rainCabin.subtitle" : {
+      "comment" : "Guided premium routine subtitle for a sheltered rain mix.",
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Routine ersetzen"
+            "value" : "Ein geschützter Sturm-Mix mit Hüttenregen, Waldregen, fernem Donner und tiefer brauner Basis."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Replace routine"
+            "value" : "A sheltered storm mix with cabin rain, forest rain, distant thunder and a low brown floor."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Reemplazar rutina"
+            "value" : "Un refugio de tormenta con lluvia en el techo, lluvia de bosque, trueno lejano y base marrón."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Remplacer la routine"
+            "value" : "Un abri sous l'orage : pluie sur le toit, forêt mouillée, tonnerre lointain et base brune."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sostituisci routine"
+            "value" : "Un riparo di temporale con pioggia sul tetto, pioggia nella foresta, tuono lontano e base marrone."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Substituir rotina"
+            "value" : "Um abrigo de tempestade com chuva no telhado, chuva na floresta, trovão distante e base marrom."
+          }
+        }
+      }
+    },
+    "compose.routine.rainCabin.title" : {
+      "comment" : "Name of the built-in rain cabin ambience.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Regenhütte"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rain cabin"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cabaña con lluvia"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cabane sous la pluie"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cabina sotto la pioggia"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cabana na chuva"
+          }
+        }
+      }
+    },
+    "compose.routine.reading.subtitle" : {
+      "comment" : "Guided premium routine subtitle for reading.",
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eine warme Ecke für Bücher: Feuer, See, Waldluft, sanfte Windspiele und stabile Ruhe."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A warm corner for books: fire, lake, forest air, soft chimes and stable calm."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un rincón cálido para leer: fuego, lago, aire de bosque, campanas suaves y calma estable."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un coin chaleureux pour lire : feu, lac, air de forêt, carillons doux et calme stable."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un angolo caldo per leggere: fuoco, lago, aria di foresta, campanelli morbidi e calma stabile."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Um canto quente para ler: fogo, lago, ar de floresta, sinos suaves e calma estável."
+          }
+        }
+      }
+    },
+    "compose.routine.reading.title" : {
+      "comment" : "Name of the built-in reading ambience.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abendlektüre"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Evening reading"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lectura nocturna"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lecture du soir"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lettura serale"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Leitura à noite"
+          }
+        }
+      }
+    },
+    "compose.routine.replace" : {
+      "comment" : "Primary button label when launching the selected ambience will replace the current one.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Klangwelt ersetzen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Replace ambience"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reemplazar ambiente"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remplacer l’ambiance"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sostituisci atmosfera"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Substituir ambiência"
+          }
+        }
+      }
+    },
+    "compose.routine.reset.subtitle" : {
+      "comment" : "Guided routine subtitle for a free reset mix.",
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ein klarer Gratis-Mix zum Durchatmen: Ufer, Luft, Vögel und ein leiser Schleier aus weißem Rauschen."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A clear free mix for stepping away: shore, air, birds and a quiet white-noise veil."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una mezcla gratuita y clara para desconectar: orilla, aire, pájaros y un velo discreto de ruido blanco."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un mix gratuit très clair pour souffler : plage, air, oiseaux et un voile discret de bruit blanc."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un mix gratuito e pulito per staccare: riva, aria, uccelli e un velo discreto di rumore bianco."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Um mix gratuito e claro para respirar: margem, ar, pássaros e um véu discreto de ruído branco."
+          }
+        }
+      }
+    },
+    "compose.routine.reset.title" : {
+      "comment" : "Name of the built-in reset ambience.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sanfter Neustart"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Soft reset"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pausa suave"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Retour au calme"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reset morbido"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reinício suave"
           }
         }
       }
     },
     "compose.routine.start" : {
-      "comment" : "Primary button that starts the selected guided routine.",
+      "comment" : "Primary button that starts the selected saved ambience.",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Routine starten"
+            "value" : "Klangwelt starten"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Start routine"
+            "value" : "Start ambience"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Iniciar rutina"
+            "value" : "Iniciar ambiente"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Lancer la routine"
+            "value" : "Lancer l’ambiance"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Avvia routine"
+            "value" : "Avvia atmosfera"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Iniciar rotina"
+            "value" : "Iniciar ambiência"
           }
         }
       }
@@ -8036,42 +8563,42 @@
       }
     },
     "compose.subtitle" : {
-      "comment" : "Subtitle of the simplified guided ambience panel.",
+      "comment" : "Subtitle of the saved ambience panel.",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wähle ein Bedürfnis, prüfe den Mix und starte ihn."
+            "value" : "Speichere, starte und gestalte deine liebsten Klangwelten."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Pick a need, preview the mix, then start."
+            "value" : "Save, launch, and shape your favorite soundscapes."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Elige una necesidad, revisa la mezcla y empieza."
+            "value" : "Guarda, inicia y ajusta tus ambientes favoritos."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Choisissez un besoin, voyez le mix, puis lancez-le."
+            "value" : "Sauvegardez, lancez et façonnez vos ambiances préférées."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Scegli un bisogno, guarda il mix e avvialo."
+            "value" : "Salva, avvia e modella le tue atmosfere preferite."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Escolha uma necessidade, veja o mix e inicie."
+            "value" : "Salve, inicie e ajuste suas ambiências favoritas."
           }
         }
       }
@@ -8569,42 +9096,42 @@
       }
     },
     "compose.title" : {
-      "comment" : "Title of the simplified guided ambience panel.",
+      "comment" : "Title of the saved ambience panel.",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Routinen"
+            "value" : "Meine Klangwelten"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Routines"
+            "value" : "My ambiences"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Rutinas"
+            "value" : "Mis ambientes"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Routines"
+            "value" : "Mes ambiances"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Routine"
+            "value" : "Le mie atmosfere"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Rotinas"
+            "value" : "Minhas ambiências"
           }
         }
       }
@@ -9266,42 +9793,42 @@
       }
     },
     "home.controls.compose" : {
-      "comment" : "Accessibility label for the home bottom button that opens guided routines.",
+      "comment" : "Accessibility label for the home bottom button that opens saved ambiences.",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Routinen öffnen"
+            "value" : "Meine Klangwelten öffnen"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Open routines"
+            "value" : "Open my ambiences"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Abrir rutinas"
+            "value" : "Abrir mis ambientes"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ouvrir les routines"
+            "value" : "Ouvrir mes ambiances"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Apri routine"
+            "value" : "Apri le mie atmosfere"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Abrir rotinas"
+            "value" : "Abrir minhas ambiências"
           }
         }
       }
@@ -9512,48 +10039,48 @@
       }
     },
     "home.routine.active" : {
-      "comment" : "Small status label shown on Home while a guided routine is active.",
+      "comment" : "Small status label shown on Home while a saved ambience is active.",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Routine aktiv"
+            "value" : "Klangwelt aktiv"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Routine active"
+            "value" : "Ambience active"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Rutina activa"
+            "value" : "Ambiente activo"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Routine active"
+            "value" : "Ambiance active"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Routine attiva"
+            "value" : "Atmosfera attiva"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Rotina ativa"
+            "value" : "Ambiência ativa"
           }
         }
       }
     },
     "home.routine.rest.subtitle" : {
-      "comment" : "Quiet footer subtitle shown after guided routine rows on Home.",
+      "comment" : "Quiet footer subtitle shown after active ambience rows on Home.",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -9594,7 +10121,7 @@
       }
     },
     "home.routine.rest.title" : {
-      "comment" : "Quiet footer title shown after guided routine rows on Home.",
+      "comment" : "Quiet footer title shown after active ambience rows on Home.",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -9635,48 +10162,48 @@
       }
     },
     "home.routine.stop" : {
-      "comment" : "Button that stops the active guided routine and returns Home to normal mixing mode.",
+      "comment" : "Button that stops the active saved ambience and returns Home to normal mixing mode.",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Routine beenden"
+            "value" : "Klangwelt beenden"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Stop routine"
+            "value" : "Stop ambience"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Detener rutina"
+            "value" : "Detener ambiente"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Stopper la routine"
+            "value" : "Stopper l’ambiance"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Interrompi routine"
+            "value" : "Interrompi atmosfera"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Parar rotina"
+            "value" : "Parar ambiência"
           }
         }
       }
     },
     "home.routine.supportingLayers" : {
-      "comment" : "Compact label for guided routine layers that are playing in the background.",
+      "comment" : "Compact label for active ambience layers that are playing in the background.",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -12423,124 +12950,124 @@
       }
     },
     "paywall.benefit.composer" : {
-      "comment" : "Premium benefit row for the ambience composer.",
+      "comment" : "Premium benefit row for richer saved ambiences.",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Composer-Rezepte für Schlaf, Reise, Lesen und Fokus"
+            "value" : "Premium-Klangwelten für Schlaf, Reise, Lesen und Fokus"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Composer recipes for sleep, travel, reading and focus"
+            "value" : "Premium ambiences for sleep, travel, reading and focus"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Recetas Composer para sueño, viaje, lectura y foco"
+            "value" : "Ambientes Premium para dormir, viajar, leer y concentrarte"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Recettes Composer pour sommeil, voyage, lecture et focus"
+            "value" : "Ambiances Premium pour dormir, voyager, lire et se concentrer"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ricette Composer per sonno, viaggio, lettura e focus"
+            "value" : "Atmosfere Premium per sonno, viaggio, lettura e focus"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Receitas Composer para sono, viagem, leitura e foco"
+            "value" : "Ambientes Premium para dormir, viajar, ler e focar"
           }
         }
       }
     },
     "paywall.benefit.noiseLab" : {
-      "comment" : "Premium benefit row for the procedural noise lab.",
+      "comment" : "Premium benefit row for noise cover layers.",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Prozedurale Rauschebenen für Maskierung und Deep Work"
+            "value" : "Klangdecke für Fokus, Reisen und tieferen Schlaf"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Procedural noise layers for masking and deep work"
+            "value" : "Noise cover for focus, travel and deeper sleep"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Capas de ruido procedural para enmascarar y enfocarte"
+            "value" : "Cobertura sonora para foco, viaje y sueño profundo"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bruits procéduraux pour masquer et travailler profondément"
+            "value" : "Couverture sonore pour focus, voyage et sommeil profond"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Layer di rumore procedurale per mascherare e lavorare"
+            "value" : "Copertura sonora per focus, viaggio e sonno profondo"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Camadas de ruído procedural para mascarar e focar"
+            "value" : "Cobertura sonora para foco, viagem e sono profundo"
           }
         }
       }
     },
     "paywall.benefit.presets" : {
-      "comment" : "Premium benefit row about saved mixes.",
+      "comment" : "Premium benefit row about saved ambiences.",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Unbegrenzt gespeicherte Mixe"
+            "value" : "Unbegrenzt gespeicherte Klangwelten"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Unlimited saved mixes"
+            "value" : "Unlimited saved ambiences"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mezclas guardadas ilimitadas"
+            "value" : "Ambientes guardados ilimitados"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mix favoris illimités"
+            "value" : "Ambiances enregistrées illimitées"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mix salvati illimitati"
+            "value" : "Atmosfere salvate illimitate"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mixes salvos ilimitados"
+            "value" : "Ambientes salvos ilimitados"
           }
         }
       }
@@ -12997,42 +13524,42 @@
       }
     },
     "paywall.subtitle.composer" : {
-      "comment" : "Paywall subtitle for premium composer and procedural noise features.",
+      "comment" : "Paywall subtitle for locked premium ambience and noise-cover features.",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Erstelle reichere Klangwelten mit Premium-Sounds, Ritualen, Fokusmodi und prozeduralem Rauschen."
+            "value" : "Starte Klangwelten mit Premium-Sounds, Klangdecke, binauraler Unterstützung und längeren Ausblendungen."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Create richer soundscapes with premium sounds, rituals, focus modes and procedural noise layers."
+            "value" : "Launch ambiences with premium sounds, noise cover, binaural support and longer fade-outs."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Crea ambientes más ricos con sonidos Premium, rituales, modos de foco y ruido procedural."
+            "value" : "Inicia ambientes con sonidos Premium, cobertura sonora, apoyo binaural y fundidos más largos."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Créez des ambiances plus riches avec sons Premium, rituels, modes focus et bruits procéduraux."
+            "value" : "Lancez des ambiances avec sons Premium, couverture sonore, binaural et fondus plus longs."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Crea paesaggi sonori più ricchi con suoni Premium, rituali, focus e rumori procedurali."
+            "value" : "Avvia atmosfere con suoni Premium, copertura sonora, supporto binaurale e dissolvenze più lunghe."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Crie paisagens mais ricas com sons Premium, rituais, foco e ruídos procedurais."
+            "value" : "Inicie ambientes com sons Premium, cobertura sonora, suporte binaural e fades mais longos."
           }
         }
       }
@@ -13043,78 +13570,78 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Schalte 32 weitere Sounds, Timer für 1/2 Std. und unbegrenzt gespeicherte Mixe frei. Ein Kauf, kein Abo."
+            "value" : "Schalte 32 weitere Sounds, Timer für 1/2 Std. und unbegrenzt gespeicherte Klangwelten frei. Ein Kauf, kein Abo."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Unlock 32 more sounds, 1 hr/2 hr timers and unlimited saved mixes. One purchase, no subscription."
+            "value" : "Unlock 32 more sounds, 1 hr/2 hr timers and unlimited saved ambiences. One purchase, no subscription."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Desbloquea 32 sonidos más, temporizadores de 1/2 h y mezclas guardadas ilimitadas. Una compra, sin suscripción."
+            "value" : "Desbloquea 32 sonidos más, temporizadores de 1/2 h y ambientes guardados ilimitados. Una compra, sin suscripción."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Débloquez 32 sons en plus, les minuteurs 1 h/2 h et les mix illimités. Un seul achat, sans abonnement."
+            "value" : "Débloquez 32 sons en plus, les minuteurs 1 h/2 h et les ambiances enregistrées illimitées. Un seul achat, sans abonnement."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sblocca 32 suoni in più, timer da 1/2 h e mix salvati illimitati. Un solo acquisto, nessun abbonamento."
+            "value" : "Sblocca 32 suoni in più, timer da 1/2 h e atmosfere salvate illimitate. Un solo acquisto, nessun abbonamento."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Desbloqueie 32 sons extras, timers de 1/2 h e mixes salvos ilimitados. Uma compra, sem assinatura."
+            "value" : "Desbloqueie 32 sons extras, timers de 1/2 h e ambientes salvos ilimitados. Uma compra, sem assinatura."
           }
         }
       }
     },
     "paywall.subtitle.presets" : {
-      "comment" : "Paywall subtitle when the user wants to save or reload mixes.",
+      "comment" : "Paywall subtitle when the user wants to save or edit personal ambiences.",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Speichere deine Lieblingsmixe und starte sie mit einem Tipp wieder."
+            "value" : "Speichere jede Klangwelt mit Name und Bild und starte sie später mit einem Tipp."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Save your favorite mixes and bring them back in one tap."
+            "value" : "Save each ambience with its name and background, then start it again in one tap."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Guarda tus mezclas favoritas y vuelve a abrirlas con un toque."
+            "value" : "Guarda cada ambiente con su nombre e imagen y vuelve a iniciarlo con un toque."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sauvegardez vos mix préférés et relancez-les en un geste."
+            "value" : "Enregistrez chaque ambiance avec son nom et son image, puis relancez-la en un geste."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Salva i tuoi mix preferiti e riaprili con un tocco."
+            "value" : "Salva ogni atmosfera con nome e immagine e riavviala con un tocco."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Salve seus mixes favoritos e abra tudo de novo com um toque."
+            "value" : "Salve cada ambiente com nome e imagem e inicie de novo com um toque."
           }
         }
       }
@@ -13125,37 +13652,37 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Schalte Premium frei, um diesen Mix jederzeit wieder zu hören."
+            "value" : "Schalte Premium frei, um diese Klangwelt jederzeit wieder zu starten."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Unlock Premium to come back to this mix anytime."
+            "value" : "Unlock Premium to return to this ambience anytime."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Desbloquea Premium para volver a esta mezcla cuando quieras."
+            "value" : "Desbloquea Premium para volver a este ambiente cuando quieras."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Débloquez Premium pour retrouver ce mix à tout moment."
+            "value" : "Débloquez Premium pour retrouver cette ambiance à tout moment."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sblocca Premium per ritrovare questo mix quando vuoi."
+            "value" : "Sblocca Premium per ritrovare questa atmosfera quando vuoi."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Desbloqueie o Premium para voltar a este mix quando quiser."
+            "value" : "Desbloqueie o Premium para voltar a este ambiente quando quiser."
           }
         }
       }
@@ -13178,7 +13705,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Añade lluvia, bosque, trueno, río, mar y más sonidos a tus mezclas para dormir o concentrarte."
+            "value" : "Añade lluvia, bosque, trueno, río, mar y más sonidos para dormir o concentrarte."
           }
         },
         "fr" : {
@@ -13190,13 +13717,13 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Aggiungi pioggia, foresta, tuono, fiume, mare e altri suoni ai tuoi mix per dormire o concentrarti."
+            "value" : "Aggiungi pioggia, foresta, tuono, fiume, mare e altri suoni per dormire o concentrarti."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Adicione chuva, floresta, trovão, rio, mar e outros sons aos seus mixes para dormir ou focar."
+            "value" : "Adicione chuva, floresta, trovão, rio, mar e outros sons para dormir ou focar."
           }
         }
       }
@@ -13284,42 +13811,42 @@
       }
     },
     "paywall.title.composer" : {
-      "comment" : "Paywall title when the user taps premium composer, ritual, or noise features.",
+      "comment" : "Paywall title when the user taps a locked premium ambience or noise-cover feature.",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vollen Composer freischalten"
+            "value" : "Reichere Klangwelten freischalten"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Unlock the full composer"
+            "value" : "Unlock richer ambiences"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Desbloquea el composer completo"
+            "value" : "Desbloquea ambientes más ricos"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Débloquez le composer complet"
+            "value" : "Débloquez des ambiances plus riches"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sblocca il composer completo"
+            "value" : "Sblocca atmosfere più ricche"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Desbloqueie o composer completo"
+            "value" : "Desbloqueie ambientes mais ricos"
           }
         }
       }
@@ -13366,42 +13893,42 @@
       }
     },
     "paywall.title.presets" : {
-      "comment" : "Paywall title when the user wants premium preset features.",
+      "comment" : "Paywall title when the user wants to save personal ambiences.",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mehr Mixe speichern"
+            "value" : "Eigene Klangwelten speichern"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Keep more mixes"
+            "value" : "Save personal ambiences"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Guarda más mezclas"
+            "value" : "Guarda tus ambientes"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mix illimités"
+            "value" : "Sauvegardez vos ambiances"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Salva più mix"
+            "value" : "Salva le tue atmosfere"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Salve mais mixes"
+            "value" : "Salve seus ambientes"
           }
         }
       }
@@ -13412,37 +13939,37 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Diesen Mix freischalten"
+            "value" : "Diese Klangwelt freischalten"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Unlock this mix"
+            "value" : "Unlock this ambience"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Desbloquear esta mezcla"
+            "value" : "Desbloquea este ambiente"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Débloquer ce mix"
+            "value" : "Débloquer cette ambiance"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sblocca questo mix"
+            "value" : "Sblocca questa atmosfera"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Desbloquear este mix"
+            "value" : "Desbloquear este ambiente"
           }
         }
       }
@@ -13617,37 +14144,37 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Schalte 32 weitere Sounds, Timer für 1/2 Std. und unbegrenzt gespeicherte Mixe frei."
+            "value" : "Schalte 32 weitere Sounds, Timer für 1/2 Std. und unbegrenzt gespeicherte Klangwelten frei."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Unlock 32 more sounds, 1 hr/2 hr timers and unlimited saved mixes."
+            "value" : "Unlock 32 more sounds, 1 hr/2 hr timers and unlimited saved ambiences."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Desbloquea 32 sonidos, temporizadores de 1/2 h y mezclas ilimitadas."
+            "value" : "Desbloquea 32 sonidos, temporizadores de 1/2 h y ambientes guardados ilimitados."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Débloquez 32 sons, les minuteurs 1 h/2 h et les mix illimités."
+            "value" : "Débloquez 32 sons, les minuteurs 1 h/2 h et les ambiances enregistrées illimitées."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sblocca 32 suoni, timer da 1/2 h e mix illimitati."
+            "value" : "Sblocca 32 suoni, timer da 1/2 h e atmosfere salvate illimitate."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Desbloqueie 32 sons, timers de 1/2 h e mixes ilimitados."
+            "value" : "Desbloqueie 32 sons, timers de 1/2 h e ambientes salvos ilimitados."
           }
         }
       }
@@ -13817,83 +14344,83 @@
       }
     },
     "premium.inline.preset.subtitle" : {
-      "comment" : "Inline upsell message shown when the user wants premium preset features.",
+      "comment" : "Inline upsell message shown when a free user wants to save or edit a personal ambience.",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Der erste Mix ist kostenlos. Mit Premium kannst du so viele Mixe speichern, wie du möchtest."
+            "value" : "Speichern gehört zu Premium: Jede Klangwelt bleibt mit eigenem Namen und Bild erhalten."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "The first one is free. Premium lets you save as many mixes as you want."
+            "value" : "Saving is a Premium feature: keep every ambience with its own name and background."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "La primera es gratis. Premium te deja guardar tantas mezclas como quieras."
+            "value" : "Guardar es una función Premium: conserva cada ambiente con su nombre e imagen."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Le premier est gratuit. Premium permet de sauvegarder autant de mix que vous voulez."
+            "value" : "La sauvegarde est réservée à Premium : gardez chaque ambiance avec son nom et son image."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Il primo è gratis. Premium ti permette di salvare tutti i mix che vuoi."
+            "value" : "Il salvataggio è Premium: tieni ogni atmosfera con nome e immagine."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "O primeiro é grátis. O Premium deixa você salvar quantos mixes quiser."
+            "value" : "Salvar é um recurso Premium: guarde cada ambiente com nome e imagem."
           }
         }
       }
     },
     "premium.inline.preset.title" : {
-      "comment" : "Inline upsell title shown in the presets panel.",
+      "comment" : "Inline upsell title shown when the user wants to save personal ambiences.",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mehr Mixe speichern"
+            "value" : "Eigene Klangwelten speichern"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Keep more mixes"
+            "value" : "Save personal ambiences"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Guarda más mezclas"
+            "value" : "Guarda tus ambientes"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mix illimités"
+            "value" : "Sauvegardez vos ambiances"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Salva più mix"
+            "value" : "Salva le tue atmosfere"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Salve mais mixes"
+            "value" : "Salve seus ambientes"
           }
         }
       }
@@ -14191,37 +14718,37 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Premium-Mix testen"
+            "value" : "Premium-Klangwelt testen"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Try a Premium mix"
+            "value" : "Try a Premium ambience"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Probar una mezcla Premium"
+            "value" : "Probar un ambiente Premium"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Essayer un mix Premium"
+            "value" : "Essayer une ambiance Premium"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Prova un mix Premium"
+            "value" : "Prova un’atmosfera Premium"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Testar um mix Premium"
+            "value" : "Testar um ambiente Premium"
           }
         }
       }
@@ -14796,6 +15323,47 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Excluir este mix?"
+          }
+        }
+      }
+    },
+    "presets.edit.section.title" : {
+      "comment" : "Title of the full-screen editor used to rename, restyle, or delete a saved ambience.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Klangwelt bearbeiten"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit ambience"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Editar ambiente"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Modifier l’ambiance"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Modifica atmosfera"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Editar ambiência"
           }
         }
       }

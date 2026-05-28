@@ -5,8 +5,6 @@ private let minimumAdaptivePanelHeight: CGFloat = 240
 
 enum PanelTransitionSource: String, Hashable, Sendable {
     case bottomCompose
-    case headerPresets
-    case bottomPresets
     case headerBinaural
     case bottomBinaural
 
@@ -14,9 +12,9 @@ enum PanelTransitionSource: String, Hashable, Sendable {
 
     var usesZoomTransition: Bool {
         switch self {
-        case .bottomCompose, .bottomPresets, .bottomBinaural:
+        case .bottomCompose, .bottomBinaural:
             true
-        case .headerPresets, .headerBinaural:
+        case .headerBinaural:
             false
         }
     }
@@ -143,7 +141,6 @@ struct HomeView: View {
     @State private var activePanel: ActiveHomePanel?
     @State private var activePanelSource: PanelTransitionSource?
     @State private var showsComposeFullScreen = false
-    @State private var showsPresetsFullScreen = false
     @State private var activeSpatialChannel: SoundChannel?
     @State private var activeDetailChannel: SoundChannel?
     @State private var showsTimerUnlockPanel = false
@@ -153,7 +150,6 @@ struct HomeView: View {
     fileprivate static let headerCollapseDistance: CGFloat = 140
     fileprivate static let headerProgressSteps: CGFloat = 48
     private func openCompose(from source: PanelTransitionSource) {
-        showsPresetsFullScreen = false
         showsComposeFullScreen = true
         activeSpatialChannel = nil
         activeDetailChannel = nil
@@ -162,26 +158,14 @@ struct HomeView: View {
         activePanel = nil
     }
 
-    private func openPresets(from source: PanelTransitionSource) {
-        activePanel = nil
-        activePanelSource = nil
-        activeSpatialChannel = nil
-        activeDetailChannel = nil
-        showsTimerUnlockPanel = false
-        model.showsPresetsPanel = true
-        showsPresetsFullScreen = true
-    }
-
     private func openBinaural(from source: PanelTransitionSource) {
         model.prepareBinauralPanel()
-        showsPresetsFullScreen = false
         binauralPanelHeight = measurePanelHeight(for: BinauralPanel().environment(model))
         activePanelSource = source.usesZoomTransition ? source : nil
         activePanel = .binaural
     }
 
     private func openSpatial(for channel: SoundChannel) {
-        showsPresetsFullScreen = false
         activePanel = nil
         activePanelSource = nil
         activeDetailChannel = nil
@@ -189,7 +173,6 @@ struct HomeView: View {
     }
 
     private func openDetail(for channel: SoundChannel) {
-        showsPresetsFullScreen = false
         activePanel = nil
         activePanelSource = nil
         activeSpatialChannel = nil
@@ -197,7 +180,6 @@ struct HomeView: View {
     }
 
     private func openTimerUnlock() {
-        showsPresetsFullScreen = false
         activePanel = nil
         activePanelSource = nil
         activeSpatialChannel = nil
@@ -314,7 +296,7 @@ struct HomeView: View {
                     .ignoresSafeArea(edges: .bottom)
 
                     // Passive timer feedback, centered horizontally at the nav-bar's
-                    // vertical line while no routine or ritual owns that space.
+                    // vertical line while no ambience or ritual owns that space.
                     VStack(spacing: 0) {
                         if model.activeRitualSession == nil && model.activeComposerRecipeTitle == nil {
                             TimerCountdownIndicator()
@@ -334,7 +316,6 @@ struct HomeView: View {
                     BottomBarView(
                         transitionNamespace: panelTransitionNamespace,
                         onOpenCompose: openCompose,
-                        onOpenPresets: openPresets,
                         onOpenBinaural: openBinaural
                     )
                     .padding(.horizontal, 18)
@@ -353,7 +334,7 @@ struct HomeView: View {
                             openCompose(from: .bottomCompose)
                         }
                     } else if model.activeComposerRecipeTitle != nil {
-                        HomeRoutineStatusIndicator {
+                        HomeAmbienceStatusIndicator {
                             openCompose(from: .bottomCompose)
                         }
                     }
@@ -380,11 +361,6 @@ struct HomeView: View {
             model.showsComposePanel = false
         }) {
             ComposePanel()
-        }
-        .fullScreenCover(isPresented: $showsPresetsFullScreen, onDismiss: {
-            model.showsPresetsPanel = false
-        }) {
-            PresetsPanel()
         }
         .sheet(item: $activeSpatialChannel, onDismiss: {
             model.showsSpatialPanel = false
@@ -430,7 +406,6 @@ struct HomeView: View {
             activePanel = nil
             activePanelSource = nil
             showsComposeFullScreen = false
-            showsPresetsFullScreen = false
             activeSpatialChannel = nil
             activeDetailChannel = nil
             showsTimerUnlockPanel = false

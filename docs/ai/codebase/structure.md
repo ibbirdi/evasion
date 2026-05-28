@@ -1,7 +1,7 @@
 ---
 title: Repo Structure
 status: stable
-last_updated: 2026-05-27
+last_updated: 2026-05-28
 tracks:
   - "ios-native/**"
   - "scripts/**"
@@ -74,7 +74,7 @@ Plain Codable types. No business logic, no AVFoundation imports.
 | File | Contains |
 | --- | --- |
 | `AppModels.swift` | `SoundChannel` (35 cases), `BinauralTrack` (4 cases), `ChannelState`, `AutoVariationRange`, `Preset`, `SpatialPoint`, `PersistedMixerState`. |
-| `AmbienceModels.swift` | `OasisGlyph`, `AmbienceIntent`, `GuidedRoutineKind`, `ProceduralNoise`, `AmbienceRecipe`, `RitualPreset`, `ActiveRitualSession`. |
+| `AmbienceModels.swift` | `OasisGlyph`, `AmbienceIntent`, `ProceduralNoise`, `AmbienceRecipe`, `RitualPreset`, `ActiveRitualSession`. |
 | `SoundChannelMetadata.swift` | Per-channel metadata: file name, category, location, author, licence, SF Symbol, RGB tint plus central vibrant-tint rendering. The single source of truth for the catalog. |
 | `PremiumModels.swift` | `PremiumEntryPoint`, `PremiumPaywallContext`, `PremiumInlineUpsellContext`. |
 
@@ -85,7 +85,7 @@ Business logic, engines, integrations.
 | File | Contains |
 | --- | --- |
 | `AppModel.swift` | The hub. See [../architecture/state.md](../architecture/state.md). |
-| `AmbienceComposer.swift` | Local deterministic recipe builder for the 2 free + 6 Premium guided routines, legacy Composer prompts, multilingual keyword matching, and ritual phase templates. |
+| `AmbienceComposer.swift` | Local deterministic recipe builder for legacy Composer prompts, multilingual keyword matching, and ritual phase templates. |
 | `AudioMixerEngine.swift` | Ambient audio engine. See [../architecture/audio-engine.md](../architecture/audio-engine.md). |
 | `GentleReminderScheduler.swift` | Local notification scheduler for the gentle re-open reminder after several inactive days. |
 | `PremiumCoordinator.swift` | Routes premium requests (inline vs paywall). |
@@ -135,7 +135,7 @@ Views/
 | `SplashScreen.imageset/` | Static image shown by the iOS launch storyboard. |
 | `OasisRingLogo.imageset/` | Transparent ring logo used by the iOS header wordmark animation. |
 | `SoundBackgrounds/*.imageset` | Pexels-derived JPEG watermarks for ambient place-based sound cards. Source choices are documented in [../content/sound-backgrounds.md](../content/sound-backgrounds.md). |
-| `OrganicBackgrounds/*.imageset` | Pexels-derived abstract/organic textures for non-place surfaces: guided routine cards, concept upsells, and binaural track cards. |
+| `OrganicBackgrounds/*.imageset` | Pexels-derived abstract/organic textures for non-place surfaces: concept upsells, ambience cards, and binaural track cards. |
 | `OasisGlyphs/*.imageset` | Curated Phosphor SVG template glyphs for Oasis-specific concepts. License note: `docs/licenses/phosphor-icons.md`. |
 
 ## `fastlane/`

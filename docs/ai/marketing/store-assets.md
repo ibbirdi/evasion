@@ -1,7 +1,7 @@
 ---
 title: App Store Assets
 status: stable
-last_updated: 2026-05-26
+last_updated: 2026-05-27
 tracks:
   - "fastlane/Fastfile"
   - "fastlane/Snapfile"
@@ -70,7 +70,7 @@ Exact file names (do not rename — they're indexed by `Fastfile` and the render
 
 ```
 01_hero               02_library            03_detail_sheet       04_binaural
-05_spatial            06_presets            07_timer              08_free_home
+05_spatial            06_ambiences          07_timer              08_free_home
 09_library_teaser     10_paywall
 ```
 
@@ -81,6 +81,8 @@ Recommended ordering on the App Store (Variant B, multi-use lead — see [aso-st
 ```
 
 The slug is *what the slide depicts*. The position is *where it appears in the carousel*.
+
+`06_ambiences` depicts the in-app My Ambiences surface: saved Oasis mixes, duration choices, the top save affordance, and image-backed ambience capsules in one panel.
 
 `fastlane stage_appstore_assets` copies source composites into `fastlane/appstore-upload/<locale>/` and renames them to this display order, so App Store Connect receives alphabetically sorted files in the intended carousel sequence.
 

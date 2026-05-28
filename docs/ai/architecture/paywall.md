@@ -1,7 +1,7 @@
 ---
 title: Paywall and Premium Gating
 status: stable
-last_updated: 2026-05-27
+last_updated: 2026-05-28
 tracks:
   - "ios-native/OasisNative/Services/PremiumCoordinator.swift"
   - "ios-native/OasisNative/Services/PremiumRevenueCatService.swift"
@@ -88,11 +88,11 @@ The "Restore" button is exposed in both the iOS paywall and the macOS paywall sh
 | Surface | Gate | Behaviour |
 | --- | --- | --- |
 | Channel card (mixer) | `isChannelLocked(_:)` | Tapping a locked channel calls `requestPremiumAccess(from: .channel(id))`. |
-| Preset save | `canSaveFreePreset` | Free tier capped at 1 full ambience preset; saving premium channels, premium noise, premium binaural, or a long timer routes to upsell. |
+| Preset save | Premium-only save gate | Free users cannot persist personal ambiences; tapping Save routes to the preset upsell before any preset is created. |
 | Preset load | `isPresetLocked(_:)` | Loading a preset that contains premium channels, premium noise, a premium binaural track, or a long timer routes to upsell. |
 | Binaural panel | `selectBinauralTrack(_:)` | Tapping Theta/Alpha/Beta as free user → inline upsell. |
 | Timer menu | `canUseTimer(_:)` | 60 / 120 min options route to paywall. |
-| Routines / Composer | `applyAmbienceRecipe(_:)` | The 2 free guided routines apply directly; the 6 Premium guided routines and any generated recipe that requires inaccessible premium content route to the Composer inline upsell first, then the paywall. |
+| My Ambiences | `applyAmbienceRecipe(_:)` | Free saved ambiences apply directly; locked saved ambiences and any recipe that requires inaccessible premium content route to the premium-ambience inline upsell first, then the paywall. |
 | Rituals | `startRitual(_:)` | Free users can start the free Sleep Descent ritual; premium rituals route to the Composer inline upsell first, then the paywall. |
 | Noise Lab | `toggleProceduralNoise(_:)` / `setProceduralNoiseVolume(_:)` | Premium noise layers route to the Composer inline upsell first, then the paywall when locked. |
 | Spatial panel | inherits channel lock | Premium channels remain greyed out in the minimap. |
@@ -112,7 +112,7 @@ The "Restore" button is exposed in both the iOS paywall and the macOS paywall sh
 
 Localisation: every paywall string is in `Localizable.xcstrings` under `paywall.*` and `premium.inline.*`.
 
-Composer, ritual and Noise Lab entry points use the `.composer` accent/category so the inline card, paywall title, and benefits are about richer recipes, procedural masking layers, and premium binaural support rather than a generic locked-sound message.
+Legacy composer, ritual, and Noise Lab entry points still share the internal `.composer` accent/category, but visible copy must not sell a "Composer" screen. The inline card, paywall title, and benefits should talk about richer premium ambiences, noise cover, premium binaural support, and longer fade-outs rather than a removed feature or technical procedural-noise wording.
 
 ## Analytics
 

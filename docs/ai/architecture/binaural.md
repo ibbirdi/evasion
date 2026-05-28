@@ -1,7 +1,7 @@
 ---
 title: Binaural Engine
 status: stable
-last_updated: 2026-05-27
+last_updated: 2026-05-28
 tracks:
   - "ios-native/OasisNative/Services/AudioMixerEngine.swift"
   - "ios-native/OasisNative/Models/AppModels.swift"
@@ -26,7 +26,7 @@ Brainwave entrainment tracks. Independent of the ambient mixer (different player
 | `.alpha` | `3_binaural_relax_alpha.m4a` | 8–12 Hz | Yes |
 | `.beta` | `4_binaural_focus_beta.m4a` | 12–30 Hz | Yes |
 
-The `BinauralTrack` enum lives in [`Models/AppModels.swift`](../../../ios-native/OasisNative/Models/AppModels.swift). `isPremium` is a computed property on the enum.
+The `BinauralTrack` enum lives in [`Models/AppModels.swift`](../../../ios-native/OasisNative/Models/AppModels.swift). `isPremium` is a computed property on the enum, and `beatFrequencyHz` exposes a representative beat frequency used by UI visualisations (Delta slowest, Beta densest).
 
 The four files are pre-rendered (not generated at runtime) by [`scripts/generateBinauralSounds.py`](../../../scripts/generateBinauralSounds.py). The script produces isochronic-tone style tracks at the target frequencies. Re-run only if you redesign the binaural sound; the output is committed to the bundle.
 
@@ -78,7 +78,7 @@ When `isBinauralActive` flips off, the active player is paused but kept allocate
 [`BinauralPanel`](../../../ios-native/OasisNative/Views/Overlays/BinauralPanel.swift) presents the iOS flow:
 
 1. A single organic texture-backed hero card with the panel title, active track/frequency, headphone hint, enable toggle, and volume slider bound to `binauralVolume`.
-2. The four track cards (Delta, Theta, Alpha, Beta) with their L10n names (`binaural.track.delta`, …), a small tint rule, and lock/check status on the premium/selected ones.
+2. The four track cards (Delta, Theta, Alpha, Beta) with their L10n names (`binaural.track.delta`, …), a fixed-width waveform strip derived from `BinauralTrack.beatFrequencyHz`, and lock/check status on the premium/selected ones.
 
 The hero and track cards use `BinauralTrack.backdrop`, which intentionally maps to `OrganicBackdrop` textures rather than place photos because binaural modes are abstract listening states, not field-recording locations.
 

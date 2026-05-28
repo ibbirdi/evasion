@@ -72,28 +72,6 @@ enum AmbienceIntent: String, CaseIterable, Codable, Identifiable, Sendable {
     }
 }
 
-enum GuidedRoutineKind: String, CaseIterable, Identifiable, Sendable {
-    case nap
-    case reset
-    case deepSleep
-    case deepWork
-    case noisyHotel
-    case reading
-    case rainCabin
-    case morning
-
-    var id: String { rawValue }
-
-    var requiresPremium: Bool {
-        switch self {
-        case .nap, .reset:
-            return false
-        case .deepSleep, .deepWork, .noisyHotel, .reading, .rainCabin, .morning:
-            return true
-        }
-    }
-}
-
 enum ProceduralNoise: String, CaseIterable, Codable, Identifiable, Sendable {
     case white
     case brown

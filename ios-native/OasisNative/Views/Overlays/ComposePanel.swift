@@ -1,121 +1,150 @@
 import SwiftUI
 
-private struct PromptSuggestion: Identifiable {
-    let kind: GuidedRoutineKind
-    let title: LocalizedStringResource
-    let subtitle: LocalizedStringResource
+private enum AmbienceSource {
+    case preset(String)
+}
+
+private enum AmbienceEditorMode: Identifiable {
+    case create(initialBackdropAssetName: String)
+    case edit(String)
+
+    var id: String {
+        switch self {
+        case .create:
+            return "create"
+        case let .edit(id):
+            return "edit-\(id)"
+        }
+    }
+}
+
+private struct AmbienceOption: Identifiable {
+    let id: String
+    let title: String
+    let subtitle: String
     let intent: AmbienceIntent
     let backdrop: SoundBackdrop
+    let requiresPremium: Bool
+    let source: AmbienceSource
+}
 
-    var id: String { kind.id }
-    var requiresPremium: Bool { kind.requiresPremium }
+private enum AmbienceDuration: CaseIterable, Identifiable {
+    case infinite
+    case fifteen
+    case thirty
+    case sixty
+    case twoHours
 
-    static let builtIns: [PromptSuggestion] = [
-        PromptSuggestion(
-            kind: .nap,
-            title: L10n.Compose.routineNapTitle,
-            subtitle: L10n.Compose.routineNapSubtitle,
-            intent: .sleep,
-            backdrop: OrganicBackdrop.darkSatin
-        ),
-        PromptSuggestion(
-            kind: .reset,
-            title: L10n.Compose.routineResetTitle,
-            subtitle: L10n.Compose.routineResetSubtitle,
-            intent: .reset,
-            backdrop: OrganicBackdrop.warmFabric
-        ),
-        PromptSuggestion(
-            kind: .deepSleep,
-            title: L10n.Compose.routineDeepSleepTitle,
-            subtitle: L10n.Compose.routineDeepSleepSubtitle,
-            intent: .sleep,
-            backdrop: OrganicBackdrop.darkWater
-        ),
-        PromptSuggestion(
-            kind: .deepWork,
-            title: L10n.Compose.routineDeepWorkTitle,
-            subtitle: L10n.Compose.routineDeepWorkSubtitle,
-            intent: .focus,
-            backdrop: OrganicBackdrop.blueFlow
-        ),
-        PromptSuggestion(
-            kind: .noisyHotel,
-            title: L10n.Compose.routineNoisyHotelTitle,
-            subtitle: L10n.Compose.routineNoisyHotelSubtitle,
-            intent: .travel,
-            backdrop: OrganicBackdrop.blueFabric
-        ),
-        PromptSuggestion(
-            kind: .reading,
-            title: L10n.Compose.routineReadingTitle,
-            subtitle: L10n.Compose.routineReadingSubtitle,
-            intent: .reading,
-            backdrop: OrganicBackdrop.warmFabric
-        ),
-        PromptSuggestion(
-            kind: .rainCabin,
-            title: L10n.Compose.routineRainCabinTitle,
-            subtitle: L10n.Compose.routineRainCabinSubtitle,
-            intent: .sleep,
-            backdrop: OrganicBackdrop.darkSatin
-        ),
-        PromptSuggestion(
-            kind: .morning,
-            title: L10n.Compose.routineMorningTitle,
-            subtitle: L10n.Compose.routineMorningSubtitle,
-            intent: .reset,
-            backdrop: OrganicBackdrop.blueFlow
-        )
-    ]
+    var id: String {
+        minutes.map(String.init) ?? "infinite"
+    }
+
+    var minutes: Int? {
+        switch self {
+        case .infinite: return nil
+        case .fifteen: return 15
+        case .thirty: return 30
+        case .sixty: return 60
+        case .twoHours: return 120
+        }
+    }
+
+    var label: String {
+        switch self {
+        case .infinite:
+            return "∞"
+        case .fifteen, .thirty, .sixty, .twoHours:
+            return L10n.timerOptionLabel(minutes: minutes)
+        }
+    }
 }
 
 struct ComposePanel: View {
     @Environment(AppModel.self) private var model
     @Environment(\.dismiss) private var dismiss
-    @State private var selectedSuggestionID = PromptSuggestion.builtIns[0].id
-    @State private var startingSuggestionID: String?
-    @State private var didSeedSelectionFromActiveRoutine = false
+    @State private var selectedAmbienceID = "preset_default_starter"
+    @State private var selectedDuration: AmbienceDuration = .thirty
+    @State private var startingAmbienceID: String?
+    @State private var didSeedSelectionFromActiveAmbience = false
+    @State private var ambienceEditorMode: AmbienceEditorMode?
 
     private let selectorColumns = [
         GridItem(.flexible(), spacing: 8),
         GridItem(.flexible(), spacing: 8)
     ]
 
-    private var selectedSuggestion: PromptSuggestion {
-        PromptSuggestion.builtIns.first { $0.id == selectedSuggestionID } ?? PromptSuggestion.builtIns[0]
+    private var ambienceOptions: [AmbienceOption] {
+        let saved = model.presets.map { preset in
+            let intent = ambienceIntent(for: preset)
+            return AmbienceOption(
+                id: preset.id,
+                title: model.presetDisplayName(preset),
+                subtitle: L10n.string(preset.isUser ? L10n.Presets.statusSaved : L10n.Presets.statusOasis),
+                intent: intent,
+                backdrop: AmbienceBackdropLibrary.backdrop(for: preset.backdropAssetName, fallback: fallbackBackdrop(for: preset)),
+                requiresPremium: model.isPresetLocked(preset),
+                source: .preset(preset.id)
+            )
+        }
+
+        return saved.filter { !$0.requiresPremium }
+            + saved.filter(\.requiresPremium)
+    }
+
+    private var selectedOption: AmbienceOption {
+        ambienceOptions.first { $0.id == selectedAmbienceID } ?? ambienceOptions[0]
     }
 
     private var selectedRecipe: AmbienceRecipe {
-        model.composeGuidedRoutine(selectedSuggestion.kind)
+        guard case let .preset(id) = selectedOption.source else {
+            return ambienceRecipe(for: nil, option: selectedOption)
+        }
+
+        var recipe = ambienceRecipe(for: model.presets.first { $0.id == id }, option: selectedOption)
+        recipe.timerMinutes = selectedDuration.minutes
+        return recipe
     }
 
-    private var selectedRoutineIsActive: Bool {
+    private var selectedAmbienceIsActive: Bool {
         model.activeComposerRecipeTitle == selectedRecipe.title
+            && model.timerDurationMinutes == selectedDuration.minutes
     }
 
-    private var selectedRoutineIsLocked: Bool {
-        selectedSuggestion.requiresPremium && !model.isPremium
+    private var selectedAmbienceIsLocked: Bool {
+        !model.isPremium && selectedRecipe.requiresPremium
     }
 
-    private var routineCTA: (title: LocalizedStringResource, systemImage: String, isDisabled: Bool) {
-        if startingSuggestionID == selectedSuggestion.id {
+    private var userAmbiences: [Preset] {
+        model.presets.filter(\.isUser)
+    }
+
+    private var suggestedSaveBackdropAssetName: String {
+        let activeChannel = model.channels
+            .filter { !$0.value.isMuted }
+            .max { $0.value.volume < $1.value.volume }?
+            .key
+
+        return activeChannel?.backdrop.assetName ?? selectedOption.backdrop.assetName
+    }
+
+    private var ambienceCTA: (title: LocalizedStringResource, systemImage: String, isDisabled: Bool) {
+        if startingAmbienceID == selectedOption.id {
             return (L10n.HomeActive.listening, "checkmark", true)
         }
 
-        if selectedRoutineIsActive {
-            return (L10n.HomeActive.stopRoutine, "stop.fill", false)
+        if selectedAmbienceIsActive {
+            return (L10n.HomeActive.stopAmbience, "stop.fill", false)
         }
 
-        if selectedRoutineIsLocked {
+        if selectedAmbienceIsLocked {
             return (L10n.Premium.inlineUnlock, "lock.fill", false)
         }
 
         if model.activeComposerRecipeTitle != nil {
-            return (L10n.Compose.routineReplace, "arrow.triangle.2.circlepath", false)
+            return (L10n.Compose.ambienceReplace, "arrow.triangle.2.circlepath", false)
         }
 
-        return (L10n.Compose.routineStart, "play.fill", false)
+        return (L10n.Compose.ambienceStart, "play.fill", false)
     }
 
     var body: some View {
@@ -128,15 +157,17 @@ struct ComposePanel: View {
 
                     ScrollView(showsIndicators: false) {
                         VStack(alignment: .leading, spacing: 14) {
+                            saveAmbienceButton
                             composerInlineUpsell
-                            routineSelector
+                            ambienceSelector
+                            durationSelector
 
-                            RoutineDetailCard(
-                                suggestion: selectedSuggestion,
+                            AmbienceDetailCard(
+                                option: selectedOption,
                                 recipe: selectedRecipe,
-                                isLocked: selectedRoutineIsLocked
+                                isLocked: selectedAmbienceIsLocked
                             )
-                            .id(selectedSuggestion.id)
+                            .id("\(selectedOption.id)-\(selectedDuration.id)")
                             .transition(.opacity.combined(with: .scale(scale: 0.985, anchor: .top)))
                         }
                         .padding(.horizontal, 20)
@@ -144,14 +175,17 @@ struct ComposePanel: View {
                     }
                     .scrollDismissesKeyboard(.interactively)
 
-                    startRoutineBar
+                    startAmbienceBar
                 }
             }
             .toolbar(.hidden, for: .navigationBar)
         }
         .presentationDragIndicator(.visible)
         .preferredColorScheme(.dark)
-        .onAppear(perform: seedSelectionFromActiveRoutine)
+        .onAppear(perform: seedSelectionFromActiveAmbience)
+        .fullScreenCover(item: $ambienceEditorMode) { mode in
+            ambienceEditorSheet(for: mode)
+        }
         .accessibilityElement(children: .contain)
         .accessibilityIdentifier("panel.compose.container")
     }
@@ -201,27 +235,261 @@ struct ComposePanel: View {
         .padding(.bottom, 12)
     }
 
-    private var routineSelector: some View {
-        LazyVGrid(columns: selectorColumns, alignment: .leading, spacing: 8) {
-            ForEach(PromptSuggestion.builtIns) { suggestion in
-                RoutineSelectorButton(
-                    suggestion: suggestion,
-                    isSelected: selectedSuggestionID == suggestion.id,
-                    isLocked: suggestion.requiresPremium && !model.isPremium
-                ) {
-                    withAnimation(.smooth(duration: 0.24, extraBounce: 0.02)) {
-                        selectedSuggestionID = suggestion.id
+    private var ambienceSelector: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            LazyVGrid(columns: selectorColumns, alignment: .leading, spacing: 8) {
+                ForEach(ambienceOptions) { option in
+                    AmbienceSelectorButton(
+                        option: option,
+                        isSelected: selectedAmbienceID == option.id,
+                        isLocked: option.requiresPremium && !model.isPremium,
+                        isEditable: isUserAmbience(option),
+                        onEdit: {
+                            if let preset = preset(for: option), preset.isUser {
+                                ambienceEditorMode = .edit(preset.id)
+                            }
+                        }
+                    ) {
+                        withAnimation(.smooth(duration: 0.24, extraBounce: 0.02)) {
+                            selectedAmbienceID = option.id
+                        }
                     }
+                }
+            }
+            .accessibilityElement(children: .contain)
+            .accessibilityIdentifier("compose.ambience.selector")
+        }
+    }
+
+    private var durationSelector: some View {
+        VStack(alignment: .leading, spacing: 9) {
+            Label(L10n.Header.timer, systemImage: "timer")
+                .oasisFont(size: 11, weight: .bold, design: .default, relativeTo: .caption)
+                .foregroundStyle(.white.opacity(0.50))
+
+            HStack(spacing: 7) {
+                ForEach(AmbienceDuration.allCases) { duration in
+                    Button {
+                        withAnimation(.smooth(duration: 0.18)) {
+                            selectedDuration = duration
+                        }
+                    } label: {
+                        Text(duration.label)
+                            .oasisFont(size: duration == .infinite ? 18 : 11, weight: .bold, relativeTo: .caption)
+                            .foregroundStyle(selectedDuration == duration ? Color(red: 0.04, green: 0.06, blue: 0.10) : .white.opacity(0.72))
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.78)
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 36)
+                            .background {
+                                Capsule(style: .continuous)
+                                    .fill(selectedDuration == duration ? selectedOption.intent.tint.opacity(0.92) : Color.white.opacity(0.048))
+                            }
+                            .overlay {
+                                Capsule(style: .continuous)
+                                    .strokeBorder(Color.white.opacity(selectedDuration == duration ? 0.18 : 0.07), lineWidth: 1)
+                            }
+                    }
+                    .buttonStyle(PressScaleButtonStyle())
+                    .accessibilityLabel(Text(duration.minutes.map(L10n.timerOptionLabel(minutes:)) ?? duration.label))
+                    .accessibilityAddTraits(selectedDuration == duration ? .isSelected : [])
                 }
             }
         }
         .accessibilityElement(children: .contain)
-        .accessibilityIdentifier("compose.routine.selector")
+        .accessibilityIdentifier("compose.ambience.duration")
+    }
+
+    private var saveAmbienceButton: some View {
+        Button {
+            if model.isPremium {
+                ambienceEditorMode = .create(initialBackdropAssetName: suggestedSaveBackdropAssetName)
+            } else {
+                model.requestPremiumAccess(from: .presetSave)
+            }
+        } label: {
+            HStack(spacing: 10) {
+                Image(systemName: "bookmark.fill")
+                    .oasisFont(size: 14, weight: .bold, design: .default, relativeTo: .body)
+
+                Text(L10n.Presets.showSave)
+                    .oasisFont(size: 14, weight: .bold, relativeTo: .headline)
+
+                Spacer(minLength: 0)
+
+                Image(systemName: model.isPremium ? "plus" : "lock.fill")
+                    .oasisFont(size: 12, weight: .bold, design: .default, relativeTo: .body)
+                    .foregroundStyle(Color(red: 0.04, green: 0.06, blue: 0.10).opacity(0.84))
+                    .frame(width: 26, height: 26)
+                    .background {
+                        Circle().fill(.white.opacity(0.72))
+                    }
+            }
+            .foregroundStyle(Color(red: 0.04, green: 0.06, blue: 0.10))
+            .padding(.horizontal, 16)
+            .frame(height: 54)
+            .background {
+                RoundedRectangle(cornerRadius: 24, style: .continuous)
+                    .fill(
+                        LinearGradient(
+                            colors: [
+                                ComposeCTAStyle.save.primary,
+                                ComposeCTAStyle.save.secondary
+                            ],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        )
+                    )
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 24, style: .continuous)
+                            .fill(.white.opacity(0.11))
+                    }
+            }
+            .overlay {
+                RoundedRectangle(cornerRadius: 24, style: .continuous)
+                    .strokeBorder(.white.opacity(0.22), lineWidth: 1)
+            }
+            .shadow(color: ComposeCTAStyle.save.primary.opacity(0.24), radius: 18, y: 10)
+        }
+        .buttonStyle(PressScaleButtonStyle())
+        .accessibilityIdentifier("compose.ambience.save")
+    }
+
+    private func isUserAmbience(_ option: AmbienceOption) -> Bool {
+        preset(for: option)?.isUser == true
+    }
+
+    private func preset(for option: AmbienceOption) -> Preset? {
+        guard case let .preset(id) = option.source else { return nil }
+        return model.presets.first { $0.id == id }
+    }
+
+    private func ambienceIntent(for preset: Preset) -> AmbienceIntent {
+        if preset.isUser {
+            return preset.timerDurationMinutes == nil ? .reset : .sleep
+        }
+
+        switch preset.id {
+        case "preset_default_calm", "preset_signature_oasis":
+            return .reset
+        case "preset_default_storm":
+            return .sleep
+        default:
+            return .travel
+        }
+    }
+
+    private func fallbackBackdrop(for preset: Preset) -> SoundBackdrop {
+        if let strongestChannel = preset.channels
+            .filter({ !$0.value.isMuted })
+            .max(by: { $0.value.volume < $1.value.volume })?
+            .key {
+            return strongestChannel.backdrop
+        }
+
+        if preset.isUser {
+            return OrganicBackdrop.blueFabric
+        }
+
+        return OrganicBackdrop.darkWater
+    }
+
+    private func ambienceRecipe(for preset: Preset?, option: AmbienceOption) -> AmbienceRecipe {
+        guard let preset else {
+            return AmbienceRecipe(
+                title: option.title,
+                subtitle: option.subtitle,
+                intent: option.intent,
+                channels: .initialChannels,
+                proceduralNoises: .initialNoises,
+                isBinauralActive: false,
+                binauralTrack: .delta,
+                binauralVolume: 0.5,
+                timerMinutes: nil,
+                immersiveAudioEnabled: false
+            )
+        }
+
+        return AmbienceRecipe(
+            title: option.title,
+            subtitle: option.subtitle,
+            intent: option.intent,
+            channels: preset.channels,
+            proceduralNoises: preset.proceduralNoises ?? .initialNoises,
+            isBinauralActive: preset.isBinauralActive ?? false,
+            binauralTrack: preset.activeBinauralTrack ?? .delta,
+            binauralVolume: AutoVariationRange.unitValue(preset.binauralVolume ?? 0.5, fallback: 0.5),
+            timerMinutes: preset.timerDurationMinutes,
+            immersiveAudioEnabled: preset.immersiveAudioEnabled ?? false
+        )
+    }
+
+    @ViewBuilder
+    private func ambienceEditorSheet(for mode: AmbienceEditorMode) -> some View {
+        switch mode {
+        case let .create(initialBackdropAssetName):
+            AmbienceEditorSheet(
+                title: L10n.Presets.saveSectionTitle,
+                initialName: "",
+                initialBackdropAssetName: initialBackdropAssetName,
+                choices: AmbienceBackdropLibrary.all,
+                canDelete: false,
+                onCancel: { ambienceEditorMode = nil },
+                onSave: saveCurrentAmbience(name:backdropAssetName:),
+                onDelete: nil
+            )
+        case let .edit(id):
+            if let preset = model.presets.first(where: { $0.id == id }) {
+                AmbienceEditorSheet(
+                    title: L10n.Presets.editSectionTitle,
+                    initialName: model.presetDisplayName(preset),
+                    initialBackdropAssetName: preset.backdropAssetName ?? fallbackBackdrop(for: preset).assetName,
+                    choices: AmbienceBackdropLibrary.all,
+                    canDelete: preset.isUser,
+                    onCancel: { ambienceEditorMode = nil },
+                    onSave: { name, backdropAssetName in
+                        updateAmbience(preset, name: name, backdropAssetName: backdropAssetName)
+                    },
+                    onDelete: {
+                        deleteAmbience(preset)
+                        ambienceEditorMode = nil
+                    }
+                )
+            } else {
+                EmptyView()
+            }
+        }
+    }
+
+    private func saveCurrentAmbience(name: String, backdropAssetName: String?) {
+        let previousIDs = Set(model.presets.map(\.id))
+        guard model.savePreset(named: name, backdropAssetName: backdropAssetName) else { return }
+
+        if let savedAmbience = model.presets.last(where: { !previousIDs.contains($0.id) }) {
+            selectedAmbienceID = savedAmbience.id
+        }
+
+        ambienceEditorMode = nil
+    }
+
+    private func updateAmbience(_ preset: Preset, name: String, backdropAssetName: String?) {
+        guard model.updatePreset(preset, name: name, backdropAssetName: backdropAssetName) else { return }
+        selectedAmbienceID = preset.id
+        ambienceEditorMode = nil
+    }
+
+    private func deleteAmbience(_ preset: Preset) {
+        withAnimation(.smooth(duration: 0.22)) {
+            model.deletePreset(preset)
+            if selectedAmbienceID == preset.id, let firstOption = ambienceOptions.first {
+                selectedAmbienceID = firstOption.id
+            }
+        }
     }
 
     @ViewBuilder
     private var composerInlineUpsell: some View {
-        if let presentation = model.composerUpsellPresentation {
+        if let presentation = model.composerUpsellPresentation ?? model.presetsUpsellPresentation {
             PremiumInlineUpsellCard(
                 presentation: presentation,
                 onPrimaryAction: {
@@ -230,7 +498,7 @@ struct ComposePanel: View {
                     }
                 },
                 onSecondaryAction: {
-                    model.dismissInlineUpsell()
+                    handleInlineUpsellSecondaryAction()
                 },
                 onDismiss: {
                     model.dismissInlineUpsell()
@@ -240,19 +508,29 @@ struct ComposePanel: View {
         }
     }
 
-    private var startRoutineBar: some View {
+    private func handleInlineUpsellSecondaryAction() {
+        guard model.activeInlineUpsell?.entryPoint.category == .preset,
+              model.isSignaturePreviewAvailable else {
+            model.dismissInlineUpsell()
+            return
+        }
+
+        model.startSignaturePreview()
+    }
+
+    private var startAmbienceBar: some View {
         VStack(spacing: 0) {
             Button {
-                startGuidedSuggestion(selectedSuggestion)
+                startSelectedAmbience()
             } label: {
-                Label(routineCTA.title, systemImage: routineCTA.systemImage)
+                Label(ambienceCTA.title, systemImage: ambienceCTA.systemImage)
                 .oasisFont(size: 15, weight: .bold, design: .default, relativeTo: .headline)
                 .frame(maxWidth: .infinity)
             }
-            .buttonStyle(ComposePrimaryButtonStyle(tint: selectedSuggestion.intent.tint))
-            .disabled(routineCTA.isDisabled)
-            .accessibilityIdentifier("compose.routine.start")
-            .animation(.smooth(duration: 0.20), value: selectedRoutineIsActive)
+            .buttonStyle(ComposePrimaryButtonStyle(palette: .launch))
+            .disabled(ambienceCTA.isDisabled)
+            .accessibilityIdentifier("compose.ambience.start")
+            .animation(.smooth(duration: 0.20), value: selectedAmbienceIsActive)
         }
         .padding(.horizontal, 20)
         .padding(.top, 10)
@@ -271,21 +549,21 @@ struct ComposePanel: View {
         }
     }
 
-    private func startGuidedSuggestion(_ suggestion: PromptSuggestion) {
-        let guidedRecipe = model.composeGuidedRoutine(suggestion.kind)
+    private func startSelectedAmbience() {
+        let recipe = selectedRecipe
 
-        if model.activeComposerRecipeTitle == guidedRecipe.title {
+        if selectedAmbienceIsActive {
             withAnimation(.smooth(duration: 0.24)) {
-                model.stopGuidedRoutine()
+                model.stopActiveAmbience()
                 dismiss()
             }
             return
         }
 
         withAnimation(.smooth(duration: 0.24)) {
-            let didApply = model.applyAmbienceRecipe(guidedRecipe)
+            let didApply = model.applyAmbienceRecipe(recipe)
             if didApply {
-                startingSuggestionID = suggestion.id
+                startingAmbienceID = selectedOption.id
                 Task {
                     try? await Task.sleep(nanoseconds: 420_000_000)
                     await MainActor.run {
@@ -296,96 +574,453 @@ struct ComposePanel: View {
         }
     }
 
-    private func seedSelectionFromActiveRoutine() {
-        guard !didSeedSelectionFromActiveRoutine else { return }
-        didSeedSelectionFromActiveRoutine = true
+    private func seedSelectionFromActiveAmbience() {
+        guard !didSeedSelectionFromActiveAmbience else { return }
+        didSeedSelectionFromActiveAmbience = true
 
         guard let activeTitle = model.activeComposerRecipeTitle else { return }
-        guard let activeSuggestion = PromptSuggestion.builtIns.first(where: { suggestion in
-            model.composeGuidedRoutine(suggestion.kind).title == activeTitle
+        guard let activeOption = ambienceOptions.first(where: { option in
+            guard case let .preset(id) = option.source else { return false }
+            return model.presets.first { $0.id == id }.map { model.presetDisplayName($0) == activeTitle } ?? false
         }) else { return }
 
-        selectedSuggestionID = activeSuggestion.id
+        selectedAmbienceID = activeOption.id
     }
 }
 
-private struct RoutineSelectorButton: View {
-    let suggestion: PromptSuggestion
+private struct AmbienceSelectorButton: View {
+    let option: AmbienceOption
     let isSelected: Bool
     let isLocked: Bool
+    let isEditable: Bool
+    let onEdit: () -> Void
     let onTap: () -> Void
 
     var body: some View {
-        Button(action: onTap) {
-            HStack(spacing: 8) {
-                OasisGlyphImage(glyph: suggestion.intent.oasisGlyph)
-                    .foregroundStyle(isSelected ? Color(red: 0.05, green: 0.06, blue: 0.09) : suggestion.intent.tint)
-                    .frame(width: 16, height: 16)
-                    .frame(width: 30, height: 30)
-                    .background {
-                        Circle()
-                            .fill(isSelected ? .white.opacity(0.90) : suggestion.intent.tint.opacity(0.13))
+        ZStack(alignment: .trailing) {
+            Button(action: onTap) {
+                ZStack {
+                    Image(option.backdrop.assetName)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: option.backdrop.focus.alignment)
+                        .saturation(0.86)
+                        .brightness(isSelected ? 0.01 : -0.045)
+                        .overlay {
+                            LinearGradient(
+                                colors: [
+                                    Color.black.opacity(0.14),
+                                    Color.black.opacity(isSelected ? 0.34 : 0.43)
+                                ],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        }
+
+                    HStack(spacing: 8) {
+                        Text(option.title)
+                            .oasisFont(size: 12, weight: .semibold, relativeTo: .subheadline)
+                            .foregroundStyle(.white)
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.76)
+                            .shadow(color: .black.opacity(0.96), radius: 14, x: 0, y: 7)
+                            .shadow(color: .black.opacity(0.86), radius: 4, x: 0, y: 2)
+
+                        Spacer(minLength: 0)
+
+                        if isLocked && !isEditable {
+                            Image(systemName: "lock.fill")
+                                .oasisFont(size: 9, weight: .bold, design: .default, relativeTo: .caption2)
+                                .foregroundStyle(Color(red: 0.96, green: 0.83, blue: 0.45).opacity(isSelected ? 0.96 : 0.72))
+                                .accessibilityHidden(true)
+                        }
                     }
-
-                Text(suggestion.title)
-                    .oasisFont(size: 12, weight: .semibold, relativeTo: .subheadline)
-                    .foregroundStyle(isSelected ? .white : .white.opacity(0.68))
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.76)
-
-                Spacer(minLength: 0)
-
-                if isLocked {
-                    Image(systemName: "lock.fill")
-                        .oasisFont(size: 9, weight: .bold, design: .default, relativeTo: .caption2)
-                        .foregroundStyle(Color(red: 0.96, green: 0.83, blue: 0.45).opacity(isSelected ? 0.96 : 0.72))
-                        .accessibilityHidden(true)
+                    .padding(.leading, 12)
+                    .padding(.trailing, isEditable ? 42 : 10)
+                }
+                .frame(height: 46)
+                .frame(maxWidth: .infinity)
+                .clipShape(Capsule(style: .continuous))
+                .overlay {
+                    Capsule(style: .continuous)
+                        .strokeBorder(
+                            isSelected ? option.intent.tint.opacity(0.42) : Color.white.opacity(0.07),
+                            lineWidth: 1
+                        )
                 }
             }
-            .padding(.leading, 8)
-            .padding(.trailing, 10)
-            .frame(height: 46)
-            .frame(maxWidth: .infinity)
-            .background {
-                Capsule(style: .continuous)
-                    .fill(Color.white.opacity(isSelected ? 0.105 : 0.040))
-                    .overlay {
-                        Capsule(style: .continuous)
-                            .fill(suggestion.intent.tint.opacity(isSelected ? 0.13 : 0.04))
-                    }
-            }
-            .overlay {
-                Capsule(style: .continuous)
-                    .strokeBorder(
-                        isSelected ? suggestion.intent.tint.opacity(0.42) : Color.white.opacity(0.07),
-                        lineWidth: 1
-                    )
+            .oasisMinimumHitTarget()
+            .buttonStyle(PressScaleButtonStyle())
+            .accessibilityElement(children: .combine)
+            .accessibilityAddTraits(isSelected ? .isSelected : [])
+            .accessibilityHint(Text(option.subtitle))
+            .accessibilityValue(isLocked ? Text(L10n.Compose.premium) : Text(L10n.Compose.free))
+            .accessibilityIdentifier("compose.ambience.\(option.id)")
+
+            if isEditable {
+                Button(action: onEdit) {
+                    Image(systemName: "pencil")
+                        .oasisFont(size: 10, weight: .bold, design: .default, relativeTo: .caption)
+                        .foregroundStyle(.white.opacity(0.92))
+                        .frame(width: 28, height: 28)
+                        .background {
+                            Circle()
+                                .fill(.black.opacity(0.30))
+                                .overlay {
+                                    Circle().fill(.white.opacity(0.06))
+                                }
+                        }
+                        .overlay {
+                            Circle().strokeBorder(.white.opacity(0.18), lineWidth: 1)
+                        }
+                }
+                .padding(.trailing, 9)
+                .buttonStyle(PressScaleButtonStyle())
+                .accessibilityLabel(Text(L10n.Presets.editSectionTitle))
+                .accessibilityIdentifier("compose.ambience.\(option.id).edit")
             }
         }
-        .oasisMinimumHitTarget()
-        .buttonStyle(PressScaleButtonStyle())
-        .accessibilityElement(children: .combine)
-        .accessibilityAddTraits(isSelected ? .isSelected : [])
-        .accessibilityHint(Text(suggestion.subtitle))
-        .accessibilityValue(isLocked ? Text(L10n.Compose.premium) : Text(L10n.Compose.free))
-        .accessibilityIdentifier("compose.guided.\(suggestion.id)")
+        .accessibilityElement(children: .contain)
     }
 }
 
-private struct RoutineDetailCard: View {
-    let suggestion: PromptSuggestion
+private struct AmbienceEditorSheet: View {
+    let title: LocalizedStringResource
+    let choices: [AmbienceBackdropChoice]
+    let canDelete: Bool
+    let onCancel: () -> Void
+    let onSave: (String, String?) -> Void
+    let onDelete: (() -> Void)?
+
+    @State private var ambienceName: String
+    @State private var selectedBackdropAssetName: String
+    @State private var isConfirmingDelete = false
+    @FocusState private var isNameFocused: Bool
+
+    private var trimmedAmbienceName: String {
+        ambienceName.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+
+    private var selectedBackdrop: SoundBackdrop {
+        AmbienceBackdropLibrary.backdrop(for: selectedBackdropAssetName)
+    }
+
+    init(
+        title: LocalizedStringResource,
+        initialName: String,
+        initialBackdropAssetName: String,
+        choices: [AmbienceBackdropChoice],
+        canDelete: Bool,
+        onCancel: @escaping () -> Void,
+        onSave: @escaping (String, String?) -> Void,
+        onDelete: (() -> Void)?
+    ) {
+        self.title = title
+        self.choices = choices
+        self.canDelete = canDelete
+        self.onCancel = onCancel
+        self.onSave = onSave
+        self.onDelete = onDelete
+        _ambienceName = State(initialValue: initialName)
+        _selectedBackdropAssetName = State(initialValue: initialBackdropAssetName)
+    }
+
+    var body: some View {
+        ZStack {
+            ComposePanelBackground()
+
+            VStack(spacing: 0) {
+                HStack(spacing: 14) {
+                    VStack(alignment: .leading, spacing: 5) {
+                        Text(title)
+                            .oasisFont(size: 28, weight: .semibold, relativeTo: .title)
+                            .foregroundStyle(.white)
+
+                        Text(L10n.Presets.saveSectionSubtitle)
+                            .oasisFont(size: 13, weight: .medium, relativeTo: .subheadline)
+                            .foregroundStyle(.white.opacity(0.58))
+                            .lineLimit(2)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+
+                    Spacer(minLength: 8)
+
+                    Button(action: onCancel) {
+                        Image(systemName: "xmark")
+                            .oasisFont(size: 13, weight: .bold, design: .default, relativeTo: .body)
+                            .foregroundStyle(.white.opacity(0.84))
+                            .frame(width: 36, height: 36)
+                            .background {
+                                Circle()
+                                    .fill(Color.white.opacity(0.001))
+                                    .oasisGlassEffect(in: Circle())
+                                    .overlay {
+                                        Circle().fill(Color.white.opacity(0.024))
+                                    }
+                            }
+                            .overlay {
+                                Circle().strokeBorder(Color.white.opacity(0.10), lineWidth: 1)
+                            }
+                    }
+                    .accessibilityLabel(Text(L10n.Presets.cancel))
+                    .oasisMinimumHitTarget()
+                    .buttonStyle(PressScaleButtonStyle())
+                }
+                .padding(.horizontal, 20)
+                .padding(.top, 20)
+                .padding(.bottom, 14)
+
+                ScrollView(showsIndicators: false) {
+                    VStack(alignment: .leading, spacing: 18) {
+                        previewCard
+                        nameField
+                        backgroundPicker
+
+                        if canDelete {
+                            deleteButton
+                        }
+                    }
+                    .padding(.horizontal, 20)
+                    .padding(.bottom, 112)
+                }
+                .scrollDismissesKeyboard(.interactively)
+
+                saveBar
+            }
+        }
+        .preferredColorScheme(.dark)
+        .confirmationDialog(
+            Text(L10n.Presets.confirmDeleteTitle),
+            isPresented: $isConfirmingDelete,
+            titleVisibility: .visible
+        ) {
+            Button(role: .destructive) {
+                onDelete?()
+            } label: {
+                Text(L10n.Presets.deleteAction)
+            }
+
+            Button(role: .cancel) {
+                isConfirmingDelete = false
+            } label: {
+                Text(L10n.Presets.cancel)
+            }
+        } message: {
+            Text(L10n.Presets.confirmDeleteMessage)
+        }
+        .onAppear {
+            isNameFocused = ambienceName.isEmpty
+        }
+        .accessibilityElement(children: .contain)
+        .accessibilityIdentifier("compose.ambience.editor")
+    }
+
+    private var previewCard: some View {
+        ZStack(alignment: .bottomLeading) {
+            Image(selectedBackdrop.assetName)
+                .resizable()
+                .scaledToFill()
+                .frame(maxWidth: .infinity, minHeight: 178, maxHeight: 178, alignment: selectedBackdrop.focus.alignment)
+                .saturation(0.88)
+                .brightness(-0.08)
+                .clipped()
+
+            LinearGradient(
+                colors: [
+                    Color.black.opacity(0.12),
+                    Color.black.opacity(0.18),
+                    Color.black.opacity(0.74)
+                ],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+
+            Group {
+                if trimmedAmbienceName.isEmpty {
+                    Text(L10n.Presets.namePrompt)
+                } else {
+                    Text(verbatim: trimmedAmbienceName)
+                }
+            }
+            .oasisFont(size: 30, weight: .semibold, relativeTo: .largeTitle)
+            .foregroundStyle(.white)
+            .lineLimit(2)
+            .minimumScaleFactor(0.72)
+            .shadow(color: .black.opacity(0.95), radius: 18, x: 0, y: 8)
+            .shadow(color: .black.opacity(0.80), radius: 4, x: 0, y: 2)
+            .padding(18)
+        }
+        .frame(height: 178)
+        .clipShape(RoundedRectangle(cornerRadius: 28, style: .continuous))
+        .overlay {
+            RoundedRectangle(cornerRadius: 28, style: .continuous)
+                .strokeBorder(Color.white.opacity(0.12), lineWidth: 1)
+        }
+    }
+
+    private var nameField: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text(L10n.Presets.namePrompt)
+                .oasisFont(size: 11, weight: .bold, relativeTo: .caption)
+                .foregroundStyle(.white.opacity(0.52))
+
+            TextField(L10n.string(L10n.Presets.namePrompt), text: $ambienceName)
+                .textInputAutocapitalization(.words)
+                .autocorrectionDisabled()
+                .focused($isNameFocused)
+                .oasisFont(size: 16, weight: .semibold, relativeTo: .body)
+                .foregroundStyle(.white)
+                .padding(.horizontal, 14)
+                .frame(height: 50)
+                .background {
+                    RoundedRectangle(cornerRadius: 20, style: .continuous)
+                        .fill(Color.white.opacity(0.070))
+                }
+                .overlay {
+                    RoundedRectangle(cornerRadius: 20, style: .continuous)
+                        .strokeBorder(Color.white.opacity(0.10), lineWidth: 1)
+                }
+                .accessibilityLabel(Text(L10n.Presets.nameFieldAccessibility))
+        }
+    }
+
+    private var backgroundPicker: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text(L10n.Compose.ambienceBackground)
+                .oasisFont(size: 11, weight: .bold, relativeTo: .caption)
+                .foregroundStyle(.white.opacity(0.52))
+
+            LazyVGrid(
+                columns: [
+                    GridItem(.flexible(), spacing: 9),
+                    GridItem(.flexible(), spacing: 9),
+                    GridItem(.flexible(), spacing: 9)
+                ],
+                spacing: 9
+            ) {
+                ForEach(Array(choices.enumerated()), id: \.element.id) { index, choice in
+                    Button {
+                        withAnimation(.smooth(duration: 0.18, extraBounce: 0.02)) {
+                            selectedBackdropAssetName = choice.id
+                        }
+                    } label: {
+                        AmbienceBackdropPickerTile(
+                            choice: choice,
+                            isSelected: choice.id == selectedBackdropAssetName
+                        )
+                    }
+                    .buttonStyle(PressScaleButtonStyle())
+                    .accessibilityLabel(Text("\(L10n.string(L10n.Compose.ambienceBackground)) \(index + 1)"))
+                    .accessibilityAddTraits(choice.id == selectedBackdropAssetName ? .isSelected : [])
+                }
+            }
+        }
+    }
+
+    private var deleteButton: some View {
+        Button(role: .destructive) {
+            isConfirmingDelete = true
+        } label: {
+            Text(L10n.Presets.deleteAction)
+                .oasisFont(size: 13, weight: .bold, relativeTo: .subheadline)
+                .foregroundStyle(Color(red: 0.98, green: 0.48, blue: 0.46))
+                .frame(maxWidth: .infinity)
+                .frame(height: 46)
+                .background {
+                    RoundedRectangle(cornerRadius: 20, style: .continuous)
+                        .fill(Color(red: 0.98, green: 0.22, blue: 0.20).opacity(0.10))
+                }
+                .overlay {
+                    RoundedRectangle(cornerRadius: 20, style: .continuous)
+                        .strokeBorder(Color(red: 0.98, green: 0.48, blue: 0.46).opacity(0.20), lineWidth: 1)
+                }
+        }
+        .buttonStyle(PressScaleButtonStyle())
+    }
+
+    private var saveBar: some View {
+        VStack(spacing: 0) {
+            Button {
+                onSave(trimmedAmbienceName, selectedBackdropAssetName)
+            } label: {
+                Text(L10n.Presets.saveAction)
+                    .oasisFont(size: 15, weight: .bold, relativeTo: .headline)
+                    .frame(maxWidth: .infinity)
+            }
+            .buttonStyle(ComposePrimaryButtonStyle(palette: .save))
+            .disabled(trimmedAmbienceName.isEmpty)
+        }
+        .padding(.horizontal, 20)
+        .padding(.top, 10)
+        .padding(.bottom, 16)
+        .background {
+            LinearGradient(
+                colors: [
+                    Color(red: 0.020, green: 0.030, blue: 0.065).opacity(0),
+                    Color(red: 0.020, green: 0.030, blue: 0.065).opacity(0.84),
+                    Color(red: 0.020, green: 0.030, blue: 0.065)
+                ],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            .ignoresSafeArea(edges: .bottom)
+        }
+    }
+}
+
+private struct AmbienceBackdropPickerTile: View {
+    let choice: AmbienceBackdropChoice
+    let isSelected: Bool
+
+    private let shape = RoundedRectangle(cornerRadius: 18, style: .continuous)
+
+    var body: some View {
+        GeometryReader { proxy in
+            ZStack {
+                shape
+                    .fill(Color.white.opacity(0.055))
+
+                Image(choice.backdrop.assetName)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(
+                        width: proxy.size.width,
+                        height: proxy.size.height,
+                        alignment: choice.backdrop.focus.alignment
+                    )
+                    .saturation(0.88)
+                    .brightness(-0.04)
+
+                shape
+                    .fill(isSelected ? Color.white.opacity(0.08) : Color.black.opacity(0.10))
+            }
+            .clipShape(shape)
+            .overlay {
+                shape.strokeBorder(
+                    isSelected ? .white.opacity(0.86) : .white.opacity(0.10),
+                    lineWidth: isSelected ? 2 : 1
+                )
+            }
+        }
+        .frame(maxWidth: .infinity)
+        .frame(height: 72)
+    }
+}
+
+private struct AmbienceDetailCard: View {
+    let option: AmbienceOption
     let recipe: AmbienceRecipe
     let isLocked: Bool
 
-    private var planRows: [RoutinePlanRow] {
-        var rows: [RoutinePlanRow] = []
+    private var planRows: [AmbiencePlanRow] {
+        var rows: [AmbiencePlanRow] = []
 
         let ambience = compactLayerList(recipe.activeChannels.map(\.localizedName), visibleLimit: 4)
         if !ambience.isEmpty {
             rows.append(
-                RoutinePlanRow(
+                AmbiencePlanRow(
                     id: "ambience",
-                    title: L10n.Compose.routineLayerAmbience,
+                    title: L10n.Compose.ambienceLayerAmbience,
                     value: ambience,
                     glyph: .waveform,
                     tint: recipe.intent.tint
@@ -400,9 +1035,9 @@ private struct RoutineDetailCard: View {
         let mask = compactLayerList(maskParts, visibleLimit: 3)
         if !mask.isEmpty {
             rows.append(
-                RoutinePlanRow(
+                AmbiencePlanRow(
                     id: "mask",
-                    title: L10n.Compose.routineLayerMask,
+                    title: L10n.Compose.ambienceLayerMask,
                     value: mask,
                     glyph: .shieldCheck,
                     tint: maskTint
@@ -432,11 +1067,11 @@ private struct RoutineDetailCard: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             ZStack(alignment: .bottomLeading) {
-                OrganicBackdropImage(backdrop: suggestion.backdrop, opacity: 1, bottomShadeOpacity: 0.42)
+                OrganicBackdropImage(backdrop: option.backdrop, opacity: 1, bottomShadeOpacity: 0.42)
 
                 LinearGradient(
                     colors: [
-                        suggestion.intent.tint.opacity(0.26),
+                        option.intent.tint.opacity(0.26),
                         Color.black.opacity(0.06),
                         Color.black.opacity(0.72)
                     ],
@@ -444,7 +1079,7 @@ private struct RoutineDetailCard: View {
                     endPoint: .bottomTrailing
                 )
 
-                RoutineSpatialPreview(recipe: recipe)
+                AmbienceSpatialPreview(recipe: recipe)
                     .padding(.top, 18)
                     .padding(.trailing, 18)
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
@@ -452,10 +1087,10 @@ private struct RoutineDetailCard: View {
                 VStack(alignment: .leading, spacing: 13) {
                     HStack(spacing: 8) {
                         HStack(spacing: 6) {
-                            OasisGlyphImage(glyph: suggestion.intent.oasisGlyph)
+                            OasisGlyphImage(glyph: option.intent.oasisGlyph)
                                 .frame(width: 13, height: 13)
 
-                            Text(verbatim: suggestion.intent.title)
+                            Text(verbatim: option.intent.title)
                                 .oasisFont(size: 11, weight: .bold, design: .default, relativeTo: .caption)
                                 .lineLimit(1)
                         }
@@ -481,7 +1116,7 @@ private struct RoutineDetailCard: View {
                         }
 
                         if let timerMinutes = recipe.timerMinutes {
-                            Text("\(L10n.string(L10n.Compose.routineLayerEnd)) · \(L10n.timerOptionLabel(minutes: timerMinutes))")
+                            Text("\(L10n.string(L10n.Compose.ambienceLayerEnd)) · \(L10n.timerOptionLabel(minutes: timerMinutes))")
                                 .oasisFont(size: 11, weight: .bold, relativeTo: .caption)
                                 .foregroundStyle(.white.opacity(0.92))
                                 .lineLimit(1)
@@ -522,12 +1157,12 @@ private struct RoutineDetailCard: View {
 
             VStack(alignment: .leading, spacing: 12) {
                 VStack(alignment: .leading, spacing: 5) {
-                    Text(L10n.Compose.routinePlan)
+                    Text(L10n.Compose.ambiencePlan)
                         .oasisFont(size: 16, weight: .semibold, relativeTo: .headline)
                         .foregroundStyle(.white.opacity(0.96))
-                        .accessibilityIdentifier("compose.routine.plan")
+                        .accessibilityIdentifier("compose.ambience.plan")
 
-                    Text(L10n.Compose.routineContext)
+                    Text(L10n.Compose.ambienceContext)
                         .oasisFont(size: 12, weight: .medium, relativeTo: .subheadline)
                         .foregroundStyle(.white.opacity(0.62))
                         .lineLimit(2)
@@ -536,7 +1171,7 @@ private struct RoutineDetailCard: View {
 
                 VStack(spacing: 9) {
                     ForEach(planRows) { row in
-                        RoutinePlanRowView(row: row)
+                        AmbiencePlanRowView(row: row)
                     }
                 }
             }
@@ -546,7 +1181,7 @@ private struct RoutineDetailCard: View {
                     .overlay {
                         LinearGradient(
                             colors: [
-                                suggestion.intent.tint.opacity(0.15),
+                                option.intent.tint.opacity(0.15),
                                 Color.white.opacity(0.020)
                             ],
                             startPoint: .topLeading,
@@ -560,13 +1195,13 @@ private struct RoutineDetailCard: View {
             RoundedRectangle(cornerRadius: 28, style: .continuous)
                 .strokeBorder(Color.white.opacity(0.12), lineWidth: 1)
         }
-        .shadow(color: suggestion.intent.tint.opacity(0.18), radius: 24, y: 14)
+        .shadow(color: option.intent.tint.opacity(0.18), radius: 24, y: 14)
         .accessibilityElement(children: .contain)
-        .accessibilityIdentifier("compose.routine.detail")
+        .accessibilityIdentifier("compose.ambience.detail")
     }
 }
 
-private struct RoutineSpatialPreview: View {
+private struct AmbienceSpatialPreview: View {
     let recipe: AmbienceRecipe
 
     private var previewChannels: [(channel: SoundChannel, state: ChannelState)] {
@@ -713,7 +1348,7 @@ private struct RoutineSpatialPreview: View {
     }
 }
 
-private struct RoutinePlanRow: Identifiable {
+private struct AmbiencePlanRow: Identifiable {
     let id: String
     let title: LocalizedStringResource
     let value: String
@@ -721,8 +1356,8 @@ private struct RoutinePlanRow: Identifiable {
     let tint: Color
 }
 
-private struct RoutinePlanRowView: View {
-    let row: RoutinePlanRow
+private struct AmbiencePlanRowView: View {
+    let row: AmbiencePlanRow
 
     var body: some View {
         HStack(spacing: 10) {
@@ -825,10 +1460,36 @@ private struct ComposePanelBackground: View {
     }
 }
 
+private enum ComposeCTAStyle {
+    enum Palette {
+        case save
+        case launch
+
+        var primary: Color {
+            switch self {
+            case .save:
+                return Color(red: 0.80, green: 0.70, blue: 0.98)
+            case .launch:
+                return Color(red: 0.68, green: 0.94, blue: 0.78)
+            }
+        }
+
+        var secondary: Color {
+            switch self {
+            case .save:
+                return Color(red: 0.54, green: 0.82, blue: 0.95)
+            case .launch:
+                return Color(red: 0.94, green: 0.82, blue: 0.52)
+            }
+        }
+    }
+
+    static let save = Palette.save
+}
+
 private struct ComposePrimaryButtonStyle: ButtonStyle {
     @Environment(\.isEnabled) private var isEnabled
-
-    let tint: Color
+    let palette: ComposeCTAStyle.Palette
 
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
@@ -841,8 +1502,8 @@ private struct ComposePrimaryButtonStyle: ButtonStyle {
                     .fill(
                         LinearGradient(
                             colors: [
-                                tint.opacity(isEnabled ? 0.98 : 0.44),
-                                tint.opacity(isEnabled ? 0.74 : 0.30)
+                                palette.primary.opacity(isEnabled ? 0.98 : 0.44),
+                                palette.secondary.opacity(isEnabled ? 0.84 : 0.30)
                             ],
                             startPoint: .topLeading,
                             endPoint: .bottomTrailing

@@ -6,22 +6,26 @@ final class OasisNativePremiumFlowTests: XCTestCase {
         continueAfterFailure = false
     }
 
-    func testLockedPresetShowsInlineUpsellBeforePaywall() throws {
+    func testLockedSavedAmbienceShowsInlineUpsellBeforePaywall() throws {
         let app = makeApp()
         app.launch()
 
-        let presetsButton = button(in: app, id: "home.bottom.presets")
-        waitForHittable(presetsButton)
-        presetsButton.tap()
+        let ambiencesButton = button(in: app, id: "home.bottom.compose")
+        waitForHittable(ambiencesButton)
+        ambiencesButton.tap()
 
-        let presetsPanel = app.otherElements["panel.presets.container"]
-        waitForExistence(of: presetsPanel)
+        let ambiencesPanel = app.otherElements["panel.compose.container"]
+        waitForExistence(of: ambiencesPanel)
 
-        let lockedPreset = app.buttons["presets.row.button.preset_default_storm"]
-        waitForExistence(of: lockedPreset)
-        lockedPreset.tap()
+        let lockedAmbience = app.buttons["compose.ambience.preset_default_storm"]
+        waitForExistence(of: lockedAmbience)
+        lockedAmbience.tap()
 
-        let inlineUpsell = app.otherElements["premium.inline.preset"]
+        let startAmbience = app.buttons["compose.ambience.start"]
+        waitForHittable(startAmbience)
+        startAmbience.tap()
+
+        let inlineUpsell = app.otherElements["premium.inline.composer"]
         waitForExistence(of: inlineUpsell)
         XCTAssertFalse(app.buttons["premium.paywall.close"].exists)
 
@@ -30,6 +34,26 @@ final class OasisNativePremiumFlowTests: XCTestCase {
         primaryCTA.tap()
 
         waitForPaywall(in: app)
+    }
+
+    func testSavingAmbienceRequiresPremiumForFreeUsers() throws {
+        let app = makeApp()
+        app.launch()
+
+        let ambiencesButton = button(in: app, id: "home.bottom.compose")
+        waitForHittable(ambiencesButton)
+        ambiencesButton.tap()
+
+        let ambiencesPanel = app.otherElements["panel.compose.container"]
+        waitForExistence(of: ambiencesPanel)
+
+        let saveButton = app.buttons["compose.ambience.save"]
+        waitForHittable(saveButton)
+        saveButton.tap()
+
+        waitForExistence(of: app.otherElements["premium.inline.preset"])
+        XCTAssertFalse(app.otherElements["compose.ambience.editor"].exists)
+        XCTAssertFalse(app.buttons["premium.paywall.close"].exists)
     }
 
     func testLockedBinauralTrackKeepsPanelOpen() throws {
@@ -86,7 +110,7 @@ final class OasisNativePremiumFlowTests: XCTestCase {
         waitForPaywall(in: app)
     }
 
-    func testGuidedRoutineStartsLocalizedMixAndKeepsMixerClean() throws {
+    func testSavedAmbienceStartsLocalizedMixAndKeepsMixerClean() throws {
         let app = makeComposerApp()
         app.launch()
 
@@ -96,26 +120,25 @@ final class OasisNativePremiumFlowTests: XCTestCase {
 
         let panel = app.otherElements["panel.compose.container"]
         waitForExistence(of: panel)
-        waitForExistence(of: app.staticTexts["Routines"])
-        waitForExistence(of: app.staticTexts["Choisissez un besoin, voyez le mix, puis lancez-le."])
-        waitForExistence(of: app.staticTexts["Sieste courte"])
+        waitForExistence(of: app.staticTexts["Mes ambiances"])
+        waitForExistence(of: app.staticTexts["Sauvegardez, lancez et façonnez vos ambiances préférées."])
+        waitForExistence(of: app.staticTexts["Brise marine"])
         waitForExistence(of: app.staticTexts["Ce qui va se passer"])
-        waitForExistence(of: app.staticTexts["Oasis combine ces couches et lance une routine claire."])
+        waitForExistence(of: app.staticTexts["Oasis combine ces couches et lance une ambiance claire."])
         waitForExistence(of: app.staticTexts["Décor sonore"])
-        waitForExistence(of: app.staticTexts["Bruit de fond"])
         waitForExistence(of: app.staticTexts.matching(NSPredicate(format: "label CONTAINS %@", "Fin douce")).firstMatch)
 
-        let startRoutine = app.buttons["compose.routine.start"]
-        waitForHittable(startRoutine)
-        startRoutine.tap()
+        let startAmbience = app.buttons["compose.ambience.start"]
+        waitForHittable(startAmbience)
+        startAmbience.tap()
 
         waitForNonExistence(of: panel)
         XCTAssertEqual(button(in: app, id: "home.bottom.playback").label, "Pause")
-        let routineStatus = element(in: app, id: "home.routine.status")
-        waitForExistence(of: routineStatus)
-        XCTAssertTrue(routineStatus.label.contains("Routine active"))
-        waitForExistence(of: button(in: app, id: "home.routine.stop"))
-        waitForExistence(of: element(in: app, id: "home.routine.rest-cue"))
+        let ambienceStatus = element(in: app, id: "home.ambience.status")
+        waitForExistence(of: ambienceStatus)
+        XCTAssertTrue(ambienceStatus.label.contains("Ambiance active"))
+        waitForExistence(of: button(in: app, id: "home.ambience.stop"))
+        waitForExistence(of: element(in: app, id: "home.ambience.rest-cue"))
         XCTAssertFalse(app.buttons["home.header.active-filter"].exists)
         XCTAssertFalse(app.buttons["home.bottom.compose"].exists)
         XCTAssertFalse(app.buttons["home.bottom.presets"].exists)
@@ -128,7 +151,7 @@ final class OasisNativePremiumFlowTests: XCTestCase {
         waitForExistence(of: app.staticTexts["Plage"])
     }
 
-    func testGuidedRoutineCanBeReplacedInTwoTaps() throws {
+    func testSavedAmbienceCanBeReplacedInTwoTaps() throws {
         let app = makeComposerApp()
         app.launch()
 
@@ -136,90 +159,38 @@ final class OasisNativePremiumFlowTests: XCTestCase {
         waitForHittable(composeButton)
         composeButton.tap()
 
-        let resetRoutine = app.buttons["compose.guided.reset"]
-        waitForHittable(resetRoutine)
-        resetRoutine.tap()
-
-        let startRoutine = app.buttons["compose.routine.start"]
-        waitForHittable(startRoutine)
-        startRoutine.tap()
+        let startAmbience = app.buttons["compose.ambience.start"]
+        waitForHittable(startAmbience)
+        startAmbience.tap()
 
         waitForNonExistence(of: app.otherElements["panel.compose.container"])
         XCTAssertEqual(button(in: app, id: "home.bottom.playback").label, "Pause")
 
-        let routineStatus = element(in: app, id: "home.routine.status")
-        tapElementReliably(routineStatus)
+        let ambienceStatus = element(in: app, id: "home.ambience.status")
+        tapElementReliably(ambienceStatus)
 
         let reopenedPanel = app.otherElements["panel.compose.container"]
         waitForExistence(of: reopenedPanel)
-        waitForExistence(of: startRoutine)
+        waitForExistence(of: startAmbience)
         XCTAssertTrue(
-            startRoutine.label.contains("Stopper la routine"),
-            "Expected stop routine CTA, got: \(startRoutine.label)"
+            startAmbience.label.contains("Stopper l’ambiance"),
+            "Expected stop ambience CTA, got: \(startAmbience.label)"
         )
 
-        let napRoutine = app.buttons["compose.guided.nap"]
-        waitForHittable(napRoutine)
-        napRoutine.tap()
+        let calmAmbience = app.buttons["compose.ambience.preset_default_calm"]
+        waitForHittable(calmAmbience)
+        calmAmbience.tap()
 
-        waitForHittable(startRoutine)
+        waitForHittable(startAmbience)
         XCTAssertTrue(
-            startRoutine.label.contains("Remplacer la routine"),
-            "Expected replace routine CTA, got: \(startRoutine.label)"
+            startAmbience.label.contains("Remplacer l’ambiance"),
+            "Expected replace ambience CTA, got: \(startAmbience.label)"
         )
-        startRoutine.tap()
+        startAmbience.tap()
 
         waitForNonExistence(of: app.otherElements["panel.compose.container"])
         XCTAssertEqual(button(in: app, id: "home.bottom.playback").label, "Pause")
         waitForNonExistence(of: app.buttons["home.active.scene"], timeout: 3)
-    }
-
-    func testPremiumGuidedRoutineShowsUpsellForFreeUsers() throws {
-        let app = makeComposerApp()
-        app.launch()
-
-        let composeButton = button(in: app, id: "home.bottom.compose")
-        waitForHittable(composeButton)
-        composeButton.tap()
-
-        let deepSleepRoutine = app.buttons["compose.guided.deepSleep"]
-        waitForHittable(deepSleepRoutine)
-        deepSleepRoutine.tap()
-
-        let startRoutine = app.buttons["compose.routine.start"]
-        waitForHittable(startRoutine)
-        XCTAssertTrue(
-            startRoutine.label.contains("Premium"),
-            "Expected premium CTA, got: \(startRoutine.label)"
-        )
-        startRoutine.tap()
-
-        waitForExistence(of: app.otherElements["premium.inline.composer"])
-        XCTAssertTrue(app.otherElements["panel.compose.container"].exists)
-        XCTAssertFalse(app.buttons["premium.paywall.close"].exists)
-    }
-
-    func testPremiumGuidedRoutineSummarizesExtraLayers() throws {
-        let app = makePremiumComposerApp()
-        app.launch()
-
-        let composeButton = button(in: app, id: "home.bottom.compose")
-        waitForHittable(composeButton)
-        composeButton.tap()
-
-        waitForExistence(of: app.otherElements["panel.compose.container"])
-        let deepSleepRoutine = app.buttons["compose.guided.deepSleep"]
-        waitForHittable(deepSleepRoutine)
-        deepSleepRoutine.tap()
-        waitForExistence(of: app.staticTexts.matching(NSPredicate(format: "label CONTAINS %@", "+2")).firstMatch)
-
-        let startRoutine = app.buttons["compose.routine.start"]
-        waitForHittable(startRoutine)
-        startRoutine.tap()
-
-        waitForNonExistence(of: app.otherElements["panel.compose.container"])
-        waitForExistence(of: element(in: app, id: "home.routine.status"))
-        waitForExistence(of: element(in: app, id: "home.routine.supporting-layers"))
     }
 
     private func makeApp() -> XCUIApplication {

@@ -6,7 +6,6 @@ struct MixerBoardSectionView: View {
     let onOpenSpatial: (SoundChannel) -> Void
     let onOpenDetail: (SoundChannel) -> Void
     @State private var showsLockedLibrary = false
-    private let guidedRoutineVisibleChannelLimit = 5
 
     private var displayedChannels: [SoundChannel] {
         if model.isPremium {
@@ -30,51 +29,35 @@ struct MixerBoardSectionView: View {
     private var shouldShowLibraryTeaser: Bool {
         !model.isPremium
             && model.activeRitualSession == nil
-            && !hasGuidedScene
+            && !hasFocusedListeningScene
     }
 
-    private var hasGuidedScene: Bool {
+    private var hasFocusedListeningScene: Bool {
         guard model.activeRitualSession == nil else { return false }
         return model.activeComposerRecipeTitle != nil || model.activeProceduralNoiseCount > 0
     }
 
-    private var hasGuidedRoutine: Bool {
+    private var hasActiveAmbience: Bool {
         guard model.activeRitualSession == nil else { return false }
         return model.activeComposerRecipeTitle != nil
     }
 
-    private var channelsBeforeActiveScene: [SoundChannel] {
-        guard hasGuidedScene else { return displayedChannels }
-        if hasGuidedRoutine {
-            return Array(guidedRoutineActiveChannels.prefix(guidedRoutineVisibleChannelLimit))
-        }
+    private var visibleChannels: [SoundChannel] {
+        guard hasActiveAmbience else { return displayedChannels }
         return displayedChannels.filter(model.isAmbientChannelActive(_:))
     }
 
-    private var channelsAfterActiveScene: [SoundChannel] {
-        guard hasGuidedScene else { return [] }
-        guard !hasGuidedRoutine else { return [] }
-        let promotedChannels = Set(channelsBeforeActiveScene)
-        return displayedChannels.filter { !promotedChannels.contains($0) }
-    }
-
-    private var guidedRoutineSupportingChannels: [SoundChannel] {
-        guard hasGuidedRoutine else { return [] }
-        return Array(guidedRoutineActiveChannels.dropFirst(guidedRoutineVisibleChannelLimit))
-    }
-
-    private var guidedRoutineActiveChannels: [SoundChannel] {
+    private var activeAmbienceChannels: [SoundChannel] {
         SoundChannel.allCases.filter(model.isAmbientChannelActive(_:))
     }
 
-    private var shouldShowRoutineRestCue: Bool {
-        hasGuidedRoutine
-            && guidedRoutineSupportingChannels.isEmpty
-            && channelsBeforeActiveScene.count <= 4
+    private var shouldShowAmbienceRestCue: Bool {
+        hasActiveAmbience
+            && visibleChannels.count <= 4
     }
 
     private var displayedNoises: [ProceduralNoise] {
-        if hasGuidedRoutine || model.activeRitualSession != nil {
+        if hasActiveAmbience || model.activeRitualSession != nil {
             return ProceduralNoise.allCases.filter(model.isProceduralNoiseActive(_:))
         }
 
@@ -97,22 +80,7 @@ struct MixerBoardSectionView: View {
 
     var body: some View {
         LazyVStack(spacing: 8) {
-            ForEach(channelsBeforeActiveScene) { channel in
-                SoundRowView(
-                    channel: channel,
-                    onOpenSpatial: onOpenSpatial,
-                    onOpenDetail: onOpenDetail
-                )
-            }
-
-            if !guidedRoutineSupportingChannels.isEmpty {
-                GuidedRoutineSupportingLayersView(channels: guidedRoutineSupportingChannels)
-                    .padding(.top, 4)
-                    .padding(.horizontal, 14)
-                    .padding(.bottom, 12)
-            }
-
-            ForEach(channelsAfterActiveScene) { channel in
+            ForEach(visibleChannels) { channel in
                 SoundRowView(
                     channel: channel,
                     onOpenSpatial: onOpenSpatial,
@@ -130,8 +98,8 @@ struct MixerBoardSectionView: View {
                 }
             }
 
-            if shouldShowRoutineRestCue {
-                GuidedRoutineRestCue()
+            if shouldShowAmbienceRestCue {
+                ActiveAmbienceRestCue()
                     .padding(.top, 18)
                     .padding(.horizontal, 24)
                     .padding(.bottom, 104)
@@ -186,94 +154,7 @@ private struct ProceduralNoiseSectionHeader: View {
     }
 }
 
-private struct GuidedRoutineSupportingLayersView: View {
-    let channels: [SoundChannel]
-
-    private var title: String {
-        channels.prefix(3).map(\.localizedName).joined(separator: ", ")
-    }
-
-    private var hiddenCount: Int {
-        max(channels.count - 3, 0)
-    }
-
-    private var accent: Color {
-        channels.first?.tint ?? AmbienceIntent.sleep.tint
-    }
-
-    var body: some View {
-        HStack(spacing: 10) {
-            HStack(spacing: -5) {
-                ForEach(Array(channels.prefix(3))) { channel in
-                    OasisGlyphImage(glyph: channel.oasisGlyph)
-                        .foregroundStyle(channel.tint)
-                        .frame(width: 13, height: 13)
-                        .frame(width: 24, height: 24)
-                        .background {
-                            Circle()
-                                .fill(Color(red: 0.04, green: 0.055, blue: 0.085))
-                        }
-                        .overlay {
-                            Circle()
-                                .strokeBorder(channel.tint.opacity(0.28), lineWidth: 1)
-                        }
-                }
-            }
-            .accessibilityHidden(true)
-
-            VStack(alignment: .leading, spacing: 2) {
-                Text(L10n.HomeActive.routineSupportingLayers)
-                    .oasisFont(size: 10, weight: .bold, relativeTo: .caption2)
-                    .foregroundStyle(.white.opacity(0.42))
-                    .lineLimit(1)
-
-                Text(title)
-                    .oasisFont(size: 12, weight: .semibold, relativeTo: .subheadline)
-                    .foregroundStyle(.white.opacity(0.78))
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.80)
-            }
-
-            Spacer(minLength: 0)
-
-            if hiddenCount > 0 {
-                Text("+\(hiddenCount)")
-                    .oasisFont(size: 11, weight: .bold, relativeTo: .caption)
-                    .foregroundStyle(accent)
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 5)
-                    .background {
-                        Capsule(style: .continuous)
-                            .fill(accent.opacity(0.12))
-                    }
-            }
-        }
-        .padding(.horizontal, 12)
-        .padding(.vertical, 9)
-        .background {
-            Capsule(style: .continuous)
-                .fill(Color.white.opacity(0.045))
-                .overlay {
-                    LinearGradient(
-                        colors: [
-                            accent.opacity(0.10),
-                            Color.white.opacity(0.010)
-                        ],
-                        startPoint: .leading,
-                        endPoint: .trailing
-                    )
-                }
-        }
-        .overlay {
-            Capsule(style: .continuous)
-                .strokeBorder(Color.white.opacity(0.075), lineWidth: 1)
-        }
-        .accessibilityElement(children: .combine)
-        .accessibilityIdentifier("home.routine.supporting-layers")
-    }
-}
-
-private struct GuidedRoutineRestCue: View {
+private struct ActiveAmbienceRestCue: View {
     @Environment(AppModel.self) private var model
 
     private var palette: [Color] {
@@ -297,14 +178,14 @@ private struct GuidedRoutineRestCue: View {
             .accessibilityHidden(true)
 
             VStack(spacing: 4) {
-                Text(L10n.HomeActive.routineRestTitle)
+                Text(L10n.HomeActive.ambienceRestTitle)
                     .oasisFont(size: 14, weight: .semibold, relativeTo: .subheadline)
                     .foregroundStyle(.white.opacity(0.86))
                     .multilineTextAlignment(.center)
                     .lineLimit(1)
                     .minimumScaleFactor(0.84)
 
-                Text(L10n.HomeActive.routineRestSubtitle)
+                Text(L10n.HomeActive.ambienceRestSubtitle)
                     .oasisFont(size: 11, weight: .medium, relativeTo: .caption)
                     .foregroundStyle(.white.opacity(0.46))
                     .multilineTextAlignment(.center)
@@ -328,7 +209,7 @@ private struct GuidedRoutineRestCue: View {
             .accessibilityHidden(true)
         }
         .accessibilityElement(children: .combine)
-        .accessibilityIdentifier("home.routine.rest-cue")
+        .accessibilityIdentifier("home.ambience.rest-cue")
     }
 }
 
@@ -342,6 +223,10 @@ private struct ProceduralNoiseRowView: View {
 
     private var isLocked: Bool {
         model.isProceduralNoiseLocked(noise)
+    }
+
+    private var controlsAreLocked: Bool {
+        model.isAmbiencePlaybackLocked
     }
 
     private var isActive: Bool {
@@ -429,11 +314,13 @@ private struct ProceduralNoiseRowView: View {
                 ),
                 tint: noise.tint
             )
-            .disabled(isLocked || state.isMuted)
+            .disabled(controlsAreLocked || isLocked || state.isMuted)
             .opacity(sliderOpacity)
             .accessibilityIdentifier("noise.slider.\(noise.id)")
             .accessibilityLabel(Text(L10n.NoiseLab.volume))
         }
+        .opacity(controlsAreLocked ? 0.48 : 1)
+        .animation(.easeInOut(duration: 0.18), value: controlsAreLocked)
     }
 
     private var toggleButton: some View {
@@ -474,6 +361,7 @@ private struct ProceduralNoiseRowView: View {
         }
         .oasisMinimumHitTarget()
         .buttonStyle(PressScaleButtonStyle())
+        .disabled(controlsAreLocked)
         .accessibilityIdentifier("noise.mute.\(noise.id)")
         .accessibilityLabel(Text(title))
         .accessibilityValue(toggleAccessibilityValue)
@@ -509,12 +397,16 @@ private struct ProceduralNoiseRowView: View {
     }
 
     private var sliderOpacity: Double {
+        if controlsAreLocked { return 0.34 }
         if isLocked { return 0.28 }
         if state.isMuted { return 0.24 }
         return 1
     }
 
     private var toggleAccessibilityValue: Text {
+        if controlsAreLocked {
+            return Text(L10n.Mixer.disabled)
+        }
         if isLocked {
             return Text(L10n.Mixer.locked)
         }
@@ -536,6 +428,10 @@ struct SoundRowView: View {
         model.isChannelLocked(channel)
     }
 
+    private var controlsAreLocked: Bool {
+        model.isAmbiencePlaybackLocked
+    }
+
     private var isAutoAnimating: Bool {
         !isLocked && state.autoVariationEnabled
     }
@@ -548,7 +444,7 @@ struct SoundRowView: View {
         !state.spatialPosition.isCentered
     }
 
-    private var usesGuidedListeningChrome: Bool {
+    private var usesFocusedListeningChrome: Bool {
         model.activeRitualSession == nil
             && model.activeComposerRecipeTitle != nil
             && isActive
@@ -666,7 +562,7 @@ struct SoundRowView: View {
                         liveValue: model.displayVolume(for: channel),
                         tint: channel.tint
                     )
-                    .disabled(isLocked || state.isMuted)
+                    .disabled(controlsAreLocked || isLocked || state.isMuted)
                     .accessibilityIdentifier("channel.slider.\(channel.id)")
                     .accessibilityLabel(Text(L10n.Mixer.autoRange))
                     .accessibilityHint(Text(L10n.Mixer.autoRangeHint))
@@ -678,7 +574,7 @@ struct SoundRowView: View {
                         ),
                         tint: channel.tint
                     )
-                    .disabled(isLocked || state.isMuted || state.autoVariationEnabled)
+                    .disabled(controlsAreLocked || isLocked || state.isMuted || state.autoVariationEnabled)
                     .accessibilityIdentifier("channel.slider.\(channel.id)")
                     .accessibilityLabel(Text(L10n.Mixer.volume))
                 }
@@ -686,12 +582,14 @@ struct SoundRowView: View {
             .frame(maxWidth: .infinity)
             .opacity(sliderOpacity)
 
-            if !usesGuidedListeningChrome {
+            if !usesFocusedListeningChrome {
                 spatialButton
 
                 autoButton
             }
         }
+        .opacity(controlsAreLocked ? 0.48 : 1)
+        .animation(.easeInOut(duration: 0.18), value: controlsAreLocked)
     }
 
     private var muteButton: some View {
@@ -731,6 +629,7 @@ struct SoundRowView: View {
         }
         .oasisMinimumHitTarget()
         .buttonStyle(PressScaleButtonStyle())
+        .disabled(controlsAreLocked)
         .accessibilityIdentifier("channel.mute.\(channel.id)")
         .accessibilityLabel(Text(channel.localizedName))
         .accessibilityValue(muteAccessibilityValue)
@@ -770,6 +669,7 @@ struct SoundRowView: View {
         }
         .oasisMinimumHitTarget()
         .buttonStyle(PressScaleButtonStyle())
+        .disabled(controlsAreLocked)
         .accessibilityIdentifier("channel.spatial.\(channel.id)")
         .accessibilityLabel(Text(L10n.Mixer.soundPlacement))
         .accessibilityHint(Text(L10n.Mixer.soundPlacementHint))
@@ -811,6 +711,7 @@ struct SoundRowView: View {
         }
         .oasisMinimumHitTarget()
         .buttonStyle(PressScaleButtonStyle())
+        .disabled(controlsAreLocked)
         .accessibilityIdentifier("channel.auto.\(channel.id)")
         .accessibilityLabel(Text(L10n.Mixer.autoVariation))
         .accessibilityValue(Text(state.autoVariationEnabled ? L10n.Mixer.enabled : L10n.Mixer.disabled))
@@ -844,6 +745,7 @@ struct SoundRowView: View {
     }
 
     private var sliderOpacity: Double {
+        if controlsAreLocked { return 0.34 }
         if isLocked { return 0.28 }
         if state.isMuted { return 0.24 }
         if isAutoAnimating { return 1 }
@@ -885,6 +787,9 @@ struct SoundRowView: View {
     }
 
     private var muteAccessibilityValue: Text {
+        if controlsAreLocked {
+            return Text(L10n.Mixer.disabled)
+        }
         if isLocked {
             return Text(L10n.Mixer.locked)
         }

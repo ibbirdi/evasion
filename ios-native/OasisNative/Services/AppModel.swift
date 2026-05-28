@@ -233,8 +233,24 @@ final class AppModel {
 
     func presetDisplayName(_ preset: Preset) -> String {
         switch preset.id {
+        case "preset_default_nap":
+            return L10n.string(L10n.Presets.defaultNap)
+        case "preset_default_reset":
+            return L10n.string(L10n.Presets.defaultReset)
         case "preset_default_starter":
             return L10n.string(L10n.Presets.defaultStarter)
+        case "preset_default_deep_sleep":
+            return L10n.string(L10n.Presets.defaultDeepSleep)
+        case "preset_default_deep_work":
+            return L10n.string(L10n.Presets.defaultDeepWork)
+        case "preset_default_travel":
+            return L10n.string(L10n.Presets.defaultTravel)
+        case "preset_default_reading":
+            return L10n.string(L10n.Presets.defaultReading)
+        case "preset_default_rain_cabin":
+            return L10n.string(L10n.Presets.defaultRainCabin)
+        case "preset_default_morning":
+            return L10n.string(L10n.Presets.defaultMorning)
         case "preset_default_calm":
             return L10n.string(L10n.Presets.defaultCalm)
         case "preset_default_storm":
@@ -337,6 +353,10 @@ final class AppModel {
     var activePreset: Preset? {
         guard let currentPresetID else { return nil }
         return presets.first { $0.id == currentPresetID }
+    }
+
+    var isAmbiencePlaybackLocked: Bool {
+        activeComposerRecipeTitle != nil
     }
 
     var canSaveFreePreset: Bool {
@@ -477,6 +497,7 @@ final class AppModel {
     }
 
     func setChannelVolume(_ channel: SoundChannel, value: Double) {
+        guard !isAmbiencePlaybackLocked else { return }
         guard var state = channels[channel], !isChannelLocked(channel) else {
             requestPremiumAccess(from: .sound(channel))
             return
@@ -496,6 +517,7 @@ final class AppModel {
     }
 
     func setChannelAutoVariationRange(_ channel: SoundChannel, range: AutoVariationRange) {
+        guard !isAmbiencePlaybackLocked else { return }
         guard var state = channels[channel], !isChannelLocked(channel) else {
             requestPremiumAccess(from: .sound(channel))
             return
@@ -521,6 +543,7 @@ final class AppModel {
     }
 
     func toggleMute(_ channel: SoundChannel) {
+        guard !isAmbiencePlaybackLocked else { return }
         guard var state = channels[channel], !isChannelLocked(channel) else {
             requestPremiumAccess(from: .sound(channel))
             return
@@ -546,6 +569,7 @@ final class AppModel {
     }
 
     func toggleAutoVariation(_ channel: SoundChannel) {
+        guard !isAmbiencePlaybackLocked else { return }
         guard var state = channels[channel], !isChannelLocked(channel) else {
             requestPremiumAccess(from: .sound(channel))
             return
@@ -571,6 +595,7 @@ final class AppModel {
     }
 
     func setChannelSpatialPosition(_ channel: SoundChannel, value: SpatialPoint) {
+        guard !isAmbiencePlaybackLocked else { return }
         guard var state = channels[channel], !isChannelLocked(channel) else {
             requestPremiumAccess(from: .spatial(channel))
             return
@@ -586,6 +611,7 @@ final class AppModel {
     }
 
     func setBinauralEnabled(_ enabled: Bool) {
+        guard !isAmbiencePlaybackLocked else { return }
         guard isBinauralActive != enabled else { return }
         cancelActiveRitual()
         activeComposerRecipeTitle = nil
@@ -599,6 +625,7 @@ final class AppModel {
 
     @discardableResult
     func selectBinauralTrack(_ track: BinauralTrack) -> Bool {
+        guard !isAmbiencePlaybackLocked else { return false }
         guard isPremium || !track.isPremium else {
             requestPremiumAccess(from: .binaural(track))
             return false
@@ -614,6 +641,7 @@ final class AppModel {
     }
 
     func setBinauralVolume(_ value: Double) {
+        guard !isAmbiencePlaybackLocked else { return }
         cancelActiveRitual()
         activeComposerRecipeTitle = nil
         binauralVolume = value
@@ -626,6 +654,7 @@ final class AppModel {
     }
 
     func setImmersiveAudioEnabled(_ enabled: Bool) {
+        guard !isAmbiencePlaybackLocked else { return }
         guard immersiveAudioEnabled != enabled else { return }
         cancelActiveRitual()
         activeComposerRecipeTitle = nil
@@ -636,10 +665,6 @@ final class AppModel {
 
     func composeAmbience(intent: AmbienceIntent, prompt: String) -> AmbienceRecipe {
         AmbienceComposer.compose(intent: intent, prompt: prompt, premium: isPremium)
-    }
-
-    func composeGuidedRoutine(_ kind: GuidedRoutineKind) -> AmbienceRecipe {
-        AmbienceComposer.guidedRoutine(kind)
     }
 
     @discardableResult
@@ -653,7 +678,7 @@ final class AppModel {
         return didApply
     }
 
-    func stopGuidedRoutine() {
+    func stopActiveAmbience() {
         guard activeComposerRecipeTitle != nil else { return }
         activeComposerRecipeTitle = nil
         activeNoiseBlendTitle = nil
@@ -671,6 +696,7 @@ final class AppModel {
     }
 
     func setProceduralNoiseVolume(_ noise: ProceduralNoise, value: Double) {
+        guard !isAmbiencePlaybackLocked else { return }
         guard !isProceduralNoiseLocked(noise) else {
             requestPremiumAccess(from: .noise(noise))
             return
@@ -688,6 +714,7 @@ final class AppModel {
     }
 
     func toggleProceduralNoise(_ noise: ProceduralNoise) {
+        guard !isAmbiencePlaybackLocked else { return }
         guard !isProceduralNoiseLocked(noise) else {
             requestPremiumAccess(from: .noise(noise))
             return
@@ -752,6 +779,7 @@ final class AppModel {
     }
 
     func clearProceduralNoises() {
+        guard !isAmbiencePlaybackLocked else { return }
         guard activeProceduralNoiseCount > 0 else { return }
 
         cancelActiveRitual()
@@ -898,7 +926,7 @@ final class AppModel {
     }
 
     @discardableResult
-    func savePreset(named name: String) -> Bool {
+    func savePreset(named name: String, backdropAssetName: String? = nil) -> Bool {
         savePreset(
             named: name,
             preset: Preset(
@@ -910,10 +938,11 @@ final class AppModel {
                 activeBinauralTrack: activeBinauralTrack,
                 binauralVolume: binauralVolume,
                 timerDurationMinutes: timerDurationMinutes,
-                immersiveAudioEnabled: immersiveAudioEnabled
+                immersiveAudioEnabled: immersiveAudioEnabled,
+                backdropAssetName: backdropAssetName
             ),
-            requiresPremiumContent: !currentMixUsesOnlyFreeChannels,
-            activateSavedPreset: true
+            activateSavedPreset: true,
+            preserveActiveSceneTitle: activeComposerRecipeTitle != nil
         )
     }
 
@@ -932,7 +961,6 @@ final class AppModel {
                 timerDurationMinutes: timerDurationMinutes,
                 immersiveAudioEnabled: immersiveAudioEnabled
             ),
-            requiresPremiumContent: !currentMixUsesOnlyFreeChannels,
             activateSavedPreset: true,
             preserveActiveSceneTitle: true
         )
@@ -953,7 +981,6 @@ final class AppModel {
                 timerDurationMinutes: recipe.timerMinutes,
                 immersiveAudioEnabled: recipe.immersiveAudioEnabled
             ),
-            requiresPremiumContent: recipe.requiresPremium,
             activateSavedPreset: false
         )
     }
@@ -962,19 +989,13 @@ final class AppModel {
     private func savePreset(
         named name: String,
         preset draftPreset: Preset,
-        requiresPremiumContent: Bool,
         activateSavedPreset: Bool,
         preserveActiveSceneTitle: Bool = false
     ) -> Bool {
         let trimmedName = name.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmedName.isEmpty else { return false }
 
-        guard isPremium || !requiresPremiumContent else {
-            requestPremiumAccess(from: .presetSave)
-            return false
-        }
-
-        guard isPremium || presets.filter(\.isUser).isEmpty else {
+        guard isPremium else {
             requestPremiumAccess(from: .presetSave)
             return false
         }
@@ -991,6 +1012,23 @@ final class AppModel {
             }
         }
         premiumAnalytics.track(.presetSaved(kind: isPremium ? "premium" : "free"))
+        schedulePersistence()
+        return true
+    }
+
+    @discardableResult
+    func updatePreset(_ preset: Preset, name: String, backdropAssetName: String?) -> Bool {
+        let trimmedName = name.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard preset.isUser, !trimmedName.isEmpty else { return false }
+
+        guard isPremium else {
+            requestPremiumAccess(from: .presetSave)
+            return false
+        }
+
+        guard let index = presets.firstIndex(where: { $0.id == preset.id }) else { return false }
+        presets[index].name = trimmedName
+        presets[index].backdropAssetName = backdropAssetName
         schedulePersistence()
         return true
     }
@@ -2097,10 +2135,13 @@ final class AppModel {
 
     private func mergeMissingDefaultPresets(into storedPresets: [Preset]) -> [Preset] {
         var mergedPresets = storedPresets
-        let existingIDs = Set(storedPresets.map(\.id))
 
-        for preset in Array.defaultPresets() where !existingIDs.contains(preset.id) {
-            mergedPresets.append(preset)
+        for preset in Array.defaultPresets() {
+            if let index = mergedPresets.firstIndex(where: { $0.id == preset.id }) {
+                mergedPresets[index].backdropAssetName = preset.backdropAssetName
+            } else {
+                mergedPresets.append(preset)
+            }
         }
 
         return mergedPresets

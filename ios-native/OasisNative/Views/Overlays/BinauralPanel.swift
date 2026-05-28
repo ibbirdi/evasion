@@ -162,23 +162,22 @@ private struct BinauralTrackCard: View {
             }
         } label: {
             VStack(alignment: .leading, spacing: 10) {
-                Capsule()
-                    .fill(track.tint.opacity(isLocked ? 0.36 : 0.78))
-                    .frame(width: isActive ? 28 : 18, height: 3)
+                BinauralFrequencyWaveform(track: track, isActive: isActive, isLocked: isLocked)
+                    .frame(width: 44, height: 12)
                     .accessibilityHidden(true)
 
                 HStack(alignment: .top, spacing: 8) {
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(track.localizedTitle)
-                        .oasisFont(size: 14, weight: .semibold, relativeTo: .subheadline)
-                        .foregroundStyle(isLocked ? .white.opacity(0.46) : .white)
-                        .lineLimit(1)
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(track.localizedTitle)
+                            .oasisFont(size: 14, weight: .semibold, relativeTo: .subheadline)
+                            .foregroundStyle(isLocked ? .white.opacity(0.46) : .white)
+                            .lineLimit(1)
 
-                    Text(track.localizedFrequencyLabel)
-                        .oasisFont(size: 10, weight: .medium, relativeTo: .caption2)
-                        .foregroundStyle(isActive ? track.tint.opacity(0.84) : .white.opacity(0.42))
-                        .lineLimit(1)
-                }
+                        Text(track.localizedFrequencyLabel)
+                            .oasisFont(size: 10, weight: .medium, relativeTo: .caption2)
+                            .foregroundStyle(isActive ? track.tint.opacity(0.84) : .white.opacity(0.42))
+                            .lineLimit(1)
+                    }
 
                     Spacer(minLength: 0)
 
@@ -241,6 +240,58 @@ private struct BinauralTrackCard: View {
             return Text(L10n.Presets.statusActive)
         }
         return Text("")
+    }
+}
+
+private struct BinauralFrequencyWaveform: View {
+    let track: BinauralTrack
+    let isActive: Bool
+    let isLocked: Bool
+
+    var body: some View {
+        BinauralFrequencyWaveShape(cycles: waveCycles)
+            .stroke(
+                track.tint.opacity(isLocked ? 0.34 : (isActive ? 0.94 : 0.58)),
+                style: StrokeStyle(lineWidth: isActive ? 2.2 : 1.6, lineCap: .round, lineJoin: .round)
+            )
+            .shadow(color: track.tint.opacity(isActive && !isLocked ? 0.34 : 0), radius: 5, y: 1)
+            .animation(.smooth(duration: 0.20), value: isActive)
+    }
+
+    private var waveCycles: Double {
+        switch track.beatFrequencyHz {
+        case ..<4: return 1.20
+        case ..<8: return 1.85
+        case ..<13: return 2.55
+        default: return 3.45
+        }
+    }
+}
+
+private struct BinauralFrequencyWaveShape: Shape {
+    let cycles: Double
+
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        let midY = rect.midY
+        let amplitude = rect.height * 0.34
+        let stepCount = max(Int(rect.width.rounded(.up)), 24)
+
+        for step in 0...stepCount {
+            let progress = CGFloat(step) / CGFloat(stepCount)
+            let x = rect.minX + (rect.width * progress)
+            let envelope = sin(.pi * progress)
+            let phase = Double(progress) * cycles * 2 * .pi
+            let y = midY + CGFloat(sin(phase)) * amplitude * envelope
+
+            if step == 0 {
+                path.move(to: CGPoint(x: x, y: y))
+            } else {
+                path.addLine(to: CGPoint(x: x, y: y))
+            }
+        }
+
+        return path
     }
 }
 
