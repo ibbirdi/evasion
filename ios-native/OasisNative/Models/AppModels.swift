@@ -345,7 +345,205 @@ extension Dictionary where Key == SoundChannel, Value == ChannelState {
 
 extension Array where Element == Preset {
     static func defaultPresets() -> [Preset] {
-        []
+        [
+            defaultPreset(
+                id: "preset_default_repos_sur_la_plage",
+                name: "Repos Sur La Plage",
+                channels: [
+                    .plage: activeChannel(
+                        volume: 0.6352,
+                        autoVariationEnabled: false,
+                        range: AutoVariationRange(lowerBound: 0.4152, upperBound: 0.8552)
+                    ),
+                    .vent: activeChannel(
+                        volume: 0.5,
+                        autoVariationEnabled: true,
+                        range: AutoVariationRange(lowerBound: 0.28, upperBound: 0.7037)
+                    )
+                ],
+                proceduralNoises: [
+                    .brown: ProceduralNoiseState(volume: 0.0854, isMuted: false)
+                ],
+                backdropAssetName: "sound_plage_background"
+            ),
+            defaultPreset(
+                id: "preset_default_orage_distant",
+                name: "Orage Distant",
+                channels: [
+                    .pluieForet: activeChannel(
+                        volume: 0.1648,
+                        autoVariationEnabled: true,
+                        range: AutoVariationRange(lowerBound: 0.0, upperBound: 0.4889)
+                    ),
+                    .tonnerre: activeChannel(
+                        volume: 0.5926,
+                        autoVariationEnabled: true,
+                        range: AutoVariationRange(lowerBound: 0.0685, upperBound: 1.0)
+                    ),
+                    .ventNuit: activeChannel(
+                        volume: 0.5,
+                        autoVariationEnabled: false,
+                        range: AutoVariationRange(lowerBound: 0.28, upperBound: 0.72)
+                    )
+                ],
+                backdropAssetName: "sound_tonnerre_background"
+            ),
+            defaultPreset(
+                id: "preset_default_petite_ondee",
+                name: "Petite Ondée",
+                channels: [
+                    .oiseaux: activeChannel(
+                        volume: 0.5,
+                        autoVariationEnabled: false,
+                        range: AutoVariationRange(lowerBound: 0.28, upperBound: 0.72),
+                        position: SpatialPoint(x: -0.0319, y: 0.4498)
+                    )
+                ],
+                proceduralNoises: [
+                    .brown: ProceduralNoiseState(volume: 0.068, isMuted: false),
+                    .white: ProceduralNoiseState(volume: 0.4941, isMuted: false)
+                ],
+                backdropAssetName: "sound_forte_pluie_background"
+            ),
+            defaultPreset(
+                id: "preset_default_carillons_relaxants",
+                name: "Carillons Relaxants",
+                channels: [
+                    .carillons: activeChannel(
+                        volume: 0.5,
+                        autoVariationEnabled: false,
+                        range: AutoVariationRange(lowerBound: 0.28, upperBound: 0.72)
+                    ),
+                    .foret: activeChannel(
+                        volume: 0.4497,
+                        autoVariationEnabled: false,
+                        range: AutoVariationRange(lowerBound: 0.2297, upperBound: 0.6697)
+                    ),
+                    .foretChiloe: activeChannel(
+                        volume: 0.6192,
+                        autoVariationEnabled: true,
+                        range: AutoVariationRange(lowerBound: 0.3992, upperBound: 0.8392)
+                    ),
+                    .grillons: activeChannel(
+                        volume: 0.1082,
+                        autoVariationEnabled: false,
+                        range: AutoVariationRange(lowerBound: 0.0, upperBound: 0.44)
+                    ),
+                    .lac: activeChannel(
+                        volume: 0.4456,
+                        autoVariationEnabled: true,
+                        range: AutoVariationRange(lowerBound: 0.2256, upperBound: 0.6656)
+                    ),
+                    .mer: activeChannel(
+                        volume: 0.369,
+                        autoVariationEnabled: false,
+                        range: AutoVariationRange(lowerBound: 0.149, upperBound: 0.589)
+                    )
+                ],
+                proceduralNoises: [
+                    .brown: ProceduralNoiseState(volume: 0.068, isMuted: false)
+                ],
+                backdropAssetName: "sound_carillons_background"
+            ),
+            defaultPreset(
+                id: "preset_default_sous_la_tente",
+                name: "Sous La Tente",
+                channels: [
+                    .neigeVille: activeChannel(
+                        volume: 0.5,
+                        autoVariationEnabled: false,
+                        range: AutoVariationRange(lowerBound: 0.28, upperBound: 0.72)
+                    ),
+                    .tente: activeChannel(
+                        volume: 0.5,
+                        autoVariationEnabled: false,
+                        range: AutoVariationRange(lowerBound: 0.28, upperBound: 0.72)
+                    )
+                ],
+                proceduralNoises: [
+                    .green: ProceduralNoiseState(volume: 0.1165, isMuted: false),
+                    .pink: ProceduralNoiseState(volume: 0.841, isMuted: false)
+                ],
+                backdropAssetName: "routine_night_cabin"
+            ),
+            defaultPreset(
+                id: "preset_default_cigales_au_rythme_des_cloches",
+                name: "Cigales Au Rythme Des Cloches",
+                channels: [
+                    .aubeJungle: activeChannel(
+                        volume: 0.4611,
+                        autoVariationEnabled: false,
+                        range: AutoVariationRange(lowerBound: 0.2411, upperBound: 0.6811)
+                    ),
+                    .cigales: activeChannel(
+                        volume: 0.5537,
+                        autoVariationEnabled: true,
+                        range: AutoVariationRange(lowerBound: 0.3337, upperBound: 0.7737)
+                    ),
+                    .cloches: activeChannel(
+                        volume: 0.3185,
+                        autoVariationEnabled: false,
+                        range: AutoVariationRange(lowerBound: 0.0985, upperBound: 0.5385)
+                    ),
+                    .oiseaux: activeChannel(
+                        volume: 0.289,
+                        autoVariationEnabled: false,
+                        range: AutoVariationRange(lowerBound: 0.069, upperBound: 0.509)
+                    )
+                ],
+                proceduralNoises: [
+                    .pink: ProceduralNoiseState(volume: 0.841, isMuted: false)
+                ],
+                backdropAssetName: "sound_cigales_background"
+            )
+        ]
+    }
+
+    private static func defaultPreset(
+        id: String,
+        name: String,
+        channels activeChannels: [SoundChannel: ChannelState],
+        proceduralNoises activeNoises: [ProceduralNoise: ProceduralNoiseState] = [:],
+        isBinauralActive: Bool = false,
+        activeBinauralTrack: BinauralTrack = .delta,
+        binauralVolume: Double = 0.14,
+        timerDurationMinutes: Int? = nil,
+        immersiveAudioEnabled: Bool = false,
+        backdropAssetName: String
+    ) -> Preset {
+        var channels = [SoundChannel: ChannelState].initialChannels
+        activeChannels.forEach { channels[$0.key] = $0.value }
+
+        var proceduralNoises = [ProceduralNoise: ProceduralNoiseState].initialNoises
+        activeNoises.forEach { proceduralNoises[$0.key] = $0.value }
+
+        return Preset(
+            id: id,
+            name: name,
+            channels: channels,
+            proceduralNoises: proceduralNoises,
+            isBinauralActive: isBinauralActive,
+            activeBinauralTrack: activeBinauralTrack,
+            binauralVolume: binauralVolume,
+            timerDurationMinutes: timerDurationMinutes,
+            immersiveAudioEnabled: immersiveAudioEnabled,
+            backdropAssetName: backdropAssetName
+        )
+    }
+
+    private static func activeChannel(
+        volume: Double,
+        autoVariationEnabled: Bool,
+        range: AutoVariationRange,
+        position: SpatialPoint = .center
+    ) -> ChannelState {
+        ChannelState(
+            volume: volume,
+            isMuted: false,
+            autoVariationEnabled: autoVariationEnabled,
+            autoVariationRange: range,
+            spatialPosition: position
+        )
     }
 }
 

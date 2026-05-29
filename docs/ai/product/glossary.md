@@ -1,7 +1,7 @@
 ---
 title: Glossary
 status: stable
-last_updated: 2026-05-28
+last_updated: 2026-05-29
 tracks:
   - "ios-native/OasisNative/Models/AppModels.swift"
   - "ios-native/OasisNative/Models/AmbienceModels.swift"
@@ -53,7 +53,7 @@ Vocabulary used inside the codebase, the UI copy, and these memory files. Some t
 
 **Preset** (`Preset`). Named ambience snapshot. New presets include ambient channel states, procedural noise layers, binaural state, immersive mode, and an optional timer; older decoded presets may contain only `channels` and then load with safe defaults for the newer fields. Persisted in `PersistedMixerState`.
 
-**Default presets.** Shipped ambience presets returned by `Array.defaultPresets()`. The app currently ships none; future defaults should be generated from iPhone-authored exports, with exactly two free-access defaults and additional Premium defaults.
+**Default presets.** Shipped ambience presets returned by `Array.defaultPresets()`. The current set contains six iPhone-authored ambiences: two free-access defaults and four Premium defaults. Display names are localized through `L10n.Presets`, while the stored `Preset.name` keeps the export/source title for rename detection.
 
 **Signature preset** (`preset_signature_oasis`). Optional preview-able preset showcasing the "best of premium". Free users can preview it for 45 s only when such a preset exists, throttled to once per week (see [premium-model.md](premium-model.md)).
 

@@ -75,7 +75,7 @@ Aesthetic positioning: closer to **Endel, Reflectly, Mirror** (premium-feel, res
 
 ## Pricing-anchor copy
 
-- "Less than the price of a coffee in Paris" / "moins qu'un café à Paris" — confirmed converting (commits `2b9072a`, `e4ba1e6`).
+- "The price of coffee and a croissant in Paris" / "le prix d'un café-croissant à Paris" — keep the Paris cafe anchor, adapted naturally per locale.
 - Apply across all 6 locales (translation-tested).
 - Don't introduce "less than X subscription apps for Y months" comparisons — they age fast and complicate copy.
 

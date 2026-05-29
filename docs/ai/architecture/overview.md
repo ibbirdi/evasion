@@ -1,7 +1,7 @@
 ---
 title: Architecture Overview
 status: stable
-last_updated: 2026-05-28
+last_updated: 2026-05-29
 tracks:
   - "ios-native/OasisNative/OasisNativeApp.swift"
   - "ios-native/OasisNative/Mac/OasisMacApp.swift"
@@ -71,7 +71,7 @@ Oasis is a native Apple-platform app with two app targets in the same Xcode proj
 | `OasisNativeApp` | [OasisNativeApp.swift](../../../ios-native/OasisNative/OasisNativeApp.swift) | iOS entry point. Calls `AppBootstrap.configure()`, instantiates `AppModel`, and presents `RootView`. |
 | `OasisMacApp` | [Mac/OasisMacApp.swift](../../../ios-native/OasisNative/Mac/OasisMacApp.swift) | macOS entry point. Calls `AppBootstrap.configure()`, owns the status item app delegate using a fixed template wind icon, keeps one `AppModel`, and presents `MacMixerPanel` inside a custom borderless `NSPanel`. The status-item toggle treats stale visible/non-key panels as closed so the menu bar icon can always reopen the panel after deactivation. |
 | `AppBootstrap` | [Support/AppBootstrap.swift](../../../ios-native/OasisNative/Support/AppBootstrap.swift) | Shared startup for RevenueCat + TelemetryDeck so iOS and macOS do not drift. |
-| `AppModel` | [Services/AppModel.swift](../../../ios-native/OasisNative/Services/AppModel.swift) | Hub. `@Observable @MainActor`. Owns mix state, procedural noise state, active rituals, active ambience lock state, immersive audio toggle, presets, premium state, timer, engagement metrics. Bridges UI ↔ engine ↔ RevenueCat. See [state.md](state.md). |
+| `AppModel` | [Services/AppModel.swift](../../../ios-native/OasisNative/Services/AppModel.swift) | Hub. `@Observable @MainActor`. Owns mix state, procedural noise state, active rituals, active ambience lock state, immersive audio toggle, shipped/user presets, premium state, timer, engagement metrics. Bridges UI ↔ engine ↔ RevenueCat. See [state.md](state.md). |
 | `AudioMixerEngine` | [Services/AudioMixerEngine.swift](../../../ios-native/OasisNative/Services/AudioMixerEngine.swift) | The audio graph. `AVAudioEngine` + `AVAudioEnvironmentNode` + 35 `AVAudioPlayerNode` plus procedural `AVAudioSourceNode` layers. Handles loops, fades, spatial/immersive profiles, remote commands. See [audio-engine.md](audio-engine.md). |
 | `AmbienceComposer` | [Services/AmbienceComposer.swift](../../../ios-native/OasisNative/Services/AmbienceComposer.swift) | Local deterministic recipe builder for Composer prompts and ritual phase templates. No network or LLM call. |
 | `GentleReminderScheduler` | [Services/GentleReminderScheduler.swift](../../../ios-native/OasisNative/Services/GentleReminderScheduler.swift) | Local notification scheduler. Requests provisional alert permission after onboarding, cancels pending reminders on app open, and schedules one gentle re-open reminder after several inactive days. |

@@ -264,7 +264,7 @@ struct BottomBarView: View {
             onOpenCompose(.bottomCompose)
         } label: {
             BottomToolbarItemLabel(
-                glyph: composeButtonGlyph,
+                systemImage: "bookmark.fill",
                 tint: composeButtonTint,
                 isActivated: composeButtonIsActivated,
                 palette: composeButtonPalette
@@ -296,22 +296,6 @@ struct BottomBarView: View {
         }
 
         return model.activeNoiseBlendTitle
-    }
-
-    private var composeButtonGlyph: OasisGlyph {
-        if let activeRitualSession = model.activeRitualSession {
-            return activeRitualSession.intent.oasisGlyph
-        }
-
-        if model.activeComposerRecipeTitle != nil {
-            return .sparkle
-        }
-
-        if model.activeNoiseBlendTitle != nil {
-            return .waveform
-        }
-
-        return .sparkle
     }
 
     private var composeButtonTint: Color {

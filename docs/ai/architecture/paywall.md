@@ -1,7 +1,7 @@
 ---
 title: Paywall and Premium Gating
 status: stable
-last_updated: 2026-05-28
+last_updated: 2026-05-29
 tracks:
   - "ios-native/OasisNative/Services/PremiumCoordinator.swift"
   - "ios-native/OasisNative/Services/PremiumRevenueCatService.swift"
@@ -47,6 +47,8 @@ Where free becomes paid. The contract is set by [../product/premium-model.md](..
 ```
 
 The "if not yet shown for this entry point" memory is held in the coordinator (transient, not persisted). After dismissing the inline once, the next attempt opens the full paywall.
+
+Shipped Premium ambiences are gated by `Preset.requiresPremium`: loading a default ambience whose active channels/noise/binaural/timer require Premium exits before mutation and calls `requestPremiumAccess(from: .presetLoad)`.
 
 ## State surface in `AppModel`
 
@@ -109,7 +111,7 @@ The "Restore" button is exposed in both the iOS paywall and the macOS paywall sh
 - A title variant (generic vs feature-targeted).
 - A beach/photo-backed lifetime hero. The hero and full-screen backdrop use `paywall_beach_background` (Pexels 673865 by Pok Rie), with a sand/foam/water palette rather than the older green aurora treatment. The "one purchase / lifetime access / no subscription" trust line is the first visual claim, and the feature subtitle is shortened to the first useful sentence to avoid repeating the subscription message.
 - A compact 2x2 benefit tile grid with distinct SF Symbols and the triggering feature pinned first. Every full paywall context should include the Premium noise value somewhere in those four tiles (`4 bruits en plus` / 4 extra noise layers), alongside sounds, ambiences, timer, or binaural as context demands. Keep these tiles scannable; avoid returning to long checkmark lists.
-- The "price of a coffee in Paris" anchor — keep across all locales (commits `2b9072a`, `e4ba1e6`).
+- The "price of coffee and a croissant in Paris" anchor — keep Paris across all locales, with natural local food phrasing (e.g. Italian `cornetto`).
 
 Localisation: every paywall string is in `Localizable.xcstrings` under `paywall.*` and `premium.inline.*`.
 

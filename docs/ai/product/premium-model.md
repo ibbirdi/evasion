@@ -1,7 +1,7 @@
 ---
 title: Premium Model
 status: stable
-last_updated: 2026-05-28
+last_updated: 2026-05-29
 tracks:
   - "ios-native/OasisNative/Services/PremiumCoordinator.swift"
   - "ios-native/OasisNative/Services/PremiumRevenueCatService.swift"
@@ -31,7 +31,7 @@ related:
 | Random mix | Yes, restricted to free channels | Yes, full library |
 | Sound placement | Yes, on accessible channels | Yes, on accessible channels |
 | Binaural tracks | Delta only | Delta / Theta / Alpha / Beta |
-| My Ambiences | Load free Oasis saved ambiences when shipped; locked ambiences preview but upsell before playback | Load all Oasis ambiences; create, edit, delete, style, and export user-created presets |
+| My Ambiences | Load the two free Oasis saved ambiences; locked ambiences preview but upsell before playback | Load all six shipped Oasis ambiences; create, edit, delete, style, and export user-created presets |
 | Procedural noise engine | White and brown noise | Pink, green, fan, and aircraft-cabin noise layers |
 | Sleep timer | 15 / 30 min | 15 / 30 / 60 / 120 min |
 | Saved ambiences | No saving; tapping Save opens the preset upsell | Create, load, edit, delete, export, and style full ambience snapshots from My Ambiences |
@@ -51,7 +51,7 @@ The "no subscription, ever" stance is the **primary moat** and is repeated in sc
 
 ## Pricing copy
 
-The paywall anchors the price as "less than the price of a coffee in Paris" / "moins qu'un café à Paris" — confirmed converting (commits `e4ba1e6`, `2b9072a`). Keep "Paris" anchor across all locales. If RevenueCat pricing changes, recheck this metaphor still holds.
+The paywall anchors the price as a small Paris cafe moment: "the price of coffee and a croissant in Paris" / "le prix d'un café-croissant à Paris" — evolved from the previous coffee-only line that converted well (commits `e4ba1e6`, `2b9072a`). Keep the Paris anchor across all locales, but localize the food phrase naturally (e.g. Italian can use `cornetto`). If RevenueCat pricing changes, recheck this metaphor still holds.
 
 ## Coordinator flow
 
@@ -73,7 +73,7 @@ Two engagement nudges, both throttled in `AppModel`:
 
 ## Default ambience authoring
 
-The app currently ships with no pre-recorded default ambiences. The intended workflow is to create candidate ambiences on a real iPhone, export them from My Ambiences, then convert that JSON into Swift with `scripts/exported_presets_to_swift.rb`. The import script enforces the product rule that exactly two shipped defaults are free-access; any additional shipped ambience should naturally require Premium by using premium sounds, premium noise, a premium binaural track, or a timer above 30 minutes.
+The app ships six pre-recorded default ambiences generated from the real-iPhone My Ambiences export workflow. Two are free-access (`Repos Sur La Plage`, `Petite Ondée`); the other four require Premium through their active premium sounds or premium procedural noise layers. New candidates should still be created on a real iPhone, exported from My Ambiences, then converted into Swift with `scripts/exported_presets_to_swift.rb`. The import script enforces the product rule that exactly two shipped defaults are free-access; any additional shipped ambience should naturally require Premium by using premium sounds, premium noise, a premium binaural track, or a timer above 30 minutes.
 
 ## Override for development & screenshots
 

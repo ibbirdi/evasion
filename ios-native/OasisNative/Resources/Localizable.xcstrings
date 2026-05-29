@@ -10091,84 +10091,43 @@
         }
       }
     },
-    "home.routine.rest.subtitle" : {
-      "comment" : "Quiet footer subtitle shown after active ambience rows on Home.",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Oasis hält die Ebenen stabil und blendet am Ende aus."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Oasis keeps the layers steady and fades out at the end."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Oasis mantiene las capas estables y se desvanece al final."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Oasis garde les couches en place et s’estompe à la fin."
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Oasis mantiene stabili i livelli e sfuma alla fine."
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Oasis mantém as camadas estáveis e desaparece no fim."
-          }
-        }
-      }
-    },
     "home.routine.rest.title" : {
-      "comment" : "Quiet footer title shown after active ambience rows on Home.",
+      "comment" : "Quiet footer message shown after active ambience rows on Home.",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Du kannst das iPhone weglegen"
+            "value" : "Leg dein iPhone weg und entspann dich"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "You can put the iPhone down"
+            "value" : "Put your iPhone down and relax"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Puedes dejar el iPhone"
+            "value" : "Deja tu iPhone y relájate"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vous pouvez poser l’iPhone"
+            "value" : "Posez votre iPhone et détendez-vous"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Puoi posare l’iPhone"
+            "value" : "Appoggia l’iPhone e rilassati"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Pode deixar o iPhone de lado"
+            "value" : "Deixe o iPhone de lado e relaxe"
           }
         }
       }
@@ -12880,42 +12839,42 @@
       }
     },
     "paywall.anchor.dailyPrice" : {
-      "comment" : "Price-anchoring tagline shown below the CTA. Uses a coffee-price metaphor (Paris kept across all locales — only the city name is grammatically adapted, e.g. 'Parigi' in IT, 'París' in ES) instead of an explicit per-day cost.",
+      "comment" : "Price-anchoring tagline shown below the CTA. Uses a coffee-and-croissant metaphor (Paris kept across all locales — only the city name is grammatically adapted, e.g. 'Parigi' in IT, 'París' in ES) instead of an explicit per-day cost.",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Der Preis eines Kaffees in Paris"
+            "value" : "So viel wie Kaffee und Croissant in Paris"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "The price of a coffee in Paris"
+            "value" : "The price of coffee and a croissant in Paris"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "El precio de un café en París"
+            "value" : "Lo que cuesta un café con cruasán en París"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Le prix d'un café à Paris"
+            "value" : "Le prix d’un café-croissant à Paris"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Il prezzo di un caffè a Parigi"
+            "value" : "Quanto un caffè e un cornetto a Parigi"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "O preço de um café em Paris"
+            "value" : "O preço de um café com croissant em Paris"
           }
         }
       }
@@ -15093,6 +15052,47 @@
         }
       }
     },
+    "presets.default.beachRest" : {
+      "comment" : "Name of the built-in free beach ambience.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Strandruhe"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beach Rest"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Descanso en la playa"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Repos sur la plage"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Riposo sulla spiaggia"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Descanso na praia"
+          }
+        }
+      }
+    },
     "presets.default.calm" : {
       "comment" : "Name of the second default ambience.",
       "localizations" : {
@@ -15130,6 +15130,170 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Floresta calma"
+          }
+        }
+      }
+    },
+    "presets.default.cicadasBells" : {
+      "comment" : "Name of the built-in premium cicadas and bells ambience.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zikaden und Glocken"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cicadas and Bells"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cigarras y campanas"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cigales et cloches"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cicale e campane"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cigarras e sinos"
+          }
+        }
+      }
+    },
+    "presets.default.distantStorm" : {
+      "comment" : "Name of the built-in premium storm ambience.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fernes Gewitter"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Distant Storm"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tormenta lejana"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Orage distant"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Temporale lontano"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tempestade distante"
+          }
+        }
+      }
+    },
+    "presets.default.lightShower" : {
+      "comment" : "Name of the built-in free light rain ambience.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kleiner Schauer"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Light Shower"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Llovizna suave"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Petite ondée"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pioggia leggera"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chuva leve"
+          }
+        }
+      }
+    },
+    "presets.default.relaxingChimes" : {
+      "comment" : "Name of the built-in premium chimes ambience.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entspannende Windspiele"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Relaxing Chimes"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Carillones relajantes"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Carillons relaxants"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Campanelli rilassanti"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sinos de vento relaxantes"
           }
         }
       }
@@ -15212,6 +15376,47 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tempestade distante"
+          }
+        }
+      }
+    },
+    "presets.default.underTent" : {
+      "comment" : "Name of the built-in premium tent ambience.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unter dem Zelt"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Under the Tent"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bajo la tienda"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sous la tente"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sotto la tenda"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dentro da barraca"
           }
         }
       }

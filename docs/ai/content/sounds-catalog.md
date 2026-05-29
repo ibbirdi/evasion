@@ -59,7 +59,7 @@ The 35 ambient channels and 4 binaural tracks. The single source of truth for ru
 | 34 | `carillons` | Wind chimes | `carillons1.m4a` | human | Santa Fe, New Mexico, US *(approx.)* | mc2method | **CC-BY-3.0** | `music.note` |
 | 35 | `cloches` | Church bells | `cloches1.m4a` | human | Hanover, DE | inchadney | **CC-BY-4.0** | `bell.fill` |
 
-**Free tier**: `oiseaux`, `vent`, `plage` (channels 1–3). Everything else is premium.
+**Free tier**: `oiseaux`, `vent`, `plage` (channels 1–3). Everything else is premium. The shipped default ambience set follows this split: two defaults use only free channels/noise, and the other four require Premium through active premium channels or premium procedural noise.
 
 **Approximate fallback locations**: `pluieForet` and `carillons` do not publish exact geotags on their Freesound pages. They are intentionally marked `isApproximate`: `pluieForet` is placed around Leipzig/Saxony because Garuda1982's public Freesound catalogue repeatedly documents Leipzig/Saxony/Germany field recordings, and `carillons` is placed around Santa Fe, New Mexico as an invented but coherent listening setting for the wind-chime recording rather than a verified recording site.
 

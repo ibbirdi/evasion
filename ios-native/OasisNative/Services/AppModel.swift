@@ -265,6 +265,18 @@ final class AppModel {
             return L10n.string(L10n.Presets.defaultStorm)
         case "preset_signature_oasis":
             return L10n.string(L10n.Presets.afterTheRain)
+        case "preset_default_repos_sur_la_plage":
+            return L10n.string(L10n.Presets.defaultBeachRest)
+        case "preset_default_orage_distant":
+            return L10n.string(L10n.Presets.defaultDistantStorm)
+        case "preset_default_petite_ondee":
+            return L10n.string(L10n.Presets.defaultLightShower)
+        case "preset_default_carillons_relaxants":
+            return L10n.string(L10n.Presets.defaultRelaxingChimes)
+        case "preset_default_sous_la_tente":
+            return L10n.string(L10n.Presets.defaultUnderTent)
+        case "preset_default_cigales_au_rythme_des_cloches":
+            return L10n.string(L10n.Presets.defaultCicadasBells)
         default:
             return preset.name
         }

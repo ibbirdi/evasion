@@ -258,16 +258,9 @@ enum L10n {
 
         static let ambienceRestTitle = LocalizedStringResource(
             "home.routine.rest.title",
-            defaultValue: "You can put the iPhone down",
+            defaultValue: "Put your iPhone down and relax",
             bundle: .main,
-            comment: "Quiet footer title shown after active ambience rows on Home."
-        )
-
-        static let ambienceRestSubtitle = LocalizedStringResource(
-            "home.routine.rest.subtitle",
-            defaultValue: "Oasis keeps the layers steady and fades out at the end.",
-            bundle: .main,
-            comment: "Quiet footer subtitle shown after active ambience rows on Home."
+            comment: "Quiet footer message shown after active ambience rows on Home."
         )
 
         static let ambienceSupportingLayers = LocalizedStringResource(
@@ -527,6 +520,48 @@ enum L10n {
             defaultValue: "After the Rain",
             bundle: .main,
             comment: "Public name of the featured preview ambience that keeps the preset_signature_oasis internal identifier."
+        )
+
+        static let defaultBeachRest = LocalizedStringResource(
+            "presets.default.beachRest",
+            defaultValue: "Beach Rest",
+            bundle: .main,
+            comment: "Name of the built-in free beach ambience."
+        )
+
+        static let defaultDistantStorm = LocalizedStringResource(
+            "presets.default.distantStorm",
+            defaultValue: "Distant Storm",
+            bundle: .main,
+            comment: "Name of the built-in premium storm ambience."
+        )
+
+        static let defaultLightShower = LocalizedStringResource(
+            "presets.default.lightShower",
+            defaultValue: "Light Shower",
+            bundle: .main,
+            comment: "Name of the built-in free light rain ambience."
+        )
+
+        static let defaultRelaxingChimes = LocalizedStringResource(
+            "presets.default.relaxingChimes",
+            defaultValue: "Relaxing Chimes",
+            bundle: .main,
+            comment: "Name of the built-in premium chimes ambience."
+        )
+
+        static let defaultUnderTent = LocalizedStringResource(
+            "presets.default.underTent",
+            defaultValue: "Under the Tent",
+            bundle: .main,
+            comment: "Name of the built-in premium tent ambience."
+        )
+
+        static let defaultCicadasBells = LocalizedStringResource(
+            "presets.default.cicadasBells",
+            defaultValue: "Cicadas and Bells",
+            bundle: .main,
+            comment: "Name of the built-in premium cicadas and bells ambience."
         )
 
         static let panelTitle = LocalizedStringResource(
@@ -897,9 +932,9 @@ enum L10n {
 
         static let dailyPrice = LocalizedStringResource(
             "paywall.anchor.dailyPrice",
-            defaultValue: "The price of a coffee in Paris",
+            defaultValue: "The price of coffee and a croissant in Paris",
             bundle: .main,
-            comment: "Price-anchoring tagline shown below the CTA. Uses a coffee-price metaphor (Paris kept across all locales — only the city name is grammatically adapted, e.g. 'Parigi' in IT, 'París' in ES) instead of an explicit per-day cost."
+            comment: "Price-anchoring tagline shown below the CTA. Uses a coffee-and-croissant metaphor (Paris kept across all locales — only the city name is grammatically adapted, e.g. 'Parigi' in IT, 'París' in ES) instead of an explicit per-day cost."
         )
     }
 

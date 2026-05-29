@@ -6,6 +6,9 @@ struct HapticSlider: View {
     let tint: Color
     let stepCount: Int
 
+    @State private var draftValue: Double?
+    @State private var isEditing = false
+    @State private var lastDragCommitTime: TimeInterval = 0
     @State private var lastQuantizedValue = 0
     @State private var feedbackTrigger = 0
 
@@ -23,13 +26,10 @@ struct HapticSlider: View {
         if AppConfiguration.supportsSensoryFeedback {
             sliderContent
                 .onAppear {
-                    lastQuantizedValue = quantizedStep(for: value)
+                    lastQuantizedValue = quantizedStep(for: currentValue)
                 }
-                .onChange(of: value) { _, newValue in
-                    let step = quantizedStep(for: newValue)
-                    guard step != lastQuantizedValue else { return }
-                    lastQuantizedValue = step
-                    feedbackTrigger += 1
+                .onChange(of: currentValue) { _, newValue in
+                    triggerFeedbackIfNeeded(for: newValue)
                 }
                 .sensoryFeedback(.impact(weight: .medium, intensity: 0.82), trigger: feedbackTrigger)
         } else {
@@ -38,8 +38,57 @@ struct HapticSlider: View {
     }
 
     private var sliderContent: some View {
-        Slider(value: $value, in: 0...1)
+        Slider(value: sliderValue, in: 0...1, onEditingChanged: handleEditingChanged)
             .tint(tint)
+    }
+
+    private var sliderValue: Binding<Double> {
+        Binding(
+            get: { currentValue },
+            set: { updateDraftValue($0) }
+        )
+    }
+
+    private var currentValue: Double {
+        min(max(draftValue ?? value, 0), 1)
+    }
+
+    private func handleEditingChanged(_ editing: Bool) {
+        if editing {
+            isEditing = true
+            draftValue = currentValue
+            lastDragCommitTime = 0
+            lastQuantizedValue = quantizedStep(for: currentValue)
+        } else {
+            isEditing = false
+            if let draftValue {
+                commitValue(draftValue, force: true)
+            }
+            draftValue = nil
+            lastDragCommitTime = 0
+        }
+    }
+
+    private func updateDraftValue(_ newValue: Double) {
+        let clampedValue = min(max(newValue, 0), 1)
+        draftValue = clampedValue
+        commitValue(clampedValue, force: !isEditing)
+    }
+
+    private func triggerFeedbackIfNeeded(for value: Double) {
+        let step = quantizedStep(for: value)
+        guard step != lastQuantizedValue else { return }
+        lastQuantizedValue = step
+        feedbackTrigger += 1
+    }
+
+    private func commitValue(_ newValue: Double, force: Bool = false) {
+        let now = Date.timeIntervalSinceReferenceDate
+        guard force || now - lastDragCommitTime >= OasisSliderChrome.dragCommitInterval else { return }
+        lastDragCommitTime = now
+
+        guard abs(value - newValue) > 0.000_001 else { return }
+        value = newValue
     }
 
     private func quantizedStep(for value: Double) -> Int {
@@ -277,7 +326,7 @@ private enum RangeSliderHandle {
 private enum OasisSliderChrome {
     static let controlHeight: CGFloat = 36
     static let trackHeight: CGFloat = 7
-    static let rangeHandleWidth: CGFloat = 34
+    static let rangeHandleWidth: CGFloat = 28
     static let rangeHandleHeight: CGFloat = 28
     static let handleHitSize: CGFloat = 44
     static let liveIndicatorSize: CGFloat = 5
@@ -315,7 +364,7 @@ private struct OasisSliderHandle: View {
     }
 
     private var solidHandle: some View {
-        RoundedRectangle(cornerRadius: OasisSliderChrome.rangeHandleHeight / 2, style: .continuous)
+        Circle()
             .fill(
                 LinearGradient(
                     colors: [
@@ -330,7 +379,7 @@ private struct OasisSliderHandle: View {
     }
 
     private var solidHandleStroke: some View {
-        RoundedRectangle(cornerRadius: OasisSliderChrome.rangeHandleHeight / 2, style: .continuous)
+        Circle()
             .strokeBorder(Color.white.opacity(0.64), lineWidth: 1)
     }
 
@@ -338,14 +387,14 @@ private struct OasisSliderHandle: View {
     private var glassHandle: some View {
 #if os(iOS)
         if #available(iOS 26.0, *) {
-            RoundedRectangle(cornerRadius: OasisSliderChrome.rangeHandleHeight / 2, style: .continuous)
+            Circle()
                 .fill(Color.white.opacity(0.001))
                 .glassEffect(
                     .regular.interactive(),
-                    in: RoundedRectangle(cornerRadius: OasisSliderChrome.rangeHandleHeight / 2, style: .continuous)
+                    in: Circle()
                 )
                 .overlay {
-                    RoundedRectangle(cornerRadius: OasisSliderChrome.rangeHandleHeight / 2, style: .continuous)
+                    Circle()
                         .fill(
                             LinearGradient(
                                 colors: [
@@ -358,7 +407,7 @@ private struct OasisSliderHandle: View {
                         )
                 }
                 .overlay {
-                    RoundedRectangle(cornerRadius: OasisSliderChrome.rangeHandleHeight / 2, style: .continuous)
+                    Circle()
                         .strokeBorder(Color.white.opacity(0.56), lineWidth: 1)
                 }
         } else {

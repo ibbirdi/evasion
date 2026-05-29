@@ -1,6 +1,15 @@
 import SwiftUI
 import UIKit
 
+private enum MixerRowChrome {
+    static let cornerRadius: CGFloat = 16
+    static let horizontalMargin: CGFloat = 10
+
+    static var shape: RoundedRectangle {
+        RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+    }
+}
+
 struct MixerBoardSectionView: View {
     @Environment(AppModel.self) private var model
     let onOpenSpatial: (SoundChannel) -> Void
@@ -29,12 +38,7 @@ struct MixerBoardSectionView: View {
     private var shouldShowLibraryTeaser: Bool {
         !model.isPremium
             && model.activeRitualSession == nil
-            && !hasFocusedListeningScene
-    }
-
-    private var hasFocusedListeningScene: Bool {
-        guard model.activeRitualSession == nil else { return false }
-        return model.activeComposerRecipeTitle != nil || model.activeProceduralNoiseCount > 0
+            && !hasActiveAmbience
     }
 
     private var hasActiveAmbience: Bool {
@@ -86,6 +90,7 @@ struct MixerBoardSectionView: View {
                     onOpenSpatial: onOpenSpatial,
                     onOpenDetail: onOpenDetail
                 )
+                .padding(.horizontal, MixerRowChrome.horizontalMargin)
             }
 
             if !displayedNoises.isEmpty {
@@ -95,6 +100,7 @@ struct MixerBoardSectionView: View {
 
                 ForEach(displayedNoises) { noise in
                     ProceduralNoiseRowView(noise: noise)
+                        .padding(.horizontal, MixerRowChrome.horizontalMargin)
                 }
             }
 
@@ -171,27 +177,19 @@ private struct ActiveAmbienceRestCue: View {
                 ForEach(Array(palette.enumerated()), id: \.offset) { index, color in
                     Circle()
                         .fill(color.opacity(index == 0 ? 0.90 : 0.58))
-                        .frame(width: index == 0 ? 7 : 5, height: index == 0 ? 7 : 5)
+                        .frame(width: 6, height: 6)
                         .shadow(color: color.opacity(0.22), radius: 8, y: 2)
                 }
             }
             .accessibilityHidden(true)
 
-            VStack(spacing: 4) {
-                Text(L10n.HomeActive.ambienceRestTitle)
-                    .oasisFont(size: 14, weight: .semibold, relativeTo: .subheadline)
-                    .foregroundStyle(.white.opacity(0.86))
-                    .multilineTextAlignment(.center)
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.84)
-
-                Text(L10n.HomeActive.ambienceRestSubtitle)
-                    .oasisFont(size: 11, weight: .medium, relativeTo: .caption)
-                    .foregroundStyle(.white.opacity(0.46))
-                    .multilineTextAlignment(.center)
-                    .lineLimit(2)
-                    .fixedSize(horizontal: false, vertical: true)
-            }
+            Text(L10n.HomeActive.ambienceRestTitle)
+                .oasisFont(size: 14, weight: .semibold, relativeTo: .subheadline)
+                .foregroundStyle(.white.opacity(0.86))
+                .multilineTextAlignment(.center)
+                .lineLimit(2)
+                .minimumScaleFactor(0.84)
+                .fixedSize(horizontal: false, vertical: true)
         }
         .frame(maxWidth: .infinity)
         .padding(.top, 10)
@@ -248,15 +246,16 @@ private struct ProceduralNoiseRowView: View {
         .accessibilityIdentifier("noise.row.\(noise.id)")
         .background {
             ZStack {
-                Rectangle()
+                MixerRowChrome.shape
                     .fill(isActive ? AnyShapeStyle(.ultraThinMaterial) : AnyShapeStyle(.thinMaterial))
                     .opacity(isActive ? 1 : 0.45)
-                Rectangle()
+                MixerRowChrome.shape
                     .fill(backgroundGradient)
             }
         }
+        .clipShape(MixerRowChrome.shape)
         .overlay {
-            Rectangle()
+            MixerRowChrome.shape
                 .strokeBorder(Color.white.opacity(isActive ? 0.07 : 0.05), lineWidth: 0.8)
         }
         .opacity(isLocked ? 0.84 : (isActive ? 1 : 0.82))
@@ -475,16 +474,17 @@ struct SoundRowView: View {
             // visible. Activity is carried by text weight and controls rather than a
             // channel-coloured wash.
             ZStack {
-                Rectangle()
+                MixerRowChrome.shape
                     .fill(isActive ? AnyShapeStyle(.ultraThinMaterial) : AnyShapeStyle(.thinMaterial))
                     .opacity(isActive ? 0.62 : 0.45)
                 SoundBackdropImage(backdrop: channel.backdrop, opacity: backdropOpacity)
-                Rectangle()
+                MixerRowChrome.shape
                     .fill(channelBackgroundGradient)
             }
         }
+        .clipShape(MixerRowChrome.shape)
         .overlay {
-            Rectangle()
+            MixerRowChrome.shape
                 .strokeBorder(borderStyle, lineWidth: 0.8)
         }
         .opacity(isLocked ? 0.84 : (isActive ? 1 : 0.82))
