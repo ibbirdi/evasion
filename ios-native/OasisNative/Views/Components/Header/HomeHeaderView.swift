@@ -142,8 +142,8 @@ private struct HomeMixConstellationView: View {
     let isPlaying: Bool
     let reduceMotion: Bool
 
-    private static let trailSegments = 24
-    private static let baseAngularSpeed = 0.38
+    private static let trailSegments = 44
+    private static let baseAngularSpeed = 0.48
 
     var body: some View {
         if !nodes.isEmpty {
@@ -195,9 +195,9 @@ private struct HomeMixConstellationView: View {
             canvasSize: canvasSize
         )
         let pulse = pulse(for: node, time: time)
-        let headWidth = 1.35 + node.size * 0.12
-        let headDiameter = 2.4 + node.size * 0.22
-        let trailDuration = (1.02 + Double(node.size) * 0.025) * 3.0
+        let headWidth = 1.25 + node.size * 0.10
+        let headDiameter = 1.8 + node.size * 0.16
+        let trailDuration = (0.86 + Double(node.size) * 0.022) * 2.45
         let meteorOpacity = 0.78 + pulse * 0.18
 
         for segment in stride(from: Self.trailSegments - 1, through: 0, by: -1) {
@@ -220,8 +220,9 @@ private struct HomeMixConstellationView: View {
 
             let age = (newerAge + olderAge) / 2
             let life = max(0, 1 - age / trailDuration)
-            let opacity = pow(life, 1.85) * meteorOpacity
-            let width = max(0.55, headWidth * (0.24 + CGFloat(pow(life, 1.2)) * 1.04))
+            let opacity = pow(life, 1.7) * meteorOpacity
+            let width = max(0.42, headWidth * (0.28 + CGFloat(pow(life, 1.08)) * 0.96))
+            let isHeadSegment = segment == 0
 
             strokeTrailSegment(
                 from: olderPoint,
@@ -229,6 +230,7 @@ private struct HomeMixConstellationView: View {
                 tint: node.tint,
                 opacity: opacity,
                 lineWidth: width,
+                roundsHead: isHeadSegment,
                 in: &context
             )
         }
@@ -244,8 +246,8 @@ private struct HomeMixConstellationView: View {
             Path(ellipseIn: glowRect),
             with: .radialGradient(
                 Gradient(stops: [
-                    Gradient.Stop(color: node.tint.opacity(0.34), location: 0.0),
-                    Gradient.Stop(color: node.tint.opacity(0.15), location: 0.36),
+                    Gradient.Stop(color: node.tint.opacity(0.36), location: 0.0),
+                    Gradient.Stop(color: node.tint.opacity(0.16), location: 0.36),
                     Gradient.Stop(color: node.tint.opacity(0.0), location: 1.0)
                 ]),
                 center: head,
@@ -272,7 +274,7 @@ private struct HomeMixConstellationView: View {
                 width: coreSize,
                 height: coreSize
             )),
-            with: .color(.white.opacity(0.72))
+            with: .color(.white.opacity(0.70))
         )
     }
 
@@ -282,26 +284,28 @@ private struct HomeMixConstellationView: View {
         tint: Color,
         opacity: Double,
         lineWidth: CGFloat,
+        roundsHead: Bool,
         in context: inout GraphicsContext
     ) {
         var segmentPath = Path()
         segmentPath.move(to: olderPoint)
         segmentPath.addLine(to: youngerPoint)
+        let cap: CGLineCap = roundsHead ? .round : .butt
 
         context.stroke(
             segmentPath,
             with: .color(tint.opacity(opacity * 0.16)),
-            style: StrokeStyle(lineWidth: lineWidth * 3.2, lineCap: .round, lineJoin: .round)
+            style: StrokeStyle(lineWidth: lineWidth * 3.4, lineCap: cap, lineJoin: .round)
         )
         context.stroke(
             segmentPath,
-            with: .color(tint.opacity(opacity * 0.66)),
-            style: StrokeStyle(lineWidth: lineWidth, lineCap: .round, lineJoin: .round)
+            with: .color(tint.opacity(opacity * 0.72)),
+            style: StrokeStyle(lineWidth: lineWidth, lineCap: cap, lineJoin: .round)
         )
         context.stroke(
             segmentPath,
             with: .color(.white.opacity(opacity * 0.08)),
-            style: StrokeStyle(lineWidth: max(lineWidth * 0.34, 0.45), lineCap: .round)
+            style: StrokeStyle(lineWidth: max(lineWidth * 0.32, 0.40), lineCap: cap)
         )
     }
 
@@ -313,11 +317,16 @@ private struct HomeMixConstellationView: View {
         canvasSize: CGSize
     ) -> CGPoint {
         let angle = angle(for: index, total: total, node: node, time: time)
-        let radius = radius(for: index, node: node, time: time)
         let center = CGPoint(x: canvasSize.width / 2, y: canvasSize.height / 2)
+        let orbit = roundedWordmarkOrbitPoint(
+            angle: angle,
+            index: index,
+            node: node,
+            time: time
+        )
         return CGPoint(
-            x: center.x + cos(angle) * radius,
-            y: center.y + sin(angle) * radius
+            x: center.x + orbit.x,
+            y: center.y + orbit.y
         )
     }
 
@@ -327,11 +336,22 @@ private struct HomeMixConstellationView: View {
         return CGFloat(base + time * speed)
     }
 
-    private func radius(for index: Int, node: HomeMixConstellationNode, time: Double) -> CGFloat {
-        let lane = CGFloat(index % 3) * 5.6
-        let breath = CGFloat(sin(time * 1.42 + node.phase)) * (3.2 + node.size * 0.08)
-        let slowLift = CGFloat(sin(time * 0.54 + node.phase * 0.7)) * 1.4
-        return 49 + lane + breath + slowLift
+    private func roundedWordmarkOrbitPoint(
+        angle: CGFloat,
+        index: Int,
+        node: HomeMixConstellationNode,
+        time: Double
+    ) -> CGPoint {
+        let lane = CGFloat(index % 3) * 4.2
+        let breath = CGFloat(sin(time * 1.42 + node.phase)) * (2.0 + node.size * 0.05)
+        let drift = CGFloat(sin(time * 0.54 + node.phase * 0.7)) * 1.1
+        let horizontalRadius = 55 + lane + breath
+        let verticalRadius = 31 + lane * 0.50 + drift
+
+        return CGPoint(
+            x: cos(angle) * horizontalRadius,
+            y: sin(angle) * verticalRadius
+        )
     }
 
     private func pulse(for node: HomeMixConstellationNode, time: Double) -> Double {

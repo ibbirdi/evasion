@@ -21,8 +21,8 @@ struct ChannelMetadata: Sendable {
 
         var vibrantColor: Color {
             let hsb = hsbComponents
-            let saturation = min(max((hsb.saturation * 1.32) + 0.08, hsb.saturation), 0.92)
-            let brightness = min(max(hsb.brightness * 1.04, hsb.brightness), 1)
+            let saturation = min(max((hsb.saturation * 1.46) + 0.10, hsb.saturation), 0.90)
+            let brightness = min(max((hsb.brightness * 1.07) + 0.015, hsb.brightness), 0.98)
             return Color(hue: hsb.hue, saturation: saturation, brightness: brightness)
         }
 

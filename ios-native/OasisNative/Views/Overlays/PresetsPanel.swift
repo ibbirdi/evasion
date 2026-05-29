@@ -371,7 +371,7 @@ struct PresetsPanel: View {
     }
 
     private func canDelete(_ preset: Preset) -> Bool {
-        model.isPremium || preset.isUser
+        model.canDeletePreset(preset)
     }
 
     private var trimmedPresetName: String {

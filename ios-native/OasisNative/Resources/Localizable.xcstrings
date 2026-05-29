@@ -15872,6 +15872,88 @@
         }
       }
     },
+    "presets.export.action" : {
+      "comment" : "Button title that exports user-created ambiences as a JSON file.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iPhone-Atmosphären exportieren"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Export iPhone ambiences"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Exportar ambientes del iPhone"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Exporter les ambiances iPhone"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Esporta atmosfere iPhone"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Exportar ambientes do iPhone"
+          }
+        }
+      }
+    },
+    "presets.export.unavailable" : {
+      "comment" : "Short helper text shown when there are no user-created ambiences to export.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Speichere mindestens eine Atmosphäre, bevor du exportierst."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save at least one ambience before exporting."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Guarda al menos un ambiente antes de exportar."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sauvegardez au moins une ambiance avant d’exporter."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salva almeno un’atmosfera prima di esportare."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salve pelo menos um ambiente antes de exportar."
+          }
+        }
+      }
+    },
     "presets.status.active" : {
       "comment" : "Small status badge for the preset currently loaded in the mixer.",
       "localizations" : {

@@ -88,15 +88,16 @@ The "Restore" button is exposed in both the iOS paywall and the macOS paywall sh
 | Surface | Gate | Behaviour |
 | --- | --- | --- |
 | Channel card (mixer) | `isChannelLocked(_:)` | Tapping a locked channel calls `requestPremiumAccess(from: .channel(id))`. |
-| Preset save | Premium-only save gate | Free users cannot persist personal ambiences; tapping Save routes to the preset upsell before any preset is created. |
+| Preset save/edit | Premium-only save/edit gate | Free users cannot persist or rename ambiences; tapping Save routes to the preset upsell before any preset is created. Premium users can rename and restyle any preset. |
 | Preset load | `isPresetLocked(_:)` | Loading a preset that contains premium channels, premium noise, a premium binaural track, or a long timer routes to upsell. |
+| Preset delete/export | `canDeletePreset(_:)` / `exportUserPresetsData()` | Premium users can delete any preset and export user-created presets for the iPhone-to-code authoring flow. User presets remain deletable after entitlement loss so a downgraded user can clean up personal saved state. Legacy built-in preset IDs are filtered on launch so removed pre-recorded ambiences do not come back. |
 | Binaural panel | `selectBinauralTrack(_:)` | Tapping Theta/Alpha/Beta as free user → inline upsell. |
 | Timer menu | `canUseTimer(_:)` | 60 / 120 min options route to paywall. |
 | My Ambiences | `applyAmbienceRecipe(_:)` | Free saved ambiences apply directly; locked saved ambiences and any recipe that requires inaccessible premium content route to the premium-ambience inline upsell first, then the paywall. |
 | Rituals | `startRitual(_:)` | Free users can start the free Sleep Descent ritual; premium rituals route to the Composer inline upsell first, then the paywall. |
 | Noise Lab | `toggleProceduralNoise(_:)` / `setProceduralNoiseVolume(_:)` | Premium noise layers route to the Composer inline upsell first, then the paywall when locked. |
 | Spatial panel | inherits channel lock | Premium channels remain greyed out in the minimap. |
-| Signature preview | `signaturePreviewLastPlayedAt` cooldown + `isPremium` | Free users get a 45 s preview, throttled to once per week. |
+| Signature preview | `signaturePreviewLastPlayedAt` cooldown + `isPremium` + shipped signature presence | Free users get a 45 s preview only when a signature preset exists, throttled to once per week. |
 | Onboarding final page | `completeOnboarding(..., presentPaywall: true)` | Primary final CTA completes onboarding and opens the full paywall; secondary CTA enters the free tier. |
 | Home banner | `showsPremiumHomeBanner` | Dismissable; cooldown via `premiumBannerLastDismissedAt`. |
 

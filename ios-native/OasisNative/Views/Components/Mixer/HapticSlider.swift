@@ -1,3 +1,4 @@
+import Foundation
 import SwiftUI
 
 struct HapticSlider: View {
@@ -20,8 +21,7 @@ struct HapticSlider: View {
 
     var body: some View {
         if AppConfiguration.supportsSensoryFeedback {
-            Slider(value: $value, in: 0...1)
-                .tint(tint)
+            sliderContent
                 .onAppear {
                     lastQuantizedValue = quantizedStep(for: value)
                 }
@@ -33,9 +33,13 @@ struct HapticSlider: View {
                 }
                 .sensoryFeedback(.impact(weight: .medium, intensity: 0.82), trigger: feedbackTrigger)
         } else {
-            Slider(value: $value, in: 0...1)
-                .tint(tint)
+            sliderContent
         }
+    }
+
+    private var sliderContent: some View {
+        Slider(value: $value, in: 0...1)
+            .tint(tint)
     }
 
     private func quantizedStep(for value: Double) -> Int {
@@ -49,7 +53,9 @@ struct AutoVariationRangeSlider: View {
     let tint: Color
     let stepCount: Int
 
-    @State private var activeHandle: RangeSliderHandle?
+    @GestureState private var activeHandle: RangeSliderHandle?
+    @State private var draftRange: AutoVariationRange?
+    @State private var lastDragCommitTime: TimeInterval = 0
     @State private var lastQuantizedLower = 0
     @State private var lastQuantizedUpper = 0
     @State private var feedbackTrigger = 0
@@ -81,70 +87,66 @@ struct AutoVariationRangeSlider: View {
 
     private var sliderContent: some View {
         GeometryReader { proxy in
-            let handleSize: CGFloat = 24
-            let handleRadius = handleSize / 2
-            let trackWidth = max(proxy.size.width - handleSize, 1)
-            let normalizedRange = range.clamped()
-            let lowerX = handleRadius + CGFloat(normalizedRange.lowerBound) * trackWidth
-            let upperX = handleRadius + CGFloat(normalizedRange.upperBound) * trackWidth
-            let liveX = handleRadius + CGFloat(min(max(liveValue, 0), 1)) * trackWidth
+            let trackStart: CGFloat = 0
+            let trackWidth = max(proxy.size.width, 1)
+            let normalizedRange = displayedRange.clamped()
+            let lowerX = trackStart + CGFloat(normalizedRange.lowerBound) * trackWidth
+            let upperX = trackStart + CGFloat(normalizedRange.upperBound) * trackWidth
+            let liveX = trackStart + CGFloat(min(max(liveValue, 0), 1)) * trackWidth
+            let activeX = min(max(liveX, lowerX), upperX)
 
             ZStack(alignment: .leading) {
                 Capsule()
-                    .fill(Color.white.opacity(0.10))
-                    .frame(width: trackWidth, height: 12)
-                    .offset(x: handleRadius)
-
-                Capsule()
-                    .fill(tint.opacity(0.24))
-                    .frame(width: max(upperX - lowerX, 0), height: 12)
-                    .offset(x: lowerX)
+                    .fill(Color.white.opacity(activeHandle == nil ? 0.14 : 0.18))
+                    .frame(width: trackWidth, height: OasisSliderChrome.trackHeight)
+                    .offset(x: trackStart)
 
                 Capsule()
                     .fill(
                         LinearGradient(
                             colors: [
-                                tint.opacity(0.96),
-                                tint.opacity(0.58)
+                                tint.opacity(activeHandle == nil ? 0.78 : 0.92),
+                                tint.opacity(activeHandle == nil ? 0.56 : 0.74)
                             ],
                             startPoint: .leading,
                             endPoint: .trailing
                         )
                     )
-                    .frame(width: max(liveX - lowerX, 0), height: 8)
+                    .frame(width: max(upperX - lowerX, 0), height: OasisSliderChrome.trackHeight)
                     .offset(x: lowerX)
 
                 Circle()
-                    .fill(.white.opacity(0.94))
-                    .frame(width: 7, height: 7)
-                    .shadow(color: tint.opacity(0.55), radius: 5)
-                    .offset(x: liveX - 3.5)
+                    .fill(Color.white.opacity(0.94))
+                    .frame(width: OasisSliderChrome.liveIndicatorSize, height: OasisSliderChrome.liveIndicatorSize)
+                    .shadow(color: Color.black.opacity(0.18), radius: 2, y: 1)
+                    .offset(x: activeX - (OasisSliderChrome.liveIndicatorSize / 2))
+                    .opacity(activeHandle == nil ? 0.82 : 1)
                     .allowsHitTesting(false)
 
                 rangeHandle(isActive: activeHandle == .lower)
-                    .frame(width: 44, height: 36)
-                    .contentShape(Circle())
-                    .offset(x: lowerX - 22)
+                    .frame(width: OasisSliderChrome.handleHitSize, height: OasisSliderChrome.controlHeight)
+                    .contentShape(Rectangle())
+                    .offset(x: lowerX - (OasisSliderChrome.handleHitSize / 2))
                     .gesture(handleDragGesture(
                         .lower,
-                        trackStart: handleRadius,
+                        trackStart: trackStart,
                         trackWidth: trackWidth
                     ))
 
                 rangeHandle(isActive: activeHandle == .upper)
-                    .frame(width: 44, height: 36)
-                    .contentShape(Circle())
-                    .offset(x: upperX - 22)
+                    .frame(width: OasisSliderChrome.handleHitSize, height: OasisSliderChrome.controlHeight)
+                    .contentShape(Rectangle())
+                    .offset(x: upperX - (OasisSliderChrome.handleHitSize / 2))
                     .gesture(handleDragGesture(
                         .upper,
-                        trackStart: handleRadius,
+                        trackStart: trackStart,
                         trackWidth: trackWidth
                     ))
             }
             .frame(width: proxy.size.width, height: proxy.size.height, alignment: .leading)
             .coordinateSpace(name: "AutoVariationRangeSlider")
         }
-        .frame(height: 36)
+        .frame(height: OasisSliderChrome.controlHeight)
         .animation(.linear(duration: 0.14), value: liveValue)
         .accessibilityElement(children: .ignore)
         .accessibilityAction(named: Text(L10n.Mixer.increaseMinimum)) {
@@ -163,17 +165,7 @@ struct AutoVariationRangeSlider: View {
     }
 
     private func rangeHandle(isActive: Bool) -> some View {
-        Circle()
-            .fill(.ultraThinMaterial)
-            .overlay {
-                Circle()
-                    .fill(isActive ? tint.opacity(0.32) : Color.white.opacity(0.08))
-            }
-            .overlay {
-                Circle()
-                    .strokeBorder(isActive ? tint.opacity(0.76) : Color.white.opacity(0.42), lineWidth: 1.1)
-            }
-            .frame(width: 24, height: 24)
+        OasisSliderHandle(tint: tint, isActive: isActive)
     }
 
     private func handleDragGesture(
@@ -182,30 +174,41 @@ struct AutoVariationRangeSlider: View {
         trackWidth: CGFloat
     ) -> some Gesture {
         DragGesture(minimumDistance: 0, coordinateSpace: .named("AutoVariationRangeSlider"))
+            .updating($activeHandle) { _, state, _ in
+                state = handle
+            }
             .onChanged { gesture in
                 updateRange(handle, with: gesture.location.x, trackStart: trackStart, trackWidth: trackWidth)
             }
             .onEnded { _ in
-                activeHandle = nil
+                if let draftRange {
+                    commitRange(draftRange, force: true)
+                }
+                draftRange = nil
             }
     }
 
     private func updateRange(_ handle: RangeSliderHandle, with locationX: CGFloat, trackStart: CGFloat, trackWidth: CGFloat) {
         let value = min(max(Double((locationX - trackStart) / trackWidth), 0), 1)
-        activeHandle = handle
+        let currentRange = (draftRange ?? range).clamped()
 
+        let updatedRange: AutoVariationRange
         switch handle {
         case .lower:
-            range = AutoVariationRange(
-                lowerBound: min(value, range.upperBound - AutoVariationRange.minimumWidth),
-                upperBound: range.upperBound
+            updatedRange = AutoVariationRange(
+                lowerBound: min(value, currentRange.upperBound - AutoVariationRange.minimumWidth),
+                upperBound: currentRange.upperBound
             ).clamped()
         case .upper:
-            range = AutoVariationRange(
-                lowerBound: range.lowerBound,
-                upperBound: max(value, range.lowerBound + AutoVariationRange.minimumWidth)
+            updatedRange = AutoVariationRange(
+                lowerBound: currentRange.lowerBound,
+                upperBound: max(value, currentRange.lowerBound + AutoVariationRange.minimumWidth)
             ).clamped()
         }
+
+        guard draftRange != updatedRange else { return }
+        draftRange = updatedRange
+        commitRange(updatedRange)
     }
 
     private func updateQuantizedBounds() {
@@ -230,6 +233,10 @@ struct AutoVariationRangeSlider: View {
         1 / Double(max(stepCount, 1))
     }
 
+    private var displayedRange: AutoVariationRange {
+        draftRange ?? range
+    }
+
     private var accessibilityRangeValue: String {
         let normalized = range.clamped()
         let lower = Int((normalized.lowerBound * 100).rounded())
@@ -238,7 +245,6 @@ struct AutoVariationRangeSlider: View {
     }
 
     private func adjust(_ handle: RangeSliderHandle, by delta: Double) {
-        activeHandle = handle
         switch handle {
         case .lower:
             range = AutoVariationRange(
@@ -252,9 +258,114 @@ struct AutoVariationRangeSlider: View {
             ).clamped()
         }
     }
+
+    private func commitRange(_ newRange: AutoVariationRange, force: Bool = false) {
+        let now = Date.timeIntervalSinceReferenceDate
+        guard force || now - lastDragCommitTime >= OasisSliderChrome.dragCommitInterval else { return }
+        lastDragCommitTime = now
+
+        guard range != newRange else { return }
+        range = newRange
+    }
 }
 
 private enum RangeSliderHandle {
     case lower
     case upper
+}
+
+private enum OasisSliderChrome {
+    static let controlHeight: CGFloat = 36
+    static let trackHeight: CGFloat = 7
+    static let rangeHandleWidth: CGFloat = 34
+    static let rangeHandleHeight: CGFloat = 28
+    static let handleHitSize: CGFloat = 44
+    static let liveIndicatorSize: CGFloat = 5
+    static let dragCommitInterval: TimeInterval = 1.0 / 24.0
+}
+
+private struct OasisSliderHandle: View {
+    let tint: Color
+    let isActive: Bool
+
+    var body: some View {
+        ZStack {
+            handleBody
+                .transaction { transaction in
+                    transaction.disablesAnimations = true
+                }
+        }
+        .frame(width: OasisSliderChrome.rangeHandleWidth, height: OasisSliderChrome.rangeHandleHeight)
+        .scaleEffect(isActive ? 1.03 : 1)
+        .shadow(color: Color.black.opacity(isActive ? 0.24 : 0.18), radius: isActive ? 6 : 4, y: isActive ? 3 : 2)
+        .shadow(color: tint.opacity(isActive ? 0.18 : 0), radius: isActive ? 5 : 0)
+    }
+
+    @ViewBuilder
+    private var handleBody: some View {
+#if os(iOS)
+        if isActive {
+            glassHandle
+        } else {
+            solidHandle
+        }
+#else
+        solidHandle
+#endif
+    }
+
+    private var solidHandle: some View {
+        RoundedRectangle(cornerRadius: OasisSliderChrome.rangeHandleHeight / 2, style: .continuous)
+            .fill(
+                LinearGradient(
+                    colors: [
+                        Color.white,
+                        Color.white.opacity(0.92)
+                    ],
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+            )
+            .overlay(solidHandleStroke)
+    }
+
+    private var solidHandleStroke: some View {
+        RoundedRectangle(cornerRadius: OasisSliderChrome.rangeHandleHeight / 2, style: .continuous)
+            .strokeBorder(Color.white.opacity(0.64), lineWidth: 1)
+    }
+
+    @ViewBuilder
+    private var glassHandle: some View {
+#if os(iOS)
+        if #available(iOS 26.0, *) {
+            RoundedRectangle(cornerRadius: OasisSliderChrome.rangeHandleHeight / 2, style: .continuous)
+                .fill(Color.white.opacity(0.001))
+                .glassEffect(
+                    .regular.interactive(),
+                    in: RoundedRectangle(cornerRadius: OasisSliderChrome.rangeHandleHeight / 2, style: .continuous)
+                )
+                .overlay {
+                    RoundedRectangle(cornerRadius: OasisSliderChrome.rangeHandleHeight / 2, style: .continuous)
+                        .fill(
+                            LinearGradient(
+                                colors: [
+                                    Color.white.opacity(0.34),
+                                    Color.white.opacity(0.08)
+                                ],
+                                startPoint: .top,
+                                endPoint: .bottom
+                            )
+                        )
+                }
+                .overlay {
+                    RoundedRectangle(cornerRadius: OasisSliderChrome.rangeHandleHeight / 2, style: .continuous)
+                        .strokeBorder(Color.white.opacity(0.56), lineWidth: 1)
+                }
+        } else {
+            solidHandle
+        }
+#else
+        EmptyView()
+#endif
+    }
 }

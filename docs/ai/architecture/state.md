@@ -34,6 +34,7 @@ final class AppModel {
   var channels: [SoundChannel: ChannelState]   // 35 ambient channels
   var proceduralNoises: [ProceduralNoise: ProceduralNoiseState]
   var presets: [Preset]
+  var deletedDefaultPresetIDs: Set<String> // hidden built-in presets, kept for migration
   var currentPresetID: String?
   var activeComposerRecipeTitle: String?
   var activeNoiseBlendTitle: String?
@@ -111,8 +112,8 @@ Premium ambiences may apply more than five ambient/noise layers at once. That is
 
 ```swift
 struct Preset: Codable, Identifiable, Equatable {
-  let id: String              // "preset_default_starter", "preset_user_<ts>", "preset_signature_oasis"
-  var name: String            // L10n key for defaults; user-typed for user presets
+  let id: String              // "preset_user_<ts>" or generated "preset_default_<slug>"
+  var name: String            // user-typed or generated default display name
   var channels: [SoundChannel: ChannelState]
   var proceduralNoises: [ProceduralNoise: ProceduralNoiseState]? // optional for old presets
   var isBinauralActive: Bool?
@@ -124,7 +125,7 @@ struct Preset: Codable, Identifiable, Equatable {
 }
 ```
 
-New presets saved from the iOS My Ambiences panel, macOS Presets section, Composer recipe card, or active scene bookmark capture the full ambience: ambient channels, procedural noise layers, binaural state, immersive mode, timer, and optionally the selected background asset for the iOS ambience card. Saving and editing user presets is Premium-only; free users are routed through the preset upsell before any preset is created or renamed. On iOS these snapshots are presented as ambiences inside `ComposePanel`; user-created ambiences are edited from a direct card pencil button, and the selected launch duration can override the stored timer for that run. Built-in default ambiences should each ship with a unique `backdropAssetName` so the selector grid never shows duplicate base artwork; `AppModel` refreshes those built-in backdrop names when persisted state is loaded so older installs pick up visual swaps without changing user-created ambiences. Older decoded presets that lack the optional fields are treated as channel-only snapshots, choose a visual fallback from their strongest audible channel, and reset the extra layers to safe defaults when loaded.
+New presets saved from the iOS My Ambiences panel, macOS Presets section, Composer recipe card, or active scene bookmark capture the full ambience: ambient channels, procedural noise layers, binaural state, immersive mode, timer, and optionally the selected background asset for the iOS ambience card. Saving and editing presets is Premium-only; free users are routed through the preset upsell before any preset is created or renamed. On iOS these snapshots are presented as ambiences inside `ComposePanel`; Premium users can rename, restyle, delete, and export user-created presets from the same surface, and the selected launch duration can override the stored timer for that run. The app currently ships with no pre-recorded default presets. Future shipped defaults should be authored on a real iPhone, exported with `compose.ambience.export`, converted with `scripts/exported_presets_to_swift.rb`, and pasted into `Array.defaultPresets()`. That import must provide exactly two free-access ambiences; additional defaults should require Premium through their content. Legacy built-in IDs from the previous preset set are filtered out on load so older installs do not keep the removed pre-recorded ambiences. Older decoded presets that lack the optional fields are treated as channel-only snapshots, choose a visual fallback from their strongest audible channel, and reset the extra layers to safe defaults when loaded.
 
 `currentPresetID` is cleared by user edits that make the live mix diverge from the saved snapshot, including timer changes and procedural-noise blend/manual edits. The active scene bookmark can then accurately reflect whether the current listening state is still the saved ambience.
 
@@ -140,6 +141,7 @@ struct PersistedMixerState: Codable {
   var activeComposerRecipeTitle: String?      // optional for backward compat
   var activeNoiseBlendTitle: String?          // optional for backward compat
   var activeRitualSession: ActiveRitualSession? // optional for backward compat
+  var deletedDefaultPresetIDs: Set<String>?      // optional for backward compat
   var isBinauralActive: Bool
   var activeBinauralTrack: BinauralTrack
   var binauralVolume: Double
@@ -150,6 +152,8 @@ struct PersistedMixerState: Codable {
   var immersiveAudioEnabled: Bool?           // optional for backward compat
 }
 ```
+
+`PresetExportArchive` is the iPhone-to-code handoff format. `AppModel.exportUserPresetsData()` exports only `preset_user_*` ambiences as pretty-printed JSON with schema version, app version, build number, export date, and the preset payloads.
 
 **Rule:** when adding a field, make it `Optional` (and provide a sensible default at decode) for backward compat. Existing users have older payloads.
 

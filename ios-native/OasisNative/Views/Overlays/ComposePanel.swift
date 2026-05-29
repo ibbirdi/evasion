@@ -1,4 +1,5 @@
 import SwiftUI
+import UniformTypeIdentifiers
 
 private enum AmbienceSource {
     case preset(String)
@@ -26,6 +27,24 @@ private struct AmbienceOption: Identifiable {
     let backdrop: SoundBackdrop
     let requiresPremium: Bool
     let source: AmbienceSource
+}
+
+private struct PresetExportDocument: FileDocument {
+    static var readableContentTypes: [UTType] { [.json] }
+
+    var data: Data
+
+    init(data: Data = Data()) {
+        self.data = data
+    }
+
+    init(configuration: ReadConfiguration) throws {
+        data = configuration.file.regularFileContents ?? Data()
+    }
+
+    func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
+        FileWrapper(regularFileWithContents: data)
+    }
 }
 
 private enum AmbienceDuration: CaseIterable, Identifiable {
@@ -62,11 +81,13 @@ private enum AmbienceDuration: CaseIterable, Identifiable {
 struct ComposePanel: View {
     @Environment(AppModel.self) private var model
     @Environment(\.dismiss) private var dismiss
-    @State private var selectedAmbienceID = "preset_default_starter"
+    @State private var selectedAmbienceID = ""
     @State private var selectedDuration: AmbienceDuration = .thirty
     @State private var startingAmbienceID: String?
     @State private var didSeedSelectionFromActiveAmbience = false
     @State private var ambienceEditorMode: AmbienceEditorMode?
+    @State private var presetExportDocument = PresetExportDocument()
+    @State private var isPresentingPresetExport = false
 
     private let selectorColumns = [
         GridItem(.flexible(), spacing: 8),
@@ -91,11 +112,12 @@ struct ComposePanel: View {
             + saved.filter(\.requiresPremium)
     }
 
-    private var selectedOption: AmbienceOption {
-        ambienceOptions.first { $0.id == selectedAmbienceID } ?? ambienceOptions[0]
+    private var selectedOption: AmbienceOption? {
+        ambienceOptions.first { $0.id == selectedAmbienceID } ?? ambienceOptions.first
     }
 
-    private var selectedRecipe: AmbienceRecipe {
+    private var selectedRecipe: AmbienceRecipe? {
+        guard let selectedOption else { return nil }
         guard case let .preset(id) = selectedOption.source else {
             return ambienceRecipe(for: nil, option: selectedOption)
         }
@@ -106,16 +128,14 @@ struct ComposePanel: View {
     }
 
     private var selectedAmbienceIsActive: Bool {
-        model.activeComposerRecipeTitle == selectedRecipe.title
+        guard let selectedRecipe else { return false }
+        return model.activeComposerRecipeTitle == selectedRecipe.title
             && model.timerDurationMinutes == selectedDuration.minutes
     }
 
     private var selectedAmbienceIsLocked: Bool {
-        !model.isPremium && selectedRecipe.requiresPremium
-    }
-
-    private var userAmbiences: [Preset] {
-        model.presets.filter(\.isUser)
+        guard let selectedRecipe else { return false }
+        return !model.isPremium && selectedRecipe.requiresPremium
     }
 
     private var suggestedSaveBackdropAssetName: String {
@@ -124,10 +144,14 @@ struct ComposePanel: View {
             .max { $0.value.volume < $1.value.volume }?
             .key
 
-        return activeChannel?.backdrop.assetName ?? selectedOption.backdrop.assetName
+        return activeChannel?.backdrop.assetName ?? selectedOption?.backdrop.assetName ?? OrganicBackdrop.darkWater.assetName
     }
 
     private var ambienceCTA: (title: LocalizedStringResource, systemImage: String, isDisabled: Bool) {
+        guard let selectedOption else {
+            return (L10n.Compose.ambienceStart, "play.fill", true)
+        }
+
         if startingAmbienceID == selectedOption.id {
             return (L10n.HomeActive.listening, "checkmark", true)
         }
@@ -158,24 +182,31 @@ struct ComposePanel: View {
                     ScrollView(showsIndicators: false) {
                         VStack(alignment: .leading, spacing: 14) {
                             saveAmbienceButton
+                            exportAmbiencesButton
                             composerInlineUpsell
-                            ambienceSelector
-                            durationSelector
+                            if let selectedOption, let selectedRecipe {
+                                ambienceSelector
+                                durationSelector
 
-                            AmbienceDetailCard(
-                                option: selectedOption,
-                                recipe: selectedRecipe,
-                                isLocked: selectedAmbienceIsLocked
-                            )
-                            .id("\(selectedOption.id)-\(selectedDuration.id)")
-                            .transition(.opacity.combined(with: .scale(scale: 0.985, anchor: .top)))
+                                AmbienceDetailCard(
+                                    option: selectedOption,
+                                    recipe: selectedRecipe,
+                                    isLocked: selectedAmbienceIsLocked
+                                )
+                                .id("\(selectedOption.id)-\(selectedDuration.id)")
+                                .transition(.opacity.combined(with: .scale(scale: 0.985, anchor: .top)))
+                            } else {
+                                emptyAmbienceState
+                            }
                         }
                         .padding(.horizontal, 20)
                         .padding(.bottom, 112)
                     }
                     .scrollDismissesKeyboard(.interactively)
 
-                    startAmbienceBar
+                    if selectedOption != nil {
+                        startAmbienceBar
+                    }
                 }
             }
             .toolbar(.hidden, for: .navigationBar)
@@ -186,6 +217,12 @@ struct ComposePanel: View {
         .fullScreenCover(item: $ambienceEditorMode) { mode in
             ambienceEditorSheet(for: mode)
         }
+        .fileExporter(
+            isPresented: $isPresentingPresetExport,
+            document: presetExportDocument,
+            contentType: .json,
+            defaultFilename: "oasis-iphone-ambiences"
+        ) { _ in }
         .accessibilityElement(children: .contain)
         .accessibilityIdentifier("panel.compose.container")
     }
@@ -243,9 +280,9 @@ struct ComposePanel: View {
                         option: option,
                         isSelected: selectedAmbienceID == option.id,
                         isLocked: option.requiresPremium && !model.isPremium,
-                        isEditable: isUserAmbience(option),
+                        isEditable: isEditableAmbience(option),
                         onEdit: {
-                            if let preset = preset(for: option), preset.isUser {
+                            if let preset = preset(for: option), model.canEditPreset(preset) {
                                 ambienceEditorMode = .edit(preset.id)
                             }
                         }
@@ -262,7 +299,9 @@ struct ComposePanel: View {
     }
 
     private var durationSelector: some View {
-        VStack(alignment: .leading, spacing: 9) {
+        let tint = selectedOption?.intent.tint ?? ComposeCTAStyle.save.primary
+
+        return VStack(alignment: .leading, spacing: 9) {
             Label(L10n.Header.timer, systemImage: "timer")
                 .oasisFont(size: 11, weight: .bold, design: .default, relativeTo: .caption)
                 .foregroundStyle(.white.opacity(0.50))
@@ -283,7 +322,7 @@ struct ComposePanel: View {
                             .frame(height: 36)
                             .background {
                                 Capsule(style: .continuous)
-                                    .fill(selectedDuration == duration ? selectedOption.intent.tint.opacity(0.92) : Color.white.opacity(0.048))
+                                    .fill(selectedDuration == duration ? tint.opacity(0.92) : Color.white.opacity(0.048))
                             }
                             .overlay {
                                 Capsule(style: .continuous)
@@ -298,6 +337,29 @@ struct ComposePanel: View {
         }
         .accessibilityElement(children: .contain)
         .accessibilityIdentifier("compose.ambience.duration")
+    }
+
+    private var emptyAmbienceState: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Label(L10n.Presets.listSectionTitle, systemImage: "bookmark")
+                .oasisFont(size: 11, weight: .bold, design: .default, relativeTo: .caption)
+                .foregroundStyle(.white.opacity(0.50))
+
+            Text(L10n.Presets.saveSectionSubtitle)
+                .oasisFont(size: 14, weight: .medium, relativeTo: .body)
+                .foregroundStyle(.white.opacity(0.66))
+                .fixedSize(horizontal: false, vertical: true)
+        }
+        .padding(16)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background {
+            RoundedRectangle(cornerRadius: 24, style: .continuous)
+                .fill(Color.white.opacity(0.045))
+        }
+        .overlay {
+            RoundedRectangle(cornerRadius: 24, style: .continuous)
+                .strokeBorder(Color.white.opacity(0.08), lineWidth: 1)
+        }
     }
 
     private var saveAmbienceButton: some View {
@@ -355,8 +417,65 @@ struct ComposePanel: View {
         .accessibilityIdentifier("compose.ambience.save")
     }
 
-    private func isUserAmbience(_ option: AmbienceOption) -> Bool {
-        preset(for: option)?.isUser == true
+    private var exportAmbiencesButton: some View {
+        Button {
+            guard !model.userCreatedPresets.isEmpty,
+                  let exportData = try? model.exportUserPresetsData()
+            else {
+                return
+            }
+
+            presetExportDocument = PresetExportDocument(data: exportData)
+            isPresentingPresetExport = true
+        } label: {
+            HStack(spacing: 10) {
+                Image(systemName: "square.and.arrow.up")
+                    .oasisFont(size: 13, weight: .bold, design: .default, relativeTo: .body)
+
+                VStack(alignment: .leading, spacing: 3) {
+                    Text(L10n.Presets.exportAction)
+                        .oasisFont(size: 13, weight: .bold, relativeTo: .subheadline)
+                        .foregroundStyle(.white.opacity(model.userCreatedPresets.isEmpty ? 0.46 : 0.86))
+
+                    if model.userCreatedPresets.isEmpty {
+                        Text(L10n.Presets.exportUnavailable)
+                            .oasisFont(size: 11, weight: .medium, relativeTo: .caption)
+                            .foregroundStyle(.white.opacity(0.44))
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                }
+
+                Spacer(minLength: 0)
+
+                Text("\(model.userCreatedPresets.count)")
+                    .oasisFont(size: 11, weight: .bold, relativeTo: .caption)
+                    .foregroundStyle(.white.opacity(0.66))
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 5)
+                    .background {
+                        Capsule(style: .continuous)
+                            .fill(Color.white.opacity(0.07))
+                    }
+            }
+            .padding(.horizontal, 15)
+            .padding(.vertical, 12)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background {
+                RoundedRectangle(cornerRadius: 22, style: .continuous)
+                    .fill(Color.white.opacity(0.042))
+            }
+            .overlay {
+                RoundedRectangle(cornerRadius: 22, style: .continuous)
+                    .strokeBorder(Color.white.opacity(0.075), lineWidth: 1)
+            }
+        }
+        .disabled(model.userCreatedPresets.isEmpty)
+        .buttonStyle(PressScaleButtonStyle())
+        .accessibilityIdentifier("compose.ambience.export")
+    }
+
+    private func isEditableAmbience(_ option: AmbienceOption) -> Bool {
+        preset(for: option).map(model.canEditPreset(_:)) == true
     }
 
     private func preset(for option: AmbienceOption) -> Preset? {
@@ -445,7 +564,7 @@ struct ComposePanel: View {
                     initialName: model.presetDisplayName(preset),
                     initialBackdropAssetName: preset.backdropAssetName ?? fallbackBackdrop(for: preset).assetName,
                     choices: AmbienceBackdropLibrary.all,
-                    canDelete: preset.isUser,
+                    canDelete: model.canDeletePreset(preset),
                     onCancel: { ambienceEditorMode = nil },
                     onSave: { name, backdropAssetName in
                         updateAmbience(preset, name: name, backdropAssetName: backdropAssetName)
@@ -550,7 +669,7 @@ struct ComposePanel: View {
     }
 
     private func startSelectedAmbience() {
-        let recipe = selectedRecipe
+        guard let selectedOption, let recipe = selectedRecipe else { return }
 
         if selectedAmbienceIsActive {
             withAnimation(.smooth(duration: 0.24)) {

@@ -112,7 +112,7 @@ final class OasisNativeScreenshots: XCTestCase {
 
         if shouldRun("06_ambiences") {
             runScenario { app in
-                // 06 My ambiences panel — saved Oasis mixes in one surface.
+                // 06 My ambiences panel — empty authoring surface before imported defaults.
                 launchApp(app, premiumOverride: "premium")
                 startPlayingMix(in: app, shuffleFirst: true)
                 waitForHittable(button(in: app, id: "home.bottom.compose"))
@@ -120,10 +120,6 @@ final class OasisNativeScreenshots: XCTestCase {
                 _ = panel(in: app, id: "panel.compose.container").waitForExistence(timeout: 6)
                 pause(seconds: 0.5)
                 snapshot("06_ambiences", waitForLoadingIndicator: false)
-                snapshotElement("06_ambience_duration", element: element(in: app, id: "compose.ambience.duration"))
-                snapshotElement("06_saved_starter", element: element(in: app, id: "compose.ambience.preset_default_starter"))
-                snapshotElement("06_saved_reset", element: element(in: app, id: "compose.ambience.preset_default_reset"))
-                snapshotElement("06_saved_storm", element: element(in: app, id: "compose.ambience.preset_default_storm"))
             }
         }
 

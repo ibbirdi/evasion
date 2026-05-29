@@ -19,26 +19,13 @@
     {
       "layers" : [
         {
-          "image-name" : "image!!.png",
-          "name" : "image!!",
+          "image-name" : "oasis_ring_iconcomposer_clean_2048.png",
+          "name" : "oasis_ring_iconcomposer_clean_2048",
           "position" : {
-            "scale" : 1,
+            "scale" : 0.55,
             "translation-in-points" : [
-              -2,
-              -4
-            ]
-          }
-        },
-        {
-          "glass" : false,
-          "hidden" : true,
-          "image-name" : "oasis_icon_composer_transparent_1024.png",
-          "name" : "oasis_icon_composer_transparent_1024",
-          "position" : {
-            "scale" : 0.8,
-            "translation-in-points" : [
-              -252.73106892753754,
-              -15
+              -13.685783070292018,
+              69.31375386679508
             ]
           }
         }

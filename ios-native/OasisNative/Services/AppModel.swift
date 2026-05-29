@@ -41,6 +41,7 @@ final class AppModel {
     var activeRitualSession: ActiveRitualSession?
     var premiumBannerLastDismissedAt: Date?
     var signaturePreviewLastPlayedAt: Date?
+    var deletedDefaultPresetIDs = Set<String>()
 
     var timerDisplayValue: TimeInterval?
     private(set) var variationDisplayVolumes: [SoundChannel: Double] = [:]
@@ -177,7 +178,8 @@ final class AppModel {
     }
 
     var isSignaturePreviewAvailable: Bool {
-        premiumCoordinator.canStartSignaturePreview(lastPlayedAt: signaturePreviewLastPlayedAt)
+        guard presets.contains(where: \.isSignature) else { return false }
+        return premiumCoordinator.canStartSignaturePreview(lastPlayedAt: signaturePreviewLastPlayedAt)
     }
 
     init() {
@@ -232,6 +234,12 @@ final class AppModel {
     }
 
     func presetDisplayName(_ preset: Preset) -> String {
+        if preset.isDefault,
+           let defaultPreset = Array.defaultPresets().first(where: { $0.id == preset.id }),
+           preset.name != defaultPreset.name {
+            return preset.name
+        }
+
         switch preset.id {
         case "preset_default_nap":
             return L10n.string(L10n.Presets.defaultNap)
@@ -268,6 +276,31 @@ final class AppModel {
 
     func isPresetLocked(_ preset: Preset) -> Bool {
         !isPremium && preset.requiresPremium
+    }
+
+    func canEditPreset(_: Preset) -> Bool {
+        isPremium
+    }
+
+    func canDeletePreset(_ preset: Preset) -> Bool {
+        isPremium || preset.isUser
+    }
+
+    var userCreatedPresets: [Preset] {
+        presets.filter(\.isUser)
+    }
+
+    func exportUserPresetsData() throws -> Data {
+        let archive = PresetExportArchive(
+            exportedAt: Date(),
+            appVersion: Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "",
+            buildNumber: Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "",
+            presets: userCreatedPresets
+        )
+        let encoder = JSONEncoder()
+        encoder.dateEncodingStrategy = .iso8601
+        encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
+        return try encoder.encode(archive)
     }
 
     func isAmbientChannelActive(_ channel: SoundChannel) -> Bool {
@@ -1019,7 +1052,7 @@ final class AppModel {
     @discardableResult
     func updatePreset(_ preset: Preset, name: String, backdropAssetName: String?) -> Bool {
         let trimmedName = name.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard preset.isUser, !trimmedName.isEmpty else { return false }
+        guard !trimmedName.isEmpty else { return false }
 
         guard isPremium else {
             requestPremiumAccess(from: .presetSave)
@@ -1034,7 +1067,12 @@ final class AppModel {
     }
 
     func deletePreset(_ preset: Preset) {
+        guard canDeletePreset(preset) else { return }
+
         presets.removeAll { $0.id == preset.id }
+        if preset.isDefault {
+            deletedDefaultPresetIDs.insert(preset.id)
+        }
         if currentPresetID == preset.id {
             currentPresetID = nil
             activeComposerRecipeTitle = nil
@@ -1845,6 +1883,7 @@ final class AppModel {
             let persisted = try JSONDecoder().decode(PersistedMixerState.self, from: data)
             channels = persisted.channels
             proceduralNoises = persisted.proceduralNoises ?? .initialNoises
+            deletedDefaultPresetIDs = persisted.deletedDefaultPresetIDs ?? []
             presets = mergeMissingDefaultPresets(into: persisted.presets)
             currentPresetID = persisted.currentPresetID
             activeComposerRecipeTitle = persisted.activeComposerRecipeTitle
@@ -1855,6 +1894,11 @@ final class AppModel {
             premiumBannerLastDismissedAt = persisted.premiumBannerLastDismissedAt
             signaturePreviewLastPlayedAt = persisted.signaturePreviewLastPlayedAt
             immersiveAudioEnabled = persisted.immersiveAudioEnabled ?? false
+            if let currentPresetID, !presets.contains(where: { $0.id == currentPresetID }) {
+                self.currentPresetID = nil
+                activeComposerRecipeTitle = nil
+                activeNoiseBlendTitle = nil
+            }
 
             enforcePremiumAccess()
             restoreActiveRitualIfNeeded(from: persisted.activeRitualSession)
@@ -1893,6 +1937,7 @@ final class AppModel {
             selectedLanguage: nil,
             premiumBannerLastDismissedAt: premiumBannerLastDismissedAt,
             signaturePreviewLastPlayedAt: signaturePreviewLastPlayedAt,
+            deletedDefaultPresetIDs: deletedDefaultPresetIDs,
             immersiveAudioEnabled: immersiveAudioEnabled
         )
 
@@ -2158,9 +2203,11 @@ final class AppModel {
     }
 
     private func mergeMissingDefaultPresets(into storedPresets: [Preset]) -> [Preset] {
-        var mergedPresets = storedPresets
+        var mergedPresets = storedPresets.filter { !Preset.legacyBundledPresetIDs.contains($0.id) }
 
         for preset in Array.defaultPresets() {
+            guard !deletedDefaultPresetIDs.contains(preset.id) else { continue }
+
             if let index = mergedPresets.firstIndex(where: { $0.id == preset.id }) {
                 mergedPresets[index].backdropAssetName = preset.backdropAssetName
             } else {

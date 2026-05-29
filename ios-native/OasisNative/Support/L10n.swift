@@ -648,6 +648,20 @@ enum L10n {
             comment: "Button title that opens the preset save popup."
         )
 
+        static let exportAction = LocalizedStringResource(
+            "presets.export.action",
+            defaultValue: "Export iPhone ambiences",
+            bundle: .main,
+            comment: "Button title that exports user-created ambiences as a JSON file."
+        )
+
+        static let exportUnavailable = LocalizedStringResource(
+            "presets.export.unavailable",
+            defaultValue: "Save at least one ambience before exporting.",
+            bundle: .main,
+            comment: "Short helper text shown when there are no user-created ambiences to export."
+        )
+
         static let nameFieldAccessibility = LocalizedStringResource(
             "presets.name.accessibility",
             defaultValue: "Mix name",

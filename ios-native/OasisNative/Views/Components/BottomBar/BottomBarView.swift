@@ -281,7 +281,7 @@ struct BottomBarView: View {
             button.matchedTransitionSource(id: PanelTransitionSource.bottomCompose.transitionID, in: transitionNamespace) { source in
                 source
                     .background(.clear)
-                    .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
+                    .clipShape(RoundedRectangle(cornerRadius: BottomToolbarStyle.sideButtonSize / 2, style: .continuous))
             }
         } else {
             button
@@ -393,12 +393,9 @@ struct BottomBarView: View {
 
         if #available(iOS 26.0, *) {
             button.matchedTransitionSource(id: PanelTransitionSource.bottomBinaural.transitionID, in: transitionNamespace) { source in
-                // 48pt button with cornerRadius == half = perfect circle. The previous
-                // value of 26 overshot the half-size, leaving a slightly bulged outline
-                // after the sheet transition finished.
                 source
                     .background(.clear)
-                    .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
+                    .clipShape(RoundedRectangle(cornerRadius: BottomToolbarStyle.sideButtonSize / 2, style: .continuous))
             }
         } else {
             button

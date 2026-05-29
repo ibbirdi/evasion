@@ -51,7 +51,7 @@ binaural.track.<id>                   delta / theta / alpha / beta
 paywall.<scope>.<key>
 premium.inline.<entry_point>
 presets.<scope>.<key>
-presets.default.<id>                  default preset names (starter / calm / storm)
+presets.default.<id>                  legacy/default preset names when shipped defaults exist
 timer.option<minutes>                 timer.option15, timer.option30, …
 header.<key>
 home.controls.<key>
@@ -72,7 +72,7 @@ errors.<key>
 
 `spatial.center` is the only user-facing center/reset action in the sound-placement panel. There is no separate `spatial.reset` key because the old "Recenter sound" button duplicated the center preset.
 
-The iOS My Ambiences panel reuses `presets.save.*`, `presets.edit.*`, `presets.delete.confirm.*`, and `presets.status.*` keys for saving, editing, and deleting personal ambiences because those ambiences are persisted as `Preset` snapshots. The old iOS manage-toggle copy is not used in My Ambiences; `presets.manage*` remains for the legacy Presets surface/macOS section.
+The iOS My Ambiences panel reuses `presets.save.*`, `presets.edit.*`, `presets.delete.confirm.*`, `presets.export.*`, and `presets.status.*` keys for saving, editing, deleting, and exporting ambiences because those ambiences are persisted as `Preset` snapshots. The old iOS manage-toggle copy is not used in My Ambiences; `presets.manage*` remains for the legacy Presets surface/macOS section.
 
 The My Ambiences sheet uses `home.controls.compose` and `compose.*` keys. Keep this family fully translated because the panel is visible in normal gameplay: the sheet title/subtitle, save background label, "what will happen" heading, explanatory sentence, natural layer labels, CTA states, legacy recipe titles/subtitles, and the dedicated premium-ambience/paywall copy all live here. Saved ambiences appear in the selector and use the generic preset save/edit/delete/status copy; creating or editing them is Premium-only, so free users should see the preset upsell. That upsell must not claim the first save is free. Some localization keys still keep historical `compose.routine.*` / `home.routine.*` names for migration stability, but their values and comments should describe ambiences only. The Home follow-up status covers the passive listening cue and explicit active-ambience stop action. My Ambiences and Premium copy should use natural phrasing in each locale and stay truthful for both free and premium users. Write from the user's point of view: avoid internal product language such as "combines layers" when a clearer sentence can say what happens on tap, what starts, and how the chosen duration is used. Prefer wellbeing language ("soundscape", "noise cover", "fade out") over technical or jargon-heavy labels like "masking" or "procedural". Premium ambience summaries can exceed three sounds, so localized preview copy should support compact `+N` overflow rather than enumerating every layer.
 

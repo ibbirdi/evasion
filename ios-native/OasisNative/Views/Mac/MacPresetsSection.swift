@@ -93,7 +93,7 @@ private struct MacPresetRow: View {
                 .foregroundStyle(isActive ? presetTint : .white.opacity(0.82))
                 .background(Color.white.opacity(0.055), in: RoundedRectangle(cornerRadius: 7, style: .continuous))
 
-                if preset.isUser {
+                if model.canDeletePreset(preset) {
                     Button {
                         model.deletePreset(preset)
                     } label: {

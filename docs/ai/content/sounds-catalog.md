@@ -1,7 +1,7 @@
 ---
 title: Sounds Catalog
 status: stable
-last_updated: 2026-05-28
+last_updated: 2026-05-29
 tracks:
   - "ios-native/OasisNative/Models/SoundChannelMetadata.swift"
   - "ios-native/OasisNative/Models/AppModels.swift"
@@ -65,7 +65,7 @@ The 35 ambient channels and 4 binaural tracks. The single source of truth for ru
 
 **File-mismatch entries** (channel IDs differ from file names): `goelands`/`goelants1.m4a`, `tonnerre`/`orage1.m4a`, `village`/`ville1.m4a`. These are historical and **not** to be "fixed" — see [../operations/known-issues.md](../operations/known-issues.md).
 
-**Visual tints and glyphs**: each channel stores a stable RGB tint and an `OasisGlyph` mapping in `SoundChannelMetadata.swift`. Runtime UI rendering boosts that tint's HSB saturation/brightness centrally in `ChannelMetadata.tint`, so mixer rows, sliders, minimaps, spatial controls, and premium teasers read more vibrant without editing every channel value. Channel identity icons use the curated Phosphor SVG subset in `Assets.xcassets/OasisGlyphs`; the SF Symbol column above remains as legacy metadata / platform fallback context, not the preferred visible iconography for Oasis-owned sound surfaces. Tints and glyph choices should still match the channel mood: bird ambience reads morning-gold, wind/harbour sounds lean airy/coastal blue, thunder is muted storm-violet, night sounds are darker blue/indigo, and shelter sounds use warmer wood/cabin tones.
+**Visual tints and glyphs**: each channel stores a stable RGB tint and an `OasisGlyph` mapping in `SoundChannelMetadata.swift`. Runtime UI rendering boosts that tint's HSB saturation/brightness centrally in `ChannelMetadata.tint`, so mixer rows, sliders, minimaps, spatial controls, premium teasers, and the Home logo trails read more vibrant without per-surface colour filters. Channel identity icons use the curated Phosphor SVG subset in `Assets.xcassets/OasisGlyphs`; the SF Symbol column above remains as legacy metadata / platform fallback context, not the preferred visible iconography for Oasis-owned sound surfaces. Tints and glyph choices should still match the channel mood: bird ambience reads morning-gold, wind/harbour sounds lean airy/coastal blue, thunder is muted storm-violet, night sounds are darker blue/indigo, and shelter sounds use warmer wood/cabin tones.
 
 **Visual backgrounds**: every ambient channel also has a subtle Pexels photo watermark mapped by `SoundChannel.backdrop` and stored in `Assets.xcassets/SoundBackgrounds`. Binaural tracks and other non-place concept cards use organic Pexels textures from `Assets.xcassets/OrganicBackgrounds` via `OrganicBackdrop`; My Ambiences can use the newer `organic_dark_satin` and `organic_blue_flow` textures when a more premium abstract surface is needed. Source photo IDs and selection rationale live in [sound-backgrounds.md](sound-backgrounds.md); keep that file in sync whenever a background asset changes.
 

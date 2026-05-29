@@ -6,7 +6,7 @@ final class OasisNativePremiumFlowTests: XCTestCase {
         continueAfterFailure = false
     }
 
-    func testLockedSavedAmbienceShowsInlineUpsellBeforePaywall() throws {
+    func testBundledAmbiencesAreNotPreloaded() throws {
         let app = makeApp()
         app.launch()
 
@@ -17,23 +17,12 @@ final class OasisNativePremiumFlowTests: XCTestCase {
         let ambiencesPanel = app.otherElements["panel.compose.container"]
         waitForExistence(of: ambiencesPanel)
 
-        let lockedAmbience = app.buttons["compose.ambience.preset_default_storm"]
-        waitForExistence(of: lockedAmbience)
-        lockedAmbience.tap()
-
-        let startAmbience = app.buttons["compose.ambience.start"]
-        waitForHittable(startAmbience)
-        startAmbience.tap()
-
-        let inlineUpsell = app.otherElements["premium.inline.composer"]
-        waitForExistence(of: inlineUpsell)
-        XCTAssertFalse(app.buttons["premium.paywall.close"].exists)
-
-        let primaryCTA = app.buttons["premium.inline.primary"]
-        waitForHittable(primaryCTA)
-        primaryCTA.tap()
-
-        waitForPaywall(in: app)
+        XCTAssertFalse(app.buttons["compose.ambience.preset_default_starter"].exists)
+        XCTAssertFalse(app.buttons["compose.ambience.preset_default_storm"].exists)
+        XCTAssertFalse(app.buttons["compose.ambience.start"].exists)
+        XCTAssertTrue(app.buttons["compose.ambience.save"].exists)
+        XCTAssertTrue(app.buttons["compose.ambience.export"].exists)
+        XCTAssertFalse(app.buttons["compose.ambience.export"].isEnabled)
     }
 
     func testSavingAmbienceRequiresPremiumForFreeUsers() throws {
@@ -110,7 +99,7 @@ final class OasisNativePremiumFlowTests: XCTestCase {
         waitForPaywall(in: app)
     }
 
-    func testSavedAmbienceStartsLocalizedMixAndKeepsMixerClean() throws {
+    func testMyAmbiencesEmptyStateKeepsCreationReachable() throws {
         let app = makeComposerApp()
         app.launch()
 
@@ -122,75 +111,11 @@ final class OasisNativePremiumFlowTests: XCTestCase {
         waitForExistence(of: panel)
         waitForExistence(of: app.staticTexts["Mes ambiances"])
         waitForExistence(of: app.staticTexts["Sauvegardez, lancez et façonnez vos ambiances préférées."])
-        waitForExistence(of: app.staticTexts["Brise marine"])
-        waitForExistence(of: app.staticTexts["Ce qui va se passer"])
-        waitForExistence(of: app.staticTexts["Oasis combine ces couches et lance une ambiance claire."])
-        waitForExistence(of: app.staticTexts["Décor sonore"])
-        waitForExistence(of: app.staticTexts.matching(NSPredicate(format: "label CONTAINS %@", "Fin douce")).firstMatch)
-
-        let startAmbience = app.buttons["compose.ambience.start"]
-        waitForHittable(startAmbience)
-        startAmbience.tap()
-
-        waitForNonExistence(of: panel)
-        XCTAssertEqual(button(in: app, id: "home.bottom.playback").label, "Pause")
-        let ambienceStatus = element(in: app, id: "home.ambience.status")
-        waitForExistence(of: ambienceStatus)
-        XCTAssertTrue(ambienceStatus.label.contains("Ambiance active"))
-        waitForExistence(of: button(in: app, id: "home.ambience.stop"))
-        waitForExistence(of: element(in: app, id: "home.ambience.rest-cue"))
-        XCTAssertFalse(app.buttons["home.header.active-filter"].exists)
-        XCTAssertFalse(app.buttons["home.bottom.compose"].exists)
-        XCTAssertFalse(app.buttons["home.bottom.presets"].exists)
-        XCTAssertFalse(app.buttons["home.bottom.binaural"].exists)
-        waitForNonExistence(of: app.buttons["home.active.scene"], timeout: 3)
+        XCTAssertFalse(app.buttons["compose.ambience.start"].exists)
+        XCTAssertTrue(app.buttons["compose.ambience.save"].exists)
+        XCTAssertTrue(app.buttons["compose.ambience.export"].exists)
+        XCTAssertFalse(app.buttons["compose.ambience.export"].isEnabled)
         XCTAssertFalse(app.buttons["premium.paywall.close"].exists)
-
-        waitForExistence(of: app.staticTexts["Oiseaux"])
-        waitForExistence(of: app.staticTexts["Vent"])
-        waitForExistence(of: app.staticTexts["Plage"])
-    }
-
-    func testSavedAmbienceCanBeReplacedInTwoTaps() throws {
-        let app = makeComposerApp()
-        app.launch()
-
-        let composeButton = button(in: app, id: "home.bottom.compose")
-        waitForHittable(composeButton)
-        composeButton.tap()
-
-        let startAmbience = app.buttons["compose.ambience.start"]
-        waitForHittable(startAmbience)
-        startAmbience.tap()
-
-        waitForNonExistence(of: app.otherElements["panel.compose.container"])
-        XCTAssertEqual(button(in: app, id: "home.bottom.playback").label, "Pause")
-
-        let ambienceStatus = element(in: app, id: "home.ambience.status")
-        tapElementReliably(ambienceStatus)
-
-        let reopenedPanel = app.otherElements["panel.compose.container"]
-        waitForExistence(of: reopenedPanel)
-        waitForExistence(of: startAmbience)
-        XCTAssertTrue(
-            startAmbience.label.contains("Stopper l’ambiance"),
-            "Expected stop ambience CTA, got: \(startAmbience.label)"
-        )
-
-        let calmAmbience = app.buttons["compose.ambience.preset_default_calm"]
-        waitForHittable(calmAmbience)
-        calmAmbience.tap()
-
-        waitForHittable(startAmbience)
-        XCTAssertTrue(
-            startAmbience.label.contains("Remplacer l’ambiance"),
-            "Expected replace ambience CTA, got: \(startAmbience.label)"
-        )
-        startAmbience.tap()
-
-        waitForNonExistence(of: app.otherElements["panel.compose.container"])
-        XCTAssertEqual(button(in: app, id: "home.bottom.playback").label, "Pause")
-        waitForNonExistence(of: app.buttons["home.active.scene"], timeout: 3)
     }
 
     private func makeApp() -> XCUIApplication {

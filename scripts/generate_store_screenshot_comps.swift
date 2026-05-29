@@ -1576,10 +1576,7 @@ func anchoredAssets(for slide: Slide) -> [AnchoredAsset] {
     case "05_spatial":
         return [AnchoredAsset(name: "05_spatial_stage", scale: 1.42, cornerRadius: 88)]
     case "06_ambiences":
-        return [
-            AnchoredAsset(name: "06_saved_starter", scale: 1.46, cornerRadius: 74),
-            AnchoredAsset(name: "06_saved_reset", scale: 1.36, cornerRadius: 74)
-        ]
+        return []
     case "07_timer":
         return [AnchoredAsset(name: "07_active_rain", scale: 1.34, cornerRadius: 68)]
     case "08_free_home":
@@ -1603,10 +1600,6 @@ func expectedCapturedAssetNames() -> Set<String> {
         "03_detail_map",
         "04_binaural_modes",
         "05_spatial_stage",
-        "06_ambience_duration",
-        "06_saved_starter",
-        "06_saved_reset",
-        "06_saved_storm",
         "07_active_rain",
         "08_active_birds",
         "09_noise_green",

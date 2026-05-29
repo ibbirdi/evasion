@@ -81,7 +81,7 @@ Recommended ordering on the App Store (Variant B, multi-use lead — see [aso-st
 
 The slug is *what the slide depicts*. The position is *where it appears in the carousel*.
 
-Generated composites are written with final display-order filenames, so the My Ambiences source slug `06_ambiences` becomes `03_ambiences.jpg` in both `figma-pro/` and `fastlane/appstore-upload/`. `06_ambiences` depicts the in-app My Ambiences surface: saved Oasis mixes, duration choices, the top save affordance, and image-backed ambience capsules in one panel. In the FR validation set, this slide is third and the pop-outs highlight saved ambience capsules (`06_saved_starter` + `06_saved_reset`) rather than the timer, so the visual proof matches the "custom, living ambiences" copy.
+Generated composites are written with final display-order filenames, so the My Ambiences source slug `06_ambiences` becomes `03_ambiences.jpg` in both `figma-pro/` and `fastlane/appstore-upload/`. `06_ambiences` currently depicts the empty My Ambiences authoring/export surface because pre-recorded ambience cards have been removed pending iPhone-authored defaults. Reintroduce proof pop-outs when the new default ambience set is imported.
 
 `09_noise` replaces the older free-library teaser. It depicts the premium Noise Lab rows, highlights the green and fan noise layers, and sells the 4 extra Premium noise layers with a more proof-led sound-masking angle: each noise covers a different frequency range and helps smooth irregular ambient sounds.
 
@@ -205,10 +205,9 @@ The screenshot test also captures selected real UI elements after the matching r
 
 ```
 01_active_forest      02_active_river       03_detail_map
-04_binaural_modes     05_spatial_stage      06_ambience_duration
-06_saved_starter      06_saved_reset        06_saved_storm
-07_active_rain        08_active_birds       09_noise_green
-09_noise_fan          10_paywall_primary
+04_binaural_modes     05_spatial_stage      07_active_rain
+08_active_birds       09_noise_green        09_noise_fan
+10_paywall_primary
 ```
 
 These are the only approved source for floating UI emphasis in v4 App Store assets. `04_binaural_modes` is one single crop of the full four-card grid; separate `04_binaural_delta`, `04_binaural_theta`, `04_binaural_alpha`, and `04_binaural_beta` crops are deprecated and must not reappear. Active-row pop-outs must be active in the underlying simulator screenshot, and free-tier screenshots use the deterministic screenshot shuffle so Birds, Wind, and Beach can be highlighted without premium content.

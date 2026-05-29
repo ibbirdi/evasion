@@ -45,7 +45,7 @@ Vocabulary used inside the codebase, the UI copy, and these memory files. Some t
 
 **Ambience recipe** (`AmbienceRecipe`). Transactional mix description produced by a saved ambience, the legacy Composer parser, or a ritual phase. Can include ambient channels, procedural noise layers, binaural state, immersive mode, and a timer.
 
-**My Ambiences.** Bottom-bar sheet that lists saved Oasis/user ambiences, lets Premium users save/edit/delete their own ambiences, and applies their `AmbienceRecipe`s. The legacy local intent/prompt parser still exists in `AmbienceComposer` for compatibility paths. No backend and no LLM call.
+**My Ambiences.** Bottom-bar sheet that lists saved Oasis/user ambiences, lets Premium users save/edit/delete their own ambiences, exports user-created ambiences as JSON, and applies their `AmbienceRecipe`s. The legacy local intent/prompt parser still exists in `AmbienceComposer` for compatibility paths. No backend and no LLM call.
 
 **Ritual** (`RitualPreset`). Multi-phase routine made of timed `RitualPhase` recipes. Starting one applies phase 1, starts playback and the total timer, then advances phases while playing.
 
@@ -53,9 +53,9 @@ Vocabulary used inside the codebase, the UI copy, and these memory files. Some t
 
 **Preset** (`Preset`). Named ambience snapshot. New presets include ambient channel states, procedural noise layers, binaural state, immersive mode, and an optional timer; older decoded presets may contain only `channels` and then load with safe defaults for the newer fields. Persisted in `PersistedMixerState`.
 
-**Default presets.** Three shipped presets: `preset_default_starter`, `preset_default_calm`, `preset_default_storm`. Always present.
+**Default presets.** Shipped ambience presets returned by `Array.defaultPresets()`. The app currently ships none; future defaults should be generated from iPhone-authored exports, with exactly two free-access defaults and additional Premium defaults.
 
-**Signature preset** (`preset_signature_oasis`). Special preview-able preset showcasing the "best of premium". Free users can preview it for 45 s, throttled to once per week (see [premium-model.md](premium-model.md)).
+**Signature preset** (`preset_signature_oasis`). Optional preview-able preset showcasing the "best of premium". Free users can preview it for 45 s only when such a preset exists, throttled to once per week (see [premium-model.md](premium-model.md)).
 
 **User preset.** `preset_user_<timestamp>`. Created by the user. Free tier caps at 1; premium has no cap.
 

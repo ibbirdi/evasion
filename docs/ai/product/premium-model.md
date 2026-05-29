@@ -31,10 +31,10 @@ related:
 | Random mix | Yes, restricted to free channels | Yes, full library |
 | Sound placement | Yes, on accessible channels | Yes, on accessible channels |
 | Binaural tracks | Delta only | Delta / Theta / Alpha / Beta |
-| My Ambiences | Load free Oasis saved ambiences; locked ambiences preview but upsell before playback | Load all Oasis ambiences; create, edit, delete, and style personal saved ambiences |
+| My Ambiences | Load free Oasis saved ambiences when shipped; locked ambiences preview but upsell before playback | Load all Oasis ambiences; create, edit, delete, style, and export user-created presets |
 | Procedural noise engine | White and brown noise | Pink, green, fan, and aircraft-cabin noise layers |
 | Sleep timer | 15 / 30 min | 15 / 30 / 60 / 120 min |
-| Saved ambiences | No saving; tapping Save opens the preset upsell | Create, load, edit, delete, and style full ambience snapshots from My Ambiences |
+| Saved ambiences | No saving; tapping Save opens the preset upsell | Create, load, edit, delete, export, and style full ambience snapshots from My Ambiences |
 | Saved ambience cap | 0 | Unlimited |
 | Restoration | N/A | Yes |
 
@@ -69,7 +69,11 @@ The onboarding final page has an explicit premium moment: the primary CTA comple
 Two engagement nudges, both throttled in `AppModel`:
 
 - **Premium home banner** — dismissable; reappears after a cooldown driven by `premiumBannerLastDismissedAt`.
-- **Signature preset preview** — 45-second taste of the signature mix. Throttled to 1 per week via `signaturePreviewLastPlayedAt` to keep the preview valuable without becoming a daily substitute for Premium.
+- **Signature preset preview** — only available when a signature preset exists in the shipped defaults. The previous pre-recorded signature was removed with the old built-in ambience set; if a future signature is imported, the preview remains throttled to 1 per week via `signaturePreviewLastPlayedAt`.
+
+## Default ambience authoring
+
+The app currently ships with no pre-recorded default ambiences. The intended workflow is to create candidate ambiences on a real iPhone, export them from My Ambiences, then convert that JSON into Swift with `scripts/exported_presets_to_swift.rb`. The import script enforces the product rule that exactly two shipped defaults are free-access; any additional shipped ambience should naturally require Premium by using premium sounds, premium noise, a premium binaural track, or a timer above 30 minutes.
 
 ## Override for development & screenshots
 
